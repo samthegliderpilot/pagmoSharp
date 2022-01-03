@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "pagmoSharp": {
+      "commandName": "Project",
+      "nativeDebugging": true
+    }
+  }
+}
