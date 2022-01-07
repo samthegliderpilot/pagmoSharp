@@ -1,13 +1,13 @@
 /* File pagmoSharpSwigInterface.i */
  
-%module(naturalvar=1) pagmo
+%module(naturalvar=1, directors="1") pagmo
 %{
  #include "pagmo/types.hpp"
  #include "pagmo/bfe.hpp"
  #include "pagmo/population.hpp"
  #include "pagmo/algorithms/gaco.hpp"
  #include "pagmo/threading.hpp"
- #include "problem.h" // this is a manually created thing
+ #include "problem.h" // this is a manually created item.  We want to include it in the wrappers so the generated cxx code can use the handwritten code for the problem
 %}
 
 // the problem type is the manually created type to assist with running a C# function as 
@@ -17,9 +17,11 @@
 // I'm making it a partial class instead of typemapping-csout'ing it here
 %typemap(csclassmodifiers) pagmoWrap::problem "public partial class"
 
+%feature("director") pagmoWrap::problemBase;
 %include "std_string.i"
 %include "std_vector.i"
 %include "std_pair.i"
+%include "pagmoWrapper/problem.h"
 //#include <tuple> // tuple is not supported by swig yet...
 
 namespace std {
@@ -29,33 +31,95 @@ namespace std {
 	%template(PairOfDoubleVectors) std::pair<std::vector<double>, std::vector<double>>;
 	//%template(gacoLogLineType) std::tuple<unsigned, vector_double::size_type, double, unsigned, double, double, double>;
 }
-
-namespace pagmoWrap {
-	//void FitnessCallback(double*, double*, int, int);
-	typedef std::vector<double> vector_double;
-class problem
-{
-public:
-	problem();
+// namespace pagmoWrap {
+	// //void FitnessCallback(double*, double*, int, int);
+	// typedef std::vector<double> vector_double;
 	
-	// Here is a bit of lying to swig.  There is hand written code in the c++
-	// project to handle setting a callback from C#.  HOWEVER swig just doesn't seem to know
-	// how to handle that (or I don't know swig/c++ that well.  Actually that is more likely).
-	// SO, we make swig wrappers for everything except this
-	//void StoreFitnessCallback(void* cb);
-	void SetBounds(vector_double lowerBounds, vector_double upperBounds);
 
-	vector_double::size_type get_nec() const;
+	// class problemBase
+	// {
+	// public:
+        // problemBase() {};
+		// virtual ~problemBase() {}
+		// virtual vector_double fitness(const vector_double&) const
+		// {
+			// return vector_double();
+		// }
+		// virtual std::pair<vector_double, vector_double> get_bounds() const
+		// {
+			// return std::pair< vector_double, vector_double>{vector_double(), vector_double()};
+		// }
+		// virtual bool has_batch_fitness() const {
+			// return false;
+		// }
+		// virtual std::string get_name() const {
+			// return "Base c++ problem";
+		// }
+		// //vector_double::size_type get_nobj() const;
+		// //vector_double::size_type get_nec() const;
+		// //vector_double::size_type get_nic() const;
+		// //vector_double::size_type get_nix() const;
+		// //vector_double batch_fitness(const vector_double&) const;
+		// //bool has_batch_fitness() const;
+		// //bool has_gradient() const;
+		// //vector_double gradient(const vector_double&) const;
+		// //bool has_gradient_sparsity() const;
+		// //sparsity_pattern gradient_sparsity() const;
+		// //bool has_hessians() const;
+		// //std::vector<vector_double> hessians(const vector_double&) const;
+		// //bool has_hessians_sparsity() const;
+		// //std::vector<sparsity_pattern> hessians_sparsity() const;
+		// //bool has_set_seed() const;
+		// //void set_seed(unsigned);
+		// //thread_safety get_thread_safety() const;
+		
+	// };
 	
-	// Number of inequality constraints.
-	vector_double::size_type get_nic() const;
-	
-	std::pair<vector_double, vector_double> get_bounds() const;
-	vector_double fitness(const vector_double&) const;
+// class problem {
+	// private:
+		// problemBase* m_baseProblem;
+		// void deleteProblem() {
+			// //delete m_baseProblem; // see comments in the C++ wrapper code, not sure if this is a good idea or not
+		// }
+	// public:
+		// problem() : m_baseProblem(0) {}
+		
+		// problem(const problem& old) : m_baseProblem(0) {
+			// m_baseProblem = old.m_baseProblem;
+		// }
+		
+		// ~problem() {
+			// deleteProblem();
+		// }
 
-	std::string get_name() const;	
-};
-};
+		// void setBaseProblem(problemBase* b) {
+			// deleteProblem(); m_baseProblem = b;
+		// }
+
+		// problemBase* getBaseProblem() {
+			// return m_baseProblem;
+		// }
+
+		// vector_double fitness(const vector_double& x) const {
+			// return m_baseProblem->fitness(x);
+		// }
+
+		// std::pair<vector_double, vector_double> get_bounds() const
+		// {
+			// return m_baseProblem->get_bounds();
+		// }
+
+		// bool has_batch_fitness() const
+		// {
+			// return m_baseProblem->has_batch_fitness();
+		// }
+
+		// std::string get_name() const
+		// {
+			// return m_baseProblem->get_name();
+		// }
+	// };
+//};
 
 namespace pagmo {
 	

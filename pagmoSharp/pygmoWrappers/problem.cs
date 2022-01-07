@@ -44,21 +44,26 @@ public partial class problem : global::System.IDisposable {
     }
   }
 
-  public problem() : this(pagmoPINVOKE.new_problem(), true) {
+  public problem() : this(pagmoPINVOKE.new_problem__SWIG_0(), true) {
   }
 
-  public void SetBounds(DoubleVector lowerBounds, DoubleVector upperBounds) {
-    pagmoPINVOKE.problem_SetBounds(swigCPtr, DoubleVector.getCPtr(lowerBounds), DoubleVector.getCPtr(upperBounds));
+  public problem(problem old) : this(pagmoPINVOKE.new_problem__SWIG_1(problem.getCPtr(old)), true) {
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
-  public uint get_nec() {
-    uint ret = pagmoPINVOKE.problem_get_nec(swigCPtr);
+  public void setBaseProblem(problemBase b) {
+    pagmoPINVOKE.problem_setBaseProblem(swigCPtr, problemBase.getCPtr(b));
+  }
+
+  public problemBase getBaseProblem() {
+    global::System.IntPtr cPtr = pagmoPINVOKE.problem_getBaseProblem(swigCPtr);
+    problemBase ret = (cPtr == global::System.IntPtr.Zero) ? null : new problemBase(cPtr, false);
     return ret;
   }
 
-  public uint get_nic() {
-    uint ret = pagmoPINVOKE.problem_get_nic(swigCPtr);
+  public DoubleVector fitness(DoubleVector x) {
+    DoubleVector ret = new DoubleVector(pagmoPINVOKE.problem_fitness(swigCPtr, DoubleVector.getCPtr(x)), true);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
@@ -67,9 +72,8 @@ public partial class problem : global::System.IDisposable {
     return ret;
   }
 
-  public DoubleVector fitness(DoubleVector arg0) {
-    DoubleVector ret = new DoubleVector(pagmoPINVOKE.problem_fitness(swigCPtr, DoubleVector.getCPtr(arg0)), true);
-    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
+  public bool has_batch_fitness() {
+    bool ret = pagmoPINVOKE.problem_has_batch_fitness(swigCPtr);
     return ret;
   }
 

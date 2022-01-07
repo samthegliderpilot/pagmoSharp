@@ -1,48 +1,42 @@
-﻿using System;
+﻿using pagmo;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
 namespace Tests.PagmoSharp.TestProblems
 {
-    public class OneDimensionalSimpleProblem
+    public class OneDimensionalSimpleProblem : pagmo.problemBase
     {
         private double[] _lowerBounds = new[] {-10.0};
         private double[] _upperBounds = new[] {10.0};
 
-        public double[] EvaluateFitness(double[] entireState)
+        public static OneDimensionalSimpleProblem CreateProblem()
         {
-            return new[] {EvaluateFitness(entireState[0])};
+            var problemWrap = new problem();
+            var oneDProblem = new OneDimensionalSimpleProblem(problemWrap);
+            problemWrap.setBaseProblem(oneDProblem);
+            return oneDProblem;
         }
 
-        public double EvaluateFitness(double x)
+        public pagmo.problem TheProblem;
+
+        private OneDimensionalSimpleProblem(pagmo.problem prob)
         {
-            return x * x;
+            TheProblem = prob;}
+
+        public override PairOfDoubleVectors get_bounds()
+        {
+            return new PairOfDoubleVectors(new DoubleVector(_lowerBounds), new DoubleVector(_upperBounds));
         }
 
-        public void EvaluateFitness(double[] entireState, double[] answer, int sizeOfState, int sizeOfAnswer)
+        public override DoubleVector fitness(DoubleVector arg0)
         {
-            answer[0] = EvaluateFitness(entireState[0]);
+            return new DoubleVector(new[] { arg0[0]*arg0[0]});
         }
 
-        public double[] LowerBounds
-        {
-            get { return _lowerBounds; }
-        }
+        public double ExpectedOptimalFunctionValue { get { return 0.0; } }
+        public double[] ExpectedOptimalX { get { return new double[] { 0.0 }; } }
 
-        public double[] UpperBounds
-        {
-            get { return _upperBounds; }
-        }
-
-        public double ExpectedOptimalFunctionValue
-        {
-            get { return 0.0; }
-        }
-
-        public double[] ExpectedOptimalX
-        {
-            get { return new double[] {0.0}; }
-        }
     }
 }

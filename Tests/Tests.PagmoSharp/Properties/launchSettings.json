@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "Tests.PagmoSharp": {
+      "commandName": "Project",
+      "nativeDebugging": true
+    }
+  }
+}
