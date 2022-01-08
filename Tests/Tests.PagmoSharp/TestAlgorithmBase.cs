@@ -13,10 +13,10 @@ namespace Tests.PagmoSharp
         [Fact]
         public void TestOneDimensionalProblem()
         {
-            using (var problem =  OneDimensionalSimpleProblem.CreateProblem())
+            using (var problem = new OneDimensionalSimpleProblem())
             {
                 using (var algorithm = CreateAlgorithm())
-                using (var pop = new population(problem.TheProblem, 64))
+                using (var pop = new population(problem, 64))
                 {
                     var finalpop = EvolveAlgorithm(algorithm, pop);
                     Assert.Equal(problem.ExpectedOptimalFunctionValue, finalpop.champion_f()[0], 2);

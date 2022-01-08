@@ -47,7 +47,10 @@ public partial class problem : global::System.IDisposable {
   public problem() : this(pagmoPINVOKE.new_problem__SWIG_0(), true) {
   }
 
-  public problem(problem old) : this(pagmoPINVOKE.new_problem__SWIG_1(problem.getCPtr(old)), true) {
+  public problem(problemBase baseProblem) : this(pagmoPINVOKE.new_problem__SWIG_1(problemBase.getCPtr(baseProblem)), true) {
+  }
+
+  public problem(problem old) : this(pagmoPINVOKE.new_problem__SWIG_2(problem.getCPtr(old)), true) {
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 

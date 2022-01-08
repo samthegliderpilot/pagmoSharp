@@ -5,6 +5,6 @@ namespace pagmo
 {
     public partial class problem
     {
-        //protected problem() { }
+        public static implicit operator problemBase(problem d) => d.getBaseProblem();
     }
 }

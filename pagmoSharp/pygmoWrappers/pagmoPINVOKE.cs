@@ -232,6 +232,9 @@ class pagmoPINVOKE {
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper.dll", EntryPoint="CSharp_pagmo_new_problem__SWIG_1")]
   public static extern global::System.IntPtr new_problem__SWIG_1(global::System.Runtime.InteropServices.HandleRef jarg1);
 
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper.dll", EntryPoint="CSharp_pagmo_new_problem__SWIG_2")]
+  public static extern global::System.IntPtr new_problem__SWIG_2(global::System.Runtime.InteropServices.HandleRef jarg1);
+
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper.dll", EntryPoint="CSharp_pagmo_delete_problem")]
   public static extern void delete_problem(global::System.Runtime.InteropServices.HandleRef jarg1);
 
@@ -516,6 +519,9 @@ class pagmoPINVOKE {
 
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper.dll", EntryPoint="CSharp_pagmo_bfe_is_valid")]
   public static extern bool bfe_is_valid(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper.dll", EntryPoint="CSharp_pagmo_bfe_get_ptr")]
+  public static extern global::System.IntPtr bfe_get_ptr(global::System.Runtime.InteropServices.HandleRef jarg1);
 
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper.dll", EntryPoint="CSharp_pagmo_delete_bfe")]
   public static extern void delete_bfe(global::System.Runtime.InteropServices.HandleRef jarg1);

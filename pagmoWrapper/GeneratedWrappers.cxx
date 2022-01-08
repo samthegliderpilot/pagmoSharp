@@ -1014,6 +1014,18 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_problem__SWIG_0() {
 
 SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_problem__SWIG_1(void * jarg1) {
   void * jresult ;
+  pagmoWrap::problemBase *arg1 = (pagmoWrap::problemBase *) 0 ;
+  pagmoWrap::problem *result = 0 ;
+  
+  arg1 = (pagmoWrap::problemBase *)jarg1; 
+  result = (pagmoWrap::problem *)new pagmoWrap::problem(arg1);
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_problem__SWIG_2(void * jarg1) {
+  void * jresult ;
   pagmoWrap::problem *arg1 = 0 ;
   pagmoWrap::problem *result = 0 ;
   
@@ -2465,6 +2477,18 @@ SWIGEXPORT unsigned int SWIGSTDCALL CSharp_pagmo_bfe_is_valid(void * jarg1) {
   arg1 = (pagmo::bfe *)jarg1; 
   result = (bool)((pagmo::bfe const *)arg1)->is_valid();
   jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_bfe_get_ptr(void * jarg1) {
+  void * jresult ;
+  pagmo::bfe *arg1 = (pagmo::bfe *) 0 ;
+  void *result = 0 ;
+  
+  arg1 = (pagmo::bfe *)jarg1; 
+  result = (void *)((pagmo::bfe const *)arg1)->get_ptr();
+  jresult = (void *)result; 
   return jresult;
 }
 

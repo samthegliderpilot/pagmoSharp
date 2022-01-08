@@ -71,6 +71,11 @@ public class bfe : global::System.IDisposable {
     return ret;
   }
 
+  public global::System.IntPtr get_ptr() {
+    global::System.IntPtr ret = pagmoPINVOKE.bfe_get_ptr(swigCPtr);
+    return ret;
+  }
+
 }
 
 }

@@ -10,11 +10,9 @@
  #include "problem.h" // this is a manually created item.  We want to include it in the wrappers so the generated cxx code can use the handwritten code for the problem
 %}
 
-// the problem type is the manually created type to assist with running a C# function as 
-// a user defined problem to be solved by pagmo.  I am embrasing the OOP-ness of C# and 
-// making this problem type as general as possible, where the user can set or impliment 
-// members as they see fit.  To assist with debugging and reducing copy/pasted code, 
-// I'm making it a partial class instead of typemapping-csout'ing it here
+// The whole problem vs. problemBase question is a little confusing.  To make it better (or worse)
+// there is a C# implicit operator to convert from problem to problemBase by calling getBaseProblem on 
+// the wrapper (problem).  Hence the partial class here
 %typemap(csclassmodifiers) pagmoWrap::problem "public partial class"
 
 %feature("director") pagmoWrap::problemBase;
@@ -23,7 +21,7 @@
 %include "std_pair.i"
 %include "pagmoWrapper/problem.h"
 //#include <tuple> // tuple is not supported by swig yet...
-
+%apply void *VOID_INT_PTR { void * }
 namespace std {
 	%template(DoubleVector) std::vector<double>;
 	%template(ULongLongVector) std::vector<unsigned long long>;
@@ -31,95 +29,6 @@ namespace std {
 	%template(PairOfDoubleVectors) std::pair<std::vector<double>, std::vector<double>>;
 	//%template(gacoLogLineType) std::tuple<unsigned, vector_double::size_type, double, unsigned, double, double, double>;
 }
-// namespace pagmoWrap {
-	// //void FitnessCallback(double*, double*, int, int);
-	// typedef std::vector<double> vector_double;
-	
-
-	// class problemBase
-	// {
-	// public:
-        // problemBase() {};
-		// virtual ~problemBase() {}
-		// virtual vector_double fitness(const vector_double&) const
-		// {
-			// return vector_double();
-		// }
-		// virtual std::pair<vector_double, vector_double> get_bounds() const
-		// {
-			// return std::pair< vector_double, vector_double>{vector_double(), vector_double()};
-		// }
-		// virtual bool has_batch_fitness() const {
-			// return false;
-		// }
-		// virtual std::string get_name() const {
-			// return "Base c++ problem";
-		// }
-		// //vector_double::size_type get_nobj() const;
-		// //vector_double::size_type get_nec() const;
-		// //vector_double::size_type get_nic() const;
-		// //vector_double::size_type get_nix() const;
-		// //vector_double batch_fitness(const vector_double&) const;
-		// //bool has_batch_fitness() const;
-		// //bool has_gradient() const;
-		// //vector_double gradient(const vector_double&) const;
-		// //bool has_gradient_sparsity() const;
-		// //sparsity_pattern gradient_sparsity() const;
-		// //bool has_hessians() const;
-		// //std::vector<vector_double> hessians(const vector_double&) const;
-		// //bool has_hessians_sparsity() const;
-		// //std::vector<sparsity_pattern> hessians_sparsity() const;
-		// //bool has_set_seed() const;
-		// //void set_seed(unsigned);
-		// //thread_safety get_thread_safety() const;
-		
-	// };
-	
-// class problem {
-	// private:
-		// problemBase* m_baseProblem;
-		// void deleteProblem() {
-			// //delete m_baseProblem; // see comments in the C++ wrapper code, not sure if this is a good idea or not
-		// }
-	// public:
-		// problem() : m_baseProblem(0) {}
-		
-		// problem(const problem& old) : m_baseProblem(0) {
-			// m_baseProblem = old.m_baseProblem;
-		// }
-		
-		// ~problem() {
-			// deleteProblem();
-		// }
-
-		// void setBaseProblem(problemBase* b) {
-			// deleteProblem(); m_baseProblem = b;
-		// }
-
-		// problemBase* getBaseProblem() {
-			// return m_baseProblem;
-		// }
-
-		// vector_double fitness(const vector_double& x) const {
-			// return m_baseProblem->fitness(x);
-		// }
-
-		// std::pair<vector_double, vector_double> get_bounds() const
-		// {
-			// return m_baseProblem->get_bounds();
-		// }
-
-		// bool has_batch_fitness() const
-		// {
-			// return m_baseProblem->has_batch_fitness();
-		// }
-
-		// std::string get_name() const
-		// {
-			// return m_baseProblem->get_name();
-		// }
-	// };
-//};
 
 namespace pagmo {
 	
@@ -175,7 +84,7 @@ class bfe {
     //extern std::type_index get_type_index() const;
 
 	// don't need this from C#, don't want to expose the original pointer...
-    //extern const void *get_ptr() const;
+    extern const void *get_ptr() const;
     
     template <typename Archive>
     extern void save(Archive &ar, unsigned) const;

@@ -43,7 +43,8 @@ namespace pagmoWrap
 		//bool has_set_seed() const;
 		//void set_seed(unsigned);
 		//thread_safety get_thread_safety() const;
-		
+
+
 	};
 
 
@@ -60,6 +61,9 @@ namespace pagmoWrap
 		}
 	public:
 		problem() : m_baseProblem(0) {}
+
+		problem(problemBase* baseProblem) : m_baseProblem(baseProblem) { }
+
 		problem(const problem& old) : m_baseProblem(0) {
 			m_baseProblem = old.m_baseProblem;
 		}
