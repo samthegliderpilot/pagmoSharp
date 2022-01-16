@@ -47,7 +47,7 @@ public partial class problem : global::System.IDisposable {
   public problem() : this(pagmoPINVOKE.new_problem__SWIG_0(), true) {
   }
 
-  public problem(problemBase baseProblem) : this(pagmoPINVOKE.new_problem__SWIG_1(problemBase.getCPtr(baseProblem)), true) {
+  public problem(problemBase base_) : this(pagmoPINVOKE.new_problem__SWIG_1(problemBase.getCPtr(base_)), true) {
   }
 
   public problem(problem old) : this(pagmoPINVOKE.new_problem__SWIG_2(problem.getCPtr(old)), true) {
@@ -82,6 +82,26 @@ public partial class problem : global::System.IDisposable {
 
   public string get_name() {
     string ret = pagmoPINVOKE.problem_get_name(swigCPtr);
+    return ret;
+  }
+
+  public uint get_nobj() {
+    uint ret = pagmoPINVOKE.problem_get_nobj(swigCPtr);
+    return ret;
+  }
+
+  public uint get_nec() {
+    uint ret = pagmoPINVOKE.problem_get_nec(swigCPtr);
+    return ret;
+  }
+
+  public uint get_nic() {
+    uint ret = pagmoPINVOKE.problem_get_nic(swigCPtr);
+    return ret;
+  }
+
+  public uint get_nix() {
+    uint ret = pagmoPINVOKE.problem_get_nix(swigCPtr);
     return ret;
   }
 

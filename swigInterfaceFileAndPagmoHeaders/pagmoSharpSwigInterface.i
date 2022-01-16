@@ -1,12 +1,15 @@
 /* File pagmoSharpSwigInterface.i */
  
-%module(naturalvar=1, directors="1") pagmo
+%module(naturalvar=1, directors="2") pagmo
 %{
  #include "pagmo/types.hpp"
  #include "pagmo/bfe.hpp"
+ #include "pagmo/batch_evaluators/default_bfe.hpp"
  #include "pagmo/population.hpp"
  #include "pagmo/algorithms/gaco.hpp"
- #include "pagmo/threading.hpp"
+ #include "pagmo/threading.hpp" 
+ #include "pagmo/problem.hpp"
+ #include "bfe.h" // this is a manually created item. 
  #include "problem.h" // this is a manually created item.  We want to include it in the wrappers so the generated cxx code can use the handwritten code for the problem
 %}
 
@@ -14,12 +17,16 @@
 // there is a C# implicit operator to convert from problem to problemBase by calling getBaseProblem on 
 // the wrapper (problem).  Hence the partial class here
 %typemap(csclassmodifiers) pagmoWrap::problem "public partial class"
+%typemap(csclassmodifiers) pagmoWrap::problemBase "public partial class"
+
 
 %feature("director") pagmoWrap::problemBase;
+%feature("director") pagmoWrap::bfeBase;
 %include "std_string.i"
 %include "std_vector.i"
 %include "std_pair.i"
 %include "pagmoWrapper/problem.h"
+
 //#include <tuple> // tuple is not supported by swig yet...
 %apply void *VOID_INT_PTR { void * }
 namespace std {
@@ -31,12 +38,19 @@ namespace std {
 }
 
 namespace pagmo {
-	
+	%typemap(csclassmodifiers) pagmo::DoubleVector "public partial class"
 	typedef std::vector<double> vector_double;
     typedef std::vector<std::pair<vector_double::size_type, vector_double::size_type>> sparsity_pattern;
     typedef std::vector<vector_double>::size_type pop_size_t;
 	
 enum class thread_safety { none, basic, constant };
+
+%extend bfe {
+ vector_double Operator(const pagmoWrap::problem& theProblem, const vector_double& values) const
+ {
+	return self->operator()(static_cast<pagmo::problem>(theProblem), values);
+ }
+}
 
 class bfe {
 	public:
@@ -60,7 +74,7 @@ class bfe {
     
     extern bfe(const bfe &);
 
-    // Extraction and related.
+    //Extraction and related.
     template <typename T>
     extern const T *extract() const noexcept;
 	
@@ -70,7 +84,7 @@ class bfe {
     template <typename T>
     extern bool is() const noexcept;
 
-	// would this ever get called by c#?
+	// handeled above
     //extern vector_double operator()(const problem &, const vector_double &) const;
     
     extern std::string get_name() const;
@@ -83,7 +97,6 @@ class bfe {
 	// don't think I'll need this
     //extern std::type_index get_type_index() const;
 
-	// don't need this from C#, don't want to expose the original pointer...
     extern const void *get_ptr() const;
     
     template <typename Archive>
@@ -92,6 +105,14 @@ class bfe {
     template <typename Archive>
     extern void load(Archive &ar, unsigned);
 };
+
+class default_bfe : public pagmo::bfe {
+};
+
+
+
+
+
 
 class population {
 typedef std::vector<vector_double>::size_type pop_size_t;
@@ -138,7 +159,7 @@ public:
 	extern unsigned get_seed() const;
 	extern unsigned get_verbosity() const;
 	extern unsigned get_gen() const;
-	extern void set_bfe(const bfe &b);
+	extern void set_bfe(const pagmo::bfe &b);
 	extern std::string get_name() const;
 	extern std::string get_extra_info() const;
 
@@ -150,5 +171,12 @@ public:
 	template <typename Archive>
 	extern void serialize(Archive &, unsigned);
 };
+
+// %extend gaco {
+    // void set_bfe(const pagmoWrap::bfeWrap bfe)
+	// {
+        // return self->set_bfe(static_cast<pagmo::bfe>(bfe));
+    // }
+// }
 };
 

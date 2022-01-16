@@ -10,7 +10,7 @@
 
 namespace pagmo {
 
-public class problemBase : global::System.IDisposable {
+public partial class problemBase : global::System.IDisposable {
   private global::System.Runtime.InteropServices.HandleRef swigCPtr;
   protected bool swigCMemOwn;
 
@@ -65,6 +65,26 @@ public class problemBase : global::System.IDisposable {
     return ret;
   }
 
+  public virtual uint get_nobj() {
+    uint ret = (SwigDerivedClassHasMethod("get_nobj", swigMethodTypes4) ? pagmoPINVOKE.problemBase_get_nobjSwigExplicitproblemBase(swigCPtr) : pagmoPINVOKE.problemBase_get_nobj(swigCPtr));
+    return ret;
+  }
+
+  public virtual uint get_nec() {
+    uint ret = (SwigDerivedClassHasMethod("get_nec", swigMethodTypes5) ? pagmoPINVOKE.problemBase_get_necSwigExplicitproblemBase(swigCPtr) : pagmoPINVOKE.problemBase_get_nec(swigCPtr));
+    return ret;
+  }
+
+  public virtual uint get_nic() {
+    uint ret = (SwigDerivedClassHasMethod("get_nic", swigMethodTypes6) ? pagmoPINVOKE.problemBase_get_nicSwigExplicitproblemBase(swigCPtr) : pagmoPINVOKE.problemBase_get_nic(swigCPtr));
+    return ret;
+  }
+
+  public virtual uint get_nix() {
+    uint ret = (SwigDerivedClassHasMethod("get_nix", swigMethodTypes7) ? pagmoPINVOKE.problemBase_get_nixSwigExplicitproblemBase(swigCPtr) : pagmoPINVOKE.problemBase_get_nix(swigCPtr));
+    return ret;
+  }
+
   public problemBase() : this(pagmoPINVOKE.new_problemBase(), true) {
     SwigDirectorConnect();
   }
@@ -78,7 +98,15 @@ public class problemBase : global::System.IDisposable {
       swigDelegate2 = new SwigDelegateproblemBase_2(SwigDirectorMethodhas_batch_fitness);
     if (SwigDerivedClassHasMethod("get_name", swigMethodTypes3))
       swigDelegate3 = new SwigDelegateproblemBase_3(SwigDirectorMethodget_name);
-    pagmoPINVOKE.problemBase_director_connect(swigCPtr, swigDelegate0, swigDelegate1, swigDelegate2, swigDelegate3);
+    if (SwigDerivedClassHasMethod("get_nobj", swigMethodTypes4))
+      swigDelegate4 = new SwigDelegateproblemBase_4(SwigDirectorMethodget_nobj);
+    if (SwigDerivedClassHasMethod("get_nec", swigMethodTypes5))
+      swigDelegate5 = new SwigDelegateproblemBase_5(SwigDirectorMethodget_nec);
+    if (SwigDerivedClassHasMethod("get_nic", swigMethodTypes6))
+      swigDelegate6 = new SwigDelegateproblemBase_6(SwigDirectorMethodget_nic);
+    if (SwigDerivedClassHasMethod("get_nix", swigMethodTypes7))
+      swigDelegate7 = new SwigDelegateproblemBase_7(SwigDirectorMethodget_nix);
+    pagmoPINVOKE.problemBase_director_connect(swigCPtr, swigDelegate0, swigDelegate1, swigDelegate2, swigDelegate3, swigDelegate4, swigDelegate5, swigDelegate6, swigDelegate7);
   }
 
   private bool SwigDerivedClassHasMethod(string methodName, global::System.Type[] methodTypes) {
@@ -103,20 +131,48 @@ public class problemBase : global::System.IDisposable {
     return get_name();
   }
 
+  private uint SwigDirectorMethodget_nobj() {
+    return get_nobj();
+  }
+
+  private uint SwigDirectorMethodget_nec() {
+    return get_nec();
+  }
+
+  private uint SwigDirectorMethodget_nic() {
+    return get_nic();
+  }
+
+  private uint SwigDirectorMethodget_nix() {
+    return get_nix();
+  }
+
   public delegate global::System.IntPtr SwigDelegateproblemBase_0(global::System.IntPtr arg0);
   public delegate global::System.IntPtr SwigDelegateproblemBase_1();
   public delegate bool SwigDelegateproblemBase_2();
   public delegate string SwigDelegateproblemBase_3();
+  public delegate uint SwigDelegateproblemBase_4();
+  public delegate uint SwigDelegateproblemBase_5();
+  public delegate uint SwigDelegateproblemBase_6();
+  public delegate uint SwigDelegateproblemBase_7();
 
   private SwigDelegateproblemBase_0 swigDelegate0;
   private SwigDelegateproblemBase_1 swigDelegate1;
   private SwigDelegateproblemBase_2 swigDelegate2;
   private SwigDelegateproblemBase_3 swigDelegate3;
+  private SwigDelegateproblemBase_4 swigDelegate4;
+  private SwigDelegateproblemBase_5 swigDelegate5;
+  private SwigDelegateproblemBase_6 swigDelegate6;
+  private SwigDelegateproblemBase_7 swigDelegate7;
 
   private static global::System.Type[] swigMethodTypes0 = new global::System.Type[] { typeof(DoubleVector) };
   private static global::System.Type[] swigMethodTypes1 = new global::System.Type[] {  };
   private static global::System.Type[] swigMethodTypes2 = new global::System.Type[] {  };
   private static global::System.Type[] swigMethodTypes3 = new global::System.Type[] {  };
+  private static global::System.Type[] swigMethodTypes4 = new global::System.Type[] {  };
+  private static global::System.Type[] swigMethodTypes5 = new global::System.Type[] {  };
+  private static global::System.Type[] swigMethodTypes6 = new global::System.Type[] {  };
+  private static global::System.Type[] swigMethodTypes7 = new global::System.Type[] {  };
 }
 
 }

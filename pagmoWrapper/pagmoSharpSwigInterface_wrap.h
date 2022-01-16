@@ -20,18 +20,30 @@ public:
     virtual std::pair< pagmoWrap::vector_double, pagmoWrap::vector_double > get_bounds() const;
     virtual bool has_batch_fitness() const;
     virtual std::string get_name() const;
+    virtual std::vector< double >::size_type get_nobj() const;
+    virtual std::vector< double >::size_type get_nec() const;
+    virtual std::vector< double >::size_type get_nic() const;
+    virtual std::vector< double >::size_type get_nix() const;
 
     typedef void * (SWIGSTDCALL* SWIG_Callback0_t)(void *);
     typedef void * (SWIGSTDCALL* SWIG_Callback1_t)();
     typedef unsigned int (SWIGSTDCALL* SWIG_Callback2_t)();
     typedef char * (SWIGSTDCALL* SWIG_Callback3_t)();
-    void swig_connect_director(SWIG_Callback0_t callbackfitness, SWIG_Callback1_t callbackget_bounds, SWIG_Callback2_t callbackhas_batch_fitness, SWIG_Callback3_t callbackget_name);
+    typedef unsigned long (SWIGSTDCALL* SWIG_Callback4_t)();
+    typedef unsigned long (SWIGSTDCALL* SWIG_Callback5_t)();
+    typedef unsigned long (SWIGSTDCALL* SWIG_Callback6_t)();
+    typedef unsigned long (SWIGSTDCALL* SWIG_Callback7_t)();
+    void swig_connect_director(SWIG_Callback0_t callbackfitness, SWIG_Callback1_t callbackget_bounds, SWIG_Callback2_t callbackhas_batch_fitness, SWIG_Callback3_t callbackget_name, SWIG_Callback4_t callbackget_nobj, SWIG_Callback5_t callbackget_nec, SWIG_Callback6_t callbackget_nic, SWIG_Callback7_t callbackget_nix);
 
 private:
     SWIG_Callback0_t swig_callbackfitness;
     SWIG_Callback1_t swig_callbackget_bounds;
     SWIG_Callback2_t swig_callbackhas_batch_fitness;
     SWIG_Callback3_t swig_callbackget_name;
+    SWIG_Callback4_t swig_callbackget_nobj;
+    SWIG_Callback5_t swig_callbackget_nec;
+    SWIG_Callback6_t swig_callbackget_nic;
+    SWIG_Callback7_t swig_callbackget_nix;
     void swig_init_callbacks();
 };
 

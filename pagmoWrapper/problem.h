@@ -1,35 +1,57 @@
 ﻿#pragma once
 
-#include <pagmo/algorithm.hpp>
-#include <pagmo/algorithms/gaco.hpp>
+#include "pagmo/problem.hpp"
 
 namespace pagmoWrap
 {
 	//typedef void (__stdcall *Operation)(double* x, double* ans, int sizeOfX, int sizeOfAns);
 	typedef std::vector<double> vector_double;
-	class problemBase
+	class problemBase : public pagmo::problem
 	{
 	public:
 		//problemBase() {};
+
 		virtual ~problemBase() {}
+
 		virtual vector_double fitness(const vector_double&) const
 		{
 			return vector_double();
 		}
+
 		virtual std::pair<vector_double, vector_double> get_bounds() const
 		{
 			return std::pair< vector_double, vector_double>{vector_double(), vector_double()};
 		}
+
 		virtual bool has_batch_fitness() const {
 			return false;
 		}
+
+		//We cannot use [[nodiscard]] due to using this header to create the type
 		virtual std::string get_name() const {
 			return "Base c++ problem";
 		}
-		//vector_double::size_type get_nobj() const;
-		//vector_double::size_type get_nec() const;
-		//vector_double::size_type get_nic() const;
-		//vector_double::size_type get_nix() const;
+
+		virtual std::vector<double>::size_type get_nobj() const
+		{
+			return static_cast<vector_double::size_type>(1); // default of 1
+		}
+
+		virtual std::vector<double>::size_type get_nec() const
+		{
+			return static_cast<vector_double::size_type>(0);
+		}
+
+		virtual std::vector<double>::size_type get_nic() const
+		{
+			return static_cast<vector_double::size_type>(0);
+		}
+
+		virtual std::vector<double>::size_type get_nix() const
+		{
+			return static_cast<vector_double::size_type>(0);
+		}
+
 		//vector_double batch_fitness(const vector_double&) const;
 		//bool has_batch_fitness() const;
 		//bool has_gradient() const;
@@ -48,54 +70,75 @@ namespace pagmoWrap
 	};
 
 
-	class problem {
+	class problem //: public pagmo::problem
+	{
 	private:
-		problemBase* m_baseProblem;
+		problemBase* _base;
 		void deleteProblem() {
 			//TODO: This is something that has me worried.  pagmo will create copies of the problem,
 			// but if they all share the same pointer, when one of those copies gets destroyed, it
 			// deletes the whole pointer, which breaks other copies.  But not deleting it goes against
 			// the director example for swig, and I fear opens us up to a memory leak in sloppy cases
 			// (cases where the C# isn't behaving)
-			//delete m_baseProblem;
+			//delete _base;
 		}
 	public:
-		problem() : m_baseProblem(0) {}
+		problem() : _base(0) {}
 
-		problem(problemBase* baseProblem) : m_baseProblem(baseProblem) { }
+		problem(problemBase* base) : _base(base) { }
 
-		problem(const problem& old) : m_baseProblem(0) {
-			m_baseProblem = old.m_baseProblem;
+		problem(const problem& old) : _base(0) {
+			_base = old._base;
 		}
 		~problem() {
 			deleteProblem();
 		}
 
 		void setBaseProblem(problemBase* b) {
-			deleteProblem(); m_baseProblem = b;
+			deleteProblem(); _base = b;
 		}
 
 		problemBase* getBaseProblem() {
-			return m_baseProblem;
+			return _base;
 		}
 
 		vector_double fitness(const vector_double& x) const {
-			return m_baseProblem->fitness(x);
+			return _base->fitness(x);
 		}
 
 		std::pair<vector_double, vector_double> get_bounds() const
 		{
-			return m_baseProblem->get_bounds();
+			return _base->get_bounds();
 		}
 
 		bool has_batch_fitness() const
 		{
-			return m_baseProblem->has_batch_fitness();
+			return _base->has_batch_fitness();
 		}
 
 		std::string get_name() const
 		{
-			return m_baseProblem->get_name();
+			return _base->get_name();
+		}
+
+		std::vector<double>::size_type get_nobj() const
+		{
+			return _base->get_nobj();
+		}
+
+		std::vector<double>::size_type get_nec() const
+		{
+			return _base->get_nec();
+		}
+
+		std::vector<double>::size_type get_nic() const
+		{
+			return _base->get_nic();
+		}
+
+		std::vector<double>::size_type get_nix() const
+		{
+			return _base->get_nix();
 		}
 	};
 };

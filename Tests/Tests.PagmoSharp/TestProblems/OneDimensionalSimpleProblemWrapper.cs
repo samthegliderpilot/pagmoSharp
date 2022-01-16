@@ -28,6 +28,26 @@ namespace Tests.PagmoSharp.TestProblems
             {
                 return false;
             }
+
+            public override uint get_nobj()
+            {
+                return 1;
+            }
+
+            public override uint get_nix()
+            {
+                return 0;
+            }
+
+            public override uint get_nec()
+            {
+                return 0;
+            }
+
+            public override uint get_nic()
+            {
+                return 0;
+            }
         }
 
         public OneDimensionalSimpleProblem() :base(new OneDimensionalSimpleProblemFunction())

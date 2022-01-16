@@ -76,6 +76,12 @@ public class bfe : global::System.IDisposable {
     return ret;
   }
 
+  public DoubleVector Operator(problem theProblem, DoubleVector values) {
+    DoubleVector ret = new DoubleVector(pagmoPINVOKE.bfe_Operator(swigCPtr, problem.getCPtr(theProblem), DoubleVector.getCPtr(values)), true);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
 }
 
 }

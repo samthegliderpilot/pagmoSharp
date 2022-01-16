@@ -384,9 +384,12 @@ namespace Swig {
 
  #include "pagmo/types.hpp"
  #include "pagmo/bfe.hpp"
+ #include "pagmo/batch_evaluators/default_bfe.hpp"
  #include "pagmo/population.hpp"
  #include "pagmo/algorithms/gaco.hpp"
- #include "pagmo/threading.hpp"
+ #include "pagmo/threading.hpp" 
+ #include "pagmo/problem.hpp"
+ #include "bfe.h" // this is a manually created item. 
  #include "problem.h" // this is a manually created item.  We want to include it in the wrappers so the generated cxx code can use the handwritten code for the problem
 
 
@@ -767,6 +770,9 @@ SWIGINTERN void std_vector_Sl_std_vector_Sl_double_Sg__Sg__SetRange(std::vector<
           throw std::out_of_range("index");
         std::copy(values.begin(), values.end(), self->begin()+index);
       }
+SWIGINTERN pagmo::vector_double pagmo_bfe_Operator(pagmo::bfe const *self,pagmoWrap::problem const &theProblem,pagmo::vector_double const &values){
+	return self->operator()(static_cast<pagmo::problem>(theProblem), values);
+ }
 
 
 /* ---------------------------------------------------
@@ -850,11 +856,67 @@ std::string SwigDirector_problemBase::get_name() const {
   return c_result;
 }
 
-void SwigDirector_problemBase::swig_connect_director(SWIG_Callback0_t callbackfitness, SWIG_Callback1_t callbackget_bounds, SWIG_Callback2_t callbackhas_batch_fitness, SWIG_Callback3_t callbackget_name) {
+std::vector< double >::size_type SwigDirector_problemBase::get_nobj() const {
+  std::vector< double >::size_type c_result = SwigValueInit< std::vector< double >::size_type >() ;
+  unsigned long jresult = 0 ;
+  
+  if (!swig_callbackget_nobj) {
+    return pagmoWrap::problemBase::get_nobj();
+  } else {
+    jresult = (unsigned long) swig_callbackget_nobj();
+    c_result = (std::vector< double >::size_type)jresult; 
+  }
+  return c_result;
+}
+
+std::vector< double >::size_type SwigDirector_problemBase::get_nec() const {
+  std::vector< double >::size_type c_result = SwigValueInit< std::vector< double >::size_type >() ;
+  unsigned long jresult = 0 ;
+  
+  if (!swig_callbackget_nec) {
+    return pagmoWrap::problemBase::get_nec();
+  } else {
+    jresult = (unsigned long) swig_callbackget_nec();
+    c_result = (std::vector< double >::size_type)jresult; 
+  }
+  return c_result;
+}
+
+std::vector< double >::size_type SwigDirector_problemBase::get_nic() const {
+  std::vector< double >::size_type c_result = SwigValueInit< std::vector< double >::size_type >() ;
+  unsigned long jresult = 0 ;
+  
+  if (!swig_callbackget_nic) {
+    return pagmoWrap::problemBase::get_nic();
+  } else {
+    jresult = (unsigned long) swig_callbackget_nic();
+    c_result = (std::vector< double >::size_type)jresult; 
+  }
+  return c_result;
+}
+
+std::vector< double >::size_type SwigDirector_problemBase::get_nix() const {
+  std::vector< double >::size_type c_result = SwigValueInit< std::vector< double >::size_type >() ;
+  unsigned long jresult = 0 ;
+  
+  if (!swig_callbackget_nix) {
+    return pagmoWrap::problemBase::get_nix();
+  } else {
+    jresult = (unsigned long) swig_callbackget_nix();
+    c_result = (std::vector< double >::size_type)jresult; 
+  }
+  return c_result;
+}
+
+void SwigDirector_problemBase::swig_connect_director(SWIG_Callback0_t callbackfitness, SWIG_Callback1_t callbackget_bounds, SWIG_Callback2_t callbackhas_batch_fitness, SWIG_Callback3_t callbackget_name, SWIG_Callback4_t callbackget_nobj, SWIG_Callback5_t callbackget_nec, SWIG_Callback6_t callbackget_nic, SWIG_Callback7_t callbackget_nix) {
   swig_callbackfitness = callbackfitness;
   swig_callbackget_bounds = callbackget_bounds;
   swig_callbackhas_batch_fitness = callbackhas_batch_fitness;
   swig_callbackget_name = callbackget_name;
+  swig_callbackget_nobj = callbackget_nobj;
+  swig_callbackget_nec = callbackget_nec;
+  swig_callbackget_nic = callbackget_nic;
+  swig_callbackget_nix = callbackget_nix;
 }
 
 void SwigDirector_problemBase::swig_init_callbacks() {
@@ -862,6 +924,10 @@ void SwigDirector_problemBase::swig_init_callbacks() {
   swig_callbackget_bounds = 0;
   swig_callbackhas_batch_fitness = 0;
   swig_callbackget_name = 0;
+  swig_callbackget_nobj = 0;
+  swig_callbackget_nec = 0;
+  swig_callbackget_nic = 0;
+  swig_callbackget_nix = 0;
 }
 
 
@@ -985,6 +1051,102 @@ SWIGEXPORT char * SWIGSTDCALL CSharp_pagmo_problemBase_get_nameSwigExplicitprobl
 }
 
 
+SWIGEXPORT unsigned long SWIGSTDCALL CSharp_pagmo_problemBase_get_nobj(void * jarg1) {
+  unsigned long jresult ;
+  pagmoWrap::problemBase *arg1 = (pagmoWrap::problemBase *) 0 ;
+  std::vector< double >::size_type result;
+  
+  arg1 = (pagmoWrap::problemBase *)jarg1; 
+  result = ((pagmoWrap::problemBase const *)arg1)->get_nobj();
+  jresult = (unsigned long)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT unsigned long SWIGSTDCALL CSharp_pagmo_problemBase_get_nobjSwigExplicitproblemBase(void * jarg1) {
+  unsigned long jresult ;
+  pagmoWrap::problemBase *arg1 = (pagmoWrap::problemBase *) 0 ;
+  std::vector< double >::size_type result;
+  
+  arg1 = (pagmoWrap::problemBase *)jarg1; 
+  result = ((pagmoWrap::problemBase const *)arg1)->pagmoWrap::problemBase::get_nobj();
+  jresult = (unsigned long)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT unsigned long SWIGSTDCALL CSharp_pagmo_problemBase_get_nec(void * jarg1) {
+  unsigned long jresult ;
+  pagmoWrap::problemBase *arg1 = (pagmoWrap::problemBase *) 0 ;
+  std::vector< double >::size_type result;
+  
+  arg1 = (pagmoWrap::problemBase *)jarg1; 
+  result = ((pagmoWrap::problemBase const *)arg1)->get_nec();
+  jresult = (unsigned long)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT unsigned long SWIGSTDCALL CSharp_pagmo_problemBase_get_necSwigExplicitproblemBase(void * jarg1) {
+  unsigned long jresult ;
+  pagmoWrap::problemBase *arg1 = (pagmoWrap::problemBase *) 0 ;
+  std::vector< double >::size_type result;
+  
+  arg1 = (pagmoWrap::problemBase *)jarg1; 
+  result = ((pagmoWrap::problemBase const *)arg1)->pagmoWrap::problemBase::get_nec();
+  jresult = (unsigned long)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT unsigned long SWIGSTDCALL CSharp_pagmo_problemBase_get_nic(void * jarg1) {
+  unsigned long jresult ;
+  pagmoWrap::problemBase *arg1 = (pagmoWrap::problemBase *) 0 ;
+  std::vector< double >::size_type result;
+  
+  arg1 = (pagmoWrap::problemBase *)jarg1; 
+  result = ((pagmoWrap::problemBase const *)arg1)->get_nic();
+  jresult = (unsigned long)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT unsigned long SWIGSTDCALL CSharp_pagmo_problemBase_get_nicSwigExplicitproblemBase(void * jarg1) {
+  unsigned long jresult ;
+  pagmoWrap::problemBase *arg1 = (pagmoWrap::problemBase *) 0 ;
+  std::vector< double >::size_type result;
+  
+  arg1 = (pagmoWrap::problemBase *)jarg1; 
+  result = ((pagmoWrap::problemBase const *)arg1)->pagmoWrap::problemBase::get_nic();
+  jresult = (unsigned long)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT unsigned long SWIGSTDCALL CSharp_pagmo_problemBase_get_nix(void * jarg1) {
+  unsigned long jresult ;
+  pagmoWrap::problemBase *arg1 = (pagmoWrap::problemBase *) 0 ;
+  std::vector< double >::size_type result;
+  
+  arg1 = (pagmoWrap::problemBase *)jarg1; 
+  result = ((pagmoWrap::problemBase const *)arg1)->get_nix();
+  jresult = (unsigned long)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT unsigned long SWIGSTDCALL CSharp_pagmo_problemBase_get_nixSwigExplicitproblemBase(void * jarg1) {
+  unsigned long jresult ;
+  pagmoWrap::problemBase *arg1 = (pagmoWrap::problemBase *) 0 ;
+  std::vector< double >::size_type result;
+  
+  arg1 = (pagmoWrap::problemBase *)jarg1; 
+  result = ((pagmoWrap::problemBase const *)arg1)->pagmoWrap::problemBase::get_nix();
+  jresult = (unsigned long)result; 
+  return jresult;
+}
+
+
 SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_problemBase() {
   void * jresult ;
   pagmoWrap::problemBase *result = 0 ;
@@ -995,10 +1157,10 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_problemBase() {
 }
 
 
-SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_problemBase_director_connect(void *objarg, SwigDirector_problemBase::SWIG_Callback0_t callback0, SwigDirector_problemBase::SWIG_Callback1_t callback1, SwigDirector_problemBase::SWIG_Callback2_t callback2, SwigDirector_problemBase::SWIG_Callback3_t callback3) {
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_problemBase_director_connect(void *objarg, SwigDirector_problemBase::SWIG_Callback0_t callback0, SwigDirector_problemBase::SWIG_Callback1_t callback1, SwigDirector_problemBase::SWIG_Callback2_t callback2, SwigDirector_problemBase::SWIG_Callback3_t callback3, SwigDirector_problemBase::SWIG_Callback4_t callback4, SwigDirector_problemBase::SWIG_Callback5_t callback5, SwigDirector_problemBase::SWIG_Callback6_t callback6, SwigDirector_problemBase::SWIG_Callback7_t callback7) {
   pagmoWrap::problemBase *obj = (pagmoWrap::problemBase *)objarg;
   SwigDirector_problemBase *director = static_cast<SwigDirector_problemBase *>(obj);
-  director->swig_connect_director(callback0, callback1, callback2, callback3);
+  director->swig_connect_director(callback0, callback1, callback2, callback3, callback4, callback5, callback6, callback7);
 }
 
 
@@ -1120,6 +1282,54 @@ SWIGEXPORT char * SWIGSTDCALL CSharp_pagmo_problem_get_name(void * jarg1) {
   arg1 = (pagmoWrap::problem *)jarg1; 
   result = ((pagmoWrap::problem const *)arg1)->get_name();
   jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  return jresult;
+}
+
+
+SWIGEXPORT unsigned long SWIGSTDCALL CSharp_pagmo_problem_get_nobj(void * jarg1) {
+  unsigned long jresult ;
+  pagmoWrap::problem *arg1 = (pagmoWrap::problem *) 0 ;
+  std::vector< double >::size_type result;
+  
+  arg1 = (pagmoWrap::problem *)jarg1; 
+  result = ((pagmoWrap::problem const *)arg1)->get_nobj();
+  jresult = (unsigned long)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT unsigned long SWIGSTDCALL CSharp_pagmo_problem_get_nec(void * jarg1) {
+  unsigned long jresult ;
+  pagmoWrap::problem *arg1 = (pagmoWrap::problem *) 0 ;
+  std::vector< double >::size_type result;
+  
+  arg1 = (pagmoWrap::problem *)jarg1; 
+  result = ((pagmoWrap::problem const *)arg1)->get_nec();
+  jresult = (unsigned long)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT unsigned long SWIGSTDCALL CSharp_pagmo_problem_get_nic(void * jarg1) {
+  unsigned long jresult ;
+  pagmoWrap::problem *arg1 = (pagmoWrap::problem *) 0 ;
+  std::vector< double >::size_type result;
+  
+  arg1 = (pagmoWrap::problem *)jarg1; 
+  result = ((pagmoWrap::problem const *)arg1)->get_nic();
+  jresult = (unsigned long)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT unsigned long SWIGSTDCALL CSharp_pagmo_problem_get_nix(void * jarg1) {
+  unsigned long jresult ;
+  pagmoWrap::problem *arg1 = (pagmoWrap::problem *) 0 ;
+  std::vector< double >::size_type result;
+  
+  arg1 = (pagmoWrap::problem *)jarg1; 
+  result = ((pagmoWrap::problem const *)arg1)->get_nix();
+  jresult = (unsigned long)result; 
   return jresult;
 }
 
@@ -2493,10 +2703,52 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_bfe_get_ptr(void * jarg1) {
 }
 
 
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_bfe_Operator(void * jarg1, void * jarg2, void * jarg3) {
+  void * jresult ;
+  pagmo::bfe *arg1 = (pagmo::bfe *) 0 ;
+  pagmoWrap::problem *arg2 = 0 ;
+  pagmo::vector_double *arg3 = 0 ;
+  pagmo::vector_double result;
+  
+  arg1 = (pagmo::bfe *)jarg1; 
+  arg2 = (pagmoWrap::problem *)jarg2;
+  if (!arg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "pagmoWrap::problem const & type is null", 0);
+    return 0;
+  } 
+  arg3 = (pagmo::vector_double *)jarg3;
+  if (!arg3) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "pagmo::vector_double const & type is null", 0);
+    return 0;
+  } 
+  result = pagmo_bfe_Operator((pagmo::bfe const *)arg1,(pagmoWrap::problem const &)*arg2,(std::vector< double > const &)*arg3);
+  jresult = new pagmo::vector_double((const pagmo::vector_double &)result); 
+  return jresult;
+}
+
+
 SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_delete_bfe(void * jarg1) {
   pagmo::bfe *arg1 = (pagmo::bfe *) 0 ;
   
   arg1 = (pagmo::bfe *)jarg1; 
+  delete arg1;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_default_bfe() {
+  void * jresult ;
+  pagmo::default_bfe *result = 0 ;
+  
+  result = (pagmo::default_bfe *)new pagmo::default_bfe();
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_delete_default_bfe(void * jarg1) {
+  pagmo::default_bfe *arg1 = (pagmo::default_bfe *) 0 ;
+  
+  arg1 = (pagmo::default_bfe *)jarg1; 
   delete arg1;
 }
 
@@ -3246,6 +3498,10 @@ SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_delete_gaco(void * jarg1) {
   delete arg1;
 }
 
+
+SWIGEXPORT pagmo::bfe * SWIGSTDCALL CSharp_pagmo_default_bfe_SWIGUpcast(pagmo::default_bfe *jarg1) {
+    return (pagmo::bfe *)jarg1;
+}
 
 #ifdef __cplusplus
 }
