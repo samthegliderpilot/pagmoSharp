@@ -100,7 +100,8 @@ namespace pagmoWrap
 	};
 
 
-	class bfe : public pagmo::bfe{
+	class bfe
+	{
 	private:
 		bfeBase* _base;
 		void deleteBase() {

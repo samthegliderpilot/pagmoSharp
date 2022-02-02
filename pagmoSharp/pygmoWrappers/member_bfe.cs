@@ -10,20 +10,20 @@
 
 namespace pagmo {
 
-public class default_bfe : global::System.IDisposable {
+public class member_bfe : global::System.IDisposable {
   private global::System.Runtime.InteropServices.HandleRef swigCPtr;
   protected bool swigCMemOwn;
 
-  internal default_bfe(global::System.IntPtr cPtr, bool cMemoryOwn) {
+  internal member_bfe(global::System.IntPtr cPtr, bool cMemoryOwn) {
     swigCMemOwn = cMemoryOwn;
     swigCPtr = new global::System.Runtime.InteropServices.HandleRef(this, cPtr);
   }
 
-  internal static global::System.Runtime.InteropServices.HandleRef getCPtr(default_bfe obj) {
+  internal static global::System.Runtime.InteropServices.HandleRef getCPtr(member_bfe obj) {
     return (obj == null) ? new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero) : obj.swigCPtr;
   }
 
-  ~default_bfe() {
+  ~member_bfe() {
     Dispose(false);
   }
 
@@ -37,14 +37,14 @@ public class default_bfe : global::System.IDisposable {
       if (swigCPtr.Handle != global::System.IntPtr.Zero) {
         if (swigCMemOwn) {
           swigCMemOwn = false;
-          pagmoPINVOKE.delete_default_bfe(swigCPtr);
+          pagmoPINVOKE.delete_member_bfe(swigCPtr);
         }
         swigCPtr = new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero);
       }
     }
   }
 
-  public default_bfe() : this(pagmoPINVOKE.new_default_bfe(), true) {
+  public member_bfe() : this(pagmoPINVOKE.new_member_bfe(), true) {
   }
 
 }

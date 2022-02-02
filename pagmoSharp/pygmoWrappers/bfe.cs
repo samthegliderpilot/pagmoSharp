@@ -44,10 +44,10 @@ public class bfe : global::System.IDisposable {
     }
   }
 
-  public bfe() : this(pagmoPINVOKE.new_bfe__SWIG_2(), true) {
+  public bfe() : this(pagmoPINVOKE.new_bfe__SWIG_0(), true) {
   }
 
-  public bfe(bfe arg0) : this(pagmoPINVOKE.new_bfe__SWIG_4(bfe.getCPtr(arg0)), true) {
+  public bfe(bfe arg0) : this(pagmoPINVOKE.new_bfe__SWIG_1(bfe.getCPtr(arg0)), true) {
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
@@ -68,11 +68,6 @@ public class bfe : global::System.IDisposable {
 
   public bool is_valid() {
     bool ret = pagmoPINVOKE.bfe_is_valid(swigCPtr);
-    return ret;
-  }
-
-  public global::System.IntPtr get_ptr() {
-    global::System.IntPtr ret = pagmoPINVOKE.bfe_get_ptr(swigCPtr);
     return ret;
   }
 

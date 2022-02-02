@@ -385,6 +385,8 @@ namespace Swig {
  #include "pagmo/types.hpp"
  #include "pagmo/bfe.hpp"
  #include "pagmo/batch_evaluators/default_bfe.hpp"
+ #include "pagmo/batch_evaluators/thread_bfe.hpp"
+ #include "pagmo/batch_evaluators/member_bfe.hpp"
  #include "pagmo/population.hpp"
  #include "pagmo/algorithms/gaco.hpp"
  #include "pagmo/threading.hpp" 
@@ -2617,7 +2619,7 @@ SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_delete_PairOfDoubleVectors(void * jarg1
 }
 
 
-SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_bfe__SWIG_2() {
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_bfe__SWIG_0() {
   void * jresult ;
   pagmo::bfe *result = 0 ;
   
@@ -2627,7 +2629,7 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_bfe__SWIG_2() {
 }
 
 
-SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_bfe__SWIG_4(void * jarg1) {
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_bfe__SWIG_1(void * jarg1) {
   void * jresult ;
   pagmo::bfe *arg1 = 0 ;
   pagmo::bfe *result = 0 ;
@@ -2691,18 +2693,6 @@ SWIGEXPORT unsigned int SWIGSTDCALL CSharp_pagmo_bfe_is_valid(void * jarg1) {
 }
 
 
-SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_bfe_get_ptr(void * jarg1) {
-  void * jresult ;
-  pagmo::bfe *arg1 = (pagmo::bfe *) 0 ;
-  void *result = 0 ;
-  
-  arg1 = (pagmo::bfe *)jarg1; 
-  result = (void *)((pagmo::bfe const *)arg1)->get_ptr();
-  jresult = (void *)result; 
-  return jresult;
-}
-
-
 SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_bfe_Operator(void * jarg1, void * jarg2, void * jarg3) {
   void * jresult ;
   pagmo::bfe *arg1 = (pagmo::bfe *) 0 ;
@@ -2749,6 +2739,42 @@ SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_delete_default_bfe(void * jarg1) {
   pagmo::default_bfe *arg1 = (pagmo::default_bfe *) 0 ;
   
   arg1 = (pagmo::default_bfe *)jarg1; 
+  delete arg1;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_thread_bfe() {
+  void * jresult ;
+  pagmo::thread_bfe *result = 0 ;
+  
+  result = (pagmo::thread_bfe *)new pagmo::thread_bfe();
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_delete_thread_bfe(void * jarg1) {
+  pagmo::thread_bfe *arg1 = (pagmo::thread_bfe *) 0 ;
+  
+  arg1 = (pagmo::thread_bfe *)jarg1; 
+  delete arg1;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_member_bfe() {
+  void * jresult ;
+  pagmo::member_bfe *result = 0 ;
+  
+  result = (pagmo::member_bfe *)new pagmo::member_bfe();
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_delete_member_bfe(void * jarg1) {
+  pagmo::member_bfe *arg1 = (pagmo::member_bfe *) 0 ;
+  
+  arg1 = (pagmo::member_bfe *)jarg1; 
   delete arg1;
 }
 
@@ -3498,10 +3524,6 @@ SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_delete_gaco(void * jarg1) {
   delete arg1;
 }
 
-
-SWIGEXPORT pagmo::bfe * SWIGSTDCALL CSharp_pagmo_default_bfe_SWIGUpcast(pagmo::default_bfe *jarg1) {
-    return (pagmo::bfe *)jarg1;
-}
 
 #ifdef __cplusplus
 }

@@ -51,9 +51,7 @@ namespace pagmoWrap
 		{
 			return static_cast<vector_double::size_type>(0);
 		}
-
-		//vector_double batch_fitness(const vector_double&) const;
-		//bool has_batch_fitness() const;
+		
 		//bool has_gradient() const;
 		//vector_double gradient(const vector_double&) const;
 		//bool has_gradient_sparsity() const;
@@ -70,7 +68,7 @@ namespace pagmoWrap
 	};
 
 
-	class problem //: public pagmo::problem
+	class problem 
 	{
 	private:
 		problemBase* _base;

@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.31702.278
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32014.148
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "pagmoSharp", "pagmoSharp\pagmoSharp.csproj", "{DB41C8FC-D22C-4EC4-9587-44501C46F51C}"
 EndProject
@@ -10,6 +10,12 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{1A155C49-E42F-4439-8ADD-BE99C6722010}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tests.PagmoSharp", "Tests\Tests.PagmoSharp\Tests.PagmoSharp.csproj", "{70868648-EC7C-444D-993F-4345E8AE5D6A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{5AEB5DAB-1DED-43AF-B4B0-7356C8DB7073}"
+	ProjectSection(SolutionItems) = preProject
+		createSwigWrappersAndPlaceThem.bat = createSwigWrappersAndPlaceThem.bat
+		swigInterfaceFileAndPagmoHeaders\pagmoSharpSwigInterface.i = swigInterfaceFileAndPagmoHeaders\pagmoSharpSwigInterface.i
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
