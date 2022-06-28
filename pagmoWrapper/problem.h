@@ -6,6 +6,7 @@ namespace pagmoWrap
 {
 	//typedef void (__stdcall *Operation)(double* x, double* ans, int sizeOfX, int sizeOfAns);
 	typedef std::vector<double> vector_double;
+
 	class problemBase : public pagmo::problem
 	{
 	public:
@@ -51,7 +52,12 @@ namespace pagmoWrap
 		{
 			return static_cast<vector_double::size_type>(0);
 		}
-		
+
+		virtual pagmo::thread_safety get_thread_safety() const
+		{
+			return pagmo::thread_safety::none;
+		}
+
 		//bool has_gradient() const;
 		//vector_double gradient(const vector_double&) const;
 		//bool has_gradient_sparsity() const;
@@ -137,6 +143,11 @@ namespace pagmoWrap
 		std::vector<double>::size_type get_nix() const
 		{
 			return _base->get_nix();
+		}
+
+		pagmo::thread_safety get_thread_safety() const
+		{
+			return _base->get_thread_safety();
 		}
 	};
 };

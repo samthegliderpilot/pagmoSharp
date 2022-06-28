@@ -85,6 +85,11 @@ public partial class problemBase : global::System.IDisposable {
     return ret;
   }
 
+  public virtual thread_safety get_thread_safety() {
+    thread_safety ret = (thread_safety)(SwigDerivedClassHasMethod("get_thread_safety", swigMethodTypes8) ? pagmoPINVOKE.problemBase_get_thread_safetySwigExplicitproblemBase(swigCPtr) : pagmoPINVOKE.problemBase_get_thread_safety(swigCPtr));
+    return ret;
+  }
+
   public problemBase() : this(pagmoPINVOKE.new_problemBase(), true) {
     SwigDirectorConnect();
   }
@@ -106,7 +111,9 @@ public partial class problemBase : global::System.IDisposable {
       swigDelegate6 = new SwigDelegateproblemBase_6(SwigDirectorMethodget_nic);
     if (SwigDerivedClassHasMethod("get_nix", swigMethodTypes7))
       swigDelegate7 = new SwigDelegateproblemBase_7(SwigDirectorMethodget_nix);
-    pagmoPINVOKE.problemBase_director_connect(swigCPtr, swigDelegate0, swigDelegate1, swigDelegate2, swigDelegate3, swigDelegate4, swigDelegate5, swigDelegate6, swigDelegate7);
+    if (SwigDerivedClassHasMethod("get_thread_safety", swigMethodTypes8))
+      swigDelegate8 = new SwigDelegateproblemBase_8(SwigDirectorMethodget_thread_safety);
+    pagmoPINVOKE.problemBase_director_connect(swigCPtr, swigDelegate0, swigDelegate1, swigDelegate2, swigDelegate3, swigDelegate4, swigDelegate5, swigDelegate6, swigDelegate7, swigDelegate8);
   }
 
   private bool SwigDerivedClassHasMethod(string methodName, global::System.Type[] methodTypes) {
@@ -147,6 +154,10 @@ public partial class problemBase : global::System.IDisposable {
     return get_nix();
   }
 
+  private int SwigDirectorMethodget_thread_safety() {
+    return (int)get_thread_safety();
+  }
+
   public delegate global::System.IntPtr SwigDelegateproblemBase_0(global::System.IntPtr arg0);
   public delegate global::System.IntPtr SwigDelegateproblemBase_1();
   public delegate bool SwigDelegateproblemBase_2();
@@ -155,6 +166,7 @@ public partial class problemBase : global::System.IDisposable {
   public delegate uint SwigDelegateproblemBase_5();
   public delegate uint SwigDelegateproblemBase_6();
   public delegate uint SwigDelegateproblemBase_7();
+  public delegate int SwigDelegateproblemBase_8();
 
   private SwigDelegateproblemBase_0 swigDelegate0;
   private SwigDelegateproblemBase_1 swigDelegate1;
@@ -164,6 +176,7 @@ public partial class problemBase : global::System.IDisposable {
   private SwigDelegateproblemBase_5 swigDelegate5;
   private SwigDelegateproblemBase_6 swigDelegate6;
   private SwigDelegateproblemBase_7 swigDelegate7;
+  private SwigDelegateproblemBase_8 swigDelegate8;
 
   private static global::System.Type[] swigMethodTypes0 = new global::System.Type[] { typeof(DoubleVector) };
   private static global::System.Type[] swigMethodTypes1 = new global::System.Type[] {  };
@@ -173,6 +186,7 @@ public partial class problemBase : global::System.IDisposable {
   private static global::System.Type[] swigMethodTypes5 = new global::System.Type[] {  };
   private static global::System.Type[] swigMethodTypes6 = new global::System.Type[] {  };
   private static global::System.Type[] swigMethodTypes7 = new global::System.Type[] {  };
+  private static global::System.Type[] swigMethodTypes8 = new global::System.Type[] {  };
 }
 
 }

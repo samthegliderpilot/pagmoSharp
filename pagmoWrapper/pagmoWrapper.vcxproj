@@ -183,7 +183,6 @@ createSwigWrappersAndPlaceThem.bat</Command>
     <ClCompile Include="GeneratedWrappers.cxx" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="bfe.h" />
     <ClInclude Include="pagmoSharpSwigInterface_wrap.h" />
     <ClInclude Include="problem.h" />
   </ItemGroup>

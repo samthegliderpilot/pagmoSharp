@@ -44,7 +44,22 @@ public class default_bfe : global::System.IDisposable {
     }
   }
 
-  public default_bfe() : this(pagmoPINVOKE.new_default_bfe(), true) {
+  public default_bfe() : this(pagmoPINVOKE.new_default_bfe__SWIG_0(), true) {
+  }
+
+  public default_bfe(default_bfe arg0) : this(pagmoPINVOKE.new_default_bfe__SWIG_1(default_bfe.getCPtr(arg0)), true) {
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
+  }
+
+  public string get_name() {
+    string ret = pagmoPINVOKE.default_bfe_get_name(swigCPtr);
+    return ret;
+  }
+
+  public DoubleVector Operator(problem theProblem, DoubleVector values) {
+    DoubleVector ret = new DoubleVector(pagmoPINVOKE.default_bfe_Operator(swigCPtr, problem.getCPtr(theProblem), DoubleVector.getCPtr(values)), true);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
   }
 
 }

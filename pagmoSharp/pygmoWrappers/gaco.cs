@@ -108,8 +108,8 @@ public class gaco : global::System.IDisposable {
     return ret;
   }
 
-  public void set_bfe(bfe b) {
-    pagmoPINVOKE.gaco_set_bfe(swigCPtr, bfe.getCPtr(b));
+  public void set_bfe(SWIGTYPE_p_pagmo__bfe b) {
+    pagmoPINVOKE.gaco_set_bfe(swigCPtr, SWIGTYPE_p_pagmo__bfe.getCPtr(b));
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 

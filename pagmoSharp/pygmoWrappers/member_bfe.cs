@@ -44,7 +44,22 @@ public class member_bfe : global::System.IDisposable {
     }
   }
 
-  public member_bfe() : this(pagmoPINVOKE.new_member_bfe(), true) {
+  public member_bfe() : this(pagmoPINVOKE.new_member_bfe__SWIG_0(), true) {
+  }
+
+  public member_bfe(member_bfe arg0) : this(pagmoPINVOKE.new_member_bfe__SWIG_1(member_bfe.getCPtr(arg0)), true) {
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
+  }
+
+  public string get_name() {
+    string ret = pagmoPINVOKE.member_bfe_get_name(swigCPtr);
+    return ret;
+  }
+
+  public DoubleVector Operator(problem theProblem, DoubleVector values) {
+    DoubleVector ret = new DoubleVector(pagmoPINVOKE.member_bfe_Operator(swigCPtr, problem.getCPtr(theProblem), DoubleVector.getCPtr(values)), true);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
   }
 
 }

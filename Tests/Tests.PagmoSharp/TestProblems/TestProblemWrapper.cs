@@ -1,10 +1,11 @@
 ﻿using pagmo;
+using System.Collections.Concurrent;
 
 namespace Tests.PagmoSharp.TestProblems
 {
     public abstract class TestProblemWrapper : problem
     {
-        private readonly problemBase _problem;
+        protected readonly problemBase _problem;
 
         protected TestProblemWrapper(problemBase baseProblem)
         {

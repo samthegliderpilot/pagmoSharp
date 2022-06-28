@@ -11,7 +11,7 @@
  #include "pagmo/algorithms/gaco.hpp"
  #include "pagmo/threading.hpp" 
  #include "pagmo/problem.hpp"
- #include "bfe.h" // this is a manually created item. 
+ #include "pagmo/bfe.hpp" // this is a manually created item. 
  #include "problem.h" // this is a manually created item.  We want to include it in the wrappers so the generated cxx code can use the handwritten code for the problem
 %}
 
@@ -28,6 +28,7 @@
 %include "std_vector.i"
 %include "std_pair.i"
 %include "pagmoWrapper/problem.h"
+%include "pagmoWrapper/bfe.h"
 
 //#include <tuple> // tuple is not supported by swig yet...
 %apply void *VOID_INT_PTR { void * }
@@ -47,78 +48,47 @@ namespace pagmo {
 	
 enum class thread_safety { none, basic, constant };
 
-%extend bfe {
- vector_double Operator(const pagmoWrap::problem& theProblem, const vector_double& values) const
- {
-	return self->operator()(static_cast<pagmo::problem>(theProblem), values);
- }
+
+%extend default_bfe {
+vector_double Operator(const pagmoWrap::problem & theProblem, const vector_double & values) const
+{
+   return self->operator()(static_cast<pagmo::problem>(theProblem), values);
+}
 }
 
-class bfe {
-	public:
-    //template <typename T>
-    //using generic_ctor_enabler = enable_if_t<
-    //    detail::disjunction<
-    //        detail::conjunction<detail::negation<std::is_same<bfe, uncvref_t<T>>>, is_udbfe<uncvref_t<T>>>,
-    //          std::is_same<vector_double(const problem &, const vector_double &), uncvref_t<T>>>::value, int>;
-    //template <typename T>
-    //extern bfe(T &&x, std::true_type);
-    //template <typename T>
-    //extern bfe(T &&x, std::false_type);
-    //extern void generic_ctor_impl();
+%extend member_bfe {
+vector_double Operator(const pagmoWrap::problem & theProblem, const vector_double & values) const
+{
+   return self->operator()(static_cast<pagmo::problem>(theProblem), values);
+}
+}
 
-    // Default ctor.
-    extern bfe();
-	
-    // Constructor from a UDBFE.
-    //template <typename T, generic_ctor_enabler<T> = 0>
-    //extern bfe(T &&x) : bfe(std::forward<T>(x), std::is_function<uncvref_t<T>>{});
-    
-    extern bfe(const bfe &);
+%extend thread_bfe {
+vector_double Operator(const pagmoWrap::problem & theProblem, const vector_double & values) const
+{
+   return self->operator()(static_cast<pagmo::problem>(theProblem), values);
+}
+}
 
-    //Extraction and related.
-    template <typename T>
-    extern const T *extract() const noexcept;
-	
-    template <typename T>
-    extern T *extract() noexcept;
-	
-    template <typename T>
-    extern bool is() const noexcept;
-
-	// handeled above
-    //extern vector_double operator()(const problem &, const vector_double &) const;
-    
+class default_bfe : public bfe {
+public:  
+    extern default_bfe();
+    extern default_bfe(const default_bfe&);
     extern std::string get_name() const;
-	
-    extern std::string get_extra_info() const;
-
-    extern thread_safety get_thread_safety() const;
-
-    extern bool is_valid() const;
-
-	// don't think I'll need this
-
-    // pygmo does not expose the following members, and I strongly suspect 
-    // that they are more needed as part of how bfe's work as opposed to 
-    // something that users would need to extend
-
-    //extern std::type_index get_type_index() const;
-    //extern const void* get_ptr() const;
-    //template <typename Archive>
-    //extern void save(Archive &ar, unsigned) const;	
-    //template <typename Archive>
-    //extern void load(Archive &ar, unsigned);
 };
 
-class default_bfe : bfe {
-
+class thread_bfe : public bfe {
+public:
+    extern thread_bfe();
+    extern thread_bfe(const thread_bfe&);
+    extern std::string get_name() const;
 };
 
-class thread_bfe : bfe {
-};
-
-class member_bfe : bfe {
+class member_bfe : public bfe {
+public:
+    extern member_bfe();
+    extern member_bfe(const member_bfe&);
+    extern std::string get_name() const;
 };
 
 class population {
@@ -178,12 +148,5 @@ public:
 	template <typename Archive>
 	extern void serialize(Archive &, unsigned);
 };
-
-// %extend gaco {
-    // void set_bfe(const pagmoWrap::bfeWrap bfe)
-	// {
-        // return self->set_bfe(static_cast<pagmo::bfe>(bfe));
-    // }
-// }
 };
 

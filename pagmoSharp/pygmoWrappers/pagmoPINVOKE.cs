@@ -244,11 +244,17 @@ class pagmoPINVOKE {
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper.dll", EntryPoint="CSharp_pagmo_problemBase_get_nixSwigExplicitproblemBase")]
   public static extern uint problemBase_get_nixSwigExplicitproblemBase(global::System.Runtime.InteropServices.HandleRef jarg1);
 
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper.dll", EntryPoint="CSharp_pagmo_problemBase_get_thread_safety")]
+  public static extern int problemBase_get_thread_safety(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper.dll", EntryPoint="CSharp_pagmo_problemBase_get_thread_safetySwigExplicitproblemBase")]
+  public static extern int problemBase_get_thread_safetySwigExplicitproblemBase(global::System.Runtime.InteropServices.HandleRef jarg1);
+
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper.dll", EntryPoint="CSharp_pagmo_new_problemBase")]
   public static extern global::System.IntPtr new_problemBase();
 
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper.dll", EntryPoint="CSharp_pagmo_problemBase_director_connect")]
-  public static extern void problemBase_director_connect(global::System.Runtime.InteropServices.HandleRef jarg1, problemBase.SwigDelegateproblemBase_0 delegate0, problemBase.SwigDelegateproblemBase_1 delegate1, problemBase.SwigDelegateproblemBase_2 delegate2, problemBase.SwigDelegateproblemBase_3 delegate3, problemBase.SwigDelegateproblemBase_4 delegate4, problemBase.SwigDelegateproblemBase_5 delegate5, problemBase.SwigDelegateproblemBase_6 delegate6, problemBase.SwigDelegateproblemBase_7 delegate7);
+  public static extern void problemBase_director_connect(global::System.Runtime.InteropServices.HandleRef jarg1, problemBase.SwigDelegateproblemBase_0 delegate0, problemBase.SwigDelegateproblemBase_1 delegate1, problemBase.SwigDelegateproblemBase_2 delegate2, problemBase.SwigDelegateproblemBase_3 delegate3, problemBase.SwigDelegateproblemBase_4 delegate4, problemBase.SwigDelegateproblemBase_5 delegate5, problemBase.SwigDelegateproblemBase_6 delegate6, problemBase.SwigDelegateproblemBase_7 delegate7, problemBase.SwigDelegateproblemBase_8 delegate8);
 
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper.dll", EntryPoint="CSharp_pagmo_new_problem__SWIG_0")]
   public static extern global::System.IntPtr new_problem__SWIG_0();
@@ -291,6 +297,9 @@ class pagmoPINVOKE {
 
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper.dll", EntryPoint="CSharp_pagmo_problem_get_nix")]
   public static extern uint problem_get_nix(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper.dll", EntryPoint="CSharp_pagmo_problem_get_thread_safety")]
+  public static extern int problem_get_thread_safety(global::System.Runtime.InteropServices.HandleRef jarg1);
 
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper.dll", EntryPoint="CSharp_pagmo_DoubleVector_Clear")]
   public static extern void DoubleVector_Clear(global::System.Runtime.InteropServices.HandleRef jarg1);
@@ -538,44 +547,47 @@ class pagmoPINVOKE {
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper.dll", EntryPoint="CSharp_pagmo_delete_PairOfDoubleVectors")]
   public static extern void delete_PairOfDoubleVectors(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper.dll", EntryPoint="CSharp_pagmo_new_bfe__SWIG_0")]
-  public static extern global::System.IntPtr new_bfe__SWIG_0();
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper.dll", EntryPoint="CSharp_pagmo_new_default_bfe__SWIG_0")]
+  public static extern global::System.IntPtr new_default_bfe__SWIG_0();
 
-  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper.dll", EntryPoint="CSharp_pagmo_new_bfe__SWIG_1")]
-  public static extern global::System.IntPtr new_bfe__SWIG_1(global::System.Runtime.InteropServices.HandleRef jarg1);
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper.dll", EntryPoint="CSharp_pagmo_new_default_bfe__SWIG_1")]
+  public static extern global::System.IntPtr new_default_bfe__SWIG_1(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper.dll", EntryPoint="CSharp_pagmo_bfe_get_name")]
-  public static extern string bfe_get_name(global::System.Runtime.InteropServices.HandleRef jarg1);
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper.dll", EntryPoint="CSharp_pagmo_default_bfe_get_name")]
+  public static extern string default_bfe_get_name(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper.dll", EntryPoint="CSharp_pagmo_bfe_get_extra_info")]
-  public static extern string bfe_get_extra_info(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper.dll", EntryPoint="CSharp_pagmo_bfe_get_thread_safety")]
-  public static extern int bfe_get_thread_safety(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper.dll", EntryPoint="CSharp_pagmo_bfe_is_valid")]
-  public static extern bool bfe_is_valid(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper.dll", EntryPoint="CSharp_pagmo_bfe_Operator")]
-  public static extern global::System.IntPtr bfe_Operator(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
-
-  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper.dll", EntryPoint="CSharp_pagmo_delete_bfe")]
-  public static extern void delete_bfe(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper.dll", EntryPoint="CSharp_pagmo_new_default_bfe")]
-  public static extern global::System.IntPtr new_default_bfe();
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper.dll", EntryPoint="CSharp_pagmo_default_bfe_Operator")]
+  public static extern global::System.IntPtr default_bfe_Operator(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
 
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper.dll", EntryPoint="CSharp_pagmo_delete_default_bfe")]
   public static extern void delete_default_bfe(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper.dll", EntryPoint="CSharp_pagmo_new_thread_bfe")]
-  public static extern global::System.IntPtr new_thread_bfe();
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper.dll", EntryPoint="CSharp_pagmo_new_thread_bfe__SWIG_0")]
+  public static extern global::System.IntPtr new_thread_bfe__SWIG_0();
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper.dll", EntryPoint="CSharp_pagmo_new_thread_bfe__SWIG_1")]
+  public static extern global::System.IntPtr new_thread_bfe__SWIG_1(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper.dll", EntryPoint="CSharp_pagmo_thread_bfe_get_name")]
+  public static extern string thread_bfe_get_name(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper.dll", EntryPoint="CSharp_pagmo_thread_bfe_Operator")]
+  public static extern global::System.IntPtr thread_bfe_Operator(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
 
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper.dll", EntryPoint="CSharp_pagmo_delete_thread_bfe")]
   public static extern void delete_thread_bfe(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper.dll", EntryPoint="CSharp_pagmo_new_member_bfe")]
-  public static extern global::System.IntPtr new_member_bfe();
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper.dll", EntryPoint="CSharp_pagmo_new_member_bfe__SWIG_0")]
+  public static extern global::System.IntPtr new_member_bfe__SWIG_0();
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper.dll", EntryPoint="CSharp_pagmo_new_member_bfe__SWIG_1")]
+  public static extern global::System.IntPtr new_member_bfe__SWIG_1(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper.dll", EntryPoint="CSharp_pagmo_member_bfe_get_name")]
+  public static extern string member_bfe_get_name(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper.dll", EntryPoint="CSharp_pagmo_member_bfe_Operator")]
+  public static extern global::System.IntPtr member_bfe_Operator(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
 
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper.dll", EntryPoint="CSharp_pagmo_delete_member_bfe")]
   public static extern void delete_member_bfe(global::System.Runtime.InteropServices.HandleRef jarg1);

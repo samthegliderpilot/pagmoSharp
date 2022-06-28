@@ -24,6 +24,7 @@ public:
     virtual std::vector< double >::size_type get_nec() const;
     virtual std::vector< double >::size_type get_nic() const;
     virtual std::vector< double >::size_type get_nix() const;
+    virtual pagmo::thread_safety get_thread_safety() const;
 
     typedef void * (SWIGSTDCALL* SWIG_Callback0_t)(void *);
     typedef void * (SWIGSTDCALL* SWIG_Callback1_t)();
@@ -33,7 +34,8 @@ public:
     typedef unsigned long (SWIGSTDCALL* SWIG_Callback5_t)();
     typedef unsigned long (SWIGSTDCALL* SWIG_Callback6_t)();
     typedef unsigned long (SWIGSTDCALL* SWIG_Callback7_t)();
-    void swig_connect_director(SWIG_Callback0_t callbackfitness, SWIG_Callback1_t callbackget_bounds, SWIG_Callback2_t callbackhas_batch_fitness, SWIG_Callback3_t callbackget_name, SWIG_Callback4_t callbackget_nobj, SWIG_Callback5_t callbackget_nec, SWIG_Callback6_t callbackget_nic, SWIG_Callback7_t callbackget_nix);
+    typedef int (SWIGSTDCALL* SWIG_Callback8_t)();
+    void swig_connect_director(SWIG_Callback0_t callbackfitness, SWIG_Callback1_t callbackget_bounds, SWIG_Callback2_t callbackhas_batch_fitness, SWIG_Callback3_t callbackget_name, SWIG_Callback4_t callbackget_nobj, SWIG_Callback5_t callbackget_nec, SWIG_Callback6_t callbackget_nic, SWIG_Callback7_t callbackget_nix, SWIG_Callback8_t callbackget_thread_safety);
 
 private:
     SWIG_Callback0_t swig_callbackfitness;
@@ -44,6 +46,7 @@ private:
     SWIG_Callback5_t swig_callbackget_nec;
     SWIG_Callback6_t swig_callbackget_nic;
     SWIG_Callback7_t swig_callbackget_nix;
+    SWIG_Callback8_t swig_callbackget_thread_safety;
     void swig_init_callbacks();
 };
 

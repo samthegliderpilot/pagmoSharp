@@ -26,8 +26,5 @@
     <ClInclude Include="pagmoSharpSwigInterface_wrap.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="bfe.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
   </ItemGroup>
 </Project>
