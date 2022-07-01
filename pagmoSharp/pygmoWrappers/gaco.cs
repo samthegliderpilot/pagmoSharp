@@ -10,7 +10,7 @@
 
 namespace pagmo {
 
-public class gaco : global::System.IDisposable {
+public partial class gaco : global::System.IDisposable {
   private global::System.Runtime.InteropServices.HandleRef swigCPtr;
   protected bool swigCMemOwn;
 
@@ -101,6 +101,10 @@ public class gaco : global::System.IDisposable {
   public uint get_verbosity() {
     uint ret = pagmoPINVOKE.gaco_get_verbosity(swigCPtr);
     return ret;
+  }
+
+  public void set_verbosity(uint arg0) {
+    pagmoPINVOKE.gaco_set_verbosity(swigCPtr, arg0);
   }
 
   public uint get_gen() {

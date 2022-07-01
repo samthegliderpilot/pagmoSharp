@@ -19,11 +19,6 @@
     <ProjectReference Include="..\..\pagmoSharp\pagmoSharp.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="SampleBfe\" />
-    <Folder Include="SamplePrograms\" />
-  </ItemGroup>
-
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
     <Exec Command="xcopy /Y &quot;$(SolutionDir)\pagmoWrapper\bin\&quot; &quot;$(TargetDir)&quot;" />
   </Target>

@@ -712,6 +712,9 @@ class pagmoPINVOKE {
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper.dll", EntryPoint="CSharp_pagmo_gaco_get_verbosity")]
   public static extern uint gaco_get_verbosity(global::System.Runtime.InteropServices.HandleRef jarg1);
 
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper.dll", EntryPoint="CSharp_pagmo_gaco_set_verbosity")]
+  public static extern void gaco_set_verbosity(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2);
+
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper.dll", EntryPoint="CSharp_pagmo_gaco_get_gen")]
   public static extern uint gaco_get_gen(global::System.Runtime.InteropServices.HandleRef jarg1);
 

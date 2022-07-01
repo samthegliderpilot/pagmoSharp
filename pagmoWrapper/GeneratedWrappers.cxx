@@ -387,11 +387,12 @@ namespace Swig {
  #include "pagmo/batch_evaluators/default_bfe.hpp"
  #include "pagmo/batch_evaluators/thread_bfe.hpp"
  #include "pagmo/batch_evaluators/member_bfe.hpp"
- #include "pagmo/population.hpp"
+ #include "pagmo/algorithm.hpp"
  #include "pagmo/algorithms/gaco.hpp"
+ #include "pagmo/population.hpp"
  #include "pagmo/threading.hpp" 
  #include "pagmo/problem.hpp"
- #include "pagmo/bfe.hpp" // this is a manually created item. 
+ #include "pagmo/bfe.hpp" 
  #include "problem.h" // this is a manually created item.  We want to include it in the wrappers so the generated cxx code can use the handwritten code for the problem
 
 
@@ -773,14 +774,14 @@ SWIGINTERN void std_vector_Sl_std_vector_Sl_double_Sg__Sg__SetRange(std::vector<
         std::copy(values.begin(), values.end(), self->begin()+index);
       }
 SWIGINTERN pagmo::vector_double pagmo_default_bfe_Operator(pagmo::default_bfe const *self,pagmoWrap::problem const &theProblem,pagmo::vector_double const &values){
-   return self->operator()(static_cast<pagmo::problem>(theProblem), values);
-}
+	   return self->operator()(static_cast<pagmo::problem>(theProblem), values);
+	}
 SWIGINTERN pagmo::vector_double pagmo_thread_bfe_Operator(pagmo::thread_bfe const *self,pagmoWrap::problem const &theProblem,pagmo::vector_double const &values){
-   return self->operator()(static_cast<pagmo::problem>(theProblem), values);
-}
+	   return self->operator()(static_cast<pagmo::problem>(theProblem), values);
+	}
 SWIGINTERN pagmo::vector_double pagmo_member_bfe_Operator(pagmo::member_bfe const *self,pagmoWrap::problem const &theProblem,pagmo::vector_double const &values){
-   return self->operator()(static_cast<pagmo::problem>(theProblem), values);
-}
+	   return self->operator()(static_cast<pagmo::problem>(theProblem), values);
+	}
 
 
 /* ---------------------------------------------------
@@ -3559,6 +3560,16 @@ SWIGEXPORT unsigned int SWIGSTDCALL CSharp_pagmo_gaco_get_verbosity(void * jarg1
   result = (unsigned int)((pagmo::gaco const *)arg1)->get_verbosity();
   jresult = result; 
   return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_gaco_set_verbosity(void * jarg1, unsigned int jarg2) {
+  pagmo::gaco *arg1 = (pagmo::gaco *) 0 ;
+  unsigned int arg2 ;
+  
+  arg1 = (pagmo::gaco *)jarg1; 
+  arg2 = (unsigned int)jarg2; 
+  (arg1)->set_verbosity(arg2);
 }
 
 

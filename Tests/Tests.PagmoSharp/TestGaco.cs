@@ -6,15 +6,14 @@ namespace Tests.PagmoSharp
 {
     public class TestGaco : TestAlgorithmBase
     {
-        public override IDisposable CreateAlgorithm(TestProblemWrapper testProblem)
+        public override IAlgorithm CreateAlgorithm(TestProblemWrapper testProblem)
         {
             return new pagmo.gaco(10);
         }
 
-        public override population EvolveAlgorithm(IDisposable algorithm, population population)
+        public override string Name
         {
-            return ((gaco)algorithm).evolve(population);
-            
+            get { return "GACO: Ant Colony Optimization"; }
         }
     }
 }
