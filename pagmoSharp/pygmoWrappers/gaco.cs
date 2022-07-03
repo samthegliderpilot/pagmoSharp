@@ -10,12 +10,10 @@
 
 namespace pagmo {
 
-public partial class gaco : global::System.IDisposable {
+public partial class gaco : algorithm {
   private global::System.Runtime.InteropServices.HandleRef swigCPtr;
-  protected bool swigCMemOwn;
 
-  internal gaco(global::System.IntPtr cPtr, bool cMemoryOwn) {
-    swigCMemOwn = cMemoryOwn;
+  internal gaco(global::System.IntPtr cPtr, bool cMemoryOwn) : base(pagmoPINVOKE.gaco_SWIGUpcast(cPtr), cMemoryOwn) {
     swigCPtr = new global::System.Runtime.InteropServices.HandleRef(this, cPtr);
   }
 
@@ -23,16 +21,7 @@ public partial class gaco : global::System.IDisposable {
     return (obj == null) ? new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero) : obj.swigCPtr;
   }
 
-  ~gaco() {
-    Dispose(false);
-  }
-
-  public void Dispose() {
-    Dispose(true);
-    global::System.GC.SuppressFinalize(this);
-  }
-
-  protected virtual void Dispose(bool disposing) {
+  protected override void Dispose(bool disposing) {
     lock(this) {
       if (swigCPtr.Handle != global::System.IntPtr.Zero) {
         if (swigCMemOwn) {
@@ -41,6 +30,7 @@ public partial class gaco : global::System.IDisposable {
         }
         swigCPtr = new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero);
       }
+      base.Dispose(disposing);
     }
   }
 
@@ -83,9 +73,19 @@ public partial class gaco : global::System.IDisposable {
   public gaco() : this(pagmoPINVOKE.new_gaco__SWIG_12(), true) {
   }
 
-  public population evolve(population arg0) {
+  public uint get_gen() {
+    uint ret = pagmoPINVOKE.gaco_get_gen(swigCPtr);
+    return ret;
+  }
+
+  public virtual population evolve(population arg0) {
     population ret = new population(pagmoPINVOKE.gaco_evolve(swigCPtr, population.getCPtr(arg0)), true);
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  public virtual string get_name() {
+    string ret = pagmoPINVOKE.gaco_get_name(swigCPtr);
     return ret;
   }
 
@@ -107,19 +107,9 @@ public partial class gaco : global::System.IDisposable {
     pagmoPINVOKE.gaco_set_verbosity(swigCPtr, arg0);
   }
 
-  public uint get_gen() {
-    uint ret = pagmoPINVOKE.gaco_get_gen(swigCPtr);
-    return ret;
-  }
-
-  public void set_bfe(SWIGTYPE_p_pagmo__bfe b) {
-    pagmoPINVOKE.gaco_set_bfe(swigCPtr, SWIGTYPE_p_pagmo__bfe.getCPtr(b));
+  public void set_bfe(bfe b) {
+    pagmoPINVOKE.gaco_set_bfe(swigCPtr, bfe.getCPtr(b));
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
-  }
-
-  public string get_name() {
-    string ret = pagmoPINVOKE.gaco_get_name(swigCPtr);
-    return ret;
   }
 
   public string get_extra_info() {

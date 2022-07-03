@@ -10,34 +10,38 @@
 
 namespace pagmo {
 
-public class member_bfe : bfe {
+public class algorithm : global::System.IDisposable {
   private global::System.Runtime.InteropServices.HandleRef swigCPtr;
+  protected bool swigCMemOwn;
 
-  internal member_bfe(global::System.IntPtr cPtr, bool cMemoryOwn) : base(pagmoPINVOKE.member_bfe_SWIGUpcast(cPtr), cMemoryOwn) {
+  internal algorithm(global::System.IntPtr cPtr, bool cMemoryOwn) {
+    swigCMemOwn = cMemoryOwn;
     swigCPtr = new global::System.Runtime.InteropServices.HandleRef(this, cPtr);
   }
 
-  internal static global::System.Runtime.InteropServices.HandleRef getCPtr(member_bfe obj) {
+  internal static global::System.Runtime.InteropServices.HandleRef getCPtr(algorithm obj) {
     return (obj == null) ? new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero) : obj.swigCPtr;
   }
 
-  protected override void Dispose(bool disposing) {
+  ~algorithm() {
+    Dispose(false);
+  }
+
+  public void Dispose() {
+    Dispose(true);
+    global::System.GC.SuppressFinalize(this);
+  }
+
+  protected virtual void Dispose(bool disposing) {
     lock(this) {
       if (swigCPtr.Handle != global::System.IntPtr.Zero) {
         if (swigCMemOwn) {
           swigCMemOwn = false;
-          pagmoPINVOKE.delete_member_bfe(swigCPtr);
+          pagmoPINVOKE.delete_algorithm(swigCPtr);
         }
         swigCPtr = new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero);
       }
-      base.Dispose(disposing);
     }
-  }
-
-  public DoubleVector Operator(problem theProblem, DoubleVector values) {
-    DoubleVector ret = new DoubleVector(pagmoPINVOKE.member_bfe_Operator(swigCPtr, problem.getCPtr(theProblem), DoubleVector.getCPtr(values)), true);
-    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
-    return ret;
   }
 
 }

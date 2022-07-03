@@ -6,7 +6,7 @@ using Tests.PagmoSharp.TestProblems;
 namespace Tests.PagmoSharp
 {
     [TestFixture]
-    public class TestGaco : TestAlgorithmBase
+    public class TestDe : TestAlgorithmBase
     {
         public override IAlgorithm CreateAlgorithm(TestProblemWrapper testProblem)
         {
@@ -36,7 +36,7 @@ namespace Tests.PagmoSharp
         public override bool MultiObjective => false;
 
         /// <inheritdoc />
-        public override bool IntegerPrograming => true;
+        public override bool IntegerPrograming => false;
 
         /// <inheritdoc />
         public override bool Stochastic => false;

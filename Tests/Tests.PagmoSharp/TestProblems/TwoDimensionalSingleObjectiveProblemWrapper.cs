@@ -4,7 +4,7 @@ using pagmo;
 
 namespace Tests.PagmoSharp.TestProblems
 {
-    public class TwoDimensionalSingleCostProblemWrapper : TestProblemWrapper
+    public class TwoDimensionalSingleObjectiveProblemWrapper : TestProblemWrapper
     {
         private class TwoDimensionalSimpleProblemFunction : pagmo.problemBase
         {
@@ -18,7 +18,7 @@ namespace Tests.PagmoSharp.TestProblems
 
             public override DoubleVector fitness(DoubleVector arg0)
             {
-                TwoDimensionalSingleCostProblemWrapper.ThreadIds.Add(System.Threading.Thread.CurrentThread.ManagedThreadId);
+                TwoDimensionalSingleObjectiveProblemWrapper.ThreadIds.Add(System.Threading.Thread.CurrentThread.ManagedThreadId);
                 double x = arg0[0];
                 double y = arg0[1];
                 return new DoubleVector(new[] { x*x + (y-3)*(y-3) });
@@ -42,7 +42,7 @@ namespace Tests.PagmoSharp.TestProblems
 
         public static ConcurrentBag<int> ThreadIds = new ConcurrentBag<int>();
 
-        public TwoDimensionalSingleCostProblemWrapper() : base(new TwoDimensionalSimpleProblemFunction())
+        public TwoDimensionalSingleObjectiveProblemWrapper() : base(new TwoDimensionalSimpleProblemFunction())
         {
             _innerFunction = (TwoDimensionalSimpleProblemFunction)_problem;
         }

@@ -10,14 +10,14 @@
 
 namespace pagmo {
 
-public class thread_bfe : bfe {
+public partial class thread_island : island {
   private global::System.Runtime.InteropServices.HandleRef swigCPtr;
 
-  internal thread_bfe(global::System.IntPtr cPtr, bool cMemoryOwn) : base(pagmoPINVOKE.thread_bfe_SWIGUpcast(cPtr), cMemoryOwn) {
+  internal thread_island(global::System.IntPtr cPtr, bool cMemoryOwn) : base(pagmoPINVOKE.thread_island_SWIGUpcast(cPtr), cMemoryOwn) {
     swigCPtr = new global::System.Runtime.InteropServices.HandleRef(this, cPtr);
   }
 
-  internal static global::System.Runtime.InteropServices.HandleRef getCPtr(thread_bfe obj) {
+  internal static global::System.Runtime.InteropServices.HandleRef getCPtr(thread_island obj) {
     return (obj == null) ? new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero) : obj.swigCPtr;
   }
 
@@ -26,7 +26,7 @@ public class thread_bfe : bfe {
       if (swigCPtr.Handle != global::System.IntPtr.Zero) {
         if (swigCMemOwn) {
           swigCMemOwn = false;
-          pagmoPINVOKE.delete_thread_bfe(swigCPtr);
+          pagmoPINVOKE.delete_thread_island(swigCPtr);
         }
         swigCPtr = new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero);
       }
@@ -34,22 +34,22 @@ public class thread_bfe : bfe {
     }
   }
 
-  public thread_bfe() : this(pagmoPINVOKE.new_thread_bfe__SWIG_0(), true) {
+  public thread_island() : this(pagmoPINVOKE.new_thread_island(), true) {
   }
 
-  public thread_bfe(thread_bfe arg0) : this(pagmoPINVOKE.new_thread_bfe__SWIG_1(thread_bfe.getCPtr(arg0)), true) {
-    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
-  }
-
-  public virtual string get_name() {
-    string ret = pagmoPINVOKE.thread_bfe_get_name(swigCPtr);
+  public string get_name() {
+    string ret = pagmoPINVOKE.thread_island_get_name(swigCPtr);
     return ret;
   }
 
-  public DoubleVector Operator(problem theProblem, DoubleVector values) {
-    DoubleVector ret = new DoubleVector(pagmoPINVOKE.thread_bfe_Operator(swigCPtr, problem.getCPtr(theProblem), DoubleVector.getCPtr(values)), true);
-    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
+  public string get_extra_info() {
+    string ret = pagmoPINVOKE.thread_island_get_extra_info(swigCPtr);
     return ret;
+  }
+
+  public void run_evolve(island isl) {
+    pagmoPINVOKE.thread_island_run_evolve(swigCPtr, island.getCPtr(isl));
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
 }
