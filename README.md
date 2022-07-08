@@ -9,3 +9,5 @@ Not every function in every type in pagmo's hpp file's are going to get ported o
 This is still a work in progress with only a handful of types wrapped.  There are still some oddities that I am not sure are things I need to live with or if there are better ways to deal with.  I want to take my time before going nuts puting everything in the .i file.
 
 As for requirements, pagmo 2.18, C++ 17, swig 4.0.2, .Net Core 3.0 (however nothing I'm doing should really require it and I want to look into downgrading it at some point), nUnit for unit testing.
+
+Note that I am developing this on Windows 10, and used vcpkg to setup pagmo.  Although I hope to make the wraper library cross-platform (hence choosing pinvoke instead of something like C++ CLI) this project isn't there yet.
