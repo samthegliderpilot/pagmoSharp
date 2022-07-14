@@ -1,4 +1,4 @@
-[Pagmo](https://esa.github.io/pagmo2/) is a useful library providing many high quality optimization routines in C++.  In an effort to learn more about C++ and to bring this ability into the .Net world, I'm creating this wrapper around pagmo for C# and other .Net languages.
+[Pagmo](https://esa.github.io/pagmo2/) is a powerful library providing many high quality optimization routines in C++.  In an effort to learn more about C++ and to bring this ability into the .Net world, I'm creating this wrapper around pagmo for C# and other .Net languages.
 
 There is a growing (aka. incomplete) [SWIG](https://www.swig.org/) interface file in the swigInterfaceFileAndPagmoHeaders folder.  When edits are made to that interface file, run the createSwigWrappersAndPlaceThem.bat file one directory up to regenerate the wrapers.  Note that the path of swig.exe is hard-coded in that bat file.  After that, build and run the Visual Studio solution normally.  The C++ project runs that bat file as a pre-build step.
 
@@ -15,20 +15,20 @@ Note that I am developing this on Windows 10, and used vcpkg to setup pagmo.  Al
 ## FAQ
 
 ### Why .Net and C#?
-I think that the .Net ecosystem and languages are a bit under appreciated for scientific computing.  Although raw C/C++ code written by an expert will be faster, C# can get pretty close.  And with Microsoft open-sourcing so much of .Net with .Net core... it has a lot going for it.
+I think that the .Net ecosystem and languages are a bit under appreciated for scientific computing.  Although raw C/C++ code written by an expert will be faster, C# can get pretty close.  And with Microsoft open-sourcing so much of .Net with .Net Core... it has a lot going for it.
 
 ### Aren't you just making a wrapper of a wrapper?
 
-Pagmo is more than just a wrapper.  Pygmo adds a consistent interface that wraps several other optimizers, as well as adds multithreading and multi-process support when available and appropriate.  That makes it more than just a wrapper and worth adding this layer for .Net too.
+Pagmo is more than just a wrapper.  Pygmo adds a consistent interface that wraps several other optimizers, as well as multithreading and multi-process support when available and appropriate.  That makes it more than just a wrapper.
 
 ### Why SWIG and not C++/CLI?
 
-Two reasons.  First, I wanted a P-Invoke wrapper to allow for the possibility of cross-platform support.  Also, SWIG takes care of all of the repetitive wrapping that once I realized it exists, I just couldn't not use it.
+Several related reasons.  First, I wanted a P-Invoke wrapper to allow for the possibility of cross-platform support.  Also, SWIG takes care of all of the repetitive wrapping that a library like this needed.  Once I realized it exists, I just couldn't not use it.
 Also, if someone wants to make wrappers for another language, the SWIG .i file will be a great start to that endeavor.  
 
 ### This hasn't implemented most of pagmo, why release it in such an incomplete state?
 
-Some of the pygmo functions are difficult to make SWIG wrappers for (the varidec templates).  Some I think don't need to be wrapped (archiving for example).  But yes, there are many functions and types that are not completed yet.  I've spent a good deal of time trying to figure out how to do inheritance of some of the types in pygmo, and I'm not really happy with the solution I've settled on (which is handling it on the .Net side with partial classes).  I have a bit of hope that maybe someone will look at the .i file and say "if you do it this way, it will be a lot better".  
+Some of the pygmo functions are difficult to make SWIG wrappers for (the varidec templates).  Some I think don't need to be wrapped (archiving for example).  But yes, there are many functions and types that are not completed yet.  I've spent a good deal of time trying to figure out how to do inheritance of some of the types in pygmo, and I'm not really happy with the solution I've settled on (which is handling it on the .Net side with partial classes).  I hope that maybe someone will look at the .i file and say "if you do it this way, it will be a lot better".  
 
 ### Your automated tests are not really testing meaningful optimization problems.
 
