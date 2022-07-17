@@ -4,14 +4,11 @@
 
 namespace pagmoWrap
 {
-	//typedef void (__stdcall *Operation)(double* x, double* ans, int sizeOfX, int sizeOfAns);
 	typedef std::vector<double> vector_double;
 
 	class problemBase : public pagmo::problem
 	{
 	public:
-		//problemBase() {};
-
 		virtual ~problemBase() {}
 
 		virtual vector_double fitness(const vector_double&) const

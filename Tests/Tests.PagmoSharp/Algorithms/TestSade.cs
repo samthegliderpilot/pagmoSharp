@@ -10,7 +10,7 @@ namespace Tests.PagmoSharp.Algorithms
     [TestFixture]
     public class TestSade : TestAlgorithmBase
     {
-        public override IAlgorithm CreateAlgorithm(TestProblemWrapper testProblem)
+        public override IAlgorithm CreateAlgorithm()
         {
             return new pagmo.sade(10);
         }

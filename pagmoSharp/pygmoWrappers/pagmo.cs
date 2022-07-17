@@ -10,7 +10,7 @@
 
 namespace pagmo {
 
-public class pagmo {
+public partial class pagmo {
 }
 
 }

@@ -3,12 +3,12 @@ using NUnit.Framework;
 using pagmo;
 using Tests.PagmoSharp.TestProblems;
 
-namespace Tests.PagmoSharp
+namespace Tests.PagmoSharp.Algorithms
 {
     [TestFixture]
     public class TestDe : TestAlgorithmBase
     {
-        public override IAlgorithm CreateAlgorithm(TestProblemWrapper testProblem)
+        public override IAlgorithm CreateAlgorithm()
         {
             return new pagmo.gaco(10);
         }

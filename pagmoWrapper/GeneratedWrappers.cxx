@@ -382,23 +382,25 @@ namespace Swig {
 }
 
 
- #include "pagmo/types.hpp"
- #include "pagmo/bfe.hpp"
- #include "pagmo/batch_evaluators/default_bfe.hpp"
- #include "pagmo/batch_evaluators/thread_bfe.hpp"
- #include "pagmo/batch_evaluators/member_bfe.hpp"
- #include "pagmo/algorithm.hpp"
- #include "pagmo/algorithms/de.hpp"
- #include "pagmo/algorithms/gaco.hpp"
- #include "pagmo/algorithms/sade.hpp"
- #include "pagmo/population.hpp"
- #include "pagmo/threading.hpp" 
- #include "pagmo/problem.hpp"
- #include "pagmo/island.hpp"
- #include "pagmo/islands/thread_island.hpp"
- //#include "pagmo/islands/fork_island.hpp"
- #include "pagmo/bfe.hpp" 
- #include "problem.h" // this is a manually created item.  We want to include it in the wrappers so the generated cxx code can use the handwritten code for the problem
+	#include "pagmo/types.hpp"
+	#include "pagmo/bfe.hpp"
+	#include "pagmo/batch_evaluators/default_bfe.hpp"
+	#include "pagmo/batch_evaluators/thread_bfe.hpp"
+	#include "pagmo/batch_evaluators/member_bfe.hpp"
+	#include "pagmo/algorithm.hpp"
+	#include "pagmo/algorithms/de.hpp"
+	#include "pagmo/algorithms/gaco.hpp"
+	#include "pagmo/algorithms/sade.hpp"
+	#include "pagmo/population.hpp"
+	#include "pagmo/threading.hpp" 
+	#include "pagmo/problem.hpp"
+	#include "pagmo/island.hpp"
+	#include "pagmo/islands/thread_island.hpp"
+	//#include "pagmo/islands/fork_island.hpp"
+	#include "pagmo/bfe.hpp" 
+	#include "problem.h" // this is a manually created item.  We want to include it in the wrappers so the generated cxx code can use the handwritten code for the problem
+
+	#include "pagmo/problems/golomb_ruler.hpp"
 
 
 #include <string>
@@ -786,6 +788,18 @@ SWIGINTERN pagmo::vector_double pagmo_thread_bfe_Operator(pagmo::thread_bfe cons
 	}
 SWIGINTERN pagmo::vector_double pagmo_member_bfe_Operator(pagmo::member_bfe const *self,pagmoWrap::problem const &theProblem,pagmo::vector_double const &values){
 	   return self->operator()(static_cast<pagmo::problem>(theProblem), values);
+	}
+SWIGINTERN pagmo::vector_double::size_type pagmo_golomb_ruler_get_nic(pagmo::golomb_ruler const *self){
+	   return 0;
+	}
+SWIGINTERN pagmo::vector_double::size_type pagmo_golomb_ruler_get_nobj(pagmo::golomb_ruler const *self){
+	   return 1;
+	}
+SWIGINTERN bool pagmo_golomb_ruler_has_batch_fitness(pagmo::golomb_ruler const *self){
+		return true;
+	}
+SWIGINTERN pagmo::thread_safety pagmo_golomb_ruler_get_thread_safety(pagmo::golomb_ruler const *self){
+		return pagmo::thread_safety::none; //TODO: What is the right answer?
 	}
 
 
@@ -4196,6 +4210,164 @@ SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_delete_sade(void * jarg1) {
   pagmo::sade *arg1 = (pagmo::sade *) 0 ;
   
   arg1 = (pagmo::sade *)jarg1; 
+  delete arg1;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_golomb_ruler__SWIG_0(unsigned int jarg1, unsigned int jarg2) {
+  void * jresult ;
+  unsigned int arg1 ;
+  unsigned int arg2 ;
+  pagmo::golomb_ruler *result = 0 ;
+  
+  arg1 = (unsigned int)jarg1; 
+  arg2 = (unsigned int)jarg2; 
+  result = (pagmo::golomb_ruler *)new pagmo::golomb_ruler(arg1,arg2);
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_golomb_ruler__SWIG_1(unsigned int jarg1) {
+  void * jresult ;
+  unsigned int arg1 ;
+  pagmo::golomb_ruler *result = 0 ;
+  
+  arg1 = (unsigned int)jarg1; 
+  result = (pagmo::golomb_ruler *)new pagmo::golomb_ruler(arg1);
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_golomb_ruler__SWIG_2() {
+  void * jresult ;
+  pagmo::golomb_ruler *result = 0 ;
+  
+  result = (pagmo::golomb_ruler *)new pagmo::golomb_ruler();
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_golomb_ruler_fitness(void * jarg1, void * jarg2) {
+  void * jresult ;
+  pagmo::golomb_ruler *arg1 = (pagmo::golomb_ruler *) 0 ;
+  pagmo::vector_double *arg2 = 0 ;
+  pagmo::vector_double result;
+  
+  arg1 = (pagmo::golomb_ruler *)jarg1; 
+  arg2 = (pagmo::vector_double *)jarg2;
+  if (!arg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "pagmo::vector_double const & type is null", 0);
+    return 0;
+  } 
+  result = ((pagmo::golomb_ruler const *)arg1)->fitness((pagmo::vector_double const &)*arg2);
+  jresult = new pagmo::vector_double((const pagmo::vector_double &)result); 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_golomb_ruler_get_bounds(void * jarg1) {
+  void * jresult ;
+  pagmo::golomb_ruler *arg1 = (pagmo::golomb_ruler *) 0 ;
+  std::pair< pagmo::vector_double,pagmo::vector_double > result;
+  
+  arg1 = (pagmo::golomb_ruler *)jarg1; 
+  result = ((pagmo::golomb_ruler const *)arg1)->get_bounds();
+  jresult = new std::pair< pagmo::vector_double,pagmo::vector_double >((const std::pair< pagmo::vector_double,pagmo::vector_double > &)result); 
+  return jresult;
+}
+
+
+SWIGEXPORT unsigned long SWIGSTDCALL CSharp_pagmo_golomb_ruler_get_nix(void * jarg1) {
+  unsigned long jresult ;
+  pagmo::golomb_ruler *arg1 = (pagmo::golomb_ruler *) 0 ;
+  pagmo::vector_double::size_type result;
+  
+  arg1 = (pagmo::golomb_ruler *)jarg1; 
+  result = ((pagmo::golomb_ruler const *)arg1)->get_nix();
+  jresult = (unsigned long)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT unsigned long SWIGSTDCALL CSharp_pagmo_golomb_ruler_get_nec(void * jarg1) {
+  unsigned long jresult ;
+  pagmo::golomb_ruler *arg1 = (pagmo::golomb_ruler *) 0 ;
+  pagmo::vector_double::size_type result;
+  
+  arg1 = (pagmo::golomb_ruler *)jarg1; 
+  result = ((pagmo::golomb_ruler const *)arg1)->get_nec();
+  jresult = (unsigned long)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT char * SWIGSTDCALL CSharp_pagmo_golomb_ruler_get_name(void * jarg1) {
+  char * jresult ;
+  pagmo::golomb_ruler *arg1 = (pagmo::golomb_ruler *) 0 ;
+  std::string result;
+  
+  arg1 = (pagmo::golomb_ruler *)jarg1; 
+  result = ((pagmo::golomb_ruler const *)arg1)->get_name();
+  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  return jresult;
+}
+
+
+SWIGEXPORT unsigned long SWIGSTDCALL CSharp_pagmo_golomb_ruler_get_nic(void * jarg1) {
+  unsigned long jresult ;
+  pagmo::golomb_ruler *arg1 = (pagmo::golomb_ruler *) 0 ;
+  pagmo::vector_double::size_type result;
+  
+  arg1 = (pagmo::golomb_ruler *)jarg1; 
+  result = pagmo_golomb_ruler_get_nic((pagmo::golomb_ruler const *)arg1);
+  jresult = (unsigned long)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT unsigned long SWIGSTDCALL CSharp_pagmo_golomb_ruler_get_nobj(void * jarg1) {
+  unsigned long jresult ;
+  pagmo::golomb_ruler *arg1 = (pagmo::golomb_ruler *) 0 ;
+  pagmo::vector_double::size_type result;
+  
+  arg1 = (pagmo::golomb_ruler *)jarg1; 
+  result = pagmo_golomb_ruler_get_nobj((pagmo::golomb_ruler const *)arg1);
+  jresult = (unsigned long)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_pagmo_golomb_ruler_has_batch_fitness(void * jarg1) {
+  unsigned int jresult ;
+  pagmo::golomb_ruler *arg1 = (pagmo::golomb_ruler *) 0 ;
+  bool result;
+  
+  arg1 = (pagmo::golomb_ruler *)jarg1; 
+  result = (bool)pagmo_golomb_ruler_has_batch_fitness((pagmo::golomb_ruler const *)arg1);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT int SWIGSTDCALL CSharp_pagmo_golomb_ruler_get_thread_safety(void * jarg1) {
+  int jresult ;
+  pagmo::golomb_ruler *arg1 = (pagmo::golomb_ruler *) 0 ;
+  pagmo::thread_safety result;
+  
+  arg1 = (pagmo::golomb_ruler *)jarg1; 
+  result = (pagmo::thread_safety)pagmo_golomb_ruler_get_thread_safety((pagmo::golomb_ruler const *)arg1);
+  jresult = (int)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_delete_golomb_ruler(void * jarg1) {
+  pagmo::golomb_ruler *arg1 = (pagmo::golomb_ruler *) 0 ;
+  
+  arg1 = (pagmo::golomb_ruler *)jarg1; 
   delete arg1;
 }
 

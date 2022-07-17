@@ -856,6 +856,45 @@ class pagmoPINVOKE {
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper.dll", EntryPoint="CSharp_pagmo_delete_sade")]
   public static extern void delete_sade(global::System.Runtime.InteropServices.HandleRef jarg1);
 
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper.dll", EntryPoint="CSharp_pagmo_new_golomb_ruler__SWIG_0")]
+  public static extern global::System.IntPtr new_golomb_ruler__SWIG_0(uint jarg1, uint jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper.dll", EntryPoint="CSharp_pagmo_new_golomb_ruler__SWIG_1")]
+  public static extern global::System.IntPtr new_golomb_ruler__SWIG_1(uint jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper.dll", EntryPoint="CSharp_pagmo_new_golomb_ruler__SWIG_2")]
+  public static extern global::System.IntPtr new_golomb_ruler__SWIG_2();
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper.dll", EntryPoint="CSharp_pagmo_golomb_ruler_fitness")]
+  public static extern global::System.IntPtr golomb_ruler_fitness(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper.dll", EntryPoint="CSharp_pagmo_golomb_ruler_get_bounds")]
+  public static extern global::System.IntPtr golomb_ruler_get_bounds(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper.dll", EntryPoint="CSharp_pagmo_golomb_ruler_get_nix")]
+  public static extern uint golomb_ruler_get_nix(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper.dll", EntryPoint="CSharp_pagmo_golomb_ruler_get_nec")]
+  public static extern uint golomb_ruler_get_nec(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper.dll", EntryPoint="CSharp_pagmo_golomb_ruler_get_name")]
+  public static extern string golomb_ruler_get_name(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper.dll", EntryPoint="CSharp_pagmo_golomb_ruler_get_nic")]
+  public static extern uint golomb_ruler_get_nic(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper.dll", EntryPoint="CSharp_pagmo_golomb_ruler_get_nobj")]
+  public static extern uint golomb_ruler_get_nobj(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper.dll", EntryPoint="CSharp_pagmo_golomb_ruler_has_batch_fitness")]
+  public static extern bool golomb_ruler_has_batch_fitness(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper.dll", EntryPoint="CSharp_pagmo_golomb_ruler_get_thread_safety")]
+  public static extern int golomb_ruler_get_thread_safety(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper.dll", EntryPoint="CSharp_pagmo_delete_golomb_ruler")]
+  public static extern void delete_golomb_ruler(global::System.Runtime.InteropServices.HandleRef jarg1);
+
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper.dll", EntryPoint="CSharp_pagmo_default_bfe_SWIGUpcast")]
   public static extern global::System.IntPtr default_bfe_SWIGUpcast(global::System.IntPtr jarg1);
 
