@@ -13,7 +13,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="pagmoExtensions\" />
     <Folder Include="pygmoWrappers\" />
   </ItemGroup>
 

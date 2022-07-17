@@ -10,7 +10,7 @@
 
 namespace pagmo {
 
-public class de : algorithm {
+public partial class de : algorithm {
   private global::System.Runtime.InteropServices.HandleRef swigCPtr;
 
   internal de(global::System.IntPtr cPtr, bool cMemoryOwn) : base(pagmoPINVOKE.de_SWIGUpcast(cPtr), cMemoryOwn) {

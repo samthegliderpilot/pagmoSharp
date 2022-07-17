@@ -71,7 +71,7 @@ namespace Tests.PagmoSharp
             using (var algorithm = CreateAlgorithm(problem))
             using (var pop = new population(problem, 128))
             {
-                algorithm.set_seed(2); // for consistant results
+                algorithm.set_seed(2); // for consistent results
                 var finalpop = EvolveAlgorithm(algorithm, pop);
                 Assert.AreEqual(problem.ExpectedOptimalX[0], finalpop.champion_x()[0], 0.3, "x for opt");
                 Assert.AreEqual(problem.ExpectedOptimalX[1], finalpop.champion_x()[1], 0.3, "y for opt");
