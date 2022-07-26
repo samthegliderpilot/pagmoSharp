@@ -6,11 +6,11 @@ using Tests.PagmoSharp.TestProblems;
 namespace Tests.PagmoSharp.Algorithms
 {
     [TestFixture]
-    public class TestDe : TestAlgorithmBase
+    public class TestDe1220 : TestAlgorithmBase
     {
         public override IAlgorithm CreateAlgorithm()
         {
-            return new pagmo.de(10);
+            return new pagmo.de1220(10);
         }
 
         [Test]
@@ -19,7 +19,7 @@ namespace Tests.PagmoSharp.Algorithms
             using (var problem = new TwoDimensionalSingleObjectiveProblemWrapper())
             using (var algorithm = CreateAlgorithm(problem))
             {
-                Assert.AreEqual("DE: Differential Evolution", algorithm.get_name());
+                Assert.AreEqual("sa-DE1220: Self-adaptive Differential Evolution 1220", algorithm.get_name());
             }
         }
 

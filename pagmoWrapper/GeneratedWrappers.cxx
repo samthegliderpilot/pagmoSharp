@@ -389,6 +389,7 @@ namespace Swig {
 	#include "pagmo/batch_evaluators/member_bfe.hpp"
 	#include "pagmo/algorithm.hpp"
 	#include "pagmo/algorithms/de.hpp"
+	#include "pagmo/algorithms/de1220.hpp"
 	#include "pagmo/algorithms/gaco.hpp"
 	#include "pagmo/algorithms/sade.hpp"
 	#include "pagmo/population.hpp"
@@ -3958,6 +3959,286 @@ SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_delete_de(void * jarg1) {
 }
 
 
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_de1220__SWIG_0(unsigned int jarg1, void * jarg2, unsigned int jarg3, double jarg4, double jarg5, unsigned int jarg6, unsigned int jarg7) {
+  void * jresult ;
+  unsigned int arg1 ;
+  std::vector< unsigned int > arg2 ;
+  unsigned int arg3 ;
+  double arg4 ;
+  double arg5 ;
+  bool arg6 ;
+  unsigned int arg7 ;
+  std::vector< unsigned int > *argp2 ;
+  pagmo::de1220 *result = 0 ;
+  
+  arg1 = (unsigned int)jarg1; 
+  argp2 = (std::vector< unsigned int > *)jarg2; 
+  if (!argp2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "Attempt to dereference null std::vector< unsigned int >", 0);
+    return 0;
+  }
+  arg2 = *argp2; 
+  arg3 = (unsigned int)jarg3; 
+  arg4 = (double)jarg4; 
+  arg5 = (double)jarg5; 
+  arg6 = jarg6 ? true : false; 
+  arg7 = (unsigned int)jarg7; 
+  result = (pagmo::de1220 *)new pagmo::de1220(arg1,arg2,arg3,arg4,arg5,arg6,arg7);
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_de1220__SWIG_1(unsigned int jarg1, void * jarg2, unsigned int jarg3, double jarg4, double jarg5, unsigned int jarg6) {
+  void * jresult ;
+  unsigned int arg1 ;
+  std::vector< unsigned int > arg2 ;
+  unsigned int arg3 ;
+  double arg4 ;
+  double arg5 ;
+  bool arg6 ;
+  std::vector< unsigned int > *argp2 ;
+  pagmo::de1220 *result = 0 ;
+  
+  arg1 = (unsigned int)jarg1; 
+  argp2 = (std::vector< unsigned int > *)jarg2; 
+  if (!argp2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "Attempt to dereference null std::vector< unsigned int >", 0);
+    return 0;
+  }
+  arg2 = *argp2; 
+  arg3 = (unsigned int)jarg3; 
+  arg4 = (double)jarg4; 
+  arg5 = (double)jarg5; 
+  arg6 = jarg6 ? true : false; 
+  result = (pagmo::de1220 *)new pagmo::de1220(arg1,arg2,arg3,arg4,arg5,arg6);
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_de1220__SWIG_2(unsigned int jarg1, void * jarg2, unsigned int jarg3, double jarg4, double jarg5) {
+  void * jresult ;
+  unsigned int arg1 ;
+  std::vector< unsigned int > arg2 ;
+  unsigned int arg3 ;
+  double arg4 ;
+  double arg5 ;
+  std::vector< unsigned int > *argp2 ;
+  pagmo::de1220 *result = 0 ;
+  
+  arg1 = (unsigned int)jarg1; 
+  argp2 = (std::vector< unsigned int > *)jarg2; 
+  if (!argp2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "Attempt to dereference null std::vector< unsigned int >", 0);
+    return 0;
+  }
+  arg2 = *argp2; 
+  arg3 = (unsigned int)jarg3; 
+  arg4 = (double)jarg4; 
+  arg5 = (double)jarg5; 
+  result = (pagmo::de1220 *)new pagmo::de1220(arg1,arg2,arg3,arg4,arg5);
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_de1220__SWIG_3(unsigned int jarg1, void * jarg2, unsigned int jarg3, double jarg4) {
+  void * jresult ;
+  unsigned int arg1 ;
+  std::vector< unsigned int > arg2 ;
+  unsigned int arg3 ;
+  double arg4 ;
+  std::vector< unsigned int > *argp2 ;
+  pagmo::de1220 *result = 0 ;
+  
+  arg1 = (unsigned int)jarg1; 
+  argp2 = (std::vector< unsigned int > *)jarg2; 
+  if (!argp2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "Attempt to dereference null std::vector< unsigned int >", 0);
+    return 0;
+  }
+  arg2 = *argp2; 
+  arg3 = (unsigned int)jarg3; 
+  arg4 = (double)jarg4; 
+  result = (pagmo::de1220 *)new pagmo::de1220(arg1,arg2,arg3,arg4);
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_de1220__SWIG_4(unsigned int jarg1, void * jarg2, unsigned int jarg3) {
+  void * jresult ;
+  unsigned int arg1 ;
+  std::vector< unsigned int > arg2 ;
+  unsigned int arg3 ;
+  std::vector< unsigned int > *argp2 ;
+  pagmo::de1220 *result = 0 ;
+  
+  arg1 = (unsigned int)jarg1; 
+  argp2 = (std::vector< unsigned int > *)jarg2; 
+  if (!argp2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "Attempt to dereference null std::vector< unsigned int >", 0);
+    return 0;
+  }
+  arg2 = *argp2; 
+  arg3 = (unsigned int)jarg3; 
+  result = (pagmo::de1220 *)new pagmo::de1220(arg1,arg2,arg3);
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_de1220__SWIG_5(unsigned int jarg1, void * jarg2) {
+  void * jresult ;
+  unsigned int arg1 ;
+  std::vector< unsigned int > arg2 ;
+  std::vector< unsigned int > *argp2 ;
+  pagmo::de1220 *result = 0 ;
+  
+  arg1 = (unsigned int)jarg1; 
+  argp2 = (std::vector< unsigned int > *)jarg2; 
+  if (!argp2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "Attempt to dereference null std::vector< unsigned int >", 0);
+    return 0;
+  }
+  arg2 = *argp2; 
+  result = (pagmo::de1220 *)new pagmo::de1220(arg1,arg2);
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_de1220__SWIG_6(unsigned int jarg1) {
+  void * jresult ;
+  unsigned int arg1 ;
+  pagmo::de1220 *result = 0 ;
+  
+  arg1 = (unsigned int)jarg1; 
+  result = (pagmo::de1220 *)new pagmo::de1220(arg1);
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_de1220__SWIG_7() {
+  void * jresult ;
+  pagmo::de1220 *result = 0 ;
+  
+  result = (pagmo::de1220 *)new pagmo::de1220();
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_de1220_evolve(void * jarg1, void * jarg2) {
+  void * jresult ;
+  pagmo::de1220 *arg1 = (pagmo::de1220 *) 0 ;
+  SwigValueWrapper< pagmo::population > arg2 ;
+  pagmo::population *argp2 ;
+  SwigValueWrapper< pagmo::population > result;
+  
+  arg1 = (pagmo::de1220 *)jarg1; 
+  argp2 = (pagmo::population *)jarg2; 
+  if (!argp2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "Attempt to dereference null pagmo::population", 0);
+    return 0;
+  }
+  arg2 = *argp2; 
+  result = ((pagmo::de1220 const *)arg1)->evolve(arg2);
+  jresult = new pagmo::population((const pagmo::population &)result); 
+  return jresult;
+}
+
+
+SWIGEXPORT char * SWIGSTDCALL CSharp_pagmo_de1220_get_name(void * jarg1) {
+  char * jresult ;
+  pagmo::de1220 *arg1 = (pagmo::de1220 *) 0 ;
+  std::string result;
+  
+  arg1 = (pagmo::de1220 *)jarg1; 
+  result = ((pagmo::de1220 const *)arg1)->get_name();
+  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_de1220_set_seed(void * jarg1, unsigned int jarg2) {
+  pagmo::de1220 *arg1 = (pagmo::de1220 *) 0 ;
+  unsigned int arg2 ;
+  
+  arg1 = (pagmo::de1220 *)jarg1; 
+  arg2 = (unsigned int)jarg2; 
+  (arg1)->set_seed(arg2);
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_pagmo_de1220_get_seed(void * jarg1) {
+  unsigned int jresult ;
+  pagmo::de1220 *arg1 = (pagmo::de1220 *) 0 ;
+  unsigned int result;
+  
+  arg1 = (pagmo::de1220 *)jarg1; 
+  result = (unsigned int)((pagmo::de1220 const *)arg1)->get_seed();
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_pagmo_de1220_get_verbosity(void * jarg1) {
+  unsigned int jresult ;
+  pagmo::de1220 *arg1 = (pagmo::de1220 *) 0 ;
+  unsigned int result;
+  
+  arg1 = (pagmo::de1220 *)jarg1; 
+  result = (unsigned int)((pagmo::de1220 const *)arg1)->get_verbosity();
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_de1220_set_verbosity(void * jarg1, unsigned int jarg2) {
+  pagmo::de1220 *arg1 = (pagmo::de1220 *) 0 ;
+  unsigned int arg2 ;
+  
+  arg1 = (pagmo::de1220 *)jarg1; 
+  arg2 = (unsigned int)jarg2; 
+  (arg1)->set_verbosity(arg2);
+}
+
+
+SWIGEXPORT char * SWIGSTDCALL CSharp_pagmo_de1220_get_extra_info(void * jarg1) {
+  char * jresult ;
+  pagmo::de1220 *arg1 = (pagmo::de1220 *) 0 ;
+  std::string result;
+  
+  arg1 = (pagmo::de1220 *)jarg1; 
+  result = ((pagmo::de1220 const *)arg1)->get_extra_info();
+  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_de1220_get_log(void * jarg1) {
+  void * jresult ;
+  pagmo::de1220 *arg1 = (pagmo::de1220 *) 0 ;
+  pagmo::de1220::log_type *result = 0 ;
+  
+  arg1 = (pagmo::de1220 *)jarg1; 
+  result = (pagmo::de1220::log_type *) &((pagmo::de1220 const *)arg1)->get_log();
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_delete_de1220(void * jarg1) {
+  pagmo::de1220 *arg1 = (pagmo::de1220 *) 0 ;
+  
+  arg1 = (pagmo::de1220 *)jarg1; 
+  delete arg1;
+}
+
+
 SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_sade__SWIG_0(unsigned int jarg1, unsigned int jarg2, unsigned int jarg3, double jarg4, double jarg5, unsigned int jarg6, unsigned int jarg7) {
   void * jresult ;
   unsigned int arg1 ;
@@ -4393,6 +4674,10 @@ SWIGEXPORT pagmo::algorithm * SWIGSTDCALL CSharp_pagmo_gaco_SWIGUpcast(pagmo::ga
 }
 
 SWIGEXPORT pagmo::algorithm * SWIGSTDCALL CSharp_pagmo_de_SWIGUpcast(pagmo::de *jarg1) {
+    return (pagmo::algorithm *)jarg1;
+}
+
+SWIGEXPORT pagmo::algorithm * SWIGSTDCALL CSharp_pagmo_de1220_SWIGUpcast(pagmo::de1220 *jarg1) {
     return (pagmo::algorithm *)jarg1;
 }
 

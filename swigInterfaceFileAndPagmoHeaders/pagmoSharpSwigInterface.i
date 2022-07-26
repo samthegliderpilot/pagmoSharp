@@ -1,6 +1,6 @@
-/* File pagmoSharpSwigInterface.i */
+﻿/* File pagmoSharpSwigInterface.i */
 
-%module(naturalvar=1, directors="7") pagmo
+%module(naturalvar=1, directors="8") pagmo
 %{
 	#include "pagmo/types.hpp"
 	#include "pagmo/bfe.hpp"
@@ -9,6 +9,7 @@
 	#include "pagmo/batch_evaluators/member_bfe.hpp"
 	#include "pagmo/algorithm.hpp"
 	#include "pagmo/algorithms/de.hpp"
+	#include "pagmo/algorithms/de1220.hpp"
 	#include "pagmo/algorithms/gaco.hpp"
 	#include "pagmo/algorithms/sade.hpp"
 	#include "pagmo/population.hpp"
@@ -33,6 +34,7 @@
 %typemap(csclassmodifiers) pagmoWrap::problem "public partial class"
 %typemap(csclassmodifiers) pagmoWrap::problemBase "public partial class"
 %typemap(csclassmodifiers) pagmo::de "public partial class"
+%typemap(csclassmodifiers) pagmo::de1220 "public partial class"
 %typemap(csclassmodifiers) pagmo::gaco "public partial class"
 %typemap(csclassmodifiers) pagmo::sade "public partial class"
 %typemap(csclassmodifiers) pagmo::thread_island "public partial class"
@@ -218,6 +220,27 @@ namespace pagmo {
 		typedef std::vector<log_line_type> log_type;
 		typedef pop_size_t size_type;
 		extern de(unsigned gen = 1u, double F = 0.8, double CR = 0.9, unsigned variant = 2u, double ftol = 1e-6, double xtol = 1e-6, unsigned seed = pagmo::random_device::next());
+
+
+		extern population evolve(population) const;
+		extern std::string get_name() const;
+		extern void set_seed(unsigned);
+		extern unsigned get_seed() const;
+		extern unsigned get_verbosity() const;
+		extern void set_verbosity(unsigned);
+
+		extern std::string get_extra_info() const;
+		extern const log_type& get_log() const;
+	};
+
+	class de1220 : public algorithm {
+	public:
+		typedef std::tuple<unsigned, unsigned long long, double, double, double, unsigned, double, double> log_line_type;
+		typedef std::vector<log_line_type> log_type;
+		typedef pop_size_t size_type;
+		extern de1220(unsigned gen = 1u, std::vector<unsigned> allowed_variants = de1220_statics<void>::allowed_variants,
+			unsigned variant_adptv = 1u, double ftol = 1e-6, double xtol = 1e-6, bool memory = false,
+			unsigned seed = pagmo::random_device::next());
 
 
 		extern population evolve(population) const;
