@@ -388,10 +388,6 @@ namespace Swig {
 	#include "pagmo/batch_evaluators/thread_bfe.hpp"
 	#include "pagmo/batch_evaluators/member_bfe.hpp"
 	#include "pagmo/algorithm.hpp"
-	#include "pagmo/algorithms/de.hpp"
-	#include "pagmo/algorithms/de1220.hpp"
-	#include "pagmo/algorithms/gaco.hpp"
-	#include "pagmo/algorithms/sade.hpp"
 	#include "pagmo/population.hpp"
 	#include "pagmo/threading.hpp" 
 	#include "pagmo/problem.hpp"
@@ -781,27 +777,42 @@ SWIGINTERN void std_vector_Sl_std_vector_Sl_double_Sg__Sg__SetRange(std::vector<
           throw std::out_of_range("index");
         std::copy(values.begin(), values.end(), self->begin()+index);
       }
-SWIGINTERN pagmo::vector_double pagmo_default_bfe_Operator(pagmo::default_bfe const *self,pagmoWrap::problem const &theProblem,pagmo::vector_double const &values){
+SWIGINTERN pagmo::vector_double pagmo_default_bfe_Operator(pagmo::default_bfe const *self,pagmoWrap::problemPagomWrapper const &theProblem,pagmo::vector_double const &values){
 	   return self->operator()(static_cast<pagmo::problem>(theProblem), values);
 	}
-SWIGINTERN pagmo::vector_double pagmo_thread_bfe_Operator(pagmo::thread_bfe const *self,pagmoWrap::problem const &theProblem,pagmo::vector_double const &values){
+SWIGINTERN pagmo::vector_double pagmo_thread_bfe_Operator(pagmo::thread_bfe const *self,pagmoWrap::problemPagomWrapper const &theProblem,pagmo::vector_double const &values){
 	   return self->operator()(static_cast<pagmo::problem>(theProblem), values);
 	}
-SWIGINTERN pagmo::vector_double pagmo_member_bfe_Operator(pagmo::member_bfe const *self,pagmoWrap::problem const &theProblem,pagmo::vector_double const &values){
+SWIGINTERN pagmo::vector_double pagmo_member_bfe_Operator(pagmo::member_bfe const *self,pagmoWrap::problemPagomWrapper const &theProblem,pagmo::vector_double const &values){
 	   return self->operator()(static_cast<pagmo::problem>(theProblem), values);
 	}
+
+#include "pagmo/algorithms/de.hpp"
+
+
+#include "pagmo/algorithms/de1220.hpp"
+
+
+#include "pagmo/algorithms/gaco.hpp"
+
+
+#include "pagmo/algorithms/sade.hpp"
+
+
+#include "pagmo/problems/golomb_ruler.hpp"
+
 SWIGINTERN pagmo::vector_double::size_type pagmo_golomb_ruler_get_nic(pagmo::golomb_ruler const *self){
-	   return 0;
-	}
+   return 0;
+}
 SWIGINTERN pagmo::vector_double::size_type pagmo_golomb_ruler_get_nobj(pagmo::golomb_ruler const *self){
-	   return 1;
-	}
+   return 1;
+}
 SWIGINTERN bool pagmo_golomb_ruler_has_batch_fitness(pagmo::golomb_ruler const *self){
-		return true;
-	}
+	return true;
+}
 SWIGINTERN pagmo::thread_safety pagmo_golomb_ruler_get_thread_safety(pagmo::golomb_ruler const *self){
-		return pagmo::thread_safety::none; //TODO: What is the right answer?
-	}
+	return pagmo::thread_safety::none; //TODO: What is the right answer?
+}
 
 
 /* ---------------------------------------------------
@@ -1232,183 +1243,183 @@ SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_problemBase_director_connect(void *obja
 }
 
 
-SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_problem__SWIG_0() {
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_problemPagomWrapper__SWIG_0() {
   void * jresult ;
-  pagmoWrap::problem *result = 0 ;
+  pagmoWrap::problemPagomWrapper *result = 0 ;
   
-  result = (pagmoWrap::problem *)new pagmoWrap::problem();
+  result = (pagmoWrap::problemPagomWrapper *)new pagmoWrap::problemPagomWrapper();
   jresult = (void *)result; 
   return jresult;
 }
 
 
-SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_problem__SWIG_1(void * jarg1) {
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_problemPagomWrapper__SWIG_1(void * jarg1) {
   void * jresult ;
   pagmoWrap::problemBase *arg1 = (pagmoWrap::problemBase *) 0 ;
-  pagmoWrap::problem *result = 0 ;
+  pagmoWrap::problemPagomWrapper *result = 0 ;
   
   arg1 = (pagmoWrap::problemBase *)jarg1; 
-  result = (pagmoWrap::problem *)new pagmoWrap::problem(arg1);
+  result = (pagmoWrap::problemPagomWrapper *)new pagmoWrap::problemPagomWrapper(arg1);
   jresult = (void *)result; 
   return jresult;
 }
 
 
-SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_problem__SWIG_2(void * jarg1) {
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_problemPagomWrapper__SWIG_2(void * jarg1) {
   void * jresult ;
-  pagmoWrap::problem *arg1 = 0 ;
-  pagmoWrap::problem *result = 0 ;
+  pagmoWrap::problemPagomWrapper *arg1 = 0 ;
+  pagmoWrap::problemPagomWrapper *result = 0 ;
   
-  arg1 = (pagmoWrap::problem *)jarg1;
+  arg1 = (pagmoWrap::problemPagomWrapper *)jarg1;
   if (!arg1) {
-    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "pagmoWrap::problem const & type is null", 0);
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "pagmoWrap::problemPagomWrapper const & type is null", 0);
     return 0;
   } 
-  result = (pagmoWrap::problem *)new pagmoWrap::problem((pagmoWrap::problem const &)*arg1);
+  result = (pagmoWrap::problemPagomWrapper *)new pagmoWrap::problemPagomWrapper((pagmoWrap::problemPagomWrapper const &)*arg1);
   jresult = (void *)result; 
   return jresult;
 }
 
 
-SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_delete_problem(void * jarg1) {
-  pagmoWrap::problem *arg1 = (pagmoWrap::problem *) 0 ;
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_delete_problemPagomWrapper(void * jarg1) {
+  pagmoWrap::problemPagomWrapper *arg1 = (pagmoWrap::problemPagomWrapper *) 0 ;
   
-  arg1 = (pagmoWrap::problem *)jarg1; 
+  arg1 = (pagmoWrap::problemPagomWrapper *)jarg1; 
   delete arg1;
 }
 
 
-SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_problem_setBaseProblem(void * jarg1, void * jarg2) {
-  pagmoWrap::problem *arg1 = (pagmoWrap::problem *) 0 ;
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_problemPagomWrapper_setBaseProblem(void * jarg1, void * jarg2) {
+  pagmoWrap::problemPagomWrapper *arg1 = (pagmoWrap::problemPagomWrapper *) 0 ;
   pagmoWrap::problemBase *arg2 = (pagmoWrap::problemBase *) 0 ;
   
-  arg1 = (pagmoWrap::problem *)jarg1; 
+  arg1 = (pagmoWrap::problemPagomWrapper *)jarg1; 
   arg2 = (pagmoWrap::problemBase *)jarg2; 
   (arg1)->setBaseProblem(arg2);
 }
 
 
-SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_problem_getBaseProblem(void * jarg1) {
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_problemPagomWrapper_getBaseProblem(void * jarg1) {
   void * jresult ;
-  pagmoWrap::problem *arg1 = (pagmoWrap::problem *) 0 ;
+  pagmoWrap::problemPagomWrapper *arg1 = (pagmoWrap::problemPagomWrapper *) 0 ;
   pagmoWrap::problemBase *result = 0 ;
   
-  arg1 = (pagmoWrap::problem *)jarg1; 
+  arg1 = (pagmoWrap::problemPagomWrapper *)jarg1; 
   result = (pagmoWrap::problemBase *)(arg1)->getBaseProblem();
   jresult = (void *)result; 
   return jresult;
 }
 
 
-SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_problem_fitness(void * jarg1, void * jarg2) {
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_problemPagomWrapper_fitness(void * jarg1, void * jarg2) {
   void * jresult ;
-  pagmoWrap::problem *arg1 = (pagmoWrap::problem *) 0 ;
+  pagmoWrap::problemPagomWrapper *arg1 = (pagmoWrap::problemPagomWrapper *) 0 ;
   pagmoWrap::vector_double *arg2 = 0 ;
   pagmoWrap::vector_double result;
   
-  arg1 = (pagmoWrap::problem *)jarg1; 
+  arg1 = (pagmoWrap::problemPagomWrapper *)jarg1; 
   arg2 = (pagmoWrap::vector_double *)jarg2;
   if (!arg2) {
     SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "pagmoWrap::vector_double const & type is null", 0);
     return 0;
   } 
-  result = ((pagmoWrap::problem const *)arg1)->fitness((pagmoWrap::vector_double const &)*arg2);
+  result = ((pagmoWrap::problemPagomWrapper const *)arg1)->fitness((pagmoWrap::vector_double const &)*arg2);
   jresult = new pagmoWrap::vector_double((const pagmoWrap::vector_double &)result); 
   return jresult;
 }
 
 
-SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_problem_get_bounds(void * jarg1) {
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_problemPagomWrapper_get_bounds(void * jarg1) {
   void * jresult ;
-  pagmoWrap::problem *arg1 = (pagmoWrap::problem *) 0 ;
+  pagmoWrap::problemPagomWrapper *arg1 = (pagmoWrap::problemPagomWrapper *) 0 ;
   std::pair< pagmoWrap::vector_double,pagmoWrap::vector_double > result;
   
-  arg1 = (pagmoWrap::problem *)jarg1; 
-  result = ((pagmoWrap::problem const *)arg1)->get_bounds();
+  arg1 = (pagmoWrap::problemPagomWrapper *)jarg1; 
+  result = ((pagmoWrap::problemPagomWrapper const *)arg1)->get_bounds();
   jresult = new std::pair< pagmoWrap::vector_double,pagmoWrap::vector_double >((const std::pair< pagmoWrap::vector_double,pagmoWrap::vector_double > &)result); 
   return jresult;
 }
 
 
-SWIGEXPORT unsigned int SWIGSTDCALL CSharp_pagmo_problem_has_batch_fitness(void * jarg1) {
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_pagmo_problemPagomWrapper_has_batch_fitness(void * jarg1) {
   unsigned int jresult ;
-  pagmoWrap::problem *arg1 = (pagmoWrap::problem *) 0 ;
+  pagmoWrap::problemPagomWrapper *arg1 = (pagmoWrap::problemPagomWrapper *) 0 ;
   bool result;
   
-  arg1 = (pagmoWrap::problem *)jarg1; 
-  result = (bool)((pagmoWrap::problem const *)arg1)->has_batch_fitness();
+  arg1 = (pagmoWrap::problemPagomWrapper *)jarg1; 
+  result = (bool)((pagmoWrap::problemPagomWrapper const *)arg1)->has_batch_fitness();
   jresult = result; 
   return jresult;
 }
 
 
-SWIGEXPORT char * SWIGSTDCALL CSharp_pagmo_problem_get_name(void * jarg1) {
+SWIGEXPORT char * SWIGSTDCALL CSharp_pagmo_problemPagomWrapper_get_name(void * jarg1) {
   char * jresult ;
-  pagmoWrap::problem *arg1 = (pagmoWrap::problem *) 0 ;
+  pagmoWrap::problemPagomWrapper *arg1 = (pagmoWrap::problemPagomWrapper *) 0 ;
   std::string result;
   
-  arg1 = (pagmoWrap::problem *)jarg1; 
-  result = ((pagmoWrap::problem const *)arg1)->get_name();
+  arg1 = (pagmoWrap::problemPagomWrapper *)jarg1; 
+  result = ((pagmoWrap::problemPagomWrapper const *)arg1)->get_name();
   jresult = SWIG_csharp_string_callback((&result)->c_str()); 
   return jresult;
 }
 
 
-SWIGEXPORT unsigned long SWIGSTDCALL CSharp_pagmo_problem_get_nobj(void * jarg1) {
+SWIGEXPORT unsigned long SWIGSTDCALL CSharp_pagmo_problemPagomWrapper_get_nobj(void * jarg1) {
   unsigned long jresult ;
-  pagmoWrap::problem *arg1 = (pagmoWrap::problem *) 0 ;
+  pagmoWrap::problemPagomWrapper *arg1 = (pagmoWrap::problemPagomWrapper *) 0 ;
   std::vector< double >::size_type result;
   
-  arg1 = (pagmoWrap::problem *)jarg1; 
-  result = ((pagmoWrap::problem const *)arg1)->get_nobj();
+  arg1 = (pagmoWrap::problemPagomWrapper *)jarg1; 
+  result = ((pagmoWrap::problemPagomWrapper const *)arg1)->get_nobj();
   jresult = (unsigned long)result; 
   return jresult;
 }
 
 
-SWIGEXPORT unsigned long SWIGSTDCALL CSharp_pagmo_problem_get_nec(void * jarg1) {
+SWIGEXPORT unsigned long SWIGSTDCALL CSharp_pagmo_problemPagomWrapper_get_nec(void * jarg1) {
   unsigned long jresult ;
-  pagmoWrap::problem *arg1 = (pagmoWrap::problem *) 0 ;
+  pagmoWrap::problemPagomWrapper *arg1 = (pagmoWrap::problemPagomWrapper *) 0 ;
   std::vector< double >::size_type result;
   
-  arg1 = (pagmoWrap::problem *)jarg1; 
-  result = ((pagmoWrap::problem const *)arg1)->get_nec();
+  arg1 = (pagmoWrap::problemPagomWrapper *)jarg1; 
+  result = ((pagmoWrap::problemPagomWrapper const *)arg1)->get_nec();
   jresult = (unsigned long)result; 
   return jresult;
 }
 
 
-SWIGEXPORT unsigned long SWIGSTDCALL CSharp_pagmo_problem_get_nic(void * jarg1) {
+SWIGEXPORT unsigned long SWIGSTDCALL CSharp_pagmo_problemPagomWrapper_get_nic(void * jarg1) {
   unsigned long jresult ;
-  pagmoWrap::problem *arg1 = (pagmoWrap::problem *) 0 ;
+  pagmoWrap::problemPagomWrapper *arg1 = (pagmoWrap::problemPagomWrapper *) 0 ;
   std::vector< double >::size_type result;
   
-  arg1 = (pagmoWrap::problem *)jarg1; 
-  result = ((pagmoWrap::problem const *)arg1)->get_nic();
+  arg1 = (pagmoWrap::problemPagomWrapper *)jarg1; 
+  result = ((pagmoWrap::problemPagomWrapper const *)arg1)->get_nic();
   jresult = (unsigned long)result; 
   return jresult;
 }
 
 
-SWIGEXPORT unsigned long SWIGSTDCALL CSharp_pagmo_problem_get_nix(void * jarg1) {
+SWIGEXPORT unsigned long SWIGSTDCALL CSharp_pagmo_problemPagomWrapper_get_nix(void * jarg1) {
   unsigned long jresult ;
-  pagmoWrap::problem *arg1 = (pagmoWrap::problem *) 0 ;
+  pagmoWrap::problemPagomWrapper *arg1 = (pagmoWrap::problemPagomWrapper *) 0 ;
   std::vector< double >::size_type result;
   
-  arg1 = (pagmoWrap::problem *)jarg1; 
-  result = ((pagmoWrap::problem const *)arg1)->get_nix();
+  arg1 = (pagmoWrap::problemPagomWrapper *)jarg1; 
+  result = ((pagmoWrap::problemPagomWrapper const *)arg1)->get_nix();
   jresult = (unsigned long)result; 
   return jresult;
 }
 
 
-SWIGEXPORT int SWIGSTDCALL CSharp_pagmo_problem_get_thread_safety(void * jarg1) {
+SWIGEXPORT int SWIGSTDCALL CSharp_pagmo_problemPagomWrapper_get_thread_safety(void * jarg1) {
   int jresult ;
-  pagmoWrap::problem *arg1 = (pagmoWrap::problem *) 0 ;
+  pagmoWrap::problemPagomWrapper *arg1 = (pagmoWrap::problemPagomWrapper *) 0 ;
   pagmo::thread_safety result;
   
-  arg1 = (pagmoWrap::problem *)jarg1; 
-  result = (pagmo::thread_safety)((pagmoWrap::problem const *)arg1)->get_thread_safety();
+  arg1 = (pagmoWrap::problemPagomWrapper *)jarg1; 
+  result = (pagmo::thread_safety)((pagmoWrap::problemPagomWrapper const *)arg1)->get_thread_safety();
   jresult = (int)result; 
   return jresult;
 }
@@ -2746,14 +2757,14 @@ SWIGEXPORT char * SWIGSTDCALL CSharp_pagmo_default_bfe_get_name(void * jarg1) {
 SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_default_bfe_Operator(void * jarg1, void * jarg2, void * jarg3) {
   void * jresult ;
   pagmo::default_bfe *arg1 = (pagmo::default_bfe *) 0 ;
-  pagmoWrap::problem *arg2 = 0 ;
+  pagmoWrap::problemPagomWrapper *arg2 = 0 ;
   pagmo::vector_double *arg3 = 0 ;
   pagmo::vector_double result;
   
   arg1 = (pagmo::default_bfe *)jarg1; 
-  arg2 = (pagmoWrap::problem *)jarg2;
+  arg2 = (pagmoWrap::problemPagomWrapper *)jarg2;
   if (!arg2) {
-    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "pagmoWrap::problem const & type is null", 0);
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "pagmoWrap::problemPagomWrapper const & type is null", 0);
     return 0;
   } 
   arg3 = (pagmo::vector_double *)jarg3;
@@ -2761,7 +2772,7 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_default_bfe_Operator(void * jarg1, vo
     SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "pagmo::vector_double const & type is null", 0);
     return 0;
   } 
-  result = pagmo_default_bfe_Operator((pagmo::default_bfe const *)arg1,(pagmoWrap::problem const &)*arg2,(std::vector< double > const &)*arg3);
+  result = pagmo_default_bfe_Operator((pagmo::default_bfe const *)arg1,(pagmoWrap::problemPagomWrapper const &)*arg2,(std::vector< double > const &)*arg3);
   jresult = new pagmo::vector_double((const pagmo::vector_double &)result); 
   return jresult;
 }
@@ -2816,14 +2827,14 @@ SWIGEXPORT char * SWIGSTDCALL CSharp_pagmo_thread_bfe_get_name(void * jarg1) {
 SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_thread_bfe_Operator(void * jarg1, void * jarg2, void * jarg3) {
   void * jresult ;
   pagmo::thread_bfe *arg1 = (pagmo::thread_bfe *) 0 ;
-  pagmoWrap::problem *arg2 = 0 ;
+  pagmoWrap::problemPagomWrapper *arg2 = 0 ;
   pagmo::vector_double *arg3 = 0 ;
   pagmo::vector_double result;
   
   arg1 = (pagmo::thread_bfe *)jarg1; 
-  arg2 = (pagmoWrap::problem *)jarg2;
+  arg2 = (pagmoWrap::problemPagomWrapper *)jarg2;
   if (!arg2) {
-    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "pagmoWrap::problem const & type is null", 0);
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "pagmoWrap::problemPagomWrapper const & type is null", 0);
     return 0;
   } 
   arg3 = (pagmo::vector_double *)jarg3;
@@ -2831,7 +2842,7 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_thread_bfe_Operator(void * jarg1, voi
     SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "pagmo::vector_double const & type is null", 0);
     return 0;
   } 
-  result = pagmo_thread_bfe_Operator((pagmo::thread_bfe const *)arg1,(pagmoWrap::problem const &)*arg2,(std::vector< double > const &)*arg3);
+  result = pagmo_thread_bfe_Operator((pagmo::thread_bfe const *)arg1,(pagmoWrap::problemPagomWrapper const &)*arg2,(std::vector< double > const &)*arg3);
   jresult = new pagmo::vector_double((const pagmo::vector_double &)result); 
   return jresult;
 }
@@ -2848,14 +2859,14 @@ SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_delete_thread_bfe(void * jarg1) {
 SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_member_bfe_Operator(void * jarg1, void * jarg2, void * jarg3) {
   void * jresult ;
   pagmo::member_bfe *arg1 = (pagmo::member_bfe *) 0 ;
-  pagmoWrap::problem *arg2 = 0 ;
+  pagmoWrap::problemPagomWrapper *arg2 = 0 ;
   pagmo::vector_double *arg3 = 0 ;
   pagmo::vector_double result;
   
   arg1 = (pagmo::member_bfe *)jarg1; 
-  arg2 = (pagmoWrap::problem *)jarg2;
+  arg2 = (pagmoWrap::problemPagomWrapper *)jarg2;
   if (!arg2) {
-    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "pagmoWrap::problem const & type is null", 0);
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "pagmoWrap::problemPagomWrapper const & type is null", 0);
     return 0;
   } 
   arg3 = (pagmo::vector_double *)jarg3;
@@ -2863,7 +2874,7 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_member_bfe_Operator(void * jarg1, voi
     SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "pagmo::vector_double const & type is null", 0);
     return 0;
   } 
-  result = pagmo_member_bfe_Operator((pagmo::member_bfe const *)arg1,(pagmoWrap::problem const &)*arg2,(std::vector< double > const &)*arg3);
+  result = pagmo_member_bfe_Operator((pagmo::member_bfe const *)arg1,(pagmoWrap::problemPagomWrapper const &)*arg2,(std::vector< double > const &)*arg3);
   jresult = new pagmo::vector_double((const pagmo::vector_double &)result); 
   return jresult;
 }
@@ -2953,15 +2964,15 @@ SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_delete_thread_island(void * jarg1) {
 
 SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_population__SWIG_3(void * jarg1, unsigned long jarg2, unsigned int jarg3) {
   void * jresult ;
-  pagmoWrap::problem arg1 ;
+  pagmoWrap::problemPagomWrapper arg1 ;
   pagmo::population::size_type arg2 ;
   unsigned int arg3 ;
-  pagmoWrap::problem *argp1 ;
+  pagmoWrap::problemPagomWrapper *argp1 ;
   pagmo::population *result = 0 ;
   
-  argp1 = (pagmoWrap::problem *)jarg1; 
+  argp1 = (pagmoWrap::problemPagomWrapper *)jarg1; 
   if (!argp1) {
-    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "Attempt to dereference null pagmoWrap::problem", 0);
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "Attempt to dereference null pagmoWrap::problemPagomWrapper", 0);
     return 0;
   }
   arg1 = *argp1; 
@@ -2975,14 +2986,14 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_population__SWIG_3(void * jarg1, 
 
 SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_population__SWIG_4(void * jarg1, unsigned long jarg2) {
   void * jresult ;
-  pagmoWrap::problem arg1 ;
+  pagmoWrap::problemPagomWrapper arg1 ;
   pagmo::population::size_type arg2 ;
-  pagmoWrap::problem *argp1 ;
+  pagmoWrap::problemPagomWrapper *argp1 ;
   pagmo::population *result = 0 ;
   
-  argp1 = (pagmoWrap::problem *)jarg1; 
+  argp1 = (pagmoWrap::problemPagomWrapper *)jarg1; 
   if (!argp1) {
-    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "Attempt to dereference null pagmoWrap::problem", 0);
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "Attempt to dereference null pagmoWrap::problemPagomWrapper", 0);
     return 0;
   }
   arg1 = *argp1; 
@@ -2995,13 +3006,13 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_population__SWIG_4(void * jarg1, 
 
 SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_population__SWIG_5(void * jarg1) {
   void * jresult ;
-  pagmoWrap::problem arg1 ;
-  pagmoWrap::problem *argp1 ;
+  pagmoWrap::problemPagomWrapper arg1 ;
+  pagmoWrap::problemPagomWrapper *argp1 ;
   pagmo::population *result = 0 ;
   
-  argp1 = (pagmoWrap::problem *)jarg1; 
+  argp1 = (pagmoWrap::problemPagomWrapper *)jarg1; 
   if (!argp1) {
-    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "Attempt to dereference null pagmoWrap::problem", 0);
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "Attempt to dereference null pagmoWrap::problemPagomWrapper", 0);
     return 0;
   }
   arg1 = *argp1; 
@@ -3222,10 +3233,10 @@ SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_population_set_x(void * jarg1, unsigned
 SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_population_get_problem(void * jarg1) {
   void * jresult ;
   pagmo::population *arg1 = (pagmo::population *) 0 ;
-  pagmoWrap::problem *result = 0 ;
+  pagmoWrap::problemPagomWrapper *result = 0 ;
   
   arg1 = (pagmo::population *)jarg1; 
-  result = (pagmoWrap::problem *) &((pagmo::population const *)arg1)->get_problem();
+  result = (pagmoWrap::problemPagomWrapper *) &((pagmo::population const *)arg1)->get_problem();
   jresult = (void *)result; 
   return jresult;
 }
@@ -3291,426 +3302,6 @@ SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_delete_algorithm(void * jarg1) {
   pagmo::algorithm *arg1 = (pagmo::algorithm *) 0 ;
   
   arg1 = (pagmo::algorithm *)jarg1; 
-  delete arg1;
-}
-
-
-SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_gaco__SWIG_0(unsigned int jarg1, unsigned int jarg2, double jarg3, double jarg4, double jarg5, unsigned int jarg6, unsigned int jarg7, unsigned int jarg8, unsigned int jarg9, double jarg10, unsigned int jarg11, unsigned int jarg12) {
-  void * jresult ;
-  unsigned int arg1 ;
-  unsigned int arg2 ;
-  double arg3 ;
-  double arg4 ;
-  double arg5 ;
-  unsigned int arg6 ;
-  unsigned int arg7 ;
-  unsigned int arg8 ;
-  unsigned int arg9 ;
-  double arg10 ;
-  bool arg11 ;
-  unsigned int arg12 ;
-  pagmo::gaco *result = 0 ;
-  
-  arg1 = (unsigned int)jarg1; 
-  arg2 = (unsigned int)jarg2; 
-  arg3 = (double)jarg3; 
-  arg4 = (double)jarg4; 
-  arg5 = (double)jarg5; 
-  arg6 = (unsigned int)jarg6; 
-  arg7 = (unsigned int)jarg7; 
-  arg8 = (unsigned int)jarg8; 
-  arg9 = (unsigned int)jarg9; 
-  arg10 = (double)jarg10; 
-  arg11 = jarg11 ? true : false; 
-  arg12 = (unsigned int)jarg12; 
-  result = (pagmo::gaco *)new pagmo::gaco(arg1,arg2,arg3,arg4,arg5,arg6,arg7,arg8,arg9,arg10,arg11,arg12);
-  jresult = (void *)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_gaco__SWIG_1(unsigned int jarg1, unsigned int jarg2, double jarg3, double jarg4, double jarg5, unsigned int jarg6, unsigned int jarg7, unsigned int jarg8, unsigned int jarg9, double jarg10, unsigned int jarg11) {
-  void * jresult ;
-  unsigned int arg1 ;
-  unsigned int arg2 ;
-  double arg3 ;
-  double arg4 ;
-  double arg5 ;
-  unsigned int arg6 ;
-  unsigned int arg7 ;
-  unsigned int arg8 ;
-  unsigned int arg9 ;
-  double arg10 ;
-  bool arg11 ;
-  pagmo::gaco *result = 0 ;
-  
-  arg1 = (unsigned int)jarg1; 
-  arg2 = (unsigned int)jarg2; 
-  arg3 = (double)jarg3; 
-  arg4 = (double)jarg4; 
-  arg5 = (double)jarg5; 
-  arg6 = (unsigned int)jarg6; 
-  arg7 = (unsigned int)jarg7; 
-  arg8 = (unsigned int)jarg8; 
-  arg9 = (unsigned int)jarg9; 
-  arg10 = (double)jarg10; 
-  arg11 = jarg11 ? true : false; 
-  result = (pagmo::gaco *)new pagmo::gaco(arg1,arg2,arg3,arg4,arg5,arg6,arg7,arg8,arg9,arg10,arg11);
-  jresult = (void *)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_gaco__SWIG_2(unsigned int jarg1, unsigned int jarg2, double jarg3, double jarg4, double jarg5, unsigned int jarg6, unsigned int jarg7, unsigned int jarg8, unsigned int jarg9, double jarg10) {
-  void * jresult ;
-  unsigned int arg1 ;
-  unsigned int arg2 ;
-  double arg3 ;
-  double arg4 ;
-  double arg5 ;
-  unsigned int arg6 ;
-  unsigned int arg7 ;
-  unsigned int arg8 ;
-  unsigned int arg9 ;
-  double arg10 ;
-  pagmo::gaco *result = 0 ;
-  
-  arg1 = (unsigned int)jarg1; 
-  arg2 = (unsigned int)jarg2; 
-  arg3 = (double)jarg3; 
-  arg4 = (double)jarg4; 
-  arg5 = (double)jarg5; 
-  arg6 = (unsigned int)jarg6; 
-  arg7 = (unsigned int)jarg7; 
-  arg8 = (unsigned int)jarg8; 
-  arg9 = (unsigned int)jarg9; 
-  arg10 = (double)jarg10; 
-  result = (pagmo::gaco *)new pagmo::gaco(arg1,arg2,arg3,arg4,arg5,arg6,arg7,arg8,arg9,arg10);
-  jresult = (void *)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_gaco__SWIG_3(unsigned int jarg1, unsigned int jarg2, double jarg3, double jarg4, double jarg5, unsigned int jarg6, unsigned int jarg7, unsigned int jarg8, unsigned int jarg9) {
-  void * jresult ;
-  unsigned int arg1 ;
-  unsigned int arg2 ;
-  double arg3 ;
-  double arg4 ;
-  double arg5 ;
-  unsigned int arg6 ;
-  unsigned int arg7 ;
-  unsigned int arg8 ;
-  unsigned int arg9 ;
-  pagmo::gaco *result = 0 ;
-  
-  arg1 = (unsigned int)jarg1; 
-  arg2 = (unsigned int)jarg2; 
-  arg3 = (double)jarg3; 
-  arg4 = (double)jarg4; 
-  arg5 = (double)jarg5; 
-  arg6 = (unsigned int)jarg6; 
-  arg7 = (unsigned int)jarg7; 
-  arg8 = (unsigned int)jarg8; 
-  arg9 = (unsigned int)jarg9; 
-  result = (pagmo::gaco *)new pagmo::gaco(arg1,arg2,arg3,arg4,arg5,arg6,arg7,arg8,arg9);
-  jresult = (void *)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_gaco__SWIG_4(unsigned int jarg1, unsigned int jarg2, double jarg3, double jarg4, double jarg5, unsigned int jarg6, unsigned int jarg7, unsigned int jarg8) {
-  void * jresult ;
-  unsigned int arg1 ;
-  unsigned int arg2 ;
-  double arg3 ;
-  double arg4 ;
-  double arg5 ;
-  unsigned int arg6 ;
-  unsigned int arg7 ;
-  unsigned int arg8 ;
-  pagmo::gaco *result = 0 ;
-  
-  arg1 = (unsigned int)jarg1; 
-  arg2 = (unsigned int)jarg2; 
-  arg3 = (double)jarg3; 
-  arg4 = (double)jarg4; 
-  arg5 = (double)jarg5; 
-  arg6 = (unsigned int)jarg6; 
-  arg7 = (unsigned int)jarg7; 
-  arg8 = (unsigned int)jarg8; 
-  result = (pagmo::gaco *)new pagmo::gaco(arg1,arg2,arg3,arg4,arg5,arg6,arg7,arg8);
-  jresult = (void *)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_gaco__SWIG_5(unsigned int jarg1, unsigned int jarg2, double jarg3, double jarg4, double jarg5, unsigned int jarg6, unsigned int jarg7) {
-  void * jresult ;
-  unsigned int arg1 ;
-  unsigned int arg2 ;
-  double arg3 ;
-  double arg4 ;
-  double arg5 ;
-  unsigned int arg6 ;
-  unsigned int arg7 ;
-  pagmo::gaco *result = 0 ;
-  
-  arg1 = (unsigned int)jarg1; 
-  arg2 = (unsigned int)jarg2; 
-  arg3 = (double)jarg3; 
-  arg4 = (double)jarg4; 
-  arg5 = (double)jarg5; 
-  arg6 = (unsigned int)jarg6; 
-  arg7 = (unsigned int)jarg7; 
-  result = (pagmo::gaco *)new pagmo::gaco(arg1,arg2,arg3,arg4,arg5,arg6,arg7);
-  jresult = (void *)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_gaco__SWIG_6(unsigned int jarg1, unsigned int jarg2, double jarg3, double jarg4, double jarg5, unsigned int jarg6) {
-  void * jresult ;
-  unsigned int arg1 ;
-  unsigned int arg2 ;
-  double arg3 ;
-  double arg4 ;
-  double arg5 ;
-  unsigned int arg6 ;
-  pagmo::gaco *result = 0 ;
-  
-  arg1 = (unsigned int)jarg1; 
-  arg2 = (unsigned int)jarg2; 
-  arg3 = (double)jarg3; 
-  arg4 = (double)jarg4; 
-  arg5 = (double)jarg5; 
-  arg6 = (unsigned int)jarg6; 
-  result = (pagmo::gaco *)new pagmo::gaco(arg1,arg2,arg3,arg4,arg5,arg6);
-  jresult = (void *)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_gaco__SWIG_7(unsigned int jarg1, unsigned int jarg2, double jarg3, double jarg4, double jarg5) {
-  void * jresult ;
-  unsigned int arg1 ;
-  unsigned int arg2 ;
-  double arg3 ;
-  double arg4 ;
-  double arg5 ;
-  pagmo::gaco *result = 0 ;
-  
-  arg1 = (unsigned int)jarg1; 
-  arg2 = (unsigned int)jarg2; 
-  arg3 = (double)jarg3; 
-  arg4 = (double)jarg4; 
-  arg5 = (double)jarg5; 
-  result = (pagmo::gaco *)new pagmo::gaco(arg1,arg2,arg3,arg4,arg5);
-  jresult = (void *)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_gaco__SWIG_8(unsigned int jarg1, unsigned int jarg2, double jarg3, double jarg4) {
-  void * jresult ;
-  unsigned int arg1 ;
-  unsigned int arg2 ;
-  double arg3 ;
-  double arg4 ;
-  pagmo::gaco *result = 0 ;
-  
-  arg1 = (unsigned int)jarg1; 
-  arg2 = (unsigned int)jarg2; 
-  arg3 = (double)jarg3; 
-  arg4 = (double)jarg4; 
-  result = (pagmo::gaco *)new pagmo::gaco(arg1,arg2,arg3,arg4);
-  jresult = (void *)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_gaco__SWIG_9(unsigned int jarg1, unsigned int jarg2, double jarg3) {
-  void * jresult ;
-  unsigned int arg1 ;
-  unsigned int arg2 ;
-  double arg3 ;
-  pagmo::gaco *result = 0 ;
-  
-  arg1 = (unsigned int)jarg1; 
-  arg2 = (unsigned int)jarg2; 
-  arg3 = (double)jarg3; 
-  result = (pagmo::gaco *)new pagmo::gaco(arg1,arg2,arg3);
-  jresult = (void *)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_gaco__SWIG_10(unsigned int jarg1, unsigned int jarg2) {
-  void * jresult ;
-  unsigned int arg1 ;
-  unsigned int arg2 ;
-  pagmo::gaco *result = 0 ;
-  
-  arg1 = (unsigned int)jarg1; 
-  arg2 = (unsigned int)jarg2; 
-  result = (pagmo::gaco *)new pagmo::gaco(arg1,arg2);
-  jresult = (void *)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_gaco__SWIG_11(unsigned int jarg1) {
-  void * jresult ;
-  unsigned int arg1 ;
-  pagmo::gaco *result = 0 ;
-  
-  arg1 = (unsigned int)jarg1; 
-  result = (pagmo::gaco *)new pagmo::gaco(arg1);
-  jresult = (void *)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_gaco__SWIG_12() {
-  void * jresult ;
-  pagmo::gaco *result = 0 ;
-  
-  result = (pagmo::gaco *)new pagmo::gaco();
-  jresult = (void *)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT unsigned int SWIGSTDCALL CSharp_pagmo_gaco_get_gen(void * jarg1) {
-  unsigned int jresult ;
-  pagmo::gaco *arg1 = (pagmo::gaco *) 0 ;
-  unsigned int result;
-  
-  arg1 = (pagmo::gaco *)jarg1; 
-  result = (unsigned int)((pagmo::gaco const *)arg1)->get_gen();
-  jresult = result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_gaco_evolve(void * jarg1, void * jarg2) {
-  void * jresult ;
-  pagmo::gaco *arg1 = (pagmo::gaco *) 0 ;
-  SwigValueWrapper< pagmo::population > arg2 ;
-  pagmo::population *argp2 ;
-  SwigValueWrapper< pagmo::population > result;
-  
-  arg1 = (pagmo::gaco *)jarg1; 
-  argp2 = (pagmo::population *)jarg2; 
-  if (!argp2) {
-    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "Attempt to dereference null pagmo::population", 0);
-    return 0;
-  }
-  arg2 = *argp2; 
-  result = ((pagmo::gaco const *)arg1)->evolve(arg2);
-  jresult = new pagmo::population((const pagmo::population &)result); 
-  return jresult;
-}
-
-
-SWIGEXPORT char * SWIGSTDCALL CSharp_pagmo_gaco_get_name(void * jarg1) {
-  char * jresult ;
-  pagmo::gaco *arg1 = (pagmo::gaco *) 0 ;
-  std::string result;
-  
-  arg1 = (pagmo::gaco *)jarg1; 
-  result = ((pagmo::gaco const *)arg1)->get_name();
-  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
-  return jresult;
-}
-
-
-SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_gaco_set_seed(void * jarg1, unsigned int jarg2) {
-  pagmo::gaco *arg1 = (pagmo::gaco *) 0 ;
-  unsigned int arg2 ;
-  
-  arg1 = (pagmo::gaco *)jarg1; 
-  arg2 = (unsigned int)jarg2; 
-  (arg1)->set_seed(arg2);
-}
-
-
-SWIGEXPORT unsigned int SWIGSTDCALL CSharp_pagmo_gaco_get_seed(void * jarg1) {
-  unsigned int jresult ;
-  pagmo::gaco *arg1 = (pagmo::gaco *) 0 ;
-  unsigned int result;
-  
-  arg1 = (pagmo::gaco *)jarg1; 
-  result = (unsigned int)((pagmo::gaco const *)arg1)->get_seed();
-  jresult = result; 
-  return jresult;
-}
-
-
-SWIGEXPORT unsigned int SWIGSTDCALL CSharp_pagmo_gaco_get_verbosity(void * jarg1) {
-  unsigned int jresult ;
-  pagmo::gaco *arg1 = (pagmo::gaco *) 0 ;
-  unsigned int result;
-  
-  arg1 = (pagmo::gaco *)jarg1; 
-  result = (unsigned int)((pagmo::gaco const *)arg1)->get_verbosity();
-  jresult = result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_gaco_set_verbosity(void * jarg1, unsigned int jarg2) {
-  pagmo::gaco *arg1 = (pagmo::gaco *) 0 ;
-  unsigned int arg2 ;
-  
-  arg1 = (pagmo::gaco *)jarg1; 
-  arg2 = (unsigned int)jarg2; 
-  (arg1)->set_verbosity(arg2);
-}
-
-
-SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_gaco_set_bfe(void * jarg1, void * jarg2) {
-  pagmo::gaco *arg1 = (pagmo::gaco *) 0 ;
-  pagmo::bfe *arg2 = 0 ;
-  
-  arg1 = (pagmo::gaco *)jarg1; 
-  arg2 = (pagmo::bfe *)jarg2;
-  if (!arg2) {
-    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "pagmo::bfe const & type is null", 0);
-    return ;
-  } 
-  (arg1)->set_bfe((pagmo::bfe const &)*arg2);
-}
-
-
-SWIGEXPORT char * SWIGSTDCALL CSharp_pagmo_gaco_get_extra_info(void * jarg1) {
-  char * jresult ;
-  pagmo::gaco *arg1 = (pagmo::gaco *) 0 ;
-  std::string result;
-  
-  arg1 = (pagmo::gaco *)jarg1; 
-  result = ((pagmo::gaco const *)arg1)->get_extra_info();
-  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
-  return jresult;
-}
-
-
-SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_gaco_get_log(void * jarg1) {
-  void * jresult ;
-  pagmo::gaco *arg1 = (pagmo::gaco *) 0 ;
-  pagmo::gaco::log_type *result = 0 ;
-  
-  arg1 = (pagmo::gaco *)jarg1; 
-  result = (pagmo::gaco::log_type *) &((pagmo::gaco const *)arg1)->get_log();
-  jresult = (void *)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_delete_gaco(void * jarg1) {
-  pagmo::gaco *arg1 = (pagmo::gaco *) 0 ;
-  
-  arg1 = (pagmo::gaco *)jarg1; 
   delete arg1;
 }
 
@@ -4239,6 +3830,426 @@ SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_delete_de1220(void * jarg1) {
 }
 
 
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_gaco__SWIG_0(unsigned int jarg1, unsigned int jarg2, double jarg3, double jarg4, double jarg5, unsigned int jarg6, unsigned int jarg7, unsigned int jarg8, unsigned int jarg9, double jarg10, unsigned int jarg11, unsigned int jarg12) {
+  void * jresult ;
+  unsigned int arg1 ;
+  unsigned int arg2 ;
+  double arg3 ;
+  double arg4 ;
+  double arg5 ;
+  unsigned int arg6 ;
+  unsigned int arg7 ;
+  unsigned int arg8 ;
+  unsigned int arg9 ;
+  double arg10 ;
+  bool arg11 ;
+  unsigned int arg12 ;
+  pagmo::gaco *result = 0 ;
+  
+  arg1 = (unsigned int)jarg1; 
+  arg2 = (unsigned int)jarg2; 
+  arg3 = (double)jarg3; 
+  arg4 = (double)jarg4; 
+  arg5 = (double)jarg5; 
+  arg6 = (unsigned int)jarg6; 
+  arg7 = (unsigned int)jarg7; 
+  arg8 = (unsigned int)jarg8; 
+  arg9 = (unsigned int)jarg9; 
+  arg10 = (double)jarg10; 
+  arg11 = jarg11 ? true : false; 
+  arg12 = (unsigned int)jarg12; 
+  result = (pagmo::gaco *)new pagmo::gaco(arg1,arg2,arg3,arg4,arg5,arg6,arg7,arg8,arg9,arg10,arg11,arg12);
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_gaco__SWIG_1(unsigned int jarg1, unsigned int jarg2, double jarg3, double jarg4, double jarg5, unsigned int jarg6, unsigned int jarg7, unsigned int jarg8, unsigned int jarg9, double jarg10, unsigned int jarg11) {
+  void * jresult ;
+  unsigned int arg1 ;
+  unsigned int arg2 ;
+  double arg3 ;
+  double arg4 ;
+  double arg5 ;
+  unsigned int arg6 ;
+  unsigned int arg7 ;
+  unsigned int arg8 ;
+  unsigned int arg9 ;
+  double arg10 ;
+  bool arg11 ;
+  pagmo::gaco *result = 0 ;
+  
+  arg1 = (unsigned int)jarg1; 
+  arg2 = (unsigned int)jarg2; 
+  arg3 = (double)jarg3; 
+  arg4 = (double)jarg4; 
+  arg5 = (double)jarg5; 
+  arg6 = (unsigned int)jarg6; 
+  arg7 = (unsigned int)jarg7; 
+  arg8 = (unsigned int)jarg8; 
+  arg9 = (unsigned int)jarg9; 
+  arg10 = (double)jarg10; 
+  arg11 = jarg11 ? true : false; 
+  result = (pagmo::gaco *)new pagmo::gaco(arg1,arg2,arg3,arg4,arg5,arg6,arg7,arg8,arg9,arg10,arg11);
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_gaco__SWIG_2(unsigned int jarg1, unsigned int jarg2, double jarg3, double jarg4, double jarg5, unsigned int jarg6, unsigned int jarg7, unsigned int jarg8, unsigned int jarg9, double jarg10) {
+  void * jresult ;
+  unsigned int arg1 ;
+  unsigned int arg2 ;
+  double arg3 ;
+  double arg4 ;
+  double arg5 ;
+  unsigned int arg6 ;
+  unsigned int arg7 ;
+  unsigned int arg8 ;
+  unsigned int arg9 ;
+  double arg10 ;
+  pagmo::gaco *result = 0 ;
+  
+  arg1 = (unsigned int)jarg1; 
+  arg2 = (unsigned int)jarg2; 
+  arg3 = (double)jarg3; 
+  arg4 = (double)jarg4; 
+  arg5 = (double)jarg5; 
+  arg6 = (unsigned int)jarg6; 
+  arg7 = (unsigned int)jarg7; 
+  arg8 = (unsigned int)jarg8; 
+  arg9 = (unsigned int)jarg9; 
+  arg10 = (double)jarg10; 
+  result = (pagmo::gaco *)new pagmo::gaco(arg1,arg2,arg3,arg4,arg5,arg6,arg7,arg8,arg9,arg10);
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_gaco__SWIG_3(unsigned int jarg1, unsigned int jarg2, double jarg3, double jarg4, double jarg5, unsigned int jarg6, unsigned int jarg7, unsigned int jarg8, unsigned int jarg9) {
+  void * jresult ;
+  unsigned int arg1 ;
+  unsigned int arg2 ;
+  double arg3 ;
+  double arg4 ;
+  double arg5 ;
+  unsigned int arg6 ;
+  unsigned int arg7 ;
+  unsigned int arg8 ;
+  unsigned int arg9 ;
+  pagmo::gaco *result = 0 ;
+  
+  arg1 = (unsigned int)jarg1; 
+  arg2 = (unsigned int)jarg2; 
+  arg3 = (double)jarg3; 
+  arg4 = (double)jarg4; 
+  arg5 = (double)jarg5; 
+  arg6 = (unsigned int)jarg6; 
+  arg7 = (unsigned int)jarg7; 
+  arg8 = (unsigned int)jarg8; 
+  arg9 = (unsigned int)jarg9; 
+  result = (pagmo::gaco *)new pagmo::gaco(arg1,arg2,arg3,arg4,arg5,arg6,arg7,arg8,arg9);
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_gaco__SWIG_4(unsigned int jarg1, unsigned int jarg2, double jarg3, double jarg4, double jarg5, unsigned int jarg6, unsigned int jarg7, unsigned int jarg8) {
+  void * jresult ;
+  unsigned int arg1 ;
+  unsigned int arg2 ;
+  double arg3 ;
+  double arg4 ;
+  double arg5 ;
+  unsigned int arg6 ;
+  unsigned int arg7 ;
+  unsigned int arg8 ;
+  pagmo::gaco *result = 0 ;
+  
+  arg1 = (unsigned int)jarg1; 
+  arg2 = (unsigned int)jarg2; 
+  arg3 = (double)jarg3; 
+  arg4 = (double)jarg4; 
+  arg5 = (double)jarg5; 
+  arg6 = (unsigned int)jarg6; 
+  arg7 = (unsigned int)jarg7; 
+  arg8 = (unsigned int)jarg8; 
+  result = (pagmo::gaco *)new pagmo::gaco(arg1,arg2,arg3,arg4,arg5,arg6,arg7,arg8);
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_gaco__SWIG_5(unsigned int jarg1, unsigned int jarg2, double jarg3, double jarg4, double jarg5, unsigned int jarg6, unsigned int jarg7) {
+  void * jresult ;
+  unsigned int arg1 ;
+  unsigned int arg2 ;
+  double arg3 ;
+  double arg4 ;
+  double arg5 ;
+  unsigned int arg6 ;
+  unsigned int arg7 ;
+  pagmo::gaco *result = 0 ;
+  
+  arg1 = (unsigned int)jarg1; 
+  arg2 = (unsigned int)jarg2; 
+  arg3 = (double)jarg3; 
+  arg4 = (double)jarg4; 
+  arg5 = (double)jarg5; 
+  arg6 = (unsigned int)jarg6; 
+  arg7 = (unsigned int)jarg7; 
+  result = (pagmo::gaco *)new pagmo::gaco(arg1,arg2,arg3,arg4,arg5,arg6,arg7);
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_gaco__SWIG_6(unsigned int jarg1, unsigned int jarg2, double jarg3, double jarg4, double jarg5, unsigned int jarg6) {
+  void * jresult ;
+  unsigned int arg1 ;
+  unsigned int arg2 ;
+  double arg3 ;
+  double arg4 ;
+  double arg5 ;
+  unsigned int arg6 ;
+  pagmo::gaco *result = 0 ;
+  
+  arg1 = (unsigned int)jarg1; 
+  arg2 = (unsigned int)jarg2; 
+  arg3 = (double)jarg3; 
+  arg4 = (double)jarg4; 
+  arg5 = (double)jarg5; 
+  arg6 = (unsigned int)jarg6; 
+  result = (pagmo::gaco *)new pagmo::gaco(arg1,arg2,arg3,arg4,arg5,arg6);
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_gaco__SWIG_7(unsigned int jarg1, unsigned int jarg2, double jarg3, double jarg4, double jarg5) {
+  void * jresult ;
+  unsigned int arg1 ;
+  unsigned int arg2 ;
+  double arg3 ;
+  double arg4 ;
+  double arg5 ;
+  pagmo::gaco *result = 0 ;
+  
+  arg1 = (unsigned int)jarg1; 
+  arg2 = (unsigned int)jarg2; 
+  arg3 = (double)jarg3; 
+  arg4 = (double)jarg4; 
+  arg5 = (double)jarg5; 
+  result = (pagmo::gaco *)new pagmo::gaco(arg1,arg2,arg3,arg4,arg5);
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_gaco__SWIG_8(unsigned int jarg1, unsigned int jarg2, double jarg3, double jarg4) {
+  void * jresult ;
+  unsigned int arg1 ;
+  unsigned int arg2 ;
+  double arg3 ;
+  double arg4 ;
+  pagmo::gaco *result = 0 ;
+  
+  arg1 = (unsigned int)jarg1; 
+  arg2 = (unsigned int)jarg2; 
+  arg3 = (double)jarg3; 
+  arg4 = (double)jarg4; 
+  result = (pagmo::gaco *)new pagmo::gaco(arg1,arg2,arg3,arg4);
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_gaco__SWIG_9(unsigned int jarg1, unsigned int jarg2, double jarg3) {
+  void * jresult ;
+  unsigned int arg1 ;
+  unsigned int arg2 ;
+  double arg3 ;
+  pagmo::gaco *result = 0 ;
+  
+  arg1 = (unsigned int)jarg1; 
+  arg2 = (unsigned int)jarg2; 
+  arg3 = (double)jarg3; 
+  result = (pagmo::gaco *)new pagmo::gaco(arg1,arg2,arg3);
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_gaco__SWIG_10(unsigned int jarg1, unsigned int jarg2) {
+  void * jresult ;
+  unsigned int arg1 ;
+  unsigned int arg2 ;
+  pagmo::gaco *result = 0 ;
+  
+  arg1 = (unsigned int)jarg1; 
+  arg2 = (unsigned int)jarg2; 
+  result = (pagmo::gaco *)new pagmo::gaco(arg1,arg2);
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_gaco__SWIG_11(unsigned int jarg1) {
+  void * jresult ;
+  unsigned int arg1 ;
+  pagmo::gaco *result = 0 ;
+  
+  arg1 = (unsigned int)jarg1; 
+  result = (pagmo::gaco *)new pagmo::gaco(arg1);
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_gaco__SWIG_12() {
+  void * jresult ;
+  pagmo::gaco *result = 0 ;
+  
+  result = (pagmo::gaco *)new pagmo::gaco();
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_pagmo_gaco_get_gen(void * jarg1) {
+  unsigned int jresult ;
+  pagmo::gaco *arg1 = (pagmo::gaco *) 0 ;
+  unsigned int result;
+  
+  arg1 = (pagmo::gaco *)jarg1; 
+  result = (unsigned int)((pagmo::gaco const *)arg1)->get_gen();
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_gaco_evolve(void * jarg1, void * jarg2) {
+  void * jresult ;
+  pagmo::gaco *arg1 = (pagmo::gaco *) 0 ;
+  SwigValueWrapper< pagmo::population > arg2 ;
+  pagmo::population *argp2 ;
+  SwigValueWrapper< pagmo::population > result;
+  
+  arg1 = (pagmo::gaco *)jarg1; 
+  argp2 = (pagmo::population *)jarg2; 
+  if (!argp2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "Attempt to dereference null pagmo::population", 0);
+    return 0;
+  }
+  arg2 = *argp2; 
+  result = ((pagmo::gaco const *)arg1)->evolve(arg2);
+  jresult = new pagmo::population((const pagmo::population &)result); 
+  return jresult;
+}
+
+
+SWIGEXPORT char * SWIGSTDCALL CSharp_pagmo_gaco_get_name(void * jarg1) {
+  char * jresult ;
+  pagmo::gaco *arg1 = (pagmo::gaco *) 0 ;
+  std::string result;
+  
+  arg1 = (pagmo::gaco *)jarg1; 
+  result = ((pagmo::gaco const *)arg1)->get_name();
+  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_gaco_set_seed(void * jarg1, unsigned int jarg2) {
+  pagmo::gaco *arg1 = (pagmo::gaco *) 0 ;
+  unsigned int arg2 ;
+  
+  arg1 = (pagmo::gaco *)jarg1; 
+  arg2 = (unsigned int)jarg2; 
+  (arg1)->set_seed(arg2);
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_pagmo_gaco_get_seed(void * jarg1) {
+  unsigned int jresult ;
+  pagmo::gaco *arg1 = (pagmo::gaco *) 0 ;
+  unsigned int result;
+  
+  arg1 = (pagmo::gaco *)jarg1; 
+  result = (unsigned int)((pagmo::gaco const *)arg1)->get_seed();
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_pagmo_gaco_get_verbosity(void * jarg1) {
+  unsigned int jresult ;
+  pagmo::gaco *arg1 = (pagmo::gaco *) 0 ;
+  unsigned int result;
+  
+  arg1 = (pagmo::gaco *)jarg1; 
+  result = (unsigned int)((pagmo::gaco const *)arg1)->get_verbosity();
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_gaco_set_verbosity(void * jarg1, unsigned int jarg2) {
+  pagmo::gaco *arg1 = (pagmo::gaco *) 0 ;
+  unsigned int arg2 ;
+  
+  arg1 = (pagmo::gaco *)jarg1; 
+  arg2 = (unsigned int)jarg2; 
+  (arg1)->set_verbosity(arg2);
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_gaco_set_bfe(void * jarg1, void * jarg2) {
+  pagmo::gaco *arg1 = (pagmo::gaco *) 0 ;
+  pagmo::bfe *arg2 = 0 ;
+  
+  arg1 = (pagmo::gaco *)jarg1; 
+  arg2 = (pagmo::bfe *)jarg2;
+  if (!arg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "pagmo::bfe const & type is null", 0);
+    return ;
+  } 
+  (arg1)->set_bfe((pagmo::bfe const &)*arg2);
+}
+
+
+SWIGEXPORT char * SWIGSTDCALL CSharp_pagmo_gaco_get_extra_info(void * jarg1) {
+  char * jresult ;
+  pagmo::gaco *arg1 = (pagmo::gaco *) 0 ;
+  std::string result;
+  
+  arg1 = (pagmo::gaco *)jarg1; 
+  result = ((pagmo::gaco const *)arg1)->get_extra_info();
+  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_gaco_get_log(void * jarg1) {
+  void * jresult ;
+  pagmo::gaco *arg1 = (pagmo::gaco *) 0 ;
+  pagmo::gaco::log_type *result = 0 ;
+  
+  arg1 = (pagmo::gaco *)jarg1; 
+  result = (pagmo::gaco::log_type *) &((pagmo::gaco const *)arg1)->get_log();
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_delete_gaco(void * jarg1) {
+  pagmo::gaco *arg1 = (pagmo::gaco *) 0 ;
+  
+  arg1 = (pagmo::gaco *)jarg1; 
+  delete arg1;
+}
+
+
 SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_sade__SWIG_0(unsigned int jarg1, unsigned int jarg2, unsigned int jarg3, double jarg4, double jarg5, unsigned int jarg6, unsigned int jarg7) {
   void * jresult ;
   unsigned int arg1 ;
@@ -4669,15 +4680,15 @@ SWIGEXPORT pagmo::island * SWIGSTDCALL CSharp_pagmo_thread_island_SWIGUpcast(pag
     return (pagmo::island *)jarg1;
 }
 
-SWIGEXPORT pagmo::algorithm * SWIGSTDCALL CSharp_pagmo_gaco_SWIGUpcast(pagmo::gaco *jarg1) {
-    return (pagmo::algorithm *)jarg1;
-}
-
 SWIGEXPORT pagmo::algorithm * SWIGSTDCALL CSharp_pagmo_de_SWIGUpcast(pagmo::de *jarg1) {
     return (pagmo::algorithm *)jarg1;
 }
 
 SWIGEXPORT pagmo::algorithm * SWIGSTDCALL CSharp_pagmo_de1220_SWIGUpcast(pagmo::de1220 *jarg1) {
+    return (pagmo::algorithm *)jarg1;
+}
+
+SWIGEXPORT pagmo::algorithm * SWIGSTDCALL CSharp_pagmo_gaco_SWIGUpcast(pagmo::gaco *jarg1) {
     return (pagmo::algorithm *)jarg1;
 }
 

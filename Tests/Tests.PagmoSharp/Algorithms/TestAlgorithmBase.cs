@@ -115,9 +115,8 @@ namespace Tests.PagmoSharp.Algorithms
 
             using var problemBase = new golomb_ruler();
             var problemBase2 = new ProblemWrapper(problemBase);
-            var problem = new problem(problemBase2);
             using (var algorithm = CreateAlgorithm())
-            using (var pop = new population(problem, 1024))
+            using (var pop = new population(problemBase2, 1024))
             {
                 algorithm.set_seed(2); // for consistent results
 

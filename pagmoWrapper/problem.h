@@ -71,7 +71,7 @@ namespace pagmoWrap
 	};
 
 
-	class problem 
+	class problemPagomWrapper 
 	{
 	private:
 		problemBase* _base;
@@ -84,14 +84,14 @@ namespace pagmoWrap
 			//delete _base;
 		}
 	public:
-		problem() : _base(0) {}
+		problemPagomWrapper() : _base(0) {}
 
-		problem(problemBase* base) : _base(base) { }
+		problemPagomWrapper(problemBase* base) : _base(base) { }
 
-		problem(const problem& old) : _base(0) {
+		problemPagomWrapper(const problemPagomWrapper& old) : _base(0) {
 			_base = old._base;
 		}
-		~problem() {
+		~problemPagomWrapper() {
 			deleteProblem();
 		}
 

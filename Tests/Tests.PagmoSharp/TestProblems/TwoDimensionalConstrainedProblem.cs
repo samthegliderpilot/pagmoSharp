@@ -6,60 +6,52 @@ namespace Tests.PagmoSharp.TestProblems
 {
     public class TwoDimensionalConstrainedProblem : TestProblemWrapper
     {
-        private class TwoDimensionalSimpleProblemFunction : pagmo.problemBase
+        private readonly DoubleVector _lowerBounds = new DoubleVector(new[] { -1.0, -1.0 });
+        private readonly DoubleVector _upperBounds = new DoubleVector(new[] { 5.0, 5.0 });
+
+        public override PairOfDoubleVectors get_bounds()
         {
-            private readonly DoubleVector _lowerBounds = new DoubleVector(new[] { -1.0, -1.0 });
-            private readonly DoubleVector _upperBounds = new DoubleVector(new[] { 5.0, 5.0 });
-
-            public override PairOfDoubleVectors get_bounds()
-            {
-                return new PairOfDoubleVectors(_lowerBounds, _upperBounds);
-            }
-
-            /// <inheritdoc />
-            public override DoubleVector fitness(DoubleVector arg0)
-            {
-                double x = arg0[0];
-                double y = arg0[1];
-
-                double obj = Math.Pow(x, 2) + y;
-                double yEq2Const = y-2.0; // y == 2
-                double xLtEq1Const = x-1.0; // x == 1
-                return new DoubleVector(new[] { obj, yEq2Const, xLtEq1Const });
-            }
-
-            public override string get_name()
-            {
-                return "Simple 2-D x^2+y test problem with constraint y==2.0, x == 1";
-            }
-
-            public override thread_safety get_thread_safety()
-            {
-                return thread_safety.constant;
-            }
-
-            /// <inheritdoc />
-            public override uint get_nobj()
-            {
-                return 1;
-            }
-
-            /// <inheritdoc />
-            public override uint get_nec()
-            {
-                return 2;
-            }
-
-            /// <inheritdoc />
-            public override uint get_nic()
-            {
-                return 0; //TODO: I couldn't get the ant colony optimizer to converge reliably with a x<=1 constraint
-            }
+            return new PairOfDoubleVectors(_lowerBounds, _upperBounds);
         }
 
         /// <inheritdoc />
-            public TwoDimensionalConstrainedProblem(): base(new TwoDimensionalSimpleProblemFunction())
+        public override DoubleVector fitness(DoubleVector arg0)
         {
+            double x = arg0[0];
+            double y = arg0[1];
+
+            double obj = Math.Pow(x, 2) + y;
+            double yEq2Const = y - 2.0; // y == 2
+            double xLtEq1Const = x - 1.0; // x == 1
+            return new DoubleVector(new[] { obj, yEq2Const, xLtEq1Const });
+        }
+
+        public override string get_name()
+        {
+            return "Simple 2-D x^2+y test problem with constraint y==2.0, x == 1";
+        }
+
+        public override thread_safety get_thread_safety()
+        {
+            return thread_safety.constant;
+        }
+
+        /// <inheritdoc />
+        public override uint get_nobj()
+        {
+            return 1;
+        }
+
+        /// <inheritdoc />
+        public override uint get_nec()
+        {
+            return 2;
+        }
+
+        /// <inheritdoc />
+        public override uint get_nic()
+        {
+            return 0; //TODO: I couldn't get the ant colony optimizer to converge reliably with a x<=1 constraint
         }
 
         /// <inheritdoc />
@@ -67,7 +59,7 @@ namespace Tests.PagmoSharp.TestProblems
         {
             get { return 3.0; }
         }
-        
+
         /// <inheritdoc />
         public override double[] ExpectedOptimalX
         {
@@ -95,6 +87,4 @@ namespace Tests.PagmoSharp.TestProblems
 
         }
     }
-
-    
 }

@@ -10,7 +10,7 @@
 
 namespace pagmo {
 
-public class population : global::System.IDisposable {
+public partial class population : global::System.IDisposable {
   private global::System.Runtime.InteropServices.HandleRef swigCPtr;
   protected bool swigCMemOwn;
 
@@ -44,15 +44,15 @@ public class population : global::System.IDisposable {
     }
   }
 
-  public population(problem x, uint pop_size, uint seed) : this(pagmoPINVOKE.new_population__SWIG_3(problem.getCPtr(x), pop_size, seed), true) {
+  public population(problemPagomWrapper x, uint pop_size, uint seed) : this(pagmoPINVOKE.new_population__SWIG_3(problemPagomWrapper.getCPtr(x), pop_size, seed), true) {
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
-  public population(problem x, uint pop_size) : this(pagmoPINVOKE.new_population__SWIG_4(problem.getCPtr(x), pop_size), true) {
+  public population(problemPagomWrapper x, uint pop_size) : this(pagmoPINVOKE.new_population__SWIG_4(problemPagomWrapper.getCPtr(x), pop_size), true) {
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
-  public population(problem x) : this(pagmoPINVOKE.new_population__SWIG_5(problem.getCPtr(x)), true) {
+  public population(problemPagomWrapper x) : this(pagmoPINVOKE.new_population__SWIG_5(problemPagomWrapper.getCPtr(x)), true) {
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
@@ -128,8 +128,8 @@ public class population : global::System.IDisposable {
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
-  public problem get_problem() {
-    problem ret = new problem(pagmoPINVOKE.population_get_problem(swigCPtr), false);
+  public problemPagomWrapper get_problem() {
+    problemPagomWrapper ret = new problemPagomWrapper(pagmoPINVOKE.population_get_problem(swigCPtr), false);
     return ret;
   }
 

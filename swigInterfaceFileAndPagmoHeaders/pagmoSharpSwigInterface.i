@@ -8,10 +8,6 @@
 	#include "pagmo/batch_evaluators/thread_bfe.hpp"
 	#include "pagmo/batch_evaluators/member_bfe.hpp"
 	#include "pagmo/algorithm.hpp"
-	#include "pagmo/algorithms/de.hpp"
-	#include "pagmo/algorithms/de1220.hpp"
-	#include "pagmo/algorithms/gaco.hpp"
-	#include "pagmo/algorithms/sade.hpp"
 	#include "pagmo/population.hpp"
 	#include "pagmo/threading.hpp" 
 	#include "pagmo/problem.hpp"
@@ -31,15 +27,11 @@
 %include "std_vector.i"
 %include "std_pair.i"
 %pragma(csharp) moduleclassmodifiers = "public partial class"
-%typemap(csclassmodifiers) pagmoWrap::problem "public partial class"
+%typemap(csclassmodifiers) pagmoWrap::problemPagomWrapper "public partial class"
 %typemap(csclassmodifiers) pagmoWrap::problemBase "public partial class"
-%typemap(csclassmodifiers) pagmo::de "public partial class"
-%typemap(csclassmodifiers) pagmo::de1220 "public partial class"
-%typemap(csclassmodifiers) pagmo::gaco "public partial class"
-%typemap(csclassmodifiers) pagmo::sade "public partial class"
 %typemap(csclassmodifiers) pagmo::thread_island "public partial class"
-%typemap(csclassmodifiers) pagmo::golomb_ruler "public partial class"
 %typemap(csclassmodifiers) pagmo::DoubleVector "public partial class"
+%typemap(csclassmodifiers) pagmo::population "public partial class"
 //%typemap(csclassmodifiers) pagmo::fork_island "public partial class"
 %feature("director") pagmoWrap::problemBase;
 %include "pagmoWrapper/problem.h"
@@ -61,21 +53,21 @@ namespace pagmo {
 	enum class thread_safety { none, basic, constant };
 
 	%extend default_bfe{
-	vector_double Operator(const pagmoWrap::problem & theProblem, const vector_double & values) const
+	vector_double Operator(const pagmoWrap::problemPagomWrapper& theProblem, const vector_double & values) const
 	{
 	   return self->operator()(static_cast<pagmo::problem>(theProblem), values);
 	}
 	};
 
 	%extend member_bfe{
-	vector_double Operator(const pagmoWrap::problem & theProblem, const vector_double & values) const
+	vector_double Operator(const pagmoWrap::problemPagomWrapper& theProblem, const vector_double & values) const
 	{
 	   return self->operator()(static_cast<pagmo::problem>(theProblem), values);
 	}
 	};
 
 	%extend thread_bfe{
-	vector_double Operator(const pagmoWrap::problem & theProblem, const vector_double & values) const
+	vector_double Operator(const pagmoWrap::problemPagomWrapper& theProblem, const vector_double & values) const
 	{
 	   return self->operator()(static_cast<pagmo::problem>(theProblem), values);
 	}
@@ -141,7 +133,7 @@ namespace pagmo {
 		template <typename T, generic_ctor_enabler<T> = 0>
 		extern population(T&& x, size_type pop_size = 0u, unsigned seed = pagmo::random_device::next());
 
-		extern population(pagmoWrap::problem x, size_type pop_size = 0u, unsigned seed = pagmo::random_device::next());
+		extern population(pagmoWrap::problemPagomWrapper x, size_type pop_size = 0u, unsigned seed = pagmo::random_device::next());
 		extern void push_back(const vector_double&);
 		extern void push_back(const vector_double&, const vector_double&);
 		extern vector_double random_decision_vector() const;
@@ -156,7 +148,7 @@ namespace pagmo {
 		extern size_type size() const;
 		extern void set_xf(size_type, const vector_double&, const vector_double&);
 		extern void set_x(size_type, const vector_double&);
-		extern const pagmoWrap::problem& get_problem() const;
+		extern const pagmoWrap::problemPagomWrapper& get_problem() const;
 		extern const std::vector<vector_double>& get_f() const;
 		extern const std::vector<vector_double>& get_x() const;
 		extern const std::vector<unsigned long long>& get_ID() const;
@@ -192,121 +184,11 @@ namespace pagmo {
 		//void serialize(Archive&, unsigned);
 	};
 
-	class gaco : public algorithm {
-	public:
-		typedef pop_size_t size_type;
-		typedef std::tuple<unsigned, vector_double::size_type, double, unsigned, double, double, double> log_line_type;
-		extern gaco(unsigned gen = 1u, unsigned ker = 63u, double q = 1.0, double oracle = 0., double acc = 0.01, unsigned threshold = 1u, unsigned n_gen_mark = 7u, unsigned impstop = 100000u, unsigned evalstop = 100000u, double focus = 0., bool memory = false, unsigned seed = pagmo::random_device::next());
+	%include swigInterfaceFiles\algorithms\de.i
+	%include swigInterfaceFiles\algorithms\de1220.i
+	%include swigInterfaceFiles\algorithms\gaco.i
+	%include swigInterfaceFiles\algorithms\sade.i
 
-		extern unsigned get_gen() const;
-
-		extern population evolve(population) const;
-		extern std::string get_name() const;
-		extern void set_seed(unsigned);
-		extern unsigned get_seed() const;
-		extern unsigned get_verbosity() const;
-		extern void set_verbosity(unsigned);
-
-		extern void set_bfe(const pagmo::bfe& b);
-		extern std::string get_extra_info() const;
-		typedef std::vector<log_line_type> log_type;
-		extern const log_type& get_log() const;
-	};
-
-
-	class de : public algorithm {
-	public:
-		typedef std::tuple<unsigned, unsigned long long, double, double, double> log_line_type;
-		typedef std::vector<log_line_type> log_type;
-		typedef pop_size_t size_type;
-		extern de(unsigned gen = 1u, double F = 0.8, double CR = 0.9, unsigned variant = 2u, double ftol = 1e-6, double xtol = 1e-6, unsigned seed = pagmo::random_device::next());
-
-
-		extern population evolve(population) const;
-		extern std::string get_name() const;
-		extern void set_seed(unsigned);
-		extern unsigned get_seed() const;
-		extern unsigned get_verbosity() const;
-		extern void set_verbosity(unsigned);
-
-		extern std::string get_extra_info() const;
-		extern const log_type& get_log() const;
-	};
-
-	class de1220 : public algorithm {
-	public:
-		typedef std::tuple<unsigned, unsigned long long, double, double, double, unsigned, double, double> log_line_type;
-		typedef std::vector<log_line_type> log_type;
-		typedef pop_size_t size_type;
-		extern de1220(unsigned gen = 1u, std::vector<unsigned> allowed_variants = de1220_statics<void>::allowed_variants,
-			unsigned variant_adptv = 1u, double ftol = 1e-6, double xtol = 1e-6, bool memory = false,
-			unsigned seed = pagmo::random_device::next());
-
-
-		extern population evolve(population) const;
-		extern std::string get_name() const;
-		extern void set_seed(unsigned);
-		extern unsigned get_seed() const;
-		extern unsigned get_verbosity() const;
-		extern void set_verbosity(unsigned);
-
-		extern std::string get_extra_info() const;
-		extern const log_type& get_log() const;
-	};
-
-	class sade : public algorithm {
-	public:
-		typedef std::tuple<unsigned, unsigned long long, double, double, double, double, double> log_line_type;
-		typedef std::vector<log_line_type> log_type;
-		typedef pop_size_t size_type;
-		extern sade(unsigned gen = 1u, unsigned variant = 2u, unsigned variant_adptv = 1u, double ftol = 1e-6, double xtol = 1e-6, bool memory = false, unsigned seed = pagmo::random_device::next());
-
-		extern population evolve(population) const;
-		extern std::string get_name() const;
-		extern void set_seed(unsigned);
-		extern unsigned get_seed() const;
-		extern unsigned get_verbosity() const;
-		extern void set_verbosity(unsigned);
-		extern unsigned get_gen() const;
-
-		extern std::string get_extra_info() const;
-		extern const log_type& get_log() const;
-	};
-
-	class golomb_ruler : pagmo::problem {
-	public:
-		extern golomb_ruler(unsigned order = 3u, unsigned upper_bound = 10);
-
-		extern vector_double fitness(const vector_double&) const;
-		extern std::pair<vector_double, vector_double> get_bounds() const;
-		extern vector_double::size_type get_nix() const;
-		//extern vector_double::size_type get_nobj() const;
-		extern vector_double::size_type get_nec() const;
-		//extern vector_double::size_type get_nic() const;
-		//extern bool has_batch_fitness() const;
-		//extern thread_safety get_thread_safety() const;
-
-		extern std::string get_name() const;
-	};
-	%extend golomb_ruler{
-	vector_double::size_type get_nic() const
-	{
-	   return 0;
-	} };
-	%extend golomb_ruler{
-	vector_double::size_type get_nobj() const
-	{
-	   return 1;
-	} };
-	%extend golomb_ruler{
-	bool has_batch_fitness() const
-	{
-		return true;
-	} };
-	%extend golomb_ruler{
-	thread_safety get_thread_safety() const
-	{
-		return pagmo::thread_safety::none; //TODO: What is the right answer?
-	} };
+	%include swigInterfaceFiles\problems\golomb_ruler.i
 };
 

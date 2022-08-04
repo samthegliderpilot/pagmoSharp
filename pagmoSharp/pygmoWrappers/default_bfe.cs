@@ -46,8 +46,8 @@ public class default_bfe : bfe {
     return ret;
   }
 
-  public DoubleVector Operator(problem theProblem, DoubleVector values) {
-    DoubleVector ret = new DoubleVector(pagmoPINVOKE.default_bfe_Operator(swigCPtr, problem.getCPtr(theProblem), DoubleVector.getCPtr(values)), true);
+  public DoubleVector Operator(problemPagomWrapper theProblem, DoubleVector values) {
+    DoubleVector ret = new DoubleVector(pagmoPINVOKE.default_bfe_Operator(swigCPtr, problemPagomWrapper.getCPtr(theProblem), DoubleVector.getCPtr(values)), true);
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }

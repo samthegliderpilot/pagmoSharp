@@ -13,6 +13,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Folder Include="pagmoExtensions\BatchEvaluators\" />
     <Folder Include="pygmoWrappers\" />
   </ItemGroup>
 
