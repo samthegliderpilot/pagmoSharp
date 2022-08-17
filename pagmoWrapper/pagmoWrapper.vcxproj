@@ -150,6 +150,8 @@ createSwigWrappersAndPlaceThem.bat</Command>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(SolutionDir)\$(ProjectName)\bin\$(TargetName)$(TargetExt)</OutputFile>
+      <AdditionalLibraryDirectories>
+      </AdditionalLibraryDirectories>
     </Link>
     <PreBuildEvent>
       <Command>cd $(SolutionDir)
