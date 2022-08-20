@@ -395,6 +395,8 @@ namespace Swig {
 	#include "pagmo/islands/thread_island.hpp"
 	//#include "pagmo/islands/fork_island.hpp"
 	#include "pagmo/bfe.hpp" 
+	#include "pagmo/archipelago.hpp"
+    #include "pagmo/topology.hpp"
 	#include "problem.h" // this is a manually created item.  We want to include it in the wrappers so the generated cxx code can use the handwritten code for the problem
 
 	#include "pagmo/problems/golomb_ruler.hpp"
@@ -3302,6 +3304,396 @@ SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_delete_algorithm(void * jarg1) {
   pagmo::algorithm *arg1 = (pagmo::algorithm *) 0 ;
   
   arg1 = (pagmo::algorithm *)jarg1; 
+  delete arg1;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_archipelago__SWIG_0() {
+  void * jresult ;
+  pagmo::archipelago *result = 0 ;
+  
+  result = (pagmo::archipelago *)new pagmo::archipelago();
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_archipelago__SWIG_1(void * jarg1) {
+  void * jresult ;
+  pagmo::archipelago *arg1 = 0 ;
+  pagmo::archipelago *result = 0 ;
+  
+  arg1 = (pagmo::archipelago *)jarg1;
+  if (!arg1) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "pagmo::archipelago const & type is null", 0);
+    return 0;
+  } 
+  result = (pagmo::archipelago *)new pagmo::archipelago((pagmo::archipelago const &)*arg1);
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_archipelago_size(void * jarg1) {
+  void * jresult ;
+  pagmo::archipelago *arg1 = (pagmo::archipelago *) 0 ;
+  SwigValueWrapper< std::vector< std::unique_ptr< pagmo::island > >::size_type > result;
+  
+  arg1 = (pagmo::archipelago *)jarg1; 
+  result = ((pagmo::archipelago const *)arg1)->size();
+  jresult = new pagmo::archipelago::size_type((const pagmo::archipelago::size_type &)result); 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_archipelago_evolve__SWIG_0(void * jarg1, unsigned int jarg2) {
+  pagmo::archipelago *arg1 = (pagmo::archipelago *) 0 ;
+  unsigned int arg2 ;
+  
+  arg1 = (pagmo::archipelago *)jarg1; 
+  arg2 = (unsigned int)jarg2; 
+  (arg1)->evolve(arg2);
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_archipelago_evolve__SWIG_1(void * jarg1) {
+  pagmo::archipelago *arg1 = (pagmo::archipelago *) 0 ;
+  
+  arg1 = (pagmo::archipelago *)jarg1; 
+  (arg1)->evolve();
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_archipelago_wait(void * jarg1) {
+  pagmo::archipelago *arg1 = (pagmo::archipelago *) 0 ;
+  
+  arg1 = (pagmo::archipelago *)jarg1; 
+  (arg1)->wait();
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_archipelago_wait_check(void * jarg1) {
+  pagmo::archipelago *arg1 = (pagmo::archipelago *) 0 ;
+  
+  arg1 = (pagmo::archipelago *)jarg1; 
+  (arg1)->wait_check();
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_archipelago_status(void * jarg1) {
+  void * jresult ;
+  pagmo::archipelago *arg1 = (pagmo::archipelago *) 0 ;
+  evolve_status result;
+  
+  arg1 = (pagmo::archipelago *)jarg1; 
+  result = ((pagmo::archipelago const *)arg1)->status();
+  jresult = new evolve_status((const evolve_status &)result); 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_archipelago_begin__SWIG_0(void * jarg1) {
+  void * jresult ;
+  pagmo::archipelago *arg1 = (pagmo::archipelago *) 0 ;
+  pagmo::archipelago::iterator result;
+  
+  arg1 = (pagmo::archipelago *)jarg1; 
+  result = (arg1)->begin();
+  jresult = new pagmo::archipelago::iterator((const pagmo::archipelago::iterator &)result); 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_archipelago_end__SWIG_0(void * jarg1) {
+  void * jresult ;
+  pagmo::archipelago *arg1 = (pagmo::archipelago *) 0 ;
+  pagmo::archipelago::iterator result;
+  
+  arg1 = (pagmo::archipelago *)jarg1; 
+  result = (arg1)->end();
+  jresult = new pagmo::archipelago::iterator((const pagmo::archipelago::iterator &)result); 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_archipelago_get_champions_f(void * jarg1) {
+  void * jresult ;
+  pagmo::archipelago *arg1 = (pagmo::archipelago *) 0 ;
+  std::vector< pagmo::vector_double > result;
+  
+  arg1 = (pagmo::archipelago *)jarg1; 
+  result = ((pagmo::archipelago const *)arg1)->get_champions_f();
+  jresult = new std::vector< pagmo::vector_double >((const std::vector< pagmo::vector_double > &)result); 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_archipelago_get_champions_x(void * jarg1) {
+  void * jresult ;
+  pagmo::archipelago *arg1 = (pagmo::archipelago *) 0 ;
+  std::vector< pagmo::vector_double > result;
+  
+  arg1 = (pagmo::archipelago *)jarg1; 
+  result = ((pagmo::archipelago const *)arg1)->get_champions_x();
+  jresult = new std::vector< pagmo::vector_double >((const std::vector< pagmo::vector_double > &)result); 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_archipelago_get_migration_log(void * jarg1) {
+  void * jresult ;
+  pagmo::archipelago *arg1 = (pagmo::archipelago *) 0 ;
+  SwigValueWrapper< std::vector< migration_entry_t > > result;
+  
+  arg1 = (pagmo::archipelago *)jarg1; 
+  result = ((pagmo::archipelago const *)arg1)->get_migration_log();
+  jresult = new pagmo::archipelago::migration_log_t((const pagmo::archipelago::migration_log_t &)result); 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_archipelago_get_migrants_db(void * jarg1) {
+  void * jresult ;
+  pagmo::archipelago *arg1 = (pagmo::archipelago *) 0 ;
+  SwigValueWrapper< std::vector< individuals_group_t > > result;
+  
+  arg1 = (pagmo::archipelago *)jarg1; 
+  result = ((pagmo::archipelago const *)arg1)->get_migrants_db();
+  jresult = new pagmo::archipelago::migrants_db_t((const pagmo::archipelago::migrants_db_t &)result); 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_archipelago_set_migrants_db(void * jarg1, void * jarg2) {
+  pagmo::archipelago *arg1 = (pagmo::archipelago *) 0 ;
+  SwigValueWrapper< std::vector< individuals_group_t > > arg2 ;
+  pagmo::archipelago::migrants_db_t *argp2 ;
+  
+  arg1 = (pagmo::archipelago *)jarg1; 
+  argp2 = (pagmo::archipelago::migrants_db_t *)jarg2; 
+  if (!argp2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "Attempt to dereference null pagmo::archipelago::migrants_db_t", 0);
+    return ;
+  }
+  arg2 = *argp2; 
+  (arg1)->set_migrants_db(arg2);
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_archipelago_get_topology(void * jarg1) {
+  void * jresult ;
+  pagmo::archipelago *arg1 = (pagmo::archipelago *) 0 ;
+  topology result;
+  
+  arg1 = (pagmo::archipelago *)jarg1; 
+  result = ((pagmo::archipelago const *)arg1)->get_topology();
+  jresult = new topology((const topology &)result); 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_archipelago_set_topology(void * jarg1, void * jarg2) {
+  pagmo::archipelago *arg1 = (pagmo::archipelago *) 0 ;
+  topology arg2 ;
+  topology *argp2 ;
+  
+  arg1 = (pagmo::archipelago *)jarg1; 
+  argp2 = (topology *)jarg2; 
+  if (!argp2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "Attempt to dereference null topology", 0);
+    return ;
+  }
+  arg2 = *argp2; 
+  (arg1)->set_topology(arg2);
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_archipelago_get_migration_type(void * jarg1) {
+  void * jresult ;
+  pagmo::archipelago *arg1 = (pagmo::archipelago *) 0 ;
+  migration_type result;
+  
+  arg1 = (pagmo::archipelago *)jarg1; 
+  result = ((pagmo::archipelago const *)arg1)->get_migration_type();
+  jresult = new migration_type((const migration_type &)result); 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_archipelago_set_migration_type(void * jarg1, void * jarg2) {
+  pagmo::archipelago *arg1 = (pagmo::archipelago *) 0 ;
+  migration_type arg2 ;
+  migration_type *argp2 ;
+  
+  arg1 = (pagmo::archipelago *)jarg1; 
+  argp2 = (migration_type *)jarg2; 
+  if (!argp2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "Attempt to dereference null migration_type", 0);
+    return ;
+  }
+  arg2 = *argp2; 
+  (arg1)->set_migration_type(arg2);
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_archipelago_get_migrant_handling(void * jarg1) {
+  void * jresult ;
+  pagmo::archipelago *arg1 = (pagmo::archipelago *) 0 ;
+  migrant_handling result;
+  
+  arg1 = (pagmo::archipelago *)jarg1; 
+  result = ((pagmo::archipelago const *)arg1)->get_migrant_handling();
+  jresult = new migrant_handling((const migrant_handling &)result); 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_archipelago_set_migrant_handling(void * jarg1, void * jarg2) {
+  pagmo::archipelago *arg1 = (pagmo::archipelago *) 0 ;
+  migrant_handling arg2 ;
+  migrant_handling *argp2 ;
+  
+  arg1 = (pagmo::archipelago *)jarg1; 
+  argp2 = (migrant_handling *)jarg2; 
+  if (!argp2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "Attempt to dereference null migrant_handling", 0);
+    return ;
+  }
+  arg2 = *argp2; 
+  (arg1)->set_migrant_handling(arg2);
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_delete_archipelago(void * jarg1) {
+  pagmo::archipelago *arg1 = (pagmo::archipelago *) 0 ;
+  
+  arg1 = (pagmo::archipelago *)jarg1; 
+  delete arg1;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_topology__SWIG_0() {
+  void * jresult ;
+  pagmo::topology *result = 0 ;
+  
+  result = (pagmo::topology *)new pagmo::topology();
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_topology__SWIG_2(void * jarg1) {
+  void * jresult ;
+  pagmo::topology *arg1 = 0 ;
+  pagmo::topology *result = 0 ;
+  
+  arg1 = (pagmo::topology *)jarg1;
+  if (!arg1) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "pagmo::topology && type is null", 0);
+    return 0;
+  } 
+  result = (pagmo::topology *)new pagmo::topology((pagmo::topology &&)*arg1);
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT char * SWIGSTDCALL CSharp_pagmo_topology_get_name(void * jarg1) {
+  char * jresult ;
+  pagmo::topology *arg1 = (pagmo::topology *) 0 ;
+  std::string result;
+  
+  arg1 = (pagmo::topology *)jarg1; 
+  result = ((pagmo::topology const *)arg1)->get_name();
+  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  return jresult;
+}
+
+
+SWIGEXPORT char * SWIGSTDCALL CSharp_pagmo_topology_get_extra_info(void * jarg1) {
+  char * jresult ;
+  pagmo::topology *arg1 = (pagmo::topology *) 0 ;
+  std::string result;
+  
+  arg1 = (pagmo::topology *)jarg1; 
+  result = ((pagmo::topology const *)arg1)->get_extra_info();
+  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  return jresult;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_pagmo_topology_is_valid(void * jarg1) {
+  unsigned int jresult ;
+  pagmo::topology *arg1 = (pagmo::topology *) 0 ;
+  bool result;
+  
+  arg1 = (pagmo::topology *)jarg1; 
+  result = (bool)((pagmo::topology const *)arg1)->is_valid();
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_topology_get_connections(void * jarg1, unsigned long jarg2) {
+  void * jresult ;
+  pagmo::topology *arg1 = (pagmo::topology *) 0 ;
+  std::size_t arg2 ;
+  SwigValueWrapper< std::pair< std::vector< std::size_t >,std::vector< double > > > result;
+  
+  arg1 = (pagmo::topology *)jarg1; 
+  arg2 = (std::size_t)jarg2; 
+  result = ((pagmo::topology const *)arg1)->get_connections(arg2);
+  jresult = new std::pair< std::vector< std::size_t >,pagmo::vector_double >((const std::pair< std::vector< std::size_t >,pagmo::vector_double > &)result); 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_topology_push_back__SWIG_0(void * jarg1) {
+  pagmo::topology *arg1 = (pagmo::topology *) 0 ;
+  
+  arg1 = (pagmo::topology *)jarg1; 
+  (arg1)->push_back();
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_topology_push_back__SWIG_1(void * jarg1, unsigned int jarg2) {
+  pagmo::topology *arg1 = (pagmo::topology *) 0 ;
+  unsigned int arg2 ;
+  
+  arg1 = (pagmo::topology *)jarg1; 
+  arg2 = (unsigned int)jarg2; 
+  (arg1)->push_back(arg2);
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_topology_get_type_index(void * jarg1) {
+  void * jresult ;
+  pagmo::topology *arg1 = (pagmo::topology *) 0 ;
+  std::type_index result;
+  
+  arg1 = (pagmo::topology *)jarg1; 
+  result = ((pagmo::topology const *)arg1)->get_type_index();
+  jresult = new std::type_index((const std::type_index &)result); 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_topology_get_ptr__SWIG_0(void * jarg1) {
+  void * jresult ;
+  pagmo::topology *arg1 = (pagmo::topology *) 0 ;
+  void *result = 0 ;
+  
+  arg1 = (pagmo::topology *)jarg1; 
+  result = (void *)((pagmo::topology const *)arg1)->get_ptr();
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_delete_topology(void * jarg1) {
+  pagmo::topology *arg1 = (pagmo::topology *) 0 ;
+  
+  arg1 = (pagmo::topology *)jarg1; 
   delete arg1;
 }
 
