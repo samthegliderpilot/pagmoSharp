@@ -15,6 +15,8 @@
 	#include "pagmo/islands/thread_island.hpp"
 	//#include "pagmo/islands/fork_island.hpp"
 	#include "pagmo/bfe.hpp" 
+	#include "pagmo/archipelago.hpp"
+    #include "pagmo/topology.hpp"
 	#include "problem.h" // this is a manually created item.  We want to include it in the wrappers so the generated cxx code can use the handwritten code for the problem
 
 	#include "pagmo/problems/golomb_ruler.hpp"
@@ -32,6 +34,8 @@
 %typemap(csclassmodifiers) pagmo::thread_island "public partial class"
 %typemap(csclassmodifiers) pagmo::DoubleVector "public partial class"
 %typemap(csclassmodifiers) pagmo::population "public partial class"
+%typemap(csclassmodifiers) pagmo::archipelago "public partial class"
+%typemap(csclassmodifiers) pagmo::topology "public partial class"
 //%typemap(csclassmodifiers) pagmo::fork_island "public partial class"
 %feature("director") pagmoWrap::problemBase;
 %include "pagmoWrapper/problem.h"
@@ -182,6 +186,168 @@ namespace pagmo {
 
 		//template <typename Archive>
 		//void serialize(Archive&, unsigned);
+	};
+
+	class archipelago {
+   
+		using container_t = std::vector<std::unique_ptr<island>>;
+		using size_type_implementation = container_t::size_type;
+		using iterator_implementation = boost::indirect_iterator<container_t::iterator>;
+		using const_iterator_implementation = boost::indirect_iterator<container_t::const_iterator>;
+
+	public:
+		using size_type = size_type_implementation;
+		using migrants_db_t = std::vector<individuals_group_t>;
+
+		using migration_log_t = std::vector<migration_entry_t>;
+		using iterator = iterator_implementation;
+		using const_iterator = const_iterator_implementation;
+		// Default constructor.
+		extern archipelago();
+		// Copy constructor.
+		extern archipelago(const archipelago &);
+		// Move constructor.
+		extern archipelago(archipelago &&) noexcept;
+
+		//template <typename Topo, topo_ctor_enabler<Topo> = 0>
+		//extern explicit archipelago(Topo&& t);
+
+		//template <typename... Args, n_ctor_enabler<const Args &...> = 0>
+		//extern explicit archipelago(size_type n, const Args &... args);
+
+		//template <typename Topo, typename... Args, topo_n_ctor_enabler<Topo, const Args &...> = 0>
+		//extern explicit archipelago(Topo&& t, size_type n, const Args &... args) : archipelago(std::forward<Topo>(t));
+		// Copy assignment.
+		extern archipelago &operator=(const archipelago &);
+		extern archipelago &operator=(archipelago &&) noexcept;
+		// Destructor.
+		//extern ~archipelago();
+		// Mutable island access.
+		extern island &operator[](size_type);
+		// Const island access.
+		extern const island &operator[](size_type) const;
+		// Size.
+		extern size_type size() const;
+
+		//template <typename... Args, push_back_enabler<Args &&...> = 0>
+		//extern void push_back(Args &&... args);
+
+		extern void evolve(unsigned n = 1);
+		// Block until all evolutions have finished.
+		extern void wait() noexcept;
+		// Block until all evolutions have finished and raise the first exception that was encountered.
+		extern void wait_check();
+		// Status of the archipelago.
+		extern evolve_status status() const;
+
+		extern iterator begin();
+		extern iterator end();
+		extern const_iterator begin() const;
+		extern const_iterator end() const;
+
+		// Get the fitness vectors of the islands' champions.
+		std::vector<vector_double> get_champions_f() const;
+		// Get the decision vectors of the islands' champions.
+		std::vector<vector_double> get_champions_x() const;
+
+		// Get the migration log.
+		extern migration_log_t get_migration_log() const;
+		// Get the database of migrants.
+		extern migrants_db_t get_migrants_db() const;
+		// Set the database of migrants.
+		extern void set_migrants_db(migrants_db_t);
+
+		// Topology get/set.
+		extern topology get_topology() const;
+		extern void set_topology(topology);
+
+		// Getters/setters for the migration type and
+		// the migrant handling policy.
+		extern migration_type get_migration_type() const;
+		extern void set_migration_type(migration_type);
+		extern migrant_handling get_migrant_handling() const;
+		extern void set_migrant_handling(migrant_handling);
+
+		template <typename Archive>
+		extern void save(Archive& ar, unsigned) const;
+
+		template <typename Archive>
+		extern void load(Archive& ar, unsigned);
+
+	};
+
+
+	class topology {
+		
+			// Enable the generic ctor only if T is not a topology (after removing
+			// const/reference qualifiers), and if T is a udt.
+			template <typename T>
+			using generic_ctor_enabler = enable_if_t<
+				detail::conjunction<detail::negation<std::is_same<topology, uncvref_t<T>>>, is_udt<uncvref_t<T>>>::value, int>;
+
+		public:
+			// Default constructor.
+			extern topology();
+
+			// Generic constructor.
+			template <typename T, generic_ctor_enabler<T> = 0>
+			//extern explicit topology(T&& x) : m_ptr(std::make_unique<detail::topo_inner<uncvref_t<T>>>(std::forward<T>(x)));
+			// Copy ctor.
+			extern topology(const topology&);
+			// Move ctor.
+			extern topology(topology&&) noexcept;
+			// Move assignment.
+			extern topology& operator=(topology&&) noexcept;
+			// Copy assignment.
+			extern topology& operator=(const topology&);
+			// Generic assignment.
+			template <typename T, generic_ctor_enabler<T> = 0>
+			extern topology& operator=(T&& x);
+
+			// Extract.
+			template <typename T>
+			extern const T* extract() const noexcept;
+			template <typename T>
+			extern T* extract() noexcept;
+			
+			template <typename T>
+			extern bool is() const noexcept;
+
+			// Name.
+			extern std::string get_name() const;
+
+			// Extra info.
+			extern std::string get_extra_info() const;
+
+			// Check if the topology is valid.
+			extern bool is_valid() const;
+
+			// Get the connections to a vertex.
+			extern std::pair<std::vector<std::size_t>, vector_double> get_connections(std::size_t) const;
+
+			// Add a vertex.
+			extern void push_back();
+			// Add multiple vertices.
+			extern void push_back(unsigned);
+
+			// Convert to BGL.
+			//extern bgl_graph_t to_bgl() const;
+
+			// Get the type at runtime.
+			extern std::type_index get_type_index() const;
+
+			// Get a const pointer to the UDT.
+			extern const void* get_ptr() const;
+
+			// Get a mutable pointer to the UDT.
+			extern void* get_ptr();
+
+			// Serialization.
+			template <typename Archive>
+			extern void save(Archive& ar, unsigned) const;
+			template <typename Archive>
+			extern void load(Archive& ar, unsigned);
+
 	};
 
 	%include swigInterfaceFiles\algorithms\de.i
