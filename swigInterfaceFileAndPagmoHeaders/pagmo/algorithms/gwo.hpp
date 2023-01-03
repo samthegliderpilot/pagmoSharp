@@ -1,4 +1,4 @@
-/* Copyright 2017-2020 PaGMO development team
+/* Copyright 2017-2021 PaGMO development team
 
 This file is part of the PaGMO library.
 
@@ -37,6 +37,7 @@ see https://www.gnu.org/licenses/. */
 #include <pagmo/detail/visibility.hpp>
 #include <pagmo/population.hpp>
 #include <pagmo/rng.hpp>
+#include <pagmo/s11n.hpp>
 
 namespace pagmo
 {
@@ -48,12 +49,12 @@ namespace pagmo
  * greywolves, proposed by Seyedali Mirjalilia, Seyed Mohammad Mirjalilib, Andrew Lewis in 2014.
  *
  * This algorithm is a classic example of a highly criticizable line of search that led in the first decades of
- * our millenia to the development of an entire zoo of metaphors inspiring optimzation heuristics. In our opinion they,
+ * our millenia to the development of an entire zoo of metaphors inspiring optimization heuristics. In our opinion they,
  * as is the case for the grey wolf optimizer, are often but small variations of already existing heuristics rebranded
- * with unnecessray and convoluted biological metaphors. In the case of GWO this is particularly evident as the position
- * update rule is shokingly trivial and can also be easily seen as a product of an evolutionary metaphor or a particle
- * swarm one. Such an update rule is also not particulary effective and results in a rather poor performance most of
- * times. Reading the original peer-reviewed paper, where the poor algoritmic perfromance is hidden by the
+ * with unnecessary and convoluted biological metaphors. In the case of GWO this is particularly evident as the position
+ * update rule is shockingly trivial and can also be easily seen as a product of an evolutionary metaphor or a particle
+ * swarm one. Such an update rule is also not particularly effective and results in a rather poor performance most of
+ * times. Reading the original peer-reviewed paper, where the poor algorithmic performance is hidden by the
  * methodological flaws of the benchmark presented, one is left with a bitter opinion of the whole peer-review system.
  *
  * The implementation provided for PaGMO is based on the pseudo-code provided in the original Seyedali and Andrew (2014)
@@ -64,8 +65,6 @@ namespace pagmo
  *
  *    https://www.sciencedirect.com/science/article/pii/S0965997813001853 for the paper that introduces Grey Wolf
  *    Optimizer and the pseudo-code
- *
- *    https://github.com/7ossam81/EvoloPy/blob/master/GWO.py for the Python implementation
  *
  * \endverbatim
  *
@@ -176,11 +175,12 @@ public:
         return m_log;
     }
 
+private:
     // Object serialization
+    friend class boost::serialization::access;
     template <typename Archive>
     void serialize(Archive &, unsigned);
 
-private:
     unsigned m_gen;
     unsigned m_seed;
     mutable detail::random_engine_type m_e;

@@ -1,4 +1,4 @@
-/* Copyright 2017-2020 PaGMO development team
+/* Copyright 2017-2021 PaGMO development team
 
 This file is part of the PaGMO library.
 
@@ -35,6 +35,7 @@ see https://www.gnu.org/licenses/. */
 #include <pagmo/detail/visibility.hpp>
 #include <pagmo/problem.hpp>
 #include <pagmo/rng.hpp>
+#include <pagmo/s11n.hpp>
 #include <pagmo/types.hpp>
 
 namespace pagmo
@@ -70,11 +71,11 @@ class PAGMO_DLL_PUBLIC inventory
 public:
     /// Constructor from weeks, sample size and random seed
     /**
-     * Given the numer of weeks (i.e. prolem dimension), the sample size to
+     * Given the number of weeks (i.e. prolem dimension), the sample size to
      * approximate the expected value and a starting random seed, we construct
      * the inventory prolem
      *
-     * @param weeks dimension of the problem corresponding to the numer of weeks
+     * @param weeks dimension of the problem corresponding to the number of weeks
      * to plan the inventory for.
      * @param sample_size dimension of the sample used to approximate the expected value
      * @param seed starting random seed to build the pseudorandom sequences used to
@@ -107,11 +108,12 @@ public:
     // Extra info
     std::string get_extra_info() const;
 
+private:
     // Object serialization
+    friend class boost::serialization::access;
     template <typename Archive>
     void serialize(Archive &, unsigned);
 
-private:
     // Number of weeks to plan for
     unsigned m_weeks;
     // Sample size

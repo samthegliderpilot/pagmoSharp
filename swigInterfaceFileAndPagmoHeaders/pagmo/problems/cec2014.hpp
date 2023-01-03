@@ -1,4 +1,4 @@
-/* Copyright 2017-2020 PaGMO development team
+/* Copyright 2017-2021 PaGMO development team
 
 This file is part of the PaGMO library.
 
@@ -40,6 +40,7 @@ see https://www.gnu.org/licenses/. */
 
 #include <pagmo/detail/visibility.hpp>
 #include <pagmo/problem.hpp>
+#include <pagmo/s11n.hpp>
 #include <pagmo/types.hpp>
 
 namespace pagmo
@@ -105,11 +106,12 @@ public:
         return m_origin_shift;
     }
 
+private:
     // Object serialization
+    friend class boost::serialization::access;
     template <typename Archive>
     void serialize(Archive &, unsigned);
 
-private:
     /* Sphere */
     PAGMO_DLL_LOCAL void sphere_func(const double *x, double *f, const unsigned nx, const double *Os, const double *Mr,
                                      int s_flag, int r_flag) const;
@@ -161,11 +163,11 @@ private:
     /* Expanded Scaffer??s F6  */
     PAGMO_DLL_LOCAL void escaffer6_func(const double *x, double *f, const unsigned nx, const double *Os,
                                         const double *Mr, int s_flag, int r_flag) const;
-    /* HappyCat, provdided by Hans-Georg Beyer (HGB) */
+    /* HappyCat, provided by Hans-Georg Beyer (HGB) */
     /* original global optimum: [-1,-1,...,-1] */
     PAGMO_DLL_LOCAL void happycat_func(const double *x, double *f, const unsigned nx, const double *Os,
                                        const double *Mr, int s_flag, int r_flag) const;
-    /* HGBat, provdided by Hans-Georg Beyer (HGB)*/
+    /* HGBat, provided by Hans-Georg Beyer (HGB)*/
     /* original global optimum: [-1,-1,...,-1] */
     PAGMO_DLL_LOCAL void hgbat_func(const double *x, double *f, const unsigned nx, const double *Os, const double *Mr,
                                     int s_flag, int r_flag) const;

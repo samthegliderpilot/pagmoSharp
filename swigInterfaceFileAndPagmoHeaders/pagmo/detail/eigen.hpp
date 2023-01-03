@@ -1,4 +1,4 @@
-/* Copyright 2017-2020 PaGMO development team
+/* Copyright 2017-2021 PaGMO development team
 
 This file is part of the PaGMO library.
 
@@ -31,7 +31,7 @@ see https://www.gnu.org/licenses/. */
 
 // NOTE: we have experimental evidence that on some platform/compiler combinations
 // Eigen is failing to include necessary header files. As a workaround, we use this header
-// to wrap any Eigen functionality that might be needed in pagmo, and we pre-emptively
+// to wrap any Eigen functionality that might be needed in pagmo, and we preemptively
 // include the missing headers as necessary.
 #if defined(__apple_build_version__)
 

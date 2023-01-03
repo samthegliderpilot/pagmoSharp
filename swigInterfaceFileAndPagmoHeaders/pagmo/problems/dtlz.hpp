@@ -1,4 +1,4 @@
-/* Copyright 2017-2020 PaGMO development team
+/* Copyright 2017-2021 PaGMO development team
 
 This file is part of the PaGMO library.
 
@@ -35,6 +35,7 @@ see https://www.gnu.org/licenses/. */
 #include <pagmo/detail/visibility.hpp>
 #include <pagmo/population.hpp>
 #include <pagmo/problem.hpp>
+#include <pagmo/s11n.hpp>
 #include <pagmo/types.hpp>
 
 namespace pagmo
@@ -47,7 +48,7 @@ namespace pagmo
  *
  * All problems in this test suite are box-constrained continuous n-dimensional multi-objective problems, scalable in
  * fitness dimension. The dimension of the decision space is \f$ k + fdim - 1 \f$, whereas fdim is the number of
- * objectives and k a paramter. Properties of the decision space and the Pareto-front of each problems are as follows:
+ * objectives and k a parameter. Properties of the decision space and the Pareto-front of each problems are as follows:
  *
  * DTLZ1:
  *
@@ -55,11 +56,11 @@ namespace pagmo
  *
  * DTLZ2:
  *
- * The search space is continous, unimodal and the problem is not deceptive.
+ * The search space is continuous, unimodal and the problem is not deceptive.
  *
  * DTLZ3:
  *
- * The search space is continous, unimodal and the problem is not deceptive.
+ * The search space is continuous, unimodal and the problem is not deceptive.
  * It is supposed to be harder to converge towards the optimal pareto front than DTLZ2
  *
  * DTLZ4:
@@ -68,9 +69,9 @@ namespace pagmo
  *
  * DTLZ5:
  *
- * This problem will test an MOEA's ability to converge to a cruve and will also allow an easier way to visually
+ * This problem will test an MOEA's ability to converge to a curve and will also allow an easier way to visually
  * demonstrate (just by plotting f_M with any other objective function) the performance of an MOEA. Since there is a
- * natural bias for solutions close to this Pareto-optimal curve, this problem may be easy for an algorithmn to solve.
+ * natural bias for solutions close to this Pareto-optimal curve, this problem may be easy for an algorithm to solve.
  * Because of its simplicity its recommended to use a higher number of objectives \f$ M \in [5, 10]\f$.
  *
  * DTLZ6:
@@ -98,7 +99,7 @@ public:
      * @param alpha controls density of solutions (used only by DTLZ4)
      *
      * @throw std::invalid_argument if the prob_id is not in [1 .. 7], if fdim is less than 2 or if fdim or dim_param
-     * are larger than an implementation defiend value
+     * are larger than an implementation defined value
      *
      */
     dtlz(unsigned prob_id = 1u, vector_double::size_type dim = 5u, vector_double::size_type fdim = 3u,
@@ -124,11 +125,13 @@ public:
     double p_distance(const vector_double &) const;
     // Problem name
     std::string get_name() const;
+
+private:
     // Object serialization
+    friend class boost::serialization::access;
     template <typename Archive>
     void serialize(Archive &, unsigned);
 
-private:
     // Convergence metric for a dv (0 = converged to the optimal front)
     PAGMO_DLL_LOCAL double g_func(const vector_double &) const;
 
@@ -142,7 +145,7 @@ private:
     PAGMO_DLL_LOCAL double h7_func(const vector_double &, double) const;
 
     // Implementation of the objective functions.
-    /* The chomosome: x_1, x_2, ........, x_M-1, x_M, .........., x_M+k
+    /* The chromosome: x_1, x_2, ........, x_M-1, x_M, .........., x_M+k
      *											 [------- Vector x_M -------]
      *               x[0], x[1], ... ,x[fdim-2], x[fdim-1], ... , x[fdim+k-1] */
     PAGMO_DLL_LOCAL vector_double f1_objfun_impl(const vector_double &) const;

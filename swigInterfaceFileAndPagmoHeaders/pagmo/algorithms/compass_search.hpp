@@ -1,4 +1,4 @@
-/* Copyright 2017-2020 PaGMO development team
+/* Copyright 2017-2021 PaGMO development team
 
 This file is part of the PaGMO library.
 
@@ -37,6 +37,7 @@ see https://www.gnu.org/licenses/. */
 #include <pagmo/algorithms/not_population_based.hpp>
 #include <pagmo/detail/visibility.hpp>
 #include <pagmo/population.hpp>
+#include <pagmo/s11n.hpp>
 
 namespace pagmo
 {
@@ -86,8 +87,6 @@ namespace pagmo
  *
  *    Kolda, Lewis, Torczon: 'Optimization by Direct Search: New Perspectives on Some Classical and Modern Methods'
  *    published in the SIAM Journal Vol. 45, No. 3, pp. 385-482 (2003)
- *
- *    http://www.cs.wm.edu/~va/research/sirev.pdf
  *
  * \endverbatim
  *
@@ -223,22 +222,18 @@ public:
         return m_log;
     }
 
+private:
     // Object serialization
+    friend class boost::serialization::access;
     template <typename Archive>
     void serialize(Archive &, unsigned);
 
-private:
     unsigned m_max_fevals;
     double m_start_range;
     double m_stop_range;
     double m_reduction_coeff;
     unsigned m_verbosity;
     mutable log_type m_log;
-    // Deleting the methods load save public in base as to avoid conflict with serialize
-    template <typename Archive>
-    void load(Archive &, unsigned) = delete;
-    template <typename Archive>
-    void save(Archive &, unsigned) const = delete;
 };
 
 } // namespace pagmo

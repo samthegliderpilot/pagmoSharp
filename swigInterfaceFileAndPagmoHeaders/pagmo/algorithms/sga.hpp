@@ -1,4 +1,4 @@
-/* Copyright 2017-2020 PaGMO development team
+/* Copyright 2017-2021 PaGMO development team
 
 This file is part of the PaGMO library.
 
@@ -38,6 +38,7 @@ see https://www.gnu.org/licenses/. */
 #include <pagmo/detail/visibility.hpp>
 #include <pagmo/population.hpp>
 #include <pagmo/rng.hpp>
+#include <pagmo/s11n.hpp>
 
 namespace pagmo
 {
@@ -64,7 +65,7 @@ enum class sga_mutation { GAUSSIAN, UNIFORM, POLYNOMIAL };
  * Approximately during the same decades as Evolutionary Strategies (see pagmo::sea) were studied, a different group
  * led by John Holland, and later by his student David Goldberg, introduced and studied an algorithmic framework called
  * "genetic algorithms" that were, essentially, leveraging on the same idea but introducing also crossover as a genetic
- * operator. This led to a few decades of confusion and discussions on what was an evolutionary startegy and what a
+ * operator. This led to a few decades of confusion and discussions on what was an evolutionary strategy and what a
  * genetic algorithm and on whether the crossover was a useful operator or mutation only algorithms were to be
  * preferred.
  *
@@ -100,7 +101,7 @@ enum class sga_mutation { GAUSSIAN, UNIFORM, POLYNOMIAL };
  * distribution index \p eta_c.
  *
  * *Mutation*: three different mutations schemes are provided: "uniform", "gaussian" and "polynomial". Uniform mutation
- * simply randomly samples from the bounds. Gaussian muattion samples around each gene using a normal distribution
+ * simply randomly samples from the bounds. Gaussian mutation samples around each gene using a normal distribution
  * with standard deviation proportional to the \p m_param_m and the bounds width. The last scheme is the polynomial
  * mutation.
  *
@@ -255,11 +256,12 @@ public:
         return m_log;
     }
 
+private:
     // Object serialization
+    friend class boost::serialization::access;
     template <typename Archive>
     void serialize(Archive &, unsigned);
 
-private:
     PAGMO_DLL_LOCAL std::vector<vector_double::size_type> perform_selection(const std::vector<vector_double> &F) const;
     PAGMO_DLL_LOCAL void perform_crossover(std::vector<vector_double> &X,
                                            const std::pair<vector_double, vector_double> &bounds,

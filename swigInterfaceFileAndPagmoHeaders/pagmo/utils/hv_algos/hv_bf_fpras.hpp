@@ -1,4 +1,4 @@
-/* Copyright 2017-2020 PaGMO development team
+/* Copyright 2017-2021 PaGMO development team
 
 This file is part of the PaGMO library.
 
@@ -91,7 +91,7 @@ public:
 private:
     // error of the approximation
     const double m_eps;
-    // probabiltiy of error
+    // probability of error
     const double m_delta;
 
     mutable detail::random_engine_type m_e;

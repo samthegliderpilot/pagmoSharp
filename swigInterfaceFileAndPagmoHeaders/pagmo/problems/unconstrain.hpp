@@ -1,4 +1,4 @@
-/* Copyright 2017-2020 PaGMO development team
+/* Copyright 2017-2021 PaGMO development team
 
 This file is part of the PaGMO library.
 
@@ -35,6 +35,7 @@ see https://www.gnu.org/licenses/. */
 
 #include <pagmo/detail/visibility.hpp>
 #include <pagmo/problem.hpp>
+#include <pagmo/s11n.hpp>
 #include <pagmo/type_traits.hpp>
 #include <pagmo/types.hpp>
 
@@ -109,6 +110,12 @@ public:
     // Fitness.
     vector_double fitness(const vector_double &) const;
 
+    // The has_batch_fitness of the problem.
+    bool has_batch_fitness() const;
+
+    // The batch fitness of the problem.
+    vector_double batch_fitness(const vector_double & xs) const;
+
     // Number of objectives.
     vector_double::size_type get_nobj() const;
 
@@ -158,11 +165,15 @@ public:
     // Extra info.
     std::string get_extra_info() const;
 
-    // Object serialization.
+private:
+    // Penalizes the original multidimensional fitness returning a single fitness value
+    void penalize(const vector_double &, vector_double &) const;
+
+    // Object serialization
+    friend class boost::serialization::access;
     template <typename Archive>
     void serialize(Archive &, unsigned);
 
-private:
     // The inner problem
     problem m_problem;
     // types of unconstrain methods

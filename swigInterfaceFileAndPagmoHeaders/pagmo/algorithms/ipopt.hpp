@@ -1,4 +1,4 @@
-/* Copyright 2017-2020 PaGMO development team
+/* Copyright 2017-2021 PaGMO development team
 
 This file is part of the PaGMO library.
 
@@ -69,7 +69,7 @@ PAGMO_DLL_PUBLIC unsigned ipopt_internal_test();
  *
  * This class is a user-defined algorithm (UDA) that wraps the Ipopt (Interior Point OPTimizer) solver,
  * a software package for large-scale nonlinear optimization. Ipopt is a powerful solver that
- * is able to handle robustly and efficiently constrained nonlinear opimization problems at high dimensionalities.
+ * is able to handle robustly and efficiently constrained nonlinear optimization problems at high dimensionalities.
  *
  * Ipopt supports only single-objective minimisation, and it requires the availability of the gradient in the
  * optimisation problem. If possible, for best results the Hessians should be provided as well (but Ipopt
@@ -83,7 +83,7 @@ PAGMO_DLL_PUBLIC unsigned ipopt_internal_test();
  * set_selection(population::size_type), set_replacement(const std::string &) and
  * set_replacement(population::size_type).
  *
- * Configuring the optimsation run
+ * Configuring the optimization run
  * -------------------------------
  *
  * Ipopt supports a large amount of options for the configuration of the optimisation run. The options
@@ -241,16 +241,13 @@ public:
         return m_log;
     }
 
-    // Save to archive.
+private:
+    // Object serialization
+    friend class boost::serialization::access;
     template <typename Archive>
-    void save(Archive &, unsigned) const;
+    void serialize(Archive &, unsigned);
 
-    // Load from archive.
-    template <typename Archive>
-    void load(Archive &, unsigned);
-
-    BOOST_SERIALIZATION_SPLIT_MEMBER()
-
+public:
     // Set string option.
     void set_string_option(const std::string &, const std::string &);
 

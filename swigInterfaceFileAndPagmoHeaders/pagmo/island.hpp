@@ -1,4 +1,4 @@
-/* Copyright 2017-2020 PaGMO development team
+/* Copyright 2017-2021 PaGMO development team
 
 This file is part of the PaGMO library.
 
@@ -45,7 +45,6 @@ see https://www.gnu.org/licenses/. */
 
 #include <boost/any.hpp>
 #include <boost/type_traits/integral_constant.hpp>
-#include <boost/type_traits/is_virtual_base_of.hpp>
 
 #include <pagmo/algorithm.hpp>
 #include <pagmo/bfe.hpp>
@@ -153,6 +152,9 @@ struct PAGMO_DLL_PUBLIC_INLINE_CLASS isl_inner_base {
     virtual std::type_index get_type_index() const = 0;
     virtual const void *get_ptr() const = 0;
     virtual void *get_ptr() = 0;
+
+private:
+    friend class boost::serialization::access;
     template <typename Archive>
     void serialize(Archive &, unsigned)
     {
@@ -223,12 +225,17 @@ struct PAGMO_DLL_PUBLIC_INLINE_CLASS isl_inner final : isl_inner_base {
     {
         return &m_value;
     }
+
+private:
+    friend class boost::serialization::access;
     // Serialization
     template <typename Archive>
     void serialize(Archive &ar, unsigned)
     {
         detail::archive(ar, boost::serialization::base_object<isl_inner_base>(*this), m_value);
     }
+
+public:
     T m_value;
 };
 
@@ -236,20 +243,16 @@ struct PAGMO_DLL_PUBLIC_INLINE_CLASS isl_inner final : isl_inner_base {
 
 } // namespace pagmo
 
-namespace boost
-{
-
-template <typename T>
-struct is_virtual_base_of<pagmo::detail::isl_inner_base, pagmo::detail::isl_inner<T>> : false_type {
-};
-
-} // namespace boost
+// Disable Boost.Serialization tracking for the implementation
+// details of island.
+BOOST_CLASS_TRACKING(pagmo::detail::isl_inner_base, boost::serialization::track_never)
 
 namespace pagmo
 {
 
 namespace detail
 {
+
 // NOTE: this construct is used to create a RAII-style object at the beginning
 // of island::wait()/island::wait_check(). Normally this object's constructor and destructor will not
 // do anything, but in Python we need to override this getter so that it returns
@@ -264,6 +267,8 @@ PAGMO_DLL_PUBLIC extern std::function<boost::any()> wait_raii_getter;
 PAGMO_DLL_PUBLIC extern std::function<void(const algorithm &, const population &,
                                            std::unique_ptr<detail::isl_inner_base> &)>
     island_factory;
+
+PAGMO_DLL_PUBLIC std::unique_ptr<task_queue> get_task_queue();
 
 // NOTE: the idea with this class is that we use it to store the data members of pagmo::island, and,
 // within pagmo::island, we store a pointer to an instance of this struct. The reason for this approach
@@ -314,11 +319,15 @@ struct PAGMO_DLL_PUBLIC island_data {
     // to be thread-safe.
     explicit island_data(std::unique_ptr<isl_inner_base> &&, algorithm &&, population &&, const r_policy &,
                          const s_policy &);
+
     // Delete all the rest, make sure we don't implicitly rely on any of this.
     island_data(const island_data &) = delete;
     island_data(island_data &&) = delete;
     island_data &operator=(const island_data &) = delete;
     island_data &operator=(island_data &&) = delete;
+
+    ~island_data();
+
     // The data members.
     // NOTE: isl_ptr has no associated mutex, as it's supposed to be fully
     // thread-safe on its own.
@@ -345,8 +354,11 @@ struct PAGMO_DLL_PUBLIC island_data {
     // This will be explicitly set only during archipelago::push_back().
     // In all other situations, it will be null.
     archipelago *archi_ptr = nullptr;
-    task_queue queue;
+    // NOTE: this will either create a brand new queue,
+    // or grab one from the global cache.
+    std::unique_ptr<task_queue> queue = get_task_queue();
 };
+
 } // namespace detail
 
 /// Evolution status.
@@ -467,7 +479,7 @@ class PAGMO_DLL_PUBLIC island
     // NOTE: the idea in the move members and the dtor is that
     // we want to wait *and* erase any future in the island, before doing
     // the move/destruction. Thus we use this small wrapper.
-    PAGMO_DLL_LOCAL void wait_check_ignore();
+    void wait_check_ignore();
 
 public:
     // Default constructor.
@@ -1180,47 +1192,28 @@ public:
      */
     void *get_ptr();
 
-    /// Save to archive.
-    /**
-     * This method will save \p this to the archive \p ar.
-     *
-     * It is safe to call this method while the island is evolving.
-     *
-     * @param ar the target archive.
-     *
-     * @throws unspecified any exception thrown by:
-     * - the serialization of pagmo::algorithm, pagmo::population and of the UDI type,
-     * - get_algorithm() and get_population().
-     */
+private:
+    friend class boost::serialization::access;
     template <typename Archive>
     void save(Archive &ar, unsigned) const
     {
         detail::to_archive(ar, m_ptr->isl_ptr, get_algorithm(), get_population(), m_ptr->r_pol, m_ptr->s_pol);
     }
-    /// Load from archive.
-    /**
-     * This method will load into \p this the content of \p ar.
-     * This method will wait until any ongoing evolution in \p this is finished
-     * before returning.
-     *
-     * @param ar the source archive.
-     *
-     * @throws unspecified any exception thrown by the deserialization of pagmo::algorithm, pagmo::population and of the
-     * UDI type.
-     */
     template <typename Archive>
     void load(Archive &ar, unsigned)
     {
-        // Deserialize into tmp island, and then move assign it.
-        island tmp_island;
-        // NOTE: no need to lock access to these, as there is no evolution going on in tmp_island.
-        detail::from_archive(ar, tmp_island.m_ptr->isl_ptr, *tmp_island.m_ptr->algo, *tmp_island.m_ptr->pop,
-                             tmp_island.m_ptr->r_pol, tmp_island.m_ptr->s_pol);
-        *this = std::move(tmp_island);
+        // Wait for ongoing evolutions to finish.
+        wait_check_ignore();
+
+        try {
+            detail::from_archive(ar, m_ptr->isl_ptr, *m_ptr->algo, *m_ptr->pop, m_ptr->r_pol, m_ptr->s_pol);
+        } catch (...) {
+            *this = island{};
+            throw;
+        }
     }
     BOOST_SERIALIZATION_SPLIT_MEMBER()
 
-private:
     // Data used in the migration machinery:
     // - the island's population (represented via individuals_group_t),
     // - the problem's nx, nix, nobj, nec, nic, and tolerances.
@@ -1232,7 +1225,6 @@ private:
     // Set all the individuals in the population.
     PAGMO_DLL_LOCAL void set_individuals(const individuals_group_t &);
 
-private:
     std::unique_ptr<idata_t> m_ptr;
 };
 
@@ -1240,8 +1232,5 @@ private:
 
 // Add some repr support for CLING
 PAGMO_IMPLEMENT_XEUS_CLING_REPR(island)
-
-// Disable tracking for the serialisation of island.
-BOOST_CLASS_TRACKING(pagmo::island, boost::serialization::track_never)
 
 #endif

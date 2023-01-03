@@ -1,4 +1,4 @@
-/* Copyright 2017-2020 PaGMO development team
+/* Copyright 2017-2021 PaGMO development team
 
 This file is part of the PaGMO library.
 
@@ -37,6 +37,7 @@ see https://www.gnu.org/licenses/. */
 #include <pagmo/detail/visibility.hpp>
 #include <pagmo/population.hpp>
 #include <pagmo/rng.hpp>
+#include <pagmo/s11n.hpp>
 
 namespace pagmo
 {
@@ -220,11 +221,13 @@ public:
     {
         return m_log;
     }
+
+private:
     // Object serialization
+    friend class boost::serialization::access;
     template <typename Archive>
     void serialize(Archive &, unsigned);
 
-private:
     PAGMO_DLL_LOCAL vector_double
     particle__get_best_neighbor(population::size_type pidx, std::vector<std::vector<vector_double::size_type>> &neighb,
                                 const std::vector<vector_double> &lbX, const std::vector<vector_double> &lbfit) const;
@@ -243,7 +246,7 @@ private:
     double m_eta2;
     // Maximum particle velocity
     double m_max_vel;
-    // Algoritmic variant
+    // Algorithmic variant
     unsigned m_variant;
     // Particle topology (only relevant for some variants)
     unsigned m_neighb_type;
@@ -251,7 +254,7 @@ private:
     unsigned m_neighb_param;
     // memory
     bool m_memory;
-    // paricles' velocities
+    // particles' velocities
     mutable std::vector<vector_double> m_V;
 
     mutable detail::random_engine_type m_e;

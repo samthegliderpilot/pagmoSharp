@@ -1,4 +1,4 @@
-/* Copyright 2017-2020 PaGMO development team
+/* Copyright 2017-2021 PaGMO development team
 
 This file is part of the PaGMO library.
 
@@ -37,6 +37,7 @@ see https://www.gnu.org/licenses/. */
 #include <pagmo/detail/visibility.hpp>
 #include <pagmo/population.hpp>
 #include <pagmo/rng.hpp>
+#include <pagmo/s11n.hpp>
 
 namespace pagmo
 {
@@ -62,8 +63,6 @@ namespace pagmo
  *    the allowed box-bounds, is here done by creating a random number in the bounds.
  *
  * .. seealso::
- *
- *    The official DE web site: http://www1.icsi.berkeley.edu/~storn/code.html
  *
  *    The paper that introduces Differential Evolution https://link.springer.com/article/10.1023%2FA%3A1008202821328
  *
@@ -91,9 +90,9 @@ public:
      * @endcode
      *
      * @param gen number of generations.
-     * @param F weight coefficient (dafault value is 0.8)
-     * @param CR crossover probability (dafault value is 0.9)
-     * @param variant mutation variant (dafault variant is 2: /rand/1/exp)
+     * @param F weight coefficient (default value is 0.8)
+     * @param CR crossover probability (default value is 0.9)
+     * @param variant mutation variant (default variant is 2: /rand/1/exp)
      * @param ftol stopping criteria on the f tolerance (default is 1e-6)
      * @param xtol stopping criteria on the x tolerance (default is 1e-6)
      * @param seed seed used by the internal random number generator (default is random)
@@ -183,11 +182,13 @@ public:
     {
         return m_log;
     }
+
+private:
     // Object serialization
+    friend class boost::serialization::access;
     template <typename Archive>
     void serialize(Archive &, unsigned);
 
-private:
     unsigned m_gen;
     double m_F;
     double m_CR;

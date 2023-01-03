@@ -1,4 +1,4 @@
-/* Copyright 2017-2020 PaGMO development team
+/* Copyright 2017-2021 PaGMO development team
 
 This file is part of the PaGMO library.
 
@@ -26,8 +26,8 @@ You should have received copies of the GNU General Public License and the
 GNU Lesser General Public License along with the PaGMO library.  If not,
 see https://www.gnu.org/licenses/. */
 
-#ifndef PAGMO_PROBLEMS_HOCK_SCHITTKOWSKY_71_HPP
-#define PAGMO_PROBLEMS_HOCK_SCHITTKOWSKY_71_HPP
+#ifndef PAGMO_PROBLEMS_HOCK_SCHITTKOWSKI_71_HPP
+#define PAGMO_PROBLEMS_HOCK_SCHITTKOWSKI_71_HPP
 
 #include <string>
 #include <utility>
@@ -35,15 +35,16 @@ see https://www.gnu.org/licenses/. */
 
 #include <pagmo/detail/visibility.hpp>
 #include <pagmo/problem.hpp>
+#include <pagmo/s11n.hpp>
 #include <pagmo/types.hpp>
 
 namespace pagmo
 {
 
-/// Problem No.71 from the Hock Schittkowsky suite
+/// Problem No.71 from the Hock Schittkowski suite
 /**
  * Mainly used for testing and debugging during PaGMO development, this
- * struct implements the problem No.71 from the Hock Schittkowsky suite:
+ * struct implements the problem No.71 from the Hock Schittkowski suite:
  *
  * \f[
  *    \begin{array}{rl}
@@ -58,7 +59,7 @@ namespace pagmo
  * Lecture Notes in Economics and Mathematical Systems, 187, 1981. doi: 10.1007/978-3-642-48320-2.
  *
  */
-struct PAGMO_DLL_PUBLIC hock_schittkowsky_71 {
+struct PAGMO_DLL_PUBLIC hock_schittkowski_71 {
     // Fitness computation
     vector_double fitness(const vector_double &) const;
 
@@ -104,7 +105,7 @@ struct PAGMO_DLL_PUBLIC hock_schittkowsky_71 {
      */
     std::string get_name() const
     {
-        return "Hock Schittkowsky 71";
+        return "Hock Schittkowski 71";
     }
 
     /// Extra info
@@ -113,18 +114,20 @@ struct PAGMO_DLL_PUBLIC hock_schittkowsky_71 {
      */
     std::string get_extra_info() const
     {
-        return "\tProblem number 71 from the Hock-Schittkowsky test suite";
+        return "\tProblem number 71 from the Hock-Schittkowski test suite";
     }
 
     // Optimal solution
     vector_double best_known() const;
 
+private:
     // Object serialization
+    friend class boost::serialization::access;
     template <typename Archive>
     void serialize(Archive &, unsigned);
 };
 } // namespace pagmo
 
-PAGMO_S11N_PROBLEM_EXPORT_KEY(pagmo::hock_schittkowsky_71)
+PAGMO_S11N_PROBLEM_EXPORT_KEY(pagmo::hock_schittkowski_71)
 
 #endif

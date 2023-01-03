@@ -26,14 +26,17 @@ You should have received copies of the GNU General Public License and the
 GNU Lesser General Public License along with the PaGMO library.  If not,
 see https://www.gnu.org/licenses/. */
 
-#ifndef PAGMO_ALGORITHMS_MOEAD_HPP
-#define PAGMO_ALGORITHMS_MOEAD_HPP
+#ifndef PAGMO_ALGORITHMS_MOEAD_GEN_HPP
+#define PAGMO_ALGORITHMS_MOEAD_GEN_HPP
 
 #include <string>
 #include <tuple>
 #include <vector>
 
+#include <boost/optional.hpp>
+
 #include <pagmo/algorithm.hpp>
+#include <pagmo/bfe.hpp>
 #include <pagmo/detail/visibility.hpp>
 #include <pagmo/population.hpp>
 #include <pagmo/rng.hpp>
@@ -41,38 +44,19 @@ see https://www.gnu.org/licenses/. */
 
 namespace pagmo
 {
-/// Multi Objective Evolutionary Algorithms by Decomposition (the DE variant)
+/// Generational Multi Objective Evolutionary Algorithms by Decomposition (the DE variant)
 /**
  * \image html moead.png "Solving by decomposition" width=3cm
  *
- * MOEA/D-DE is a very successful multi-objective optimization algorithm, always worth a try. Based on the idea of
- * problem decomposition, it leverages evolutionary operators to combine good solutions of neighbouring problems thus
- * allowing for nice convergence properties. MOEA/D is, essentially, a framework and this particular algorithm
- * implemented in pagmo with the name pagmo::moead uses the rand/2/exp Differential Evolution operator followed by a
- * polynomial mutation to create offsprings, and the Tchebycheff, weighted or boundary intersection decomposition
- * method. A diversity preservation mechanism, as proposed in the work from Li et al. referenced below, is
- * also implemented.
+ * Here the MOEA/D-DE algorithm is adapted into a version which only updates the population on a generational basis.
+ * Rather than constructing a new candidate and evaluating its fitness one-by-one across the population, the new candidate population is created 
+ * at once at the beginning of a generation, and then the fitness of each candidate is evaluated either in parallel with a bfe or in series.
+ * While this sacrifices the immediate sensitivity of the original MOEA/D-DE to changes in the population, it does allow for easy parallelizability.
+ * This variant can employ a bfe to make several fitness evaluations simultaneously, and should be used for expensive fitness functions.
  *
- * \verbatim embed:rst:leading-asterisk
- * .. note::
- *
- *    The decomposition weights may be created by sampling on a simplex via a low discrepancy sequence. This
- *    allows to have MOEA/D-DE work on populations having arbitrary size, while preserving a nice coverage of the final
- *    non-dominated front.
- *
- * .. seealso::
- *
- *    Zhang, Qingfu, and Hui Li. "MOEA/D: A multiobjective evolutionary algorithm based on decomposition."
- *    Evolutionary Computation, IEEE Transactions on 11.6 (2007): 712-731.
- *
- * .. seealso::
- *
- *    Li, Hui, and Qingfu Zhang. "Multiobjective optimization problems with complicated Pareto sets, MOEA/D and
- *    NSGA-II." Evolutionary Computation, IEEE Transactions on 13.2 (2009): 284-302.
- *
- * \endverbatim
+ * See the MOEA/D-DE algorithm documentation for more details on the generic algorithm.
  */
-class PAGMO_DLL_PUBLIC moead
+class PAGMO_DLL_PUBLIC moead_gen
 {
 public:
     /// Single entry of the log (gen, fevals, adf, ideal_point)
@@ -100,7 +84,7 @@ public:
      * @throws value_error if gen is negative, weight_generation is not one of the allowed types, realb,cr or f are not
      * in [1.0] or m_eta is < 0, if neighbours is <2
      */
-    moead(unsigned gen = 1u, std::string weight_generation = "grid", std::string decomposition = "tchebycheff",
+    moead_gen(unsigned gen = 1u, std::string weight_generation = "grid", std::string decomposition = "tchebycheff",
           population::size_type neighbours = 20u, double CR = 1.0, double F = 0.5, double eta_m = 20.,
           double realb = 0.9, unsigned limit = 2u, bool preserve_diversity = true,
           unsigned seed = pagmo::random_device::next());
@@ -162,6 +146,9 @@ public:
         return m_verbosity;
     }
 
+    // Sets the bfe
+    void set_bfe(const bfe &b);
+
     /// Gets the generations
     /**
      * @return the number of generations to evolve for
@@ -179,7 +166,7 @@ public:
      */
     std::string get_name() const
     {
-        return "MOEAD: MOEA/D - DE";
+        return "Generational MOEAD: MOEA/D - DE";
     }
 
     // Extra info
@@ -188,9 +175,9 @@ public:
     /// Get log
     /**
      * A log containing relevant quantities monitoring the last call to evolve. Each element of the returned
-     * <tt>std::vector</tt> is a moead::log_line_type containing: Gen, Fevals, ADR, ideal_point
-     * as described in moead::set_verbosity
-     * @return an <tt>std::vector</tt> of moead::log_line_type containing the logged values Gen, Fevals, ADR,
+     * <tt>std::vector</tt> is a moead_gen::log_line_type containing: Gen, Fevals, ADR, ideal_point
+     * as described in moead_gen::set_verbosity
+     * @return an <tt>std::vector</tt> of moead_gen::log_line_type containing the logged values Gen, Fevals, ADR,
      * ideal_point
      */
     const log_type &get_log() const
@@ -222,10 +209,11 @@ private:
     unsigned m_seed;
     unsigned m_verbosity;
     mutable log_type m_log;
+    boost::optional<bfe> m_bfe;
 };
 
 } // namespace pagmo
 
-PAGMO_S11N_ALGORITHM_EXPORT_KEY(pagmo::moead)
+PAGMO_S11N_ALGORITHM_EXPORT_KEY(pagmo::moead_gen)
 
 #endif

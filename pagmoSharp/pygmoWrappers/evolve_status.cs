@@ -10,10 +10,11 @@
 
 namespace pagmo {
 
-public enum thread_safety {
-  none,
-  basic,
-  constant
+public enum evolve_status {
+  idle = 0,
+  busy = 1,
+  idle_error = 2,
+  busy_error = 3
 }
 
 }

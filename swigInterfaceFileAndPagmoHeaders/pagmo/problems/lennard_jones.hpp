@@ -1,4 +1,4 @@
-/* Copyright 2017-2020 PaGMO development team
+/* Copyright 2017-2021 PaGMO development team
 
 This file is part of the PaGMO library.
 
@@ -34,6 +34,7 @@ see https://www.gnu.org/licenses/. */
 
 #include <pagmo/detail/visibility.hpp>
 #include <pagmo/problem.hpp>
+#include <pagmo/s11n.hpp>
 #include <pagmo/types.hpp>
 
 namespace pagmo
@@ -44,7 +45,7 @@ namespace pagmo
  *
  * \image html lennard_jones.jpg "Pictures of Lennard-Jones clusters." width=3cm
  *
- * This is a box-constrained continuous single-objecive problem. It represents the minimization
+ * This is a box-constrained continuous single-objective problem. It represents the minimization
  * of the energy of a cluster of atoms assuming a Lennard-Jones potential between each pair.
  * The complexity for computing the objective function scales with the square of the number of atoms.
  *
@@ -72,11 +73,13 @@ public:
     std::pair<vector_double, vector_double> get_bounds() const;
     // Problem name
     std::string get_name() const;
+
+private:
     // Object serialization
+    friend class boost::serialization::access;
     template <typename Archive>
     void serialize(Archive &, unsigned);
 
-private:
     // Helper function that transforms the decision vector x in atoms positions r
     PAGMO_DLL_LOCAL double _r(unsigned, unsigned, const vector_double &) const;
 

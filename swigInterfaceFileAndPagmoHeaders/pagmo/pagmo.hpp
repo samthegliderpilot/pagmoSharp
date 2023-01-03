@@ -1,4 +1,4 @@
-/* Copyright 2017-2020 PaGMO development team
+/* Copyright 2017-2021 PaGMO development team
 
 This file is part of the PaGMO library.
 
@@ -76,6 +76,7 @@ see https://www.gnu.org/licenses/. */
 #include <pagmo/algorithms/maco.hpp>
 #include <pagmo/algorithms/mbh.hpp>
 #include <pagmo/algorithms/moead.hpp>
+#include <pagmo/algorithms/moead_gen.hpp>
 #include <pagmo/algorithms/not_population_based.hpp>
 #include <pagmo/algorithms/nsga2.hpp>
 #include <pagmo/algorithms/nspso.hpp>
@@ -117,7 +118,7 @@ see https://www.gnu.org/licenses/. */
 #include <pagmo/problems/dtlz.hpp>
 #include <pagmo/problems/golomb_ruler.hpp>
 #include <pagmo/problems/griewank.hpp>
-#include <pagmo/problems/hock_schittkowsky_71.hpp>
+#include <pagmo/problems/hock_schittkowski_71.hpp>
 #include <pagmo/problems/inventory.hpp>
 #include <pagmo/problems/lennard_jones.hpp>
 #include <pagmo/problems/luksan_vlcek1.hpp>

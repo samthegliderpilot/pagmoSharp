@@ -1,4 +1,4 @@
-/* Copyright 2017-2020 PaGMO development team
+/* Copyright 2017-2021 PaGMO development team
 
 This file is part of the PaGMO library.
 
@@ -37,6 +37,7 @@ see https://www.gnu.org/licenses/. */
 #include <pagmo/detail/visibility.hpp>
 #include <pagmo/population.hpp>
 #include <pagmo/rng.hpp>
+#include <pagmo/s11n.hpp>
 #include <pagmo/types.hpp>
 
 namespace pagmo
@@ -54,7 +55,7 @@ namespace pagmo
  * The first one, proposed by Brest et al., does not make use of the DE operators to produce new
  * values for F and CR and, strictly speaking, is thus not self-adaptation, rather parameter control.
  * The resulting DE variant is often referred to as jDE. The second variant
- * here implemented is inspired by the ideas introduced by Elsayed et al. and uses a variaton of the selected DE
+ * here implemented is inspired by the ideas introduced by Elsayed et al. and uses a variation of the selected DE
  * operator to produce new
  * CR anf F parameters for each individual. We refer to this variant as to iDE.
  *
@@ -120,11 +121,11 @@ public:
      * 17. - rand-to-best-and-current/2/exp         18. - rand-to-best-and-current/2/bin
      * @endcode
      *
-     * The first ten are the classical mutation variants introduced in the orginal DE algorithm, the remaining ones are,
+     * The first ten are the classical mutation variants introduced in the original DE algorithm, the remaining ones are,
      * instead, considered in the work by Elsayed et al.
      *
      * @param gen number of generations.
-     * @param variant mutation variant (dafault variant is 2: /rand/1/exp)
+     * @param variant mutation variant (default variant is 2: /rand/1/exp)
      * @param variant_adptv F and CR parameter adaptation scheme to be used (one of 1..2)
      * @param ftol stopping criteria on the x tolerance (default is 1e-6)
      * @param xtol stopping criteria on the f tolerance (default is 1e-6)
@@ -229,11 +230,12 @@ public:
         return m_log;
     }
 
+private:
     // Object serialization
+    friend class boost::serialization::access;
     template <typename Archive>
     void serialize(Archive &, unsigned);
 
-private:
     unsigned m_gen;
     mutable vector_double m_F;
     mutable vector_double m_CR;

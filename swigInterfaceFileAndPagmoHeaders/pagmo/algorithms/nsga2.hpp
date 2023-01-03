@@ -1,4 +1,4 @@
-/* Copyright 2017-2020 PaGMO development team
+/* Copyright 2017-2021 PaGMO development team
 
 This file is part of the PaGMO library.
 
@@ -40,6 +40,7 @@ see https://www.gnu.org/licenses/. */
 #include <pagmo/detail/visibility.hpp>
 #include <pagmo/population.hpp>
 #include <pagmo/rng.hpp>
+#include <pagmo/s11n.hpp>
 
 namespace pagmo
 {
@@ -50,7 +51,7 @@ namespace pagmo
  * NSGA-II is a solid multi-objective algorithm, widely used in many real-world applications.
  * While today it can be considered as an outdated approach, nsga2 has still a great value, if not
  * as a solid benchmark to test against.
- * NSGA-II genererates offsprings using a specific type of crossover and mutation and then selects the next
+ * NSGA-II generates offsprings using a specific type of crossover and mutation and then selects the next
  * generation according to nondominated-sorting and crowding distance comparison.
  *
  * The version implemented in pagmo can be applied to box-bounded multiple-objective optimization. It also
@@ -167,11 +168,12 @@ public:
         return m_log;
     }
 
+private:
     // Object serialization
+    friend class boost::serialization::access;
     template <typename Archive>
     void serialize(Archive &, unsigned);
 
-private:
     unsigned m_gen;
     double m_cr;
     double m_eta_c;

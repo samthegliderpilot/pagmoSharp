@@ -1,4 +1,4 @@
-/* Copyright 2017-2020 PaGMO development team
+/* Copyright 2017-2021 PaGMO development team
 
 This file is part of the PaGMO library.
 
@@ -191,7 +191,7 @@ inline double uniform_integral_from_range_impl(double lb, double ub, Rng &r_engi
  *    * the conversion of the randomly-generated ``long long`` integer back to ``double`` may yield an
  *      inexact result.
  *
- *    In pratice, on modern mainstream computer architectures, this function will produce uniformly-distributed
+ *    In practice, on modern mainstream computer architectures, this function will produce uniformly-distributed
  *    integral values as long as the absolute values of the bounds do not exceed :math:`2^{53}`.
  *
  * \endverbatim

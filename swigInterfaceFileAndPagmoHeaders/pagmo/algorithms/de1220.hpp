@@ -1,4 +1,4 @@
-/* Copyright 2017-2020 PaGMO development team
+/* Copyright 2017-2021 PaGMO development team
 
 This file is part of the PaGMO library.
 
@@ -37,6 +37,7 @@ see https://www.gnu.org/licenses/. */
 #include <pagmo/detail/visibility.hpp>
 #include <pagmo/population.hpp>
 #include <pagmo/rng.hpp>
+#include <pagmo/s11n.hpp>
 
 namespace pagmo
 {
@@ -56,7 +57,7 @@ const std::vector<unsigned> de1220_statics<T>::allowed_variants = {2u, 3u, 7u, 1
  * \image html original.jpg "Our own DE flavour".
  *
  * Differential Evolution (pagmo::de, pagmo::sade) is one of the best meta-heuristics in PaGMO, so we
- * dared to propose our own algoritmic variant we call DE 1220 (a.k.a. pDE as in pagmo DE). Our variant
+ * dared to propose our own algorithmic variant we call DE 1220 (a.k.a. pDE as in pagmo DE). Our variant
  * makes use of the pagmo::sade adaptation schemes for CR and F and adds self-adaptation for
  * the mutation variant. The only parameter left to be specified is thus population size.
  *
@@ -129,7 +130,7 @@ public:
      * 17. - rand-to-best-and-current/2/exp         18. - rand-to-best-and-current/2/bin
      * @endcode
      *
-     * The first ten are the classical variants introduced in the orginal DE algorithm, the remaining ones are,
+     * The first ten are the classical variants introduced in the original DE algorithm, the remaining ones are,
      * instead, introduced in the work by Elsayed et al.
      *
      * @param gen number of generations.
@@ -252,11 +253,12 @@ public:
         return m_log;
     }
 
+private:
     // Object serialization
+    friend class boost::serialization::access;
     template <typename Archive>
     void serialize(Archive &, unsigned);
 
-private:
     unsigned m_gen;
     mutable vector_double m_F;
     mutable vector_double m_CR;

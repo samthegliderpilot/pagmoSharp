@@ -1,4 +1,4 @@
-/* Copyright 2017-2020 PaGMO development team
+/* Copyright 2017-2021 PaGMO development team
 
 This file is part of the PaGMO library.
 
@@ -76,7 +76,7 @@ class PAGMO_DLL_PUBLIC van_der_corput
 public:
     /// Constructor from base and starting element
     /**
-     * Consruct a van der Corput lowp-discrepancy sequence with base
+     * Construct a van der Corput lowp-discrepancy sequence with base
      * \p b and starting element position \p n
      *
      * @param b base
@@ -87,21 +87,16 @@ public:
     van_der_corput(unsigned b = 2u, unsigned n = 0u);
     // Returns the next number in the sequence
     double operator()();
-    /// Object serialization
-    /**
-     * This method will save/load \p this into the archive \p ar.
-     *
-     * @param ar target archive.
-     *
-     * @throws unspecified any exception thrown by the serialization of primitive types.
-     */
+
+private:
+    friend class boost::serialization::access;
+    // Object serialization
     template <typename Archive>
     void serialize(Archive &ar, unsigned)
     {
         detail::archive(ar, m_base, m_counter);
     }
 
-private:
     // Base of the sequence
     unsigned m_base;
     // Element of the sequence to compute
@@ -133,7 +128,7 @@ class PAGMO_DLL_PUBLIC halton
 public:
     /// Constructor from base and starting element
     /**
-     * Consruct a Halton low-discrepancy sequence with dimension
+     * Construct a Halton low-discrepancy sequence with dimension
      * \p dim and starting element position \p n
      *
      * @param dim dimension
@@ -144,21 +139,16 @@ public:
     halton(unsigned dim = 2u, unsigned n = 0u);
     // Returns the next number in the sequence
     std::vector<double> operator()();
-    /// Object serialization
-    /**
-     * This method will save/load \p this into the archive \p ar.
-     *
-     * @param ar target archive.
-     *
-     * @throws unspecified any exception thrown by the serialization of pagmo::van_der_corput or of primitive types.
-     */
+
+private:
+    friend class boost::serialization::access;
+    // Object serialization
     template <typename Archive>
     void serialize(Archive &ar, unsigned)
     {
         detail::archive(ar, m_dim, m_vdc);
     }
 
-private:
     // Dimension of the sequence
     unsigned m_dim;
     // van der Corput sequences used for each dimension
