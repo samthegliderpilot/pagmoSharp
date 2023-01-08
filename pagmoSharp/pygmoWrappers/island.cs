@@ -10,7 +10,7 @@
 
 namespace pagmo {
 
-public class island : global::System.IDisposable {
+public partial class island : global::System.IDisposable {
   private global::System.Runtime.InteropServices.HandleRef swigCPtr;
   protected bool swigCMemOwn;
 

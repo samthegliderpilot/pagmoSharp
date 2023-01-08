@@ -10,10 +10,12 @@
 
 namespace pagmo {
 
-public partial class de1220 : algorithm {
+public partial class de1220 : global::System.IDisposable {
   private global::System.Runtime.InteropServices.HandleRef swigCPtr;
+  protected bool swigCMemOwn;
 
-  internal de1220(global::System.IntPtr cPtr, bool cMemoryOwn) : base(pagmoPINVOKE.de1220_SWIGUpcast(cPtr), cMemoryOwn) {
+  internal de1220(global::System.IntPtr cPtr, bool cMemoryOwn) {
+    swigCMemOwn = cMemoryOwn;
     swigCPtr = new global::System.Runtime.InteropServices.HandleRef(this, cPtr);
   }
 
@@ -34,7 +36,16 @@ public partial class de1220 : algorithm {
     }
   }
 
-  protected override void Dispose(bool disposing) {
+  ~de1220() {
+    Dispose(false);
+  }
+
+  public void Dispose() {
+    Dispose(true);
+    global::System.GC.SuppressFinalize(this);
+  }
+
+  protected virtual void Dispose(bool disposing) {
     lock(this) {
       if (swigCPtr.Handle != global::System.IntPtr.Zero) {
         if (swigCMemOwn) {
@@ -43,7 +54,6 @@ public partial class de1220 : algorithm {
         }
         swigCPtr = new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero);
       }
-      base.Dispose(disposing);
     }
   }
 
@@ -77,13 +87,13 @@ public partial class de1220 : algorithm {
   public de1220() : this(pagmoPINVOKE.new_de1220__SWIG_7(), true) {
   }
 
-  public virtual population evolve(population arg0) {
+  public population evolve(population arg0) {
     population ret = new population(pagmoPINVOKE.de1220_evolve(swigCPtr, population.getCPtr(arg0)), true);
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
-  public virtual string get_name() {
+  public string get_name() {
     string ret = pagmoPINVOKE.de1220_get_name(swigCPtr);
     return ret;
   }

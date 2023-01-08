@@ -1,11 +1,12 @@
 %module(naturalvar = 1, directors = "1") pagmo
 %{
 #include "pagmo/problems/golomb_ruler.hpp"
+#include "pagmo/problem.hpp"
 %}
 
 %typemap(csclassmodifiers) pagmo::golomb_ruler "public partial class"
 
-class golomb_ruler : public pagmo::problem, pagmoWrapper::problemBase {
+class golomb_ruler : public pagmo::problem, public pagmoWrapper::problemBase {
 public:
 	extern golomb_ruler(unsigned order = 3u, unsigned upper_bound = 10);
 

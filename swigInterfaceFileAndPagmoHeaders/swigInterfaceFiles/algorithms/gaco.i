@@ -1,6 +1,7 @@
 %module(naturalvar = 1, directors = "1") pagmo
 %{
 #include "pagmo/algorithms/gaco.hpp"
+#include "pagmo/rng.hpp"
 %}
 
 %typemap(csclassmodifiers) pagmo::gaco "public partial class"

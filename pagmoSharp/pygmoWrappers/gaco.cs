@@ -10,10 +10,12 @@
 
 namespace pagmo {
 
-public partial class gaco : algorithm {
+public partial class gaco : global::System.IDisposable {
   private global::System.Runtime.InteropServices.HandleRef swigCPtr;
+  protected bool swigCMemOwn;
 
-  internal gaco(global::System.IntPtr cPtr, bool cMemoryOwn) : base(pagmoPINVOKE.gaco_SWIGUpcast(cPtr), cMemoryOwn) {
+  internal gaco(global::System.IntPtr cPtr, bool cMemoryOwn) {
+    swigCMemOwn = cMemoryOwn;
     swigCPtr = new global::System.Runtime.InteropServices.HandleRef(this, cPtr);
   }
 
@@ -34,7 +36,16 @@ public partial class gaco : algorithm {
     }
   }
 
-  protected override void Dispose(bool disposing) {
+  ~gaco() {
+    Dispose(false);
+  }
+
+  public void Dispose() {
+    Dispose(true);
+    global::System.GC.SuppressFinalize(this);
+  }
+
+  protected virtual void Dispose(bool disposing) {
     lock(this) {
       if (swigCPtr.Handle != global::System.IntPtr.Zero) {
         if (swigCMemOwn) {
@@ -43,7 +54,6 @@ public partial class gaco : algorithm {
         }
         swigCPtr = new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero);
       }
-      base.Dispose(disposing);
     }
   }
 
@@ -91,13 +101,13 @@ public partial class gaco : algorithm {
     return ret;
   }
 
-  public virtual population evolve(population arg0) {
+  public population evolve(population arg0) {
     population ret = new population(pagmoPINVOKE.gaco_evolve(swigCPtr, population.getCPtr(arg0)), true);
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
-  public virtual string get_name() {
+  public string get_name() {
     string ret = pagmoPINVOKE.gaco_get_name(swigCPtr);
     return ret;
   }

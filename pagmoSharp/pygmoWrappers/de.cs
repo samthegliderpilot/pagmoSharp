@@ -10,10 +10,12 @@
 
 namespace pagmo {
 
-public partial class de : algorithm {
+public partial class de : global::System.IDisposable {
   private global::System.Runtime.InteropServices.HandleRef swigCPtr;
+  protected bool swigCMemOwn;
 
-  internal de(global::System.IntPtr cPtr, bool cMemoryOwn) : base(pagmoPINVOKE.de_SWIGUpcast(cPtr), cMemoryOwn) {
+  internal de(global::System.IntPtr cPtr, bool cMemoryOwn) {
+    swigCMemOwn = cMemoryOwn;
     swigCPtr = new global::System.Runtime.InteropServices.HandleRef(this, cPtr);
   }
 
@@ -34,7 +36,16 @@ public partial class de : algorithm {
     }
   }
 
-  protected override void Dispose(bool disposing) {
+  ~de() {
+    Dispose(false);
+  }
+
+  public void Dispose() {
+    Dispose(true);
+    global::System.GC.SuppressFinalize(this);
+  }
+
+  protected virtual void Dispose(bool disposing) {
     lock(this) {
       if (swigCPtr.Handle != global::System.IntPtr.Zero) {
         if (swigCMemOwn) {
@@ -43,7 +54,6 @@ public partial class de : algorithm {
         }
         swigCPtr = new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero);
       }
-      base.Dispose(disposing);
     }
   }
 
@@ -71,14 +81,9 @@ public partial class de : algorithm {
   public de() : this(pagmoPINVOKE.new_de__SWIG_7(), true) {
   }
 
-  public virtual population evolve(population arg0) {
+  public population evolve(population arg0) {
     population ret = new population(pagmoPINVOKE.de_evolve(swigCPtr, population.getCPtr(arg0)), true);
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
-    return ret;
-  }
-
-  public virtual string get_name() {
-    string ret = pagmoPINVOKE.de_get_name(swigCPtr);
     return ret;
   }
 
@@ -91,13 +96,23 @@ public partial class de : algorithm {
     return ret;
   }
 
+  public void set_verbosity(uint level) {
+    pagmoPINVOKE.de_set_verbosity(swigCPtr, level);
+  }
+
   public uint get_verbosity() {
     uint ret = pagmoPINVOKE.de_get_verbosity(swigCPtr);
     return ret;
   }
 
-  public void set_verbosity(uint arg0) {
-    pagmoPINVOKE.de_set_verbosity(swigCPtr, arg0);
+  public uint get_gen() {
+    uint ret = pagmoPINVOKE.de_get_gen(swigCPtr);
+    return ret;
+  }
+
+  public string get_name() {
+    string ret = pagmoPINVOKE.de_get_name(swigCPtr);
+    return ret;
   }
 
   public string get_extra_info() {
