@@ -148,9 +148,9 @@ namespace pagmo {
 		evict     ///< Evict migrants from the database.
 	};
 
-	//%include swigInterfaceFiles\algorithm.i
-	%include swigInterfaceFiles\archipelago.i
 	%include swigInterfaceFiles\population.i
+	%include swigInterfaceFiles\algorithm.i
+	%include swigInterfaceFiles\archipelago.i	
 	%include swigInterfaceFiles\topology.i
 
 	%include swigInterfaceFiles\algorithms\de.i
@@ -160,6 +160,8 @@ namespace pagmo {
 
 	%include swigInterfaceFiles\problems\golomb_ruler.i
 
-	//%include swigInterfaceFiles\utils\hypervolume.i
+
+	%include swigInterfaceFiles\utils\hv_algos\hv_algorithm.i
+	%include swigInterfaceFiles\utils\hypervolume.i
 };
 

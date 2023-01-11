@@ -10,12 +10,10 @@
 
 namespace pagmo {
 
-public partial class de : global::System.IDisposable {
+public partial class de : algorithm {
   private global::System.Runtime.InteropServices.HandleRef swigCPtr;
-  protected bool swigCMemOwn;
 
-  internal de(global::System.IntPtr cPtr, bool cMemoryOwn) {
-    swigCMemOwn = cMemoryOwn;
+  internal de(global::System.IntPtr cPtr, bool cMemoryOwn) : base(pagmoPINVOKE.de_SWIGUpcast(cPtr), cMemoryOwn) {
     swigCPtr = new global::System.Runtime.InteropServices.HandleRef(this, cPtr);
   }
 
@@ -36,16 +34,7 @@ public partial class de : global::System.IDisposable {
     }
   }
 
-  ~de() {
-    Dispose(false);
-  }
-
-  public void Dispose() {
-    Dispose(true);
-    global::System.GC.SuppressFinalize(this);
-  }
-
-  protected virtual void Dispose(bool disposing) {
+  protected override void Dispose(bool disposing) {
     lock(this) {
       if (swigCPtr.Handle != global::System.IntPtr.Zero) {
         if (swigCMemOwn) {
@@ -54,6 +43,7 @@ public partial class de : global::System.IDisposable {
         }
         swigCPtr = new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero);
       }
+      base.Dispose(disposing);
     }
   }
 
@@ -87,7 +77,7 @@ public partial class de : global::System.IDisposable {
     return ret;
   }
 
-  public void set_seed(uint arg0) {
+  public new void set_seed(uint arg0) {
     pagmoPINVOKE.de_set_seed(swigCPtr, arg0);
   }
 
@@ -96,7 +86,7 @@ public partial class de : global::System.IDisposable {
     return ret;
   }
 
-  public void set_verbosity(uint level) {
+  public new void set_verbosity(uint level) {
     pagmoPINVOKE.de_set_verbosity(swigCPtr, level);
   }
 
@@ -110,12 +100,12 @@ public partial class de : global::System.IDisposable {
     return ret;
   }
 
-  public string get_name() {
+  public new string get_name() {
     string ret = pagmoPINVOKE.de_get_name(swigCPtr);
     return ret;
   }
 
-  public string get_extra_info() {
+  public new string get_extra_info() {
     string ret = pagmoPINVOKE.de_get_extra_info(swigCPtr);
     return ret;
   }

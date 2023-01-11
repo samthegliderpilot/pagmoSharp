@@ -10,12 +10,10 @@
 
 namespace pagmo {
 
-public partial class gaco : global::System.IDisposable {
+public partial class gaco : algorithm {
   private global::System.Runtime.InteropServices.HandleRef swigCPtr;
-  protected bool swigCMemOwn;
 
-  internal gaco(global::System.IntPtr cPtr, bool cMemoryOwn) {
-    swigCMemOwn = cMemoryOwn;
+  internal gaco(global::System.IntPtr cPtr, bool cMemoryOwn) : base(pagmoPINVOKE.gaco_SWIGUpcast(cPtr), cMemoryOwn) {
     swigCPtr = new global::System.Runtime.InteropServices.HandleRef(this, cPtr);
   }
 
@@ -36,16 +34,7 @@ public partial class gaco : global::System.IDisposable {
     }
   }
 
-  ~gaco() {
-    Dispose(false);
-  }
-
-  public void Dispose() {
-    Dispose(true);
-    global::System.GC.SuppressFinalize(this);
-  }
-
-  protected virtual void Dispose(bool disposing) {
+  protected override void Dispose(bool disposing) {
     lock(this) {
       if (swigCPtr.Handle != global::System.IntPtr.Zero) {
         if (swigCMemOwn) {
@@ -54,6 +43,7 @@ public partial class gaco : global::System.IDisposable {
         }
         swigCPtr = new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero);
       }
+      base.Dispose(disposing);
     }
   }
 
@@ -107,12 +97,12 @@ public partial class gaco : global::System.IDisposable {
     return ret;
   }
 
-  public string get_name() {
+  public new string get_name() {
     string ret = pagmoPINVOKE.gaco_get_name(swigCPtr);
     return ret;
   }
 
-  public void set_seed(uint arg0) {
+  public new void set_seed(uint arg0) {
     pagmoPINVOKE.gaco_set_seed(swigCPtr, arg0);
   }
 
@@ -126,7 +116,7 @@ public partial class gaco : global::System.IDisposable {
     return ret;
   }
 
-  public void set_verbosity(uint arg0) {
+  public new void set_verbosity(uint arg0) {
     pagmoPINVOKE.gaco_set_verbosity(swigCPtr, arg0);
   }
 
@@ -135,7 +125,7 @@ public partial class gaco : global::System.IDisposable {
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
-  public string get_extra_info() {
+  public new string get_extra_info() {
     string ret = pagmoPINVOKE.gaco_get_extra_info(swigCPtr);
     return ret;
   }

@@ -10,8 +10,6 @@
 #include "pagmo/s11n.hpp"
 #include "pagmo/types.hpp"
 #include "pagmo/utils/hv_algos/hv_algorithm.hpp"
-
-
 %}
 
 %typemap(csclassmodifiers) pagmo::hypervolume "public partial class"

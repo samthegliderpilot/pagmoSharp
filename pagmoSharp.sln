@@ -45,6 +45,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "utils", "utils", "{A789B01C
 		swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\utils\hypervolume.i = swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\utils\hypervolume.i
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "hv_algos", "hv_algos", "{55CC7DC4-992C-4E06-A474-E96C683765EE}"
+	ProjectSection(SolutionItems) = preProject
+		swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\utils\hv_algos\hv_algorithm.i = swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\utils\hv_algos\hv_algorithm.i
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -99,6 +104,7 @@ Global
 		{690793CC-5507-4215-BCF6-1658345CC72B} = {A7AC40B5-9B9B-4479-8803-8FD7E4DAF3CF}
 		{0E707295-FF3A-4ABF-8077-DFF552602EAD} = {A7AC40B5-9B9B-4479-8803-8FD7E4DAF3CF}
 		{A789B01C-7696-42B9-B8F4-9129FDAB4294} = {A7AC40B5-9B9B-4479-8803-8FD7E4DAF3CF}
+		{55CC7DC4-992C-4E06-A474-E96C683765EE} = {A789B01C-7696-42B9-B8F4-9129FDAB4294}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DF00BAED-DDCF-4E13-8B6D-DE3CB12C863B}
