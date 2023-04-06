@@ -10,7 +10,7 @@
 
 namespace pagmo {
 
-public class thread_bfe : bfe {
+public partial class thread_bfe : bfe {
   private global::System.Runtime.InteropServices.HandleRef swigCPtr;
 
   internal thread_bfe(global::System.IntPtr cPtr, bool cMemoryOwn) : base(pagmoPINVOKE.thread_bfe_SWIGUpcast(cPtr), cMemoryOwn) {

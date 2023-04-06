@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using NUnit.Framework;
 using pagmo;
 using Tests.PagmoSharp.TestProblems;
@@ -8,11 +6,11 @@ using Tests.PagmoSharp.TestProblems;
 namespace Tests.PagmoSharp.Algorithms
 {
     [TestFixture]
-    public class TestSade : TestAlgorithmBase
+    public class TestSimulated_Annealing : TestAlgorithmBase
     {
         public override IAlgorithm CreateAlgorithm()
         {
-            return new pagmo.sade(10);
+            return new pagmo.simulated_annealing(10);
         }
 
         [Test]
@@ -21,7 +19,7 @@ namespace Tests.PagmoSharp.Algorithms
             using (var problem = new TwoDimensionalSingleObjectiveProblemWrapper())
             using (var algorithm = CreateAlgorithm(problem))
             {
-                Assert.AreEqual("saDE: Self-adaptive Differential Evolution", algorithm.get_name());
+                Assert.AreEqual("SA: Simulated Annealing (Corana's)", algorithm.get_name());
             }
         }
 

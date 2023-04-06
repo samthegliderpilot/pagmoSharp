@@ -401,24 +401,32 @@ template <typename T> T SwigValueInit() {
 #endif
 
 
-	#include "pagmo/types.hpp"
+	#include "pagmo/algorithm.hpp"
+	#include "pagmo/archipelago.hpp"	
 	#include "pagmo/bfe.hpp"
+	#include "pagmo/exceptions.hpp"
+	#include "pagmo/island.hpp"
+	#include "pagmo/population.hpp"	
+	#include "pagmo/problem.hpp"
+	#include "pagmo/rng.hpp"
+	#include "pagmo/s11n.hpp"	// has to do with serialization of varidec templates, which swig doesn't support and I don't think is needed for this library
+	#include "pagmo/threading.hpp" 
+	#include "pagmo/topology.hpp"
+	#include "pagmo/type_traits.hpp"
+	#include "pagmo/types.hpp"
+
+
 	#include "pagmo/batch_evaluators/default_bfe.hpp"
 	#include "pagmo/batch_evaluators/thread_bfe.hpp"
 	#include "pagmo/batch_evaluators/member_bfe.hpp"
-	#include "pagmo/algorithm.hpp"
-	#include "pagmo/population.hpp"
-	#include "pagmo/threading.hpp" 
-	#include "pagmo/problem.hpp"
-	#include "pagmo/island.hpp"
+		
 	#include "pagmo/islands/thread_island.hpp"
-	//#include "pagmo/islands/fork_island.hpp"
-	#include "pagmo/bfe.hpp" 
-	#include "pagmo/archipelago.hpp"
-    #include "pagmo/topology.hpp"
-	#include "problem.h" // this is a manually created item.  We want to include it in the wrappers so the generated cxx code can use the handwritten code for the problem
-	#include "pagmo/rng.hpp"
+	//#include "pagmo/islands/fork_island.hpp"	
+
 	#include "pagmo/problems/golomb_ruler.hpp"
+    
+	#include "problem.h" // this is a manually created item.  We want to include it in the wrappers so the generated cxx code can use the handwritten code for the problem
+	
 
 
 #include <string>
@@ -798,15 +806,6 @@ SWIGINTERN void std_vector_Sl_std_vector_Sl_double_Sg__Sg__SetRange(std::vector<
           throw std::out_of_range("index");
         std::copy(values.begin(), values.end(), self->begin()+index);
       }
-SWIGINTERN pagmo::vector_double pagmo_default_bfe_Operator(pagmo::default_bfe const *self,pagmoWrap::problemPagomWrapper const &theProblem,pagmo::vector_double const &values){
-	   return self->operator()(static_cast<pagmo::problem>(theProblem), values);
-	}
-SWIGINTERN pagmo::vector_double pagmo_thread_bfe_Operator(pagmo::thread_bfe const *self,pagmoWrap::problemPagomWrapper const &theProblem,pagmo::vector_double const &values){
-	   return self->operator()(static_cast<pagmo::problem>(theProblem), values);
-	}
-SWIGINTERN pagmo::vector_double pagmo_member_bfe_Operator(pagmo::member_bfe const *self,pagmoWrap::problemPagomWrapper const &theProblem,pagmo::vector_double const &values){
-	   return self->operator()(static_cast<pagmo::problem>(theProblem), values);
-	}
 
 #include "pagmo/island.hpp"
 
@@ -844,7 +843,35 @@ SWIGINTERN pagmo::vector_double pagmo_member_bfe_Operator(pagmo::member_bfe cons
 #include "pagmo/archipelago.hpp"
 
 
+#include "pagmo/bfe.hpp"
+
+
 #include "pagmo/topology.hpp"
+
+
+#include "pagmo/bfe.hpp"
+#include "pagmo/batch_evaluators/default_bfe.hpp"
+
+SWIGINTERN pagmo::vector_double pagmo_default_bfe_Operator(pagmo::default_bfe const *self,pagmoWrap::problemPagomWrapper const &theProblem,pagmo::vector_double const &values){
+	   return self->operator()(static_cast<pagmo::problem>(theProblem), values);
+	}
+
+#include "pagmo/bfe.hpp"
+#include "pagmo/batch_evaluators/member_bfe.hpp"
+
+SWIGINTERN pagmo::vector_double pagmo_member_bfe_Operator(pagmo::member_bfe const *self,pagmoWrap::problemPagomWrapper const &theProblem,pagmo::vector_double const &values){
+	   return self->operator()(static_cast<pagmo::problem>(theProblem), values);
+	}
+
+#include "pagmo/bfe.hpp"
+#include "pagmo/batch_evaluators/thread_bfe.hpp"
+
+SWIGINTERN pagmo::vector_double pagmo_thread_bfe_Operator(pagmo::thread_bfe const *self,pagmoWrap::problemPagomWrapper const &theProblem,pagmo::vector_double const &values){
+	   return self->operator()(static_cast<pagmo::problem>(theProblem), values);
+	}
+
+#include "pagmo/algorithm.hpp"
+#include "pagmo/algorithms/bee_colony.hpp"
 
 
 #include "pagmo/algorithm.hpp"
@@ -856,6 +883,18 @@ SWIGINTERN pagmo::vector_double pagmo_member_bfe_Operator(pagmo::member_bfe cons
 
 #include "pagmo/algorithms/gaco.hpp"
 #include "pagmo/rng.hpp"
+
+
+#include "pagmo/algorithms/gwo.hpp"
+#include "pagmo/rng.hpp"
+
+
+#include "pagmo/algorithm.hpp"
+#include "pagmo/algorithms/pso.hpp"
+
+
+#include "pagmo/algorithm.hpp"
+#include "pagmo/algorithms/simulated_annealing.hpp"
 
 
 #include "pagmo/algorithms/sade.hpp"
@@ -2788,186 +2827,6 @@ SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_delete_PairOfDoubleVectors(void * jarg1
 }
 
 
-SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_delete_bfe(void * jarg1) {
-  pagmo::bfe *arg1 = (pagmo::bfe *) 0 ;
-  
-  arg1 = (pagmo::bfe *)jarg1; 
-  delete arg1;
-}
-
-
-SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_default_bfe__SWIG_0() {
-  void * jresult ;
-  pagmo::default_bfe *result = 0 ;
-  
-  result = (pagmo::default_bfe *)new pagmo::default_bfe();
-  jresult = (void *)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_default_bfe__SWIG_1(void * jarg1) {
-  void * jresult ;
-  pagmo::default_bfe *arg1 = 0 ;
-  pagmo::default_bfe *result = 0 ;
-  
-  arg1 = (pagmo::default_bfe *)jarg1;
-  if (!arg1) {
-    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "pagmo::default_bfe const & is null", 0);
-    return 0;
-  } 
-  result = (pagmo::default_bfe *)new pagmo::default_bfe((pagmo::default_bfe const &)*arg1);
-  jresult = (void *)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_default_bfe_get_name(void * jarg1) {
-  const char * jresult ;
-  pagmo::default_bfe *arg1 = (pagmo::default_bfe *) 0 ;
-  std::string result;
-  
-  arg1 = (pagmo::default_bfe *)jarg1; 
-  result = ((pagmo::default_bfe const *)arg1)->get_name();
-  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
-  return jresult;
-}
-
-
-SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_default_bfe_Operator(void * jarg1, void * jarg2, void * jarg3) {
-  void * jresult ;
-  pagmo::default_bfe *arg1 = (pagmo::default_bfe *) 0 ;
-  pagmoWrap::problemPagomWrapper *arg2 = 0 ;
-  pagmo::vector_double *arg3 = 0 ;
-  pagmo::vector_double result;
-  
-  arg1 = (pagmo::default_bfe *)jarg1; 
-  arg2 = (pagmoWrap::problemPagomWrapper *)jarg2;
-  if (!arg2) {
-    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "pagmoWrap::problemPagomWrapper const & is null", 0);
-    return 0;
-  } 
-  arg3 = (pagmo::vector_double *)jarg3;
-  if (!arg3) {
-    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "pagmo::vector_double const & is null", 0);
-    return 0;
-  } 
-  result = pagmo_default_bfe_Operator((pagmo::default_bfe const *)arg1,(pagmoWrap::problemPagomWrapper const &)*arg2,(std::vector< double > const &)*arg3);
-  jresult = new pagmo::vector_double(result); 
-  return jresult;
-}
-
-
-SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_delete_default_bfe(void * jarg1) {
-  pagmo::default_bfe *arg1 = (pagmo::default_bfe *) 0 ;
-  
-  arg1 = (pagmo::default_bfe *)jarg1; 
-  delete arg1;
-}
-
-
-SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_thread_bfe__SWIG_0() {
-  void * jresult ;
-  pagmo::thread_bfe *result = 0 ;
-  
-  result = (pagmo::thread_bfe *)new pagmo::thread_bfe();
-  jresult = (void *)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_thread_bfe__SWIG_1(void * jarg1) {
-  void * jresult ;
-  pagmo::thread_bfe *arg1 = 0 ;
-  pagmo::thread_bfe *result = 0 ;
-  
-  arg1 = (pagmo::thread_bfe *)jarg1;
-  if (!arg1) {
-    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "pagmo::thread_bfe const & is null", 0);
-    return 0;
-  } 
-  result = (pagmo::thread_bfe *)new pagmo::thread_bfe((pagmo::thread_bfe const &)*arg1);
-  jresult = (void *)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_thread_bfe_get_name(void * jarg1) {
-  const char * jresult ;
-  pagmo::thread_bfe *arg1 = (pagmo::thread_bfe *) 0 ;
-  std::string result;
-  
-  arg1 = (pagmo::thread_bfe *)jarg1; 
-  result = ((pagmo::thread_bfe const *)arg1)->get_name();
-  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
-  return jresult;
-}
-
-
-SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_thread_bfe_Operator(void * jarg1, void * jarg2, void * jarg3) {
-  void * jresult ;
-  pagmo::thread_bfe *arg1 = (pagmo::thread_bfe *) 0 ;
-  pagmoWrap::problemPagomWrapper *arg2 = 0 ;
-  pagmo::vector_double *arg3 = 0 ;
-  pagmo::vector_double result;
-  
-  arg1 = (pagmo::thread_bfe *)jarg1; 
-  arg2 = (pagmoWrap::problemPagomWrapper *)jarg2;
-  if (!arg2) {
-    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "pagmoWrap::problemPagomWrapper const & is null", 0);
-    return 0;
-  } 
-  arg3 = (pagmo::vector_double *)jarg3;
-  if (!arg3) {
-    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "pagmo::vector_double const & is null", 0);
-    return 0;
-  } 
-  result = pagmo_thread_bfe_Operator((pagmo::thread_bfe const *)arg1,(pagmoWrap::problemPagomWrapper const &)*arg2,(std::vector< double > const &)*arg3);
-  jresult = new pagmo::vector_double(result); 
-  return jresult;
-}
-
-
-SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_delete_thread_bfe(void * jarg1) {
-  pagmo::thread_bfe *arg1 = (pagmo::thread_bfe *) 0 ;
-  
-  arg1 = (pagmo::thread_bfe *)jarg1; 
-  delete arg1;
-}
-
-
-SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_member_bfe_Operator(void * jarg1, void * jarg2, void * jarg3) {
-  void * jresult ;
-  pagmo::member_bfe *arg1 = (pagmo::member_bfe *) 0 ;
-  pagmoWrap::problemPagomWrapper *arg2 = 0 ;
-  pagmo::vector_double *arg3 = 0 ;
-  pagmo::vector_double result;
-  
-  arg1 = (pagmo::member_bfe *)jarg1; 
-  arg2 = (pagmoWrap::problemPagomWrapper *)jarg2;
-  if (!arg2) {
-    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "pagmoWrap::problemPagomWrapper const & is null", 0);
-    return 0;
-  } 
-  arg3 = (pagmo::vector_double *)jarg3;
-  if (!arg3) {
-    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "pagmo::vector_double const & is null", 0);
-    return 0;
-  } 
-  result = pagmo_member_bfe_Operator((pagmo::member_bfe const *)arg1,(pagmoWrap::problemPagomWrapper const &)*arg2,(std::vector< double > const &)*arg3);
-  jresult = new pagmo::vector_double(result); 
-  return jresult;
-}
-
-
-SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_delete_member_bfe(void * jarg1) {
-  pagmo::member_bfe *arg1 = (pagmo::member_bfe *) 0 ;
-  
-  arg1 = (pagmo::member_bfe *)jarg1; 
-  delete arg1;
-}
-
-
 SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_island() {
   void * jresult ;
   pagmo::island *result = 0 ;
@@ -3758,6 +3617,14 @@ SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_delete_archipelago(void * jarg1) {
 }
 
 
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_delete_bfe(void * jarg1) {
+  pagmo::bfe *arg1 = (pagmo::bfe *) 0 ;
+  
+  arg1 = (pagmo::bfe *)jarg1; 
+  delete arg1;
+}
+
+
 SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_topology__SWIG_1(void * jarg1) {
   void * jresult ;
   pagmo::topology *arg1 = 0 ;
@@ -3858,6 +3725,388 @@ SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_delete_topology(void * jarg1) {
   pagmo::topology *arg1 = (pagmo::topology *) 0 ;
   
   arg1 = (pagmo::topology *)jarg1; 
+  delete arg1;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_default_bfe__SWIG_0() {
+  void * jresult ;
+  pagmo::default_bfe *result = 0 ;
+  
+  result = (pagmo::default_bfe *)new pagmo::default_bfe();
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_default_bfe__SWIG_1(void * jarg1) {
+  void * jresult ;
+  pagmo::default_bfe *arg1 = 0 ;
+  pagmo::default_bfe *result = 0 ;
+  
+  arg1 = (pagmo::default_bfe *)jarg1;
+  if (!arg1) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "pagmo::default_bfe const & is null", 0);
+    return 0;
+  } 
+  result = (pagmo::default_bfe *)new pagmo::default_bfe((pagmo::default_bfe const &)*arg1);
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_default_bfe_get_name(void * jarg1) {
+  const char * jresult ;
+  pagmo::default_bfe *arg1 = (pagmo::default_bfe *) 0 ;
+  std::string result;
+  
+  arg1 = (pagmo::default_bfe *)jarg1; 
+  result = ((pagmo::default_bfe const *)arg1)->get_name();
+  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_default_bfe_Operator(void * jarg1, void * jarg2, void * jarg3) {
+  void * jresult ;
+  pagmo::default_bfe *arg1 = (pagmo::default_bfe *) 0 ;
+  pagmoWrap::problemPagomWrapper *arg2 = 0 ;
+  pagmo::vector_double *arg3 = 0 ;
+  pagmo::vector_double result;
+  
+  arg1 = (pagmo::default_bfe *)jarg1; 
+  arg2 = (pagmoWrap::problemPagomWrapper *)jarg2;
+  if (!arg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "pagmoWrap::problemPagomWrapper const & is null", 0);
+    return 0;
+  } 
+  arg3 = (pagmo::vector_double *)jarg3;
+  if (!arg3) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "pagmo::vector_double const & is null", 0);
+    return 0;
+  } 
+  result = pagmo_default_bfe_Operator((pagmo::default_bfe const *)arg1,(pagmoWrap::problemPagomWrapper const &)*arg2,(std::vector< double > const &)*arg3);
+  jresult = new pagmo::vector_double(result); 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_delete_default_bfe(void * jarg1) {
+  pagmo::default_bfe *arg1 = (pagmo::default_bfe *) 0 ;
+  
+  arg1 = (pagmo::default_bfe *)jarg1; 
+  delete arg1;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_member_bfe__SWIG_0() {
+  void * jresult ;
+  pagmo::member_bfe *result = 0 ;
+  
+  result = (pagmo::member_bfe *)new pagmo::member_bfe();
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_member_bfe__SWIG_1(void * jarg1) {
+  void * jresult ;
+  pagmo::member_bfe *arg1 = 0 ;
+  pagmo::member_bfe *result = 0 ;
+  
+  arg1 = (pagmo::member_bfe *)jarg1;
+  if (!arg1) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "pagmo::member_bfe const & is null", 0);
+    return 0;
+  } 
+  result = (pagmo::member_bfe *)new pagmo::member_bfe((pagmo::member_bfe const &)*arg1);
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_member_bfe_get_name(void * jarg1) {
+  const char * jresult ;
+  pagmo::member_bfe *arg1 = (pagmo::member_bfe *) 0 ;
+  std::string result;
+  
+  arg1 = (pagmo::member_bfe *)jarg1; 
+  result = ((pagmo::member_bfe const *)arg1)->get_name();
+  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_member_bfe_Operator(void * jarg1, void * jarg2, void * jarg3) {
+  void * jresult ;
+  pagmo::member_bfe *arg1 = (pagmo::member_bfe *) 0 ;
+  pagmoWrap::problemPagomWrapper *arg2 = 0 ;
+  pagmo::vector_double *arg3 = 0 ;
+  pagmo::vector_double result;
+  
+  arg1 = (pagmo::member_bfe *)jarg1; 
+  arg2 = (pagmoWrap::problemPagomWrapper *)jarg2;
+  if (!arg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "pagmoWrap::problemPagomWrapper const & is null", 0);
+    return 0;
+  } 
+  arg3 = (pagmo::vector_double *)jarg3;
+  if (!arg3) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "pagmo::vector_double const & is null", 0);
+    return 0;
+  } 
+  result = pagmo_member_bfe_Operator((pagmo::member_bfe const *)arg1,(pagmoWrap::problemPagomWrapper const &)*arg2,(std::vector< double > const &)*arg3);
+  jresult = new pagmo::vector_double(result); 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_delete_member_bfe(void * jarg1) {
+  pagmo::member_bfe *arg1 = (pagmo::member_bfe *) 0 ;
+  
+  arg1 = (pagmo::member_bfe *)jarg1; 
+  delete arg1;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_thread_bfe__SWIG_0() {
+  void * jresult ;
+  pagmo::thread_bfe *result = 0 ;
+  
+  result = (pagmo::thread_bfe *)new pagmo::thread_bfe();
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_thread_bfe__SWIG_1(void * jarg1) {
+  void * jresult ;
+  pagmo::thread_bfe *arg1 = 0 ;
+  pagmo::thread_bfe *result = 0 ;
+  
+  arg1 = (pagmo::thread_bfe *)jarg1;
+  if (!arg1) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "pagmo::thread_bfe const & is null", 0);
+    return 0;
+  } 
+  result = (pagmo::thread_bfe *)new pagmo::thread_bfe((pagmo::thread_bfe const &)*arg1);
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_thread_bfe_get_name(void * jarg1) {
+  const char * jresult ;
+  pagmo::thread_bfe *arg1 = (pagmo::thread_bfe *) 0 ;
+  std::string result;
+  
+  arg1 = (pagmo::thread_bfe *)jarg1; 
+  result = ((pagmo::thread_bfe const *)arg1)->get_name();
+  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_thread_bfe_Operator(void * jarg1, void * jarg2, void * jarg3) {
+  void * jresult ;
+  pagmo::thread_bfe *arg1 = (pagmo::thread_bfe *) 0 ;
+  pagmoWrap::problemPagomWrapper *arg2 = 0 ;
+  pagmo::vector_double *arg3 = 0 ;
+  pagmo::vector_double result;
+  
+  arg1 = (pagmo::thread_bfe *)jarg1; 
+  arg2 = (pagmoWrap::problemPagomWrapper *)jarg2;
+  if (!arg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "pagmoWrap::problemPagomWrapper const & is null", 0);
+    return 0;
+  } 
+  arg3 = (pagmo::vector_double *)jarg3;
+  if (!arg3) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "pagmo::vector_double const & is null", 0);
+    return 0;
+  } 
+  result = pagmo_thread_bfe_Operator((pagmo::thread_bfe const *)arg1,(pagmoWrap::problemPagomWrapper const &)*arg2,(std::vector< double > const &)*arg3);
+  jresult = new pagmo::vector_double(result); 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_delete_thread_bfe(void * jarg1) {
+  pagmo::thread_bfe *arg1 = (pagmo::thread_bfe *) 0 ;
+  
+  arg1 = (pagmo::thread_bfe *)jarg1; 
+  delete arg1;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_bee_colony__SWIG_0(unsigned int jarg1, unsigned int jarg2, unsigned int jarg3) {
+  void * jresult ;
+  unsigned int arg1 ;
+  unsigned int arg2 ;
+  unsigned int arg3 ;
+  pagmo::bee_colony *result = 0 ;
+  
+  arg1 = (unsigned int)jarg1; 
+  arg2 = (unsigned int)jarg2; 
+  arg3 = (unsigned int)jarg3; 
+  result = (pagmo::bee_colony *)new pagmo::bee_colony(arg1,arg2,arg3);
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_bee_colony__SWIG_1(unsigned int jarg1, unsigned int jarg2) {
+  void * jresult ;
+  unsigned int arg1 ;
+  unsigned int arg2 ;
+  pagmo::bee_colony *result = 0 ;
+  
+  arg1 = (unsigned int)jarg1; 
+  arg2 = (unsigned int)jarg2; 
+  result = (pagmo::bee_colony *)new pagmo::bee_colony(arg1,arg2);
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_bee_colony__SWIG_2(unsigned int jarg1) {
+  void * jresult ;
+  unsigned int arg1 ;
+  pagmo::bee_colony *result = 0 ;
+  
+  arg1 = (unsigned int)jarg1; 
+  result = (pagmo::bee_colony *)new pagmo::bee_colony(arg1);
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_bee_colony__SWIG_3() {
+  void * jresult ;
+  pagmo::bee_colony *result = 0 ;
+  
+  result = (pagmo::bee_colony *)new pagmo::bee_colony();
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_bee_colony_evolve(void * jarg1, void * jarg2) {
+  void * jresult ;
+  pagmo::bee_colony *arg1 = (pagmo::bee_colony *) 0 ;
+  SwigValueWrapper< pagmo::population > arg2 ;
+  pagmo::population *argp2 ;
+  SwigValueWrapper< pagmo::population > result;
+  
+  arg1 = (pagmo::bee_colony *)jarg1; 
+  argp2 = (pagmo::population *)jarg2; 
+  if (!argp2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "Attempt to dereference null pagmo::population", 0);
+    return 0;
+  }
+  arg2 = *argp2; 
+  result = ((pagmo::bee_colony const *)arg1)->evolve(arg2);
+  jresult = new pagmo::population(result); 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_bee_colony_set_seed(void * jarg1, unsigned int jarg2) {
+  pagmo::bee_colony *arg1 = (pagmo::bee_colony *) 0 ;
+  unsigned int arg2 ;
+  
+  arg1 = (pagmo::bee_colony *)jarg1; 
+  arg2 = (unsigned int)jarg2; 
+  (arg1)->set_seed(arg2);
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_pagmo_bee_colony_get_seed(void * jarg1) {
+  unsigned int jresult ;
+  pagmo::bee_colony *arg1 = (pagmo::bee_colony *) 0 ;
+  unsigned int result;
+  
+  arg1 = (pagmo::bee_colony *)jarg1; 
+  result = (unsigned int)((pagmo::bee_colony const *)arg1)->get_seed();
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_bee_colony_set_verbosity(void * jarg1, unsigned int jarg2) {
+  pagmo::bee_colony *arg1 = (pagmo::bee_colony *) 0 ;
+  unsigned int arg2 ;
+  
+  arg1 = (pagmo::bee_colony *)jarg1; 
+  arg2 = (unsigned int)jarg2; 
+  (arg1)->set_verbosity(arg2);
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_pagmo_bee_colony_get_verbosity(void * jarg1) {
+  unsigned int jresult ;
+  pagmo::bee_colony *arg1 = (pagmo::bee_colony *) 0 ;
+  unsigned int result;
+  
+  arg1 = (pagmo::bee_colony *)jarg1; 
+  result = (unsigned int)((pagmo::bee_colony const *)arg1)->get_verbosity();
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_pagmo_bee_colony_get_gen(void * jarg1) {
+  unsigned int jresult ;
+  pagmo::bee_colony *arg1 = (pagmo::bee_colony *) 0 ;
+  unsigned int result;
+  
+  arg1 = (pagmo::bee_colony *)jarg1; 
+  result = (unsigned int)((pagmo::bee_colony const *)arg1)->get_gen();
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_bee_colony_get_name(void * jarg1) {
+  const char * jresult ;
+  pagmo::bee_colony *arg1 = (pagmo::bee_colony *) 0 ;
+  std::string result;
+  
+  arg1 = (pagmo::bee_colony *)jarg1; 
+  result = ((pagmo::bee_colony const *)arg1)->get_name();
+  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  return jresult;
+}
+
+
+SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_bee_colony_get_extra_info(void * jarg1) {
+  const char * jresult ;
+  pagmo::bee_colony *arg1 = (pagmo::bee_colony *) 0 ;
+  std::string result;
+  
+  arg1 = (pagmo::bee_colony *)jarg1; 
+  result = ((pagmo::bee_colony const *)arg1)->get_extra_info();
+  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_bee_colony_get_log(void * jarg1) {
+  void * jresult ;
+  pagmo::bee_colony *arg1 = (pagmo::bee_colony *) 0 ;
+  pagmo::bee_colony::log_type *result = 0 ;
+  
+  arg1 = (pagmo::bee_colony *)jarg1; 
+  result = (pagmo::bee_colony::log_type *) &((pagmo::bee_colony const *)arg1)->get_log();
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_delete_bee_colony(void * jarg1) {
+  pagmo::bee_colony *arg1 = (pagmo::bee_colony *) 0 ;
+  
+  arg1 = (pagmo::bee_colony *)jarg1; 
   delete arg1;
 }
 
@@ -4814,6 +5063,734 @@ SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_delete_gaco(void * jarg1) {
   pagmo::gaco *arg1 = (pagmo::gaco *) 0 ;
   
   arg1 = (pagmo::gaco *)jarg1; 
+  delete arg1;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_gwo__SWIG_0(unsigned int jarg1, unsigned int jarg2) {
+  void * jresult ;
+  unsigned int arg1 ;
+  unsigned int arg2 ;
+  pagmo::gwo *result = 0 ;
+  
+  arg1 = (unsigned int)jarg1; 
+  arg2 = (unsigned int)jarg2; 
+  result = (pagmo::gwo *)new pagmo::gwo(arg1,arg2);
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_gwo__SWIG_1(unsigned int jarg1) {
+  void * jresult ;
+  unsigned int arg1 ;
+  pagmo::gwo *result = 0 ;
+  
+  arg1 = (unsigned int)jarg1; 
+  result = (pagmo::gwo *)new pagmo::gwo(arg1);
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_gwo__SWIG_2() {
+  void * jresult ;
+  pagmo::gwo *result = 0 ;
+  
+  result = (pagmo::gwo *)new pagmo::gwo();
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_gwo_evolve(void * jarg1, void * jarg2) {
+  void * jresult ;
+  pagmo::gwo *arg1 = (pagmo::gwo *) 0 ;
+  SwigValueWrapper< pagmo::population > arg2 ;
+  pagmo::population *argp2 ;
+  SwigValueWrapper< pagmo::population > result;
+  
+  arg1 = (pagmo::gwo *)jarg1; 
+  argp2 = (pagmo::population *)jarg2; 
+  if (!argp2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "Attempt to dereference null pagmo::population", 0);
+    return 0;
+  }
+  arg2 = *argp2; 
+  result = ((pagmo::gwo const *)arg1)->evolve(arg2);
+  jresult = new pagmo::population(result); 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_gwo_set_seed(void * jarg1, unsigned int jarg2) {
+  pagmo::gwo *arg1 = (pagmo::gwo *) 0 ;
+  unsigned int arg2 ;
+  
+  arg1 = (pagmo::gwo *)jarg1; 
+  arg2 = (unsigned int)jarg2; 
+  (arg1)->set_seed(arg2);
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_pagmo_gwo_get_seed(void * jarg1) {
+  unsigned int jresult ;
+  pagmo::gwo *arg1 = (pagmo::gwo *) 0 ;
+  unsigned int result;
+  
+  arg1 = (pagmo::gwo *)jarg1; 
+  result = (unsigned int)((pagmo::gwo const *)arg1)->get_seed();
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_gwo_set_verbosity(void * jarg1, unsigned int jarg2) {
+  pagmo::gwo *arg1 = (pagmo::gwo *) 0 ;
+  unsigned int arg2 ;
+  
+  arg1 = (pagmo::gwo *)jarg1; 
+  arg2 = (unsigned int)jarg2; 
+  (arg1)->set_verbosity(arg2);
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_pagmo_gwo_get_verbosity(void * jarg1) {
+  unsigned int jresult ;
+  pagmo::gwo *arg1 = (pagmo::gwo *) 0 ;
+  unsigned int result;
+  
+  arg1 = (pagmo::gwo *)jarg1; 
+  result = (unsigned int)((pagmo::gwo const *)arg1)->get_verbosity();
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_pagmo_gwo_get_gen(void * jarg1) {
+  unsigned int jresult ;
+  pagmo::gwo *arg1 = (pagmo::gwo *) 0 ;
+  unsigned int result;
+  
+  arg1 = (pagmo::gwo *)jarg1; 
+  result = (unsigned int)((pagmo::gwo const *)arg1)->get_gen();
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_gwo_get_name(void * jarg1) {
+  const char * jresult ;
+  pagmo::gwo *arg1 = (pagmo::gwo *) 0 ;
+  std::string result;
+  
+  arg1 = (pagmo::gwo *)jarg1; 
+  result = ((pagmo::gwo const *)arg1)->get_name();
+  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  return jresult;
+}
+
+
+SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_gwo_get_extra_info(void * jarg1) {
+  const char * jresult ;
+  pagmo::gwo *arg1 = (pagmo::gwo *) 0 ;
+  std::string result;
+  
+  arg1 = (pagmo::gwo *)jarg1; 
+  result = ((pagmo::gwo const *)arg1)->get_extra_info();
+  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_gwo_get_log(void * jarg1) {
+  void * jresult ;
+  pagmo::gwo *arg1 = (pagmo::gwo *) 0 ;
+  pagmo::gwo::log_type *result = 0 ;
+  
+  arg1 = (pagmo::gwo *)jarg1; 
+  result = (pagmo::gwo::log_type *) &((pagmo::gwo const *)arg1)->get_log();
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_delete_gwo(void * jarg1) {
+  pagmo::gwo *arg1 = (pagmo::gwo *) 0 ;
+  
+  arg1 = (pagmo::gwo *)jarg1; 
+  delete arg1;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_pso__SWIG_0(unsigned int jarg1, double jarg2, double jarg3, double jarg4, double jarg5, unsigned int jarg6, unsigned int jarg7, unsigned int jarg8, unsigned int jarg9, unsigned int jarg10) {
+  void * jresult ;
+  unsigned int arg1 ;
+  double arg2 ;
+  double arg3 ;
+  double arg4 ;
+  double arg5 ;
+  unsigned int arg6 ;
+  unsigned int arg7 ;
+  unsigned int arg8 ;
+  bool arg9 ;
+  unsigned int arg10 ;
+  pagmo::pso *result = 0 ;
+  
+  arg1 = (unsigned int)jarg1; 
+  arg2 = (double)jarg2; 
+  arg3 = (double)jarg3; 
+  arg4 = (double)jarg4; 
+  arg5 = (double)jarg5; 
+  arg6 = (unsigned int)jarg6; 
+  arg7 = (unsigned int)jarg7; 
+  arg8 = (unsigned int)jarg8; 
+  arg9 = jarg9 ? true : false; 
+  arg10 = (unsigned int)jarg10; 
+  result = (pagmo::pso *)new pagmo::pso(arg1,arg2,arg3,arg4,arg5,arg6,arg7,arg8,arg9,arg10);
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_pso__SWIG_1(unsigned int jarg1, double jarg2, double jarg3, double jarg4, double jarg5, unsigned int jarg6, unsigned int jarg7, unsigned int jarg8, unsigned int jarg9) {
+  void * jresult ;
+  unsigned int arg1 ;
+  double arg2 ;
+  double arg3 ;
+  double arg4 ;
+  double arg5 ;
+  unsigned int arg6 ;
+  unsigned int arg7 ;
+  unsigned int arg8 ;
+  bool arg9 ;
+  pagmo::pso *result = 0 ;
+  
+  arg1 = (unsigned int)jarg1; 
+  arg2 = (double)jarg2; 
+  arg3 = (double)jarg3; 
+  arg4 = (double)jarg4; 
+  arg5 = (double)jarg5; 
+  arg6 = (unsigned int)jarg6; 
+  arg7 = (unsigned int)jarg7; 
+  arg8 = (unsigned int)jarg8; 
+  arg9 = jarg9 ? true : false; 
+  result = (pagmo::pso *)new pagmo::pso(arg1,arg2,arg3,arg4,arg5,arg6,arg7,arg8,arg9);
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_pso__SWIG_2(unsigned int jarg1, double jarg2, double jarg3, double jarg4, double jarg5, unsigned int jarg6, unsigned int jarg7, unsigned int jarg8) {
+  void * jresult ;
+  unsigned int arg1 ;
+  double arg2 ;
+  double arg3 ;
+  double arg4 ;
+  double arg5 ;
+  unsigned int arg6 ;
+  unsigned int arg7 ;
+  unsigned int arg8 ;
+  pagmo::pso *result = 0 ;
+  
+  arg1 = (unsigned int)jarg1; 
+  arg2 = (double)jarg2; 
+  arg3 = (double)jarg3; 
+  arg4 = (double)jarg4; 
+  arg5 = (double)jarg5; 
+  arg6 = (unsigned int)jarg6; 
+  arg7 = (unsigned int)jarg7; 
+  arg8 = (unsigned int)jarg8; 
+  result = (pagmo::pso *)new pagmo::pso(arg1,arg2,arg3,arg4,arg5,arg6,arg7,arg8);
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_pso__SWIG_3(unsigned int jarg1, double jarg2, double jarg3, double jarg4, double jarg5, unsigned int jarg6, unsigned int jarg7) {
+  void * jresult ;
+  unsigned int arg1 ;
+  double arg2 ;
+  double arg3 ;
+  double arg4 ;
+  double arg5 ;
+  unsigned int arg6 ;
+  unsigned int arg7 ;
+  pagmo::pso *result = 0 ;
+  
+  arg1 = (unsigned int)jarg1; 
+  arg2 = (double)jarg2; 
+  arg3 = (double)jarg3; 
+  arg4 = (double)jarg4; 
+  arg5 = (double)jarg5; 
+  arg6 = (unsigned int)jarg6; 
+  arg7 = (unsigned int)jarg7; 
+  result = (pagmo::pso *)new pagmo::pso(arg1,arg2,arg3,arg4,arg5,arg6,arg7);
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_pso__SWIG_4(unsigned int jarg1, double jarg2, double jarg3, double jarg4, double jarg5, unsigned int jarg6) {
+  void * jresult ;
+  unsigned int arg1 ;
+  double arg2 ;
+  double arg3 ;
+  double arg4 ;
+  double arg5 ;
+  unsigned int arg6 ;
+  pagmo::pso *result = 0 ;
+  
+  arg1 = (unsigned int)jarg1; 
+  arg2 = (double)jarg2; 
+  arg3 = (double)jarg3; 
+  arg4 = (double)jarg4; 
+  arg5 = (double)jarg5; 
+  arg6 = (unsigned int)jarg6; 
+  result = (pagmo::pso *)new pagmo::pso(arg1,arg2,arg3,arg4,arg5,arg6);
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_pso__SWIG_5(unsigned int jarg1, double jarg2, double jarg3, double jarg4, double jarg5) {
+  void * jresult ;
+  unsigned int arg1 ;
+  double arg2 ;
+  double arg3 ;
+  double arg4 ;
+  double arg5 ;
+  pagmo::pso *result = 0 ;
+  
+  arg1 = (unsigned int)jarg1; 
+  arg2 = (double)jarg2; 
+  arg3 = (double)jarg3; 
+  arg4 = (double)jarg4; 
+  arg5 = (double)jarg5; 
+  result = (pagmo::pso *)new pagmo::pso(arg1,arg2,arg3,arg4,arg5);
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_pso__SWIG_6(unsigned int jarg1, double jarg2, double jarg3, double jarg4) {
+  void * jresult ;
+  unsigned int arg1 ;
+  double arg2 ;
+  double arg3 ;
+  double arg4 ;
+  pagmo::pso *result = 0 ;
+  
+  arg1 = (unsigned int)jarg1; 
+  arg2 = (double)jarg2; 
+  arg3 = (double)jarg3; 
+  arg4 = (double)jarg4; 
+  result = (pagmo::pso *)new pagmo::pso(arg1,arg2,arg3,arg4);
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_pso__SWIG_7(unsigned int jarg1, double jarg2, double jarg3) {
+  void * jresult ;
+  unsigned int arg1 ;
+  double arg2 ;
+  double arg3 ;
+  pagmo::pso *result = 0 ;
+  
+  arg1 = (unsigned int)jarg1; 
+  arg2 = (double)jarg2; 
+  arg3 = (double)jarg3; 
+  result = (pagmo::pso *)new pagmo::pso(arg1,arg2,arg3);
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_pso__SWIG_8(unsigned int jarg1, double jarg2) {
+  void * jresult ;
+  unsigned int arg1 ;
+  double arg2 ;
+  pagmo::pso *result = 0 ;
+  
+  arg1 = (unsigned int)jarg1; 
+  arg2 = (double)jarg2; 
+  result = (pagmo::pso *)new pagmo::pso(arg1,arg2);
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_pso__SWIG_9(unsigned int jarg1) {
+  void * jresult ;
+  unsigned int arg1 ;
+  pagmo::pso *result = 0 ;
+  
+  arg1 = (unsigned int)jarg1; 
+  result = (pagmo::pso *)new pagmo::pso(arg1);
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_pso__SWIG_10() {
+  void * jresult ;
+  pagmo::pso *result = 0 ;
+  
+  result = (pagmo::pso *)new pagmo::pso();
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_pso_evolve(void * jarg1, void * jarg2) {
+  void * jresult ;
+  pagmo::pso *arg1 = (pagmo::pso *) 0 ;
+  SwigValueWrapper< pagmo::population > arg2 ;
+  pagmo::population *argp2 ;
+  SwigValueWrapper< pagmo::population > result;
+  
+  arg1 = (pagmo::pso *)jarg1; 
+  argp2 = (pagmo::population *)jarg2; 
+  if (!argp2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "Attempt to dereference null pagmo::population", 0);
+    return 0;
+  }
+  arg2 = *argp2; 
+  result = ((pagmo::pso const *)arg1)->evolve(arg2);
+  jresult = new pagmo::population(result); 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_pso_set_verbosity(void * jarg1, unsigned int jarg2) {
+  pagmo::pso *arg1 = (pagmo::pso *) 0 ;
+  unsigned int arg2 ;
+  
+  arg1 = (pagmo::pso *)jarg1; 
+  arg2 = (unsigned int)jarg2; 
+  (arg1)->set_verbosity(arg2);
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_pagmo_pso_get_verbosity(void * jarg1) {
+  unsigned int jresult ;
+  pagmo::pso *arg1 = (pagmo::pso *) 0 ;
+  unsigned int result;
+  
+  arg1 = (pagmo::pso *)jarg1; 
+  result = (unsigned int)((pagmo::pso const *)arg1)->get_verbosity();
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_pso_set_seed(void * jarg1, unsigned int jarg2) {
+  pagmo::pso *arg1 = (pagmo::pso *) 0 ;
+  unsigned int arg2 ;
+  
+  arg1 = (pagmo::pso *)jarg1; 
+  arg2 = (unsigned int)jarg2; 
+  (arg1)->set_seed(arg2);
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_pagmo_pso_get_seed(void * jarg1) {
+  unsigned int jresult ;
+  pagmo::pso *arg1 = (pagmo::pso *) 0 ;
+  unsigned int result;
+  
+  arg1 = (pagmo::pso *)jarg1; 
+  result = (unsigned int)((pagmo::pso const *)arg1)->get_seed();
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_pso_get_name(void * jarg1) {
+  const char * jresult ;
+  pagmo::pso *arg1 = (pagmo::pso *) 0 ;
+  std::string result;
+  
+  arg1 = (pagmo::pso *)jarg1; 
+  result = ((pagmo::pso const *)arg1)->get_name();
+  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  return jresult;
+}
+
+
+SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_pso_get_extra_info(void * jarg1) {
+  const char * jresult ;
+  pagmo::pso *arg1 = (pagmo::pso *) 0 ;
+  std::string result;
+  
+  arg1 = (pagmo::pso *)jarg1; 
+  result = ((pagmo::pso const *)arg1)->get_extra_info();
+  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_pso_get_log(void * jarg1) {
+  void * jresult ;
+  pagmo::pso *arg1 = (pagmo::pso *) 0 ;
+  pagmo::pso::log_type *result = 0 ;
+  
+  arg1 = (pagmo::pso *)jarg1; 
+  result = (pagmo::pso::log_type *) &((pagmo::pso const *)arg1)->get_log();
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_delete_pso(void * jarg1) {
+  pagmo::pso *arg1 = (pagmo::pso *) 0 ;
+  
+  arg1 = (pagmo::pso *)jarg1; 
+  delete arg1;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_simulated_annealing__SWIG_0(double jarg1, double jarg2, unsigned int jarg3, unsigned int jarg4, unsigned int jarg5, double jarg6, unsigned int jarg7) {
+  void * jresult ;
+  double arg1 ;
+  double arg2 ;
+  unsigned int arg3 ;
+  unsigned int arg4 ;
+  unsigned int arg5 ;
+  double arg6 ;
+  unsigned int arg7 ;
+  pagmo::simulated_annealing *result = 0 ;
+  
+  arg1 = (double)jarg1; 
+  arg2 = (double)jarg2; 
+  arg3 = (unsigned int)jarg3; 
+  arg4 = (unsigned int)jarg4; 
+  arg5 = (unsigned int)jarg5; 
+  arg6 = (double)jarg6; 
+  arg7 = (unsigned int)jarg7; 
+  result = (pagmo::simulated_annealing *)new pagmo::simulated_annealing(arg1,arg2,arg3,arg4,arg5,arg6,arg7);
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_simulated_annealing__SWIG_1(double jarg1, double jarg2, unsigned int jarg3, unsigned int jarg4, unsigned int jarg5, double jarg6) {
+  void * jresult ;
+  double arg1 ;
+  double arg2 ;
+  unsigned int arg3 ;
+  unsigned int arg4 ;
+  unsigned int arg5 ;
+  double arg6 ;
+  pagmo::simulated_annealing *result = 0 ;
+  
+  arg1 = (double)jarg1; 
+  arg2 = (double)jarg2; 
+  arg3 = (unsigned int)jarg3; 
+  arg4 = (unsigned int)jarg4; 
+  arg5 = (unsigned int)jarg5; 
+  arg6 = (double)jarg6; 
+  result = (pagmo::simulated_annealing *)new pagmo::simulated_annealing(arg1,arg2,arg3,arg4,arg5,arg6);
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_simulated_annealing__SWIG_2(double jarg1, double jarg2, unsigned int jarg3, unsigned int jarg4, unsigned int jarg5) {
+  void * jresult ;
+  double arg1 ;
+  double arg2 ;
+  unsigned int arg3 ;
+  unsigned int arg4 ;
+  unsigned int arg5 ;
+  pagmo::simulated_annealing *result = 0 ;
+  
+  arg1 = (double)jarg1; 
+  arg2 = (double)jarg2; 
+  arg3 = (unsigned int)jarg3; 
+  arg4 = (unsigned int)jarg4; 
+  arg5 = (unsigned int)jarg5; 
+  result = (pagmo::simulated_annealing *)new pagmo::simulated_annealing(arg1,arg2,arg3,arg4,arg5);
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_simulated_annealing__SWIG_3(double jarg1, double jarg2, unsigned int jarg3, unsigned int jarg4) {
+  void * jresult ;
+  double arg1 ;
+  double arg2 ;
+  unsigned int arg3 ;
+  unsigned int arg4 ;
+  pagmo::simulated_annealing *result = 0 ;
+  
+  arg1 = (double)jarg1; 
+  arg2 = (double)jarg2; 
+  arg3 = (unsigned int)jarg3; 
+  arg4 = (unsigned int)jarg4; 
+  result = (pagmo::simulated_annealing *)new pagmo::simulated_annealing(arg1,arg2,arg3,arg4);
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_simulated_annealing__SWIG_4(double jarg1, double jarg2, unsigned int jarg3) {
+  void * jresult ;
+  double arg1 ;
+  double arg2 ;
+  unsigned int arg3 ;
+  pagmo::simulated_annealing *result = 0 ;
+  
+  arg1 = (double)jarg1; 
+  arg2 = (double)jarg2; 
+  arg3 = (unsigned int)jarg3; 
+  result = (pagmo::simulated_annealing *)new pagmo::simulated_annealing(arg1,arg2,arg3);
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_simulated_annealing__SWIG_5(double jarg1, double jarg2) {
+  void * jresult ;
+  double arg1 ;
+  double arg2 ;
+  pagmo::simulated_annealing *result = 0 ;
+  
+  arg1 = (double)jarg1; 
+  arg2 = (double)jarg2; 
+  result = (pagmo::simulated_annealing *)new pagmo::simulated_annealing(arg1,arg2);
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_simulated_annealing__SWIG_6(double jarg1) {
+  void * jresult ;
+  double arg1 ;
+  pagmo::simulated_annealing *result = 0 ;
+  
+  arg1 = (double)jarg1; 
+  result = (pagmo::simulated_annealing *)new pagmo::simulated_annealing(arg1);
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_simulated_annealing__SWIG_7() {
+  void * jresult ;
+  pagmo::simulated_annealing *result = 0 ;
+  
+  result = (pagmo::simulated_annealing *)new pagmo::simulated_annealing();
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_simulated_annealing_evolve(void * jarg1, void * jarg2) {
+  void * jresult ;
+  pagmo::simulated_annealing *arg1 = (pagmo::simulated_annealing *) 0 ;
+  SwigValueWrapper< pagmo::population > arg2 ;
+  pagmo::population *argp2 ;
+  SwigValueWrapper< pagmo::population > result;
+  
+  arg1 = (pagmo::simulated_annealing *)jarg1; 
+  argp2 = (pagmo::population *)jarg2; 
+  if (!argp2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "Attempt to dereference null pagmo::population", 0);
+    return 0;
+  }
+  arg2 = *argp2; 
+  result = ((pagmo::simulated_annealing const *)arg1)->evolve(arg2);
+  jresult = new pagmo::population(result); 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_simulated_annealing_set_verbosity(void * jarg1, unsigned int jarg2) {
+  pagmo::simulated_annealing *arg1 = (pagmo::simulated_annealing *) 0 ;
+  unsigned int arg2 ;
+  
+  arg1 = (pagmo::simulated_annealing *)jarg1; 
+  arg2 = (unsigned int)jarg2; 
+  (arg1)->set_verbosity(arg2);
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_pagmo_simulated_annealing_get_verbosity(void * jarg1) {
+  unsigned int jresult ;
+  pagmo::simulated_annealing *arg1 = (pagmo::simulated_annealing *) 0 ;
+  unsigned int result;
+  
+  arg1 = (pagmo::simulated_annealing *)jarg1; 
+  result = (unsigned int)((pagmo::simulated_annealing const *)arg1)->get_verbosity();
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_simulated_annealing_set_seed(void * jarg1, unsigned int jarg2) {
+  pagmo::simulated_annealing *arg1 = (pagmo::simulated_annealing *) 0 ;
+  unsigned int arg2 ;
+  
+  arg1 = (pagmo::simulated_annealing *)jarg1; 
+  arg2 = (unsigned int)jarg2; 
+  (arg1)->set_seed(arg2);
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_pagmo_simulated_annealing_get_seed(void * jarg1) {
+  unsigned int jresult ;
+  pagmo::simulated_annealing *arg1 = (pagmo::simulated_annealing *) 0 ;
+  unsigned int result;
+  
+  arg1 = (pagmo::simulated_annealing *)jarg1; 
+  result = (unsigned int)((pagmo::simulated_annealing const *)arg1)->get_seed();
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_simulated_annealing_get_name(void * jarg1) {
+  const char * jresult ;
+  pagmo::simulated_annealing *arg1 = (pagmo::simulated_annealing *) 0 ;
+  std::string result;
+  
+  arg1 = (pagmo::simulated_annealing *)jarg1; 
+  result = ((pagmo::simulated_annealing const *)arg1)->get_name();
+  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  return jresult;
+}
+
+
+SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_simulated_annealing_get_extra_info(void * jarg1) {
+  const char * jresult ;
+  pagmo::simulated_annealing *arg1 = (pagmo::simulated_annealing *) 0 ;
+  std::string result;
+  
+  arg1 = (pagmo::simulated_annealing *)jarg1; 
+  result = ((pagmo::simulated_annealing const *)arg1)->get_extra_info();
+  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_simulated_annealing_get_log(void * jarg1) {
+  void * jresult ;
+  pagmo::simulated_annealing *arg1 = (pagmo::simulated_annealing *) 0 ;
+  pagmo::simulated_annealing::log_type *result = 0 ;
+  
+  arg1 = (pagmo::simulated_annealing *)jarg1; 
+  result = (pagmo::simulated_annealing::log_type *) &((pagmo::simulated_annealing const *)arg1)->get_log();
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_delete_simulated_annealing(void * jarg1) {
+  pagmo::simulated_annealing *arg1 = (pagmo::simulated_annealing *) 0 ;
+  
+  arg1 = (pagmo::simulated_annealing *)jarg1; 
   delete arg1;
 }
 
@@ -5922,11 +6899,11 @@ SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_delete_hypervolume(void * jarg1) {
 }
 
 
-SWIGEXPORT pagmo::bfe * SWIGSTDCALL CSharp_pagmo_default_bfe_SWIGUpcast(pagmo::default_bfe *jarg1) {
-    return (pagmo::bfe *)jarg1;
+SWIGEXPORT pagmo::island * SWIGSTDCALL CSharp_pagmo_thread_island_SWIGUpcast(pagmo::thread_island *jarg1) {
+    return (pagmo::island *)jarg1;
 }
 
-SWIGEXPORT pagmo::bfe * SWIGSTDCALL CSharp_pagmo_thread_bfe_SWIGUpcast(pagmo::thread_bfe *jarg1) {
+SWIGEXPORT pagmo::bfe * SWIGSTDCALL CSharp_pagmo_default_bfe_SWIGUpcast(pagmo::default_bfe *jarg1) {
     return (pagmo::bfe *)jarg1;
 }
 
@@ -5934,8 +6911,8 @@ SWIGEXPORT pagmo::bfe * SWIGSTDCALL CSharp_pagmo_member_bfe_SWIGUpcast(pagmo::me
     return (pagmo::bfe *)jarg1;
 }
 
-SWIGEXPORT pagmo::island * SWIGSTDCALL CSharp_pagmo_thread_island_SWIGUpcast(pagmo::thread_island *jarg1) {
-    return (pagmo::island *)jarg1;
+SWIGEXPORT pagmo::bfe * SWIGSTDCALL CSharp_pagmo_thread_bfe_SWIGUpcast(pagmo::thread_bfe *jarg1) {
+    return (pagmo::bfe *)jarg1;
 }
 
 SWIGEXPORT pagmo::algorithm * SWIGSTDCALL CSharp_pagmo_de_SWIGUpcast(pagmo::de *jarg1) {
@@ -5947,6 +6924,18 @@ SWIGEXPORT pagmo::algorithm * SWIGSTDCALL CSharp_pagmo_de1220_SWIGUpcast(pagmo::
 }
 
 SWIGEXPORT pagmo::algorithm * SWIGSTDCALL CSharp_pagmo_gaco_SWIGUpcast(pagmo::gaco *jarg1) {
+    return (pagmo::algorithm *)jarg1;
+}
+
+SWIGEXPORT pagmo::algorithm * SWIGSTDCALL CSharp_pagmo_gwo_SWIGUpcast(pagmo::gwo *jarg1) {
+    return (pagmo::algorithm *)jarg1;
+}
+
+SWIGEXPORT pagmo::algorithm * SWIGSTDCALL CSharp_pagmo_pso_SWIGUpcast(pagmo::pso *jarg1) {
+    return (pagmo::algorithm *)jarg1;
+}
+
+SWIGEXPORT pagmo::algorithm * SWIGSTDCALL CSharp_pagmo_simulated_annealing_SWIGUpcast(pagmo::simulated_annealing *jarg1) {
     return (pagmo::algorithm *)jarg1;
 }
 

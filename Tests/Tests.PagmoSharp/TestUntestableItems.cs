@@ -4,16 +4,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using pagmo;
 
 namespace Tests.PagmoSharp
 {
     [TestFixture]
-    public class TestTopology
+    public class TestUntestableItems
     {
         [Test]
-        public void TestSomething()
+        public void TestTopology()
         {
-            //TODO: This will likely be more infrastruction, archipelago will likely test the real evolution of populations, along with the derived topologies
+            Assert.Inconclusive();
+        }
+
+        [Test]
+        public void TestExceptions()
+        {
+            Assert.Inconclusive();
         }
     }
 }

@@ -10,7 +10,7 @@
 
 namespace pagmo {
 
-public class member_bfe : bfe {
+public partial class member_bfe : bfe {
   private global::System.Runtime.InteropServices.HandleRef swigCPtr;
 
   internal member_bfe(global::System.IntPtr cPtr, bool cMemoryOwn) : base(pagmoPINVOKE.member_bfe_SWIGUpcast(cPtr), cMemoryOwn) {
@@ -45,6 +45,18 @@ public class member_bfe : bfe {
       }
       base.Dispose(disposing);
     }
+  }
+
+  public member_bfe() : this(pagmoPINVOKE.new_member_bfe__SWIG_0(), true) {
+  }
+
+  public member_bfe(member_bfe arg0) : this(pagmoPINVOKE.new_member_bfe__SWIG_1(member_bfe.getCPtr(arg0)), true) {
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
+  }
+
+  public virtual string get_name() {
+    string ret = pagmoPINVOKE.member_bfe_get_name(swigCPtr);
+    return ret;
   }
 
   public DoubleVector Operator(problemPagomWrapper theProblem, DoubleVector values) {

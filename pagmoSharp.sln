@@ -21,6 +21,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "swigInterfaceFiles", "swigI
 	ProjectSection(SolutionItems) = preProject
 		swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\algorithm.i = swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\algorithm.i
 		swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\archipelago.i = swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\archipelago.i
+		swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\bfe.i = swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\bfe.i
+		swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\exceptions.i = swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\exceptions.i
 		swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\island.i = swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\island.i
 		swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\population.i = swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\population.i
 		swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\rng.i = swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\rng.i
@@ -34,10 +36,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "problems", "problems", "{69
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "algorithms", "algorithms", "{0E707295-FF3A-4ABF-8077-DFF552602EAD}"
 	ProjectSection(SolutionItems) = preProject
+		swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\algorithms\bee_colony.i = swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\algorithms\bee_colony.i
 		swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\algorithms\de.i = swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\algorithms\de.i
 		swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\algorithms\de1220.i = swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\algorithms\de1220.i
 		swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\algorithms\gaco.i = swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\algorithms\gaco.i
+		swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\algorithms\gwo.i = swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\algorithms\gwo.i
+		swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\algorithms\pso.i = swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\algorithms\pso.i
 		swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\algorithms\sade.i = swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\algorithms\sade.i
+		swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\algorithms\simulated_annealing.i = swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\algorithms\simulated_annealing.i
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "utils", "utils", "{A789B01C-7696-42B9-B8F4-9129FDAB4294}"
@@ -48,6 +54,13 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "hv_algos", "hv_algos", "{55CC7DC4-992C-4E06-A474-E96C683765EE}"
 	ProjectSection(SolutionItems) = preProject
 		swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\utils\hv_algos\hv_algorithm.i = swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\utils\hv_algos\hv_algorithm.i
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "batch_evaluators", "batch_evaluators", "{1EDCDCC7-892B-4D84-A9A8-75DE71DC8EB1}"
+	ProjectSection(SolutionItems) = preProject
+		swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\batch_evaluators\default_bfe.i = swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\batch_evaluators\default_bfe.i
+		swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\batch_evaluators\member_bfe.i = swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\batch_evaluators\member_bfe.i
+		swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\batch_evaluators\thread_bfe.i = swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\batch_evaluators\thread_bfe.i
 	EndProjectSection
 EndProject
 Global
@@ -105,6 +118,7 @@ Global
 		{0E707295-FF3A-4ABF-8077-DFF552602EAD} = {A7AC40B5-9B9B-4479-8803-8FD7E4DAF3CF}
 		{A789B01C-7696-42B9-B8F4-9129FDAB4294} = {A7AC40B5-9B9B-4479-8803-8FD7E4DAF3CF}
 		{55CC7DC4-992C-4E06-A474-E96C683765EE} = {A789B01C-7696-42B9-B8F4-9129FDAB4294}
+		{1EDCDCC7-892B-4D84-A9A8-75DE71DC8EB1} = {A7AC40B5-9B9B-4479-8803-8FD7E4DAF3CF}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DF00BAED-DDCF-4E13-8B6D-DE3CB12C863B}

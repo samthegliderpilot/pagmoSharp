@@ -10,7 +10,7 @@
 
 namespace pagmo {
 
-public class default_bfe : bfe {
+public partial class default_bfe : bfe {
   private global::System.Runtime.InteropServices.HandleRef swigCPtr;
 
   internal default_bfe(global::System.IntPtr cPtr, bool cMemoryOwn) : base(pagmoPINVOKE.default_bfe_SWIGUpcast(cPtr), cMemoryOwn) {

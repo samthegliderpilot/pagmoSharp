@@ -10,7 +10,7 @@
 
 namespace pagmo {
 
-public class bfe : global::System.IDisposable {
+public partial class bfe : global::System.IDisposable {
   private global::System.Runtime.InteropServices.HandleRef swigCPtr;
   protected bool swigCMemOwn;
 

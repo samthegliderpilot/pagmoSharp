@@ -16,7 +16,7 @@ namespace Tests.PagmoSharp.Algorithms
 
         public abstract void TestNameIsCorrect();
         public abstract bool Constraints { get; }
-        public abstract bool Unconstraned { get; }
+        public abstract bool Unconstrained { get; }
         public abstract bool SingleObjective { get; }
         public abstract bool MultiObjective { get; }
         public abstract bool IntegerPrograming { get; }
@@ -30,7 +30,7 @@ namespace Tests.PagmoSharp.Algorithms
         [Test]
         public void TestOneDimensionalProblem()
         {
-            if (!SingleObjective || !Unconstraned)
+            if (!SingleObjective || !Unconstrained)
             {
                 Assert.Pass();
                 return;
@@ -49,7 +49,7 @@ namespace Tests.PagmoSharp.Algorithms
         [Test]
         public void TestTwoDimensionalProblem()
         {
-            if (!SingleObjective || !Unconstraned)
+            if (!SingleObjective || !Unconstrained)
             {
                 Assert.Pass();
                 return;
