@@ -41,6 +41,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "algorithms", "algorithms", 
 		swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\algorithms\de1220.i = swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\algorithms\de1220.i
 		swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\algorithms\gaco.i = swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\algorithms\gaco.i
 		swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\algorithms\gwo.i = swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\algorithms\gwo.i
+		swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\algorithms\nlopt.i = swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\algorithms\nlopt.i
 		swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\algorithms\pso.i = swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\algorithms\pso.i
 		swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\algorithms\sade.i = swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\algorithms\sade.i
 		swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\algorithms\simulated_annealing.i = swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\algorithms\simulated_annealing.i

@@ -147,6 +147,7 @@ namespace pagmo {
 	%include swigInterfaceFiles\algorithms\de1220.i
 	%include swigInterfaceFiles\algorithms\gaco.i
 	%include swigInterfaceFiles\algorithms\gwo.i
+	%include swigInterfaceFiles\algorithms\nlopt.i
 	%include swigInterfaceFiles\algorithms\pso.i
 	%include swigInterfaceFiles\algorithms\simulated_annealing.i
 	%include swigInterfaceFiles\algorithms\sade.i
