@@ -102,7 +102,7 @@ public partial class gaco : algorithm {
     return ret;
   }
 
-  public new void set_seed(uint arg0) {
+  public void set_seed(uint arg0) {
     pagmoPINVOKE.gaco_set_seed(swigCPtr, arg0);
   }
 

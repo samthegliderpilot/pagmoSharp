@@ -54,6 +54,10 @@ public partial class nlopt : algorithm {
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
+  public nlopt(nlopt arg0) : this(pagmoPINVOKE.new_nlopt__SWIG_2(nlopt.getCPtr(arg0)), true) {
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
+  }
+
   public population evolve(population arg0) {
     population ret = new population(pagmoPINVOKE.nlopt_evolve(swigCPtr, population.getCPtr(arg0)), true);
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();

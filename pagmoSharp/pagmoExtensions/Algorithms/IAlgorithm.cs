@@ -13,7 +13,7 @@ namespace pagmo
         /// </summary>
         /// <param name="pop">The population to evolve.</param>
         /// <returns>The evolved population.</returns>
-		public population evolve(population pop) ;
+		public population evolve(population pop);
 
         /// <summary>
         /// Sets the seed value to use when evolving the population.
@@ -25,30 +25,30 @@ namespace pagmo
         /// Sets the seed value to use when evolving the population.
         /// </summary>
         /// <returns>The seed value.</returns>
-        public uint get_seed() ;
+        public uint get_seed();
 
         /// <summary>
         /// Gets the verbosity value.  Defaults to 0.
         /// </summary>
         /// <returns>The verbosity value.</returns>
-        public uint get_verbosity() ;
+        public uint get_verbosity();
 
         /// <summary>
         /// Sets the verbosity value.
         /// </summary>
         /// <param name="level">The verbosity value to assign.</param>
         public void set_verbosity(uint level);
- 
+
         /// <summary>
         /// Gets the name of the algorithm.  This is generally hardcoded.
         /// </summary>
         /// <returns>The name of the algorithm.</returns>
-        public string get_name() ;
+        public string get_name();
 
         /// <summary>
         /// If there is extra info associated with the algorithm, this gets it.
         /// </summary>
         /// <returns>Any extra info included with the algorithm.</returns>
-        public string get_extra_info() ;
+        public string get_extra_info();
     }
 }

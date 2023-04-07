@@ -414,19 +414,8 @@ template <typename T> T SwigValueInit() {
 	#include "pagmo/topology.hpp"
 	#include "pagmo/type_traits.hpp"
 	#include "pagmo/types.hpp"
-
-
-	#include "pagmo/batch_evaluators/default_bfe.hpp"
-	#include "pagmo/batch_evaluators/thread_bfe.hpp"
-	#include "pagmo/batch_evaluators/member_bfe.hpp"
-		
-	#include "pagmo/islands/thread_island.hpp"
-	//#include "pagmo/islands/fork_island.hpp"	
-
-	#include "pagmo/problems/golomb_ruler.hpp"
-    
+	    
 	#include "problem.h" // this is a manually created item.  We want to include it in the wrappers so the generated cxx code can use the handwritten code for the problem
-	
 
 
 #include <string>
@@ -869,6 +858,10 @@ SWIGINTERN pagmo::vector_double pagmo_member_bfe_Operator(pagmo::member_bfe cons
 SWIGINTERN pagmo::vector_double pagmo_thread_bfe_Operator(pagmo::thread_bfe const *self,pagmoWrap::problemPagomWrapper const &theProblem,pagmo::vector_double const &values){
 	   return self->operator()(static_cast<pagmo::problem>(theProblem), values);
 	}
+
+#include "pagmo/island.hpp"
+#include "pagmo/islands/thread_island.hpp"
+
 
 #include "pagmo/algorithm.hpp"
 #include "pagmo/algorithms/bee_colony.hpp"
@@ -2850,62 +2843,6 @@ SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_delete_island(void * jarg1) {
 }
 
 
-SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_thread_island() {
-  void * jresult ;
-  pagmo::thread_island *result = 0 ;
-  
-  result = (pagmo::thread_island *)new pagmo::thread_island();
-  jresult = (void *)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_thread_island_get_name(void * jarg1) {
-  const char * jresult ;
-  pagmo::thread_island *arg1 = (pagmo::thread_island *) 0 ;
-  std::string result;
-  
-  arg1 = (pagmo::thread_island *)jarg1; 
-  result = ((pagmo::thread_island const *)arg1)->get_name();
-  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
-  return jresult;
-}
-
-
-SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_thread_island_get_extra_info(void * jarg1) {
-  const char * jresult ;
-  pagmo::thread_island *arg1 = (pagmo::thread_island *) 0 ;
-  std::string result;
-  
-  arg1 = (pagmo::thread_island *)jarg1; 
-  result = ((pagmo::thread_island const *)arg1)->get_extra_info();
-  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
-  return jresult;
-}
-
-
-SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_thread_island_run_evolve(void * jarg1, void * jarg2) {
-  pagmo::thread_island *arg1 = (pagmo::thread_island *) 0 ;
-  pagmo::island *arg2 = 0 ;
-  
-  arg1 = (pagmo::thread_island *)jarg1; 
-  arg2 = (pagmo::island *)jarg2;
-  if (!arg2) {
-    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "pagmo::island & is null", 0);
-    return ;
-  } 
-  ((pagmo::thread_island const *)arg1)->run_evolve(*arg2);
-}
-
-
-SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_delete_thread_island(void * jarg1) {
-  pagmo::thread_island *arg1 = (pagmo::thread_island *) 0 ;
-  
-  arg1 = (pagmo::thread_island *)jarg1; 
-  delete arg1;
-}
-
-
 SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_population__SWIG_3(void * jarg1, unsigned long jarg2, unsigned int jarg3) {
   void * jresult ;
   pagmoWrap::problemPagomWrapper arg1 ;
@@ -3265,34 +3202,6 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_algorithm__SWIG_1(void * jarg1) {
   result = (pagmo::algorithm *)new pagmo::algorithm((pagmo::algorithm const &)*arg1);
   jresult = (void *)result; 
   return jresult;
-}
-
-
-SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_algorithm_evolve(void * jarg1, void * jarg2) {
-  void * jresult ;
-  pagmo::algorithm *arg1 = (pagmo::algorithm *) 0 ;
-  pagmo::population *arg2 = 0 ;
-  SwigValueWrapper< pagmo::population > result;
-  
-  arg1 = (pagmo::algorithm *)jarg1; 
-  arg2 = (pagmo::population *)jarg2;
-  if (!arg2) {
-    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "pagmo::population const & is null", 0);
-    return 0;
-  } 
-  result = ((pagmo::algorithm const *)arg1)->evolve((pagmo::population const &)*arg2);
-  jresult = new pagmo::population(result); 
-  return jresult;
-}
-
-
-SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_algorithm_set_seed(void * jarg1, unsigned int jarg2) {
-  pagmo::algorithm *arg1 = (pagmo::algorithm *) 0 ;
-  unsigned int arg2 ;
-  
-  arg1 = (pagmo::algorithm *)jarg1; 
-  arg2 = (unsigned int)jarg2; 
-  (arg1)->set_seed(arg2);
 }
 
 
@@ -3940,6 +3849,62 @@ SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_delete_thread_bfe(void * jarg1) {
   pagmo::thread_bfe *arg1 = (pagmo::thread_bfe *) 0 ;
   
   arg1 = (pagmo::thread_bfe *)jarg1; 
+  delete arg1;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_thread_island() {
+  void * jresult ;
+  pagmo::thread_island *result = 0 ;
+  
+  result = (pagmo::thread_island *)new pagmo::thread_island();
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_thread_island_get_name(void * jarg1) {
+  const char * jresult ;
+  pagmo::thread_island *arg1 = (pagmo::thread_island *) 0 ;
+  std::string result;
+  
+  arg1 = (pagmo::thread_island *)jarg1; 
+  result = ((pagmo::thread_island const *)arg1)->get_name();
+  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  return jresult;
+}
+
+
+SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_thread_island_get_extra_info(void * jarg1) {
+  const char * jresult ;
+  pagmo::thread_island *arg1 = (pagmo::thread_island *) 0 ;
+  std::string result;
+  
+  arg1 = (pagmo::thread_island *)jarg1; 
+  result = ((pagmo::thread_island const *)arg1)->get_extra_info();
+  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_thread_island_run_evolve(void * jarg1, void * jarg2) {
+  pagmo::thread_island *arg1 = (pagmo::thread_island *) 0 ;
+  pagmo::island *arg2 = 0 ;
+  
+  arg1 = (pagmo::thread_island *)jarg1; 
+  arg2 = (pagmo::island *)jarg2;
+  if (!arg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "pagmo::island & is null", 0);
+    return ;
+  } 
+  ((pagmo::thread_island const *)arg1)->run_evolve(*arg2);
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_delete_thread_island(void * jarg1) {
+  pagmo::thread_island *arg1 = (pagmo::thread_island *) 0 ;
+  
+  arg1 = (pagmo::thread_island *)jarg1; 
   delete arg1;
 }
 
@@ -5250,6 +5215,22 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_nlopt__SWIG_1(const char * jarg1)
   std::string arg1_str(jarg1);
   arg1 = &arg1_str; 
   result = (pagmo::nlopt *)new pagmo::nlopt((std::string const &)*arg1);
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_nlopt__SWIG_2(void * jarg1) {
+  void * jresult ;
+  pagmo::nlopt *arg1 = 0 ;
+  pagmo::nlopt *result = 0 ;
+  
+  arg1 = (pagmo::nlopt *)jarg1;
+  if (!arg1) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "pagmo::nlopt const & is null", 0);
+    return 0;
+  } 
+  result = (pagmo::nlopt *)new pagmo::nlopt((pagmo::nlopt const &)*arg1);
   jresult = (void *)result; 
   return jresult;
 }
@@ -7203,10 +7184,6 @@ SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_delete_hypervolume(void * jarg1) {
 }
 
 
-SWIGEXPORT pagmo::island * SWIGSTDCALL CSharp_pagmo_thread_island_SWIGUpcast(pagmo::thread_island *jarg1) {
-    return (pagmo::island *)jarg1;
-}
-
 SWIGEXPORT pagmo::bfe * SWIGSTDCALL CSharp_pagmo_default_bfe_SWIGUpcast(pagmo::default_bfe *jarg1) {
     return (pagmo::bfe *)jarg1;
 }
@@ -7217,6 +7194,14 @@ SWIGEXPORT pagmo::bfe * SWIGSTDCALL CSharp_pagmo_member_bfe_SWIGUpcast(pagmo::me
 
 SWIGEXPORT pagmo::bfe * SWIGSTDCALL CSharp_pagmo_thread_bfe_SWIGUpcast(pagmo::thread_bfe *jarg1) {
     return (pagmo::bfe *)jarg1;
+}
+
+SWIGEXPORT pagmo::island * SWIGSTDCALL CSharp_pagmo_thread_island_SWIGUpcast(pagmo::thread_island *jarg1) {
+    return (pagmo::island *)jarg1;
+}
+
+SWIGEXPORT pagmo::algorithm * SWIGSTDCALL CSharp_pagmo_bee_colony_SWIGUpcast(pagmo::bee_colony *jarg1) {
+    return (pagmo::algorithm *)jarg1;
 }
 
 SWIGEXPORT pagmo::algorithm * SWIGSTDCALL CSharp_pagmo_de_SWIGUpcast(pagmo::de *jarg1) {

@@ -23,7 +23,7 @@
 #include "pagmo/algorithm.hpp"
 %}
 
-%typemap(csclassmodifiers) pagmo::algorithm "public partial class"
+%typemap(csclassmodifiers) pagmo::algorithm "public abstract partial class"
 
 //template <typename T> class has_set_verbosity
 //{
@@ -308,10 +308,14 @@ public:
     extern bool is() const noexcept;
 
     // Evolve method.
-    extern population evolve(const population&) const;
+    //extern population evolve(const population&) const;
 
     // Set the seed for the stochastic evolution.
-    extern void set_seed(unsigned);
+    //extern void set_seed(unsigned);
+
+    //extern unsigned get_seed();
+
+    //extern unsigned get_verbosity();
 
     extern bool has_set_seed() const;
 
@@ -337,3 +341,15 @@ public:
     extern void* get_ptr();
 
 };
+
+//%extend algorithm{
+//unsigned get_seed()
+//{
+//   return 0;
+//} };
+//
+//%extend algorithm{
+//unsigned get_verbosity()
+//{
+//    return 0;
+//} };

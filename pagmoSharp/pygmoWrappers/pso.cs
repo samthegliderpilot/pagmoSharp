@@ -95,7 +95,7 @@ public partial class pso : algorithm {
     return ret;
   }
 
-  public new void set_seed(uint arg0) {
+  public void set_seed(uint arg0) {
     pagmoPINVOKE.pso_set_seed(swigCPtr, arg0);
   }
 

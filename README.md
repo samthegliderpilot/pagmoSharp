@@ -18,7 +18,6 @@ Note that I am developing this on Windows 10, and used vcpkg to setup pagmo.  Al
 I think that the .Net ecosystem and languages are a bit under appreciated for scientific computing.  Although raw C/C++ code written by an expert will be faster, C# can get pretty close.  And with Microsoft open-sourcing so much of .Net with .Net Core... it has a lot going for it.
 
 ### Aren't you just making a wrapper of a wrapper?
-
 Pagmo is more than just a wrapper.  Pygmo adds a consistent interface that wraps several other optimizers, as well as multithreading and multi-process support when available and appropriate.  That makes it more than just a wrapper.
 
 ### Why SWIG and not C++/CLI?
@@ -29,6 +28,8 @@ Also, if someone wants to make wrappers for another language, the SWIG .i file w
 ### This hasn't implemented most of pagmo, why release it in such an incomplete state?
 
 Some of the pygmo functions are difficult to make SWIG wrappers for (the varidec templates).  Some I think don't need to be wrapped (archiving for example).  But yes, there are many functions and types that are not completed yet.  I've spent a good deal of time trying to figure out how to do inheritance of some of the types in pygmo, and I'm not really happy with the solution I've settled on (which is handling it on the .Net side with partial classes).  I hope that maybe someone will look at the .i file and say "if you do it this way, it will be a lot better".  
+
+Also, SWIG currently has problems with move and copy constructors, but a change submitted in late 2022 might fix it.  Until that fix is in a release, nlopt wrapping solvers is not possible.
 
 ### Your automated tests are not really testing meaningful optimization problems.
 

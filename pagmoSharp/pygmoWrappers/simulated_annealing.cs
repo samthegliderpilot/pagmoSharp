@@ -86,7 +86,7 @@ public partial class simulated_annealing : algorithm {
     return ret;
   }
 
-  public new void set_seed(uint arg0) {
+  public void set_seed(uint arg0) {
     pagmoPINVOKE.simulated_annealing_set_seed(swigCPtr, arg0);
   }
 

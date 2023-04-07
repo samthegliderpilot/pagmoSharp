@@ -77,7 +77,7 @@ public partial class de : algorithm {
     return ret;
   }
 
-  public new void set_seed(uint arg0) {
+  public void set_seed(uint arg0) {
     pagmoPINVOKE.de_set_seed(swigCPtr, arg0);
   }
 

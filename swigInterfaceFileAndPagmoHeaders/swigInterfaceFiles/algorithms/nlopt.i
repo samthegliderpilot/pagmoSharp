@@ -13,9 +13,9 @@ public:
 
     extern nlopt();
     extern nlopt(const std::string&);
-    //extern nlopt(const nlopt&);
-    //extern nlopt(nlopt&&) = default;
-    //extern nlopt& operator=(nlopt&&) = default;
+    extern nlopt(const nlopt&);
+    extern nlopt(nlopt&&) = default;
+    extern nlopt& operator=(nlopt&&) = default;
     extern population evolve(population) const;
     extern std::string get_name() const;
     extern void set_verbosity(unsigned n);
@@ -38,6 +38,7 @@ public:
     extern int get_maxtime() const;
     extern void set_maxtime(int n);
     //extern void set_local_optimizer(pagmo::nlopt);
+    // not supported yet, update in swig might fix
     extern const nlopt* get_local_optimizer() const;
     extern nlopt* get_local_optimizer();
     extern void unset_local_optimizer();

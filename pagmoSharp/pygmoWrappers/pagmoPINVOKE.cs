@@ -553,21 +553,6 @@ class pagmoPINVOKE {
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper.dll", EntryPoint="CSharp_pagmo_delete_island")]
   public static extern void delete_island(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper.dll", EntryPoint="CSharp_pagmo_new_thread_island")]
-  public static extern global::System.IntPtr new_thread_island();
-
-  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper.dll", EntryPoint="CSharp_pagmo_thread_island_get_name")]
-  public static extern string thread_island_get_name(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper.dll", EntryPoint="CSharp_pagmo_thread_island_get_extra_info")]
-  public static extern string thread_island_get_extra_info(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper.dll", EntryPoint="CSharp_pagmo_thread_island_run_evolve")]
-  public static extern void thread_island_run_evolve(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
-
-  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper.dll", EntryPoint="CSharp_pagmo_delete_thread_island")]
-  public static extern void delete_thread_island(global::System.Runtime.InteropServices.HandleRef jarg1);
-
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper.dll", EntryPoint="CSharp_pagmo_new_population__SWIG_3")]
   public static extern global::System.IntPtr new_population__SWIG_3(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2, uint jarg3);
 
@@ -642,12 +627,6 @@ class pagmoPINVOKE {
 
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper.dll", EntryPoint="CSharp_pagmo_new_algorithm__SWIG_1")]
   public static extern global::System.IntPtr new_algorithm__SWIG_1(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper.dll", EntryPoint="CSharp_pagmo_algorithm_evolve")]
-  public static extern global::System.IntPtr algorithm_evolve(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
-
-  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper.dll", EntryPoint="CSharp_pagmo_algorithm_set_seed")]
-  public static extern void algorithm_set_seed(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2);
 
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper.dll", EntryPoint="CSharp_pagmo_algorithm_has_set_seed")]
   public static extern bool algorithm_has_set_seed(global::System.Runtime.InteropServices.HandleRef jarg1);
@@ -810,6 +789,21 @@ class pagmoPINVOKE {
 
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper.dll", EntryPoint="CSharp_pagmo_delete_thread_bfe")]
   public static extern void delete_thread_bfe(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper.dll", EntryPoint="CSharp_pagmo_new_thread_island")]
+  public static extern global::System.IntPtr new_thread_island();
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper.dll", EntryPoint="CSharp_pagmo_thread_island_get_name")]
+  public static extern string thread_island_get_name(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper.dll", EntryPoint="CSharp_pagmo_thread_island_get_extra_info")]
+  public static extern string thread_island_get_extra_info(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper.dll", EntryPoint="CSharp_pagmo_thread_island_run_evolve")]
+  public static extern void thread_island_run_evolve(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper.dll", EntryPoint="CSharp_pagmo_delete_thread_island")]
+  public static extern void delete_thread_island(global::System.Runtime.InteropServices.HandleRef jarg1);
 
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper.dll", EntryPoint="CSharp_pagmo_new_bee_colony__SWIG_0")]
   public static extern global::System.IntPtr new_bee_colony__SWIG_0(uint jarg1, uint jarg2, uint jarg3);
@@ -1074,6 +1068,9 @@ class pagmoPINVOKE {
 
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper.dll", EntryPoint="CSharp_pagmo_new_nlopt__SWIG_1")]
   public static extern global::System.IntPtr new_nlopt__SWIG_1(string jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper.dll", EntryPoint="CSharp_pagmo_new_nlopt__SWIG_2")]
+  public static extern global::System.IntPtr new_nlopt__SWIG_2(global::System.Runtime.InteropServices.HandleRef jarg1);
 
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper.dll", EntryPoint="CSharp_pagmo_nlopt_evolve")]
   public static extern global::System.IntPtr nlopt_evolve(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
@@ -1468,9 +1465,6 @@ class pagmoPINVOKE {
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper.dll", EntryPoint="CSharp_pagmo_delete_hypervolume")]
   public static extern void delete_hypervolume(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper.dll", EntryPoint="CSharp_pagmo_thread_island_SWIGUpcast")]
-  public static extern global::System.IntPtr thread_island_SWIGUpcast(global::System.IntPtr jarg1);
-
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper.dll", EntryPoint="CSharp_pagmo_default_bfe_SWIGUpcast")]
   public static extern global::System.IntPtr default_bfe_SWIGUpcast(global::System.IntPtr jarg1);
 
@@ -1479,6 +1473,12 @@ class pagmoPINVOKE {
 
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper.dll", EntryPoint="CSharp_pagmo_thread_bfe_SWIGUpcast")]
   public static extern global::System.IntPtr thread_bfe_SWIGUpcast(global::System.IntPtr jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper.dll", EntryPoint="CSharp_pagmo_thread_island_SWIGUpcast")]
+  public static extern global::System.IntPtr thread_island_SWIGUpcast(global::System.IntPtr jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper.dll", EntryPoint="CSharp_pagmo_bee_colony_SWIGUpcast")]
+  public static extern global::System.IntPtr bee_colony_SWIGUpcast(global::System.IntPtr jarg1);
 
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper.dll", EntryPoint="CSharp_pagmo_de_SWIGUpcast")]
   public static extern global::System.IntPtr de_SWIGUpcast(global::System.IntPtr jarg1);

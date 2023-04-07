@@ -5,7 +5,7 @@
 %}
 
 %typemap(csclassmodifiers) pagmo::bee_colony "public partial class"
-class bee_colony
+class bee_colony : public pagmo::algorithm
 {
 public:
     typedef std::tuple<unsigned, unsigned long long, double, double> log_line_type;

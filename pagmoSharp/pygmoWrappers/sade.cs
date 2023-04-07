@@ -82,7 +82,7 @@ public partial class sade : algorithm {
     return ret;
   }
 
-  public new void set_seed(uint arg0) {
+  public void set_seed(uint arg0) {
     pagmoPINVOKE.sade_set_seed(swigCPtr, arg0);
   }
 

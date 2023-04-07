@@ -10,12 +10,10 @@
 
 namespace pagmo {
 
-public partial class bee_colony : global::System.IDisposable {
+public partial class bee_colony : algorithm {
   private global::System.Runtime.InteropServices.HandleRef swigCPtr;
-  protected bool swigCMemOwn;
 
-  internal bee_colony(global::System.IntPtr cPtr, bool cMemoryOwn) {
-    swigCMemOwn = cMemoryOwn;
+  internal bee_colony(global::System.IntPtr cPtr, bool cMemoryOwn) : base(pagmoPINVOKE.bee_colony_SWIGUpcast(cPtr), cMemoryOwn) {
     swigCPtr = new global::System.Runtime.InteropServices.HandleRef(this, cPtr);
   }
 
@@ -36,16 +34,7 @@ public partial class bee_colony : global::System.IDisposable {
     }
   }
 
-  ~bee_colony() {
-    Dispose(false);
-  }
-
-  public void Dispose() {
-    Dispose(true);
-    global::System.GC.SuppressFinalize(this);
-  }
-
-  protected virtual void Dispose(bool disposing) {
+  protected override void Dispose(bool disposing) {
     lock(this) {
       if (swigCPtr.Handle != global::System.IntPtr.Zero) {
         if (swigCMemOwn) {
@@ -54,6 +43,7 @@ public partial class bee_colony : global::System.IDisposable {
         }
         swigCPtr = new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero);
       }
+      base.Dispose(disposing);
     }
   }
 
@@ -84,7 +74,7 @@ public partial class bee_colony : global::System.IDisposable {
     return ret;
   }
 
-  public void set_verbosity(uint level) {
+  public new void set_verbosity(uint level) {
     pagmoPINVOKE.bee_colony_set_verbosity(swigCPtr, level);
   }
 
@@ -98,12 +88,12 @@ public partial class bee_colony : global::System.IDisposable {
     return ret;
   }
 
-  public string get_name() {
+  public new string get_name() {
     string ret = pagmoPINVOKE.bee_colony_get_name(swigCPtr);
     return ret;
   }
 
-  public string get_extra_info() {
+  public new string get_extra_info() {
     string ret = pagmoPINVOKE.bee_colony_get_extra_info(swigCPtr);
     return ret;
   }

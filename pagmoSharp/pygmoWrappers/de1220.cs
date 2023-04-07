@@ -88,7 +88,7 @@ public partial class de1220 : algorithm {
     return ret;
   }
 
-  public new void set_seed(uint arg0) {
+  public void set_seed(uint arg0) {
     pagmoPINVOKE.de1220_set_seed(swigCPtr, arg0);
   }
 

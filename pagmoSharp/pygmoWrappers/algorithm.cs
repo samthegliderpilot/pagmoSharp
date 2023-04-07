@@ -10,7 +10,7 @@
 
 namespace pagmo {
 
-public partial class algorithm : global::System.IDisposable {
+public abstract partial class algorithm : global::System.IDisposable {
   private global::System.Runtime.InteropServices.HandleRef swigCPtr;
   protected bool swigCMemOwn;
 
@@ -62,16 +62,6 @@ public partial class algorithm : global::System.IDisposable {
 
   public algorithm(algorithm arg0) : this(pagmoPINVOKE.new_algorithm__SWIG_1(algorithm.getCPtr(arg0)), true) {
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
-  }
-
-  public population evolve(population arg0) {
-    population ret = new population(pagmoPINVOKE.algorithm_evolve(swigCPtr, population.getCPtr(arg0)), true);
-    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
-    return ret;
-  }
-
-  public void set_seed(uint arg0) {
-    pagmoPINVOKE.algorithm_set_seed(swigCPtr, arg0);
   }
 
   public bool has_set_seed() {

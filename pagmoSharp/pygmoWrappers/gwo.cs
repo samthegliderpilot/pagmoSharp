@@ -62,7 +62,7 @@ public partial class gwo : algorithm {
     return ret;
   }
 
-  public new void set_seed(uint arg0) {
+  public void set_seed(uint arg0) {
     pagmoPINVOKE.gwo_set_seed(swigCPtr, arg0);
   }
 
