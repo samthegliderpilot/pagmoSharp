@@ -123,6 +123,16 @@ public partial class problemPagomWrapper : global::System.IDisposable {
     return ret;
   }
 
+  public bool has_gradient() {
+    bool ret = pagmoPINVOKE.problemPagomWrapper_has_gradient(swigCPtr);
+    return ret;
+  }
+
+  public bool has_gradient_sparsity() {
+    bool ret = pagmoPINVOKE.problemPagomWrapper_has_gradient_sparsity(swigCPtr);
+    return ret;
+  }
+
 }
 
 }

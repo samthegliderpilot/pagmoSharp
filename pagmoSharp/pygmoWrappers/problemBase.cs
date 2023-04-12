@@ -103,6 +103,16 @@ public partial class problemBase : global::System.IDisposable {
     return ret;
   }
 
+  public virtual bool has_gradient() {
+    bool ret = (SwigDerivedClassHasMethod("has_gradient", swigMethodTypes9) ? pagmoPINVOKE.problemBase_has_gradientSwigExplicitproblemBase(swigCPtr) : pagmoPINVOKE.problemBase_has_gradient(swigCPtr));
+    return ret;
+  }
+
+  public virtual bool has_gradient_sparsity() {
+    bool ret = (SwigDerivedClassHasMethod("has_gradient_sparsity", swigMethodTypes10) ? pagmoPINVOKE.problemBase_has_gradient_sparsitySwigExplicitproblemBase(swigCPtr) : pagmoPINVOKE.problemBase_has_gradient_sparsity(swigCPtr));
+    return ret;
+  }
+
   public problemBase() : this(pagmoPINVOKE.new_problemBase(), true) {
     SwigDirectorConnect();
   }
@@ -126,7 +136,11 @@ public partial class problemBase : global::System.IDisposable {
       swigDelegate7 = new SwigDelegateproblemBase_7(SwigDirectorMethodget_nix);
     if (SwigDerivedClassHasMethod("get_thread_safety", swigMethodTypes8))
       swigDelegate8 = new SwigDelegateproblemBase_8(SwigDirectorMethodget_thread_safety);
-    pagmoPINVOKE.problemBase_director_connect(swigCPtr, swigDelegate0, swigDelegate1, swigDelegate2, swigDelegate3, swigDelegate4, swigDelegate5, swigDelegate6, swigDelegate7, swigDelegate8);
+    if (SwigDerivedClassHasMethod("has_gradient", swigMethodTypes9))
+      swigDelegate9 = new SwigDelegateproblemBase_9(SwigDirectorMethodhas_gradient);
+    if (SwigDerivedClassHasMethod("has_gradient_sparsity", swigMethodTypes10))
+      swigDelegate10 = new SwigDelegateproblemBase_10(SwigDirectorMethodhas_gradient_sparsity);
+    pagmoPINVOKE.problemBase_director_connect(swigCPtr, swigDelegate0, swigDelegate1, swigDelegate2, swigDelegate3, swigDelegate4, swigDelegate5, swigDelegate6, swigDelegate7, swigDelegate8, swigDelegate9, swigDelegate10);
   }
 
   private bool SwigDerivedClassHasMethod(string methodName, global::System.Type[] methodTypes) {
@@ -199,6 +213,14 @@ public partial class problemBase : global::System.IDisposable {
     return (int)get_thread_safety();
   }
 
+  private bool SwigDirectorMethodhas_gradient() {
+    return has_gradient();
+  }
+
+  private bool SwigDirectorMethodhas_gradient_sparsity() {
+    return has_gradient_sparsity();
+  }
+
   public delegate global::System.IntPtr SwigDelegateproblemBase_0(global::System.IntPtr arg0);
   public delegate global::System.IntPtr SwigDelegateproblemBase_1();
   public delegate bool SwigDelegateproblemBase_2();
@@ -208,6 +230,8 @@ public partial class problemBase : global::System.IDisposable {
   public delegate uint SwigDelegateproblemBase_6();
   public delegate uint SwigDelegateproblemBase_7();
   public delegate int SwigDelegateproblemBase_8();
+  public delegate bool SwigDelegateproblemBase_9();
+  public delegate bool SwigDelegateproblemBase_10();
 
   private SwigDelegateproblemBase_0 swigDelegate0;
   private SwigDelegateproblemBase_1 swigDelegate1;
@@ -218,6 +242,8 @@ public partial class problemBase : global::System.IDisposable {
   private SwigDelegateproblemBase_6 swigDelegate6;
   private SwigDelegateproblemBase_7 swigDelegate7;
   private SwigDelegateproblemBase_8 swigDelegate8;
+  private SwigDelegateproblemBase_9 swigDelegate9;
+  private SwigDelegateproblemBase_10 swigDelegate10;
 
   private static global::System.Type[] swigMethodTypes0 = new global::System.Type[] { typeof(DoubleVector) };
   private static global::System.Type[] swigMethodTypes1 = new global::System.Type[] {  };
@@ -228,6 +254,8 @@ public partial class problemBase : global::System.IDisposable {
   private static global::System.Type[] swigMethodTypes6 = new global::System.Type[] {  };
   private static global::System.Type[] swigMethodTypes7 = new global::System.Type[] {  };
   private static global::System.Type[] swigMethodTypes8 = new global::System.Type[] {  };
+  private static global::System.Type[] swigMethodTypes9 = new global::System.Type[] {  };
+  private static global::System.Type[] swigMethodTypes10 = new global::System.Type[] {  };
 }
 
 }

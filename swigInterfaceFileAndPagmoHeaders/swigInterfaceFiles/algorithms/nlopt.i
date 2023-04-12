@@ -37,7 +37,7 @@ public:
     extern void set_maxeval(int n);
     extern int get_maxtime() const;
     extern void set_maxtime(int n);
-    //extern void set_local_optimizer(pagmo::nlopt);
+    // extern void set_local_optimizer(pagmo::nlopt);
     // not supported yet, update in swig might fix
     extern const nlopt* get_local_optimizer() const;
     extern nlopt* get_local_optimizer();

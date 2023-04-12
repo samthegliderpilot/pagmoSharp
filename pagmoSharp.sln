@@ -31,6 +31,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "swigInterfaceFiles", "swigI
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "problems", "problems", "{690793CC-5507-4215-BCF6-1658345CC72B}"
 	ProjectSection(SolutionItems) = preProject
+		swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\problems\ackley.i = swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\problems\ackley.i
 		swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\problems\golomb_ruler.i = swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\problems\golomb_ruler.i
 	EndProjectSection
 EndProject

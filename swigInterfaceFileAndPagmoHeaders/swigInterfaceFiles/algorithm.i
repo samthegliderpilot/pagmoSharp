@@ -307,6 +307,9 @@ public:
     template <typename T>
     extern bool is() const noexcept;
 
+    // these next few members are common to all algorithms, and including them here will
+    // result in warnings (and be unnecessary)
+
     // Evolve method.
     //extern population evolve(const population&) const;
 
@@ -341,15 +344,3 @@ public:
     extern void* get_ptr();
 
 };
-
-//%extend algorithm{
-//unsigned get_seed()
-//{
-//   return 0;
-//} };
-//
-//%extend algorithm{
-//unsigned get_verbosity()
-//{
-//    return 0;
-//} };

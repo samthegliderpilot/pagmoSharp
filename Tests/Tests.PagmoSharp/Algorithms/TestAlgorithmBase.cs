@@ -15,7 +15,7 @@ namespace Tests.PagmoSharp.Algorithms
         }
 
         public abstract void TestNameIsCorrect();
-        public abstract bool Constraints { get; }
+        public abstract bool Constrained { get; }
         public abstract bool Unconstrained { get; }
         public abstract bool SingleObjective { get; }
         public abstract bool MultiObjective { get; }
@@ -68,7 +68,7 @@ namespace Tests.PagmoSharp.Algorithms
         [Test]
         public void TestProblemWithConstraints()
         {
-            if (!Constraints || !SingleObjective)
+            if (!Constrained || !SingleObjective)
             {
                 Assert.Pass();
                 return; // pass, unsupported
@@ -89,7 +89,7 @@ namespace Tests.PagmoSharp.Algorithms
         }
 
         [Test]
-        public void TestBasicFunctions()
+        public virtual void TestBasicFunctions()
         {
             using (var problem = new TwoDimensionalSingleObjectiveProblemWrapper())
             using (var algorithm = CreateAlgorithm(problem))

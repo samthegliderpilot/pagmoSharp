@@ -55,10 +55,16 @@ namespace pagmoWrap
 			return pagmo::thread_safety::none;
 		}
 
-		//bool has_gradient() const;
+		virtual bool has_gradient() const
+		{
+			return false;
+		}
 		//vector_double gradient(const vector_double&) const;
-		//bool has_gradient_sparsity() const;
-		//sparsity_pattern gradient_sparsity() const;
+		virtual bool has_gradient_sparsity() const
+		{
+			return false;
+		}
+		//pagmo::sparsity_pattern gradient_sparsity() const;
 		//bool has_hessians() const;
 		//std::vector<vector_double> hessians(const vector_double&) const;
 		//bool has_hessians_sparsity() const;
@@ -145,6 +151,16 @@ namespace pagmoWrap
 		pagmo::thread_safety get_thread_safety() const
 		{
 			return _base->get_thread_safety();
+		}
+
+		bool has_gradient() const
+		{
+			return _base->has_batch_fitness();
+		}
+
+		bool has_gradient_sparsity() const
+		{
+			return _base->has_gradient();
 		}
 	};
 };

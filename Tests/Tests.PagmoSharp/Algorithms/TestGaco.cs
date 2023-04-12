@@ -24,7 +24,7 @@ namespace Tests.PagmoSharp.Algorithms
         }
 
         /// <inheritdoc />
-        public override bool Constraints => true;
+        public override bool Constrained => true;
 
         /// <inheritdoc />
         public override bool Unconstrained => true;

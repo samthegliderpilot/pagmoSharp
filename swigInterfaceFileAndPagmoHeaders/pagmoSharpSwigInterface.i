@@ -118,7 +118,9 @@ namespace pagmo {
 	%include swigInterfaceFiles\algorithms\simulated_annealing.i
 	%include swigInterfaceFiles\algorithms\sade.i
 
+	%include swigInterfaceFiles\problems\ackley.i
 	%include swigInterfaceFiles\problems\golomb_ruler.i
+	
 
 	%include swigInterfaceFiles\utils\hv_algos\hv_algorithm.i
 	%include swigInterfaceFiles\utils\hypervolume.i

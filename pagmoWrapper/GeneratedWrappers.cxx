@@ -898,6 +898,28 @@ SWIGINTERN pagmo::vector_double pagmo_thread_bfe_Operator(pagmo::thread_bfe cons
 #include "pagmo/algorithms/sade.hpp"
 
 
+#include "pagmo/problems/ackley.hpp"
+#include "pagmo/problem.hpp"
+
+SWIGINTERN pagmo::vector_double::size_type pagmo_ackley_get_nic(pagmo::ackley const *self){
+   return 0;
+}
+SWIGINTERN pagmo::vector_double::size_type pagmo_ackley_get_nec(pagmo::ackley const *self){
+   return 0;
+}
+SWIGINTERN pagmo::vector_double::size_type pagmo_ackley_get_nix(pagmo::ackley const *self){
+   return 0;
+}
+SWIGINTERN pagmo::vector_double::size_type pagmo_ackley_get_nobj(pagmo::ackley const *self){
+   return 1;
+}
+SWIGINTERN bool pagmo_ackley_has_batch_fitness(pagmo::ackley const *self){
+	return true;
+}
+SWIGINTERN pagmo::thread_safety pagmo_ackley_get_thread_safety(pagmo::ackley const *self){
+	return pagmo::thread_safety::none; //TODO: What is the right answer?
+}
+
 #include "pagmo/problems/golomb_ruler.hpp"
 #include "pagmo/problem.hpp"
 
@@ -1078,7 +1100,33 @@ pagmo::thread_safety SwigDirector_problemBase::get_thread_safety() const {
   return c_result;
 }
 
-void SwigDirector_problemBase::swig_connect_director(SWIG_Callback0_t callbackfitness, SWIG_Callback1_t callbackget_bounds, SWIG_Callback2_t callbackhas_batch_fitness, SWIG_Callback3_t callbackget_name, SWIG_Callback4_t callbackget_nobj, SWIG_Callback5_t callbackget_nec, SWIG_Callback6_t callbackget_nic, SWIG_Callback7_t callbackget_nix, SWIG_Callback8_t callbackget_thread_safety) {
+bool SwigDirector_problemBase::has_gradient() const {
+  bool c_result = SwigValueInit< bool >() ;
+  unsigned int jresult = 0 ;
+  
+  if (!swig_callbackhas_gradient) {
+    return pagmoWrap::problemBase::has_gradient();
+  } else {
+    jresult = (unsigned int) swig_callbackhas_gradient();
+    c_result = jresult ? true : false; 
+  }
+  return c_result;
+}
+
+bool SwigDirector_problemBase::has_gradient_sparsity() const {
+  bool c_result = SwigValueInit< bool >() ;
+  unsigned int jresult = 0 ;
+  
+  if (!swig_callbackhas_gradient_sparsity) {
+    return pagmoWrap::problemBase::has_gradient_sparsity();
+  } else {
+    jresult = (unsigned int) swig_callbackhas_gradient_sparsity();
+    c_result = jresult ? true : false; 
+  }
+  return c_result;
+}
+
+void SwigDirector_problemBase::swig_connect_director(SWIG_Callback0_t callbackfitness, SWIG_Callback1_t callbackget_bounds, SWIG_Callback2_t callbackhas_batch_fitness, SWIG_Callback3_t callbackget_name, SWIG_Callback4_t callbackget_nobj, SWIG_Callback5_t callbackget_nec, SWIG_Callback6_t callbackget_nic, SWIG_Callback7_t callbackget_nix, SWIG_Callback8_t callbackget_thread_safety, SWIG_Callback9_t callbackhas_gradient, SWIG_Callback10_t callbackhas_gradient_sparsity) {
   swig_callbackfitness = callbackfitness;
   swig_callbackget_bounds = callbackget_bounds;
   swig_callbackhas_batch_fitness = callbackhas_batch_fitness;
@@ -1088,6 +1136,8 @@ void SwigDirector_problemBase::swig_connect_director(SWIG_Callback0_t callbackfi
   swig_callbackget_nic = callbackget_nic;
   swig_callbackget_nix = callbackget_nix;
   swig_callbackget_thread_safety = callbackget_thread_safety;
+  swig_callbackhas_gradient = callbackhas_gradient;
+  swig_callbackhas_gradient_sparsity = callbackhas_gradient_sparsity;
 }
 
 void SwigDirector_problemBase::swig_init_callbacks() {
@@ -1100,6 +1150,8 @@ void SwigDirector_problemBase::swig_init_callbacks() {
   swig_callbackget_nic = 0;
   swig_callbackget_nix = 0;
   swig_callbackget_thread_safety = 0;
+  swig_callbackhas_gradient = 0;
+  swig_callbackhas_gradient_sparsity = 0;
 }
 
 
@@ -1343,6 +1395,54 @@ SWIGEXPORT int SWIGSTDCALL CSharp_pagmo_problemBase_get_thread_safetySwigExplici
 }
 
 
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_pagmo_problemBase_has_gradient(void * jarg1) {
+  unsigned int jresult ;
+  pagmoWrap::problemBase *arg1 = (pagmoWrap::problemBase *) 0 ;
+  bool result;
+  
+  arg1 = (pagmoWrap::problemBase *)jarg1; 
+  result = (bool)((pagmoWrap::problemBase const *)arg1)->has_gradient();
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_pagmo_problemBase_has_gradientSwigExplicitproblemBase(void * jarg1) {
+  unsigned int jresult ;
+  pagmoWrap::problemBase *arg1 = (pagmoWrap::problemBase *) 0 ;
+  bool result;
+  
+  arg1 = (pagmoWrap::problemBase *)jarg1; 
+  result = (bool)((pagmoWrap::problemBase const *)arg1)->pagmoWrap::problemBase::has_gradient();
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_pagmo_problemBase_has_gradient_sparsity(void * jarg1) {
+  unsigned int jresult ;
+  pagmoWrap::problemBase *arg1 = (pagmoWrap::problemBase *) 0 ;
+  bool result;
+  
+  arg1 = (pagmoWrap::problemBase *)jarg1; 
+  result = (bool)((pagmoWrap::problemBase const *)arg1)->has_gradient_sparsity();
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_pagmo_problemBase_has_gradient_sparsitySwigExplicitproblemBase(void * jarg1) {
+  unsigned int jresult ;
+  pagmoWrap::problemBase *arg1 = (pagmoWrap::problemBase *) 0 ;
+  bool result;
+  
+  arg1 = (pagmoWrap::problemBase *)jarg1; 
+  result = (bool)((pagmoWrap::problemBase const *)arg1)->pagmoWrap::problemBase::has_gradient_sparsity();
+  jresult = result; 
+  return jresult;
+}
+
+
 SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_problemBase() {
   void * jresult ;
   pagmoWrap::problemBase *result = 0 ;
@@ -1353,10 +1453,10 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_problemBase() {
 }
 
 
-SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_problemBase_director_connect(void *objarg, SwigDirector_problemBase::SWIG_Callback0_t callback0, SwigDirector_problemBase::SWIG_Callback1_t callback1, SwigDirector_problemBase::SWIG_Callback2_t callback2, SwigDirector_problemBase::SWIG_Callback3_t callback3, SwigDirector_problemBase::SWIG_Callback4_t callback4, SwigDirector_problemBase::SWIG_Callback5_t callback5, SwigDirector_problemBase::SWIG_Callback6_t callback6, SwigDirector_problemBase::SWIG_Callback7_t callback7, SwigDirector_problemBase::SWIG_Callback8_t callback8) {
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_problemBase_director_connect(void *objarg, SwigDirector_problemBase::SWIG_Callback0_t callback0, SwigDirector_problemBase::SWIG_Callback1_t callback1, SwigDirector_problemBase::SWIG_Callback2_t callback2, SwigDirector_problemBase::SWIG_Callback3_t callback3, SwigDirector_problemBase::SWIG_Callback4_t callback4, SwigDirector_problemBase::SWIG_Callback5_t callback5, SwigDirector_problemBase::SWIG_Callback6_t callback6, SwigDirector_problemBase::SWIG_Callback7_t callback7, SwigDirector_problemBase::SWIG_Callback8_t callback8, SwigDirector_problemBase::SWIG_Callback9_t callback9, SwigDirector_problemBase::SWIG_Callback10_t callback10) {
   pagmoWrap::problemBase *obj = (pagmoWrap::problemBase *)objarg;
   SwigDirector_problemBase *director = static_cast<SwigDirector_problemBase *>(obj);
-  director->swig_connect_director(callback0, callback1, callback2, callback3, callback4, callback5, callback6, callback7, callback8);
+  director->swig_connect_director(callback0, callback1, callback2, callback3, callback4, callback5, callback6, callback7, callback8, callback9, callback10);
 }
 
 
@@ -1538,6 +1638,30 @@ SWIGEXPORT int SWIGSTDCALL CSharp_pagmo_problemPagomWrapper_get_thread_safety(vo
   arg1 = (pagmoWrap::problemPagomWrapper *)jarg1; 
   result = (pagmo::thread_safety)((pagmoWrap::problemPagomWrapper const *)arg1)->get_thread_safety();
   jresult = (int)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_pagmo_problemPagomWrapper_has_gradient(void * jarg1) {
+  unsigned int jresult ;
+  pagmoWrap::problemPagomWrapper *arg1 = (pagmoWrap::problemPagomWrapper *) 0 ;
+  bool result;
+  
+  arg1 = (pagmoWrap::problemPagomWrapper *)jarg1; 
+  result = (bool)((pagmoWrap::problemPagomWrapper const *)arg1)->has_gradient();
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_pagmo_problemPagomWrapper_has_gradient_sparsity(void * jarg1) {
+  unsigned int jresult ;
+  pagmoWrap::problemPagomWrapper *arg1 = (pagmoWrap::problemPagomWrapper *) 0 ;
+  bool result;
+  
+  arg1 = (pagmoWrap::problemPagomWrapper *)jarg1; 
+  result = (bool)((pagmoWrap::problemPagomWrapper const *)arg1)->has_gradient_sparsity();
+  jresult = result; 
   return jresult;
 }
 
@@ -6332,6 +6456,184 @@ SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_delete_sade(void * jarg1) {
   pagmo::sade *arg1 = (pagmo::sade *) 0 ;
   
   arg1 = (pagmo::sade *)jarg1; 
+  delete arg1;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_ackley__SWIG_0(unsigned int jarg1) {
+  void * jresult ;
+  unsigned int arg1 ;
+  pagmo::ackley *result = 0 ;
+  
+  arg1 = (unsigned int)jarg1; 
+  result = (pagmo::ackley *)new pagmo::ackley(arg1);
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_ackley__SWIG_1() {
+  void * jresult ;
+  pagmo::ackley *result = 0 ;
+  
+  result = (pagmo::ackley *)new pagmo::ackley();
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_ackley_fitness(void * jarg1, void * jarg2) {
+  void * jresult ;
+  pagmo::ackley *arg1 = (pagmo::ackley *) 0 ;
+  pagmo::vector_double *arg2 = 0 ;
+  pagmo::vector_double result;
+  
+  arg1 = (pagmo::ackley *)jarg1; 
+  arg2 = (pagmo::vector_double *)jarg2;
+  if (!arg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "pagmo::vector_double const & is null", 0);
+    return 0;
+  } 
+  result = ((pagmo::ackley const *)arg1)->fitness((pagmo::vector_double const &)*arg2);
+  jresult = new pagmo::vector_double(result); 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_ackley_get_bounds(void * jarg1) {
+  void * jresult ;
+  pagmo::ackley *arg1 = (pagmo::ackley *) 0 ;
+  std::pair< pagmo::vector_double,pagmo::vector_double > result;
+  
+  arg1 = (pagmo::ackley *)jarg1; 
+  result = ((pagmo::ackley const *)arg1)->get_bounds();
+  jresult = new std::pair< pagmo::vector_double,pagmo::vector_double >(result); 
+  return jresult;
+}
+
+
+SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_ackley_get_name(void * jarg1) {
+  const char * jresult ;
+  pagmo::ackley *arg1 = (pagmo::ackley *) 0 ;
+  std::string result;
+  
+  arg1 = (pagmo::ackley *)jarg1; 
+  result = ((pagmo::ackley const *)arg1)->get_name();
+  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_ackley_best_known(void * jarg1) {
+  void * jresult ;
+  pagmo::ackley *arg1 = (pagmo::ackley *) 0 ;
+  pagmo::vector_double result;
+  
+  arg1 = (pagmo::ackley *)jarg1; 
+  result = ((pagmo::ackley const *)arg1)->best_known();
+  jresult = new pagmo::vector_double(result); 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_ackley_m_dim_set(void * jarg1, unsigned int jarg2) {
+  pagmo::ackley *arg1 = (pagmo::ackley *) 0 ;
+  unsigned int arg2 ;
+  
+  arg1 = (pagmo::ackley *)jarg1; 
+  arg2 = (unsigned int)jarg2; 
+  if (arg1) (arg1)->m_dim = arg2;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_pagmo_ackley_m_dim_get(void * jarg1) {
+  unsigned int jresult ;
+  pagmo::ackley *arg1 = (pagmo::ackley *) 0 ;
+  unsigned int result;
+  
+  arg1 = (pagmo::ackley *)jarg1; 
+  result = (unsigned int) ((arg1)->m_dim);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT unsigned long SWIGSTDCALL CSharp_pagmo_ackley_get_nic(void * jarg1) {
+  unsigned long jresult ;
+  pagmo::ackley *arg1 = (pagmo::ackley *) 0 ;
+  pagmo::vector_double::size_type result;
+  
+  arg1 = (pagmo::ackley *)jarg1; 
+  result = pagmo_ackley_get_nic((pagmo::ackley const *)arg1);
+  jresult = (unsigned long)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT unsigned long SWIGSTDCALL CSharp_pagmo_ackley_get_nec(void * jarg1) {
+  unsigned long jresult ;
+  pagmo::ackley *arg1 = (pagmo::ackley *) 0 ;
+  pagmo::vector_double::size_type result;
+  
+  arg1 = (pagmo::ackley *)jarg1; 
+  result = pagmo_ackley_get_nec((pagmo::ackley const *)arg1);
+  jresult = (unsigned long)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT unsigned long SWIGSTDCALL CSharp_pagmo_ackley_get_nix(void * jarg1) {
+  unsigned long jresult ;
+  pagmo::ackley *arg1 = (pagmo::ackley *) 0 ;
+  pagmo::vector_double::size_type result;
+  
+  arg1 = (pagmo::ackley *)jarg1; 
+  result = pagmo_ackley_get_nix((pagmo::ackley const *)arg1);
+  jresult = (unsigned long)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT unsigned long SWIGSTDCALL CSharp_pagmo_ackley_get_nobj(void * jarg1) {
+  unsigned long jresult ;
+  pagmo::ackley *arg1 = (pagmo::ackley *) 0 ;
+  pagmo::vector_double::size_type result;
+  
+  arg1 = (pagmo::ackley *)jarg1; 
+  result = pagmo_ackley_get_nobj((pagmo::ackley const *)arg1);
+  jresult = (unsigned long)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_pagmo_ackley_has_batch_fitness(void * jarg1) {
+  unsigned int jresult ;
+  pagmo::ackley *arg1 = (pagmo::ackley *) 0 ;
+  bool result;
+  
+  arg1 = (pagmo::ackley *)jarg1; 
+  result = (bool)pagmo_ackley_has_batch_fitness((pagmo::ackley const *)arg1);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT int SWIGSTDCALL CSharp_pagmo_ackley_get_thread_safety(void * jarg1) {
+  int jresult ;
+  pagmo::ackley *arg1 = (pagmo::ackley *) 0 ;
+  pagmo::thread_safety result;
+  
+  arg1 = (pagmo::ackley *)jarg1; 
+  result = (pagmo::thread_safety)pagmo_ackley_get_thread_safety((pagmo::ackley const *)arg1);
+  jresult = (int)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_delete_ackley(void * jarg1) {
+  pagmo::ackley *arg1 = (pagmo::ackley *) 0 ;
+  
+  arg1 = (pagmo::ackley *)jarg1; 
   delete arg1;
 }
 

@@ -1,15 +1,26 @@
-﻿using NUnit.Framework;
+﻿using System.Collections.Generic;
+using NUnit.Framework;
 using pagmo;
 
 namespace Tests.PagmoSharp.Problems
 {
     [TestFixture]
-    public class TestGolomb_ruler
+    public class TestGolomb_ruler : TestProblemBase
     {
-        [Test]
-        public void TestBoilerPlate()
+        public override IProblem CreateStandardProblem()
         {
-            using var problem = new golomb_ruler();
+            return new golomb_ruler();
+        }
+
+        public override IEnumerable<ProblemTestData> RegressionData()
+        {
+            yield return new ProblemTestData("Golomb Ruler(order 3)", "SimpleTest", new double[] { 2, 3, 4, }, new double[] { 9, 0, });
+        }
+
+        [Test]
+        public override void TestBoilerPlate()
+        {
+            using var problem = CreateStandardProblem();
             Assert.AreEqual("Golomb Ruler (order 3)", problem.get_name(), "name");
             Assert.AreEqual(1, problem.get_nec(), "equality constraint count");
             Assert.AreEqual(1, problem.get_nobj(), "objective count");
@@ -17,21 +28,12 @@ namespace Tests.PagmoSharp.Problems
             var bounds = problem.get_bounds();
             Assert.AreEqual(1.0, bounds.first[0]);
         }
+        
 
         [Test]
-        public void TestBasicEvaluation()
+        public override void TestOptimizing()
         {
-            using var problem = new golomb_ruler();
-            var x = new DoubleVector(new double[] { 2.0, 3.0, 4.0 });
-            var fitness = problem.fitness(x);
-            Assert.AreEqual(9.0, fitness[0], "value");
-            Assert.AreEqual(0.0, fitness[1], "equality constraint");
-        }
-
-        [Test]
-        public void TestOptimizing()
-        {
-            using var problemBase = new golomb_ruler();
+            using var problemBase = CreateStandardProblem();
             Assert.AreEqual(1, problemBase.get_bounds().first[0]);
             var problemBase2 = new ProblemWrapper(problemBase);
             using var algorithm = new gaco(20);
