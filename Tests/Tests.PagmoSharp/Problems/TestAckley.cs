@@ -43,8 +43,9 @@ public class TestAckley : TestProblemBase
             Assert.AreEqual(0, champX[0], 1e-3, "1.0 for first x value");
             Assert.AreEqual(0, champX[1], 1e-3, "2.0 for second x value");
 
-            Assert.AreEqual(1, champF.Length, "2 in f(x)");
+            Assert.AreEqual(1, champF.Length, "1 in f(x)");
             Assert.AreEqual(0.00010319491007537707, champF[0], 1e-3, "optimal function value");
+            
         }
     }
 

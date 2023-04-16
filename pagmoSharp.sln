@@ -50,6 +50,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "algorithms", "algorithms", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "utils", "utils", "{A789B01C-7696-42B9-B8F4-9129FDAB4294}"
 	ProjectSection(SolutionItems) = preProject
+		swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\utils\gradients_and_hessians.i = swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\utils\gradients_and_hessians.i
 		swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\utils\hypervolume.i = swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\utils\hypervolume.i
 	EndProjectSection
 EndProject

@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
 
 namespace pagmo
 {
@@ -26,7 +28,7 @@ namespace pagmo
         {
             return fitness(new DoubleVector(values));
         }
-
+        
         /// <summary>
         /// Implicitly converts this problem to the problemBase.
         /// </summary>

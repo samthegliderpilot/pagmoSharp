@@ -128,6 +128,12 @@ public partial class problemPagomWrapper : global::System.IDisposable {
     return ret;
   }
 
+  public DoubleVector gradient(DoubleVector dx) {
+    DoubleVector ret = new DoubleVector(pagmoPINVOKE.problemPagomWrapper_gradient(swigCPtr, DoubleVector.getCPtr(dx)), true);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
   public bool has_gradient_sparsity() {
     bool ret = pagmoPINVOKE.problemPagomWrapper_has_gradient_sparsity(swigCPtr);
     return ret;

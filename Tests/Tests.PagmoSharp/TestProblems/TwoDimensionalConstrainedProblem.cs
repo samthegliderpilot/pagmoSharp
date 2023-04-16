@@ -26,6 +26,18 @@ namespace Tests.PagmoSharp.TestProblems
             return new DoubleVector(new[] { obj, yEq2Const, xLtEq1Const });
         }
 
+        public override bool has_gradient()
+        {
+            return true;
+        }
+
+        public override DoubleVector gradient(DoubleVector arg0)
+        {
+            var ans = new DoubleVector(1);
+            ans[0] = 2 * arg0[0];
+            return ans;
+        }
+
         public override string get_name()
         {
             return "Simple 2-D x^2+y test problem with constraint y==2.0, x == 1";

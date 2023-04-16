@@ -60,23 +60,4 @@ public:
     extern unsigned long long greatest_contributor(const vector_double&, hv_algorithm&) const;
 
     extern unsigned long long greatest_contributor(const vector_double&) const;
-
-//private:
-    //friend class boost::serialization::access;
-    //// Object serialization
-    //template <typename Archive>
-    //void serialize(Archive& ar, unsigned)
-    //{
-    //    detail::archive(ar, m_points, m_copy_points, m_verify);
-    //}
-
-    //// Verify after construct method
-    //extern PAGMO_DLL_LOCAL void verify_after_construct() const;
-
-    //// Verify before compute method
-    //extern PAGMO_DLL_LOCAL void verify_before_compute(const vector_double&, hv_algorithm&) const;
-
-    //mutable std::vector<vector_double> m_points;
-    //extern bool m_copy_points;
-    //extern bool m_verify;
 };

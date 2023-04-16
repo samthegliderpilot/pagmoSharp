@@ -941,6 +941,17 @@ SWIGINTERN pagmo::thread_safety pagmo_golomb_ruler_get_thread_safety(pagmo::golo
 #include "pagmo/types.hpp"
 
 
+#include <algorithm>
+#include <cmath>
+#include <stdexcept>
+#include <vector>
+
+#include "pagmo/exceptions.hpp"
+#include "pagmo/problem.hpp"
+#include "pagmo/types.hpp"
+#include "pagmo/utils/gradients_and_hessians.hpp"
+
+
 #include "pagmo/utils/hypervolume.hpp"
 
 #include <memory>
@@ -1113,6 +1124,25 @@ bool SwigDirector_problemBase::has_gradient() const {
   return c_result;
 }
 
+pagmoWrap::vector_double SwigDirector_problemBase::gradient(pagmoWrap::vector_double const &arg0) const {
+  pagmoWrap::vector_double c_result ;
+  void * jresult = 0 ;
+  void * jarg0 = 0 ;
+  
+  if (!swig_callbackgradient) {
+    return pagmoWrap::problemBase::gradient(arg0);
+  } else {
+    jarg0 = (pagmoWrap::vector_double *) &arg0; 
+    jresult = (void *) swig_callbackgradient(jarg0);
+    if (!jresult) {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "Unexpected null return for type pagmoWrap::vector_double", 0);
+      return c_result;
+    }
+    c_result = *(pagmoWrap::vector_double *)jresult; 
+  }
+  return c_result;
+}
+
 bool SwigDirector_problemBase::has_gradient_sparsity() const {
   bool c_result = SwigValueInit< bool >() ;
   unsigned int jresult = 0 ;
@@ -1126,7 +1156,7 @@ bool SwigDirector_problemBase::has_gradient_sparsity() const {
   return c_result;
 }
 
-void SwigDirector_problemBase::swig_connect_director(SWIG_Callback0_t callbackfitness, SWIG_Callback1_t callbackget_bounds, SWIG_Callback2_t callbackhas_batch_fitness, SWIG_Callback3_t callbackget_name, SWIG_Callback4_t callbackget_nobj, SWIG_Callback5_t callbackget_nec, SWIG_Callback6_t callbackget_nic, SWIG_Callback7_t callbackget_nix, SWIG_Callback8_t callbackget_thread_safety, SWIG_Callback9_t callbackhas_gradient, SWIG_Callback10_t callbackhas_gradient_sparsity) {
+void SwigDirector_problemBase::swig_connect_director(SWIG_Callback0_t callbackfitness, SWIG_Callback1_t callbackget_bounds, SWIG_Callback2_t callbackhas_batch_fitness, SWIG_Callback3_t callbackget_name, SWIG_Callback4_t callbackget_nobj, SWIG_Callback5_t callbackget_nec, SWIG_Callback6_t callbackget_nic, SWIG_Callback7_t callbackget_nix, SWIG_Callback8_t callbackget_thread_safety, SWIG_Callback9_t callbackhas_gradient, SWIG_Callback10_t callbackgradient, SWIG_Callback11_t callbackhas_gradient_sparsity) {
   swig_callbackfitness = callbackfitness;
   swig_callbackget_bounds = callbackget_bounds;
   swig_callbackhas_batch_fitness = callbackhas_batch_fitness;
@@ -1137,6 +1167,7 @@ void SwigDirector_problemBase::swig_connect_director(SWIG_Callback0_t callbackfi
   swig_callbackget_nix = callbackget_nix;
   swig_callbackget_thread_safety = callbackget_thread_safety;
   swig_callbackhas_gradient = callbackhas_gradient;
+  swig_callbackgradient = callbackgradient;
   swig_callbackhas_gradient_sparsity = callbackhas_gradient_sparsity;
 }
 
@@ -1151,6 +1182,7 @@ void SwigDirector_problemBase::swig_init_callbacks() {
   swig_callbackget_nix = 0;
   swig_callbackget_thread_safety = 0;
   swig_callbackhas_gradient = 0;
+  swig_callbackgradient = 0;
   swig_callbackhas_gradient_sparsity = 0;
 }
 
@@ -1419,6 +1451,42 @@ SWIGEXPORT unsigned int SWIGSTDCALL CSharp_pagmo_problemBase_has_gradientSwigExp
 }
 
 
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_problemBase_gradient(void * jarg1, void * jarg2) {
+  void * jresult ;
+  pagmoWrap::problemBase *arg1 = (pagmoWrap::problemBase *) 0 ;
+  pagmoWrap::vector_double *arg2 = 0 ;
+  pagmoWrap::vector_double result;
+  
+  arg1 = (pagmoWrap::problemBase *)jarg1; 
+  arg2 = (pagmoWrap::vector_double *)jarg2;
+  if (!arg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "pagmoWrap::vector_double const & is null", 0);
+    return 0;
+  } 
+  result = ((pagmoWrap::problemBase const *)arg1)->gradient((pagmoWrap::vector_double const &)*arg2);
+  jresult = new pagmoWrap::vector_double(result); 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_problemBase_gradientSwigExplicitproblemBase(void * jarg1, void * jarg2) {
+  void * jresult ;
+  pagmoWrap::problemBase *arg1 = (pagmoWrap::problemBase *) 0 ;
+  pagmoWrap::vector_double *arg2 = 0 ;
+  pagmoWrap::vector_double result;
+  
+  arg1 = (pagmoWrap::problemBase *)jarg1; 
+  arg2 = (pagmoWrap::vector_double *)jarg2;
+  if (!arg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "pagmoWrap::vector_double const & is null", 0);
+    return 0;
+  } 
+  result = ((pagmoWrap::problemBase const *)arg1)->pagmoWrap::problemBase::gradient((pagmoWrap::vector_double const &)*arg2);
+  jresult = new pagmoWrap::vector_double(result); 
+  return jresult;
+}
+
+
 SWIGEXPORT unsigned int SWIGSTDCALL CSharp_pagmo_problemBase_has_gradient_sparsity(void * jarg1) {
   unsigned int jresult ;
   pagmoWrap::problemBase *arg1 = (pagmoWrap::problemBase *) 0 ;
@@ -1453,10 +1521,10 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_problemBase() {
 }
 
 
-SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_problemBase_director_connect(void *objarg, SwigDirector_problemBase::SWIG_Callback0_t callback0, SwigDirector_problemBase::SWIG_Callback1_t callback1, SwigDirector_problemBase::SWIG_Callback2_t callback2, SwigDirector_problemBase::SWIG_Callback3_t callback3, SwigDirector_problemBase::SWIG_Callback4_t callback4, SwigDirector_problemBase::SWIG_Callback5_t callback5, SwigDirector_problemBase::SWIG_Callback6_t callback6, SwigDirector_problemBase::SWIG_Callback7_t callback7, SwigDirector_problemBase::SWIG_Callback8_t callback8, SwigDirector_problemBase::SWIG_Callback9_t callback9, SwigDirector_problemBase::SWIG_Callback10_t callback10) {
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_problemBase_director_connect(void *objarg, SwigDirector_problemBase::SWIG_Callback0_t callback0, SwigDirector_problemBase::SWIG_Callback1_t callback1, SwigDirector_problemBase::SWIG_Callback2_t callback2, SwigDirector_problemBase::SWIG_Callback3_t callback3, SwigDirector_problemBase::SWIG_Callback4_t callback4, SwigDirector_problemBase::SWIG_Callback5_t callback5, SwigDirector_problemBase::SWIG_Callback6_t callback6, SwigDirector_problemBase::SWIG_Callback7_t callback7, SwigDirector_problemBase::SWIG_Callback8_t callback8, SwigDirector_problemBase::SWIG_Callback9_t callback9, SwigDirector_problemBase::SWIG_Callback10_t callback10, SwigDirector_problemBase::SWIG_Callback11_t callback11) {
   pagmoWrap::problemBase *obj = (pagmoWrap::problemBase *)objarg;
   SwigDirector_problemBase *director = static_cast<SwigDirector_problemBase *>(obj);
-  director->swig_connect_director(callback0, callback1, callback2, callback3, callback4, callback5, callback6, callback7, callback8, callback9, callback10);
+  director->swig_connect_director(callback0, callback1, callback2, callback3, callback4, callback5, callback6, callback7, callback8, callback9, callback10, callback11);
 }
 
 
@@ -1650,6 +1718,24 @@ SWIGEXPORT unsigned int SWIGSTDCALL CSharp_pagmo_problemPagomWrapper_has_gradien
   arg1 = (pagmoWrap::problemPagomWrapper *)jarg1; 
   result = (bool)((pagmoWrap::problemPagomWrapper const *)arg1)->has_gradient();
   jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_problemPagomWrapper_gradient(void * jarg1, void * jarg2) {
+  void * jresult ;
+  pagmoWrap::problemPagomWrapper *arg1 = (pagmoWrap::problemPagomWrapper *) 0 ;
+  pagmoWrap::vector_double *arg2 = 0 ;
+  pagmoWrap::vector_double result;
+  
+  arg1 = (pagmoWrap::problemPagomWrapper *)jarg1; 
+  arg2 = (pagmoWrap::vector_double *)jarg2;
+  if (!arg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "pagmoWrap::vector_double const & is null", 0);
+    return 0;
+  } 
+  result = ((pagmoWrap::problemPagomWrapper const *)arg1)->gradient((pagmoWrap::vector_double const &)*arg2);
+  jresult = new pagmoWrap::vector_double(result); 
   return jresult;
 }
 

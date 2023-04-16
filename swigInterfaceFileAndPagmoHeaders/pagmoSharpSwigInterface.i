@@ -123,6 +123,7 @@ namespace pagmo {
 	
 
 	%include swigInterfaceFiles\utils\hv_algos\hv_algorithm.i
+	%include swigInterfaceFiles\utils\gradients_and_hessians.i
 	%include swigInterfaceFiles\utils\hypervolume.i
 };
 

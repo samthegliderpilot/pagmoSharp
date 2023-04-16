@@ -256,6 +256,12 @@ class pagmoPINVOKE {
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper.dll", EntryPoint="CSharp_pagmo_problemBase_has_gradientSwigExplicitproblemBase")]
   public static extern bool problemBase_has_gradientSwigExplicitproblemBase(global::System.Runtime.InteropServices.HandleRef jarg1);
 
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper.dll", EntryPoint="CSharp_pagmo_problemBase_gradient")]
+  public static extern global::System.IntPtr problemBase_gradient(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper.dll", EntryPoint="CSharp_pagmo_problemBase_gradientSwigExplicitproblemBase")]
+  public static extern global::System.IntPtr problemBase_gradientSwigExplicitproblemBase(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
+
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper.dll", EntryPoint="CSharp_pagmo_problemBase_has_gradient_sparsity")]
   public static extern bool problemBase_has_gradient_sparsity(global::System.Runtime.InteropServices.HandleRef jarg1);
 
@@ -266,7 +272,7 @@ class pagmoPINVOKE {
   public static extern global::System.IntPtr new_problemBase();
 
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper.dll", EntryPoint="CSharp_pagmo_problemBase_director_connect")]
-  public static extern void problemBase_director_connect(global::System.Runtime.InteropServices.HandleRef jarg1, problemBase.SwigDelegateproblemBase_0 delegate0, problemBase.SwigDelegateproblemBase_1 delegate1, problemBase.SwigDelegateproblemBase_2 delegate2, problemBase.SwigDelegateproblemBase_3 delegate3, problemBase.SwigDelegateproblemBase_4 delegate4, problemBase.SwigDelegateproblemBase_5 delegate5, problemBase.SwigDelegateproblemBase_6 delegate6, problemBase.SwigDelegateproblemBase_7 delegate7, problemBase.SwigDelegateproblemBase_8 delegate8, problemBase.SwigDelegateproblemBase_9 delegate9, problemBase.SwigDelegateproblemBase_10 delegate10);
+  public static extern void problemBase_director_connect(global::System.Runtime.InteropServices.HandleRef jarg1, problemBase.SwigDelegateproblemBase_0 delegate0, problemBase.SwigDelegateproblemBase_1 delegate1, problemBase.SwigDelegateproblemBase_2 delegate2, problemBase.SwigDelegateproblemBase_3 delegate3, problemBase.SwigDelegateproblemBase_4 delegate4, problemBase.SwigDelegateproblemBase_5 delegate5, problemBase.SwigDelegateproblemBase_6 delegate6, problemBase.SwigDelegateproblemBase_7 delegate7, problemBase.SwigDelegateproblemBase_8 delegate8, problemBase.SwigDelegateproblemBase_9 delegate9, problemBase.SwigDelegateproblemBase_10 delegate10, problemBase.SwigDelegateproblemBase_11 delegate11);
 
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper.dll", EntryPoint="CSharp_pagmo_new_problemPagomWrapper__SWIG_0")]
   public static extern global::System.IntPtr new_problemPagomWrapper__SWIG_0();
@@ -315,6 +321,9 @@ class pagmoPINVOKE {
 
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper.dll", EntryPoint="CSharp_pagmo_problemPagomWrapper_has_gradient")]
   public static extern bool problemPagomWrapper_has_gradient(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper.dll", EntryPoint="CSharp_pagmo_problemPagomWrapper_gradient")]
+  public static extern global::System.IntPtr problemPagomWrapper_gradient(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
 
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper.dll", EntryPoint="CSharp_pagmo_problemPagomWrapper_has_gradient_sparsity")]
   public static extern bool problemPagomWrapper_has_gradient_sparsity(global::System.Runtime.InteropServices.HandleRef jarg1);

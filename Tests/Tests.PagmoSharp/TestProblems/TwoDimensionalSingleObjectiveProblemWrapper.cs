@@ -23,6 +23,17 @@ namespace Tests.PagmoSharp.TestProblems
             return new DoubleVector(new[] { x * x + (y - 3) * (y - 3) });
         }
 
+        public override bool has_gradient()
+        {
+            return true;
+        }
+
+        public override DoubleVector gradient(DoubleVector arg0)
+        {
+            var ans = new DoubleVector(new [] { 2 * arg0[0] , 2 * arg0[1]-6.0 });
+            return ans;
+        }
+
         public override string get_name()
         {
             return "Simple 2-D Quadratic (x^2) test problem";

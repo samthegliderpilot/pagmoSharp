@@ -28,7 +28,7 @@ namespace Tests.PagmoSharp.Algorithms
         }
 
         [Test]
-        public void TestOneDimensionalProblem()
+        public virtual void TestOneDimensionalProblem()
         {
             if (!SingleObjective || !Unconstrained)
             {
@@ -47,7 +47,7 @@ namespace Tests.PagmoSharp.Algorithms
         }
 
         [Test]
-        public void TestTwoDimensionalProblem()
+        public virtual void TestTwoDimensionalProblem()
         {
             if (!SingleObjective || !Unconstrained)
             {
@@ -66,7 +66,7 @@ namespace Tests.PagmoSharp.Algorithms
         }
 
         [Test]
-        public void TestProblemWithConstraints()
+        public virtual void TestProblemWithConstraints()
         {
             if (!Constrained || !SingleObjective)
             {
@@ -105,7 +105,7 @@ namespace Tests.PagmoSharp.Algorithms
         }
 
         [Test]
-        public void TestIntegerProgramming()
+        public virtual void TestIntegerProgramming()
         {
             if (!IntegerPrograming)
             {

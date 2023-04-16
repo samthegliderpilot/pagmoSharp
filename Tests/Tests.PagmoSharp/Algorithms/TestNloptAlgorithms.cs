@@ -16,11 +16,20 @@ public class TestNloptNewuoa : TestNloptBase
     public override string NloptAlgorithmString => "newuoa";
 }
 
-//[TestFixture]
-//public class TestNloptPraxis : TestNloptBase
-//{
-//    public override string NloptAlgorithmString => "praxis";
-//}
+[TestFixture]
+public class TestNloptPraxis : TestNloptBase
+{
+    public override string NloptAlgorithmString => "praxis";
+
+    public override void ConfigureNlopt(nlopt alg)
+    {
+        // this algorithm can tend to go on forever if these are not set
+        base.ConfigureNlopt(alg);
+        alg.set_ftol_abs(0.000001);
+        alg.set_ftol_rel(0.00001);
+        alg.set_maxeval(256);
+    }
+}
 
 [TestFixture]
 public class TestNloptNeldermead : TestNloptBase
@@ -75,7 +84,6 @@ public class TestNloptVar2 : TestNloptBase
 {
     public override string NloptAlgorithmString => "var2";
 }
-
 
 
 [TestFixture]

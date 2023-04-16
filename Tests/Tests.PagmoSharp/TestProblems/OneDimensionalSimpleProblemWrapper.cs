@@ -47,6 +47,17 @@ namespace Tests.PagmoSharp.TestProblems
             return 0;
         }
 
+        public override bool has_gradient()
+        {
+            return true;
+        }
+
+        public override DoubleVector gradient(DoubleVector arg0)
+        {
+            var ans = new DoubleVector(new []{2*arg0[0]});
+            return ans;
+        }
+
         public override double ExpectedOptimalFunctionValue => 0.0;
 
         public override double[] ExpectedOptimalX

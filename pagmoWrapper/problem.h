@@ -1,6 +1,7 @@
 ﻿#pragma once
 
 #include "pagmo/problem.hpp"
+#include "pagmo/utils/gradients_and_hessians.hpp"
 
 namespace pagmoWrap
 {
@@ -59,7 +60,10 @@ namespace pagmoWrap
 		{
 			return false;
 		}
-		//vector_double gradient(const vector_double&) const;
+		virtual vector_double gradient(const vector_double&) const
+		{
+			return vector_double(0);
+		}
 		virtual bool has_gradient_sparsity() const
 		{
 			return false;
@@ -155,12 +159,18 @@ namespace pagmoWrap
 
 		bool has_gradient() const
 		{
-			return _base->has_batch_fitness();
+			return _base->has_gradient();
+		}
+
+		vector_double gradient(const vector_double& dx) const
+		{
+			return _base->gradient(dx);
 		}
 
 		bool has_gradient_sparsity() const
 		{
-			return _base->has_gradient();
+			return _base->has_gradient_sparsity();
 		}
 	};
+
 };
