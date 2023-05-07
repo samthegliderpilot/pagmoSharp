@@ -92,6 +92,11 @@ public partial class de1220 : algorithm {
     pagmoPINVOKE.de1220_set_seed(swigCPtr, arg0);
   }
 
+  public uint get_gen() {
+    uint ret = pagmoPINVOKE.de1220_get_gen(swigCPtr);
+    return ret;
+  }
+
   public uint get_seed() {
     uint ret = pagmoPINVOKE.de1220_get_seed(swigCPtr);
     return ret;

@@ -23,6 +23,8 @@ namespace Tests.PagmoSharp.Algorithms
             }
         }
 
+        public override bool SupportsGeneration => false;
+
         /// <inheritdoc />
         public override bool Constrained => false;
 

@@ -44,6 +44,28 @@ public abstract class TestNloptBase : TestAlgorithmBase
         }
     }
 
+    [Test]
+    [Explicit("A thorn in my side, going to stop fighting this, hopefully swig will fix the default constructor bug")]
+    public void TestGettingAndSettingLocalOptimizer()
+    {
+        using (var problem = new TwoDimensionalSingleObjectiveProblemWrapper())
+        using (nlopt algorithm = (nlopt)CreateAlgorithm(problem))
+        {
+            Assert.IsNull(algorithm.get_local_optimizer());
+            var alg2 = new nlopt();
+            alg2.set_maxeval(1230); 
+            algorithm.set_local_optimizer(alg2);
+            Assert.AreEqual(1230, algorithm.get_local_optimizer().get_maxeval());
+            algorithm.unset_local_optimizer();
+            Assert.IsNull(algorithm.get_local_optimizer());
+        }
+    }
+
+    public override bool SupportsGeneration
+    {
+        get { return false; }
+    }
+
     public override bool Constrained
     {
         get { return false; }

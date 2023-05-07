@@ -28,7 +28,7 @@
 %pragma(csharp) moduleclassmodifiers = "public partial class"
 %typemap(csclassmodifiers) pagmoWrap::problemPagomWrapper "public partial class"
 %typemap(csclassmodifiers) pagmoWrap::problemBase "public partial class"
-%typemap(csclassmodifiers) pagmo::DoubleVector "public partial class"
+%typemap(csclassmodifiers) std::vector <double> "public partial class"
 %feature("director") pagmoWrap::problemBase;
 %include "pagmoWrapper/problem.h"
 
@@ -42,6 +42,7 @@ namespace std {
 }
 
 namespace pagmo {
+	%typemap(csclassmodifiers) pagmo::DoubleVector "public partial class"
 	typedef std::vector<double> vector_double;
 	typedef std::vector<std::pair<vector_double::size_type, vector_double::size_type>> sparsity_pattern;
 	typedef std::vector<vector_double>::size_type pop_size_t;
@@ -109,16 +110,19 @@ namespace pagmo {
 
 	%include swigInterfaceFiles\islands\thread_island.i
 
-	%include swigInterfaceFiles\algorithms\bee_colony.i			%include swigInterfaceFiles\algorithms\de.i
+	%include swigInterfaceFiles\algorithms\bee_colony.i
+	%include swigInterfaceFiles\algorithms\compass_search.i			%include swigInterfaceFiles\algorithms\de.i
 	%include swigInterfaceFiles\algorithms\de1220.i
 	%include swigInterfaceFiles\algorithms\gaco.i
 	%include swigInterfaceFiles\algorithms\gwo.i
+	//%include swigInterfaceFiles\algorithms\ipopt.i
 	%include swigInterfaceFiles\algorithms\nlopt.i
 	%include swigInterfaceFiles\algorithms\pso.i
 	%include swigInterfaceFiles\algorithms\simulated_annealing.i
 	%include swigInterfaceFiles\algorithms\sade.i
 
 	%include swigInterfaceFiles\problems\ackley.i
+	%include swigInterfaceFiles\problems\cec2006.i
 	%include swigInterfaceFiles\problems\golomb_ruler.i
 	
 

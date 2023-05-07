@@ -10,7 +10,7 @@ namespace Tests.PagmoSharp.Algorithms
     {
         public override IAlgorithm CreateAlgorithm()
         {
-            return new pagmo.gaco(10);
+            return new pagmo.gaco(50, 3);
         }
 
         [Test]

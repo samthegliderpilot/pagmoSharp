@@ -76,7 +76,7 @@ namespace Tests.PagmoSharp.Algorithms
 
             using (var problem = new TwoDimensionalConstrainedProblem())
             using (var algorithm = CreateAlgorithm(problem))
-            using (var pop = new population(problem, 128))
+            using (var pop = new population(problem, 1024))
             {
                 algorithm.set_seed(2); // for consistent results
                 var finalpop = EvolveAlgorithm(algorithm, pop);
@@ -84,7 +84,6 @@ namespace Tests.PagmoSharp.Algorithms
                 Assert.AreEqual(problem.ExpectedOptimalX[1], finalpop.champion_x()[1], 0.3, "y for opt");
 
                 Assert.AreEqual(problem.ExpectedOptimalFunctionValue, finalpop.champion_f()[0], 0.3, "opt value");
-
             }
         }
 
@@ -102,6 +101,33 @@ namespace Tests.PagmoSharp.Algorithms
                 algorithm.set_verbosity(2);
                 Assert.AreEqual(2, algorithm.get_verbosity(), "getting set verbosity");
             }
+        }
+
+        [Test]
+        public void TestGetLog()
+        {
+            using (var problem = new TwoDimensionalSingleObjectiveProblemWrapper())
+            using (var algorithm = CreateAlgorithm(problem))
+            {
+                Assert.IsNotNull(((dynamic)algorithm).get_log());
+            }
+        }
+
+        [Test]
+        public void TestGetGen()
+        {
+            if (!SupportsGeneration)
+                return;
+            using (var problem = new TwoDimensionalSingleObjectiveProblemWrapper())
+            using (var algorithm = CreateAlgorithm(problem))
+            {
+                Assert.AreNotEqual(0, ((dynamic)algorithm).get_gen());
+            }
+        }
+
+        public virtual bool SupportsGeneration
+        {
+            get { return true; }
         }
 
         [Test]

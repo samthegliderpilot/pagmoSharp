@@ -18,6 +18,9 @@
     <ClCompile Include="GeneratedWrappers.cxx">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="nloptGenerated.cxx">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="problem.h">

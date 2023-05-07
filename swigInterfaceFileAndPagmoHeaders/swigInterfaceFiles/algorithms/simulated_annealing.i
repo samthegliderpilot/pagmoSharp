@@ -23,5 +23,4 @@ public:
     extern std::string get_name() const;
     extern std::string get_extra_info() const;
     extern const log_type& get_log() const;
-
 };

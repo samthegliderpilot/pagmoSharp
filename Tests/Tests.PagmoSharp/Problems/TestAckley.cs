@@ -8,7 +8,7 @@ namespace Tests.PagmoSharp.Problems;
 [TestFixture]
 public class TestAckley : TestProblemBase
 {
-    public override IProblem CreateStandardProblem()
+    public override IProblem CreateStandardProblem(uint problemIndex = 0)
     {
         return new ackley(2);
     }
@@ -49,8 +49,15 @@ public class TestAckley : TestProblemBase
         }
     }
 
-    public override IEnumerable<ProblemTestData> RegressionData()
+    public static IEnumerable<ProblemTestData> RegressionData
     {
-        yield return new ProblemTestData("ackley", "simpleTest", new double[] { 1, 1, }, new double[] { 3.6253849384403627, });
+        get
+        {
+            return new List<ProblemTestData>()
+            {
+                new ProblemTestData("ackley", "simpleTest", new double[] { 1, 1, },
+                    new double[] { 3.6253849384403627, })
+            };
+        }
     }
 }

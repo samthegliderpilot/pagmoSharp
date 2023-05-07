@@ -109,8 +109,12 @@
     </Link>
     <PreBuildEvent>
       <Command>cd $(SolutionDir)
-createSwigWrappersAndPlaceThem.bat</Command>
+createSwigWrappersAndPlaceThem.bat
+</Command>
     </PreBuildEvent>
+    <PostBuildEvent>
+      <Command>xcopy /I /Y $(OutDir)\* "pagmoSharp\cPlusPlusFiles\"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -132,8 +136,12 @@ createSwigWrappersAndPlaceThem.bat</Command>
     </Link>
     <PreBuildEvent>
       <Command>cd $(SolutionDir)
-createSwigWrappersAndPlaceThem.bat</Command>
+createSwigWrappersAndPlaceThem.bat
+</Command>
     </PreBuildEvent>
+    <PostBuildEvent>
+      <Command>xcopy /I /Y $(OutDir)\* "pagmoSharp\cPlusPlusFiles\"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -183,6 +191,7 @@ createSwigWrappersAndPlaceThem.bat</Command>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="GeneratedWrappers.cxx" />
+    <ClCompile Include="nloptGenerated.cxx" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pagmoSharpSwigInterface_wrap.h" />

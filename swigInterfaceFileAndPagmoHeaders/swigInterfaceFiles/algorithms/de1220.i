@@ -18,6 +18,7 @@ public:
 	extern population evolve(population) const;
 	extern std::string get_name() const;
 	extern void set_seed(unsigned);
+	extern unsigned get_gen() const;
 	extern unsigned get_seed() const;
 	extern unsigned get_verbosity() const;
 	extern void set_verbosity(unsigned);

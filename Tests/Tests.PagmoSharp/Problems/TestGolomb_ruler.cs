@@ -7,14 +7,21 @@ namespace Tests.PagmoSharp.Problems
     [TestFixture]
     public class TestGolomb_ruler : TestProblemBase
     {
-        public override IProblem CreateStandardProblem()
+        public override IProblem CreateStandardProblem(uint problemIndex = 0)
         {
             return new golomb_ruler();
         }
 
-        public override IEnumerable<ProblemTestData> RegressionData()
+        public static IEnumerable<ProblemTestData> RegressionData
         {
-            yield return new ProblemTestData("Golomb Ruler(order 3)", "SimpleTest", new double[] { 2, 3, 4, }, new double[] { 9, 0, });
+            get
+            {
+                return new List<ProblemTestData>()
+                {
+                    new ProblemTestData("Golomb Ruler(order 3)", "SimpleTest", new double[] { 2, 3, 4, },
+                        new double[] { 9, 0, }),
+                };
+            }
         }
 
         [Test]

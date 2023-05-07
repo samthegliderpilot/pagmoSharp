@@ -1,11 +1,22 @@
+
 %module(naturalvar = 1, directors = "1") pagmo
 %{
 #include "pagmo/algorithm.hpp"
 #include "pagmo/algorithms/nlopt.hpp"
-#include "nlopt.h"
+//#include "nloptGenerated.cxx"
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_nlopt_set_local_optimizer(void* jarg1, void* jarg2) {
+    pagmo::nlopt* arg1 = (pagmo::nlopt*)0;
+    arg1 = (pagmo::nlopt*)jarg1;
+
+    pagmo::nlopt* arg2 = (pagmo::nlopt*)0;
+    arg2 = (pagmo::nlopt*)jarg2;
+    (arg1)->set_local_optimizer(*arg2);
+}
 %}
 
-%typemap(csclassmodifiers) pagmo::nlopt "public partial class"
+//%nodefaultctor nlopt;
+%ignore nlopt::set_local_optimizer;
+%typemap(csclassmodifiers) nlopt "public partial class"
 class nlopt : public pagmo::algorithm {
 public:
     using log_line_type = std::tuple<unsigned long, double, vector_double::size_type, double, bool>;
@@ -16,6 +27,8 @@ public:
     extern nlopt(const nlopt&);
     extern nlopt(nlopt&&) = default;
     extern nlopt& operator=(nlopt&&) = default;
+
+
     extern population evolve(population) const;
     extern std::string get_name() const;
     extern void set_verbosity(unsigned n);
@@ -37,9 +50,36 @@ public:
     extern void set_maxeval(int n);
     extern int get_maxtime() const;
     extern void set_maxtime(int n);
-    // extern void set_local_optimizer(pagmo::nlopt);
-    // not supported yet, update in swig might fix
-    extern const nlopt* get_local_optimizer() const;
-    extern nlopt* get_local_optimizer();
+    // not supported yet, update in swig might fix, current fix is to save off a (seemingly) 
+    // working, hand made function to do this
+	//extern void set_local_optimizer(pagmo::nlopt);    
+    extern const nlopt *get_local_optimizer() const;
+    extern nlopt *get_local_optimizer();
     extern void unset_local_optimizer();
 };
+
+// this is working around a swig bug where default constructors are made
+// when they shouldn't be.  We need to ignore the set_local_optimizer function
+// and create our own (until that bug is fixed)
+
+//%rename("set_local_optimizer") nlopt::set_local_optimizer;
+//%newobject nlop::set_local_optimizer;
+//%extend nlopt
+//{
+//    void set_local_optimizer(nlopt that)
+//    {
+//    	$self->set_local_optimizer(that);
+//    }
+//}
+/*
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_nlopt_set_local_optimizer(void* jarg1, void* jarg2) {
+    pagmo::nlopt* arg1 = (pagmo::nlopt*)0;
+    arg1 = (pagmo::nlopt*)jarg1;
+
+    pagmo::nlopt* arg2 = (pagmo::nlopt*)0;
+    arg2 = (pagmo::nlopt*)jarg2;
+    (arg1)->set_local_optimizer(*arg2);
+}
+* */
+
+

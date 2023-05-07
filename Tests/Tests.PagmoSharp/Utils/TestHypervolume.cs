@@ -15,6 +15,7 @@ namespace Tests.PagmoSharp.Utils
         public void TestSomething() //TODO: Obviously
         {
             hypervolume hyper = new hypervolume();
+            Assert.AreEqual(0, hyper.compute(new DoubleVector(1,2)));
         }
     }
 }

@@ -32,16 +32,19 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "problems", "problems", "{690793CC-5507-4215-BCF6-1658345CC72B}"
 	ProjectSection(SolutionItems) = preProject
 		swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\problems\ackley.i = swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\problems\ackley.i
+		swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\problems\cec2006.i = swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\problems\cec2006.i
 		swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\problems\golomb_ruler.i = swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\problems\golomb_ruler.i
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "algorithms", "algorithms", "{0E707295-FF3A-4ABF-8077-DFF552602EAD}"
 	ProjectSection(SolutionItems) = preProject
 		swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\algorithms\bee_colony.i = swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\algorithms\bee_colony.i
+		swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\algorithms\compass_search.i = swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\algorithms\compass_search.i
 		swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\algorithms\de.i = swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\algorithms\de.i
 		swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\algorithms\de1220.i = swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\algorithms\de1220.i
 		swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\algorithms\gaco.i = swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\algorithms\gaco.i
 		swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\algorithms\gwo.i = swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\algorithms\gwo.i
+		swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\algorithms\ipopt.i = swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\algorithms\ipopt.i
 		swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\algorithms\nlopt.i = swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\algorithms\nlopt.i
 		swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\algorithms\pso.i = swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\algorithms\pso.i
 		swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\algorithms\sade.i = swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\algorithms\sade.i

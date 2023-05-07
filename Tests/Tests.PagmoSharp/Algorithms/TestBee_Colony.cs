@@ -6,7 +6,7 @@ using Tests.PagmoSharp.TestProblems;
 namespace Tests.PagmoSharp.Algorithms
 {
     [TestFixture]
-    public class TestBea_Colony : TestAlgorithmBase
+    public class TestBee_Colony : TestAlgorithmBase
     {
         public override IAlgorithm CreateAlgorithm()
         {

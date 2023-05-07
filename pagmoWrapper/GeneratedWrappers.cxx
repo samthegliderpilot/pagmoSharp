@@ -868,6 +868,19 @@ SWIGINTERN pagmo::vector_double pagmo_thread_bfe_Operator(pagmo::thread_bfe cons
 
 
 #include "pagmo/algorithm.hpp"
+#include "pagmo/algorithms/compass_search.hpp"
+
+SWIGINTERN void pagmo_compass_search_set_seed(pagmo::compass_search const *self,unsigned int){
+   // do nothing
+}
+SWIGINTERN unsigned int pagmo_compass_search_get_seed(pagmo::compass_search const *self){
+   return 0;
+}
+SWIGINTERN unsigned int pagmo_compass_search_get_gen(pagmo::compass_search const *self){
+   return 0;
+}
+
+#include "pagmo/algorithm.hpp"
 #include "pagmo/algorithms/de.hpp"
 
 
@@ -884,7 +897,15 @@ SWIGINTERN pagmo::vector_double pagmo_thread_bfe_Operator(pagmo::thread_bfe cons
 
 #include "pagmo/algorithm.hpp"
 #include "pagmo/algorithms/nlopt.hpp"
-#include "nlopt.h"
+//#include "nloptGenerated.cxx"
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_nlopt_set_local_optimizer(void* jarg1, void* jarg2) {
+    pagmo::nlopt* arg1 = (pagmo::nlopt*)0;
+    arg1 = (pagmo::nlopt*)jarg1;
+
+    pagmo::nlopt* arg2 = (pagmo::nlopt*)0;
+    arg2 = (pagmo::nlopt*)jarg2;
+    (arg1)->set_local_optimizer(*arg2);
+}
 
 
 #include "pagmo/algorithm.hpp"
@@ -918,6 +939,22 @@ SWIGINTERN bool pagmo_ackley_has_batch_fitness(pagmo::ackley const *self){
 }
 SWIGINTERN pagmo::thread_safety pagmo_ackley_get_thread_safety(pagmo::ackley const *self){
 	return pagmo::thread_safety::none; //TODO: What is the right answer?
+}
+
+#include "pagmo/problems/cec2006.hpp"
+#include "pagmo/problem.hpp"
+
+SWIGINTERN pagmo::vector_double::size_type pagmo_cec2006_get_nix(pagmo::cec2006 const *self){
+   return 0;
+}
+SWIGINTERN pagmo::vector_double::size_type pagmo_cec2006_get_nobj(pagmo::cec2006 const *self){
+   return 1;
+}
+SWIGINTERN pagmo::thread_safety pagmo_cec2006_get_thread_safety(pagmo::cec2006 const *self){
+	return pagmo::thread_safety::none; //TODO: What is the right answer?
+}
+SWIGINTERN bool pagmo_cec2006_has_batch_fitness(pagmo::cec2006 const *self){
+	return false;
 }
 
 #include "pagmo/problems/golomb_ruler.hpp"
@@ -4291,6 +4328,244 @@ SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_delete_bee_colony(void * jarg1) {
 }
 
 
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_compass_search__SWIG_0(unsigned int jarg1, double jarg2, double jarg3, double jarg4) {
+  void * jresult ;
+  unsigned int arg1 ;
+  double arg2 ;
+  double arg3 ;
+  double arg4 ;
+  pagmo::compass_search *result = 0 ;
+  
+  arg1 = (unsigned int)jarg1; 
+  arg2 = (double)jarg2; 
+  arg3 = (double)jarg3; 
+  arg4 = (double)jarg4; 
+  result = (pagmo::compass_search *)new pagmo::compass_search(arg1,arg2,arg3,arg4);
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_compass_search__SWIG_1(unsigned int jarg1, double jarg2, double jarg3) {
+  void * jresult ;
+  unsigned int arg1 ;
+  double arg2 ;
+  double arg3 ;
+  pagmo::compass_search *result = 0 ;
+  
+  arg1 = (unsigned int)jarg1; 
+  arg2 = (double)jarg2; 
+  arg3 = (double)jarg3; 
+  result = (pagmo::compass_search *)new pagmo::compass_search(arg1,arg2,arg3);
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_compass_search__SWIG_2(unsigned int jarg1, double jarg2) {
+  void * jresult ;
+  unsigned int arg1 ;
+  double arg2 ;
+  pagmo::compass_search *result = 0 ;
+  
+  arg1 = (unsigned int)jarg1; 
+  arg2 = (double)jarg2; 
+  result = (pagmo::compass_search *)new pagmo::compass_search(arg1,arg2);
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_compass_search__SWIG_3(unsigned int jarg1) {
+  void * jresult ;
+  unsigned int arg1 ;
+  pagmo::compass_search *result = 0 ;
+  
+  arg1 = (unsigned int)jarg1; 
+  result = (pagmo::compass_search *)new pagmo::compass_search(arg1);
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_compass_search__SWIG_4() {
+  void * jresult ;
+  pagmo::compass_search *result = 0 ;
+  
+  result = (pagmo::compass_search *)new pagmo::compass_search();
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_compass_search_evolve(void * jarg1, void * jarg2) {
+  void * jresult ;
+  pagmo::compass_search *arg1 = (pagmo::compass_search *) 0 ;
+  SwigValueWrapper< pagmo::population > arg2 ;
+  pagmo::population *argp2 ;
+  SwigValueWrapper< pagmo::population > result;
+  
+  arg1 = (pagmo::compass_search *)jarg1; 
+  argp2 = (pagmo::population *)jarg2; 
+  if (!argp2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "Attempt to dereference null pagmo::population", 0);
+    return 0;
+  }
+  arg2 = *argp2; 
+  result = ((pagmo::compass_search const *)arg1)->evolve(arg2);
+  jresult = new pagmo::population(result); 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_compass_search_set_verbosity(void * jarg1, unsigned int jarg2) {
+  pagmo::compass_search *arg1 = (pagmo::compass_search *) 0 ;
+  unsigned int arg2 ;
+  
+  arg1 = (pagmo::compass_search *)jarg1; 
+  arg2 = (unsigned int)jarg2; 
+  (arg1)->set_verbosity(arg2);
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_pagmo_compass_search_get_verbosity(void * jarg1) {
+  unsigned int jresult ;
+  pagmo::compass_search *arg1 = (pagmo::compass_search *) 0 ;
+  unsigned int result;
+  
+  arg1 = (pagmo::compass_search *)jarg1; 
+  result = (unsigned int)((pagmo::compass_search const *)arg1)->get_verbosity();
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT double SWIGSTDCALL CSharp_pagmo_compass_search_get_max_fevals(void * jarg1) {
+  double jresult ;
+  pagmo::compass_search *arg1 = (pagmo::compass_search *) 0 ;
+  double result;
+  
+  arg1 = (pagmo::compass_search *)jarg1; 
+  result = (double)((pagmo::compass_search const *)arg1)->get_max_fevals();
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT double SWIGSTDCALL CSharp_pagmo_compass_search_get_stop_range(void * jarg1) {
+  double jresult ;
+  pagmo::compass_search *arg1 = (pagmo::compass_search *) 0 ;
+  double result;
+  
+  arg1 = (pagmo::compass_search *)jarg1; 
+  result = (double)((pagmo::compass_search const *)arg1)->get_stop_range();
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT double SWIGSTDCALL CSharp_pagmo_compass_search_get_start_range(void * jarg1) {
+  double jresult ;
+  pagmo::compass_search *arg1 = (pagmo::compass_search *) 0 ;
+  double result;
+  
+  arg1 = (pagmo::compass_search *)jarg1; 
+  result = (double)((pagmo::compass_search const *)arg1)->get_start_range();
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT double SWIGSTDCALL CSharp_pagmo_compass_search_get_reduction_coeff(void * jarg1) {
+  double jresult ;
+  pagmo::compass_search *arg1 = (pagmo::compass_search *) 0 ;
+  double result;
+  
+  arg1 = (pagmo::compass_search *)jarg1; 
+  result = (double)((pagmo::compass_search const *)arg1)->get_reduction_coeff();
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_compass_search_get_name(void * jarg1) {
+  const char * jresult ;
+  pagmo::compass_search *arg1 = (pagmo::compass_search *) 0 ;
+  std::string result;
+  
+  arg1 = (pagmo::compass_search *)jarg1; 
+  result = ((pagmo::compass_search const *)arg1)->get_name();
+  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  return jresult;
+}
+
+
+SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_compass_search_get_extra_info(void * jarg1) {
+  const char * jresult ;
+  pagmo::compass_search *arg1 = (pagmo::compass_search *) 0 ;
+  std::string result;
+  
+  arg1 = (pagmo::compass_search *)jarg1; 
+  result = ((pagmo::compass_search const *)arg1)->get_extra_info();
+  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_compass_search_get_log(void * jarg1) {
+  void * jresult ;
+  pagmo::compass_search *arg1 = (pagmo::compass_search *) 0 ;
+  pagmo::compass_search::log_type *result = 0 ;
+  
+  arg1 = (pagmo::compass_search *)jarg1; 
+  result = (pagmo::compass_search::log_type *) &((pagmo::compass_search const *)arg1)->get_log();
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_compass_search_set_seed(void * jarg1, unsigned int jarg2) {
+  pagmo::compass_search *arg1 = (pagmo::compass_search *) 0 ;
+  unsigned int arg2 ;
+  
+  arg1 = (pagmo::compass_search *)jarg1; 
+  arg2 = (unsigned int)jarg2; 
+  pagmo_compass_search_set_seed((pagmo::compass_search const *)arg1,arg2);
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_pagmo_compass_search_get_seed(void * jarg1) {
+  unsigned int jresult ;
+  pagmo::compass_search *arg1 = (pagmo::compass_search *) 0 ;
+  unsigned int result;
+  
+  arg1 = (pagmo::compass_search *)jarg1; 
+  result = (unsigned int)pagmo_compass_search_get_seed((pagmo::compass_search const *)arg1);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_pagmo_compass_search_get_gen(void * jarg1) {
+  unsigned int jresult ;
+  pagmo::compass_search *arg1 = (pagmo::compass_search *) 0 ;
+  unsigned int result;
+  
+  arg1 = (pagmo::compass_search *)jarg1; 
+  result = (unsigned int)pagmo_compass_search_get_gen((pagmo::compass_search const *)arg1);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_delete_compass_search(void * jarg1) {
+  pagmo::compass_search *arg1 = (pagmo::compass_search *) 0 ;
+  
+  arg1 = (pagmo::compass_search *)jarg1; 
+  delete arg1;
+}
+
+
 SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_de__SWIG_0(unsigned int jarg1, double jarg2, double jarg3, unsigned int jarg4, double jarg5, double jarg6, unsigned int jarg7) {
   void * jresult ;
   unsigned int arg1 ;
@@ -4758,6 +5033,18 @@ SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_de1220_set_seed(void * jarg1, unsigned 
   arg1 = (pagmo::de1220 *)jarg1; 
   arg2 = (unsigned int)jarg2; 
   (arg1)->set_seed(arg2);
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_pagmo_de1220_get_gen(void * jarg1) {
+  unsigned int jresult ;
+  pagmo::de1220 *arg1 = (pagmo::de1220 *) 0 ;
+  unsigned int result;
+  
+  arg1 = (pagmo::de1220 *)jarg1; 
+  result = (unsigned int)((pagmo::de1220 const *)arg1)->get_gen();
+  jresult = result; 
+  return jresult;
 }
 
 
@@ -6724,6 +7011,162 @@ SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_delete_ackley(void * jarg1) {
 }
 
 
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_cec2006__SWIG_0(unsigned int jarg1) {
+  void * jresult ;
+  unsigned int arg1 ;
+  pagmo::cec2006 *result = 0 ;
+  
+  arg1 = (unsigned int)jarg1; 
+  result = (pagmo::cec2006 *)new pagmo::cec2006(arg1);
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_cec2006__SWIG_1() {
+  void * jresult ;
+  pagmo::cec2006 *result = 0 ;
+  
+  result = (pagmo::cec2006 *)new pagmo::cec2006();
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT unsigned long SWIGSTDCALL CSharp_pagmo_cec2006_get_nec(void * jarg1) {
+  unsigned long jresult ;
+  pagmo::cec2006 *arg1 = (pagmo::cec2006 *) 0 ;
+  pagmo::vector_double::size_type result;
+  
+  arg1 = (pagmo::cec2006 *)jarg1; 
+  result = ((pagmo::cec2006 const *)arg1)->get_nec();
+  jresult = (unsigned long)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT unsigned long SWIGSTDCALL CSharp_pagmo_cec2006_get_nic(void * jarg1) {
+  unsigned long jresult ;
+  pagmo::cec2006 *arg1 = (pagmo::cec2006 *) 0 ;
+  pagmo::vector_double::size_type result;
+  
+  arg1 = (pagmo::cec2006 *)jarg1; 
+  result = ((pagmo::cec2006 const *)arg1)->get_nic();
+  jresult = (unsigned long)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_cec2006_get_bounds(void * jarg1) {
+  void * jresult ;
+  pagmo::cec2006 *arg1 = (pagmo::cec2006 *) 0 ;
+  std::pair< pagmo::vector_double,pagmo::vector_double > result;
+  
+  arg1 = (pagmo::cec2006 *)jarg1; 
+  result = ((pagmo::cec2006 const *)arg1)->get_bounds();
+  jresult = new std::pair< pagmo::vector_double,pagmo::vector_double >(result); 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_cec2006_fitness(void * jarg1, void * jarg2) {
+  void * jresult ;
+  pagmo::cec2006 *arg1 = (pagmo::cec2006 *) 0 ;
+  pagmo::vector_double *arg2 = 0 ;
+  pagmo::vector_double result;
+  
+  arg1 = (pagmo::cec2006 *)jarg1; 
+  arg2 = (pagmo::vector_double *)jarg2;
+  if (!arg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "pagmo::vector_double const & is null", 0);
+    return 0;
+  } 
+  result = ((pagmo::cec2006 const *)arg1)->fitness((pagmo::vector_double const &)*arg2);
+  jresult = new pagmo::vector_double(result); 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_cec2006_best_known(void * jarg1) {
+  void * jresult ;
+  pagmo::cec2006 *arg1 = (pagmo::cec2006 *) 0 ;
+  pagmo::vector_double result;
+  
+  arg1 = (pagmo::cec2006 *)jarg1; 
+  result = ((pagmo::cec2006 const *)arg1)->best_known();
+  jresult = new pagmo::vector_double(result); 
+  return jresult;
+}
+
+
+SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_cec2006_get_name(void * jarg1) {
+  const char * jresult ;
+  pagmo::cec2006 *arg1 = (pagmo::cec2006 *) 0 ;
+  std::string result;
+  
+  arg1 = (pagmo::cec2006 *)jarg1; 
+  result = ((pagmo::cec2006 const *)arg1)->get_name();
+  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  return jresult;
+}
+
+
+SWIGEXPORT unsigned long SWIGSTDCALL CSharp_pagmo_cec2006_get_nix(void * jarg1) {
+  unsigned long jresult ;
+  pagmo::cec2006 *arg1 = (pagmo::cec2006 *) 0 ;
+  pagmo::vector_double::size_type result;
+  
+  arg1 = (pagmo::cec2006 *)jarg1; 
+  result = pagmo_cec2006_get_nix((pagmo::cec2006 const *)arg1);
+  jresult = (unsigned long)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT unsigned long SWIGSTDCALL CSharp_pagmo_cec2006_get_nobj(void * jarg1) {
+  unsigned long jresult ;
+  pagmo::cec2006 *arg1 = (pagmo::cec2006 *) 0 ;
+  pagmo::vector_double::size_type result;
+  
+  arg1 = (pagmo::cec2006 *)jarg1; 
+  result = pagmo_cec2006_get_nobj((pagmo::cec2006 const *)arg1);
+  jresult = (unsigned long)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT int SWIGSTDCALL CSharp_pagmo_cec2006_get_thread_safety(void * jarg1) {
+  int jresult ;
+  pagmo::cec2006 *arg1 = (pagmo::cec2006 *) 0 ;
+  pagmo::thread_safety result;
+  
+  arg1 = (pagmo::cec2006 *)jarg1; 
+  result = (pagmo::thread_safety)pagmo_cec2006_get_thread_safety((pagmo::cec2006 const *)arg1);
+  jresult = (int)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_pagmo_cec2006_has_batch_fitness(void * jarg1) {
+  unsigned int jresult ;
+  pagmo::cec2006 *arg1 = (pagmo::cec2006 *) 0 ;
+  bool result;
+  
+  arg1 = (pagmo::cec2006 *)jarg1; 
+  result = (bool)pagmo_cec2006_has_batch_fitness((pagmo::cec2006 const *)arg1);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_delete_cec2006(void * jarg1) {
+  pagmo::cec2006 *arg1 = (pagmo::cec2006 *) 0 ;
+  
+  arg1 = (pagmo::cec2006 *)jarg1; 
+  delete arg1;
+}
+
+
 SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_golomb_ruler__SWIG_0(unsigned int jarg1, unsigned int jarg2) {
   void * jresult ;
   unsigned int arg1 ;
@@ -7589,6 +8032,10 @@ SWIGEXPORT pagmo::island * SWIGSTDCALL CSharp_pagmo_thread_island_SWIGUpcast(pag
 }
 
 SWIGEXPORT pagmo::algorithm * SWIGSTDCALL CSharp_pagmo_bee_colony_SWIGUpcast(pagmo::bee_colony *jarg1) {
+    return (pagmo::algorithm *)jarg1;
+}
+
+SWIGEXPORT pagmo::algorithm * SWIGSTDCALL CSharp_pagmo_compass_search_SWIGUpcast(pagmo::compass_search *jarg1) {
     return (pagmo::algorithm *)jarg1;
 }
 

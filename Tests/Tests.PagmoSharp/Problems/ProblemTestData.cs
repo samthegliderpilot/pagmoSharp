@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.InteropServices;
 
 namespace Tests.PagmoSharp.Problems;
 
@@ -9,18 +10,20 @@ public class ProblemTestData
     {
     }
 
-    public ProblemTestData(string problemName, string testCaseName, double[] x, double[] y)
+    public ProblemTestData(string problemName, string testCaseName, double[] x, double[] y, uint problemIndex = 0)
     {
         ProblemName = problemName;
         TestCaseName = testCaseName;
         X = x;
         Y = y;
+        ProblemIndex = problemIndex;
     }
 
     public string ProblemName { get; init; }
     public string TestCaseName { get; init; }
     public double[] X { get; init; }
     public double[] Y { get; init; }
+    public uint ProblemIndex { get; init; }
 
     public string WriteTestCaseSource(double[] newX = null, double[] newY = null)
     {
@@ -44,6 +47,6 @@ public class ProblemTestData
         {
             yString += y + ", ";
         }
-        return "testData.Add(new ProblemTestData(\"" + ProblemName + "\", \"" + TestCaseName + "\", new double[] {" + xString + "}, new double[] {" + yString + "}));";
+        return "testData.Add(new ProblemTestData(\"" + ProblemName + "\", \"" + TestCaseName + "\", new double[] {" + xString + "}, new double[] {" + yString + $"}}, {this.ProblemIndex}));";
     }
 }
