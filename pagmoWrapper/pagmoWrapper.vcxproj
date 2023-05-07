@@ -113,7 +113,8 @@ createSwigWrappersAndPlaceThem.bat
 </Command>
     </PreBuildEvent>
     <PostBuildEvent>
-      <Command>xcopy /I /Y $(OutDir)\* "pagmoSharp\cPlusPlusFiles\"</Command>
+      <Command>
+      </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -140,7 +141,8 @@ createSwigWrappersAndPlaceThem.bat
 </Command>
     </PreBuildEvent>
     <PostBuildEvent>
-      <Command>xcopy /I /Y $(OutDir)\* "pagmoSharp\cPlusPlusFiles\"</Command>
+      <Command>
+      </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">

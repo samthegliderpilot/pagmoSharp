@@ -10,3 +10,7 @@ __pycache__
 .ipynb_checkpoints
 */Intermediate*
 pagmoWrapper/Intermediate/*
+*.dll
+*.pdb
+*.exe
+

@@ -3,7 +3,7 @@
   <PropertyGroup>
     <OutputType>Library</OutputType>
     <TargetFramework>net6.0</TargetFramework>
-    <Platforms>AnyCPU;x64</Platforms>
+    <Platforms>x64</Platforms>
     <ApplicationIcon />
     <StartupObject />
   </PropertyGroup>
@@ -13,6 +13,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Folder Include="cPlusPlusFiles\" />
     <Folder Include="pagmoExtensions\BatchEvaluators\" />
     <Folder Include="pygmoWrappers\" />
   </ItemGroup>
