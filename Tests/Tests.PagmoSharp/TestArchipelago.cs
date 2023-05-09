@@ -15,14 +15,12 @@ namespace Tests.PagmoSharp
         [Test]
         public void TestSomething()
         {
-            //using var bfeSample = new default_bfe();
-            //using var problem = new TwoDimensionalSingleObjectiveProblemWrapper();
-            //using var pop = new population(problem, 4);
+            using var bfeSample = new default_bfe();
+            using var problem = new TwoDimensionalSingleObjectiveProblemWrapper();
+            using var pop = new population(problem, 4);
 
-            //archipelago archi = new archipelago();
-            //archi. 16u, bfeSample, problem, 20u);
-
-            //archi.evolve(10);
+            archipelago archi = new archipelago();
+            archi.evolve(5);
         }
     }
 }

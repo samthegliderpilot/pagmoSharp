@@ -125,6 +125,26 @@ namespace Tests.PagmoSharp.Algorithms
             }
         }
 
+        [Test]
+        public void TestStocasticProblem()
+        {
+            if (!Stochastic)
+            {
+                Assert.Pass();
+                return;
+            }
+            using (var problem = new InventoryProblemWrapper())
+            using (var algorithm = CreateAlgorithm(problem))
+            using (var pop = new population(problem, 1024, 2u))
+            {
+                //algorithm.set_seed(2); // for consistent results
+                var finalpop = EvolveAlgorithm(algorithm, pop);
+                Assert.AreEqual(problem.ExpectedOptimalX[0], finalpop.champion_x()[0], 10, "x for opt");
+
+                Assert.AreEqual(problem.ExpectedOptimalFunctionValue, finalpop.champion_f()[0], 10, "opt value");
+            }
+        }
+
         public virtual bool SupportsGeneration
         {
             get { return true; }

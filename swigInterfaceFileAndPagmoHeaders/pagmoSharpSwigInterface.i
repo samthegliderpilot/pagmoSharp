@@ -118,16 +118,42 @@ namespace pagmo {
 	//%include swigInterfaceFiles\algorithms\ipopt.i
 	%include swigInterfaceFiles\algorithms\nlopt.i
 	%include swigInterfaceFiles\algorithms\pso.i
+	%include swigInterfaceFiles\algorithms\pso_gen.i
 	%include swigInterfaceFiles\algorithms\simulated_annealing.i
 	%include swigInterfaceFiles\algorithms\sade.i
 
 	%include swigInterfaceFiles\problems\ackley.i
 	%include swigInterfaceFiles\problems\cec2006.i
 	%include swigInterfaceFiles\problems\golomb_ruler.i
+	%include swigInterfaceFiles\problems\inventory.i
 	
 
 	%include swigInterfaceFiles\utils\hv_algos\hv_algorithm.i
 	%include swigInterfaceFiles\utils\gradients_and_hessians.i
 	%include swigInterfaceFiles\utils\hypervolume.i
+
+
+}
+
+%{
+#include <exception>
+struct wrapped_exception : std::exception {
+  wrapped_exception(const std::string& msg) : msg(msg) {}
+private:
+  virtual const char * what () const noexcept {
+    return msg.c_str();
+  }
+  std::string msg;
 };
+%}
+
+%typemap(csdirectorout) void %{
+  try {
+    $cscall;
+  }
+  catch(System.Exception e) {
+    test.throw_native(e.ToString());
+  }
+%};
+
 

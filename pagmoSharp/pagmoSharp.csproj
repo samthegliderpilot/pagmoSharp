@@ -13,7 +13,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="cPlusPlusFiles\" />
+    <Compile Remove="cPlusPlusFiles\**" />
+    <EmbeddedResource Remove="cPlusPlusFiles\**" />
+    <None Remove="cPlusPlusFiles\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="pagmoExtensions\BatchEvaluators\" />
     <Folder Include="pygmoWrappers\" />
   </ItemGroup>

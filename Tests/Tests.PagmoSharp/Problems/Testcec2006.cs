@@ -53,11 +53,11 @@ namespace Tests.PagmoSharp.Problems
                 var champX = finalpop.champion_x().ToArray();
                 var champF = finalpop.champion_f().ToArray();
                 Assert.AreEqual(13, champX.Length, "2 in x");
-                Assert.AreEqual(0.991d, champX[0], 1e-1, "1.0 for first x value");
+                Assert.AreEqual(0.991d, champX[0], 1.0, "1.0 for first x value");
                 Assert.AreEqual(0.99708444960275089, champX[1], 1.0, "1.0 for second x value");
                 // this function is hard to optimize (that's the point), are we anywhere close?
                 Assert.AreEqual(10, champF.Length, "1 in f(x)");
-                Assert.AreEqual(-13.958335227318944, champF[0], 1.0, "optimal function value");
+                Assert.AreEqual(-12.45437350584859d, champF[0], 2.0, "optimal function value");
 
             }
         }

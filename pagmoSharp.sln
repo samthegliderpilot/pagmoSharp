@@ -34,6 +34,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "problems", "problems", "{69
 		swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\problems\ackley.i = swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\problems\ackley.i
 		swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\problems\cec2006.i = swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\problems\cec2006.i
 		swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\problems\golomb_ruler.i = swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\problems\golomb_ruler.i
+		swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\problems\inventory.i = swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\problems\inventory.i
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "algorithms", "algorithms", "{0E707295-FF3A-4ABF-8077-DFF552602EAD}"
@@ -47,6 +48,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "algorithms", "algorithms", 
 		swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\algorithms\ipopt.i = swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\algorithms\ipopt.i
 		swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\algorithms\nlopt.i = swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\algorithms\nlopt.i
 		swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\algorithms\pso.i = swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\algorithms\pso.i
+		swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\algorithms\pso_gen.i = swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\algorithms\pso_gen.i
 		swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\algorithms\sade.i = swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\algorithms\sade.i
 		swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\algorithms\simulated_annealing.i = swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\algorithms\simulated_annealing.i
 	EndProjectSection
