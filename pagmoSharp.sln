@@ -40,6 +40,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "algorithms", "algorithms", "{0E707295-FF3A-4ABF-8077-DFF552602EAD}"
 	ProjectSection(SolutionItems) = preProject
 		swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\algorithms\bee_colony.i = swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\algorithms\bee_colony.i
+		swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\algorithms\cmaes.i = swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\algorithms\cmaes.i
 		swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\algorithms\compass_search.i = swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\algorithms\compass_search.i
 		swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\algorithms\de.i = swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\algorithms\de.i
 		swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\algorithms\de1220.i = swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\algorithms\de1220.i
@@ -50,7 +51,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "algorithms", "algorithms", 
 		swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\algorithms\pso.i = swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\algorithms\pso.i
 		swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\algorithms\pso_gen.i = swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\algorithms\pso_gen.i
 		swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\algorithms\sade.i = swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\algorithms\sade.i
+		swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\algorithms\sea.i = swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\algorithms\sea.i
+		swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\algorithms\sga.i = swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\algorithms\sga.i
 		swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\algorithms\simulated_annealing.i = swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\algorithms\simulated_annealing.i
+		swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\algorithms\xnes.i = swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\algorithms\xnes.i
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "utils", "utils", "{A789B01C-7696-42B9-B8F4-9129FDAB4294}"

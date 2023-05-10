@@ -8,8 +8,6 @@ public class InventoryProblemWrapper : TestProblemWrapper
     public InventoryProblemWrapper()
     {
         InventoryProblem = new inventory(4u, 10u, 2u);
-        var bounds = InventoryProblem.get_bounds();
-        Console.WriteLine(bounds);
     }
 
     public readonly inventory InventoryProblem;

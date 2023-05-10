@@ -111,6 +111,7 @@ namespace pagmo {
 	%include swigInterfaceFiles\islands\thread_island.i
 
 	%include swigInterfaceFiles\algorithms\bee_colony.i
+	%include swigInterfaceFiles\algorithms\cmaes.i
 	%include swigInterfaceFiles\algorithms\compass_search.i			%include swigInterfaceFiles\algorithms\de.i
 	%include swigInterfaceFiles\algorithms\de1220.i
 	%include swigInterfaceFiles\algorithms\gaco.i
@@ -119,8 +120,11 @@ namespace pagmo {
 	%include swigInterfaceFiles\algorithms\nlopt.i
 	%include swigInterfaceFiles\algorithms\pso.i
 	%include swigInterfaceFiles\algorithms\pso_gen.i
+	%include swigInterfaceFiles\algorithms\sea.i
 	%include swigInterfaceFiles\algorithms\simulated_annealing.i
 	%include swigInterfaceFiles\algorithms\sade.i
+	%include swigInterfaceFiles\algorithms\sga.i
+	%include swigInterfaceFiles\algorithms\xnes.i
 
 	%include swigInterfaceFiles\problems\ackley.i
 	%include swigInterfaceFiles\problems\cec2006.i

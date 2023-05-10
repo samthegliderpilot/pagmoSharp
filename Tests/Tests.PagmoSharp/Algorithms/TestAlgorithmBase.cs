@@ -32,7 +32,7 @@ namespace Tests.PagmoSharp.Algorithms
         {
             if (!SingleObjective || !Unconstrained)
             {
-                Assert.Pass();
+                Assert.Inconclusive();
                 return;
             }
 
@@ -51,13 +51,13 @@ namespace Tests.PagmoSharp.Algorithms
         {
             if (!SingleObjective || !Unconstrained)
             {
-                Assert.Pass();
+                Assert.Inconclusive();
                 return;
             }
 
             using (var problem = new TwoDimensionalSingleObjectiveProblemWrapper())
             using (var algorithm = CreateAlgorithm(problem))
-            using (var pop = new population(problem, 128))
+            using (var pop = new population(problem, 512))
             {
                 var finalpop = EvolveAlgorithm(algorithm, pop);
                 Assert.AreEqual(problem.ExpectedOptimalFunctionValue, finalpop.champion_f()[0], 2);
@@ -70,7 +70,7 @@ namespace Tests.PagmoSharp.Algorithms
         {
             if (!Constrained || !SingleObjective)
             {
-                Assert.Pass();
+                Assert.Inconclusive();
                 return; // pass, unsupported
             }
 
@@ -117,7 +117,10 @@ namespace Tests.PagmoSharp.Algorithms
         public void TestGetGen()
         {
             if (!SupportsGeneration)
+            {
                 return;
+            }
+
             using (var problem = new TwoDimensionalSingleObjectiveProblemWrapper())
             using (var algorithm = CreateAlgorithm(problem))
             {
@@ -130,17 +133,16 @@ namespace Tests.PagmoSharp.Algorithms
         {
             if (!Stochastic)
             {
-                Assert.Pass();
+                Assert.Inconclusive();
                 return;
             }
             using (var problem = new InventoryProblemWrapper())
             using (var algorithm = CreateAlgorithm(problem))
-            using (var pop = new population(problem, 1024, 2u))
+            using (var pop = new population(problem, 4096, 2u))
             {
                 //algorithm.set_seed(2); // for consistent results
                 var finalpop = EvolveAlgorithm(algorithm, pop);
                 Assert.AreEqual(problem.ExpectedOptimalX[0], finalpop.champion_x()[0], 10, "x for opt");
-
                 Assert.AreEqual(problem.ExpectedOptimalFunctionValue, finalpop.champion_f()[0], 10, "opt value");
             }
         }
@@ -155,9 +157,10 @@ namespace Tests.PagmoSharp.Algorithms
         {
             if (!IntegerPrograming)
             {
-                Assert.Pass();
+                Assert.Inconclusive();
                 return; // pass, unsupported
             }
+            //TODO: Need a unconstrained version of this test method
 
             using var problemBase = new golomb_ruler();
             var problemBase2 = new ProblemWrapper(problemBase);
