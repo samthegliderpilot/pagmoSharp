@@ -118,6 +118,7 @@ namespace pagmo {
 	%include swigInterfaceFiles\algorithms\gwo.i
 	//%include swigInterfaceFiles\algorithms\ipopt.i
 	%include swigInterfaceFiles\algorithms\nlopt.i
+	%include swigInterfaceFiles\algorithms\nspso.i
 	%include swigInterfaceFiles\algorithms\pso.i
 	%include swigInterfaceFiles\algorithms\pso_gen.i
 	%include swigInterfaceFiles\algorithms\sea.i
@@ -130,7 +131,8 @@ namespace pagmo {
 	%include swigInterfaceFiles\problems\cec2006.i
 	%include swigInterfaceFiles\problems\golomb_ruler.i
 	%include swigInterfaceFiles\problems\inventory.i
-	
+	%include swigInterfaceFiles\problems\minlp_rastrigin.i
+	%include swigInterfaceFiles\problems\zdt.i
 
 	%include swigInterfaceFiles\utils\hv_algos\hv_algorithm.i
 	%include swigInterfaceFiles\utils\gradients_and_hessians.i

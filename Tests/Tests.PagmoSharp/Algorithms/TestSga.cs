@@ -9,7 +9,7 @@ public class TestSga : TestAlgorithmBase
 {
     public override IAlgorithm CreateAlgorithm()
     {
-        return new pagmo.sga(10u);
+        return new pagmo.sga(10u, 0.5);
     }
 
     [Test]

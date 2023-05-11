@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.ExceptionServices;
 using NUnit.Framework;
 using pagmo;
 using Tests.PagmoSharp.TestProblems;
@@ -32,7 +33,7 @@ namespace Tests.PagmoSharp.Algorithms
         {
             if (!SingleObjective || !Unconstrained)
             {
-                Assert.Inconclusive();
+                Assert.Ignore();
                 return;
             }
 
@@ -51,7 +52,7 @@ namespace Tests.PagmoSharp.Algorithms
         {
             if (!SingleObjective || !Unconstrained)
             {
-                Assert.Inconclusive();
+                Assert.Ignore();
                 return;
             }
 
@@ -70,7 +71,7 @@ namespace Tests.PagmoSharp.Algorithms
         {
             if (!Constrained || !SingleObjective)
             {
-                Assert.Inconclusive();
+                Assert.Ignore();
                 return; // pass, unsupported
             }
 
@@ -133,7 +134,7 @@ namespace Tests.PagmoSharp.Algorithms
         {
             if (!Stochastic)
             {
-                Assert.Inconclusive();
+                Assert.Ignore();
                 return;
             }
             using (var problem = new InventoryProblemWrapper())
@@ -153,11 +154,11 @@ namespace Tests.PagmoSharp.Algorithms
         }
 
         [Test]
-        public virtual void TestIntegerProgramming()
+        public virtual void TestIntegerProgrammingWithConstraints()
         {
-            if (!IntegerPrograming)
+            if (!IntegerPrograming || !Constrained)
             {
-                Assert.Inconclusive();
+                Assert.Ignore();
                 return; // pass, unsupported
             }
             //TODO: Need a unconstrained version of this test method
@@ -180,6 +181,67 @@ namespace Tests.PagmoSharp.Algorithms
                 Assert.IsTrue(champF.Contains(3.0), "3.0 for first f(x) value");
                 Assert.IsTrue(champF.Contains(0.0), "0.0 for second f(x) value");
             }
+        }
+
+        [Test]
+        public virtual void TestIntegerProgrammingWithUnConstraints()
+        {
+            if (!IntegerPrograming || !Unconstrained)
+            {
+                Assert.Ignore();
+                return; // pass, unsupported
+            }
+            //TODO: Need a unconstrained version of this test method
+
+            using var problemBase = new minlp_rastrigin(2, 2);
+            var problemBase2 = new ProblemWrapper(problemBase);
+            using (var algorithm = CreateAlgorithm())
+            using (var pop = new population(problemBase2, 4048))
+            {
+                algorithm.set_seed(2); // for consistent results
+
+                var finalpop = algorithm.evolve(pop);
+                var champX = finalpop.champion_x();
+                var champF = finalpop.champion_f();
+                Assert.AreEqual(4, champX.Count, "3 in x");
+                Assert.AreEqual(0.018910061654866972 , champX[0], 0.03, "first champ x");
+                Assert.AreEqual(-0.00067151048252811485, champX[1], 0.03, "second champ x");
+                Assert.AreEqual(-5, champX[2], "third champ x");
+                Assert.AreEqual(-5, champX[3], "fourth champ x");
+
+                Assert.AreEqual(1, champF.Count, "2 in f(x)");
+                Assert.AreEqual(50.017521245106849, champF[0], 0.1, "first value of champ f");
+            }
+        }
+
+        [Test]
+        public void TestMultiobjectiveUnconstrained()
+        {
+            if (!MultiObjective || !Unconstrained)
+            {
+                Assert.Ignore();
+                return; // pass, unsupported
+            }
+            using var problemBase = new zdt(1);
+            var problemBase2 = new ProblemWrapper(problemBase);
+            using (var algorithm = CreateAlgorithm())
+            using (var pop = new population(problemBase2, 512))
+            {
+                algorithm.set_seed(2); // for consistent results
+
+                var finalpop = algorithm.evolve(pop);
+                var champX = finalpop.champion_x();
+                var champF = finalpop.champion_f();
+                Assert.AreEqual(4, champX.Count, "3 in x");
+                Assert.AreEqual(0.018910061654866972, champX[0], 0.03, "first champ x");
+                Assert.AreEqual(-0.00067151048252811485, champX[1], 0.03, "second champ x");
+                Assert.AreEqual(-5, champX[2], "third champ x");
+                Assert.AreEqual(-5, champX[3], "fourth champ x");
+
+                Assert.AreEqual(1, champF.Count, "2 in f(x)");
+                Assert.AreEqual(50.017521245106849, champF[0], 0.1, "first value of champ f");
+            }
+
         }
     }
 }
