@@ -1,4 +1,5 @@
 ﻿/* File pagmoSharpSwigInterface.i */
+#define SUPPORT_VARIDEC FALSE
 
 %module(naturalvar=1, directors="11") pagmo
 %{
@@ -29,6 +30,7 @@
 %typemap(csclassmodifiers) pagmoWrap::problemPagomWrapper "public partial class"
 %typemap(csclassmodifiers) pagmoWrap::problemBase "public partial class"
 %typemap(csclassmodifiers) std::vector <double> "public partial class"
+
 %feature("director") pagmoWrap::problemBase;
 %include "pagmoWrapper/problem.h"
 
@@ -44,8 +46,12 @@ namespace std {
 namespace pagmo {
 	%typemap(csclassmodifiers) pagmo::DoubleVector "public partial class"
 	typedef std::vector<double> vector_double;
+	
 	typedef std::vector<std::pair<vector_double::size_type, vector_double::size_type>> sparsity_pattern;
+	%rename(SWIGTYPE_p_std__vectorT_std__pairT_size_t_size_t_t_t) sparsity_pattern;
 	typedef std::vector<vector_double>::size_type pop_size_t;
+
+	
 
 	enum class thread_safety { none, basic, constant };
 
@@ -100,9 +106,11 @@ namespace pagmo {
 	%include swigInterfaceFiles\algorithm.i
 	%include swigInterfaceFiles\archipelago.i
 	%include swigInterfaceFiles\bfe.i
-	//%include swigInterfaceFiles\rng.i	%include swigInterfaceFiles\exceptions.i
-	
-	%include swigInterfaceFiles\topology.i
+	//%include swigInterfaceFiles\exceptions.i // causing errors, not sure why, and not really implimented anyway
+	//NOTE: pagmo.hpp, threading.hpp and types.hpp are not really needed
+	%include swigInterfaceFiles\io.i
+	%include swigInterfaceFiles\rng.i
+	//%include swigInterfaceFiles\r_policy.i // needs the director/problem treatment	%include swigInterfaceFiles\topology.i
 
 	%include swigInterfaceFiles\batch_evaluators\default_bfe.i
 	%include swigInterfaceFiles\batch_evaluators\member_bfe.i
@@ -116,7 +124,7 @@ namespace pagmo {
 	%include swigInterfaceFiles\algorithms\de1220.i
 	%include swigInterfaceFiles\algorithms\gaco.i
 	%include swigInterfaceFiles\algorithms\gwo.i
-	//%include swigInterfaceFiles\algorithms\ipopt.i
+	//%include swigInterfaceFiles\algorithms\ipopt.i // my build of pagmo doesn't include ipopt
 	%include swigInterfaceFiles\algorithms\nlopt.i
 	%include swigInterfaceFiles\algorithms\nspso.i
 	%include swigInterfaceFiles\algorithms\pso.i
@@ -135,8 +143,9 @@ namespace pagmo {
 	%include swigInterfaceFiles\problems\zdt.i
 
 	%include swigInterfaceFiles\utils\hv_algos\hv_algorithm.i
-	%include swigInterfaceFiles\utils\gradients_and_hessians.i
+	//%include swigInterfaceFiles\utils\gradients_and_hessians.i // I couldn't get this to translate through swig so I just recreated the functions in C#
 	%include swigInterfaceFiles\utils\hypervolume.i
+	%include swigInterfaceFiles\utils\multi_objective.i
 
 
 }

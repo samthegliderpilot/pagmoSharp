@@ -10,20 +10,20 @@
 
 namespace pagmo {
 
-public partial class topology : global::System.IDisposable {
+public partial class random_device : global::System.IDisposable {
   private global::System.Runtime.InteropServices.HandleRef swigCPtr;
   protected bool swigCMemOwn;
 
-  internal topology(global::System.IntPtr cPtr, bool cMemoryOwn) {
+  internal random_device(global::System.IntPtr cPtr, bool cMemoryOwn) {
     swigCMemOwn = cMemoryOwn;
     swigCPtr = new global::System.Runtime.InteropServices.HandleRef(this, cPtr);
   }
 
-  internal static global::System.Runtime.InteropServices.HandleRef getCPtr(topology obj) {
+  internal static global::System.Runtime.InteropServices.HandleRef getCPtr(random_device obj) {
     return (obj == null) ? new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero) : obj.swigCPtr;
   }
 
-  internal static global::System.Runtime.InteropServices.HandleRef swigRelease(topology obj) {
+  internal static global::System.Runtime.InteropServices.HandleRef swigRelease(random_device obj) {
     if (obj != null) {
       if (!obj.swigCMemOwn)
         throw new global::System.ApplicationException("Cannot release ownership as memory is not owned");
@@ -36,7 +36,7 @@ public partial class topology : global::System.IDisposable {
     }
   }
 
-  ~topology() {
+  ~random_device() {
     Dispose(false);
   }
 
@@ -50,48 +50,23 @@ public partial class topology : global::System.IDisposable {
       if (swigCPtr.Handle != global::System.IntPtr.Zero) {
         if (swigCMemOwn) {
           swigCMemOwn = false;
-          pagmoPINVOKE.delete_topology(swigCPtr);
+          pagmoPINVOKE.delete_random_device(swigCPtr);
         }
         swigCPtr = new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero);
       }
     }
   }
 
-  public topology(topology arg0) : this(pagmoPINVOKE.new_topology__SWIG_1(topology.getCPtr(arg0)), true) {
-    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
-  }
-
-  public string get_name() {
-    string ret = pagmoPINVOKE.topology_get_name(swigCPtr);
+  public uint next() {
+    uint ret = pagmoPINVOKE.random_device_next(swigCPtr);
     return ret;
   }
 
-  public string get_extra_info() {
-    string ret = pagmoPINVOKE.topology_get_extra_info(swigCPtr);
-    return ret;
+  public void set_seed(uint seed) {
+    pagmoPINVOKE.random_device_set_seed(swigCPtr, seed);
   }
 
-  public bool is_valid() {
-    bool ret = pagmoPINVOKE.topology_is_valid(swigCPtr);
-    return ret;
-  }
-
-  public SWIGTYPE_p_std__pairT_std__vectorT_std__size_t_t_std__vectorT_double_t_t get_connections(uint arg0) {
-    SWIGTYPE_p_std__pairT_std__vectorT_std__size_t_t_std__vectorT_double_t_t ret = new SWIGTYPE_p_std__pairT_std__vectorT_std__size_t_t_std__vectorT_double_t_t(pagmoPINVOKE.topology_get_connections(swigCPtr, arg0), true);
-    return ret;
-  }
-
-  public void push_back() {
-    pagmoPINVOKE.topology_push_back__SWIG_0(swigCPtr);
-  }
-
-  public void push_back(uint arg0) {
-    pagmoPINVOKE.topology_push_back__SWIG_1(swigCPtr, arg0);
-  }
-
-  public global::System.IntPtr get_ptr() {
-    global::System.IntPtr ret = pagmoPINVOKE.topology_get_ptr__SWIG_0(swigCPtr);
-    return ret;
+  public random_device() : this(pagmoPINVOKE.new_random_device(), true) {
   }
 
 }

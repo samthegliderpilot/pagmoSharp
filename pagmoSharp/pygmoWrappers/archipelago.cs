@@ -120,6 +120,16 @@ public partial class archipelago : global::System.IDisposable {
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
+  public SWIGTYPE_p_pagmo__topology get_topology() {
+    SWIGTYPE_p_pagmo__topology ret = new SWIGTYPE_p_pagmo__topology(pagmoPINVOKE.archipelago_get_topology(swigCPtr), true);
+    return ret;
+  }
+
+  public void set_topology(SWIGTYPE_p_pagmo__topology arg0) {
+    pagmoPINVOKE.archipelago_set_topology(swigCPtr, SWIGTYPE_p_pagmo__topology.getCPtr(arg0));
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
+  }
+
   public migration_type get_migration_type() {
     migration_type ret = (migration_type)pagmoPINVOKE.archipelago_get_migration_type(swigCPtr);
     return ret;

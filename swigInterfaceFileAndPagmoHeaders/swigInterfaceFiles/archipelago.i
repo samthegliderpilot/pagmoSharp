@@ -2,6 +2,7 @@
 %{
 #include "pagmo/island.hpp"
 #include "pagmo/archipelago.hpp"
+#include "pagmo/topology.hpp"
 %}
 
 %typemap(csclassmodifiers) pagmo::archipelago "public partial class"
@@ -77,8 +78,8 @@ public:
 	extern void set_migrants_db(migrants_db_t);
 
 	// Topology get/set.
-	//extern topology get_topology() const;
-	//extern void set_topology(topology);
+	extern pagmo::topology get_topology() const;
+	extern void set_topology(pagmo::topology);
 
 	// Getters/setters for the migration type and
 	// the migrant handling policy.

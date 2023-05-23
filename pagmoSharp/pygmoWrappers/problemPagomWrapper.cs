@@ -139,6 +139,11 @@ public partial class problemPagomWrapper : global::System.IDisposable {
     return ret;
   }
 
+  public SWIGTYPE_p_std__vectorT_std__pairT_size_t_size_t_t_t gradient_sparsity() {
+    SWIGTYPE_p_std__vectorT_std__pairT_size_t_size_t_t_t ret = new SWIGTYPE_p_std__vectorT_std__pairT_size_t_size_t_t_t(pagmoPINVOKE.problemPagomWrapper_gradient_sparsity(swigCPtr), true);
+    return ret;
+  }
+
 }
 
 }

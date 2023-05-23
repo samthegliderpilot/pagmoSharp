@@ -26,6 +26,7 @@ public:
     virtual bool has_gradient() const;
     virtual pagmoWrap::vector_double gradient(pagmoWrap::vector_double const &arg0) const;
     virtual bool has_gradient_sparsity() const;
+    virtual pagmo::sparsity_pattern gradient_sparsity() const;
 
     typedef void * (SWIGSTDCALL* SWIG_Callback0_t)(void *);
     typedef void * (SWIGSTDCALL* SWIG_Callback1_t)();
@@ -39,7 +40,8 @@ public:
     typedef unsigned int (SWIGSTDCALL* SWIG_Callback9_t)();
     typedef void * (SWIGSTDCALL* SWIG_Callback10_t)(void *);
     typedef unsigned int (SWIGSTDCALL* SWIG_Callback11_t)();
-    void swig_connect_director(SWIG_Callback0_t callbackfitness, SWIG_Callback1_t callbackget_bounds, SWIG_Callback2_t callbackhas_batch_fitness, SWIG_Callback3_t callbackget_name, SWIG_Callback4_t callbackget_nobj, SWIG_Callback5_t callbackget_nec, SWIG_Callback6_t callbackget_nic, SWIG_Callback7_t callbackget_nix, SWIG_Callback8_t callbackget_thread_safety, SWIG_Callback9_t callbackhas_gradient, SWIG_Callback10_t callbackgradient, SWIG_Callback11_t callbackhas_gradient_sparsity);
+    typedef void * (SWIGSTDCALL* SWIG_Callback12_t)();
+    void swig_connect_director(SWIG_Callback0_t callbackfitness, SWIG_Callback1_t callbackget_bounds, SWIG_Callback2_t callbackhas_batch_fitness, SWIG_Callback3_t callbackget_name, SWIG_Callback4_t callbackget_nobj, SWIG_Callback5_t callbackget_nec, SWIG_Callback6_t callbackget_nic, SWIG_Callback7_t callbackget_nix, SWIG_Callback8_t callbackget_thread_safety, SWIG_Callback9_t callbackhas_gradient, SWIG_Callback10_t callbackgradient, SWIG_Callback11_t callbackhas_gradient_sparsity, SWIG_Callback12_t callbackgradient_sparsity);
 
 private:
     SWIG_Callback0_t swig_callbackfitness;
@@ -54,6 +56,7 @@ private:
     SWIG_Callback9_t swig_callbackhas_gradient;
     SWIG_Callback10_t swig_callbackgradient;
     SWIG_Callback11_t swig_callbackhas_gradient_sparsity;
+    SWIG_Callback12_t swig_callbackgradient_sparsity;
     void swig_init_callbacks();
 };
 

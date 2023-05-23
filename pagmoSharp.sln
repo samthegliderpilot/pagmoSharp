@@ -23,9 +23,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "swigInterfaceFiles", "swigI
 		swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\archipelago.i = swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\archipelago.i
 		swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\bfe.i = swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\bfe.i
 		swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\exceptions.i = swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\exceptions.i
+		swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\io.i = swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\io.i
 		swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\island.i = swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\island.i
 		swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\population.i = swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\population.i
 		swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\rng.i = swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\rng.i
+		swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\r_policy.i = swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\r_policy.i
 		swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\topology.i = swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\topology.i
 	EndProjectSection
 EndProject
@@ -64,6 +66,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "utils", "utils", "{A789B01C
 	ProjectSection(SolutionItems) = preProject
 		swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\utils\gradients_and_hessians.i = swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\utils\gradients_and_hessians.i
 		swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\utils\hypervolume.i = swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\utils\hypervolume.i
+		swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\utils\multi_objective.i = swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\utils\multi_objective.i
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "hv_algos", "hv_algos", "{55CC7DC4-992C-4E06-A474-E96C683765EE}"

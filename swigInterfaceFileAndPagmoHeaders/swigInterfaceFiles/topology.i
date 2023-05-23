@@ -37,15 +37,8 @@ public:
 
     // Extract.
     template <typename T>
-    const T* extract() const noexcept
-    {
-#if defined(PAGMO_PREFER_TYPEID_NAME_EXTRACT)
-        return detail::typeid_name_extract<T>(*this);
-#else
-        auto p = dynamic_cast<const detail::topo_inner<T> *>(ptr());
-        return p == nullptr ? nullptr : &(p->m_value);
-#endif
-    }
+    extern const T* extract() const noexcept;
+    
 
     template <typename T>
     extern bool is() const noexcept;

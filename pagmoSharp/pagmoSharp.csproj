@@ -20,6 +20,7 @@
 
   <ItemGroup>
     <Folder Include="pagmoExtensions\BatchEvaluators\" />
+    <Folder Include="pagmoExtensions\Utils\" />
     <Folder Include="pygmoWrappers\" />
   </ItemGroup>
 

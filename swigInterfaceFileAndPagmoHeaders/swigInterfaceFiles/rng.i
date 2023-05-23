@@ -1,12 +1,11 @@
-//Doesn't work, disabled in main swig file
 %module(naturalvar = 1, directors = "1") pagmo
 %{
 #include "pagmo/rng.hpp"
 %}
 
-%typemap(csclassmodifiers) pagmo::rng "public partial class"
+%typemap(csclassmodifiers) pagmo::random_device "public partial class"
 class random_device {
 public :
-    extern static unsigned next();
-    extern static void set_seed(unsigned seed);
+    extern unsigned next();
+    extern void set_seed(unsigned seed);
 };

@@ -16,7 +16,7 @@ namespace Tests.PagmoSharp.TestProblems
 
         /// <inheritdoc />
         public override DoubleVector fitness(DoubleVector arg0)
-        {
+        {                        
             double x = arg0[0];
             double y = arg0[1];
 

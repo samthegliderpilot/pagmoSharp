@@ -1,12 +1,13 @@
 ﻿#pragma once
 
 #include "pagmo/problem.hpp"
+#include "pagmo/types.hpp"
 #include "pagmo/utils/gradients_and_hessians.hpp"
 
 namespace pagmoWrap
 {
 	typedef std::vector<double> vector_double;
-
+	typedef std::vector<std::pair<vector_double::size_type, vector_double::size_type>> sparsity_pattern;
 	class problemBase : public pagmo::problem
 	{
 	public:
@@ -68,7 +69,10 @@ namespace pagmoWrap
 		{
 			return false;
 		}
-		//pagmo::sparsity_pattern gradient_sparsity() const;
+		virtual pagmo::sparsity_pattern gradient_sparsity() const
+		{
+			return pagmo::sparsity_pattern();
+		}
 		//bool has_hessians() const;
 		//std::vector<vector_double> hessians(const vector_double&) const;
 		//bool has_hessians_sparsity() const;
@@ -170,6 +174,11 @@ namespace pagmoWrap
 		bool has_gradient_sparsity() const
 		{
 			return _base->has_gradient_sparsity();
+		}
+
+		pagmo::sparsity_pattern gradient_sparsity() const
+		{
+			return _base->gradient_sparsity();
 		}
 	};
 
