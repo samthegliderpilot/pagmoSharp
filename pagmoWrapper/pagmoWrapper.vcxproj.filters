@@ -29,5 +29,8 @@
     <ClInclude Include="pagmoSharpSwigInterface_wrap.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="r_policy.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

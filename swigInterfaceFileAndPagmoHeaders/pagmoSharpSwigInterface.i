@@ -18,9 +18,13 @@
 	#include "pagmo/types.hpp"
 	    
 	#include "problem.h" // this is a manually created item.  We want to include it in the wrappers so the generated cxx code can use the handwritten code for the problem
+	#include "r_policy.h"
 %}
 
-// The whole problem vs. problemBase question is a little confusing.  To make it better (or worse)
+
+//%include swigInterfaceFiles\tuple.i
+
+// The whole problem vs. problemBase question is a little confusing.  To make it better (or wo// rs// e)
 // there is a C# implicit operator to convert from problem to problemBase by calling getBaseProblem on 
 // the wrapper (problem).  Hence the partial class here
 %include "std_string.i"
@@ -33,6 +37,8 @@
 
 %feature("director") pagmoWrap::problemBase;
 %include "pagmoWrapper/problem.h"
+%feature("director") pagmoWrap::r_policyBase;
+%include "pagmoWrapper/r_policy.h"
 
 //#include <tuple> // tuple is not supported by swig yet...
 %apply void *VOID_INT_PTR { void * }
@@ -41,10 +47,15 @@ namespace std {
 	%template(ULongLongVector) std::vector<unsigned long long>;
 	%template(VectorDoubleVector) std::vector<std::vector<double>>;
 	%template(PairOfDoubleVectors) std::pair<std::vector<double>, std::vector<double>>;
+	//%std::tuple(TupleIndividualGroup, std::vector<unsigned long long>, std::vector<vector_double>, std::vector<vector_double>);
+	//%template(individuals_group_t) std::tuple<std::vector<unsigned long long>, std::vector<vector_double>, std::vector<vector_double>>;
 }
-
+	
 namespace pagmo {
 	%typemap(csclassmodifiers) pagmo::DoubleVector "public partial class"
+	%typemap(csclassmodifiers) pagmo::VectorDoubleVector "public partial class"
+	%typemap(csclassmodifiers) pagmo::PairOfDoubleVectors "public partial class"
+	%typemap(csclassmodifiers) pagmo::ULongLongVector "public partial class"
 	typedef std::vector<double> vector_double;
 	
 	typedef std::vector<std::pair<vector_double::size_type, vector_double::size_type>> sparsity_pattern;

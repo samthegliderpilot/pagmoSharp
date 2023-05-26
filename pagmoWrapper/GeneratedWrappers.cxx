@@ -416,6 +416,7 @@ template <typename T> T SwigValueInit() {
 	#include "pagmo/types.hpp"
 	    
 	#include "problem.h" // this is a manually created item.  We want to include it in the wrappers so the generated cxx code can use the handwritten code for the problem
+	#include "r_policy.h"
 
 
 #include <string>
@@ -1362,6 +1363,109 @@ void SwigDirector_problemBase::swig_init_callbacks() {
   swig_callbackgradient_sparsity = 0;
 }
 
+SwigDirector_r_policyBase::SwigDirector_r_policyBase() : pagmoWrap::r_policyBase(), Swig::Director() {
+  swig_init_callbacks();
+}
+
+SwigDirector_r_policyBase::~SwigDirector_r_policyBase() {
+  
+}
+
+
+pagmo::individuals_group_t SwigDirector_r_policyBase::replace(pagmo::individuals_group_t const &a,pagmo::vector_double::size_type const &b,pagmo::vector_double::size_type const &c,pagmo::vector_double::size_type const &d,pagmo::vector_double::size_type const &e,pagmo::vector_double::size_type const &f,pagmo::vector_double const &g,pagmo::individuals_group_t const &h) const {
+  SwigValueWrapper< std::tuple< std::vector< unsigned long long >,std::vector< std::vector< double > >,std::vector< std::vector< double > > > > c_result ;
+  void * jresult = 0 ;
+  void * ja = 0 ;
+  unsigned long jb = 0 ;
+  unsigned long jc = 0 ;
+  unsigned long jd = 0 ;
+  unsigned long je = 0 ;
+  unsigned long jf = 0 ;
+  void * jg = 0 ;
+  void * jh = 0 ;
+  
+  if (!swig_callbackreplace) {
+    return pagmoWrap::r_policyBase::replace(a,b,c,d,e,f,g,h);
+  } else {
+    ja = (pagmo::individuals_group_t *) &a; 
+    jb = b;
+    jc = c;
+    jd = d;
+    je = e;
+    jf = f;
+    jg = (pagmo::vector_double *) &g; 
+    jh = (pagmo::individuals_group_t *) &h; 
+    jresult = (void *) swig_callbackreplace(ja, jb, jc, jd, je, jf, jg, jh);
+    if (!jresult) {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "Unexpected null return for type pagmo::individuals_group_t", 0);
+      return c_result;
+    }
+    c_result = *(pagmo::individuals_group_t *)jresult; 
+  }
+  return c_result;
+}
+
+std::string SwigDirector_r_policyBase::get_name() const {
+  std::string c_result ;
+  const char * jresult = 0 ;
+  
+  if (!swig_callbackget_name) {
+    return pagmoWrap::r_policyBase::get_name();
+  } else {
+    jresult = (const char *) swig_callbackget_name();
+    if (!jresult) {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "null string", 0);
+      return c_result;
+    }
+    c_result.assign(jresult); 
+  }
+  return c_result;
+}
+
+std::string SwigDirector_r_policyBase::get_extra_info() const {
+  std::string c_result ;
+  const char * jresult = 0 ;
+  
+  if (!swig_callbackget_extra_info) {
+    return pagmoWrap::r_policyBase::get_extra_info();
+  } else {
+    jresult = (const char *) swig_callbackget_extra_info();
+    if (!jresult) {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "null string", 0);
+      return c_result;
+    }
+    c_result.assign(jresult); 
+  }
+  return c_result;
+}
+
+bool SwigDirector_r_policyBase::is_valid() const {
+  bool c_result = SwigValueInit< bool >() ;
+  unsigned int jresult = 0 ;
+  
+  if (!swig_callbackis_valid) {
+    return pagmoWrap::r_policyBase::is_valid();
+  } else {
+    jresult = (unsigned int) swig_callbackis_valid();
+    c_result = jresult ? true : false; 
+  }
+  return c_result;
+}
+
+void SwigDirector_r_policyBase::swig_connect_director(SWIG_Callback0_t callbackreplace, SWIG_Callback1_t callbackget_name, SWIG_Callback2_t callbackget_extra_info, SWIG_Callback3_t callbackis_valid) {
+  swig_callbackreplace = callbackreplace;
+  swig_callbackget_name = callbackget_name;
+  swig_callbackget_extra_info = callbackget_extra_info;
+  swig_callbackis_valid = callbackis_valid;
+}
+
+void SwigDirector_r_policyBase::swig_init_callbacks() {
+  swig_callbackreplace = 0;
+  swig_callbackget_name = 0;
+  swig_callbackget_extra_info = 0;
+  swig_callbackis_valid = 0;
+}
+
 
 #ifdef __cplusplus
 extern "C" {
@@ -1960,6 +2064,357 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_problemPagomWrapper_gradient_sparsity
   arg1 = (pagmoWrap::problemPagomWrapper *)jarg1; 
   result = ((pagmoWrap::problemPagomWrapper const *)arg1)->gradient_sparsity();
   jresult = new pagmo::sparsity_pattern(result); 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_delete_r_policyBase(void * jarg1) {
+  pagmoWrap::r_policyBase *arg1 = (pagmoWrap::r_policyBase *) 0 ;
+  
+  arg1 = (pagmoWrap::r_policyBase *)jarg1; 
+  delete arg1;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_r_policyBase_replace(void * jarg1, void * jarg2, unsigned long jarg3, unsigned long jarg4, unsigned long jarg5, unsigned long jarg6, unsigned long jarg7, void * jarg8, void * jarg9) {
+  void * jresult ;
+  pagmoWrap::r_policyBase *arg1 = (pagmoWrap::r_policyBase *) 0 ;
+  pagmo::individuals_group_t *arg2 = 0 ;
+  pagmo::vector_double::size_type *arg3 = 0 ;
+  pagmo::vector_double::size_type *arg4 = 0 ;
+  pagmo::vector_double::size_type *arg5 = 0 ;
+  pagmo::vector_double::size_type *arg6 = 0 ;
+  pagmo::vector_double::size_type *arg7 = 0 ;
+  pagmo::vector_double *arg8 = 0 ;
+  pagmo::individuals_group_t *arg9 = 0 ;
+  pagmo::vector_double::size_type temp3 ;
+  pagmo::vector_double::size_type temp4 ;
+  pagmo::vector_double::size_type temp5 ;
+  pagmo::vector_double::size_type temp6 ;
+  pagmo::vector_double::size_type temp7 ;
+  SwigValueWrapper< std::tuple< std::vector< unsigned long long >,std::vector< std::vector< double > >,std::vector< std::vector< double > > > > result;
+  
+  arg1 = (pagmoWrap::r_policyBase *)jarg1; 
+  arg2 = (pagmo::individuals_group_t *)jarg2;
+  if (!arg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "pagmo::individuals_group_t const & is null", 0);
+    return 0;
+  } 
+  temp3 = (pagmo::vector_double::size_type)jarg3; 
+  arg3 = &temp3; 
+  temp4 = (pagmo::vector_double::size_type)jarg4; 
+  arg4 = &temp4; 
+  temp5 = (pagmo::vector_double::size_type)jarg5; 
+  arg5 = &temp5; 
+  temp6 = (pagmo::vector_double::size_type)jarg6; 
+  arg6 = &temp6; 
+  temp7 = (pagmo::vector_double::size_type)jarg7; 
+  arg7 = &temp7; 
+  arg8 = (pagmo::vector_double *)jarg8;
+  if (!arg8) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "pagmo::vector_double const & is null", 0);
+    return 0;
+  } 
+  arg9 = (pagmo::individuals_group_t *)jarg9;
+  if (!arg9) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "pagmo::individuals_group_t const & is null", 0);
+    return 0;
+  } 
+  result = ((pagmoWrap::r_policyBase const *)arg1)->replace((pagmo::individuals_group_t const &)*arg2,(pagmo::vector_double::size_type const &)*arg3,(pagmo::vector_double::size_type const &)*arg4,(pagmo::vector_double::size_type const &)*arg5,(pagmo::vector_double::size_type const &)*arg6,(pagmo::vector_double::size_type const &)*arg7,(pagmo::vector_double const &)*arg8,(pagmo::individuals_group_t const &)*arg9);
+  jresult = new pagmo::individuals_group_t(result); 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_r_policyBase_replaceSwigExplicitr_policyBase(void * jarg1, void * jarg2, unsigned long jarg3, unsigned long jarg4, unsigned long jarg5, unsigned long jarg6, unsigned long jarg7, void * jarg8, void * jarg9) {
+  void * jresult ;
+  pagmoWrap::r_policyBase *arg1 = (pagmoWrap::r_policyBase *) 0 ;
+  pagmo::individuals_group_t *arg2 = 0 ;
+  pagmo::vector_double::size_type *arg3 = 0 ;
+  pagmo::vector_double::size_type *arg4 = 0 ;
+  pagmo::vector_double::size_type *arg5 = 0 ;
+  pagmo::vector_double::size_type *arg6 = 0 ;
+  pagmo::vector_double::size_type *arg7 = 0 ;
+  pagmo::vector_double *arg8 = 0 ;
+  pagmo::individuals_group_t *arg9 = 0 ;
+  pagmo::vector_double::size_type temp3 ;
+  pagmo::vector_double::size_type temp4 ;
+  pagmo::vector_double::size_type temp5 ;
+  pagmo::vector_double::size_type temp6 ;
+  pagmo::vector_double::size_type temp7 ;
+  SwigValueWrapper< std::tuple< std::vector< unsigned long long >,std::vector< std::vector< double > >,std::vector< std::vector< double > > > > result;
+  
+  arg1 = (pagmoWrap::r_policyBase *)jarg1; 
+  arg2 = (pagmo::individuals_group_t *)jarg2;
+  if (!arg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "pagmo::individuals_group_t const & is null", 0);
+    return 0;
+  } 
+  temp3 = (pagmo::vector_double::size_type)jarg3; 
+  arg3 = &temp3; 
+  temp4 = (pagmo::vector_double::size_type)jarg4; 
+  arg4 = &temp4; 
+  temp5 = (pagmo::vector_double::size_type)jarg5; 
+  arg5 = &temp5; 
+  temp6 = (pagmo::vector_double::size_type)jarg6; 
+  arg6 = &temp6; 
+  temp7 = (pagmo::vector_double::size_type)jarg7; 
+  arg7 = &temp7; 
+  arg8 = (pagmo::vector_double *)jarg8;
+  if (!arg8) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "pagmo::vector_double const & is null", 0);
+    return 0;
+  } 
+  arg9 = (pagmo::individuals_group_t *)jarg9;
+  if (!arg9) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "pagmo::individuals_group_t const & is null", 0);
+    return 0;
+  } 
+  result = ((pagmoWrap::r_policyBase const *)arg1)->pagmoWrap::r_policyBase::replace((pagmo::individuals_group_t const &)*arg2,(pagmo::vector_double::size_type const &)*arg3,(pagmo::vector_double::size_type const &)*arg4,(pagmo::vector_double::size_type const &)*arg5,(pagmo::vector_double::size_type const &)*arg6,(pagmo::vector_double::size_type const &)*arg7,(pagmo::vector_double const &)*arg8,(pagmo::individuals_group_t const &)*arg9);
+  jresult = new pagmo::individuals_group_t(result); 
+  return jresult;
+}
+
+
+SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_r_policyBase_get_name(void * jarg1) {
+  const char * jresult ;
+  pagmoWrap::r_policyBase *arg1 = (pagmoWrap::r_policyBase *) 0 ;
+  std::string result;
+  
+  arg1 = (pagmoWrap::r_policyBase *)jarg1; 
+  result = ((pagmoWrap::r_policyBase const *)arg1)->get_name();
+  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  return jresult;
+}
+
+
+SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_r_policyBase_get_nameSwigExplicitr_policyBase(void * jarg1) {
+  const char * jresult ;
+  pagmoWrap::r_policyBase *arg1 = (pagmoWrap::r_policyBase *) 0 ;
+  std::string result;
+  
+  arg1 = (pagmoWrap::r_policyBase *)jarg1; 
+  result = ((pagmoWrap::r_policyBase const *)arg1)->pagmoWrap::r_policyBase::get_name();
+  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  return jresult;
+}
+
+
+SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_r_policyBase_get_extra_info(void * jarg1) {
+  const char * jresult ;
+  pagmoWrap::r_policyBase *arg1 = (pagmoWrap::r_policyBase *) 0 ;
+  std::string result;
+  
+  arg1 = (pagmoWrap::r_policyBase *)jarg1; 
+  result = ((pagmoWrap::r_policyBase const *)arg1)->get_extra_info();
+  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  return jresult;
+}
+
+
+SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_r_policyBase_get_extra_infoSwigExplicitr_policyBase(void * jarg1) {
+  const char * jresult ;
+  pagmoWrap::r_policyBase *arg1 = (pagmoWrap::r_policyBase *) 0 ;
+  std::string result;
+  
+  arg1 = (pagmoWrap::r_policyBase *)jarg1; 
+  result = ((pagmoWrap::r_policyBase const *)arg1)->pagmoWrap::r_policyBase::get_extra_info();
+  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  return jresult;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_pagmo_r_policyBase_is_valid(void * jarg1) {
+  unsigned int jresult ;
+  pagmoWrap::r_policyBase *arg1 = (pagmoWrap::r_policyBase *) 0 ;
+  bool result;
+  
+  arg1 = (pagmoWrap::r_policyBase *)jarg1; 
+  result = (bool)((pagmoWrap::r_policyBase const *)arg1)->is_valid();
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_pagmo_r_policyBase_is_validSwigExplicitr_policyBase(void * jarg1) {
+  unsigned int jresult ;
+  pagmoWrap::r_policyBase *arg1 = (pagmoWrap::r_policyBase *) 0 ;
+  bool result;
+  
+  arg1 = (pagmoWrap::r_policyBase *)jarg1; 
+  result = (bool)((pagmoWrap::r_policyBase const *)arg1)->pagmoWrap::r_policyBase::is_valid();
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_r_policyBase() {
+  void * jresult ;
+  pagmoWrap::r_policyBase *result = 0 ;
+  
+  result = (pagmoWrap::r_policyBase *)new SwigDirector_r_policyBase();
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_r_policyBase_director_connect(void *objarg, SwigDirector_r_policyBase::SWIG_Callback0_t callback0, SwigDirector_r_policyBase::SWIG_Callback1_t callback1, SwigDirector_r_policyBase::SWIG_Callback2_t callback2, SwigDirector_r_policyBase::SWIG_Callback3_t callback3) {
+  pagmoWrap::r_policyBase *obj = (pagmoWrap::r_policyBase *)objarg;
+  SwigDirector_r_policyBase *director = static_cast<SwigDirector_r_policyBase *>(obj);
+  director->swig_connect_director(callback0, callback1, callback2, callback3);
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_r_policyPagmoWrapper__SWIG_0() {
+  void * jresult ;
+  pagmoWrap::r_policyPagmoWrapper *result = 0 ;
+  
+  result = (pagmoWrap::r_policyPagmoWrapper *)new pagmoWrap::r_policyPagmoWrapper();
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_r_policyPagmoWrapper__SWIG_1(void * jarg1) {
+  void * jresult ;
+  pagmoWrap::r_policyBase *arg1 = (pagmoWrap::r_policyBase *) 0 ;
+  pagmoWrap::r_policyPagmoWrapper *result = 0 ;
+  
+  arg1 = (pagmoWrap::r_policyBase *)jarg1; 
+  result = (pagmoWrap::r_policyPagmoWrapper *)new pagmoWrap::r_policyPagmoWrapper(arg1);
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_r_policyPagmoWrapper__SWIG_2(void * jarg1) {
+  void * jresult ;
+  pagmoWrap::r_policyPagmoWrapper *arg1 = 0 ;
+  pagmoWrap::r_policyPagmoWrapper *result = 0 ;
+  
+  arg1 = (pagmoWrap::r_policyPagmoWrapper *)jarg1;
+  if (!arg1) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "pagmoWrap::r_policyPagmoWrapper const & is null", 0);
+    return 0;
+  } 
+  result = (pagmoWrap::r_policyPagmoWrapper *)new pagmoWrap::r_policyPagmoWrapper((pagmoWrap::r_policyPagmoWrapper const &)*arg1);
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_delete_r_policyPagmoWrapper(void * jarg1) {
+  pagmoWrap::r_policyPagmoWrapper *arg1 = (pagmoWrap::r_policyPagmoWrapper *) 0 ;
+  
+  arg1 = (pagmoWrap::r_policyPagmoWrapper *)jarg1; 
+  delete arg1;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_r_policyPagmoWrapper_setBasePolicy(void * jarg1, void * jarg2) {
+  pagmoWrap::r_policyPagmoWrapper *arg1 = (pagmoWrap::r_policyPagmoWrapper *) 0 ;
+  pagmoWrap::r_policyBase *arg2 = (pagmoWrap::r_policyBase *) 0 ;
+  
+  arg1 = (pagmoWrap::r_policyPagmoWrapper *)jarg1; 
+  arg2 = (pagmoWrap::r_policyBase *)jarg2; 
+  (arg1)->setBasePolicy(arg2);
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_r_policyPagmoWrapper_getBasePolicy(void * jarg1) {
+  void * jresult ;
+  pagmoWrap::r_policyPagmoWrapper *arg1 = (pagmoWrap::r_policyPagmoWrapper *) 0 ;
+  pagmoWrap::r_policyBase *result = 0 ;
+  
+  arg1 = (pagmoWrap::r_policyPagmoWrapper *)jarg1; 
+  result = (pagmoWrap::r_policyBase *)(arg1)->getBasePolicy();
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_r_policyPagmoWrapper_replace(void * jarg1, void * jarg2, unsigned long jarg3, unsigned long jarg4, unsigned long jarg5, unsigned long jarg6, unsigned long jarg7, void * jarg8, void * jarg9) {
+  void * jresult ;
+  pagmoWrap::r_policyPagmoWrapper *arg1 = (pagmoWrap::r_policyPagmoWrapper *) 0 ;
+  pagmo::individuals_group_t *arg2 = 0 ;
+  pagmo::vector_double::size_type *arg3 = 0 ;
+  pagmo::vector_double::size_type *arg4 = 0 ;
+  pagmo::vector_double::size_type *arg5 = 0 ;
+  pagmo::vector_double::size_type *arg6 = 0 ;
+  pagmo::vector_double::size_type *arg7 = 0 ;
+  pagmo::vector_double *arg8 = 0 ;
+  pagmo::individuals_group_t *arg9 = 0 ;
+  pagmo::vector_double::size_type temp3 ;
+  pagmo::vector_double::size_type temp4 ;
+  pagmo::vector_double::size_type temp5 ;
+  pagmo::vector_double::size_type temp6 ;
+  pagmo::vector_double::size_type temp7 ;
+  SwigValueWrapper< std::tuple< std::vector< unsigned long long >,std::vector< std::vector< double > >,std::vector< std::vector< double > > > > result;
+  
+  arg1 = (pagmoWrap::r_policyPagmoWrapper *)jarg1; 
+  arg2 = (pagmo::individuals_group_t *)jarg2;
+  if (!arg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "pagmo::individuals_group_t const & is null", 0);
+    return 0;
+  } 
+  temp3 = (pagmo::vector_double::size_type)jarg3; 
+  arg3 = &temp3; 
+  temp4 = (pagmo::vector_double::size_type)jarg4; 
+  arg4 = &temp4; 
+  temp5 = (pagmo::vector_double::size_type)jarg5; 
+  arg5 = &temp5; 
+  temp6 = (pagmo::vector_double::size_type)jarg6; 
+  arg6 = &temp6; 
+  temp7 = (pagmo::vector_double::size_type)jarg7; 
+  arg7 = &temp7; 
+  arg8 = (pagmo::vector_double *)jarg8;
+  if (!arg8) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "pagmo::vector_double const & is null", 0);
+    return 0;
+  } 
+  arg9 = (pagmo::individuals_group_t *)jarg9;
+  if (!arg9) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "pagmo::individuals_group_t const & is null", 0);
+    return 0;
+  } 
+  result = ((pagmoWrap::r_policyPagmoWrapper const *)arg1)->replace((pagmo::individuals_group_t const &)*arg2,(pagmo::vector_double::size_type const &)*arg3,(pagmo::vector_double::size_type const &)*arg4,(pagmo::vector_double::size_type const &)*arg5,(pagmo::vector_double::size_type const &)*arg6,(pagmo::vector_double::size_type const &)*arg7,(pagmo::vector_double const &)*arg8,(pagmo::individuals_group_t const &)*arg9);
+  jresult = new pagmo::individuals_group_t(result); 
+  return jresult;
+}
+
+
+SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_r_policyPagmoWrapper_get_name(void * jarg1) {
+  const char * jresult ;
+  pagmoWrap::r_policyPagmoWrapper *arg1 = (pagmoWrap::r_policyPagmoWrapper *) 0 ;
+  std::string result;
+  
+  arg1 = (pagmoWrap::r_policyPagmoWrapper *)jarg1; 
+  result = ((pagmoWrap::r_policyPagmoWrapper const *)arg1)->get_name();
+  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  return jresult;
+}
+
+
+SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_r_policyPagmoWrapper_get_extra_info(void * jarg1) {
+  const char * jresult ;
+  pagmoWrap::r_policyPagmoWrapper *arg1 = (pagmoWrap::r_policyPagmoWrapper *) 0 ;
+  std::string result;
+  
+  arg1 = (pagmoWrap::r_policyPagmoWrapper *)jarg1; 
+  result = ((pagmoWrap::r_policyPagmoWrapper const *)arg1)->get_extra_info();
+  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  return jresult;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_pagmo_r_policyPagmoWrapper_is_valid(void * jarg1) {
+  unsigned int jresult ;
+  pagmoWrap::r_policyPagmoWrapper *arg1 = (pagmoWrap::r_policyPagmoWrapper *) 0 ;
+  bool result;
+  
+  arg1 = (pagmoWrap::r_policyPagmoWrapper *)jarg1; 
+  result = (bool)((pagmoWrap::r_policyPagmoWrapper const *)arg1)->is_valid();
+  jresult = result; 
   return jresult;
 }
 

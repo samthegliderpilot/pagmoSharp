@@ -337,6 +337,69 @@ class pagmoPINVOKE {
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper.dll", EntryPoint="CSharp_pagmo_problemPagomWrapper_gradient_sparsity")]
   public static extern global::System.IntPtr problemPagomWrapper_gradient_sparsity(global::System.Runtime.InteropServices.HandleRef jarg1);
 
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper.dll", EntryPoint="CSharp_pagmo_delete_r_policyBase")]
+  public static extern void delete_r_policyBase(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper.dll", EntryPoint="CSharp_pagmo_r_policyBase_replace")]
+  public static extern global::System.IntPtr r_policyBase_replace(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2, uint jarg3, uint jarg4, uint jarg5, uint jarg6, uint jarg7, global::System.Runtime.InteropServices.HandleRef jarg8, global::System.Runtime.InteropServices.HandleRef jarg9);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper.dll", EntryPoint="CSharp_pagmo_r_policyBase_replaceSwigExplicitr_policyBase")]
+  public static extern global::System.IntPtr r_policyBase_replaceSwigExplicitr_policyBase(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2, uint jarg3, uint jarg4, uint jarg5, uint jarg6, uint jarg7, global::System.Runtime.InteropServices.HandleRef jarg8, global::System.Runtime.InteropServices.HandleRef jarg9);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper.dll", EntryPoint="CSharp_pagmo_r_policyBase_get_name")]
+  public static extern string r_policyBase_get_name(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper.dll", EntryPoint="CSharp_pagmo_r_policyBase_get_nameSwigExplicitr_policyBase")]
+  public static extern string r_policyBase_get_nameSwigExplicitr_policyBase(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper.dll", EntryPoint="CSharp_pagmo_r_policyBase_get_extra_info")]
+  public static extern string r_policyBase_get_extra_info(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper.dll", EntryPoint="CSharp_pagmo_r_policyBase_get_extra_infoSwigExplicitr_policyBase")]
+  public static extern string r_policyBase_get_extra_infoSwigExplicitr_policyBase(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper.dll", EntryPoint="CSharp_pagmo_r_policyBase_is_valid")]
+  public static extern bool r_policyBase_is_valid(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper.dll", EntryPoint="CSharp_pagmo_r_policyBase_is_validSwigExplicitr_policyBase")]
+  public static extern bool r_policyBase_is_validSwigExplicitr_policyBase(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper.dll", EntryPoint="CSharp_pagmo_new_r_policyBase")]
+  public static extern global::System.IntPtr new_r_policyBase();
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper.dll", EntryPoint="CSharp_pagmo_r_policyBase_director_connect")]
+  public static extern void r_policyBase_director_connect(global::System.Runtime.InteropServices.HandleRef jarg1, r_policyBase.SwigDelegater_policyBase_0 delegate0, r_policyBase.SwigDelegater_policyBase_1 delegate1, r_policyBase.SwigDelegater_policyBase_2 delegate2, r_policyBase.SwigDelegater_policyBase_3 delegate3);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper.dll", EntryPoint="CSharp_pagmo_new_r_policyPagmoWrapper__SWIG_0")]
+  public static extern global::System.IntPtr new_r_policyPagmoWrapper__SWIG_0();
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper.dll", EntryPoint="CSharp_pagmo_new_r_policyPagmoWrapper__SWIG_1")]
+  public static extern global::System.IntPtr new_r_policyPagmoWrapper__SWIG_1(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper.dll", EntryPoint="CSharp_pagmo_new_r_policyPagmoWrapper__SWIG_2")]
+  public static extern global::System.IntPtr new_r_policyPagmoWrapper__SWIG_2(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper.dll", EntryPoint="CSharp_pagmo_delete_r_policyPagmoWrapper")]
+  public static extern void delete_r_policyPagmoWrapper(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper.dll", EntryPoint="CSharp_pagmo_r_policyPagmoWrapper_setBasePolicy")]
+  public static extern void r_policyPagmoWrapper_setBasePolicy(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper.dll", EntryPoint="CSharp_pagmo_r_policyPagmoWrapper_getBasePolicy")]
+  public static extern global::System.IntPtr r_policyPagmoWrapper_getBasePolicy(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper.dll", EntryPoint="CSharp_pagmo_r_policyPagmoWrapper_replace")]
+  public static extern global::System.IntPtr r_policyPagmoWrapper_replace(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2, uint jarg3, uint jarg4, uint jarg5, uint jarg6, uint jarg7, global::System.Runtime.InteropServices.HandleRef jarg8, global::System.Runtime.InteropServices.HandleRef jarg9);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper.dll", EntryPoint="CSharp_pagmo_r_policyPagmoWrapper_get_name")]
+  public static extern string r_policyPagmoWrapper_get_name(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper.dll", EntryPoint="CSharp_pagmo_r_policyPagmoWrapper_get_extra_info")]
+  public static extern string r_policyPagmoWrapper_get_extra_info(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper.dll", EntryPoint="CSharp_pagmo_r_policyPagmoWrapper_is_valid")]
+  public static extern bool r_policyPagmoWrapper_is_valid(global::System.Runtime.InteropServices.HandleRef jarg1);
+
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper.dll", EntryPoint="CSharp_pagmo_DoubleVector_Clear")]
   public static extern void DoubleVector_Clear(global::System.Runtime.InteropServices.HandleRef jarg1);
 

@@ -198,6 +198,7 @@ createSwigWrappersAndPlaceThem.bat</Command>
   <ItemGroup>
     <ClInclude Include="pagmoSharpSwigInterface_wrap.h" />
     <ClInclude Include="problem.h" />
+    <ClInclude Include="r_policy.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
