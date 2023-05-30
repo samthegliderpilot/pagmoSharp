@@ -32,5 +32,8 @@
     <ClInclude Include="r_policy.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="s_policy.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

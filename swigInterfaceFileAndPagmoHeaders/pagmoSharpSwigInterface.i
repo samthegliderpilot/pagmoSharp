@@ -19,6 +19,7 @@
 	    
 	#include "problem.h" // this is a manually created item.  We want to include it in the wrappers so the generated cxx code can use the handwritten code for the problem
 	#include "r_policy.h"
+	#include "s_policy.h"
 %}
 
 
@@ -39,6 +40,8 @@
 %include "pagmoWrapper/problem.h"
 %feature("director") pagmoWrap::r_policyBase;
 %include "pagmoWrapper/r_policy.h"
+%feature("director") pagmoWrap::s_policyBase;
+%include "pagmoWrapper/s_policy.h"
 
 //#include <tuple> // tuple is not supported by swig yet...
 %apply void *VOID_INT_PTR { void * }
@@ -123,12 +126,6 @@ namespace pagmo {
 	%include swigInterfaceFiles\rng.i
 	//%include swigInterfaceFiles\r_policy.i // needs the director/problem treatment	%include swigInterfaceFiles\topology.i
 
-	%include swigInterfaceFiles\batch_evaluators\default_bfe.i
-	%include swigInterfaceFiles\batch_evaluators\member_bfe.i
-	%include swigInterfaceFiles\batch_evaluators\thread_bfe.i
-
-	%include swigInterfaceFiles\islands\thread_island.i
-
 	%include swigInterfaceFiles\algorithms\bee_colony.i
 	%include swigInterfaceFiles\algorithms\cmaes.i
 	%include swigInterfaceFiles\algorithms\compass_search.i			%include swigInterfaceFiles\algorithms\de.i
@@ -146,12 +143,23 @@ namespace pagmo {
 	%include swigInterfaceFiles\algorithms\sga.i
 	%include swigInterfaceFiles\algorithms\xnes.i
 
+	%include swigInterfaceFiles\batch_evaluators\default_bfe.i
+	%include swigInterfaceFiles\batch_evaluators\member_bfe.i
+	%include swigInterfaceFiles\batch_evaluators\thread_bfe.i
+
+	//%include swigInterfaceFiles\detail\base_sr_policy.i // not sure if this is needed, and with no public constructors...
+
+	%include swigInterfaceFiles\islands\thread_island.i
+
 	%include swigInterfaceFiles\problems\ackley.i
 	%include swigInterfaceFiles\problems\cec2006.i
 	%include swigInterfaceFiles\problems\golomb_ruler.i
 	%include swigInterfaceFiles\problems\inventory.i
 	%include swigInterfaceFiles\problems\minlp_rastrigin.i
 	%include swigInterfaceFiles\problems\zdt.i
+
+	%include swigInterfaceFiles\r_policies\fair_replace.i
+	%include swigInterfaceFiles\s_policies\select_best.i
 
 	%include swigInterfaceFiles\utils\hv_algos\hv_algorithm.i
 	//%include swigInterfaceFiles\utils\gradients_and_hessians.i // I couldn't get this to translate through swig so I just recreated the functions in C#

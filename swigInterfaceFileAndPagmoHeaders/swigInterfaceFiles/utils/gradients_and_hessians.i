@@ -1,3 +1,5 @@
+//The functions in this file have been manually implimented in C# (copied and trascribed)
+
 %module(directors = "1") gradients_and_hessians
 %{
 #include <algorithm>

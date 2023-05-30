@@ -84,5 +84,29 @@ private:
     void swig_init_callbacks();
 };
 
+class SwigDirector_s_policyBase : public pagmoWrap::s_policyBase, public Swig::Director {
+
+public:
+    SwigDirector_s_policyBase();
+    virtual ~SwigDirector_s_policyBase();
+    virtual pagmo::individuals_group_t select(pagmo::individuals_group_t const &a,pagmo::vector_double::size_type const &arg1,pagmo::vector_double::size_type const &arg2,pagmo::vector_double::size_type const &arg3,pagmo::vector_double::size_type const &arg4,pagmo::vector_double::size_type const &arg5,pagmo::vector_double const &arg6) const;
+    virtual std::string get_name() const;
+    virtual std::string get_extra_info() const;
+    virtual bool is_valid() const;
+
+    typedef void * (SWIGSTDCALL* SWIG_Callback0_t)(void *, unsigned long, unsigned long, unsigned long, unsigned long, unsigned long, void *);
+    typedef const char * (SWIGSTDCALL* SWIG_Callback1_t)();
+    typedef const char * (SWIGSTDCALL* SWIG_Callback2_t)();
+    typedef unsigned int (SWIGSTDCALL* SWIG_Callback3_t)();
+    void swig_connect_director(SWIG_Callback0_t callbackselect, SWIG_Callback1_t callbackget_name, SWIG_Callback2_t callbackget_extra_info, SWIG_Callback3_t callbackis_valid);
+
+private:
+    SWIG_Callback0_t swig_callbackselect;
+    SWIG_Callback1_t swig_callbackget_name;
+    SWIG_Callback2_t swig_callbackget_extra_info;
+    SWIG_Callback3_t swig_callbackis_valid;
+    void swig_init_callbacks();
+};
+
 
 #endif

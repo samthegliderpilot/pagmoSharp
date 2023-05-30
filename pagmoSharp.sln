@@ -88,6 +88,21 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "islands", "islands", "{50CC
 		swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\islands\thread_island.i = swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\islands\thread_island.i
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "r_policies", "r_policies", "{19619306-8F50-41C9-BCBD-1A4D45995DAF}"
+	ProjectSection(SolutionItems) = preProject
+		swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\r_policies\fair_replace.i = swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\r_policies\fair_replace.i
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "s_policies", "s_policies", "{668E298E-FE7D-4BC8-8187-30AE2CE23F83}"
+	ProjectSection(SolutionItems) = preProject
+		swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\s_policies\select_best.i = swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\s_policies\select_best.i
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "detail", "detail", "{720EB227-97B9-4311-9FFF-D7AE5716BE4A}"
+	ProjectSection(SolutionItems) = preProject
+		swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\detail\base_sr_policy.i = swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\detail\base_sr_policy.i
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -133,6 +148,9 @@ Global
 		{55CC7DC4-992C-4E06-A474-E96C683765EE} = {A789B01C-7696-42B9-B8F4-9129FDAB4294}
 		{1EDCDCC7-892B-4D84-A9A8-75DE71DC8EB1} = {A7AC40B5-9B9B-4479-8803-8FD7E4DAF3CF}
 		{50CC2211-849B-4FB5-8A87-448B94EDC722} = {A7AC40B5-9B9B-4479-8803-8FD7E4DAF3CF}
+		{19619306-8F50-41C9-BCBD-1A4D45995DAF} = {A7AC40B5-9B9B-4479-8803-8FD7E4DAF3CF}
+		{668E298E-FE7D-4BC8-8187-30AE2CE23F83} = {A7AC40B5-9B9B-4479-8803-8FD7E4DAF3CF}
+		{720EB227-97B9-4311-9FFF-D7AE5716BE4A} = {A7AC40B5-9B9B-4479-8803-8FD7E4DAF3CF}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DF00BAED-DDCF-4E13-8B6D-DE3CB12C863B}
