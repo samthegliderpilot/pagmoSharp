@@ -2176,6 +2176,21 @@ class pagmoPINVOKE {
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper.dll", EntryPoint="CSharp_pagmo_delete_select_best")]
   public static extern void delete_select_best(global::System.Runtime.InteropServices.HandleRef jarg1);
 
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper.dll", EntryPoint="CSharp_pagmo_unconnected_get_connections")]
+  public static extern global::System.IntPtr unconnected_get_connections(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper.dll", EntryPoint="CSharp_pagmo_unconnected_push_back")]
+  public static extern void unconnected_push_back(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper.dll", EntryPoint="CSharp_pagmo_unconnected_get_name")]
+  public static extern string unconnected_get_name(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper.dll", EntryPoint="CSharp_pagmo_new_unconnected")]
+  public static extern global::System.IntPtr new_unconnected();
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper.dll", EntryPoint="CSharp_pagmo_delete_unconnected")]
+  public static extern void delete_unconnected(global::System.Runtime.InteropServices.HandleRef jarg1);
+
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper.dll", EntryPoint="CSharp_pagmo_hv_algorithm_volume_between__SWIG_0")]
   public static extern double hv_algorithm_volume_between__SWIG_0(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2, uint jarg3);
 

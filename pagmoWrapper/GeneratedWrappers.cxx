@@ -1101,6 +1101,18 @@ SWIGINTERN pagmo::thread_safety pagmo_zdt_get_thread_safety(pagmo::zdt const *se
 #include "pagmo/types.hpp"
 
 
+#include "pagmo/topologies/unconnected.hpp"
+#include <cstddef>
+#include <string>
+#include <utility>
+#include <vector>
+
+#include "pagmo/detail/visibility.hpp"
+#include "pagmo/s11n.hpp"
+#include "pagmo/topology.hpp"
+#include "pagmo/types.hpp"
+
+
 #include "pagmo/utils/hv_algos/hv_algorithm.hpp"
 #include "pagmo/detail/visibility.hpp"
 #include "pagmo/types.hpp"
@@ -11104,6 +11116,58 @@ SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_delete_select_best(void * jarg1) {
   pagmo::select_best *arg1 = (pagmo::select_best *) 0 ;
   
   arg1 = (pagmo::select_best *)jarg1; 
+  delete arg1;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_unconnected_get_connections(void * jarg1, unsigned long jarg2) {
+  void * jresult ;
+  pagmo::unconnected *arg1 = (pagmo::unconnected *) 0 ;
+  std::size_t arg2 ;
+  SwigValueWrapper< std::pair< std::vector< std::size_t >,std::vector< double > > > result;
+  
+  arg1 = (pagmo::unconnected *)jarg1; 
+  arg2 = (std::size_t)jarg2; 
+  result = ((pagmo::unconnected const *)arg1)->get_connections(arg2);
+  jresult = new std::pair< std::vector< std::size_t >,pagmo::vector_double >(result); 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_unconnected_push_back(void * jarg1) {
+  pagmo::unconnected *arg1 = (pagmo::unconnected *) 0 ;
+  
+  arg1 = (pagmo::unconnected *)jarg1; 
+  (arg1)->push_back();
+}
+
+
+SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_unconnected_get_name(void * jarg1) {
+  const char * jresult ;
+  pagmo::unconnected *arg1 = (pagmo::unconnected *) 0 ;
+  std::string result;
+  
+  arg1 = (pagmo::unconnected *)jarg1; 
+  result = ((pagmo::unconnected const *)arg1)->get_name();
+  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_unconnected() {
+  void * jresult ;
+  pagmo::unconnected *result = 0 ;
+  
+  result = (pagmo::unconnected *)new pagmo::unconnected();
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_delete_unconnected(void * jarg1) {
+  pagmo::unconnected *arg1 = (pagmo::unconnected *) 0 ;
+  
+  arg1 = (pagmo::unconnected *)jarg1; 
   delete arg1;
 }
 
