@@ -148,6 +148,7 @@ namespace pagmo {
 	%include swigInterfaceFiles\batch_evaluators\thread_bfe.i
 
 	//%include swigInterfaceFiles\detail\base_sr_policy.i // not sure if this is needed, and with no public constructors...
+	//%include swigInterfaceFiles\detail\bfe_impl.i // not sure if this is needed, and with no public constructors...
 
 	%include swigInterfaceFiles\islands\thread_island.i
 

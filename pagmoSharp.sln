@@ -101,6 +101,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "detail", "detail", "{720EB227-97B9-4311-9FFF-D7AE5716BE4A}"
 	ProjectSection(SolutionItems) = preProject
 		swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\detail\base_sr_policy.i = swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\detail\base_sr_policy.i
+		swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\detail\bfe_impl.i = swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\detail\bfe_impl.i
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "topologies", "topologies", "{BD28DC9B-1D64-4278-9276-092EDBC86C51}"
