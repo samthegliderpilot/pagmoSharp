@@ -74,38 +74,38 @@ public partial class hv_algorithm : global::System.IDisposable {
     return ret;
   }
 
-  public virtual double compute(VectorDoubleVector points, DoubleVector r_point) {
-    double ret = pagmoPINVOKE.hv_algorithm_compute(swigCPtr, VectorDoubleVector.getCPtr(points), DoubleVector.getCPtr(r_point));
+  public virtual double compute(VectorOfVectorOfDoubles points, DoubleVector r_point) {
+    double ret = pagmoPINVOKE.hv_algorithm_compute(swigCPtr, VectorOfVectorOfDoubles.getCPtr(points), DoubleVector.getCPtr(r_point));
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
-  public virtual double exclusive(uint p_idx, VectorDoubleVector arg1, DoubleVector arg2) {
-    double ret = pagmoPINVOKE.hv_algorithm_exclusive(swigCPtr, p_idx, VectorDoubleVector.getCPtr(arg1), DoubleVector.getCPtr(arg2));
+  public virtual double exclusive(uint p_idx, VectorOfVectorOfDoubles arg1, DoubleVector arg2) {
+    double ret = pagmoPINVOKE.hv_algorithm_exclusive(swigCPtr, p_idx, VectorOfVectorOfDoubles.getCPtr(arg1), DoubleVector.getCPtr(arg2));
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
-  public virtual ulong least_contributor(VectorDoubleVector arg0, DoubleVector arg1) {
-    ulong ret = pagmoPINVOKE.hv_algorithm_least_contributor(swigCPtr, VectorDoubleVector.getCPtr(arg0), DoubleVector.getCPtr(arg1));
+  public virtual ulong least_contributor(VectorOfVectorOfDoubles arg0, DoubleVector arg1) {
+    ulong ret = pagmoPINVOKE.hv_algorithm_least_contributor(swigCPtr, VectorOfVectorOfDoubles.getCPtr(arg0), DoubleVector.getCPtr(arg1));
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
-  public virtual ulong greatest_contributor(VectorDoubleVector arg0, DoubleVector arg1) {
-    ulong ret = pagmoPINVOKE.hv_algorithm_greatest_contributor(swigCPtr, VectorDoubleVector.getCPtr(arg0), DoubleVector.getCPtr(arg1));
+  public virtual ulong greatest_contributor(VectorOfVectorOfDoubles arg0, DoubleVector arg1) {
+    ulong ret = pagmoPINVOKE.hv_algorithm_greatest_contributor(swigCPtr, VectorOfVectorOfDoubles.getCPtr(arg0), DoubleVector.getCPtr(arg1));
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
-  public virtual DoubleVector contributions(VectorDoubleVector arg0, DoubleVector arg1) {
-    DoubleVector ret = new DoubleVector(pagmoPINVOKE.hv_algorithm_contributions(swigCPtr, VectorDoubleVector.getCPtr(arg0), DoubleVector.getCPtr(arg1)), true);
+  public virtual DoubleVector contributions(VectorOfVectorOfDoubles arg0, DoubleVector arg1) {
+    DoubleVector ret = new DoubleVector(pagmoPINVOKE.hv_algorithm_contributions(swigCPtr, VectorOfVectorOfDoubles.getCPtr(arg0), DoubleVector.getCPtr(arg1)), true);
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
-  public virtual void verify_before_compute(VectorDoubleVector points, DoubleVector r_point) {
-    pagmoPINVOKE.hv_algorithm_verify_before_compute(swigCPtr, VectorDoubleVector.getCPtr(points), DoubleVector.getCPtr(r_point));
+  public virtual void verify_before_compute(VectorOfVectorOfDoubles points, DoubleVector r_point) {
+    pagmoPINVOKE.hv_algorithm_verify_before_compute(swigCPtr, VectorOfVectorOfDoubles.getCPtr(points), DoubleVector.getCPtr(r_point));
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 

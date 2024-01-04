@@ -146,13 +146,13 @@ public partial class population : global::System.IDisposable {
     return ret;
   }
 
-  public VectorDoubleVector get_f() {
-    VectorDoubleVector ret = new VectorDoubleVector(pagmoPINVOKE.population_get_f(swigCPtr), false);
+  public VectorOfVectorOfDoubles get_f() {
+    VectorOfVectorOfDoubles ret = new VectorOfVectorOfDoubles(pagmoPINVOKE.population_get_f(swigCPtr), false);
     return ret;
   }
 
-  public VectorDoubleVector get_x() {
-    VectorDoubleVector ret = new VectorDoubleVector(pagmoPINVOKE.population_get_x(swigCPtr), false);
+  public VectorOfVectorOfDoubles get_x() {
+    VectorOfVectorOfDoubles ret = new VectorOfVectorOfDoubles(pagmoPINVOKE.population_get_x(swigCPtr), false);
     return ret;
   }
 

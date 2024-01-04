@@ -20,8 +20,24 @@
 #include <pagmo/s11n.hpp>
 #include <pagmo/type_traits.hpp>
 #include <pagmo/types.hpp>
+#include <tuple>
 namespace pagmoWrap
 {
+    class individuals_group
+    {
+    public:
+        std::vector<unsigned long long> Item1;
+        std::vector<vector_double> Item2;
+        std::vector<vector_double> Item3;
+
+        individuals_group(std::tuple<std::vector<unsigned long long>, std::vector<vector_double>, std::vector<vector_double>> tu)
+        {
+            this->Item1 = get<0>(tu);
+            this->Item2 = get<1>(tu);
+            this->Item3 = get<2>(tu);
+        }
+    };
+
     using individuals_group_t = std::tuple<std::vector<unsigned long long>, std::vector<vector_double>, std::vector<vector_double>>;
     class r_policyBase
     {
@@ -75,6 +91,14 @@ namespace pagmoWrap
         {
             
             return a;
+        }
+
+        individuals_group replaceAndWrap(const pagmo::individuals_group_t& a, const pagmo::vector_double::size_type& b,
+            const pagmo::vector_double::size_type& c, const pagmo::vector_double::size_type& d,
+            const pagmo::vector_double::size_type& e, const pagmo::vector_double::size_type& f,
+            const pagmo::vector_double& g, const pagmo::individuals_group_t& h) const
+        {
+            return individuals_group(replace(a, b, c, d, e, f, g, h));
         }
 
         // Name.

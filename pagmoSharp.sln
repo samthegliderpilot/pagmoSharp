@@ -29,7 +29,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "swigInterfaceFiles", "swigI
 		swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\rng.i = swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\rng.i
 		swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\r_policy.i = swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\r_policy.i
 		swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\topology.i = swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\topology.i
-		swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\tuple.i = swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\tuple.i
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "problems", "problems", "{690793CC-5507-4215-BCF6-1658345CC72B}"
@@ -68,6 +67,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "utils", "utils", "{A789B01C
 		swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\utils\gradients_and_hessians.i = swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\utils\gradients_and_hessians.i
 		swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\utils\hypervolume.i = swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\utils\hypervolume.i
 		swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\utils\multi_objective.i = swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\utils\multi_objective.i
+		swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\utils\std_tuple.i = swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\utils\std_tuple.i
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "hv_algos", "hv_algos", "{55CC7DC4-992C-4E06-A474-E96C683765EE}"

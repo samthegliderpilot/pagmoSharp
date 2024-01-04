@@ -68,11 +68,11 @@ public partial class hypervolume : global::System.IDisposable {
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
-  public hypervolume(VectorDoubleVector points, bool verify) : this(pagmoPINVOKE.new_hypervolume__SWIG_3(VectorDoubleVector.getCPtr(points), verify), true) {
+  public hypervolume(VectorOfVectorOfDoubles points, bool verify) : this(pagmoPINVOKE.new_hypervolume__SWIG_3(VectorOfVectorOfDoubles.getCPtr(points), verify), true) {
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
-  public hypervolume(VectorDoubleVector points) : this(pagmoPINVOKE.new_hypervolume__SWIG_4(VectorDoubleVector.getCPtr(points)), true) {
+  public hypervolume(VectorOfVectorOfDoubles points) : this(pagmoPINVOKE.new_hypervolume__SWIG_4(VectorOfVectorOfDoubles.getCPtr(points)), true) {
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
@@ -108,8 +108,8 @@ public partial class hypervolume : global::System.IDisposable {
     return ret;
   }
 
-  public VectorDoubleVector get_points() {
-    VectorDoubleVector ret = new VectorDoubleVector(pagmoPINVOKE.hypervolume_get_points(swigCPtr), false);
+  public VectorOfVectorOfDoubles get_points() {
+    VectorOfVectorOfDoubles ret = new VectorOfVectorOfDoubles(pagmoPINVOKE.hypervolume_get_points(swigCPtr), false);
     return ret;
   }
 

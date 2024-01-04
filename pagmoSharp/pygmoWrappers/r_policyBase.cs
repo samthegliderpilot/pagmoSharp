@@ -63,6 +63,12 @@ public class r_policyBase : global::System.IDisposable {
     return ret;
   }
 
+  public individuals_group replaceAndWrap(SWIGTYPE_p_std__tupleT_std__vectorT_unsigned_long_long_t_std__vectorT_std__vectorT_double_t_t_std__vectorT_std__vectorT_double_t_t_t a, uint b, uint c, uint d, uint e, uint f, DoubleVector g, SWIGTYPE_p_std__tupleT_std__vectorT_unsigned_long_long_t_std__vectorT_std__vectorT_double_t_t_std__vectorT_std__vectorT_double_t_t_t h) {
+    individuals_group ret = new individuals_group(pagmoPINVOKE.r_policyBase_replaceAndWrap(swigCPtr, SWIGTYPE_p_std__tupleT_std__vectorT_unsigned_long_long_t_std__vectorT_std__vectorT_double_t_t_std__vectorT_std__vectorT_double_t_t_t.getCPtr(a), b, c, d, e, f, DoubleVector.getCPtr(g), SWIGTYPE_p_std__tupleT_std__vectorT_unsigned_long_long_t_std__vectorT_std__vectorT_double_t_t_std__vectorT_std__vectorT_double_t_t_t.getCPtr(h)), true);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
   public virtual string get_name() {
     string ret = (SwigDerivedClassHasMethod("get_name", swigMethodTypes1) ? pagmoPINVOKE.r_policyBase_get_nameSwigExplicitr_policyBase(swigCPtr) : pagmoPINVOKE.r_policyBase_get_name(swigCPtr));
     return ret;

@@ -196,6 +196,7 @@ createSwigWrappersAndPlaceThem.bat</Command>
     <ClCompile Include="nloptGenerated.cxx" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="multi_objective.h" />
     <ClInclude Include="pagmoSharpSwigInterface_wrap.h" />
     <ClInclude Include="problem.h" />
     <ClInclude Include="r_policy.h" />

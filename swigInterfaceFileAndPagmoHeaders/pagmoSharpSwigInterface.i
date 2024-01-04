@@ -20,10 +20,49 @@
 	#include "problem.h" // this is a manually created item.  We want to include it in the wrappers so the generated cxx code can use the handwritten code for the problem
 	#include "r_policy.h"
 	#include "s_policy.h"
+	#include "multi_objective.h"
 %}
+// need other languages?
 
 
-//%include swigInterfaceFiles\tuple.i
+%{
+#   define SWIG_CS_EXTRA_NATIVE_CONTAINERS 
+%} 
+%typemap(out) std::vector<std::vector<ns::uint64_t> >::value_type { 
+$result = SWIG_NewPointerObj(SWIG_as_voidptr(&$1), $descriptor(std::vector<ns::uint64_t>), 0 |  0 ); 
+} 
+
+// In front(), back(), __getitem__()
+%typemap(out) std::vector<std::vector<ns::uint64_t> >::value_type & { 
+    $result = SWIG_NewPointerObj(SWIG_as_voidptr($1), $descriptor(std::vector<ns::uint64_t>), 0 |  0 ); 
+} 
+
+// In __getitem__()
+%typemap(out) ns::uint64_t {
+    $result = CSLong_FromUnsignedLongLong($1);
+}
+// Not used (but probably useful to have, just in case)
+%typemap(in) ns::uint64_t {
+    $1 = CSLong_AsUnsignedLongLong($input);
+}
+// In pop()
+%typemap(out) std::vector<ns::uint64_t>::value_type {
+    $result = CSLong_FromUnsignedLongLong($1);
+}
+// In __getitem__(), front(), back()
+%typemap(out) std::vector<ns::uint64_t>::value_type & {
+    $result = CsLong_FromUnsignedLongLong(*$1);
+}
+// In __setitem__(), append(), new Uint64Vector, push_back(), assign(), resize(), insert()
+// This allows a python long literal number to be used as a parameter to the above methods. 
+// Note the use of a local variable declared at the SWIG wrapper function scope,
+// by placing the variable declaration in parentheses () prior to the open brace {
+%typemap(in) std::vector<ns::uint64_t>::value_type & (std::vector<ns::uint64_t>::value_type temp) {
+    temp = CsLong_FromUnsignedLongLong($input);
+    $1 = &temp;
+}
+
+
 
 // The whole problem vs. problemBase question is a little confusing.  To make it better (or wo// rs// e)
 // there is a C# implicit operator to convert from problem to problemBase by calling getBaseProblem on 
@@ -42,16 +81,16 @@
 %include "pagmoWrapper/r_policy.h"
 %feature("director") pagmoWrap::s_policyBase;
 %include "pagmoWrapper/s_policy.h"
-
+%feature("director") pagmoWrap::multi_objective;
+%include "pagmoWrapper/multi_objective.h"
 //#include <tuple> // tuple is not supported by swig yet...
 %apply void *VOID_INT_PTR { void * }
 namespace std {
 	%template(DoubleVector) std::vector<double>;
 	%template(ULongLongVector) std::vector<unsigned long long>;
-	%template(VectorDoubleVector) std::vector<std::vector<double>>;
-	%template(PairOfDoubleVectors) std::pair<std::vector<double>, std::vector<double>>;
-	//%std::tuple(TupleIndividualGroup, std::vector<unsigned long long>, std::vector<vector_double>, std::vector<vector_double>);
-	//%template(individuals_group_t) std::tuple<std::vector<unsigned long long>, std::vector<vector_double>, std::vector<vector_double>>;
+	%template(PairOfDoubleVectors) std::pair<std::vector<double>, std::vector<double> >;
+	%template(VectorOfVectorIndexes) std::vector<std::vector<unsigned long long> >;
+	%template(VectorOfVectorOfDoubles) std::vector<std::vector<double> >;
 }
 	
 namespace pagmo {
@@ -64,8 +103,9 @@ namespace pagmo {
 	typedef std::vector<std::pair<vector_double::size_type, vector_double::size_type>> sparsity_pattern;
 	%rename(SWIGTYPE_p_std__vectorT_std__pairT_size_t_size_t_t_t) sparsity_pattern;
 	typedef std::vector<vector_double>::size_type pop_size_t;
-
+	typedef std::vector<std::vector<double>> VectorOfVectorOfDoubles;
 	
+
 
 	enum class thread_safety { none, basic, constant };
 
@@ -161,16 +201,13 @@ namespace pagmo {
 
 	%include swigInterfaceFiles\r_policies\fair_replace.i
 	%include swigInterfaceFiles\s_policies\select_best.i
-
 	%include swigInterfaceFiles\topologies\unconnected.i
 
 	%include swigInterfaceFiles\utils\hv_algos\hv_algorithm.i
 	//%include swigInterfaceFiles\utils\gradients_and_hessians.i // I couldn't get this to translate through swig so I just recreated the functions in C#
 	%include swigInterfaceFiles\utils\hypervolume.i
 	%include swigInterfaceFiles\utils\multi_objective.i
-
-
-}
+};
 
 %{
 #include <exception>
@@ -194,3 +231,84 @@ private:
 %};
 
 
+// TODO:
+// Fix exceptions (somehow...) to get actual message
+// algorithms:
+//   ihs
+//   nsga2
+//   moead
+//   moead_gen
+//   maco
+//   nspso
+//   ipopt (if possible)
+//   mbh
+//   cstrs_self_adaptive
+//   nlopt-augemented lagragian (might just need testing)
+
+// Problems: Not as critical
+//  griewank
+//  hock_schittkowski_71
+//  lennard_jones
+//  luksan_vlcek1
+//  rastrigin
+//  rosenbrock
+//  schwefel
+
+// Problem suites
+//   cec2006
+//   cec2009
+//   cec2013
+//   cec2014
+//   zdt (incomplete)
+//   dtlz
+//   wfg
+
+// Meta Problems
+//  decompose
+//  translate
+//  unconstrain
+
+// other .hpp files (note that some [maybe many] are taken care of in various ways already or not truly needed)
+//  utils/constrained.hpp
+//  utils/discrepancy.hpp
+//  utils/generic.hpp
+//  utils/genetic_operators.hpp
+//  utils/hv_algos/hv_bf_approx.hpp
+//  utils/hv_algos/hv_bf_fpras.hpp
+//  utils/hv_algos/hv_hv2d.hpp
+//  utils/hv_algos/hv_hv3d.hpp
+//  utils/hv_algos/hv_hvwfg.hpp
+//  topologies/free_form.hpp
+//  topologies/fully_connected.hpp
+//  topologies/ring.hpp
+//  detail/custom_comparison.hpp
+//  detail/gte_getter.hpp
+//  detail/prime_numbers.hpp
+//  detail/task_queue.hpp
+
+// NEEDS TESTING
+//  utils/multi_objective.hpp
+//  utils/bfe_impl.hpp
+//  utils/base_sr_policy.hpp
+
+
+
+//DONE BUT TAKING NOTE OF
+// CUSTOM C++ TYPES HELPING OUT:
+//  r_policy.hpp
+//  s_policy.hpp
+//  problem.hpp
+
+// NOT NEEDED or too low priority (or I don't understand why they really are needed)
+//  s11n.hpp (probably not, don't care about serialization)
+//  detail/constants.hpp
+//  detail/eigen.hpp
+//  detail/eigen_s11n.hpp
+//  detail/s1nn_wrappers.hpp
+//  detail/support_xeus_cling.hpp
+//  detail//type_names.hpp
+//  detail/typeid_name_extract.hpp
+//  detail/visibility.hpp
+
+// IMPOSSIBLE TO COMPLETE (varaidec templates)
+//  type_traits.hpp

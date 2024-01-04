@@ -196,7 +196,7 @@ namespace Tests.PagmoSharp.Algorithms
             using var problemBase = new minlp_rastrigin(2, 2);
             var problemBase2 = new ProblemWrapper(problemBase);
             using (var algorithm = CreateAlgorithm())
-            using (var pop = new population(problemBase2, 4048))
+            using (var pop = new population(problemBase2, 10000))
             {
                 algorithm.set_seed(2); // for consistent results
 
@@ -230,6 +230,7 @@ namespace Tests.PagmoSharp.Algorithms
                 algorithm.set_seed(2); // for consistent results
 
                 var finalpop = algorithm.evolve(pop);
+                //TODO: Multivariable functions don't have championions, need to refactor test!
                 var champX = finalpop.champion_x();
                 var champF = finalpop.champion_f();
                 Assert.AreEqual(4, champX.Count, "3 in x");
@@ -241,7 +242,6 @@ namespace Tests.PagmoSharp.Algorithms
                 Assert.AreEqual(1, champF.Count, "2 in f(x)");
                 Assert.AreEqual(50.017521245106849, champF[0], 0.1, "first value of champ f");
             }
-
         }
     }
 }

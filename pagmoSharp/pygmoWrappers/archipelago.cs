@@ -100,13 +100,13 @@ public partial class archipelago : global::System.IDisposable {
     return ret;
   }
 
-  public VectorDoubleVector get_champions_f() {
-    VectorDoubleVector ret = new VectorDoubleVector(pagmoPINVOKE.archipelago_get_champions_f(swigCPtr), true);
+  public VectorOfVectorOfDoubles get_champions_f() {
+    VectorOfVectorOfDoubles ret = new VectorOfVectorOfDoubles(pagmoPINVOKE.archipelago_get_champions_f(swigCPtr), true);
     return ret;
   }
 
-  public VectorDoubleVector get_champions_x() {
-    VectorDoubleVector ret = new VectorDoubleVector(pagmoPINVOKE.archipelago_get_champions_x(swigCPtr), true);
+  public VectorOfVectorOfDoubles get_champions_x() {
+    VectorOfVectorOfDoubles ret = new VectorOfVectorOfDoubles(pagmoPINVOKE.archipelago_get_champions_x(swigCPtr), true);
     return ret;
   }
 

@@ -88,8 +88,8 @@ public partial class minlp_rastrigin : global::System.IDisposable {
     return ret;
   }
 
-  public VectorDoubleVector hessians(DoubleVector arg0) {
-    VectorDoubleVector ret = new VectorDoubleVector(pagmoPINVOKE.minlp_rastrigin_hessians(swigCPtr, DoubleVector.getCPtr(arg0)), true);
+  public VectorOfVectorOfDoubles hessians(DoubleVector arg0) {
+    VectorOfVectorOfDoubles ret = new VectorOfVectorOfDoubles(pagmoPINVOKE.minlp_rastrigin_hessians(swigCPtr, DoubleVector.getCPtr(arg0)), true);
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }

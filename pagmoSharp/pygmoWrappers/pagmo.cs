@@ -11,6 +11,12 @@
 namespace pagmo {
 
 public partial class pagmo {
+  public static Fnds_Return_Type fast_non_dominated_sorting(VectorOfVectorOfDoubles vector) {
+    Fnds_Return_Type ret = new Fnds_Return_Type(pagmoPINVOKE.fast_non_dominated_sorting(VectorOfVectorOfDoubles.getCPtr(vector)), true);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
   public static void stream_impl(SWIGTYPE_p_std__ostream os, bool b) {
     pagmoPINVOKE.stream_impl(SWIGTYPE_p_std__ostream.getCPtr(os), b);
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
@@ -21,13 +27,13 @@ public partial class pagmo {
     return ret;
   }
 
-  public static void reksum(VectorDoubleVector arg0, SWIGTYPE_p_std__vectorT_size_t_t arg1, uint arg2, uint arg3, DoubleVector arg4) {
-    pagmoPINVOKE.reksum__SWIG_0(VectorDoubleVector.getCPtr(arg0), SWIGTYPE_p_std__vectorT_size_t_t.getCPtr(arg1), arg2, arg3, DoubleVector.getCPtr(arg4));
+  public static void reksum(VectorOfVectorOfDoubles arg0, SWIGTYPE_p_std__vectorT_size_t_t arg1, uint arg2, uint arg3, DoubleVector arg4) {
+    pagmoPINVOKE.reksum__SWIG_0(VectorOfVectorOfDoubles.getCPtr(arg0), SWIGTYPE_p_std__vectorT_size_t_t.getCPtr(arg1), arg2, arg3, DoubleVector.getCPtr(arg4));
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
-  public static void reksum(VectorDoubleVector arg0, SWIGTYPE_p_std__vectorT_size_t_t arg1, uint arg2, uint arg3) {
-    pagmoPINVOKE.reksum__SWIG_1(VectorDoubleVector.getCPtr(arg0), SWIGTYPE_p_std__vectorT_size_t_t.getCPtr(arg1), arg2, arg3);
+  public static void reksum(VectorOfVectorOfDoubles arg0, SWIGTYPE_p_std__vectorT_size_t_t arg1, uint arg2, uint arg3) {
+    pagmoPINVOKE.reksum__SWIG_1(VectorOfVectorOfDoubles.getCPtr(arg0), SWIGTYPE_p_std__vectorT_size_t_t.getCPtr(arg1), arg2, arg3);
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
@@ -37,44 +43,38 @@ public partial class pagmo {
     return ret;
   }
 
-  public static SWIGTYPE_p_std__vectorT_size_t_t non_dominated_front_2d(VectorDoubleVector arg0) {
-    SWIGTYPE_p_std__vectorT_size_t_t ret = new SWIGTYPE_p_std__vectorT_size_t_t(pagmoPINVOKE.non_dominated_front_2d(VectorDoubleVector.getCPtr(arg0)), true);
+  public static SWIGTYPE_p_std__vectorT_size_t_t non_dominated_front_2d(VectorOfVectorOfDoubles arg0) {
+    SWIGTYPE_p_std__vectorT_size_t_t ret = new SWIGTYPE_p_std__vectorT_size_t_t(pagmoPINVOKE.non_dominated_front_2d(VectorOfVectorOfDoubles.getCPtr(arg0)), true);
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
-  public static SWIGTYPE_p_std__tupleT_std__vectorT_std__vectorT_size_t_t_t_std__vectorT_std__vectorT_size_t_t_t_std__vectorT_size_t_t_std__vectorT_size_t_t_t fast_non_dominated_sorting(VectorDoubleVector arg0) {
-    SWIGTYPE_p_std__tupleT_std__vectorT_std__vectorT_size_t_t_t_std__vectorT_std__vectorT_size_t_t_t_std__vectorT_size_t_t_std__vectorT_size_t_t_t ret = new SWIGTYPE_p_std__tupleT_std__vectorT_std__vectorT_size_t_t_t_std__vectorT_std__vectorT_size_t_t_t_std__vectorT_size_t_t_std__vectorT_size_t_t_t(pagmoPINVOKE.fast_non_dominated_sorting(VectorDoubleVector.getCPtr(arg0)), true);
+  public static DoubleVector crowding_distance(VectorOfVectorOfDoubles arg0) {
+    DoubleVector ret = new DoubleVector(pagmoPINVOKE.crowding_distance(VectorOfVectorOfDoubles.getCPtr(arg0)), true);
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
-  public static DoubleVector crowding_distance(VectorDoubleVector arg0) {
-    DoubleVector ret = new DoubleVector(pagmoPINVOKE.crowding_distance(VectorDoubleVector.getCPtr(arg0)), true);
+  public static SWIGTYPE_p_std__vectorT_size_t_t sort_population_mo(VectorOfVectorOfDoubles arg0) {
+    SWIGTYPE_p_std__vectorT_size_t_t ret = new SWIGTYPE_p_std__vectorT_size_t_t(pagmoPINVOKE.sort_population_mo(VectorOfVectorOfDoubles.getCPtr(arg0)), true);
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
-  public static SWIGTYPE_p_std__vectorT_size_t_t sort_population_mo(VectorDoubleVector arg0) {
-    SWIGTYPE_p_std__vectorT_size_t_t ret = new SWIGTYPE_p_std__vectorT_size_t_t(pagmoPINVOKE.sort_population_mo(VectorDoubleVector.getCPtr(arg0)), true);
+  public static SWIGTYPE_p_std__vectorT_size_t_t select_best_N_mo(VectorOfVectorOfDoubles arg0, uint arg1) {
+    SWIGTYPE_p_std__vectorT_size_t_t ret = new SWIGTYPE_p_std__vectorT_size_t_t(pagmoPINVOKE.select_best_N_mo(VectorOfVectorOfDoubles.getCPtr(arg0), arg1), true);
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
-  public static SWIGTYPE_p_std__vectorT_size_t_t select_best_N_mo(VectorDoubleVector arg0, uint arg1) {
-    SWIGTYPE_p_std__vectorT_size_t_t ret = new SWIGTYPE_p_std__vectorT_size_t_t(pagmoPINVOKE.select_best_N_mo(VectorDoubleVector.getCPtr(arg0), arg1), true);
+  public static DoubleVector ideal(VectorOfVectorOfDoubles arg0) {
+    DoubleVector ret = new DoubleVector(pagmoPINVOKE.ideal(VectorOfVectorOfDoubles.getCPtr(arg0)), true);
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
-  public static DoubleVector ideal(VectorDoubleVector arg0) {
-    DoubleVector ret = new DoubleVector(pagmoPINVOKE.ideal(VectorDoubleVector.getCPtr(arg0)), true);
-    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
-    return ret;
-  }
-
-  public static DoubleVector nadir(VectorDoubleVector arg0) {
-    DoubleVector ret = new DoubleVector(pagmoPINVOKE.nadir(VectorDoubleVector.getCPtr(arg0)), true);
+  public static DoubleVector nadir(VectorOfVectorOfDoubles arg0) {
+    DoubleVector ret = new DoubleVector(pagmoPINVOKE.nadir(VectorOfVectorOfDoubles.getCPtr(arg0)), true);
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }

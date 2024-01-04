@@ -15,7 +15,7 @@ namespace Tests.PagmoSharp.Utils
         [Explicit("I don't know how this works")]
         public void TestSomething() //TODO: Obviously
         {
-            hypervolume hyper = new hypervolume(new VectorDoubleVector(new []{new DoubleVector(3, 4), new DoubleVector(3, -4), new DoubleVector(-3, -4) , new DoubleVector(-3, 4) }));
+            hypervolume hyper = new hypervolume(new VectorOfVectorOfDoubles(new []{new DoubleVector(3, 4), new DoubleVector(3, -4), new DoubleVector(-3, -4) , new DoubleVector(-3, 4) }));
             Assert.AreEqual(0, hyper.compute(new DoubleVector(3.5, 3.5)));
         }
     }

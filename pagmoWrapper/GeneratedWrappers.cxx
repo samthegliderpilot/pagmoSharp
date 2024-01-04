@@ -418,6 +418,10 @@ template <typename T> T SwigValueInit() {
 	#include "problem.h" // this is a manually created item.  We want to include it in the wrappers so the generated cxx code can use the handwritten code for the problem
 	#include "r_policy.h"
 	#include "s_policy.h"
+	#include "multi_objective.h"
+
+
+#   define SWIG_CS_EXTRA_NATIVE_CONTAINERS 
 
 
 #include <string>
@@ -705,6 +709,97 @@ SWIGINTERN bool std_vector_Sl_unsigned_SS_long_SS_long_Sg__Remove(std::vector< u
           return true;
         }
         return false;
+      }
+SWIGINTERN std::vector< std::vector< unsigned long long > > *new_std_vector_Sl_std_vector_Sl_unsigned_SS_long_SS_long_Sg__Sg___SWIG_2(int capacity){
+        std::vector< std::vector< unsigned long long > >* pv = 0;
+        if (capacity >= 0) {
+          pv = new std::vector< std::vector< unsigned long long > >();
+          pv->reserve(capacity);
+       } else {
+          throw std::out_of_range("capacity");
+       }
+       return pv;
+      }
+SWIGINTERN std::vector< unsigned long long > std_vector_Sl_std_vector_Sl_unsigned_SS_long_SS_long_Sg__Sg__getitemcopy(std::vector< std::vector< unsigned long long > > *self,int index){
+        if (index>=0 && index<(int)self->size())
+          return (*self)[index];
+        else
+          throw std::out_of_range("index");
+      }
+SWIGINTERN std::vector< std::vector< unsigned long long > >::value_type const &std_vector_Sl_std_vector_Sl_unsigned_SS_long_SS_long_Sg__Sg__getitem(std::vector< std::vector< unsigned long long > > *self,int index){
+        if (index>=0 && index<(int)self->size())
+          return (*self)[index];
+        else
+          throw std::out_of_range("index");
+      }
+SWIGINTERN void std_vector_Sl_std_vector_Sl_unsigned_SS_long_SS_long_Sg__Sg__setitem(std::vector< std::vector< unsigned long long > > *self,int index,std::vector< unsigned long long > const &val){
+        if (index>=0 && index<(int)self->size())
+          (*self)[index] = val;
+        else
+          throw std::out_of_range("index");
+      }
+SWIGINTERN void std_vector_Sl_std_vector_Sl_unsigned_SS_long_SS_long_Sg__Sg__AddRange(std::vector< std::vector< unsigned long long > > *self,std::vector< std::vector< unsigned long long > > const &values){
+        self->insert(self->end(), values.begin(), values.end());
+      }
+SWIGINTERN std::vector< std::vector< unsigned long long > > *std_vector_Sl_std_vector_Sl_unsigned_SS_long_SS_long_Sg__Sg__GetRange(std::vector< std::vector< unsigned long long > > *self,int index,int count){
+        if (index < 0)
+          throw std::out_of_range("index");
+        if (count < 0)
+          throw std::out_of_range("count");
+        if (index >= (int)self->size()+1 || index+count > (int)self->size())
+          throw std::invalid_argument("invalid range");
+        return new std::vector< std::vector< unsigned long long > >(self->begin()+index, self->begin()+index+count);
+      }
+SWIGINTERN void std_vector_Sl_std_vector_Sl_unsigned_SS_long_SS_long_Sg__Sg__Insert(std::vector< std::vector< unsigned long long > > *self,int index,std::vector< unsigned long long > const &x){
+        if (index>=0 && index<(int)self->size()+1)
+          self->insert(self->begin()+index, x);
+        else
+          throw std::out_of_range("index");
+      }
+SWIGINTERN void std_vector_Sl_std_vector_Sl_unsigned_SS_long_SS_long_Sg__Sg__InsertRange(std::vector< std::vector< unsigned long long > > *self,int index,std::vector< std::vector< unsigned long long > > const &values){
+        if (index>=0 && index<(int)self->size()+1)
+          self->insert(self->begin()+index, values.begin(), values.end());
+        else
+          throw std::out_of_range("index");
+      }
+SWIGINTERN void std_vector_Sl_std_vector_Sl_unsigned_SS_long_SS_long_Sg__Sg__RemoveAt(std::vector< std::vector< unsigned long long > > *self,int index){
+        if (index>=0 && index<(int)self->size())
+          self->erase(self->begin() + index);
+        else
+          throw std::out_of_range("index");
+      }
+SWIGINTERN void std_vector_Sl_std_vector_Sl_unsigned_SS_long_SS_long_Sg__Sg__RemoveRange(std::vector< std::vector< unsigned long long > > *self,int index,int count){
+        if (index < 0)
+          throw std::out_of_range("index");
+        if (count < 0)
+          throw std::out_of_range("count");
+        if (index >= (int)self->size()+1 || index+count > (int)self->size())
+          throw std::invalid_argument("invalid range");
+        self->erase(self->begin()+index, self->begin()+index+count);
+      }
+SWIGINTERN std::vector< std::vector< unsigned long long > > *std_vector_Sl_std_vector_Sl_unsigned_SS_long_SS_long_Sg__Sg__Repeat(std::vector< unsigned long long > const &value,int count){
+        if (count < 0)
+          throw std::out_of_range("count");
+        return new std::vector< std::vector< unsigned long long > >(count, value);
+      }
+SWIGINTERN void std_vector_Sl_std_vector_Sl_unsigned_SS_long_SS_long_Sg__Sg__Reverse__SWIG_0(std::vector< std::vector< unsigned long long > > *self){
+        std::reverse(self->begin(), self->end());
+      }
+SWIGINTERN void std_vector_Sl_std_vector_Sl_unsigned_SS_long_SS_long_Sg__Sg__Reverse__SWIG_1(std::vector< std::vector< unsigned long long > > *self,int index,int count){
+        if (index < 0)
+          throw std::out_of_range("index");
+        if (count < 0)
+          throw std::out_of_range("count");
+        if (index >= (int)self->size()+1 || index+count > (int)self->size())
+          throw std::invalid_argument("invalid range");
+        std::reverse(self->begin()+index, self->begin()+index+count);
+      }
+SWIGINTERN void std_vector_Sl_std_vector_Sl_unsigned_SS_long_SS_long_Sg__Sg__SetRange(std::vector< std::vector< unsigned long long > > *self,int index,std::vector< std::vector< unsigned long long > > const &values){
+        if (index < 0)
+          throw std::out_of_range("index");
+        if (index+values.size() > self->size())
+          throw std::out_of_range("index");
+        std::copy(values.begin(), values.end(), self->begin()+index);
       }
 SWIGINTERN std::vector< std::vector< double > > *new_std_vector_Sl_std_vector_Sl_double_Sg__Sg___SWIG_2(int capacity){
         std::vector< std::vector< double > >* pv = 0;
@@ -1136,7 +1231,7 @@ SWIGINTERN pagmo::thread_safety pagmo_zdt_get_thread_safety(pagmo::zdt const *se
 #include <sstream>
 #include <stdexcept>
 #include <string>
-#include <tuple>
+//#include <tuple>
 #include <vector>
 
 #include "boost/numeric/conversion/cast.hpp"
@@ -1149,7 +1244,8 @@ SWIGINTERN pagmo::thread_safety pagmo_zdt_get_thread_safety(pagmo::zdt const *se
 #include "pagmo/utils/multi_objective.hpp"
 
 
-#include <stdint.h>		// Use the C99 official header
+ 
+#include <vector> 
 
 
 #include <exception>
@@ -2210,6 +2306,110 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_problemPagomWrapper_gradient_sparsity
 }
 
 
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_individuals_group_Item1_set(void * jarg1, void * jarg2) {
+  pagmoWrap::individuals_group *arg1 = (pagmoWrap::individuals_group *) 0 ;
+  std::vector< unsigned long long > *arg2 = 0 ;
+  
+  arg1 = (pagmoWrap::individuals_group *)jarg1; 
+  arg2 = (std::vector< unsigned long long > *)jarg2;
+  if (!arg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "std::vector< unsigned long long > const & is null", 0);
+    return ;
+  } 
+  if (arg1) (arg1)->Item1 = *arg2;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_individuals_group_Item1_get(void * jarg1) {
+  void * jresult ;
+  pagmoWrap::individuals_group *arg1 = (pagmoWrap::individuals_group *) 0 ;
+  std::vector< unsigned long long > *result = 0 ;
+  
+  arg1 = (pagmoWrap::individuals_group *)jarg1; 
+  result = (std::vector< unsigned long long > *) & ((arg1)->Item1);
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_individuals_group_Item2_set(void * jarg1, void * jarg2) {
+  pagmoWrap::individuals_group *arg1 = (pagmoWrap::individuals_group *) 0 ;
+  std::vector< pagmoWrap::vector_double > *arg2 = 0 ;
+  
+  arg1 = (pagmoWrap::individuals_group *)jarg1; 
+  arg2 = (std::vector< pagmoWrap::vector_double > *)jarg2;
+  if (!arg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "std::vector< pagmoWrap::vector_double > const & is null", 0);
+    return ;
+  } 
+  if (arg1) (arg1)->Item2 = *arg2;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_individuals_group_Item2_get(void * jarg1) {
+  void * jresult ;
+  pagmoWrap::individuals_group *arg1 = (pagmoWrap::individuals_group *) 0 ;
+  std::vector< pagmoWrap::vector_double > *result = 0 ;
+  
+  arg1 = (pagmoWrap::individuals_group *)jarg1; 
+  result = (std::vector< pagmoWrap::vector_double > *) & ((arg1)->Item2);
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_individuals_group_Item3_set(void * jarg1, void * jarg2) {
+  pagmoWrap::individuals_group *arg1 = (pagmoWrap::individuals_group *) 0 ;
+  std::vector< pagmoWrap::vector_double > *arg2 = 0 ;
+  
+  arg1 = (pagmoWrap::individuals_group *)jarg1; 
+  arg2 = (std::vector< pagmoWrap::vector_double > *)jarg2;
+  if (!arg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "std::vector< pagmoWrap::vector_double > const & is null", 0);
+    return ;
+  } 
+  if (arg1) (arg1)->Item3 = *arg2;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_individuals_group_Item3_get(void * jarg1) {
+  void * jresult ;
+  pagmoWrap::individuals_group *arg1 = (pagmoWrap::individuals_group *) 0 ;
+  std::vector< pagmoWrap::vector_double > *result = 0 ;
+  
+  arg1 = (pagmoWrap::individuals_group *)jarg1; 
+  result = (std::vector< pagmoWrap::vector_double > *) & ((arg1)->Item3);
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_individuals_group(void * jarg1) {
+  void * jresult ;
+  SwigValueWrapper< std::tuple< std::vector< unsigned long long >,std::vector< std::vector< double > >,std::vector< std::vector< double > > > > arg1 ;
+  std::tuple< std::vector< unsigned long long >,std::vector< pagmoWrap::vector_double >,std::vector< pagmoWrap::vector_double > > *argp1 ;
+  pagmoWrap::individuals_group *result = 0 ;
+  
+  argp1 = (std::tuple< std::vector< unsigned long long >,std::vector< pagmoWrap::vector_double >,std::vector< pagmoWrap::vector_double > > *)jarg1; 
+  if (!argp1) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "Attempt to dereference null std::tuple< std::vector< unsigned long long >,std::vector< pagmoWrap::vector_double >,std::vector< pagmoWrap::vector_double > >", 0);
+    return 0;
+  }
+  arg1 = *argp1; 
+  result = (pagmoWrap::individuals_group *)new pagmoWrap::individuals_group(arg1);
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_delete_individuals_group(void * jarg1) {
+  pagmoWrap::individuals_group *arg1 = (pagmoWrap::individuals_group *) 0 ;
+  
+  arg1 = (pagmoWrap::individuals_group *)jarg1; 
+  delete arg1;
+}
+
+
 SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_delete_r_policyBase(void * jarg1) {
   pagmoWrap::r_policyBase *arg1 = (pagmoWrap::r_policyBase *) 0 ;
   
@@ -2314,6 +2514,56 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_r_policyBase_replaceSwigExplicitr_pol
   } 
   result = ((pagmoWrap::r_policyBase const *)arg1)->pagmoWrap::r_policyBase::replace((pagmo::individuals_group_t const &)*arg2,(pagmo::vector_double::size_type const &)*arg3,(pagmo::vector_double::size_type const &)*arg4,(pagmo::vector_double::size_type const &)*arg5,(pagmo::vector_double::size_type const &)*arg6,(pagmo::vector_double::size_type const &)*arg7,(pagmo::vector_double const &)*arg8,(pagmo::individuals_group_t const &)*arg9);
   jresult = new pagmo::individuals_group_t(result); 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_r_policyBase_replaceAndWrap(void * jarg1, void * jarg2, unsigned long jarg3, unsigned long jarg4, unsigned long jarg5, unsigned long jarg6, unsigned long jarg7, void * jarg8, void * jarg9) {
+  void * jresult ;
+  pagmoWrap::r_policyBase *arg1 = (pagmoWrap::r_policyBase *) 0 ;
+  pagmo::individuals_group_t *arg2 = 0 ;
+  pagmo::vector_double::size_type *arg3 = 0 ;
+  pagmo::vector_double::size_type *arg4 = 0 ;
+  pagmo::vector_double::size_type *arg5 = 0 ;
+  pagmo::vector_double::size_type *arg6 = 0 ;
+  pagmo::vector_double::size_type *arg7 = 0 ;
+  pagmo::vector_double *arg8 = 0 ;
+  pagmo::individuals_group_t *arg9 = 0 ;
+  pagmo::vector_double::size_type temp3 ;
+  pagmo::vector_double::size_type temp4 ;
+  pagmo::vector_double::size_type temp5 ;
+  pagmo::vector_double::size_type temp6 ;
+  pagmo::vector_double::size_type temp7 ;
+  SwigValueWrapper< pagmoWrap::individuals_group > result;
+  
+  arg1 = (pagmoWrap::r_policyBase *)jarg1; 
+  arg2 = (pagmo::individuals_group_t *)jarg2;
+  if (!arg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "pagmo::individuals_group_t const & is null", 0);
+    return 0;
+  } 
+  temp3 = (pagmo::vector_double::size_type)jarg3; 
+  arg3 = &temp3; 
+  temp4 = (pagmo::vector_double::size_type)jarg4; 
+  arg4 = &temp4; 
+  temp5 = (pagmo::vector_double::size_type)jarg5; 
+  arg5 = &temp5; 
+  temp6 = (pagmo::vector_double::size_type)jarg6; 
+  arg6 = &temp6; 
+  temp7 = (pagmo::vector_double::size_type)jarg7; 
+  arg7 = &temp7; 
+  arg8 = (pagmo::vector_double *)jarg8;
+  if (!arg8) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "pagmo::vector_double const & is null", 0);
+    return 0;
+  } 
+  arg9 = (pagmo::individuals_group_t *)jarg9;
+  if (!arg9) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "pagmo::individuals_group_t const & is null", 0);
+    return 0;
+  } 
+  result = ((pagmoWrap::r_policyBase const *)arg1)->replaceAndWrap((pagmo::individuals_group_t const &)*arg2,(pagmo::vector_double::size_type const &)*arg3,(pagmo::vector_double::size_type const &)*arg4,(pagmo::vector_double::size_type const &)*arg5,(pagmo::vector_double::size_type const &)*arg6,(pagmo::vector_double::size_type const &)*arg7,(pagmo::vector_double const &)*arg8,(pagmo::individuals_group_t const &)*arg9);
+  jresult = new pagmoWrap::individuals_group(result); 
   return jresult;
 }
 
@@ -2863,6 +3113,152 @@ SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_delete_s_policyPagmoWrapper(void * jarg
   
   arg1 = (pagmoWrap::s_policyPagmoWrapper *)jarg1; 
   delete arg1;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_Fnds_Return_Type_Item1_set(void * jarg1, void * jarg2) {
+  pagmoWrap::Fnds_Return_Type *arg1 = (pagmoWrap::Fnds_Return_Type *) 0 ;
+  pagmoWrap::VectorOfVectorIndexes *arg2 = 0 ;
+  
+  arg1 = (pagmoWrap::Fnds_Return_Type *)jarg1; 
+  arg2 = (pagmoWrap::VectorOfVectorIndexes *)jarg2;
+  if (!arg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "pagmoWrap::VectorOfVectorIndexes const & is null", 0);
+    return ;
+  } 
+  if (arg1) (arg1)->Item1 = *arg2;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_Fnds_Return_Type_Item1_get(void * jarg1) {
+  void * jresult ;
+  pagmoWrap::Fnds_Return_Type *arg1 = (pagmoWrap::Fnds_Return_Type *) 0 ;
+  pagmoWrap::VectorOfVectorIndexes *result = 0 ;
+  
+  arg1 = (pagmoWrap::Fnds_Return_Type *)jarg1; 
+  result = (pagmoWrap::VectorOfVectorIndexes *) & ((arg1)->Item1);
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_Fnds_Return_Type_Item2_set(void * jarg1, void * jarg2) {
+  pagmoWrap::Fnds_Return_Type *arg1 = (pagmoWrap::Fnds_Return_Type *) 0 ;
+  pagmoWrap::VectorOfVectorIndexes *arg2 = 0 ;
+  
+  arg1 = (pagmoWrap::Fnds_Return_Type *)jarg1; 
+  arg2 = (pagmoWrap::VectorOfVectorIndexes *)jarg2;
+  if (!arg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "pagmoWrap::VectorOfVectorIndexes const & is null", 0);
+    return ;
+  } 
+  if (arg1) (arg1)->Item2 = *arg2;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_Fnds_Return_Type_Item2_get(void * jarg1) {
+  void * jresult ;
+  pagmoWrap::Fnds_Return_Type *arg1 = (pagmoWrap::Fnds_Return_Type *) 0 ;
+  pagmoWrap::VectorOfVectorIndexes *result = 0 ;
+  
+  arg1 = (pagmoWrap::Fnds_Return_Type *)jarg1; 
+  result = (pagmoWrap::VectorOfVectorIndexes *) & ((arg1)->Item2);
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_Fnds_Return_Type_Item3_set(void * jarg1, void * jarg2) {
+  pagmoWrap::Fnds_Return_Type *arg1 = (pagmoWrap::Fnds_Return_Type *) 0 ;
+  std::vector< unsigned long long > *arg2 = 0 ;
+  
+  arg1 = (pagmoWrap::Fnds_Return_Type *)jarg1; 
+  arg2 = (std::vector< unsigned long long > *)jarg2;
+  if (!arg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "std::vector< unsigned long long > const & is null", 0);
+    return ;
+  } 
+  if (arg1) (arg1)->Item3 = *arg2;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_Fnds_Return_Type_Item3_get(void * jarg1) {
+  void * jresult ;
+  pagmoWrap::Fnds_Return_Type *arg1 = (pagmoWrap::Fnds_Return_Type *) 0 ;
+  std::vector< unsigned long long > *result = 0 ;
+  
+  arg1 = (pagmoWrap::Fnds_Return_Type *)jarg1; 
+  result = (std::vector< unsigned long long > *) & ((arg1)->Item3);
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_Fnds_Return_Type_Item4_set(void * jarg1, void * jarg2) {
+  pagmoWrap::Fnds_Return_Type *arg1 = (pagmoWrap::Fnds_Return_Type *) 0 ;
+  std::vector< unsigned long long > *arg2 = 0 ;
+  
+  arg1 = (pagmoWrap::Fnds_Return_Type *)jarg1; 
+  arg2 = (std::vector< unsigned long long > *)jarg2;
+  if (!arg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "std::vector< unsigned long long > const & is null", 0);
+    return ;
+  } 
+  if (arg1) (arg1)->Item4 = *arg2;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_Fnds_Return_Type_Item4_get(void * jarg1) {
+  void * jresult ;
+  pagmoWrap::Fnds_Return_Type *arg1 = (pagmoWrap::Fnds_Return_Type *) 0 ;
+  std::vector< unsigned long long > *result = 0 ;
+  
+  arg1 = (pagmoWrap::Fnds_Return_Type *)jarg1; 
+  result = (std::vector< unsigned long long > *) & ((arg1)->Item4);
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_Fnds_Return_Type(void * jarg1) {
+  void * jresult ;
+  pagmoWrap::fnds_return_type arg1 ;
+  pagmoWrap::fnds_return_type *argp1 ;
+  pagmoWrap::Fnds_Return_Type *result = 0 ;
+  
+  argp1 = (pagmoWrap::fnds_return_type *)jarg1; 
+  if (!argp1) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "Attempt to dereference null pagmoWrap::fnds_return_type", 0);
+    return 0;
+  }
+  arg1 = *argp1; 
+  result = (pagmoWrap::Fnds_Return_Type *)new pagmoWrap::Fnds_Return_Type(arg1);
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_delete_Fnds_Return_Type(void * jarg1) {
+  pagmoWrap::Fnds_Return_Type *arg1 = (pagmoWrap::Fnds_Return_Type *) 0 ;
+  
+  arg1 = (pagmoWrap::Fnds_Return_Type *)jarg1; 
+  delete arg1;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_fast_non_dominated_sorting(void * jarg1) {
+  void * jresult ;
+  std::vector< pagmoWrap::vector_double > *arg1 = 0 ;
+  SwigValueWrapper< pagmoWrap::Fnds_Return_Type > result;
+  
+  arg1 = (std::vector< pagmoWrap::vector_double > *)jarg1;
+  if (!arg1) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "std::vector< pagmoWrap::vector_double > const & is null", 0);
+    return 0;
+  } 
+  result = pagmoWrap::fast_non_dominated_sorting((std::vector< std::vector< double > > const &)*arg1);
+  jresult = new pagmoWrap::Fnds_Return_Type(result); 
+  return jresult;
 }
 
 
@@ -3684,359 +4080,6 @@ SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_delete_ULongLongVector(void * jarg1) {
 }
 
 
-SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_VectorDoubleVector_Clear(void * jarg1) {
-  std::vector< std::vector< double > > *arg1 = (std::vector< std::vector< double > > *) 0 ;
-  
-  arg1 = (std::vector< std::vector< double > > *)jarg1; 
-  (arg1)->clear();
-}
-
-
-SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_VectorDoubleVector_Add(void * jarg1, void * jarg2) {
-  std::vector< std::vector< double > > *arg1 = (std::vector< std::vector< double > > *) 0 ;
-  std::vector< double > *arg2 = 0 ;
-  
-  arg1 = (std::vector< std::vector< double > > *)jarg1; 
-  arg2 = (std::vector< double > *)jarg2;
-  if (!arg2) {
-    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "std::vector< double > const & is null", 0);
-    return ;
-  } 
-  (arg1)->push_back((std::vector< double > const &)*arg2);
-}
-
-
-SWIGEXPORT unsigned long SWIGSTDCALL CSharp_pagmo_VectorDoubleVector_size(void * jarg1) {
-  unsigned long jresult ;
-  std::vector< std::vector< double > > *arg1 = (std::vector< std::vector< double > > *) 0 ;
-  std::vector< std::vector< double > >::size_type result;
-  
-  arg1 = (std::vector< std::vector< double > > *)jarg1; 
-  result = ((std::vector< std::vector< double > > const *)arg1)->size();
-  jresult = (unsigned long)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT unsigned long SWIGSTDCALL CSharp_pagmo_VectorDoubleVector_capacity(void * jarg1) {
-  unsigned long jresult ;
-  std::vector< std::vector< double > > *arg1 = (std::vector< std::vector< double > > *) 0 ;
-  std::vector< std::vector< double > >::size_type result;
-  
-  arg1 = (std::vector< std::vector< double > > *)jarg1; 
-  result = ((std::vector< std::vector< double > > const *)arg1)->capacity();
-  jresult = (unsigned long)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_VectorDoubleVector_reserve(void * jarg1, unsigned long jarg2) {
-  std::vector< std::vector< double > > *arg1 = (std::vector< std::vector< double > > *) 0 ;
-  std::vector< std::vector< double > >::size_type arg2 ;
-  
-  arg1 = (std::vector< std::vector< double > > *)jarg1; 
-  arg2 = (std::vector< std::vector< double > >::size_type)jarg2; 
-  (arg1)->reserve(arg2);
-}
-
-
-SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_VectorDoubleVector__SWIG_0() {
-  void * jresult ;
-  std::vector< std::vector< double > > *result = 0 ;
-  
-  result = (std::vector< std::vector< double > > *)new std::vector< std::vector< double > >();
-  jresult = (void *)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_VectorDoubleVector__SWIG_1(void * jarg1) {
-  void * jresult ;
-  std::vector< std::vector< double > > *arg1 = 0 ;
-  std::vector< std::vector< double > > *result = 0 ;
-  
-  arg1 = (std::vector< std::vector< double > > *)jarg1;
-  if (!arg1) {
-    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "std::vector< std::vector< double > > const & is null", 0);
-    return 0;
-  } 
-  result = (std::vector< std::vector< double > > *)new std::vector< std::vector< double > >((std::vector< std::vector< double > > const &)*arg1);
-  jresult = (void *)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_VectorDoubleVector__SWIG_2(int jarg1) {
-  void * jresult ;
-  int arg1 ;
-  std::vector< std::vector< double > > *result = 0 ;
-  
-  arg1 = (int)jarg1; 
-  try {
-    result = (std::vector< std::vector< double > > *)new_std_vector_Sl_std_vector_Sl_double_Sg__Sg___SWIG_2(arg1);
-  } catch(std::out_of_range &_e) {
-    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
-    return 0;
-  }
-  jresult = (void *)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_VectorDoubleVector_getitemcopy(void * jarg1, int jarg2) {
-  void * jresult ;
-  std::vector< std::vector< double > > *arg1 = (std::vector< std::vector< double > > *) 0 ;
-  int arg2 ;
-  std::vector< double > result;
-  
-  arg1 = (std::vector< std::vector< double > > *)jarg1; 
-  arg2 = (int)jarg2; 
-  try {
-    result = std_vector_Sl_std_vector_Sl_double_Sg__Sg__getitemcopy(arg1,arg2);
-  } catch(std::out_of_range &_e) {
-    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
-    return 0;
-  }
-  jresult = new std::vector< double >(result); 
-  return jresult;
-}
-
-
-SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_VectorDoubleVector_getitem(void * jarg1, int jarg2) {
-  void * jresult ;
-  std::vector< std::vector< double > > *arg1 = (std::vector< std::vector< double > > *) 0 ;
-  int arg2 ;
-  std::vector< std::vector< double > >::value_type *result = 0 ;
-  
-  arg1 = (std::vector< std::vector< double > > *)jarg1; 
-  arg2 = (int)jarg2; 
-  try {
-    result = (std::vector< std::vector< double > >::value_type *) &std_vector_Sl_std_vector_Sl_double_Sg__Sg__getitem(arg1,arg2);
-  } catch(std::out_of_range &_e) {
-    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
-    return 0;
-  }
-  jresult = (void *)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_VectorDoubleVector_setitem(void * jarg1, int jarg2, void * jarg3) {
-  std::vector< std::vector< double > > *arg1 = (std::vector< std::vector< double > > *) 0 ;
-  int arg2 ;
-  std::vector< double > *arg3 = 0 ;
-  
-  arg1 = (std::vector< std::vector< double > > *)jarg1; 
-  arg2 = (int)jarg2; 
-  arg3 = (std::vector< double > *)jarg3;
-  if (!arg3) {
-    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "std::vector< double > const & is null", 0);
-    return ;
-  } 
-  try {
-    std_vector_Sl_std_vector_Sl_double_Sg__Sg__setitem(arg1,arg2,(std::vector< double > const &)*arg3);
-  } catch(std::out_of_range &_e) {
-    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
-    return ;
-  }
-}
-
-
-SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_VectorDoubleVector_AddRange(void * jarg1, void * jarg2) {
-  std::vector< std::vector< double > > *arg1 = (std::vector< std::vector< double > > *) 0 ;
-  std::vector< std::vector< double > > *arg2 = 0 ;
-  
-  arg1 = (std::vector< std::vector< double > > *)jarg1; 
-  arg2 = (std::vector< std::vector< double > > *)jarg2;
-  if (!arg2) {
-    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "std::vector< std::vector< double > > const & is null", 0);
-    return ;
-  } 
-  std_vector_Sl_std_vector_Sl_double_Sg__Sg__AddRange(arg1,(std::vector< std::vector< double > > const &)*arg2);
-}
-
-
-SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_VectorDoubleVector_GetRange(void * jarg1, int jarg2, int jarg3) {
-  void * jresult ;
-  std::vector< std::vector< double > > *arg1 = (std::vector< std::vector< double > > *) 0 ;
-  int arg2 ;
-  int arg3 ;
-  std::vector< std::vector< double > > *result = 0 ;
-  
-  arg1 = (std::vector< std::vector< double > > *)jarg1; 
-  arg2 = (int)jarg2; 
-  arg3 = (int)jarg3; 
-  try {
-    result = (std::vector< std::vector< double > > *)std_vector_Sl_std_vector_Sl_double_Sg__Sg__GetRange(arg1,arg2,arg3);
-  } catch(std::out_of_range &_e) {
-    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
-    return 0;
-  } catch(std::invalid_argument &_e) {
-    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, (&_e)->what(), "");
-    return 0;
-  }
-  jresult = (void *)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_VectorDoubleVector_Insert(void * jarg1, int jarg2, void * jarg3) {
-  std::vector< std::vector< double > > *arg1 = (std::vector< std::vector< double > > *) 0 ;
-  int arg2 ;
-  std::vector< double > *arg3 = 0 ;
-  
-  arg1 = (std::vector< std::vector< double > > *)jarg1; 
-  arg2 = (int)jarg2; 
-  arg3 = (std::vector< double > *)jarg3;
-  if (!arg3) {
-    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "std::vector< double > const & is null", 0);
-    return ;
-  } 
-  try {
-    std_vector_Sl_std_vector_Sl_double_Sg__Sg__Insert(arg1,arg2,(std::vector< double > const &)*arg3);
-  } catch(std::out_of_range &_e) {
-    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
-    return ;
-  }
-}
-
-
-SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_VectorDoubleVector_InsertRange(void * jarg1, int jarg2, void * jarg3) {
-  std::vector< std::vector< double > > *arg1 = (std::vector< std::vector< double > > *) 0 ;
-  int arg2 ;
-  std::vector< std::vector< double > > *arg3 = 0 ;
-  
-  arg1 = (std::vector< std::vector< double > > *)jarg1; 
-  arg2 = (int)jarg2; 
-  arg3 = (std::vector< std::vector< double > > *)jarg3;
-  if (!arg3) {
-    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "std::vector< std::vector< double > > const & is null", 0);
-    return ;
-  } 
-  try {
-    std_vector_Sl_std_vector_Sl_double_Sg__Sg__InsertRange(arg1,arg2,(std::vector< std::vector< double > > const &)*arg3);
-  } catch(std::out_of_range &_e) {
-    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
-    return ;
-  }
-}
-
-
-SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_VectorDoubleVector_RemoveAt(void * jarg1, int jarg2) {
-  std::vector< std::vector< double > > *arg1 = (std::vector< std::vector< double > > *) 0 ;
-  int arg2 ;
-  
-  arg1 = (std::vector< std::vector< double > > *)jarg1; 
-  arg2 = (int)jarg2; 
-  try {
-    std_vector_Sl_std_vector_Sl_double_Sg__Sg__RemoveAt(arg1,arg2);
-  } catch(std::out_of_range &_e) {
-    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
-    return ;
-  }
-}
-
-
-SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_VectorDoubleVector_RemoveRange(void * jarg1, int jarg2, int jarg3) {
-  std::vector< std::vector< double > > *arg1 = (std::vector< std::vector< double > > *) 0 ;
-  int arg2 ;
-  int arg3 ;
-  
-  arg1 = (std::vector< std::vector< double > > *)jarg1; 
-  arg2 = (int)jarg2; 
-  arg3 = (int)jarg3; 
-  try {
-    std_vector_Sl_std_vector_Sl_double_Sg__Sg__RemoveRange(arg1,arg2,arg3);
-  } catch(std::out_of_range &_e) {
-    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
-    return ;
-  } catch(std::invalid_argument &_e) {
-    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, (&_e)->what(), "");
-    return ;
-  }
-}
-
-
-SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_VectorDoubleVector_Repeat(void * jarg1, int jarg2) {
-  void * jresult ;
-  std::vector< double > *arg1 = 0 ;
-  int arg2 ;
-  std::vector< std::vector< double > > *result = 0 ;
-  
-  arg1 = (std::vector< double > *)jarg1;
-  if (!arg1) {
-    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "std::vector< double > const & is null", 0);
-    return 0;
-  } 
-  arg2 = (int)jarg2; 
-  try {
-    result = (std::vector< std::vector< double > > *)std_vector_Sl_std_vector_Sl_double_Sg__Sg__Repeat((std::vector< double > const &)*arg1,arg2);
-  } catch(std::out_of_range &_e) {
-    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
-    return 0;
-  }
-  jresult = (void *)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_VectorDoubleVector_Reverse__SWIG_0(void * jarg1) {
-  std::vector< std::vector< double > > *arg1 = (std::vector< std::vector< double > > *) 0 ;
-  
-  arg1 = (std::vector< std::vector< double > > *)jarg1; 
-  std_vector_Sl_std_vector_Sl_double_Sg__Sg__Reverse__SWIG_0(arg1);
-}
-
-
-SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_VectorDoubleVector_Reverse__SWIG_1(void * jarg1, int jarg2, int jarg3) {
-  std::vector< std::vector< double > > *arg1 = (std::vector< std::vector< double > > *) 0 ;
-  int arg2 ;
-  int arg3 ;
-  
-  arg1 = (std::vector< std::vector< double > > *)jarg1; 
-  arg2 = (int)jarg2; 
-  arg3 = (int)jarg3; 
-  try {
-    std_vector_Sl_std_vector_Sl_double_Sg__Sg__Reverse__SWIG_1(arg1,arg2,arg3);
-  } catch(std::out_of_range &_e) {
-    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
-    return ;
-  } catch(std::invalid_argument &_e) {
-    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, (&_e)->what(), "");
-    return ;
-  }
-}
-
-
-SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_VectorDoubleVector_SetRange(void * jarg1, int jarg2, void * jarg3) {
-  std::vector< std::vector< double > > *arg1 = (std::vector< std::vector< double > > *) 0 ;
-  int arg2 ;
-  std::vector< std::vector< double > > *arg3 = 0 ;
-  
-  arg1 = (std::vector< std::vector< double > > *)jarg1; 
-  arg2 = (int)jarg2; 
-  arg3 = (std::vector< std::vector< double > > *)jarg3;
-  if (!arg3) {
-    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "std::vector< std::vector< double > > const & is null", 0);
-    return ;
-  } 
-  try {
-    std_vector_Sl_std_vector_Sl_double_Sg__Sg__SetRange(arg1,arg2,(std::vector< std::vector< double > > const &)*arg3);
-  } catch(std::out_of_range &_e) {
-    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
-    return ;
-  }
-}
-
-
-SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_delete_VectorDoubleVector(void * jarg1) {
-  std::vector< std::vector< double > > *arg1 = (std::vector< std::vector< double > > *) 0 ;
-  
-  arg1 = (std::vector< std::vector< double > > *)jarg1; 
-  delete arg1;
-}
-
-
 SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_PairOfDoubleVectors__SWIG_0() {
   void * jresult ;
   std::pair< std::vector< double >,std::vector< double > > *result = 0 ;
@@ -4145,6 +4188,712 @@ SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_delete_PairOfDoubleVectors(void * jarg1
   std::pair< std::vector< double >,std::vector< double > > *arg1 = (std::pair< std::vector< double >,std::vector< double > > *) 0 ;
   
   arg1 = (std::pair< std::vector< double >,std::vector< double > > *)jarg1; 
+  delete arg1;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_VectorOfVectorIndexes_Clear(void * jarg1) {
+  std::vector< std::vector< unsigned long long > > *arg1 = (std::vector< std::vector< unsigned long long > > *) 0 ;
+  
+  arg1 = (std::vector< std::vector< unsigned long long > > *)jarg1; 
+  (arg1)->clear();
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_VectorOfVectorIndexes_Add(void * jarg1, void * jarg2) {
+  std::vector< std::vector< unsigned long long > > *arg1 = (std::vector< std::vector< unsigned long long > > *) 0 ;
+  std::vector< unsigned long long > *arg2 = 0 ;
+  
+  arg1 = (std::vector< std::vector< unsigned long long > > *)jarg1; 
+  arg2 = (std::vector< unsigned long long > *)jarg2;
+  if (!arg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "std::vector< unsigned long long > const & is null", 0);
+    return ;
+  } 
+  (arg1)->push_back((std::vector< unsigned long long > const &)*arg2);
+}
+
+
+SWIGEXPORT unsigned long SWIGSTDCALL CSharp_pagmo_VectorOfVectorIndexes_size(void * jarg1) {
+  unsigned long jresult ;
+  std::vector< std::vector< unsigned long long > > *arg1 = (std::vector< std::vector< unsigned long long > > *) 0 ;
+  std::vector< std::vector< unsigned long long > >::size_type result;
+  
+  arg1 = (std::vector< std::vector< unsigned long long > > *)jarg1; 
+  result = ((std::vector< std::vector< unsigned long long > > const *)arg1)->size();
+  jresult = (unsigned long)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT unsigned long SWIGSTDCALL CSharp_pagmo_VectorOfVectorIndexes_capacity(void * jarg1) {
+  unsigned long jresult ;
+  std::vector< std::vector< unsigned long long > > *arg1 = (std::vector< std::vector< unsigned long long > > *) 0 ;
+  std::vector< std::vector< unsigned long long > >::size_type result;
+  
+  arg1 = (std::vector< std::vector< unsigned long long > > *)jarg1; 
+  result = ((std::vector< std::vector< unsigned long long > > const *)arg1)->capacity();
+  jresult = (unsigned long)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_VectorOfVectorIndexes_reserve(void * jarg1, unsigned long jarg2) {
+  std::vector< std::vector< unsigned long long > > *arg1 = (std::vector< std::vector< unsigned long long > > *) 0 ;
+  std::vector< std::vector< unsigned long long > >::size_type arg2 ;
+  
+  arg1 = (std::vector< std::vector< unsigned long long > > *)jarg1; 
+  arg2 = (std::vector< std::vector< unsigned long long > >::size_type)jarg2; 
+  (arg1)->reserve(arg2);
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_VectorOfVectorIndexes__SWIG_0() {
+  void * jresult ;
+  std::vector< std::vector< unsigned long long > > *result = 0 ;
+  
+  result = (std::vector< std::vector< unsigned long long > > *)new std::vector< std::vector< unsigned long long > >();
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_VectorOfVectorIndexes__SWIG_1(void * jarg1) {
+  void * jresult ;
+  std::vector< std::vector< unsigned long long > > *arg1 = 0 ;
+  std::vector< std::vector< unsigned long long > > *result = 0 ;
+  
+  arg1 = (std::vector< std::vector< unsigned long long > > *)jarg1;
+  if (!arg1) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "std::vector< std::vector< unsigned long long > > const & is null", 0);
+    return 0;
+  } 
+  result = (std::vector< std::vector< unsigned long long > > *)new std::vector< std::vector< unsigned long long > >((std::vector< std::vector< unsigned long long > > const &)*arg1);
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_VectorOfVectorIndexes__SWIG_2(int jarg1) {
+  void * jresult ;
+  int arg1 ;
+  std::vector< std::vector< unsigned long long > > *result = 0 ;
+  
+  arg1 = (int)jarg1; 
+  try {
+    result = (std::vector< std::vector< unsigned long long > > *)new_std_vector_Sl_std_vector_Sl_unsigned_SS_long_SS_long_Sg__Sg___SWIG_2(arg1);
+  } catch(std::out_of_range &_e) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+    return 0;
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_VectorOfVectorIndexes_getitemcopy(void * jarg1, int jarg2) {
+  void * jresult ;
+  std::vector< std::vector< unsigned long long > > *arg1 = (std::vector< std::vector< unsigned long long > > *) 0 ;
+  int arg2 ;
+  std::vector< unsigned long long > result;
+  
+  arg1 = (std::vector< std::vector< unsigned long long > > *)jarg1; 
+  arg2 = (int)jarg2; 
+  try {
+    result = std_vector_Sl_std_vector_Sl_unsigned_SS_long_SS_long_Sg__Sg__getitemcopy(arg1,arg2);
+  } catch(std::out_of_range &_e) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+    return 0;
+  }
+  jresult = new std::vector< unsigned long long >(result); 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_VectorOfVectorIndexes_getitem(void * jarg1, int jarg2) {
+  void * jresult ;
+  std::vector< std::vector< unsigned long long > > *arg1 = (std::vector< std::vector< unsigned long long > > *) 0 ;
+  int arg2 ;
+  std::vector< std::vector< unsigned long long > >::value_type *result = 0 ;
+  
+  arg1 = (std::vector< std::vector< unsigned long long > > *)jarg1; 
+  arg2 = (int)jarg2; 
+  try {
+    result = (std::vector< std::vector< unsigned long long > >::value_type *) &std_vector_Sl_std_vector_Sl_unsigned_SS_long_SS_long_Sg__Sg__getitem(arg1,arg2);
+  } catch(std::out_of_range &_e) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+    return 0;
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_VectorOfVectorIndexes_setitem(void * jarg1, int jarg2, void * jarg3) {
+  std::vector< std::vector< unsigned long long > > *arg1 = (std::vector< std::vector< unsigned long long > > *) 0 ;
+  int arg2 ;
+  std::vector< unsigned long long > *arg3 = 0 ;
+  
+  arg1 = (std::vector< std::vector< unsigned long long > > *)jarg1; 
+  arg2 = (int)jarg2; 
+  arg3 = (std::vector< unsigned long long > *)jarg3;
+  if (!arg3) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "std::vector< unsigned long long > const & is null", 0);
+    return ;
+  } 
+  try {
+    std_vector_Sl_std_vector_Sl_unsigned_SS_long_SS_long_Sg__Sg__setitem(arg1,arg2,(std::vector< unsigned long long > const &)*arg3);
+  } catch(std::out_of_range &_e) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+    return ;
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_VectorOfVectorIndexes_AddRange(void * jarg1, void * jarg2) {
+  std::vector< std::vector< unsigned long long > > *arg1 = (std::vector< std::vector< unsigned long long > > *) 0 ;
+  std::vector< std::vector< unsigned long long > > *arg2 = 0 ;
+  
+  arg1 = (std::vector< std::vector< unsigned long long > > *)jarg1; 
+  arg2 = (std::vector< std::vector< unsigned long long > > *)jarg2;
+  if (!arg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "std::vector< std::vector< unsigned long long > > const & is null", 0);
+    return ;
+  } 
+  std_vector_Sl_std_vector_Sl_unsigned_SS_long_SS_long_Sg__Sg__AddRange(arg1,(std::vector< std::vector< unsigned long long > > const &)*arg2);
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_VectorOfVectorIndexes_GetRange(void * jarg1, int jarg2, int jarg3) {
+  void * jresult ;
+  std::vector< std::vector< unsigned long long > > *arg1 = (std::vector< std::vector< unsigned long long > > *) 0 ;
+  int arg2 ;
+  int arg3 ;
+  std::vector< std::vector< unsigned long long > > *result = 0 ;
+  
+  arg1 = (std::vector< std::vector< unsigned long long > > *)jarg1; 
+  arg2 = (int)jarg2; 
+  arg3 = (int)jarg3; 
+  try {
+    result = (std::vector< std::vector< unsigned long long > > *)std_vector_Sl_std_vector_Sl_unsigned_SS_long_SS_long_Sg__Sg__GetRange(arg1,arg2,arg3);
+  } catch(std::out_of_range &_e) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+    return 0;
+  } catch(std::invalid_argument &_e) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, (&_e)->what(), "");
+    return 0;
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_VectorOfVectorIndexes_Insert(void * jarg1, int jarg2, void * jarg3) {
+  std::vector< std::vector< unsigned long long > > *arg1 = (std::vector< std::vector< unsigned long long > > *) 0 ;
+  int arg2 ;
+  std::vector< unsigned long long > *arg3 = 0 ;
+  
+  arg1 = (std::vector< std::vector< unsigned long long > > *)jarg1; 
+  arg2 = (int)jarg2; 
+  arg3 = (std::vector< unsigned long long > *)jarg3;
+  if (!arg3) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "std::vector< unsigned long long > const & is null", 0);
+    return ;
+  } 
+  try {
+    std_vector_Sl_std_vector_Sl_unsigned_SS_long_SS_long_Sg__Sg__Insert(arg1,arg2,(std::vector< unsigned long long > const &)*arg3);
+  } catch(std::out_of_range &_e) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+    return ;
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_VectorOfVectorIndexes_InsertRange(void * jarg1, int jarg2, void * jarg3) {
+  std::vector< std::vector< unsigned long long > > *arg1 = (std::vector< std::vector< unsigned long long > > *) 0 ;
+  int arg2 ;
+  std::vector< std::vector< unsigned long long > > *arg3 = 0 ;
+  
+  arg1 = (std::vector< std::vector< unsigned long long > > *)jarg1; 
+  arg2 = (int)jarg2; 
+  arg3 = (std::vector< std::vector< unsigned long long > > *)jarg3;
+  if (!arg3) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "std::vector< std::vector< unsigned long long > > const & is null", 0);
+    return ;
+  } 
+  try {
+    std_vector_Sl_std_vector_Sl_unsigned_SS_long_SS_long_Sg__Sg__InsertRange(arg1,arg2,(std::vector< std::vector< unsigned long long > > const &)*arg3);
+  } catch(std::out_of_range &_e) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+    return ;
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_VectorOfVectorIndexes_RemoveAt(void * jarg1, int jarg2) {
+  std::vector< std::vector< unsigned long long > > *arg1 = (std::vector< std::vector< unsigned long long > > *) 0 ;
+  int arg2 ;
+  
+  arg1 = (std::vector< std::vector< unsigned long long > > *)jarg1; 
+  arg2 = (int)jarg2; 
+  try {
+    std_vector_Sl_std_vector_Sl_unsigned_SS_long_SS_long_Sg__Sg__RemoveAt(arg1,arg2);
+  } catch(std::out_of_range &_e) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+    return ;
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_VectorOfVectorIndexes_RemoveRange(void * jarg1, int jarg2, int jarg3) {
+  std::vector< std::vector< unsigned long long > > *arg1 = (std::vector< std::vector< unsigned long long > > *) 0 ;
+  int arg2 ;
+  int arg3 ;
+  
+  arg1 = (std::vector< std::vector< unsigned long long > > *)jarg1; 
+  arg2 = (int)jarg2; 
+  arg3 = (int)jarg3; 
+  try {
+    std_vector_Sl_std_vector_Sl_unsigned_SS_long_SS_long_Sg__Sg__RemoveRange(arg1,arg2,arg3);
+  } catch(std::out_of_range &_e) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+    return ;
+  } catch(std::invalid_argument &_e) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, (&_e)->what(), "");
+    return ;
+  }
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_VectorOfVectorIndexes_Repeat(void * jarg1, int jarg2) {
+  void * jresult ;
+  std::vector< unsigned long long > *arg1 = 0 ;
+  int arg2 ;
+  std::vector< std::vector< unsigned long long > > *result = 0 ;
+  
+  arg1 = (std::vector< unsigned long long > *)jarg1;
+  if (!arg1) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "std::vector< unsigned long long > const & is null", 0);
+    return 0;
+  } 
+  arg2 = (int)jarg2; 
+  try {
+    result = (std::vector< std::vector< unsigned long long > > *)std_vector_Sl_std_vector_Sl_unsigned_SS_long_SS_long_Sg__Sg__Repeat((std::vector< unsigned long long > const &)*arg1,arg2);
+  } catch(std::out_of_range &_e) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+    return 0;
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_VectorOfVectorIndexes_Reverse__SWIG_0(void * jarg1) {
+  std::vector< std::vector< unsigned long long > > *arg1 = (std::vector< std::vector< unsigned long long > > *) 0 ;
+  
+  arg1 = (std::vector< std::vector< unsigned long long > > *)jarg1; 
+  std_vector_Sl_std_vector_Sl_unsigned_SS_long_SS_long_Sg__Sg__Reverse__SWIG_0(arg1);
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_VectorOfVectorIndexes_Reverse__SWIG_1(void * jarg1, int jarg2, int jarg3) {
+  std::vector< std::vector< unsigned long long > > *arg1 = (std::vector< std::vector< unsigned long long > > *) 0 ;
+  int arg2 ;
+  int arg3 ;
+  
+  arg1 = (std::vector< std::vector< unsigned long long > > *)jarg1; 
+  arg2 = (int)jarg2; 
+  arg3 = (int)jarg3; 
+  try {
+    std_vector_Sl_std_vector_Sl_unsigned_SS_long_SS_long_Sg__Sg__Reverse__SWIG_1(arg1,arg2,arg3);
+  } catch(std::out_of_range &_e) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+    return ;
+  } catch(std::invalid_argument &_e) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, (&_e)->what(), "");
+    return ;
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_VectorOfVectorIndexes_SetRange(void * jarg1, int jarg2, void * jarg3) {
+  std::vector< std::vector< unsigned long long > > *arg1 = (std::vector< std::vector< unsigned long long > > *) 0 ;
+  int arg2 ;
+  std::vector< std::vector< unsigned long long > > *arg3 = 0 ;
+  
+  arg1 = (std::vector< std::vector< unsigned long long > > *)jarg1; 
+  arg2 = (int)jarg2; 
+  arg3 = (std::vector< std::vector< unsigned long long > > *)jarg3;
+  if (!arg3) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "std::vector< std::vector< unsigned long long > > const & is null", 0);
+    return ;
+  } 
+  try {
+    std_vector_Sl_std_vector_Sl_unsigned_SS_long_SS_long_Sg__Sg__SetRange(arg1,arg2,(std::vector< std::vector< unsigned long long > > const &)*arg3);
+  } catch(std::out_of_range &_e) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+    return ;
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_delete_VectorOfVectorIndexes(void * jarg1) {
+  std::vector< std::vector< unsigned long long > > *arg1 = (std::vector< std::vector< unsigned long long > > *) 0 ;
+  
+  arg1 = (std::vector< std::vector< unsigned long long > > *)jarg1; 
+  delete arg1;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_VectorOfVectorOfDoubles_Clear(void * jarg1) {
+  std::vector< std::vector< double > > *arg1 = (std::vector< std::vector< double > > *) 0 ;
+  
+  arg1 = (std::vector< std::vector< double > > *)jarg1; 
+  (arg1)->clear();
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_VectorOfVectorOfDoubles_Add(void * jarg1, void * jarg2) {
+  std::vector< std::vector< double > > *arg1 = (std::vector< std::vector< double > > *) 0 ;
+  std::vector< double > *arg2 = 0 ;
+  
+  arg1 = (std::vector< std::vector< double > > *)jarg1; 
+  arg2 = (std::vector< double > *)jarg2;
+  if (!arg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "std::vector< double > const & is null", 0);
+    return ;
+  } 
+  (arg1)->push_back((std::vector< double > const &)*arg2);
+}
+
+
+SWIGEXPORT unsigned long SWIGSTDCALL CSharp_pagmo_VectorOfVectorOfDoubles_size(void * jarg1) {
+  unsigned long jresult ;
+  std::vector< std::vector< double > > *arg1 = (std::vector< std::vector< double > > *) 0 ;
+  std::vector< std::vector< double > >::size_type result;
+  
+  arg1 = (std::vector< std::vector< double > > *)jarg1; 
+  result = ((std::vector< std::vector< double > > const *)arg1)->size();
+  jresult = (unsigned long)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT unsigned long SWIGSTDCALL CSharp_pagmo_VectorOfVectorOfDoubles_capacity(void * jarg1) {
+  unsigned long jresult ;
+  std::vector< std::vector< double > > *arg1 = (std::vector< std::vector< double > > *) 0 ;
+  std::vector< std::vector< double > >::size_type result;
+  
+  arg1 = (std::vector< std::vector< double > > *)jarg1; 
+  result = ((std::vector< std::vector< double > > const *)arg1)->capacity();
+  jresult = (unsigned long)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_VectorOfVectorOfDoubles_reserve(void * jarg1, unsigned long jarg2) {
+  std::vector< std::vector< double > > *arg1 = (std::vector< std::vector< double > > *) 0 ;
+  std::vector< std::vector< double > >::size_type arg2 ;
+  
+  arg1 = (std::vector< std::vector< double > > *)jarg1; 
+  arg2 = (std::vector< std::vector< double > >::size_type)jarg2; 
+  (arg1)->reserve(arg2);
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_VectorOfVectorOfDoubles__SWIG_0() {
+  void * jresult ;
+  std::vector< std::vector< double > > *result = 0 ;
+  
+  result = (std::vector< std::vector< double > > *)new std::vector< std::vector< double > >();
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_VectorOfVectorOfDoubles__SWIG_1(void * jarg1) {
+  void * jresult ;
+  std::vector< std::vector< double > > *arg1 = 0 ;
+  std::vector< std::vector< double > > *result = 0 ;
+  
+  arg1 = (std::vector< std::vector< double > > *)jarg1;
+  if (!arg1) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "std::vector< std::vector< double > > const & is null", 0);
+    return 0;
+  } 
+  result = (std::vector< std::vector< double > > *)new std::vector< std::vector< double > >((std::vector< std::vector< double > > const &)*arg1);
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_VectorOfVectorOfDoubles__SWIG_2(int jarg1) {
+  void * jresult ;
+  int arg1 ;
+  std::vector< std::vector< double > > *result = 0 ;
+  
+  arg1 = (int)jarg1; 
+  try {
+    result = (std::vector< std::vector< double > > *)new_std_vector_Sl_std_vector_Sl_double_Sg__Sg___SWIG_2(arg1);
+  } catch(std::out_of_range &_e) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+    return 0;
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_VectorOfVectorOfDoubles_getitemcopy(void * jarg1, int jarg2) {
+  void * jresult ;
+  std::vector< std::vector< double > > *arg1 = (std::vector< std::vector< double > > *) 0 ;
+  int arg2 ;
+  std::vector< double > result;
+  
+  arg1 = (std::vector< std::vector< double > > *)jarg1; 
+  arg2 = (int)jarg2; 
+  try {
+    result = std_vector_Sl_std_vector_Sl_double_Sg__Sg__getitemcopy(arg1,arg2);
+  } catch(std::out_of_range &_e) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+    return 0;
+  }
+  jresult = new std::vector< double >(result); 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_VectorOfVectorOfDoubles_getitem(void * jarg1, int jarg2) {
+  void * jresult ;
+  std::vector< std::vector< double > > *arg1 = (std::vector< std::vector< double > > *) 0 ;
+  int arg2 ;
+  std::vector< std::vector< double > >::value_type *result = 0 ;
+  
+  arg1 = (std::vector< std::vector< double > > *)jarg1; 
+  arg2 = (int)jarg2; 
+  try {
+    result = (std::vector< std::vector< double > >::value_type *) &std_vector_Sl_std_vector_Sl_double_Sg__Sg__getitem(arg1,arg2);
+  } catch(std::out_of_range &_e) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+    return 0;
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_VectorOfVectorOfDoubles_setitem(void * jarg1, int jarg2, void * jarg3) {
+  std::vector< std::vector< double > > *arg1 = (std::vector< std::vector< double > > *) 0 ;
+  int arg2 ;
+  std::vector< double > *arg3 = 0 ;
+  
+  arg1 = (std::vector< std::vector< double > > *)jarg1; 
+  arg2 = (int)jarg2; 
+  arg3 = (std::vector< double > *)jarg3;
+  if (!arg3) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "std::vector< double > const & is null", 0);
+    return ;
+  } 
+  try {
+    std_vector_Sl_std_vector_Sl_double_Sg__Sg__setitem(arg1,arg2,(std::vector< double > const &)*arg3);
+  } catch(std::out_of_range &_e) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+    return ;
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_VectorOfVectorOfDoubles_AddRange(void * jarg1, void * jarg2) {
+  std::vector< std::vector< double > > *arg1 = (std::vector< std::vector< double > > *) 0 ;
+  std::vector< std::vector< double > > *arg2 = 0 ;
+  
+  arg1 = (std::vector< std::vector< double > > *)jarg1; 
+  arg2 = (std::vector< std::vector< double > > *)jarg2;
+  if (!arg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "std::vector< std::vector< double > > const & is null", 0);
+    return ;
+  } 
+  std_vector_Sl_std_vector_Sl_double_Sg__Sg__AddRange(arg1,(std::vector< std::vector< double > > const &)*arg2);
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_VectorOfVectorOfDoubles_GetRange(void * jarg1, int jarg2, int jarg3) {
+  void * jresult ;
+  std::vector< std::vector< double > > *arg1 = (std::vector< std::vector< double > > *) 0 ;
+  int arg2 ;
+  int arg3 ;
+  std::vector< std::vector< double > > *result = 0 ;
+  
+  arg1 = (std::vector< std::vector< double > > *)jarg1; 
+  arg2 = (int)jarg2; 
+  arg3 = (int)jarg3; 
+  try {
+    result = (std::vector< std::vector< double > > *)std_vector_Sl_std_vector_Sl_double_Sg__Sg__GetRange(arg1,arg2,arg3);
+  } catch(std::out_of_range &_e) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+    return 0;
+  } catch(std::invalid_argument &_e) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, (&_e)->what(), "");
+    return 0;
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_VectorOfVectorOfDoubles_Insert(void * jarg1, int jarg2, void * jarg3) {
+  std::vector< std::vector< double > > *arg1 = (std::vector< std::vector< double > > *) 0 ;
+  int arg2 ;
+  std::vector< double > *arg3 = 0 ;
+  
+  arg1 = (std::vector< std::vector< double > > *)jarg1; 
+  arg2 = (int)jarg2; 
+  arg3 = (std::vector< double > *)jarg3;
+  if (!arg3) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "std::vector< double > const & is null", 0);
+    return ;
+  } 
+  try {
+    std_vector_Sl_std_vector_Sl_double_Sg__Sg__Insert(arg1,arg2,(std::vector< double > const &)*arg3);
+  } catch(std::out_of_range &_e) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+    return ;
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_VectorOfVectorOfDoubles_InsertRange(void * jarg1, int jarg2, void * jarg3) {
+  std::vector< std::vector< double > > *arg1 = (std::vector< std::vector< double > > *) 0 ;
+  int arg2 ;
+  std::vector< std::vector< double > > *arg3 = 0 ;
+  
+  arg1 = (std::vector< std::vector< double > > *)jarg1; 
+  arg2 = (int)jarg2; 
+  arg3 = (std::vector< std::vector< double > > *)jarg3;
+  if (!arg3) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "std::vector< std::vector< double > > const & is null", 0);
+    return ;
+  } 
+  try {
+    std_vector_Sl_std_vector_Sl_double_Sg__Sg__InsertRange(arg1,arg2,(std::vector< std::vector< double > > const &)*arg3);
+  } catch(std::out_of_range &_e) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+    return ;
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_VectorOfVectorOfDoubles_RemoveAt(void * jarg1, int jarg2) {
+  std::vector< std::vector< double > > *arg1 = (std::vector< std::vector< double > > *) 0 ;
+  int arg2 ;
+  
+  arg1 = (std::vector< std::vector< double > > *)jarg1; 
+  arg2 = (int)jarg2; 
+  try {
+    std_vector_Sl_std_vector_Sl_double_Sg__Sg__RemoveAt(arg1,arg2);
+  } catch(std::out_of_range &_e) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+    return ;
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_VectorOfVectorOfDoubles_RemoveRange(void * jarg1, int jarg2, int jarg3) {
+  std::vector< std::vector< double > > *arg1 = (std::vector< std::vector< double > > *) 0 ;
+  int arg2 ;
+  int arg3 ;
+  
+  arg1 = (std::vector< std::vector< double > > *)jarg1; 
+  arg2 = (int)jarg2; 
+  arg3 = (int)jarg3; 
+  try {
+    std_vector_Sl_std_vector_Sl_double_Sg__Sg__RemoveRange(arg1,arg2,arg3);
+  } catch(std::out_of_range &_e) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+    return ;
+  } catch(std::invalid_argument &_e) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, (&_e)->what(), "");
+    return ;
+  }
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_VectorOfVectorOfDoubles_Repeat(void * jarg1, int jarg2) {
+  void * jresult ;
+  std::vector< double > *arg1 = 0 ;
+  int arg2 ;
+  std::vector< std::vector< double > > *result = 0 ;
+  
+  arg1 = (std::vector< double > *)jarg1;
+  if (!arg1) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "std::vector< double > const & is null", 0);
+    return 0;
+  } 
+  arg2 = (int)jarg2; 
+  try {
+    result = (std::vector< std::vector< double > > *)std_vector_Sl_std_vector_Sl_double_Sg__Sg__Repeat((std::vector< double > const &)*arg1,arg2);
+  } catch(std::out_of_range &_e) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+    return 0;
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_VectorOfVectorOfDoubles_Reverse__SWIG_0(void * jarg1) {
+  std::vector< std::vector< double > > *arg1 = (std::vector< std::vector< double > > *) 0 ;
+  
+  arg1 = (std::vector< std::vector< double > > *)jarg1; 
+  std_vector_Sl_std_vector_Sl_double_Sg__Sg__Reverse__SWIG_0(arg1);
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_VectorOfVectorOfDoubles_Reverse__SWIG_1(void * jarg1, int jarg2, int jarg3) {
+  std::vector< std::vector< double > > *arg1 = (std::vector< std::vector< double > > *) 0 ;
+  int arg2 ;
+  int arg3 ;
+  
+  arg1 = (std::vector< std::vector< double > > *)jarg1; 
+  arg2 = (int)jarg2; 
+  arg3 = (int)jarg3; 
+  try {
+    std_vector_Sl_std_vector_Sl_double_Sg__Sg__Reverse__SWIG_1(arg1,arg2,arg3);
+  } catch(std::out_of_range &_e) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+    return ;
+  } catch(std::invalid_argument &_e) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, (&_e)->what(), "");
+    return ;
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_VectorOfVectorOfDoubles_SetRange(void * jarg1, int jarg2, void * jarg3) {
+  std::vector< std::vector< double > > *arg1 = (std::vector< std::vector< double > > *) 0 ;
+  int arg2 ;
+  std::vector< std::vector< double > > *arg3 = 0 ;
+  
+  arg1 = (std::vector< std::vector< double > > *)jarg1; 
+  arg2 = (int)jarg2; 
+  arg3 = (std::vector< std::vector< double > > *)jarg3;
+  if (!arg3) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "std::vector< std::vector< double > > const & is null", 0);
+    return ;
+  } 
+  try {
+    std_vector_Sl_std_vector_Sl_double_Sg__Sg__SetRange(arg1,arg2,(std::vector< std::vector< double > > const &)*arg3);
+  } catch(std::out_of_range &_e) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+    return ;
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_delete_VectorOfVectorOfDoubles(void * jarg1) {
+  std::vector< std::vector< double > > *arg1 = (std::vector< std::vector< double > > *) 0 ;
+  
+  arg1 = (std::vector< std::vector< double > > *)jarg1; 
   delete arg1;
 }
 
@@ -11863,16 +12612,16 @@ SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_delete_hypervolume(void * jarg1) {
 
 
 SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_reksum__SWIG_0(void * jarg1, void * jarg2, unsigned long jarg3, unsigned long jarg4, void * jarg5) {
-  std::vector< std::vector< double > > *arg1 = 0 ;
+  pagmo::VectorOfVectorOfDoubles *arg1 = 0 ;
   std::vector< pagmo::pop_size_t > *arg2 = 0 ;
   pagmo::pop_size_t arg3 ;
   pagmo::pop_size_t arg4 ;
   std::vector< double > arg5 ;
   std::vector< double > *argp5 ;
   
-  arg1 = (std::vector< std::vector< double > > *)jarg1;
+  arg1 = (pagmo::VectorOfVectorOfDoubles *)jarg1;
   if (!arg1) {
-    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "std::vector< std::vector< double > > & is null", 0);
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "pagmo::VectorOfVectorOfDoubles & is null", 0);
     return ;
   } 
   arg2 = (std::vector< pagmo::pop_size_t > *)jarg2;
@@ -11893,14 +12642,14 @@ SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_reksum__SWIG_0(void * jarg1, void * jar
 
 
 SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_reksum__SWIG_1(void * jarg1, void * jarg2, unsigned long jarg3, unsigned long jarg4) {
-  std::vector< std::vector< double > > *arg1 = 0 ;
+  pagmo::VectorOfVectorOfDoubles *arg1 = 0 ;
   std::vector< pagmo::pop_size_t > *arg2 = 0 ;
   pagmo::pop_size_t arg3 ;
   pagmo::pop_size_t arg4 ;
   
-  arg1 = (std::vector< std::vector< double > > *)jarg1;
+  arg1 = (pagmo::VectorOfVectorOfDoubles *)jarg1;
   if (!arg1) {
-    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "std::vector< std::vector< double > > & is null", 0);
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "pagmo::VectorOfVectorOfDoubles & is null", 0);
     return ;
   } 
   arg2 = (std::vector< pagmo::pop_size_t > *)jarg2;
@@ -11948,22 +12697,6 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_non_dominated_front_2d(void * jarg1) 
   } 
   result = pagmo::non_dominated_front_2d((std::vector< std::vector< double > > const &)*arg1);
   jresult = new std::vector< pagmo::pop_size_t >(result); 
-  return jresult;
-}
-
-
-SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_fast_non_dominated_sorting(void * jarg1) {
-  void * jresult ;
-  std::vector< pagmo::vector_double > *arg1 = 0 ;
-  pagmo::fnds_return_type result;
-  
-  arg1 = (std::vector< pagmo::vector_double > *)jarg1;
-  if (!arg1) {
-    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "std::vector< pagmo::vector_double > const & is null", 0);
-    return 0;
-  } 
-  result = pagmo::fast_non_dominated_sorting((std::vector< std::vector< double > > const &)*arg1);
-  jresult = new pagmo::fnds_return_type(result); 
   return jresult;
 }
 

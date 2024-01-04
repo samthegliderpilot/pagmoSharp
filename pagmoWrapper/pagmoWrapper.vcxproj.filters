@@ -35,5 +35,8 @@
     <ClInclude Include="s_policy.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="multi_objective.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
