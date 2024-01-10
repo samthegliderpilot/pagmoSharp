@@ -33,7 +33,7 @@ namespace pagmoWrap {
 		}
 	};
 
-	// Fast non dominated sorting, the native swig decliration would look like this
+	// Fast non dominated sorting..., the native swig decliration would look like this
 	//extern fnds_return_type fast_non_dominated_sorting(const std::vector<vector_double>&); 
 	Fnds_Return_Type fast_non_dominated_sorting(const std::vector<pagmoWrap::vector_double>& vector)
 	{

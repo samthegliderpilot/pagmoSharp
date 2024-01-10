@@ -82,7 +82,7 @@ $result = SWIG_NewPointerObj(SWIG_as_voidptr(&$1), $descriptor(std::vector<ns::u
 %feature("director") pagmoWrap::s_policyBase;
 %include "pagmoWrapper/s_policy.h"
 %feature("director") pagmoWrap::multi_objective;
-%include "pagmoWrapper/multi_objective.h"
+%include "pagmoWrapper/utils/multi_objective.h"
 //#include <tuple> // tuple is not supported by swig yet...
 %apply void *VOID_INT_PTR { void * }
 namespace std {
@@ -91,6 +91,7 @@ namespace std {
 	%template(PairOfDoubleVectors) std::pair<std::vector<double>, std::vector<double> >;
 	%template(VectorOfVectorIndexes) std::vector<std::vector<unsigned long long> >;
 	%template(VectorOfVectorOfDoubles) std::vector<std::vector<double> >;
+	%template() std::tuple<std::vector<std::vector<pop_size_t>>, std::vector<std::vector<pop_size_t>> std::vector<pop_size_t>, std::vector<pop_size_t>>;
 }
 	
 namespace pagmo {
