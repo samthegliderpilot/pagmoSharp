@@ -20,7 +20,7 @@
 	#include "problem.h" // this is a manually created item.  We want to include it in the wrappers so the generated cxx code can use the handwritten code for the problem
 	#include "r_policy.h"
 	#include "s_policy.h"
-	#include "multi_objective.h"
+	//#include "multi_objective.h"
 %}
 // need other languages?
 
@@ -82,7 +82,7 @@ $result = SWIG_NewPointerObj(SWIG_as_voidptr(&$1), $descriptor(std::vector<ns::u
 %feature("director") pagmoWrap::s_policyBase;
 %include "pagmoWrapper/s_policy.h"
 %feature("director") pagmoWrap::multi_objective;
-%include "pagmoWrapper/utils/multi_objective.h"
+%include "pagmoWrapper/multi_objective.h"
 //#include <tuple> // tuple is not supported by swig yet...
 %apply void *VOID_INT_PTR { void * }
 namespace std {
@@ -91,7 +91,7 @@ namespace std {
 	%template(PairOfDoubleVectors) std::pair<std::vector<double>, std::vector<double> >;
 	%template(VectorOfVectorIndexes) std::vector<std::vector<unsigned long long> >;
 	%template(VectorOfVectorOfDoubles) std::vector<std::vector<double> >;
-	%template() std::tuple<std::vector<std::vector<pop_size_t>>, std::vector<std::vector<pop_size_t>> std::vector<pop_size_t>, std::vector<pop_size_t>>;
+	//%template() std::tuple<std::vector<std::vector<pop_size_t>>, std::vector<std::vector<pop_size_t>> std::vector<pop_size_t>, std::vector<pop_size_t>>;
 }
 	
 namespace pagmo {
@@ -103,7 +103,7 @@ namespace pagmo {
 	
 	typedef std::vector<std::pair<vector_double::size_type, vector_double::size_type>> sparsity_pattern;
 	%rename(SWIGTYPE_p_std__vectorT_std__pairT_size_t_size_t_t_t) sparsity_pattern;
-	typedef std::vector<vector_double>::size_type pop_size_t;
+	//typedef std::vector<vector_double>::size_type pop_size_t;
 	typedef std::vector<std::vector<double>> VectorOfVectorOfDoubles;
 	
 
@@ -165,11 +165,13 @@ namespace pagmo {
 	//NOTE: pagmo.hpp, threading.hpp and types.hpp are not really needed
 	%include swigInterfaceFiles\io.i
 	%include swigInterfaceFiles\rng.i
-	//%include swigInterfaceFiles\r_policy.i // needs the director/problem treatment	%include swigInterfaceFiles\topology.i
+	//%include swigInterfaceFiles\r_policy.i // needs the director/problem treatment
+	%include swigInterfaceFiles\topology.i
 
 	%include swigInterfaceFiles\algorithms\bee_colony.i
 	%include swigInterfaceFiles\algorithms\cmaes.i
-	%include swigInterfaceFiles\algorithms\compass_search.i			%include swigInterfaceFiles\algorithms\de.i
+	%include swigInterfaceFiles\algorithms\compass_search.i		
+	%include swigInterfaceFiles\algorithms\de.i
 	%include swigInterfaceFiles\algorithms\de1220.i
 	%include swigInterfaceFiles\algorithms\gaco.i
 	%include swigInterfaceFiles\algorithms\gwo.i
@@ -234,6 +236,7 @@ private:
 
 // TODO:
 // Fix exceptions (somehow...) to get actual message
+// Fix eigen3 path in c++ project
 // algorithms:
 //   ihs
 //   nsga2

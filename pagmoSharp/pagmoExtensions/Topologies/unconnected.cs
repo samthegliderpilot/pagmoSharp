@@ -1,6 +1,6 @@
-﻿namespace pagmo;
+﻿//namespace pagmo;
 
-public partial class unconnected : topology
-{
+//public partial class unconnected : topology
+//{
 
-}
+//}

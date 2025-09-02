@@ -1,7 +1,7 @@
 REM runs swig and copies files around automatically
 REM note that I hard code a path to swig.exe.  This will obviously fail if it isn't there...
 
-C:\Programs\swig-4.1.1\swig.exe -c++ -csharp -namespace pagmo -dllimport pagmoWrapper.dll swigInterfaceFileAndPagmoHeaders\pagmoSharpSwigInterface.i
+C:\Programs\swig-4.1.1\swig.exe -c++ -csharp -namespace pagmo -dllimport pagmoWrapper.dll -I..\..\pagmoWrapper -I.\swigInterfaceFileAndPagmoHeaders swigInterfaceFileAndPagmoHeaders\pagmoSharpSwigInterface.i 
 copy swigInterfaceFileAndPagmoHeaders\pagmoSharpSwigInterface_wrap.cxx "pagmoWrapper\GeneratedWrappers.cxx"
 copy swigInterfaceFileAndPagmoHeaders\pagmoSharpSwigInterface_wrap.h "pagmoWrapper\pagmoSharpSwigInterface_wrap.h"
 

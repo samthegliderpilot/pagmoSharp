@@ -52,9 +52,9 @@ namespace Tests.PagmoSharp.Problems
                 algorithm.set_seed(2); // for consistent results
                 
                 var finalpop = algorithm.evolve(pop);
-                var thing = pagmo.pagmo.fast_non_dominated_sorting(pop.get_f());
+                var thing = pagmo.pagmo.fast_non_dominated_sorting_wrapped(pop.get_f());
                 Assert.IsTrue(thing != null);
-                Assert.IsTrue(thing.Item1 != null);
+                Assert.IsTrue(thing.fronts != null);
 
               //  var anotherThing = pagmo.pagmo.select_best_N_mo(null, 2);
                 //var champF = finalpop.champion_f().ToArray();

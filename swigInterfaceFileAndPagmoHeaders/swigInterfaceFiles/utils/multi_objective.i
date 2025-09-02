@@ -17,6 +17,7 @@
 #include "pagmo/utils/discrepancy.hpp"
 #include "pagmo/utils/generic.hpp"
 #include "pagmo/utils/multi_objective.hpp"
+#include "multi_objective.h"
 %}
 
 %include "std_vector.i"
@@ -27,9 +28,13 @@
 typedef std::vector<double> vector_double;
 typedef std::vector<std::vector<double> > VectorOfVectorOfDoubles;
 
-namespace detail {
-	extern void reksum(VectorOfVectorOfDoubles&, const std::vector<pop_size_t>&, pop_size_t, pop_size_t, std::vector<double> = std::vector<double>());
-}
+
+%include "pagmoWrapper/multi_objective.h"
+
+
+//namespace detail {
+//	extern void reksum(VectorOfVectorOfDoubles&, const std::vector<pop_size_t>&, pop_size_t, pop_size_t, std::vector<double> = std::vector<double>());
+//}
 // Pareto-dominance
 extern bool pareto_dominance(const vector_double&, const vector_double&);
 
@@ -51,8 +56,8 @@ extern vector_double ideal(const std::vector<vector_double>&);
 // Nadir point
 extern vector_double nadir(const std::vector<vector_double>&);
 
-template <typename Rng>
-extern std::vector<vector_double> decomposition_weights(vector_double::size_type n_f, vector_double::size_type n_w, const std::string& method, Rng& r_engine);
+//template <typename Rng>
+//extern std::vector<vector_double> decomposition_weights(vector_double::size_type n_f, vector_double::size_type n_w, const std::string& method, Rng& r_engine);
 
 // Decomposes a vector of objectives.
 extern vector_double decompose_objectives(const vector_double&, const vector_double&, const vector_double&,

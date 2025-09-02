@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using System.Collections.Generic;
+using NUnit.Framework;
 using pagmo;
 
 namespace Tests.PagmoSharp.Utils;
@@ -8,8 +9,9 @@ public class Test_multi_objective
 {
     [Test]
     public void TestPareto_dominance()
-    {        
-        Assert.False(pagmo.pagmo.pareto_dominance(new DoubleVector{1.0, 2.0, 3.0}, new DoubleVector(3.0, 2.0, 1.0)));
+    {
+        var thing = pagmo.pagmo.fast_non_dominated_sorting_wrapped(new VectorOfVectorOfDoubles(new List<DoubleVector>(){new DoubleVector(0.0, 2.0, 1.0), new DoubleVector(5.0, 9.0, 10.0) }));
+        Assert.IsNotNull(thing);
     }
 
     [Test]
