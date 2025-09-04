@@ -48,36 +48,47 @@ public partial class xnes : algorithm {
   }
 
   public xnes(uint gen, double eta_mu, double eta_sigma, double eta_b, double sigma0, double ftol, double xtol, bool memory, bool force_bounds, uint seed) : this(pagmoPINVOKE.new_xnes__SWIG_0(gen, eta_mu, eta_sigma, eta_b, sigma0, ftol, xtol, memory, force_bounds, seed), true) {
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public xnes(uint gen, double eta_mu, double eta_sigma, double eta_b, double sigma0, double ftol, double xtol, bool memory, bool force_bounds) : this(pagmoPINVOKE.new_xnes__SWIG_1(gen, eta_mu, eta_sigma, eta_b, sigma0, ftol, xtol, memory, force_bounds), true) {
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public xnes(uint gen, double eta_mu, double eta_sigma, double eta_b, double sigma0, double ftol, double xtol, bool memory) : this(pagmoPINVOKE.new_xnes__SWIG_2(gen, eta_mu, eta_sigma, eta_b, sigma0, ftol, xtol, memory), true) {
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public xnes(uint gen, double eta_mu, double eta_sigma, double eta_b, double sigma0, double ftol, double xtol) : this(pagmoPINVOKE.new_xnes__SWIG_3(gen, eta_mu, eta_sigma, eta_b, sigma0, ftol, xtol), true) {
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public xnes(uint gen, double eta_mu, double eta_sigma, double eta_b, double sigma0, double ftol) : this(pagmoPINVOKE.new_xnes__SWIG_4(gen, eta_mu, eta_sigma, eta_b, sigma0, ftol), true) {
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public xnes(uint gen, double eta_mu, double eta_sigma, double eta_b, double sigma0) : this(pagmoPINVOKE.new_xnes__SWIG_5(gen, eta_mu, eta_sigma, eta_b, sigma0), true) {
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public xnes(uint gen, double eta_mu, double eta_sigma, double eta_b) : this(pagmoPINVOKE.new_xnes__SWIG_6(gen, eta_mu, eta_sigma, eta_b), true) {
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public xnes(uint gen, double eta_mu, double eta_sigma) : this(pagmoPINVOKE.new_xnes__SWIG_7(gen, eta_mu, eta_sigma), true) {
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public xnes(uint gen, double eta_mu) : this(pagmoPINVOKE.new_xnes__SWIG_8(gen, eta_mu), true) {
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public xnes(uint gen) : this(pagmoPINVOKE.new_xnes__SWIG_9(gen), true) {
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public xnes() : this(pagmoPINVOKE.new_xnes__SWIG_10(), true) {
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public population evolve(population arg0) {
@@ -88,39 +99,47 @@ public partial class xnes : algorithm {
 
   public void set_seed(uint arg0) {
     pagmoPINVOKE.xnes_set_seed(swigCPtr, arg0);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public uint get_seed() {
     uint ret = pagmoPINVOKE.xnes_get_seed(swigCPtr);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public new void set_verbosity(uint level) {
     pagmoPINVOKE.xnes_set_verbosity(swigCPtr, level);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public uint get_verbosity() {
     uint ret = pagmoPINVOKE.xnes_get_verbosity(swigCPtr);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public uint get_gen() {
     uint ret = pagmoPINVOKE.xnes_get_gen(swigCPtr);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public new string get_name() {
     string ret = pagmoPINVOKE.xnes_get_name(swigCPtr);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public new string get_extra_info() {
     string ret = pagmoPINVOKE.xnes_get_extra_info(swigCPtr);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public SWIGTYPE_p_std__vectorT_std__tupleT_unsigned_int_unsigned_long_long_double_double_double_double_t_t get_log() {
     SWIGTYPE_p_std__vectorT_std__tupleT_unsigned_int_unsigned_long_long_double_double_double_double_t_t ret = new SWIGTYPE_p_std__vectorT_std__tupleT_unsigned_int_unsigned_long_long_double_double_double_double_t_t(pagmoPINVOKE.xnes_get_log(swigCPtr), false);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 

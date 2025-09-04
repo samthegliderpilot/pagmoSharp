@@ -58,12 +58,15 @@ public partial class zdt : global::System.IDisposable {
   }
 
   public zdt(uint prob_id, uint param) : this(pagmoPINVOKE.new_zdt__SWIG_0(prob_id, param), true) {
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public zdt(uint prob_id) : this(pagmoPINVOKE.new_zdt__SWIG_1(prob_id), true) {
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public zdt() : this(pagmoPINVOKE.new_zdt__SWIG_2(), true) {
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public DoubleVector fitness(DoubleVector arg0) {
@@ -74,21 +77,25 @@ public partial class zdt : global::System.IDisposable {
 
   public uint get_nobj() {
     uint ret = pagmoPINVOKE.zdt_get_nobj(swigCPtr);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public PairOfDoubleVectors get_bounds() {
     PairOfDoubleVectors ret = new PairOfDoubleVectors(pagmoPINVOKE.zdt_get_bounds(swigCPtr), true);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public uint get_nix() {
     uint ret = pagmoPINVOKE.zdt_get_nix(swigCPtr);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public string get_name() {
     string ret = pagmoPINVOKE.zdt_get_name(swigCPtr);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
@@ -106,21 +113,25 @@ public partial class zdt : global::System.IDisposable {
 
   public uint get_nic() {
     uint ret = pagmoPINVOKE.zdt_get_nic(swigCPtr);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public uint get_nec() {
     uint ret = pagmoPINVOKE.zdt_get_nec(swigCPtr);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public bool has_batch_fitness() {
     bool ret = pagmoPINVOKE.zdt_has_batch_fitness(swigCPtr);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public thread_safety get_thread_safety() {
     thread_safety ret = (thread_safety)pagmoPINVOKE.zdt_get_thread_safety(swigCPtr);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 

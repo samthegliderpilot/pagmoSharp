@@ -58,6 +58,7 @@ public partial class select_best : global::System.IDisposable {
   }
 
   public select_best() : this(pagmoPINVOKE.new_select_best(), true) {
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public SWIGTYPE_p_std__tupleT_std__vectorT_unsigned_long_long_t_std__vectorT_std__vectorT_double_t_t_std__vectorT_std__vectorT_double_t_t_t select(SWIGTYPE_p_std__tupleT_std__vectorT_unsigned_long_long_t_std__vectorT_std__vectorT_double_t_t_std__vectorT_std__vectorT_double_t_t_t arg0, uint arg1, uint arg2, uint arg3, uint arg4, uint arg5, DoubleVector arg6) {
@@ -68,11 +69,13 @@ public partial class select_best : global::System.IDisposable {
 
   public string get_name() {
     string ret = pagmoPINVOKE.select_best_get_name(swigCPtr);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public string get_extra_info() {
     string ret = pagmoPINVOKE.select_best_get_extra_info(swigCPtr);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 

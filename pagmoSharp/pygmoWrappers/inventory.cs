@@ -58,15 +58,19 @@ public partial class inventory : global::System.IDisposable {
   }
 
   public inventory(uint weeks, uint sample_size, uint seed) : this(pagmoPINVOKE.new_inventory__SWIG_0(weeks, sample_size, seed), true) {
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public inventory(uint weeks, uint sample_size) : this(pagmoPINVOKE.new_inventory__SWIG_1(weeks, sample_size), true) {
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public inventory(uint weeks) : this(pagmoPINVOKE.new_inventory__SWIG_2(weeks), true) {
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public inventory() : this(pagmoPINVOKE.new_inventory__SWIG_3(), true) {
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public DoubleVector fitness(DoubleVector arg0) {
@@ -77,50 +81,60 @@ public partial class inventory : global::System.IDisposable {
 
   public PairOfDoubleVectors get_bounds() {
     PairOfDoubleVectors ret = new PairOfDoubleVectors(pagmoPINVOKE.inventory_get_bounds(swigCPtr), true);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public void set_seed(uint seed) {
     pagmoPINVOKE.inventory_set_seed(swigCPtr, seed);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public string get_name() {
     string ret = pagmoPINVOKE.inventory_get_name(swigCPtr);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public string get_extra_info() {
     string ret = pagmoPINVOKE.inventory_get_extra_info(swigCPtr);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public uint get_nic() {
     uint ret = pagmoPINVOKE.inventory_get_nic(swigCPtr);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public uint get_nec() {
     uint ret = pagmoPINVOKE.inventory_get_nec(swigCPtr);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public uint get_nix() {
     uint ret = pagmoPINVOKE.inventory_get_nix(swigCPtr);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public uint get_nobj() {
     uint ret = pagmoPINVOKE.inventory_get_nobj(swigCPtr);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public bool has_batch_fitness() {
     bool ret = pagmoPINVOKE.inventory_has_batch_fitness(swigCPtr);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public thread_safety get_thread_safety() {
     thread_safety ret = (thread_safety)pagmoPINVOKE.inventory_get_thread_safety(swigCPtr);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 

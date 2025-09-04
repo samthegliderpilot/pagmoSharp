@@ -106,6 +106,7 @@ public class FNDSResult : global::System.IDisposable {
   }
 
   public FNDSResult() : this(pagmoPINVOKE.new_FNDSResult(), true) {
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
 }

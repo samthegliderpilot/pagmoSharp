@@ -232,27 +232,33 @@ public class ULongLongVector : global::System.IDisposable, global::System.Collec
 
   public void Clear() {
     pagmoPINVOKE.ULongLongVector_Clear(swigCPtr);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public void Add(ulong x) {
     pagmoPINVOKE.ULongLongVector_Add(swigCPtr, x);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   private uint size() {
     uint ret = pagmoPINVOKE.ULongLongVector_size(swigCPtr);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   private uint capacity() {
     uint ret = pagmoPINVOKE.ULongLongVector_capacity(swigCPtr);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   private void reserve(uint n) {
     pagmoPINVOKE.ULongLongVector_reserve(swigCPtr, n);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public ULongLongVector() : this(pagmoPINVOKE.new_ULongLongVector__SWIG_0(), true) {
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public ULongLongVector(ULongLongVector other) : this(pagmoPINVOKE.new_ULongLongVector__SWIG_1(ULongLongVector.getCPtr(other)), true) {
@@ -321,6 +327,7 @@ public class ULongLongVector : global::System.IDisposable, global::System.Collec
 
   public void Reverse() {
     pagmoPINVOKE.ULongLongVector_Reverse__SWIG_0(swigCPtr);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public void Reverse(int index, int count) {
@@ -335,21 +342,25 @@ public class ULongLongVector : global::System.IDisposable, global::System.Collec
 
   public bool Contains(ulong value) {
     bool ret = pagmoPINVOKE.ULongLongVector_Contains(swigCPtr, value);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public int IndexOf(ulong value) {
     int ret = pagmoPINVOKE.ULongLongVector_IndexOf(swigCPtr, value);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public int LastIndexOf(ulong value) {
     int ret = pagmoPINVOKE.ULongLongVector_LastIndexOf(swigCPtr, value);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public bool Remove(ulong value) {
     bool ret = pagmoPINVOKE.ULongLongVector_Remove(swigCPtr, value);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 

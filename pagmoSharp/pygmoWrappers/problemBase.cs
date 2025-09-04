@@ -65,46 +65,55 @@ public partial class problemBase : global::System.IDisposable {
 
   public virtual PairOfDoubleVectors get_bounds() {
     PairOfDoubleVectors ret = new PairOfDoubleVectors((SwigDerivedClassHasMethod("get_bounds", swigMethodTypes1) ? pagmoPINVOKE.problemBase_get_boundsSwigExplicitproblemBase(swigCPtr) : pagmoPINVOKE.problemBase_get_bounds(swigCPtr)), true);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public virtual bool has_batch_fitness() {
     bool ret = (SwigDerivedClassHasMethod("has_batch_fitness", swigMethodTypes2) ? pagmoPINVOKE.problemBase_has_batch_fitnessSwigExplicitproblemBase(swigCPtr) : pagmoPINVOKE.problemBase_has_batch_fitness(swigCPtr));
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public virtual string get_name() {
     string ret = (SwigDerivedClassHasMethod("get_name", swigMethodTypes3) ? pagmoPINVOKE.problemBase_get_nameSwigExplicitproblemBase(swigCPtr) : pagmoPINVOKE.problemBase_get_name(swigCPtr));
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public virtual uint get_nobj() {
     uint ret = (SwigDerivedClassHasMethod("get_nobj", swigMethodTypes4) ? pagmoPINVOKE.problemBase_get_nobjSwigExplicitproblemBase(swigCPtr) : pagmoPINVOKE.problemBase_get_nobj(swigCPtr));
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public virtual uint get_nec() {
     uint ret = (SwigDerivedClassHasMethod("get_nec", swigMethodTypes5) ? pagmoPINVOKE.problemBase_get_necSwigExplicitproblemBase(swigCPtr) : pagmoPINVOKE.problemBase_get_nec(swigCPtr));
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public virtual uint get_nic() {
     uint ret = (SwigDerivedClassHasMethod("get_nic", swigMethodTypes6) ? pagmoPINVOKE.problemBase_get_nicSwigExplicitproblemBase(swigCPtr) : pagmoPINVOKE.problemBase_get_nic(swigCPtr));
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public virtual uint get_nix() {
     uint ret = (SwigDerivedClassHasMethod("get_nix", swigMethodTypes7) ? pagmoPINVOKE.problemBase_get_nixSwigExplicitproblemBase(swigCPtr) : pagmoPINVOKE.problemBase_get_nix(swigCPtr));
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public virtual thread_safety get_thread_safety() {
     thread_safety ret = (thread_safety)(SwigDerivedClassHasMethod("get_thread_safety", swigMethodTypes8) ? pagmoPINVOKE.problemBase_get_thread_safetySwigExplicitproblemBase(swigCPtr) : pagmoPINVOKE.problemBase_get_thread_safety(swigCPtr));
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public virtual bool has_gradient() {
     bool ret = (SwigDerivedClassHasMethod("has_gradient", swigMethodTypes9) ? pagmoPINVOKE.problemBase_has_gradientSwigExplicitproblemBase(swigCPtr) : pagmoPINVOKE.problemBase_has_gradient(swigCPtr));
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
@@ -116,15 +125,18 @@ public partial class problemBase : global::System.IDisposable {
 
   public virtual bool has_gradient_sparsity() {
     bool ret = (SwigDerivedClassHasMethod("has_gradient_sparsity", swigMethodTypes11) ? pagmoPINVOKE.problemBase_has_gradient_sparsitySwigExplicitproblemBase(swigCPtr) : pagmoPINVOKE.problemBase_has_gradient_sparsity(swigCPtr));
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public virtual SWIGTYPE_p_std__vectorT_std__pairT_size_t_size_t_t_t gradient_sparsity() {
     SWIGTYPE_p_std__vectorT_std__pairT_size_t_size_t_t_t ret = new SWIGTYPE_p_std__vectorT_std__pairT_size_t_size_t_t_t((SwigDerivedClassHasMethod("gradient_sparsity", swigMethodTypes12) ? pagmoPINVOKE.problemBase_gradient_sparsitySwigExplicitproblemBase(swigCPtr) : pagmoPINVOKE.problemBase_gradient_sparsity(swigCPtr)), true);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public problemBase() : this(pagmoPINVOKE.new_problemBase(), true) {
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     SwigDirectorConnect();
   }
 

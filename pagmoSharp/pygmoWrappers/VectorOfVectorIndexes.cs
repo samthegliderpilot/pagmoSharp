@@ -232,6 +232,7 @@ public class VectorOfVectorIndexes : global::System.IDisposable, global::System.
 
   public void Clear() {
     pagmoPINVOKE.VectorOfVectorIndexes_Clear(swigCPtr);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public void Add(ULongLongVector x) {
@@ -241,19 +242,23 @@ public class VectorOfVectorIndexes : global::System.IDisposable, global::System.
 
   private uint size() {
     uint ret = pagmoPINVOKE.VectorOfVectorIndexes_size(swigCPtr);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   private uint capacity() {
     uint ret = pagmoPINVOKE.VectorOfVectorIndexes_capacity(swigCPtr);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   private void reserve(uint n) {
     pagmoPINVOKE.VectorOfVectorIndexes_reserve(swigCPtr, n);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public VectorOfVectorIndexes() : this(pagmoPINVOKE.new_VectorOfVectorIndexes__SWIG_0(), true) {
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public VectorOfVectorIndexes(VectorOfVectorIndexes other) : this(pagmoPINVOKE.new_VectorOfVectorIndexes__SWIG_1(VectorOfVectorIndexes.getCPtr(other)), true) {
@@ -322,6 +327,7 @@ public class VectorOfVectorIndexes : global::System.IDisposable, global::System.
 
   public void Reverse() {
     pagmoPINVOKE.VectorOfVectorIndexes_Reverse__SWIG_0(swigCPtr);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public void Reverse(int index, int count) {

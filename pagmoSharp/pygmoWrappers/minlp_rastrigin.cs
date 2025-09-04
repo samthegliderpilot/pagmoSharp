@@ -58,12 +58,15 @@ public partial class minlp_rastrigin : global::System.IDisposable {
   }
 
   public minlp_rastrigin(uint dim_c, uint dim_i) : this(pagmoPINVOKE.new_minlp_rastrigin__SWIG_0(dim_c, dim_i), true) {
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public minlp_rastrigin(uint dim_c) : this(pagmoPINVOKE.new_minlp_rastrigin__SWIG_1(dim_c), true) {
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public minlp_rastrigin() : this(pagmoPINVOKE.new_minlp_rastrigin__SWIG_2(), true) {
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public DoubleVector fitness(DoubleVector arg0) {
@@ -74,11 +77,13 @@ public partial class minlp_rastrigin : global::System.IDisposable {
 
   public PairOfDoubleVectors get_bounds() {
     PairOfDoubleVectors ret = new PairOfDoubleVectors(pagmoPINVOKE.minlp_rastrigin_get_bounds(swigCPtr), true);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public uint get_nix() {
     uint ret = pagmoPINVOKE.minlp_rastrigin_get_nix(swigCPtr);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
@@ -96,41 +101,49 @@ public partial class minlp_rastrigin : global::System.IDisposable {
 
   public SWIGTYPE_p_std__vectorT_std__vectorT_std__pairT_size_t_size_t_t_t_t hessians_sparsity() {
     SWIGTYPE_p_std__vectorT_std__vectorT_std__pairT_size_t_size_t_t_t_t ret = new SWIGTYPE_p_std__vectorT_std__vectorT_std__pairT_size_t_size_t_t_t_t(pagmoPINVOKE.minlp_rastrigin_hessians_sparsity(swigCPtr), true);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public string get_name() {
     string ret = pagmoPINVOKE.minlp_rastrigin_get_name(swigCPtr);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public string get_extra_info() {
     string ret = pagmoPINVOKE.minlp_rastrigin_get_extra_info(swigCPtr);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public uint get_nic() {
     uint ret = pagmoPINVOKE.minlp_rastrigin_get_nic(swigCPtr);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public uint get_nec() {
     uint ret = pagmoPINVOKE.minlp_rastrigin_get_nec(swigCPtr);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public uint get_nobj() {
     uint ret = pagmoPINVOKE.minlp_rastrigin_get_nobj(swigCPtr);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public bool has_batch_fitness() {
     bool ret = pagmoPINVOKE.minlp_rastrigin_has_batch_fitness(swigCPtr);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public thread_safety get_thread_safety() {
     thread_safety ret = (thread_safety)pagmoPINVOKE.minlp_rastrigin_get_thread_safety(swigCPtr);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 

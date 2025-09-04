@@ -58,6 +58,7 @@ public abstract partial class algorithm : global::System.IDisposable {
   }
 
   public algorithm() : this(pagmoPINVOKE.new_algorithm__SWIG_0(), true) {
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public algorithm(algorithm arg0) : this(pagmoPINVOKE.new_algorithm__SWIG_1(algorithm.getCPtr(arg0)), true) {
@@ -66,45 +67,54 @@ public abstract partial class algorithm : global::System.IDisposable {
 
   public bool has_set_seed() {
     bool ret = pagmoPINVOKE.algorithm_has_set_seed(swigCPtr);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public bool is_stochastic() {
     bool ret = pagmoPINVOKE.algorithm_is_stochastic(swigCPtr);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public void set_verbosity(uint arg0) {
     pagmoPINVOKE.algorithm_set_verbosity(swigCPtr, arg0);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public bool has_set_verbosity() {
     bool ret = pagmoPINVOKE.algorithm_has_set_verbosity(swigCPtr);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public string get_name() {
     string ret = pagmoPINVOKE.algorithm_get_name(swigCPtr);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public string get_extra_info() {
     string ret = pagmoPINVOKE.algorithm_get_extra_info(swigCPtr);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public thread_safety get_thread_safety() {
     thread_safety ret = (thread_safety)pagmoPINVOKE.algorithm_get_thread_safety(swigCPtr);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public bool is_valid() {
     bool ret = pagmoPINVOKE.algorithm_is_valid(swigCPtr);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public global::System.IntPtr get_ptr() {
     global::System.IntPtr ret = pagmoPINVOKE.algorithm_get_ptr__SWIG_0(swigCPtr);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 

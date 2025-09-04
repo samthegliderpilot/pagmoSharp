@@ -63,34 +63,41 @@ public partial class topology : global::System.IDisposable {
 
   public string get_name() {
     string ret = pagmoPINVOKE.topology_get_name(swigCPtr);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public string get_extra_info() {
     string ret = pagmoPINVOKE.topology_get_extra_info(swigCPtr);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public bool is_valid() {
     bool ret = pagmoPINVOKE.topology_is_valid(swigCPtr);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public SWIGTYPE_p_std__pairT_std__vectorT_std__size_t_t_std__vectorT_double_t_t get_connections(uint arg0) {
     SWIGTYPE_p_std__pairT_std__vectorT_std__size_t_t_std__vectorT_double_t_t ret = new SWIGTYPE_p_std__pairT_std__vectorT_std__size_t_t_std__vectorT_double_t_t(pagmoPINVOKE.topology_get_connections(swigCPtr, arg0), true);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public void push_back() {
     pagmoPINVOKE.topology_push_back__SWIG_0(swigCPtr);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public void push_back(uint arg0) {
     pagmoPINVOKE.topology_push_back__SWIG_1(swigCPtr, arg0);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public global::System.IntPtr get_ptr() {
     global::System.IntPtr ret = pagmoPINVOKE.topology_get_ptr__SWIG_0(swigCPtr);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 

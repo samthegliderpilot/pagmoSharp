@@ -48,6 +48,7 @@ public partial class member_bfe : bfe {
   }
 
   public member_bfe() : this(pagmoPINVOKE.new_member_bfe__SWIG_0(), true) {
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public member_bfe(member_bfe arg0) : this(pagmoPINVOKE.new_member_bfe__SWIG_1(member_bfe.getCPtr(arg0)), true) {
@@ -56,6 +57,7 @@ public partial class member_bfe : bfe {
 
   public virtual string get_name() {
     string ret = pagmoPINVOKE.member_bfe_get_name(swigCPtr);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 

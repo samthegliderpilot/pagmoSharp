@@ -48,18 +48,23 @@ public partial class compass_search : algorithm {
   }
 
   public compass_search(uint max_fevals, double start_range, double stop_range, double reduction_coeff) : this(pagmoPINVOKE.new_compass_search__SWIG_0(max_fevals, start_range, stop_range, reduction_coeff), true) {
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public compass_search(uint max_fevals, double start_range, double stop_range) : this(pagmoPINVOKE.new_compass_search__SWIG_1(max_fevals, start_range, stop_range), true) {
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public compass_search(uint max_fevals, double start_range) : this(pagmoPINVOKE.new_compass_search__SWIG_2(max_fevals, start_range), true) {
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public compass_search(uint max_fevals) : this(pagmoPINVOKE.new_compass_search__SWIG_3(max_fevals), true) {
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public compass_search() : this(pagmoPINVOKE.new_compass_search__SWIG_4(), true) {
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public population evolve(population arg0) {
@@ -70,59 +75,71 @@ public partial class compass_search : algorithm {
 
   public new void set_verbosity(uint level) {
     pagmoPINVOKE.compass_search_set_verbosity(swigCPtr, level);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public uint get_verbosity() {
     uint ret = pagmoPINVOKE.compass_search_get_verbosity(swigCPtr);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public double get_max_fevals() {
     double ret = pagmoPINVOKE.compass_search_get_max_fevals(swigCPtr);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public double get_stop_range() {
     double ret = pagmoPINVOKE.compass_search_get_stop_range(swigCPtr);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public double get_start_range() {
     double ret = pagmoPINVOKE.compass_search_get_start_range(swigCPtr);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public double get_reduction_coeff() {
     double ret = pagmoPINVOKE.compass_search_get_reduction_coeff(swigCPtr);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public new string get_name() {
     string ret = pagmoPINVOKE.compass_search_get_name(swigCPtr);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public new string get_extra_info() {
     string ret = pagmoPINVOKE.compass_search_get_extra_info(swigCPtr);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public SWIGTYPE_p_std__vectorT_std__tupleT_unsigned_long_long_double_size_t_double_double_t_t get_log() {
     SWIGTYPE_p_std__vectorT_std__tupleT_unsigned_long_long_double_size_t_double_double_t_t ret = new SWIGTYPE_p_std__vectorT_std__tupleT_unsigned_long_long_double_size_t_double_double_t_t(pagmoPINVOKE.compass_search_get_log(swigCPtr), false);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public void set_seed(uint arg0) {
     pagmoPINVOKE.compass_search_set_seed(swigCPtr, arg0);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public uint get_seed() {
     uint ret = pagmoPINVOKE.compass_search_get_seed(swigCPtr);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public uint get_gen() {
     uint ret = pagmoPINVOKE.compass_search_get_gen(swigCPtr);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 

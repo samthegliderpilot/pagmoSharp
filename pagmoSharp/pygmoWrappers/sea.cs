@@ -48,12 +48,15 @@ public partial class sea : algorithm {
   }
 
   public sea(uint gen, uint seed) : this(pagmoPINVOKE.new_sea__SWIG_0(gen, seed), true) {
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public sea(uint gen) : this(pagmoPINVOKE.new_sea__SWIG_1(gen), true) {
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public sea() : this(pagmoPINVOKE.new_sea__SWIG_2(), true) {
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public population evolve(population arg0) {
@@ -64,34 +67,41 @@ public partial class sea : algorithm {
 
   public new void set_verbosity(uint level) {
     pagmoPINVOKE.sea_set_verbosity(swigCPtr, level);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public uint get_verbosity() {
     uint ret = pagmoPINVOKE.sea_get_verbosity(swigCPtr);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public void set_seed(uint arg0) {
     pagmoPINVOKE.sea_set_seed(swigCPtr, arg0);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public uint get_seed() {
     uint ret = pagmoPINVOKE.sea_get_seed(swigCPtr);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public new string get_name() {
     string ret = pagmoPINVOKE.sea_get_name(swigCPtr);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public new string get_extra_info() {
     string ret = pagmoPINVOKE.sea_get_extra_info(swigCPtr);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public SWIGTYPE_p_std__vectorT_std__tupleT_unsigned_int_unsigned_long_long_double_double_size_t_t_t get_log() {
     SWIGTYPE_p_std__vectorT_std__tupleT_unsigned_int_unsigned_long_long_double_double_size_t_t_t ret = new SWIGTYPE_p_std__vectorT_std__tupleT_unsigned_int_unsigned_long_long_double_double_size_t_t_t(pagmoPINVOKE.sea_get_log(swigCPtr), false);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 

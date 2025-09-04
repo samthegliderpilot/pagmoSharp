@@ -48,6 +48,7 @@ public partial class thread_bfe : bfe {
   }
 
   public thread_bfe() : this(pagmoPINVOKE.new_thread_bfe__SWIG_0(), true) {
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public thread_bfe(thread_bfe arg0) : this(pagmoPINVOKE.new_thread_bfe__SWIG_1(thread_bfe.getCPtr(arg0)), true) {
@@ -56,6 +57,7 @@ public partial class thread_bfe : bfe {
 
   public virtual string get_name() {
     string ret = pagmoPINVOKE.thread_bfe_get_name(swigCPtr);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 

@@ -60,27 +60,35 @@ public partial class nspso : algorithm {
   }
 
   public nspso(uint gen, double omega, double c1, double c2, double chi, double v_coeff, uint leader_selection_range) : this(pagmoPINVOKE.new_nspso__SWIG_3(gen, omega, c1, c2, chi, v_coeff, leader_selection_range), true) {
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public nspso(uint gen, double omega, double c1, double c2, double chi, double v_coeff) : this(pagmoPINVOKE.new_nspso__SWIG_4(gen, omega, c1, c2, chi, v_coeff), true) {
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public nspso(uint gen, double omega, double c1, double c2, double chi) : this(pagmoPINVOKE.new_nspso__SWIG_5(gen, omega, c1, c2, chi), true) {
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public nspso(uint gen, double omega, double c1, double c2) : this(pagmoPINVOKE.new_nspso__SWIG_6(gen, omega, c1, c2), true) {
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public nspso(uint gen, double omega, double c1) : this(pagmoPINVOKE.new_nspso__SWIG_7(gen, omega, c1), true) {
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public nspso(uint gen, double omega) : this(pagmoPINVOKE.new_nspso__SWIG_8(gen, omega), true) {
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public nspso(uint gen) : this(pagmoPINVOKE.new_nspso__SWIG_9(gen), true) {
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public nspso() : this(pagmoPINVOKE.new_nspso__SWIG_10(), true) {
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public population evolve(population arg0) {
@@ -91,24 +99,29 @@ public partial class nspso : algorithm {
 
   public void set_seed(uint arg0) {
     pagmoPINVOKE.nspso_set_seed(swigCPtr, arg0);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public uint get_seed() {
     uint ret = pagmoPINVOKE.nspso_get_seed(swigCPtr);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public new void set_verbosity(uint level) {
     pagmoPINVOKE.nspso_set_verbosity(swigCPtr, level);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public uint get_verbosity() {
     uint ret = pagmoPINVOKE.nspso_get_verbosity(swigCPtr);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public uint get_gen() {
     uint ret = pagmoPINVOKE.nspso_get_gen(swigCPtr);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
@@ -119,16 +132,19 @@ public partial class nspso : algorithm {
 
   public new string get_name() {
     string ret = pagmoPINVOKE.nspso_get_name(swigCPtr);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public new string get_extra_info() {
     string ret = pagmoPINVOKE.nspso_get_extra_info(swigCPtr);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public SWIGTYPE_p_std__vectorT_std__tupleT_unsigned_int_unsigned_long_long_std__vectorT_double_t_t_t get_log() {
     SWIGTYPE_p_std__vectorT_std__tupleT_unsigned_int_unsigned_long_long_std__vectorT_double_t_t_t ret = new SWIGTYPE_p_std__vectorT_std__tupleT_unsigned_int_unsigned_long_long_std__vectorT_double_t_t_t(pagmoPINVOKE.nspso_get_log(swigCPtr), false);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 

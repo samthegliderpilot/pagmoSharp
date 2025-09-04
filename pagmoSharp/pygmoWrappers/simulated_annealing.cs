@@ -48,27 +48,35 @@ public partial class simulated_annealing : algorithm {
   }
 
   public simulated_annealing(double Ts, double Tf, uint n_T_adj, uint n_range_adj, uint bin_size, double start_range, uint seed) : this(pagmoPINVOKE.new_simulated_annealing__SWIG_0(Ts, Tf, n_T_adj, n_range_adj, bin_size, start_range, seed), true) {
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public simulated_annealing(double Ts, double Tf, uint n_T_adj, uint n_range_adj, uint bin_size, double start_range) : this(pagmoPINVOKE.new_simulated_annealing__SWIG_1(Ts, Tf, n_T_adj, n_range_adj, bin_size, start_range), true) {
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public simulated_annealing(double Ts, double Tf, uint n_T_adj, uint n_range_adj, uint bin_size) : this(pagmoPINVOKE.new_simulated_annealing__SWIG_2(Ts, Tf, n_T_adj, n_range_adj, bin_size), true) {
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public simulated_annealing(double Ts, double Tf, uint n_T_adj, uint n_range_adj) : this(pagmoPINVOKE.new_simulated_annealing__SWIG_3(Ts, Tf, n_T_adj, n_range_adj), true) {
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public simulated_annealing(double Ts, double Tf, uint n_T_adj) : this(pagmoPINVOKE.new_simulated_annealing__SWIG_4(Ts, Tf, n_T_adj), true) {
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public simulated_annealing(double Ts, double Tf) : this(pagmoPINVOKE.new_simulated_annealing__SWIG_5(Ts, Tf), true) {
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public simulated_annealing(double Ts) : this(pagmoPINVOKE.new_simulated_annealing__SWIG_6(Ts), true) {
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public simulated_annealing() : this(pagmoPINVOKE.new_simulated_annealing__SWIG_7(), true) {
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public population evolve(population arg0) {
@@ -79,34 +87,41 @@ public partial class simulated_annealing : algorithm {
 
   public new void set_verbosity(uint level) {
     pagmoPINVOKE.simulated_annealing_set_verbosity(swigCPtr, level);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public uint get_verbosity() {
     uint ret = pagmoPINVOKE.simulated_annealing_get_verbosity(swigCPtr);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public void set_seed(uint arg0) {
     pagmoPINVOKE.simulated_annealing_set_seed(swigCPtr, arg0);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public uint get_seed() {
     uint ret = pagmoPINVOKE.simulated_annealing_get_seed(swigCPtr);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public new string get_name() {
     string ret = pagmoPINVOKE.simulated_annealing_get_name(swigCPtr);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public new string get_extra_info() {
     string ret = pagmoPINVOKE.simulated_annealing_get_extra_info(swigCPtr);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public SWIGTYPE_p_std__vectorT_std__tupleT_unsigned_long_long_double_double_double_double_t_t get_log() {
     SWIGTYPE_p_std__vectorT_std__tupleT_unsigned_long_long_double_double_double_double_t_t ret = new SWIGTYPE_p_std__vectorT_std__tupleT_unsigned_long_long_double_double_double_double_t_t(pagmoPINVOKE.simulated_annealing_get_log(swigCPtr), false);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 

@@ -58,15 +58,18 @@ public class s_policyPagmoWrapper : global::System.IDisposable {
   }
 
   public s_policyPagmoWrapper() : this(pagmoPINVOKE.new_s_policyPagmoWrapper(), true) {
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public void setBasePolicy(s_policyBase b) {
     pagmoPINVOKE.s_policyPagmoWrapper_setBasePolicy(swigCPtr, s_policyBase.getCPtr(b));
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public s_policyBase getBasePolicy() {
     global::System.IntPtr cPtr = pagmoPINVOKE.s_policyPagmoWrapper_getBasePolicy(swigCPtr);
     s_policyBase ret = (cPtr == global::System.IntPtr.Zero) ? null : new s_policyBase(cPtr, false);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
@@ -78,16 +81,19 @@ public class s_policyPagmoWrapper : global::System.IDisposable {
 
   public string get_name() {
     string ret = pagmoPINVOKE.s_policyPagmoWrapper_get_name(swigCPtr);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public string get_extra_info() {
     string ret = pagmoPINVOKE.s_policyPagmoWrapper_get_extra_info(swigCPtr);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public bool is_valid() {
     bool ret = pagmoPINVOKE.s_policyPagmoWrapper_is_valid(swigCPtr);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 

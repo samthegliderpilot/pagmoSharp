@@ -58,6 +58,7 @@ public partial class archipelago : global::System.IDisposable {
   }
 
   public archipelago() : this(pagmoPINVOKE.new_archipelago__SWIG_0(), true) {
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public archipelago(archipelago arg0) : this(pagmoPINVOKE.new_archipelago__SWIG_1(archipelago.getCPtr(arg0)), true) {
@@ -66,52 +67,63 @@ public partial class archipelago : global::System.IDisposable {
 
   public SWIGTYPE_p_std__vectorT_std__unique_ptrT_pagmo__island_t_t__size_type size() {
     SWIGTYPE_p_std__vectorT_std__unique_ptrT_pagmo__island_t_t__size_type ret = new SWIGTYPE_p_std__vectorT_std__unique_ptrT_pagmo__island_t_t__size_type(pagmoPINVOKE.archipelago_size(swigCPtr), true);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public void evolve(uint n) {
     pagmoPINVOKE.archipelago_evolve__SWIG_0(swigCPtr, n);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public void evolve() {
     pagmoPINVOKE.archipelago_evolve__SWIG_1(swigCPtr);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public void wait() {
     pagmoPINVOKE.archipelago_wait(swigCPtr);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public void wait_check() {
     pagmoPINVOKE.archipelago_wait_check(swigCPtr);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public evolve_status status() {
     evolve_status ret = (evolve_status)pagmoPINVOKE.archipelago_status(swigCPtr);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public SWIGTYPE_p_boost__indirect_iteratorT_pagmo__archipelago__container_t__iterator_t begin() {
     SWIGTYPE_p_boost__indirect_iteratorT_pagmo__archipelago__container_t__iterator_t ret = new SWIGTYPE_p_boost__indirect_iteratorT_pagmo__archipelago__container_t__iterator_t(pagmoPINVOKE.archipelago_begin__SWIG_0(swigCPtr), true);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public SWIGTYPE_p_boost__indirect_iteratorT_pagmo__archipelago__container_t__iterator_t end() {
     SWIGTYPE_p_boost__indirect_iteratorT_pagmo__archipelago__container_t__iterator_t ret = new SWIGTYPE_p_boost__indirect_iteratorT_pagmo__archipelago__container_t__iterator_t(pagmoPINVOKE.archipelago_end__SWIG_0(swigCPtr), true);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public VectorOfVectorOfDoubles get_champions_f() {
     VectorOfVectorOfDoubles ret = new VectorOfVectorOfDoubles(pagmoPINVOKE.archipelago_get_champions_f(swigCPtr), true);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public VectorOfVectorOfDoubles get_champions_x() {
     VectorOfVectorOfDoubles ret = new VectorOfVectorOfDoubles(pagmoPINVOKE.archipelago_get_champions_x(swigCPtr), true);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public SWIGTYPE_p_std__vectorT_std__tupleT_std__vectorT_unsigned_long_long_t_std__vectorT_std__vectorT_double_t_t_std__vectorT_std__vectorT_double_t_t_t_t get_migrants_db() {
     SWIGTYPE_p_std__vectorT_std__tupleT_std__vectorT_unsigned_long_long_t_std__vectorT_std__vectorT_double_t_t_std__vectorT_std__vectorT_double_t_t_t_t ret = new SWIGTYPE_p_std__vectorT_std__tupleT_std__vectorT_unsigned_long_long_t_std__vectorT_std__vectorT_double_t_t_std__vectorT_std__vectorT_double_t_t_t_t(pagmoPINVOKE.archipelago_get_migrants_db(swigCPtr), true);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
@@ -122,6 +134,7 @@ public partial class archipelago : global::System.IDisposable {
 
   public topology get_topology() {
     topology ret = new topology(pagmoPINVOKE.archipelago_get_topology(swigCPtr), true);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
@@ -132,20 +145,24 @@ public partial class archipelago : global::System.IDisposable {
 
   public migration_type get_migration_type() {
     migration_type ret = (migration_type)pagmoPINVOKE.archipelago_get_migration_type(swigCPtr);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public void set_migration_type(migration_type arg0) {
     pagmoPINVOKE.archipelago_set_migration_type(swigCPtr, (int)arg0);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public migrant_handling get_migrant_handling() {
     migrant_handling ret = (migrant_handling)pagmoPINVOKE.archipelago_get_migrant_handling(swigCPtr);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public void set_migrant_handling(migrant_handling arg0) {
     pagmoPINVOKE.archipelago_set_migrant_handling(swigCPtr, (int)arg0);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
 }

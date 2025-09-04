@@ -10,20 +10,20 @@
 
 namespace pagmo {
 
-public partial class island : global::System.IDisposable {
+public class RekSum : global::System.IDisposable {
   private global::System.Runtime.InteropServices.HandleRef swigCPtr;
   protected bool swigCMemOwn;
 
-  internal island(global::System.IntPtr cPtr, bool cMemoryOwn) {
+  internal RekSum(global::System.IntPtr cPtr, bool cMemoryOwn) {
     swigCMemOwn = cMemoryOwn;
     swigCPtr = new global::System.Runtime.InteropServices.HandleRef(this, cPtr);
   }
 
-  internal static global::System.Runtime.InteropServices.HandleRef getCPtr(island obj) {
+  internal static global::System.Runtime.InteropServices.HandleRef getCPtr(RekSum obj) {
     return (obj == null) ? new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero) : obj.swigCPtr;
   }
 
-  internal static global::System.Runtime.InteropServices.HandleRef swigRelease(island obj) {
+  internal static global::System.Runtime.InteropServices.HandleRef swigRelease(RekSum obj) {
     if (obj != null) {
       if (!obj.swigCMemOwn)
         throw new global::System.ApplicationException("Cannot release ownership as memory is not owned");
@@ -36,7 +36,7 @@ public partial class island : global::System.IDisposable {
     }
   }
 
-  ~island() {
+  ~RekSum() {
     Dispose(false);
   }
 
@@ -50,14 +50,19 @@ public partial class island : global::System.IDisposable {
       if (swigCPtr.Handle != global::System.IntPtr.Zero) {
         if (swigCMemOwn) {
           swigCMemOwn = false;
-          pagmoPINVOKE.delete_island(swigCPtr);
+          pagmoPINVOKE.delete_RekSum(swigCPtr);
         }
         swigCPtr = new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero);
       }
     }
   }
 
-  public island() : this(pagmoPINVOKE.new_island(), true) {
+  public static void reksum(VectorOfVectorOfDoubles out_, ULongLongVector in_, ulong m, ulong s) {
+    pagmoPINVOKE.RekSum_reksum(VectorOfVectorOfDoubles.getCPtr(out_), ULongLongVector.getCPtr(in_), m, s);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
+  }
+
+  public RekSum() : this(pagmoPINVOKE.new_RekSum(), true) {
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 

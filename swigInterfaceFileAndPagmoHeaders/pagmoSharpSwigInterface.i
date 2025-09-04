@@ -1,6 +1,20 @@
 ﻿/* File pagmoSharpSwigInterface.i */
 #define SUPPORT_VARIDEC FALSE
+%include "exception.i"
+%{
+#include <pagmo/exceptions.hpp>  
+%}
 
+// Global exception handler
+%exception {
+    try {
+        $action
+    } catch (const std::exception &e) {
+        SWIG_exception(SWIG_RuntimeError, e.what());
+    } catch (...) {
+        SWIG_exception(SWIG_RuntimeError, "Unknown C++ exception");
+    }
+}
 %module(naturalvar=1, directors="11") pagmo
 %{
 	#include "pagmo/algorithm.hpp"
@@ -61,7 +75,6 @@ $result = SWIG_NewPointerObj(SWIG_as_voidptr(&$1), $descriptor(std::vector<ns::u
     temp = CsLong_FromUnsignedLongLong($input);
     $1 = &temp;
 }
-
 
 
 // The whole problem vs. problemBase question is a little confusing.  To make it better (or wo// rs// e)
@@ -212,6 +225,8 @@ namespace pagmo {
 	%include swigInterfaceFiles\utils\multi_objective.i
 };
 
+
+// this exception logic might not be necessary after adding the global exception handling at the top of the file
 %{
 #include <exception>
 struct wrapped_exception : std::exception {
@@ -235,7 +250,6 @@ private:
 
 
 // TODO:
-// Fix exceptions (somehow...) to get actual message
 // Fix eigen3 path in c++ project
 // algorithms:
 //   ihs

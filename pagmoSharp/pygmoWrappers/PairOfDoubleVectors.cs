@@ -58,6 +58,7 @@ public class PairOfDoubleVectors : global::System.IDisposable {
   }
 
   public PairOfDoubleVectors() : this(pagmoPINVOKE.new_PairOfDoubleVectors__SWIG_0(), true) {
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public PairOfDoubleVectors(DoubleVector first, DoubleVector second) : this(pagmoPINVOKE.new_PairOfDoubleVectors__SWIG_1(DoubleVector.getCPtr(first), DoubleVector.getCPtr(second)), true) {

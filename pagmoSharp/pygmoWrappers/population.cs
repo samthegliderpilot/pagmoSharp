@@ -81,11 +81,13 @@ public partial class population : global::System.IDisposable {
 
   public DoubleVector random_decision_vector() {
     DoubleVector ret = new DoubleVector(pagmoPINVOKE.population_random_decision_vector(swigCPtr), true);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public uint best_idx() {
     uint ret = pagmoPINVOKE.population_best_idx__SWIG_0(swigCPtr);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
@@ -97,11 +99,13 @@ public partial class population : global::System.IDisposable {
 
   public uint best_idx(double arg0) {
     uint ret = pagmoPINVOKE.population_best_idx__SWIG_2(swigCPtr, arg0);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public uint worst_idx() {
     uint ret = pagmoPINVOKE.population_worst_idx__SWIG_0(swigCPtr);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
@@ -113,21 +117,25 @@ public partial class population : global::System.IDisposable {
 
   public uint worst_idx(double arg0) {
     uint ret = pagmoPINVOKE.population_worst_idx__SWIG_2(swigCPtr, arg0);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public DoubleVector champion_x() {
     DoubleVector ret = new DoubleVector(pagmoPINVOKE.population_champion_x(swigCPtr), true);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public DoubleVector champion_f() {
     DoubleVector ret = new DoubleVector(pagmoPINVOKE.population_champion_f(swigCPtr), true);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public uint size() {
     uint ret = pagmoPINVOKE.population_size(swigCPtr);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
@@ -143,26 +151,31 @@ public partial class population : global::System.IDisposable {
 
   public problemPagomWrapper get_problem() {
     problemPagomWrapper ret = new problemPagomWrapper(pagmoPINVOKE.population_get_problem(swigCPtr), false);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public VectorOfVectorOfDoubles get_f() {
     VectorOfVectorOfDoubles ret = new VectorOfVectorOfDoubles(pagmoPINVOKE.population_get_f(swigCPtr), false);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public VectorOfVectorOfDoubles get_x() {
     VectorOfVectorOfDoubles ret = new VectorOfVectorOfDoubles(pagmoPINVOKE.population_get_x(swigCPtr), false);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public ULongLongVector get_ID() {
     ULongLongVector ret = new ULongLongVector(pagmoPINVOKE.population_get_ID(swigCPtr), false);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public uint get_seed() {
     uint ret = pagmoPINVOKE.population_get_seed(swigCPtr);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 

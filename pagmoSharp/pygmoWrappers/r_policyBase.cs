@@ -71,20 +71,24 @@ public class r_policyBase : global::System.IDisposable {
 
   public virtual string get_name() {
     string ret = (SwigDerivedClassHasMethod("get_name", swigMethodTypes1) ? pagmoPINVOKE.r_policyBase_get_nameSwigExplicitr_policyBase(swigCPtr) : pagmoPINVOKE.r_policyBase_get_name(swigCPtr));
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public virtual string get_extra_info() {
     string ret = (SwigDerivedClassHasMethod("get_extra_info", swigMethodTypes2) ? pagmoPINVOKE.r_policyBase_get_extra_infoSwigExplicitr_policyBase(swigCPtr) : pagmoPINVOKE.r_policyBase_get_extra_info(swigCPtr));
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public virtual bool is_valid() {
     bool ret = (SwigDerivedClassHasMethod("is_valid", swigMethodTypes3) ? pagmoPINVOKE.r_policyBase_is_validSwigExplicitr_policyBase(swigCPtr) : pagmoPINVOKE.r_policyBase_is_valid(swigCPtr));
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public r_policyBase() : this(pagmoPINVOKE.new_r_policyBase(), true) {
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     SwigDirectorConnect();
   }
 

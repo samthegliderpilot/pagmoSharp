@@ -58,9 +58,11 @@ public class r_policyPagmoWrapper : global::System.IDisposable {
   }
 
   public r_policyPagmoWrapper() : this(pagmoPINVOKE.new_r_policyPagmoWrapper__SWIG_0(), true) {
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public r_policyPagmoWrapper(r_policyBase base_) : this(pagmoPINVOKE.new_r_policyPagmoWrapper__SWIG_1(r_policyBase.getCPtr(base_)), true) {
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public r_policyPagmoWrapper(r_policyPagmoWrapper old) : this(pagmoPINVOKE.new_r_policyPagmoWrapper__SWIG_2(r_policyPagmoWrapper.getCPtr(old)), true) {
@@ -69,11 +71,13 @@ public class r_policyPagmoWrapper : global::System.IDisposable {
 
   public void setBasePolicy(r_policyBase b) {
     pagmoPINVOKE.r_policyPagmoWrapper_setBasePolicy(swigCPtr, r_policyBase.getCPtr(b));
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public r_policyBase getBasePolicy() {
     global::System.IntPtr cPtr = pagmoPINVOKE.r_policyPagmoWrapper_getBasePolicy(swigCPtr);
     r_policyBase ret = (cPtr == global::System.IntPtr.Zero) ? null : new r_policyBase(cPtr, false);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
@@ -85,16 +89,19 @@ public class r_policyPagmoWrapper : global::System.IDisposable {
 
   public string get_name() {
     string ret = pagmoPINVOKE.r_policyPagmoWrapper_get_name(swigCPtr);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public string get_extra_info() {
     string ret = pagmoPINVOKE.r_policyPagmoWrapper_get_extra_info(swigCPtr);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public bool is_valid() {
     bool ret = pagmoPINVOKE.r_policyPagmoWrapper_is_valid(swigCPtr);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 

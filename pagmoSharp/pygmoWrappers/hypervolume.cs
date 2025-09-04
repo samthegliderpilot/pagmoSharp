@@ -58,6 +58,7 @@ public partial class hypervolume : global::System.IDisposable {
   }
 
   public hypervolume() : this(pagmoPINVOKE.new_hypervolume__SWIG_0(), true) {
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public hypervolume(population pop, bool verify) : this(pagmoPINVOKE.new_hypervolume__SWIG_1(population.getCPtr(pop), verify), true) {
@@ -82,34 +83,41 @@ public partial class hypervolume : global::System.IDisposable {
 
   public void set_copy_points(bool arg0) {
     pagmoPINVOKE.hypervolume_set_copy_points(swigCPtr, arg0);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public bool get_copy_points() {
     bool ret = pagmoPINVOKE.hypervolume_get_copy_points(swigCPtr);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public void set_verify(bool arg0) {
     pagmoPINVOKE.hypervolume_set_verify(swigCPtr, arg0);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public bool get_verify() {
     bool ret = pagmoPINVOKE.hypervolume_get_verify(swigCPtr);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public DoubleVector refpoint(double offset) {
     DoubleVector ret = new DoubleVector(pagmoPINVOKE.hypervolume_refpoint__SWIG_0(swigCPtr, offset), true);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public DoubleVector refpoint() {
     DoubleVector ret = new DoubleVector(pagmoPINVOKE.hypervolume_refpoint__SWIG_1(swigCPtr), true);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public VectorOfVectorOfDoubles get_points() {
     VectorOfVectorOfDoubles ret = new VectorOfVectorOfDoubles(pagmoPINVOKE.hypervolume_get_points(swigCPtr), false);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 

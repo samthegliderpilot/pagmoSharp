@@ -232,6 +232,7 @@ public class VectorOfVectorOfDoubles : global::System.IDisposable, global::Syste
 
   public void Clear() {
     pagmoPINVOKE.VectorOfVectorOfDoubles_Clear(swigCPtr);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public void Add(DoubleVector x) {
@@ -241,19 +242,23 @@ public class VectorOfVectorOfDoubles : global::System.IDisposable, global::Syste
 
   private uint size() {
     uint ret = pagmoPINVOKE.VectorOfVectorOfDoubles_size(swigCPtr);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   private uint capacity() {
     uint ret = pagmoPINVOKE.VectorOfVectorOfDoubles_capacity(swigCPtr);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   private void reserve(uint n) {
     pagmoPINVOKE.VectorOfVectorOfDoubles_reserve(swigCPtr, n);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public VectorOfVectorOfDoubles() : this(pagmoPINVOKE.new_VectorOfVectorOfDoubles__SWIG_0(), true) {
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public VectorOfVectorOfDoubles(VectorOfVectorOfDoubles other) : this(pagmoPINVOKE.new_VectorOfVectorOfDoubles__SWIG_1(VectorOfVectorOfDoubles.getCPtr(other)), true) {
@@ -322,6 +327,7 @@ public class VectorOfVectorOfDoubles : global::System.IDisposable, global::Syste
 
   public void Reverse() {
     pagmoPINVOKE.VectorOfVectorOfDoubles_Reverse__SWIG_0(swigCPtr);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public void Reverse(int index, int count) {

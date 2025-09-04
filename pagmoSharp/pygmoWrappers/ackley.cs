@@ -58,9 +58,11 @@ public partial class ackley : global::System.IDisposable {
   }
 
   public ackley(uint dim) : this(pagmoPINVOKE.new_ackley__SWIG_0(dim), true) {
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public ackley() : this(pagmoPINVOKE.new_ackley__SWIG_1(), true) {
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public DoubleVector fitness(DoubleVector arg0) {
@@ -71,56 +73,67 @@ public partial class ackley : global::System.IDisposable {
 
   public PairOfDoubleVectors get_bounds() {
     PairOfDoubleVectors ret = new PairOfDoubleVectors(pagmoPINVOKE.ackley_get_bounds(swigCPtr), true);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public string get_name() {
     string ret = pagmoPINVOKE.ackley_get_name(swigCPtr);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public DoubleVector best_known() {
     DoubleVector ret = new DoubleVector(pagmoPINVOKE.ackley_best_known(swigCPtr), true);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public uint m_dim {
     set {
       pagmoPINVOKE.ackley_m_dim_set(swigCPtr, value);
+      if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     } 
     get {
       uint ret = pagmoPINVOKE.ackley_m_dim_get(swigCPtr);
+      if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
       return ret;
     } 
   }
 
   public uint get_nic() {
     uint ret = pagmoPINVOKE.ackley_get_nic(swigCPtr);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public uint get_nec() {
     uint ret = pagmoPINVOKE.ackley_get_nec(swigCPtr);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public uint get_nix() {
     uint ret = pagmoPINVOKE.ackley_get_nix(swigCPtr);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public uint get_nobj() {
     uint ret = pagmoPINVOKE.ackley_get_nobj(swigCPtr);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public bool has_batch_fitness() {
     bool ret = pagmoPINVOKE.ackley_has_batch_fitness(swigCPtr);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public thread_safety get_thread_safety() {
     thread_safety ret = (thread_safety)pagmoPINVOKE.ackley_get_thread_safety(swigCPtr);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 

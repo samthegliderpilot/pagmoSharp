@@ -48,6 +48,7 @@ public partial class nlopt : algorithm {
   }
 
   public nlopt() : this(pagmoPINVOKE.new_nlopt__SWIG_0(), true) {
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public nlopt(string arg0) : this(pagmoPINVOKE.new_nlopt__SWIG_1(arg0), true) {
@@ -66,104 +67,126 @@ public partial class nlopt : algorithm {
 
   public new string get_name() {
     string ret = pagmoPINVOKE.nlopt_get_name(swigCPtr);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public new void set_verbosity(uint n) {
     pagmoPINVOKE.nlopt_set_verbosity(swigCPtr, n);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public new string get_extra_info() {
     string ret = pagmoPINVOKE.nlopt_get_extra_info(swigCPtr);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public SWIGTYPE_p_std__vectorT_std__tupleT_unsigned_long_double_size_t_double_bool_t_t get_log() {
     SWIGTYPE_p_std__vectorT_std__tupleT_unsigned_long_double_size_t_double_bool_t_t ret = new SWIGTYPE_p_std__vectorT_std__tupleT_unsigned_long_double_size_t_double_bool_t_t(pagmoPINVOKE.nlopt_get_log(swigCPtr), false);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public string get_solver_name() {
     string ret = pagmoPINVOKE.nlopt_get_solver_name(swigCPtr);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public SWIGTYPE_p_nlopt_result get_last_opt_result() {
     SWIGTYPE_p_nlopt_result ret = new SWIGTYPE_p_nlopt_result(pagmoPINVOKE.nlopt_get_last_opt_result(swigCPtr), true);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public double get_stopval() {
     double ret = pagmoPINVOKE.nlopt_get_stopval(swigCPtr);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public void set_stopval(double arg0) {
     pagmoPINVOKE.nlopt_set_stopval(swigCPtr, arg0);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public double get_ftol_rel() {
     double ret = pagmoPINVOKE.nlopt_get_ftol_rel(swigCPtr);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public void set_ftol_rel(double arg0) {
     pagmoPINVOKE.nlopt_set_ftol_rel(swigCPtr, arg0);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public double get_ftol_abs() {
     double ret = pagmoPINVOKE.nlopt_get_ftol_abs(swigCPtr);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public void set_ftol_abs(double arg0) {
     pagmoPINVOKE.nlopt_set_ftol_abs(swigCPtr, arg0);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public double get_xtol_rel() {
     double ret = pagmoPINVOKE.nlopt_get_xtol_rel(swigCPtr);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public void set_xtol_rel(double arg0) {
     pagmoPINVOKE.nlopt_set_xtol_rel(swigCPtr, arg0);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public double get_xtol_abs() {
     double ret = pagmoPINVOKE.nlopt_get_xtol_abs(swigCPtr);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public void set_xtol_abs(double arg0) {
     pagmoPINVOKE.nlopt_set_xtol_abs(swigCPtr, arg0);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public int get_maxeval() {
     int ret = pagmoPINVOKE.nlopt_get_maxeval(swigCPtr);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public void set_maxeval(int n) {
     pagmoPINVOKE.nlopt_set_maxeval(swigCPtr, n);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public int get_maxtime() {
     int ret = pagmoPINVOKE.nlopt_get_maxtime(swigCPtr);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public void set_maxtime(int n) {
     pagmoPINVOKE.nlopt_set_maxtime(swigCPtr, n);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public nlopt get_local_optimizer() {
     global::System.IntPtr cPtr = pagmoPINVOKE.nlopt_get_local_optimizer__SWIG_0(swigCPtr);
     nlopt ret = (cPtr == global::System.IntPtr.Zero) ? null : new nlopt(cPtr, false);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public void unset_local_optimizer() {
     pagmoPINVOKE.nlopt_unset_local_optimizer(swigCPtr);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
 }

@@ -514,8 +514,35 @@ class pagmoPINVOKE {
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper.dll", EntryPoint="CSharp_pagmo_delete_FNDSResult")]
   public static extern void delete_FNDSResult(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper.dll", EntryPoint="CSharp_pagmo_fast_non_dominated_sorting_wrapped")]
-  public static extern global::System.IntPtr fast_non_dominated_sorting_wrapped(global::System.Runtime.InteropServices.HandleRef jarg1);
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper.dll", EntryPoint="CSharp_pagmo_FastNonDominatedSorting")]
+  public static extern global::System.IntPtr FastNonDominatedSorting(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper.dll", EntryPoint="CSharp_pagmo_RekSum_reksum")]
+  public static extern void RekSum_reksum(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2, ulong jarg3, ulong jarg4);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper.dll", EntryPoint="CSharp_pagmo_new_RekSum")]
+  public static extern global::System.IntPtr new_RekSum();
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper.dll", EntryPoint="CSharp_pagmo_delete_RekSum")]
+  public static extern void delete_RekSum(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper.dll", EntryPoint="CSharp_pagmo_DecompositionWeights_decomposition_weights")]
+  public static extern global::System.IntPtr DecompositionWeights_decomposition_weights(uint jarg1, uint jarg2, string jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper.dll", EntryPoint="CSharp_pagmo_DecompositionWeights_METHOD_UNIFORM_get")]
+  public static extern string DecompositionWeights_METHOD_UNIFORM_get();
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper.dll", EntryPoint="CSharp_pagmo_DecompositionWeights_METHOD_RAND_get")]
+  public static extern string DecompositionWeights_METHOD_RAND_get();
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper.dll", EntryPoint="CSharp_pagmo_DecompositionWeights_METHOD_LOW_DISCREPANCY_get")]
+  public static extern string DecompositionWeights_METHOD_LOW_DISCREPANCY_get();
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper.dll", EntryPoint="CSharp_pagmo_new_DecompositionWeights")]
+  public static extern global::System.IntPtr new_DecompositionWeights();
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper.dll", EntryPoint="CSharp_pagmo_delete_DecompositionWeights")]
+  public static extern void delete_DecompositionWeights(global::System.Runtime.InteropServices.HandleRef jarg1);
 
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper.dll", EntryPoint="CSharp_pagmo_DoubleVector_Clear")]
   public static extern void DoubleVector_Clear(global::System.Runtime.InteropServices.HandleRef jarg1);

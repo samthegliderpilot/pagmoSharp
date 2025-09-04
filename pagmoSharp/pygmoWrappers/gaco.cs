@@ -48,46 +48,60 @@ public partial class gaco : algorithm {
   }
 
   public gaco(uint gen, uint ker, double q, double oracle, double acc, uint threshold, uint n_gen_mark, uint impstop, uint evalstop, double focus, bool memory, uint seed) : this(pagmoPINVOKE.new_gaco__SWIG_0(gen, ker, q, oracle, acc, threshold, n_gen_mark, impstop, evalstop, focus, memory, seed), true) {
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public gaco(uint gen, uint ker, double q, double oracle, double acc, uint threshold, uint n_gen_mark, uint impstop, uint evalstop, double focus, bool memory) : this(pagmoPINVOKE.new_gaco__SWIG_1(gen, ker, q, oracle, acc, threshold, n_gen_mark, impstop, evalstop, focus, memory), true) {
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public gaco(uint gen, uint ker, double q, double oracle, double acc, uint threshold, uint n_gen_mark, uint impstop, uint evalstop, double focus) : this(pagmoPINVOKE.new_gaco__SWIG_2(gen, ker, q, oracle, acc, threshold, n_gen_mark, impstop, evalstop, focus), true) {
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public gaco(uint gen, uint ker, double q, double oracle, double acc, uint threshold, uint n_gen_mark, uint impstop, uint evalstop) : this(pagmoPINVOKE.new_gaco__SWIG_3(gen, ker, q, oracle, acc, threshold, n_gen_mark, impstop, evalstop), true) {
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public gaco(uint gen, uint ker, double q, double oracle, double acc, uint threshold, uint n_gen_mark, uint impstop) : this(pagmoPINVOKE.new_gaco__SWIG_4(gen, ker, q, oracle, acc, threshold, n_gen_mark, impstop), true) {
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public gaco(uint gen, uint ker, double q, double oracle, double acc, uint threshold, uint n_gen_mark) : this(pagmoPINVOKE.new_gaco__SWIG_5(gen, ker, q, oracle, acc, threshold, n_gen_mark), true) {
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public gaco(uint gen, uint ker, double q, double oracle, double acc, uint threshold) : this(pagmoPINVOKE.new_gaco__SWIG_6(gen, ker, q, oracle, acc, threshold), true) {
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public gaco(uint gen, uint ker, double q, double oracle, double acc) : this(pagmoPINVOKE.new_gaco__SWIG_7(gen, ker, q, oracle, acc), true) {
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public gaco(uint gen, uint ker, double q, double oracle) : this(pagmoPINVOKE.new_gaco__SWIG_8(gen, ker, q, oracle), true) {
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public gaco(uint gen, uint ker, double q) : this(pagmoPINVOKE.new_gaco__SWIG_9(gen, ker, q), true) {
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public gaco(uint gen, uint ker) : this(pagmoPINVOKE.new_gaco__SWIG_10(gen, ker), true) {
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public gaco(uint gen) : this(pagmoPINVOKE.new_gaco__SWIG_11(gen), true) {
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public gaco() : this(pagmoPINVOKE.new_gaco__SWIG_12(), true) {
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public uint get_gen() {
     uint ret = pagmoPINVOKE.gaco_get_gen(swigCPtr);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
@@ -99,25 +113,30 @@ public partial class gaco : algorithm {
 
   public new string get_name() {
     string ret = pagmoPINVOKE.gaco_get_name(swigCPtr);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public void set_seed(uint arg0) {
     pagmoPINVOKE.gaco_set_seed(swigCPtr, arg0);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public uint get_seed() {
     uint ret = pagmoPINVOKE.gaco_get_seed(swigCPtr);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public uint get_verbosity() {
     uint ret = pagmoPINVOKE.gaco_get_verbosity(swigCPtr);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public new void set_verbosity(uint arg0) {
     pagmoPINVOKE.gaco_set_verbosity(swigCPtr, arg0);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public void set_bfe(bfe b) {
@@ -127,11 +146,13 @@ public partial class gaco : algorithm {
 
   public new string get_extra_info() {
     string ret = pagmoPINVOKE.gaco_get_extra_info(swigCPtr);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public SWIGTYPE_p_std__vectorT_std__tupleT_unsigned_int_size_t_double_unsigned_int_double_double_double_t_t get_log() {
     SWIGTYPE_p_std__vectorT_std__tupleT_unsigned_int_size_t_double_unsigned_int_double_double_double_t_t ret = new SWIGTYPE_p_std__vectorT_std__tupleT_unsigned_int_size_t_double_unsigned_int_double_double_double_t_t(pagmoPINVOKE.gaco_get_log(swigCPtr), false);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 

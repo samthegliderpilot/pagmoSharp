@@ -48,27 +48,35 @@ public partial class sade : algorithm {
   }
 
   public sade(uint gen, uint variant, uint variant_adptv, double ftol, double xtol, bool memory, uint seed) : this(pagmoPINVOKE.new_sade__SWIG_0(gen, variant, variant_adptv, ftol, xtol, memory, seed), true) {
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public sade(uint gen, uint variant, uint variant_adptv, double ftol, double xtol, bool memory) : this(pagmoPINVOKE.new_sade__SWIG_1(gen, variant, variant_adptv, ftol, xtol, memory), true) {
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public sade(uint gen, uint variant, uint variant_adptv, double ftol, double xtol) : this(pagmoPINVOKE.new_sade__SWIG_2(gen, variant, variant_adptv, ftol, xtol), true) {
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public sade(uint gen, uint variant, uint variant_adptv, double ftol) : this(pagmoPINVOKE.new_sade__SWIG_3(gen, variant, variant_adptv, ftol), true) {
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public sade(uint gen, uint variant, uint variant_adptv) : this(pagmoPINVOKE.new_sade__SWIG_4(gen, variant, variant_adptv), true) {
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public sade(uint gen, uint variant) : this(pagmoPINVOKE.new_sade__SWIG_5(gen, variant), true) {
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public sade(uint gen) : this(pagmoPINVOKE.new_sade__SWIG_6(gen), true) {
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public sade() : this(pagmoPINVOKE.new_sade__SWIG_7(), true) {
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public population evolve(population arg0) {
@@ -79,39 +87,47 @@ public partial class sade : algorithm {
 
   public new string get_name() {
     string ret = pagmoPINVOKE.sade_get_name(swigCPtr);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public void set_seed(uint arg0) {
     pagmoPINVOKE.sade_set_seed(swigCPtr, arg0);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public uint get_seed() {
     uint ret = pagmoPINVOKE.sade_get_seed(swigCPtr);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public uint get_verbosity() {
     uint ret = pagmoPINVOKE.sade_get_verbosity(swigCPtr);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public new void set_verbosity(uint arg0) {
     pagmoPINVOKE.sade_set_verbosity(swigCPtr, arg0);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public uint get_gen() {
     uint ret = pagmoPINVOKE.sade_get_gen(swigCPtr);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public new string get_extra_info() {
     string ret = pagmoPINVOKE.sade_get_extra_info(swigCPtr);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public SWIGTYPE_p_std__vectorT_std__tupleT_unsigned_int_unsigned_long_long_double_double_double_double_double_t_t get_log() {
     SWIGTYPE_p_std__vectorT_std__tupleT_unsigned_int_unsigned_long_long_double_double_double_double_double_t_t ret = new SWIGTYPE_p_std__vectorT_std__tupleT_unsigned_int_unsigned_long_long_double_double_double_double_double_t_t(pagmoPINVOKE.sade_get_log(swigCPtr), false);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 

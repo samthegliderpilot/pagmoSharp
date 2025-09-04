@@ -48,6 +48,7 @@ public partial class default_bfe : bfe {
   }
 
   public default_bfe() : this(pagmoPINVOKE.new_default_bfe__SWIG_0(), true) {
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public default_bfe(default_bfe arg0) : this(pagmoPINVOKE.new_default_bfe__SWIG_1(default_bfe.getCPtr(arg0)), true) {
@@ -56,6 +57,7 @@ public partial class default_bfe : bfe {
 
   public virtual string get_name() {
     string ret = pagmoPINVOKE.default_bfe_get_name(swigCPtr);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 

@@ -11,8 +11,8 @@
 namespace pagmo {
 
 public partial class pagmo {
-  public static FNDSResult fast_non_dominated_sorting_wrapped(VectorOfVectorOfDoubles input) {
-    FNDSResult ret = new FNDSResult(pagmoPINVOKE.fast_non_dominated_sorting_wrapped(VectorOfVectorOfDoubles.getCPtr(input)), true);
+  public static FNDSResult FastNonDominatedSorting(VectorOfVectorOfDoubles input) {
+    FNDSResult ret = new FNDSResult(pagmoPINVOKE.FastNonDominatedSorting(VectorOfVectorOfDoubles.getCPtr(input)), true);
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
@@ -24,6 +24,7 @@ public partial class pagmo {
 
   public static uint max_stream_output_length() {
     uint ret = pagmoPINVOKE.max_stream_output_length();
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 

@@ -58,9 +58,11 @@ public partial class problemPagomWrapper : global::System.IDisposable {
   }
 
   public problemPagomWrapper() : this(pagmoPINVOKE.new_problemPagomWrapper__SWIG_0(), true) {
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public problemPagomWrapper(problemBase base_) : this(pagmoPINVOKE.new_problemPagomWrapper__SWIG_1(problemBase.getCPtr(base_)), true) {
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public problemPagomWrapper(problemPagomWrapper old) : this(pagmoPINVOKE.new_problemPagomWrapper__SWIG_2(problemPagomWrapper.getCPtr(old)), true) {
@@ -69,11 +71,13 @@ public partial class problemPagomWrapper : global::System.IDisposable {
 
   public void setBaseProblem(problemBase b) {
     pagmoPINVOKE.problemPagomWrapper_setBaseProblem(swigCPtr, problemBase.getCPtr(b));
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public problemBase getBaseProblem() {
     global::System.IntPtr cPtr = pagmoPINVOKE.problemPagomWrapper_getBaseProblem(swigCPtr);
     problemBase ret = (cPtr == global::System.IntPtr.Zero) ? null : new problemBase(cPtr, false);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
@@ -85,46 +89,55 @@ public partial class problemPagomWrapper : global::System.IDisposable {
 
   public PairOfDoubleVectors get_bounds() {
     PairOfDoubleVectors ret = new PairOfDoubleVectors(pagmoPINVOKE.problemPagomWrapper_get_bounds(swigCPtr), true);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public bool has_batch_fitness() {
     bool ret = pagmoPINVOKE.problemPagomWrapper_has_batch_fitness(swigCPtr);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public string get_name() {
     string ret = pagmoPINVOKE.problemPagomWrapper_get_name(swigCPtr);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public uint get_nobj() {
     uint ret = pagmoPINVOKE.problemPagomWrapper_get_nobj(swigCPtr);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public uint get_nec() {
     uint ret = pagmoPINVOKE.problemPagomWrapper_get_nec(swigCPtr);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public uint get_nic() {
     uint ret = pagmoPINVOKE.problemPagomWrapper_get_nic(swigCPtr);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public uint get_nix() {
     uint ret = pagmoPINVOKE.problemPagomWrapper_get_nix(swigCPtr);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public thread_safety get_thread_safety() {
     thread_safety ret = (thread_safety)pagmoPINVOKE.problemPagomWrapper_get_thread_safety(swigCPtr);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public bool has_gradient() {
     bool ret = pagmoPINVOKE.problemPagomWrapper_has_gradient(swigCPtr);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
@@ -136,11 +149,13 @@ public partial class problemPagomWrapper : global::System.IDisposable {
 
   public bool has_gradient_sparsity() {
     bool ret = pagmoPINVOKE.problemPagomWrapper_has_gradient_sparsity(swigCPtr);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public SWIGTYPE_p_std__vectorT_std__pairT_size_t_size_t_t_t gradient_sparsity() {
     SWIGTYPE_p_std__vectorT_std__pairT_size_t_size_t_t_t ret = new SWIGTYPE_p_std__vectorT_std__pairT_size_t_size_t_t_t(pagmoPINVOKE.problemPagomWrapper_gradient_sparsity(swigCPtr), true);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 

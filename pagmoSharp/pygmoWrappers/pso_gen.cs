@@ -48,36 +48,47 @@ public partial class pso_gen : algorithm {
   }
 
   public pso_gen(uint gen, double omega, double eta1, double eta2, double max_vel, uint variant, uint neighb_type, uint neighb_param, bool memory, uint seed) : this(pagmoPINVOKE.new_pso_gen__SWIG_0(gen, omega, eta1, eta2, max_vel, variant, neighb_type, neighb_param, memory, seed), true) {
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public pso_gen(uint gen, double omega, double eta1, double eta2, double max_vel, uint variant, uint neighb_type, uint neighb_param, bool memory) : this(pagmoPINVOKE.new_pso_gen__SWIG_1(gen, omega, eta1, eta2, max_vel, variant, neighb_type, neighb_param, memory), true) {
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public pso_gen(uint gen, double omega, double eta1, double eta2, double max_vel, uint variant, uint neighb_type, uint neighb_param) : this(pagmoPINVOKE.new_pso_gen__SWIG_2(gen, omega, eta1, eta2, max_vel, variant, neighb_type, neighb_param), true) {
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public pso_gen(uint gen, double omega, double eta1, double eta2, double max_vel, uint variant, uint neighb_type) : this(pagmoPINVOKE.new_pso_gen__SWIG_3(gen, omega, eta1, eta2, max_vel, variant, neighb_type), true) {
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public pso_gen(uint gen, double omega, double eta1, double eta2, double max_vel, uint variant) : this(pagmoPINVOKE.new_pso_gen__SWIG_4(gen, omega, eta1, eta2, max_vel, variant), true) {
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public pso_gen(uint gen, double omega, double eta1, double eta2, double max_vel) : this(pagmoPINVOKE.new_pso_gen__SWIG_5(gen, omega, eta1, eta2, max_vel), true) {
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public pso_gen(uint gen, double omega, double eta1, double eta2) : this(pagmoPINVOKE.new_pso_gen__SWIG_6(gen, omega, eta1, eta2), true) {
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public pso_gen(uint gen, double omega, double eta1) : this(pagmoPINVOKE.new_pso_gen__SWIG_7(gen, omega, eta1), true) {
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public pso_gen(uint gen, double omega) : this(pagmoPINVOKE.new_pso_gen__SWIG_8(gen, omega), true) {
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public pso_gen(uint gen) : this(pagmoPINVOKE.new_pso_gen__SWIG_9(gen), true) {
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public pso_gen() : this(pagmoPINVOKE.new_pso_gen__SWIG_10(), true) {
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public population evolve(population arg0) {
@@ -88,10 +99,12 @@ public partial class pso_gen : algorithm {
 
   public new void set_verbosity(uint level) {
     pagmoPINVOKE.pso_gen_set_verbosity(swigCPtr, level);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public uint get_verbosity() {
     uint ret = pagmoPINVOKE.pso_gen_get_verbosity(swigCPtr);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
@@ -102,25 +115,30 @@ public partial class pso_gen : algorithm {
 
   public void set_seed(uint arg0) {
     pagmoPINVOKE.pso_gen_set_seed(swigCPtr, arg0);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public uint get_seed() {
     uint ret = pagmoPINVOKE.pso_gen_get_seed(swigCPtr);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public new string get_name() {
     string ret = pagmoPINVOKE.pso_gen_get_name(swigCPtr);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public new string get_extra_info() {
     string ret = pagmoPINVOKE.pso_gen_get_extra_info(swigCPtr);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public SWIGTYPE_p_std__vectorT_std__tupleT_unsigned_int_unsigned_long_long_double_double_double_double_t_t get_log() {
     SWIGTYPE_p_std__vectorT_std__tupleT_unsigned_int_unsigned_long_long_double_double_double_double_t_t ret = new SWIGTYPE_p_std__vectorT_std__tupleT_unsigned_int_unsigned_long_long_double_double_double_double_t_t(pagmoPINVOKE.pso_gen_get_log(swigCPtr), false);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 

@@ -35,10 +35,10 @@ see https://www.gnu.org/licenses/. */
 
 // Start of defines instantiated by CMake.
 // clang-format off
-#define PAGMO_VERSION "2.19.0"
+#define PAGMO_VERSION "2.19.1"
 #define PAGMO_VERSION_MAJOR 2
 #define PAGMO_VERSION_MINOR 19
-#define PAGMO_VERSION_PATCH 0
+#define PAGMO_VERSION_PATCH 1
 #define PAGMO_WITH_EIGEN3
 #define PAGMO_WITH_NLOPT
 

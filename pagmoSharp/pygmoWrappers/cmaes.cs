@@ -48,39 +48,51 @@ public partial class cmaes : algorithm {
   }
 
   public cmaes(uint gen, double cc, double cs, double c1, double cmu, double sigma0, double ftol, double xtol, bool memory, bool force_bounds, uint seed) : this(pagmoPINVOKE.new_cmaes__SWIG_0(gen, cc, cs, c1, cmu, sigma0, ftol, xtol, memory, force_bounds, seed), true) {
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public cmaes(uint gen, double cc, double cs, double c1, double cmu, double sigma0, double ftol, double xtol, bool memory, bool force_bounds) : this(pagmoPINVOKE.new_cmaes__SWIG_1(gen, cc, cs, c1, cmu, sigma0, ftol, xtol, memory, force_bounds), true) {
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public cmaes(uint gen, double cc, double cs, double c1, double cmu, double sigma0, double ftol, double xtol, bool memory) : this(pagmoPINVOKE.new_cmaes__SWIG_2(gen, cc, cs, c1, cmu, sigma0, ftol, xtol, memory), true) {
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public cmaes(uint gen, double cc, double cs, double c1, double cmu, double sigma0, double ftol, double xtol) : this(pagmoPINVOKE.new_cmaes__SWIG_3(gen, cc, cs, c1, cmu, sigma0, ftol, xtol), true) {
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public cmaes(uint gen, double cc, double cs, double c1, double cmu, double sigma0, double ftol) : this(pagmoPINVOKE.new_cmaes__SWIG_4(gen, cc, cs, c1, cmu, sigma0, ftol), true) {
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public cmaes(uint gen, double cc, double cs, double c1, double cmu, double sigma0) : this(pagmoPINVOKE.new_cmaes__SWIG_5(gen, cc, cs, c1, cmu, sigma0), true) {
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public cmaes(uint gen, double cc, double cs, double c1, double cmu) : this(pagmoPINVOKE.new_cmaes__SWIG_6(gen, cc, cs, c1, cmu), true) {
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public cmaes(uint gen, double cc, double cs, double c1) : this(pagmoPINVOKE.new_cmaes__SWIG_7(gen, cc, cs, c1), true) {
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public cmaes(uint gen, double cc, double cs) : this(pagmoPINVOKE.new_cmaes__SWIG_8(gen, cc, cs), true) {
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public cmaes(uint gen, double cc) : this(pagmoPINVOKE.new_cmaes__SWIG_9(gen, cc), true) {
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public cmaes(uint gen) : this(pagmoPINVOKE.new_cmaes__SWIG_10(gen), true) {
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public cmaes() : this(pagmoPINVOKE.new_cmaes__SWIG_11(), true) {
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public population evolve(population arg0) {
@@ -91,24 +103,29 @@ public partial class cmaes : algorithm {
 
   public void set_seed(uint arg0) {
     pagmoPINVOKE.cmaes_set_seed(swigCPtr, arg0);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public uint get_seed() {
     uint ret = pagmoPINVOKE.cmaes_get_seed(swigCPtr);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public new void set_verbosity(uint level) {
     pagmoPINVOKE.cmaes_set_verbosity(swigCPtr, level);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public uint get_verbosity() {
     uint ret = pagmoPINVOKE.cmaes_get_verbosity(swigCPtr);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public uint get_gen() {
     uint ret = pagmoPINVOKE.cmaes_get_gen(swigCPtr);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
@@ -119,16 +136,19 @@ public partial class cmaes : algorithm {
 
   public new string get_name() {
     string ret = pagmoPINVOKE.cmaes_get_name(swigCPtr);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public new string get_extra_info() {
     string ret = pagmoPINVOKE.cmaes_get_extra_info(swigCPtr);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public SWIGTYPE_p_std__vectorT_std__tupleT_unsigned_int_unsigned_long_long_double_double_double_double_t_t get_log() {
     SWIGTYPE_p_std__vectorT_std__tupleT_unsigned_int_unsigned_long_long_double_double_double_double_t_t ret = new SWIGTYPE_p_std__vectorT_std__tupleT_unsigned_int_unsigned_long_long_double_double_double_double_t_t(pagmoPINVOKE.cmaes_get_log(swigCPtr), false);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 

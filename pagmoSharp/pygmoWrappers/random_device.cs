@@ -59,14 +59,17 @@ public partial class random_device : global::System.IDisposable {
 
   public uint next() {
     uint ret = pagmoPINVOKE.random_device_next(swigCPtr);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public void set_seed(uint seed) {
     pagmoPINVOKE.random_device_set_seed(swigCPtr, seed);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public random_device() : this(pagmoPINVOKE.new_random_device(), true) {
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
 }

@@ -232,27 +232,33 @@ public partial class DoubleVector : global::System.IDisposable, global::System.C
 
   public void Clear() {
     pagmoPINVOKE.DoubleVector_Clear(swigCPtr);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public void Add(double x) {
     pagmoPINVOKE.DoubleVector_Add(swigCPtr, x);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   private uint size() {
     uint ret = pagmoPINVOKE.DoubleVector_size(swigCPtr);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   private uint capacity() {
     uint ret = pagmoPINVOKE.DoubleVector_capacity(swigCPtr);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   private void reserve(uint n) {
     pagmoPINVOKE.DoubleVector_reserve(swigCPtr, n);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public DoubleVector() : this(pagmoPINVOKE.new_DoubleVector__SWIG_0(), true) {
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public DoubleVector(DoubleVector other) : this(pagmoPINVOKE.new_DoubleVector__SWIG_1(DoubleVector.getCPtr(other)), true) {
@@ -321,6 +327,7 @@ public partial class DoubleVector : global::System.IDisposable, global::System.C
 
   public void Reverse() {
     pagmoPINVOKE.DoubleVector_Reverse__SWIG_0(swigCPtr);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public void Reverse(int index, int count) {
@@ -335,21 +342,25 @@ public partial class DoubleVector : global::System.IDisposable, global::System.C
 
   public bool Contains(double value) {
     bool ret = pagmoPINVOKE.DoubleVector_Contains(swigCPtr, value);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public int IndexOf(double value) {
     int ret = pagmoPINVOKE.DoubleVector_IndexOf(swigCPtr, value);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public int LastIndexOf(double value) {
     int ret = pagmoPINVOKE.DoubleVector_LastIndexOf(swigCPtr, value);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public bool Remove(double value) {
     bool ret = pagmoPINVOKE.DoubleVector_Remove(swigCPtr, value);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
