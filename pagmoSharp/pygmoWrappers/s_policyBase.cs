@@ -57,8 +57,8 @@ public class s_policyBase : global::System.IDisposable {
     }
   }
 
-  public virtual SWIGTYPE_p_std__tupleT_std__vectorT_unsigned_long_long_t_std__vectorT_std__vectorT_double_t_t_std__vectorT_std__vectorT_double_t_t_t select(SWIGTYPE_p_std__tupleT_std__vectorT_unsigned_long_long_t_std__vectorT_std__vectorT_double_t_t_std__vectorT_std__vectorT_double_t_t_t a, uint arg1, uint arg2, uint arg3, uint arg4, uint arg5, DoubleVector arg6) {
-    SWIGTYPE_p_std__tupleT_std__vectorT_unsigned_long_long_t_std__vectorT_std__vectorT_double_t_t_std__vectorT_std__vectorT_double_t_t_t ret = new SWIGTYPE_p_std__tupleT_std__vectorT_unsigned_long_long_t_std__vectorT_std__vectorT_double_t_t_std__vectorT_std__vectorT_double_t_t_t((SwigDerivedClassHasMethod("select", swigMethodTypes0) ? pagmoPINVOKE.s_policyBase_selectSwigExplicits_policyBase(swigCPtr, SWIGTYPE_p_std__tupleT_std__vectorT_unsigned_long_long_t_std__vectorT_std__vectorT_double_t_t_std__vectorT_std__vectorT_double_t_t_t.getCPtr(a), arg1, arg2, arg3, arg4, arg5, DoubleVector.getCPtr(arg6)) : pagmoPINVOKE.s_policyBase_select(swigCPtr, SWIGTYPE_p_std__tupleT_std__vectorT_unsigned_long_long_t_std__vectorT_std__vectorT_double_t_t_std__vectorT_std__vectorT_double_t_t_t.getCPtr(a), arg1, arg2, arg3, arg4, arg5, DoubleVector.getCPtr(arg6))), true);
+  public virtual IndividualsGroup select(IndividualsGroup a, uint b, uint c, uint d, uint e, uint f, DoubleVector g) {
+    IndividualsGroup ret = new IndividualsGroup(pagmoPINVOKE.s_policyBase_select(swigCPtr, IndividualsGroup.getCPtr(a), b, c, d, e, f, DoubleVector.getCPtr(g)), true);
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
@@ -132,8 +132,8 @@ public class s_policyBase : global::System.IDisposable {
     return false;
   }
 
-  private global::System.IntPtr SwigDirectorMethodselect(global::System.IntPtr a, uint arg1, uint arg2, uint arg3, uint arg4, uint arg5, global::System.IntPtr arg6) {
-    return SWIGTYPE_p_std__tupleT_std__vectorT_unsigned_long_long_t_std__vectorT_std__vectorT_double_t_t_std__vectorT_std__vectorT_double_t_t_t.getCPtr(select(new SWIGTYPE_p_std__tupleT_std__vectorT_unsigned_long_long_t_std__vectorT_std__vectorT_double_t_t_std__vectorT_std__vectorT_double_t_t_t(a, false), arg1, arg2, arg3, arg4, arg5, new DoubleVector(arg6, false))).Handle;
+  private global::System.IntPtr SwigDirectorMethodselect(global::System.IntPtr a, uint b, uint c, uint d, uint e, uint f, global::System.IntPtr g) {
+    return IndividualsGroup.getCPtr(select(new IndividualsGroup(a, false), b, c, d, e, f, new DoubleVector(g, false))).Handle;
   }
 
   private string SwigDirectorMethodget_name() {
@@ -148,7 +148,7 @@ public class s_policyBase : global::System.IDisposable {
     return is_valid();
   }
 
-  public delegate global::System.IntPtr SwigDelegates_policyBase_0(global::System.IntPtr a, uint arg1, uint arg2, uint arg3, uint arg4, uint arg5, global::System.IntPtr arg6);
+  public delegate global::System.IntPtr SwigDelegates_policyBase_0(global::System.IntPtr a, uint b, uint c, uint d, uint e, uint f, global::System.IntPtr g);
   public delegate string SwigDelegates_policyBase_1();
   public delegate string SwigDelegates_policyBase_2();
   public delegate bool SwigDelegates_policyBase_3();
@@ -158,7 +158,7 @@ public class s_policyBase : global::System.IDisposable {
   private SwigDelegates_policyBase_2 swigDelegate2;
   private SwigDelegates_policyBase_3 swigDelegate3;
 
-  private static global::System.Type[] swigMethodTypes0 = new global::System.Type[] { typeof(SWIGTYPE_p_std__tupleT_std__vectorT_unsigned_long_long_t_std__vectorT_std__vectorT_double_t_t_std__vectorT_std__vectorT_double_t_t_t), typeof(uint), typeof(uint), typeof(uint), typeof(uint), typeof(uint), typeof(DoubleVector) };
+  private static global::System.Type[] swigMethodTypes0 = new global::System.Type[] { typeof(IndividualsGroup), typeof(uint), typeof(uint), typeof(uint), typeof(uint), typeof(uint), typeof(DoubleVector) };
   private static global::System.Type[] swigMethodTypes1 = new global::System.Type[] {  };
   private static global::System.Type[] swigMethodTypes2 = new global::System.Type[] {  };
   private static global::System.Type[] swigMethodTypes3 = new global::System.Type[] {  };

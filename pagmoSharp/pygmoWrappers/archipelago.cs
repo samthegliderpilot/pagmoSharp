@@ -97,72 +97,21 @@ public partial class archipelago : global::System.IDisposable {
     return ret;
   }
 
-  public SWIGTYPE_p_boost__indirect_iteratorT_pagmo__archipelago__container_t__iterator_t begin() {
-    SWIGTYPE_p_boost__indirect_iteratorT_pagmo__archipelago__container_t__iterator_t ret = new SWIGTYPE_p_boost__indirect_iteratorT_pagmo__archipelago__container_t__iterator_t(pagmoPINVOKE.archipelago_begin__SWIG_0(swigCPtr), true);
+  public IndividualsGroupVector get_migrants_db() {
+    IndividualsGroupVector ret = new IndividualsGroupVector(pagmoPINVOKE.archipelago_get_migrants_db(swigCPtr), true);
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
-  public SWIGTYPE_p_boost__indirect_iteratorT_pagmo__archipelago__container_t__iterator_t end() {
-    SWIGTYPE_p_boost__indirect_iteratorT_pagmo__archipelago__container_t__iterator_t ret = new SWIGTYPE_p_boost__indirect_iteratorT_pagmo__archipelago__container_t__iterator_t(pagmoPINVOKE.archipelago_end__SWIG_0(swigCPtr), true);
+  public void set_migrants_db(IndividualsGroupVector v) {
+    pagmoPINVOKE.archipelago_set_migrants_db(swigCPtr, IndividualsGroupVector.getCPtr(v));
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
+  }
+
+  public MigrationEntryVector get_migration_log() {
+    MigrationEntryVector ret = new MigrationEntryVector(pagmoPINVOKE.archipelago_get_migration_log(swigCPtr), true);
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
-  }
-
-  public VectorOfVectorOfDoubles get_champions_f() {
-    VectorOfVectorOfDoubles ret = new VectorOfVectorOfDoubles(pagmoPINVOKE.archipelago_get_champions_f(swigCPtr), true);
-    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
-    return ret;
-  }
-
-  public VectorOfVectorOfDoubles get_champions_x() {
-    VectorOfVectorOfDoubles ret = new VectorOfVectorOfDoubles(pagmoPINVOKE.archipelago_get_champions_x(swigCPtr), true);
-    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
-    return ret;
-  }
-
-  public SWIGTYPE_p_std__vectorT_std__tupleT_std__vectorT_unsigned_long_long_t_std__vectorT_std__vectorT_double_t_t_std__vectorT_std__vectorT_double_t_t_t_t get_migrants_db() {
-    SWIGTYPE_p_std__vectorT_std__tupleT_std__vectorT_unsigned_long_long_t_std__vectorT_std__vectorT_double_t_t_std__vectorT_std__vectorT_double_t_t_t_t ret = new SWIGTYPE_p_std__vectorT_std__tupleT_std__vectorT_unsigned_long_long_t_std__vectorT_std__vectorT_double_t_t_std__vectorT_std__vectorT_double_t_t_t_t(pagmoPINVOKE.archipelago_get_migrants_db(swigCPtr), true);
-    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
-    return ret;
-  }
-
-  public void set_migrants_db(SWIGTYPE_p_std__vectorT_std__tupleT_std__vectorT_unsigned_long_long_t_std__vectorT_std__vectorT_double_t_t_std__vectorT_std__vectorT_double_t_t_t_t arg0) {
-    pagmoPINVOKE.archipelago_set_migrants_db(swigCPtr, SWIGTYPE_p_std__vectorT_std__tupleT_std__vectorT_unsigned_long_long_t_std__vectorT_std__vectorT_double_t_t_std__vectorT_std__vectorT_double_t_t_t_t.getCPtr(arg0));
-    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
-  }
-
-  public topology get_topology() {
-    topology ret = new topology(pagmoPINVOKE.archipelago_get_topology(swigCPtr), true);
-    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
-    return ret;
-  }
-
-  public void set_topology(topology arg0) {
-    pagmoPINVOKE.archipelago_set_topology(swigCPtr, topology.getCPtr(arg0));
-    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
-  }
-
-  public migration_type get_migration_type() {
-    migration_type ret = (migration_type)pagmoPINVOKE.archipelago_get_migration_type(swigCPtr);
-    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
-    return ret;
-  }
-
-  public void set_migration_type(migration_type arg0) {
-    pagmoPINVOKE.archipelago_set_migration_type(swigCPtr, (int)arg0);
-    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
-  }
-
-  public migrant_handling get_migrant_handling() {
-    migrant_handling ret = (migrant_handling)pagmoPINVOKE.archipelago_get_migrant_handling(swigCPtr);
-    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
-    return ret;
-  }
-
-  public void set_migrant_handling(migrant_handling arg0) {
-    pagmoPINVOKE.archipelago_set_migrant_handling(swigCPtr, (int)arg0);
-    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
 }

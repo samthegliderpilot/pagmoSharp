@@ -57,7 +57,15 @@ public class s_policyPagmoWrapper : global::System.IDisposable {
     }
   }
 
-  public s_policyPagmoWrapper() : this(pagmoPINVOKE.new_s_policyPagmoWrapper(), true) {
+  public s_policyPagmoWrapper() : this(pagmoPINVOKE.new_s_policyPagmoWrapper__SWIG_0(), true) {
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
+  }
+
+  public s_policyPagmoWrapper(s_policyBase base_) : this(pagmoPINVOKE.new_s_policyPagmoWrapper__SWIG_1(s_policyBase.getCPtr(base_)), true) {
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
+  }
+
+  public s_policyPagmoWrapper(s_policyPagmoWrapper old) : this(pagmoPINVOKE.new_s_policyPagmoWrapper__SWIG_2(s_policyPagmoWrapper.getCPtr(old)), true) {
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
@@ -73,8 +81,8 @@ public class s_policyPagmoWrapper : global::System.IDisposable {
     return ret;
   }
 
-  public SWIGTYPE_p_std__tupleT_std__vectorT_unsigned_long_long_t_std__vectorT_std__vectorT_double_t_t_std__vectorT_std__vectorT_double_t_t_t select(SWIGTYPE_p_std__tupleT_std__vectorT_unsigned_long_long_t_std__vectorT_std__vectorT_double_t_t_std__vectorT_std__vectorT_double_t_t_t a, uint b, uint c, uint d, uint e, uint f, DoubleVector g) {
-    SWIGTYPE_p_std__tupleT_std__vectorT_unsigned_long_long_t_std__vectorT_std__vectorT_double_t_t_std__vectorT_std__vectorT_double_t_t_t ret = new SWIGTYPE_p_std__tupleT_std__vectorT_unsigned_long_long_t_std__vectorT_std__vectorT_double_t_t_std__vectorT_std__vectorT_double_t_t_t(pagmoPINVOKE.s_policyPagmoWrapper_select(swigCPtr, SWIGTYPE_p_std__tupleT_std__vectorT_unsigned_long_long_t_std__vectorT_std__vectorT_double_t_t_std__vectorT_std__vectorT_double_t_t_t.getCPtr(a), b, c, d, e, f, DoubleVector.getCPtr(g)), true);
+  public SWIGTYPE_p_pagmo__individuals_group_t select(SWIGTYPE_p_pagmo__individuals_group_t a, uint b, uint c, uint d, uint e, uint f, DoubleVector g) {
+    SWIGTYPE_p_pagmo__individuals_group_t ret = new SWIGTYPE_p_pagmo__individuals_group_t(pagmoPINVOKE.s_policyPagmoWrapper_select(swigCPtr, SWIGTYPE_p_pagmo__individuals_group_t.getCPtr(a), b, c, d, e, f, DoubleVector.getCPtr(g)), true);
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }

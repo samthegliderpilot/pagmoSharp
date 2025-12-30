@@ -57,14 +57,8 @@ public class r_policyBase : global::System.IDisposable {
     }
   }
 
-  public virtual SWIGTYPE_p_std__tupleT_std__vectorT_unsigned_long_long_t_std__vectorT_std__vectorT_double_t_t_std__vectorT_std__vectorT_double_t_t_t replace(SWIGTYPE_p_std__tupleT_std__vectorT_unsigned_long_long_t_std__vectorT_std__vectorT_double_t_t_std__vectorT_std__vectorT_double_t_t_t a, uint b, uint c, uint d, uint e, uint f, DoubleVector g, SWIGTYPE_p_std__tupleT_std__vectorT_unsigned_long_long_t_std__vectorT_std__vectorT_double_t_t_std__vectorT_std__vectorT_double_t_t_t h) {
-    SWIGTYPE_p_std__tupleT_std__vectorT_unsigned_long_long_t_std__vectorT_std__vectorT_double_t_t_std__vectorT_std__vectorT_double_t_t_t ret = new SWIGTYPE_p_std__tupleT_std__vectorT_unsigned_long_long_t_std__vectorT_std__vectorT_double_t_t_std__vectorT_std__vectorT_double_t_t_t((SwigDerivedClassHasMethod("replace", swigMethodTypes0) ? pagmoPINVOKE.r_policyBase_replaceSwigExplicitr_policyBase(swigCPtr, SWIGTYPE_p_std__tupleT_std__vectorT_unsigned_long_long_t_std__vectorT_std__vectorT_double_t_t_std__vectorT_std__vectorT_double_t_t_t.getCPtr(a), b, c, d, e, f, DoubleVector.getCPtr(g), SWIGTYPE_p_std__tupleT_std__vectorT_unsigned_long_long_t_std__vectorT_std__vectorT_double_t_t_std__vectorT_std__vectorT_double_t_t_t.getCPtr(h)) : pagmoPINVOKE.r_policyBase_replace(swigCPtr, SWIGTYPE_p_std__tupleT_std__vectorT_unsigned_long_long_t_std__vectorT_std__vectorT_double_t_t_std__vectorT_std__vectorT_double_t_t_t.getCPtr(a), b, c, d, e, f, DoubleVector.getCPtr(g), SWIGTYPE_p_std__tupleT_std__vectorT_unsigned_long_long_t_std__vectorT_std__vectorT_double_t_t_std__vectorT_std__vectorT_double_t_t_t.getCPtr(h))), true);
-    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
-    return ret;
-  }
-
-  public individuals_group replaceAndWrap(SWIGTYPE_p_std__tupleT_std__vectorT_unsigned_long_long_t_std__vectorT_std__vectorT_double_t_t_std__vectorT_std__vectorT_double_t_t_t a, uint b, uint c, uint d, uint e, uint f, DoubleVector g, SWIGTYPE_p_std__tupleT_std__vectorT_unsigned_long_long_t_std__vectorT_std__vectorT_double_t_t_std__vectorT_std__vectorT_double_t_t_t h) {
-    individuals_group ret = new individuals_group(pagmoPINVOKE.r_policyBase_replaceAndWrap(swigCPtr, SWIGTYPE_p_std__tupleT_std__vectorT_unsigned_long_long_t_std__vectorT_std__vectorT_double_t_t_std__vectorT_std__vectorT_double_t_t_t.getCPtr(a), b, c, d, e, f, DoubleVector.getCPtr(g), SWIGTYPE_p_std__tupleT_std__vectorT_unsigned_long_long_t_std__vectorT_std__vectorT_double_t_t_std__vectorT_std__vectorT_double_t_t_t.getCPtr(h)), true);
+  public virtual IndividualsGroup replace(IndividualsGroup a, uint b, uint c, uint d, uint e, uint f, DoubleVector g, IndividualsGroup h) {
+    IndividualsGroup ret = new IndividualsGroup((SwigDerivedClassHasMethod("replace", swigMethodTypes0) ? pagmoPINVOKE.r_policyBase_replaceSwigExplicitr_policyBase(swigCPtr, IndividualsGroup.getCPtr(a), b, c, d, e, f, DoubleVector.getCPtr(g), IndividualsGroup.getCPtr(h)) : pagmoPINVOKE.r_policyBase_replace(swigCPtr, IndividualsGroup.getCPtr(a), b, c, d, e, f, DoubleVector.getCPtr(g), IndividualsGroup.getCPtr(h))), true);
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
@@ -139,7 +133,7 @@ public class r_policyBase : global::System.IDisposable {
   }
 
   private global::System.IntPtr SwigDirectorMethodreplace(global::System.IntPtr a, uint b, uint c, uint d, uint e, uint f, global::System.IntPtr g, global::System.IntPtr h) {
-    return SWIGTYPE_p_std__tupleT_std__vectorT_unsigned_long_long_t_std__vectorT_std__vectorT_double_t_t_std__vectorT_std__vectorT_double_t_t_t.getCPtr(replace(new SWIGTYPE_p_std__tupleT_std__vectorT_unsigned_long_long_t_std__vectorT_std__vectorT_double_t_t_std__vectorT_std__vectorT_double_t_t_t(a, false), b, c, d, e, f, new DoubleVector(g, false), new SWIGTYPE_p_std__tupleT_std__vectorT_unsigned_long_long_t_std__vectorT_std__vectorT_double_t_t_std__vectorT_std__vectorT_double_t_t_t(h, false))).Handle;
+    return IndividualsGroup.getCPtr(replace(new IndividualsGroup(a, false), b, c, d, e, f, new DoubleVector(g, false), new IndividualsGroup(h, false))).Handle;
   }
 
   private string SwigDirectorMethodget_name() {
@@ -164,7 +158,7 @@ public class r_policyBase : global::System.IDisposable {
   private SwigDelegater_policyBase_2 swigDelegate2;
   private SwigDelegater_policyBase_3 swigDelegate3;
 
-  private static global::System.Type[] swigMethodTypes0 = new global::System.Type[] { typeof(SWIGTYPE_p_std__tupleT_std__vectorT_unsigned_long_long_t_std__vectorT_std__vectorT_double_t_t_std__vectorT_std__vectorT_double_t_t_t), typeof(uint), typeof(uint), typeof(uint), typeof(uint), typeof(uint), typeof(DoubleVector), typeof(SWIGTYPE_p_std__tupleT_std__vectorT_unsigned_long_long_t_std__vectorT_std__vectorT_double_t_t_std__vectorT_std__vectorT_double_t_t_t) };
+  private static global::System.Type[] swigMethodTypes0 = new global::System.Type[] { typeof(IndividualsGroup), typeof(uint), typeof(uint), typeof(uint), typeof(uint), typeof(uint), typeof(DoubleVector), typeof(IndividualsGroup) };
   private static global::System.Type[] swigMethodTypes1 = new global::System.Type[] {  };
   private static global::System.Type[] swigMethodTypes2 = new global::System.Type[] {  };
   private static global::System.Type[] swigMethodTypes3 = new global::System.Type[] {  };

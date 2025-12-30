@@ -1,33 +1,60 @@
 %module(naturalvar = 1, directors = "1") pagmo
 %{
 #include "pagmo/r_policies/fair_replace.hpp"
-#include "pagmo/r_policy.hpp"
-
-#include <string>
-#include <type_traits>
-
-#include "pagmo/detail/base_sr_policy.hpp"
-#include "pagmo/detail/visibility.hpp"
-#include "pagmo/r_policy.hpp"
-#include "pagmo/s11n.hpp"
-#include "pagmo/type_traits.hpp"
-#include "pagmo/types.hpp"
+#include "tuple_adapters.h"   // your IndividualsGroup + tuple converters
 %}
 
 %typemap(csclassmodifiers) pagmo::fair_replace "public partial class"
-class fair_replace : public pagmo::r_policy, public pagmoWrapper::r_policyBase {
+
+// We do NOT want SWIG to wrap tuple-based replace().
+%ignore pagmo::fair_replace::replace(
+    const pagmo::individuals_group_t &,
+    const pagmo::vector_double::size_type &,
+    const pagmo::vector_double::size_type &,
+    const pagmo::vector_double::size_type &,
+    const pagmo::vector_double::size_type &,
+    const pagmo::vector_double::size_type &,
+    const pagmo::vector_double &,
+    const pagmo::individuals_group_t &
+) const;
+
+// Now we define the class with only what SWIG can safely handle.
+class fair_replace {
 public:
     extern fair_replace();
+
 #if SUPPORT_VARIDEC
     template <typename T,
         enable_if_t<detail::disjunction<std::is_integral<T>, std::is_floating_point<T>>::value, int> = 0>
-    extern explicit fair_replace(T x) : detail::base_sr_policy(x);
+    extern explicit fair_replace(T x);
 #endif
-    extern individuals_group_t replace(const individuals_group_t&, const vector_double::size_type&,
-        const vector_double::size_type&, const vector_double::size_type&,
-        const vector_double::size_type&, const vector_double::size_type&,
-        const vector_double&, const individuals_group_t&) const;
 
     extern std::string get_name() const;
     extern std::string get_extra_info() const;
 };
+
+// Add a SWIG-safe wrapper for the tuple-based method.
+%extend pagmo::fair_replace {
+
+    pagmoWrap::IndividualsGroup replace_wrapped(
+        const pagmoWrap::IndividualsGroup &a,
+        const pagmo::vector_double::size_type &b,
+        const pagmo::vector_double::size_type &c,
+        const pagmo::vector_double::size_type &d,
+        const pagmo::vector_double::size_type &e,
+        const pagmo::vector_double::size_type &f,
+        const pagmo::vector_double &g,
+        const pagmoWrap::IndividualsGroup &h
+    ) const {
+
+        // Convert struct -> tuple
+        auto aa = pagmoWrap::ToIndividualsGroupTuple(a);
+        auto hh = pagmoWrap::ToIndividualsGroupTuple(h);
+
+        // Call real pagmo implementation
+        auto rr = self->replace(aa, b, c, d, e, f, g, hh);
+
+        // Convert tuple -> struct
+        return pagmoWrap::FromIndividualsGroupTuple(rr);
+    }
+}

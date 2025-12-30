@@ -218,6 +218,7 @@ createSwigWrappersAndPlaceThem.bat</Command>
     <ClInclude Include="problem.h" />
     <ClInclude Include="r_policy.h" />
     <ClInclude Include="s_policy.h" />
+    <ClInclude Include="tuple_adapters.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

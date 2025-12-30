@@ -65,7 +65,7 @@ class SwigDirector_r_policyBase : public pagmoWrap::r_policyBase, public Swig::D
 public:
     SwigDirector_r_policyBase();
     virtual ~SwigDirector_r_policyBase();
-    virtual pagmo::individuals_group_t replace(pagmo::individuals_group_t const &a,pagmo::vector_double::size_type const &b,pagmo::vector_double::size_type const &c,pagmo::vector_double::size_type const &d,pagmo::vector_double::size_type const &e,pagmo::vector_double::size_type const &f,pagmo::vector_double const &g,pagmo::individuals_group_t const &h) const;
+    virtual pagmoWrap::IndividualsGroup replace(pagmoWrap::IndividualsGroup const &a,pagmo::vector_double::size_type const &b,pagmo::vector_double::size_type const &c,pagmo::vector_double::size_type const &d,pagmo::vector_double::size_type const &e,pagmo::vector_double::size_type const &f,pagmo::vector_double const &g,pagmoWrap::IndividualsGroup const &h) const;
     virtual std::string get_name() const;
     virtual std::string get_extra_info() const;
     virtual bool is_valid() const;
@@ -89,7 +89,7 @@ class SwigDirector_s_policyBase : public pagmoWrap::s_policyBase, public Swig::D
 public:
     SwigDirector_s_policyBase();
     virtual ~SwigDirector_s_policyBase();
-    virtual pagmo::individuals_group_t select(pagmo::individuals_group_t const &a,pagmo::vector_double::size_type const &arg1,pagmo::vector_double::size_type const &arg2,pagmo::vector_double::size_type const &arg3,pagmo::vector_double::size_type const &arg4,pagmo::vector_double::size_type const &arg5,pagmo::vector_double const &arg6) const;
+    virtual pagmoWrap::IndividualsGroup select(pagmoWrap::IndividualsGroup const &a,pagmo::vector_double::size_type const &b,pagmo::vector_double::size_type const &c,pagmo::vector_double::size_type const &d,pagmo::vector_double::size_type const &e,pagmo::vector_double::size_type const &f,pagmo::vector_double const &g) const;
     virtual std::string get_name() const;
     virtual std::string get_extra_info() const;
     virtual bool is_valid() const;

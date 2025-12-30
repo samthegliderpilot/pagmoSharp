@@ -17,28 +17,13 @@
 #include <pagmo/detail/type_name.hpp>
 #include <pagmo/detail/typeid_name_extract.hpp>
 #include <pagmo/detail/visibility.hpp>
-#include <pagmo/s11n.hpp>
 #include <pagmo/type_traits.hpp>
 #include <pagmo/types.hpp>
 #include <tuple>
+#include "tuple_adapters.h"
+
 namespace pagmoWrap
 {
-    class individuals_group
-    {
-    public:
-        std::vector<unsigned long long> Item1;
-        std::vector<vector_double> Item2;
-        std::vector<vector_double> Item3;
-
-        individuals_group(std::tuple<std::vector<unsigned long long>, std::vector<vector_double>, std::vector<vector_double>> tu)
-        {
-            this->Item1 = get<0>(tu);
-            this->Item2 = get<1>(tu);
-            this->Item3 = get<2>(tu);
-        }
-    };
-
-    using individuals_group_t = std::tuple<std::vector<unsigned long long>, std::vector<vector_double>, std::vector<vector_double>>;
     class r_policyBase
     {
         //template <typename T>
@@ -84,22 +69,20 @@ namespace pagmoWrap
         //}
 
         // Replace.
-        virtual pagmo::individuals_group_t replace(const pagmo::individuals_group_t& a, const pagmo::vector_double::size_type& b,
-            const pagmo::vector_double::size_type& c, const pagmo::vector_double::size_type& d,
-            const pagmo::vector_double::size_type& e, const pagmo::vector_double::size_type& f,
-            const pagmo::vector_double& g, const pagmo::individuals_group_t& h) const
+        virtual pagmoWrap::IndividualsGroup replace(
+            const pagmoWrap::IndividualsGroup& a,
+            const pagmo::vector_double::size_type& b,
+            const pagmo::vector_double::size_type& c,
+            const pagmo::vector_double::size_type& d,
+            const pagmo::vector_double::size_type& e,
+            const pagmo::vector_double::size_type& f,
+            const pagmo::vector_double& g,
+            const pagmoWrap::IndividualsGroup& h
+        ) const
         {
-            
             return a;
         }
 
-        individuals_group replaceAndWrap(const pagmo::individuals_group_t& a, const pagmo::vector_double::size_type& b,
-            const pagmo::vector_double::size_type& c, const pagmo::vector_double::size_type& d,
-            const pagmo::vector_double::size_type& e, const pagmo::vector_double::size_type& f,
-            const pagmo::vector_double& g, const pagmo::individuals_group_t& h) const
-        {
-            return individuals_group(replace(a, b, c, d, e, f, g, h));
-        }
 
         // Name.
         virtual std::string get_name() const
@@ -168,14 +151,28 @@ namespace pagmoWrap
             return _base;
         }
 
-        pagmo::individuals_group_t replace(const pagmo::individuals_group_t& a, const pagmo::vector_double::size_type& b,
-            const pagmo::vector_double::size_type& c, const pagmo::vector_double::size_type& d,
-            const pagmo::vector_double::size_type& e, const pagmo::vector_double::size_type& f,
-            const pagmo::vector_double& g, const pagmo::individuals_group_t& h) const
+        pagmo::individuals_group_t replace(
+            const pagmo::individuals_group_t& a,
+            const pagmo::vector_double::size_type& b,
+            const pagmo::vector_double::size_type& c,
+            const pagmo::vector_double::size_type& d,
+            const pagmo::vector_double::size_type& e,
+            const pagmo::vector_double::size_type& f,
+            const pagmo::vector_double& g,
+            const pagmo::individuals_group_t& h
+        ) const
         {
+            // Convert tuple -> struct for managed override
+            pagmoWrap::IndividualsGroup aa = pagmoWrap::FromIndividualsGroupTuple(a);
+            pagmoWrap::IndividualsGroup hh = pagmoWrap::FromIndividualsGroupTuple(h);
 
-            return _base->replace(a, b, c, d, e, f, g, h);
+            // Call the C#/director override
+            pagmoWrap::IndividualsGroup rr = _base->replace(aa, b, c, d, e, f, g, hh);
+
+            // Convert struct -> tuple for pagmo
+            return pagmoWrap::ToIndividualsGroupTuple(rr);
         }
+
 
         // Name.
         std::string get_name() const

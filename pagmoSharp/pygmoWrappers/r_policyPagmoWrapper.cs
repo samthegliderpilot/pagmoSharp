@@ -81,8 +81,8 @@ public class r_policyPagmoWrapper : global::System.IDisposable {
     return ret;
   }
 
-  public SWIGTYPE_p_std__tupleT_std__vectorT_unsigned_long_long_t_std__vectorT_std__vectorT_double_t_t_std__vectorT_std__vectorT_double_t_t_t replace(SWIGTYPE_p_std__tupleT_std__vectorT_unsigned_long_long_t_std__vectorT_std__vectorT_double_t_t_std__vectorT_std__vectorT_double_t_t_t a, uint b, uint c, uint d, uint e, uint f, DoubleVector g, SWIGTYPE_p_std__tupleT_std__vectorT_unsigned_long_long_t_std__vectorT_std__vectorT_double_t_t_std__vectorT_std__vectorT_double_t_t_t h) {
-    SWIGTYPE_p_std__tupleT_std__vectorT_unsigned_long_long_t_std__vectorT_std__vectorT_double_t_t_std__vectorT_std__vectorT_double_t_t_t ret = new SWIGTYPE_p_std__tupleT_std__vectorT_unsigned_long_long_t_std__vectorT_std__vectorT_double_t_t_std__vectorT_std__vectorT_double_t_t_t(pagmoPINVOKE.r_policyPagmoWrapper_replace(swigCPtr, SWIGTYPE_p_std__tupleT_std__vectorT_unsigned_long_long_t_std__vectorT_std__vectorT_double_t_t_std__vectorT_std__vectorT_double_t_t_t.getCPtr(a), b, c, d, e, f, DoubleVector.getCPtr(g), SWIGTYPE_p_std__tupleT_std__vectorT_unsigned_long_long_t_std__vectorT_std__vectorT_double_t_t_std__vectorT_std__vectorT_double_t_t_t.getCPtr(h)), true);
+  public SWIGTYPE_p_pagmo__individuals_group_t replace(SWIGTYPE_p_pagmo__individuals_group_t a, uint b, uint c, uint d, uint e, uint f, DoubleVector g, SWIGTYPE_p_pagmo__individuals_group_t h) {
+    SWIGTYPE_p_pagmo__individuals_group_t ret = new SWIGTYPE_p_pagmo__individuals_group_t(pagmoPINVOKE.r_policyPagmoWrapper_replace(swigCPtr, SWIGTYPE_p_pagmo__individuals_group_t.getCPtr(a), b, c, d, e, f, DoubleVector.getCPtr(g), SWIGTYPE_p_pagmo__individuals_group_t.getCPtr(h)), true);
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }

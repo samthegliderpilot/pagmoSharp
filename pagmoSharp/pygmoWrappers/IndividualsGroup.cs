@@ -10,20 +10,20 @@
 
 namespace pagmo {
 
-public class individuals_group : global::System.IDisposable {
+public class IndividualsGroup : global::System.IDisposable {
   private global::System.Runtime.InteropServices.HandleRef swigCPtr;
   protected bool swigCMemOwn;
 
-  internal individuals_group(global::System.IntPtr cPtr, bool cMemoryOwn) {
+  internal IndividualsGroup(global::System.IntPtr cPtr, bool cMemoryOwn) {
     swigCMemOwn = cMemoryOwn;
     swigCPtr = new global::System.Runtime.InteropServices.HandleRef(this, cPtr);
   }
 
-  internal static global::System.Runtime.InteropServices.HandleRef getCPtr(individuals_group obj) {
+  internal static global::System.Runtime.InteropServices.HandleRef getCPtr(IndividualsGroup obj) {
     return (obj == null) ? new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero) : obj.swigCPtr;
   }
 
-  internal static global::System.Runtime.InteropServices.HandleRef swigRelease(individuals_group obj) {
+  internal static global::System.Runtime.InteropServices.HandleRef swigRelease(IndividualsGroup obj) {
     if (obj != null) {
       if (!obj.swigCMemOwn)
         throw new global::System.ApplicationException("Cannot release ownership as memory is not owned");
@@ -36,7 +36,7 @@ public class individuals_group : global::System.IDisposable {
     }
   }
 
-  ~individuals_group() {
+  ~IndividualsGroup() {
     Dispose(false);
   }
 
@@ -50,50 +50,54 @@ public class individuals_group : global::System.IDisposable {
       if (swigCPtr.Handle != global::System.IntPtr.Zero) {
         if (swigCMemOwn) {
           swigCMemOwn = false;
-          pagmoPINVOKE.delete_individuals_group(swigCPtr);
+          pagmoPINVOKE.delete_IndividualsGroup(swigCPtr);
         }
         swigCPtr = new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero);
       }
     }
   }
 
-  public ULongLongVector Item1 {
+  public ULongLongVector ids {
     set {
-      pagmoPINVOKE.individuals_group_Item1_set(swigCPtr, ULongLongVector.getCPtr(value));
+      pagmoPINVOKE.IndividualsGroup_ids_set(swigCPtr, ULongLongVector.getCPtr(value));
       if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     } 
     get {
-      ULongLongVector ret = new ULongLongVector(pagmoPINVOKE.individuals_group_Item1_get(swigCPtr), false);
+      ULongLongVector ret = new ULongLongVector(pagmoPINVOKE.IndividualsGroup_ids_get(swigCPtr), false);
       if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
       return ret;
     } 
   }
 
-  public VectorOfVectorOfDoubles Item2 {
+  public VectorOfVectorOfDoubles xs {
     set {
-      pagmoPINVOKE.individuals_group_Item2_set(swigCPtr, VectorOfVectorOfDoubles.getCPtr(value));
+      pagmoPINVOKE.IndividualsGroup_xs_set(swigCPtr, VectorOfVectorOfDoubles.getCPtr(value));
       if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     } 
     get {
-      VectorOfVectorOfDoubles ret = new VectorOfVectorOfDoubles(pagmoPINVOKE.individuals_group_Item2_get(swigCPtr), false);
+      VectorOfVectorOfDoubles ret = new VectorOfVectorOfDoubles(pagmoPINVOKE.IndividualsGroup_xs_get(swigCPtr), false);
       if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
       return ret;
     } 
   }
 
-  public VectorOfVectorOfDoubles Item3 {
+  public VectorOfVectorOfDoubles fs {
     set {
-      pagmoPINVOKE.individuals_group_Item3_set(swigCPtr, VectorOfVectorOfDoubles.getCPtr(value));
+      pagmoPINVOKE.IndividualsGroup_fs_set(swigCPtr, VectorOfVectorOfDoubles.getCPtr(value));
       if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     } 
     get {
-      VectorOfVectorOfDoubles ret = new VectorOfVectorOfDoubles(pagmoPINVOKE.individuals_group_Item3_get(swigCPtr), false);
+      VectorOfVectorOfDoubles ret = new VectorOfVectorOfDoubles(pagmoPINVOKE.IndividualsGroup_fs_get(swigCPtr), false);
       if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
       return ret;
     } 
   }
 
-  public individuals_group(SWIGTYPE_p_std__tupleT_std__vectorT_unsigned_long_long_t_std__vectorT_std__vectorT_double_t_t_std__vectorT_std__vectorT_double_t_t_t tu) : this(pagmoPINVOKE.new_individuals_group(SWIGTYPE_p_std__tupleT_std__vectorT_unsigned_long_long_t_std__vectorT_std__vectorT_double_t_t_std__vectorT_std__vectorT_double_t_t_t.getCPtr(tu)), true) {
+  public IndividualsGroup() : this(pagmoPINVOKE.new_IndividualsGroup__SWIG_0(), true) {
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
+  }
+
+  public IndividualsGroup(ULongLongVector ids_, VectorOfVectorOfDoubles xs_, VectorOfVectorOfDoubles fs_) : this(pagmoPINVOKE.new_IndividualsGroup__SWIG_1(ULongLongVector.getCPtr(ids_), VectorOfVectorOfDoubles.getCPtr(xs_), VectorOfVectorOfDoubles.getCPtr(fs_)), true) {
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 

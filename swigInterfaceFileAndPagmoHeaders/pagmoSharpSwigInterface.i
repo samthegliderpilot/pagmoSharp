@@ -15,6 +15,7 @@
         SWIG_exception(SWIG_RuntimeError, "Unknown C++ exception");
     }
 }
+
 %module(naturalvar=1, directors="11") pagmo
 %{
 	#include "pagmo/algorithm.hpp"
@@ -32,49 +33,59 @@
 	#include "pagmo/types.hpp"
 	    
 	#include "problem.h" // this is a manually created item.  We want to include it in the wrappers so the generated cxx code can use the handwritten code for the problem
+	#include "tuple_adapters.h"
 	#include "r_policy.h"
 	#include "s_policy.h"
 	//#include "multi_objective.h"
 %}
+%include "pagmoWrapper/tuple_adapters.h"
+
+
+%include "std_string.i"
+%include "std_vector.i"
+%include "std_pair.i"
+
+%include "pagmoWrapper/tuple_adapters.h"
+
+%pragma(csharp) moduleclassmodifiers = "public partial class"
+%typemap(csclassmodifiers) pagmoWrap::problemPagomWrapper "public partial class"
+%typemap(csclassmodifiers) pagmoWrap::problemBase "public partial class"
+%typemap(csclassmodifiers) std::vector<double> "public partial class"
+
+// Directors + handwritten base classes (include ONCE)
+%feature("director") pagmoWrap::problemBase;
+%include "pagmoWrapper/problem.h"
+
+%feature("director") pagmoWrap::r_policyBase;
+%include "pagmoWrapper/r_policy.h"
+
+%feature("director") pagmoWrap::s_policyBase;
+%include "pagmoWrapper/s_policy.h"
+
 // need other languages?
 
 
-%{
-#   define SWIG_CS_EXTRA_NATIVE_CONTAINERS 
-%} 
-%typemap(out) std::vector<std::vector<ns::uint64_t> >::value_type { 
-$result = SWIG_NewPointerObj(SWIG_as_voidptr(&$1), $descriptor(std::vector<ns::uint64_t>), 0 |  0 ); 
-} 
+// ------------------------------------------------------------
+// C#-correct typemaps for uint64 / unsigned long long
+// ------------------------------------------------------------
 
-// In front(), back(), __getitem__()
-%typemap(out) std::vector<std::vector<ns::uint64_t> >::value_type & { 
-    $result = SWIG_NewPointerObj(SWIG_as_voidptr($1), $descriptor(std::vector<ns::uint64_t>), 0 |  0 ); 
-} 
+// Map uint64 directly to C# ulong.
+// This will cause SWIG to use UInt64 marshaling (P/Invoke uses 'ulong').
+%typemap(cstype) unsigned long long "ulong"
+%typemap(imtype) unsigned long long "ulong"
+%typemap(cstype) const unsigned long long & "ulong"
+%typemap(imtype) const unsigned long long & "ulong"
 
-// In __getitem__()
-%typemap(out) ns::uint64_t {
-    $result = CSLong_FromUnsignedLongLong($1);
+// If SWIG ever needs to marshal it explicitly at runtime (rare), this helps.
+// These are safe defaults for C# P/Invoke.
+%typemap(in) unsigned long long {
+  $1 = (unsigned long long)$input;
 }
-// Not used (but probably useful to have, just in case)
-%typemap(in) ns::uint64_t {
-    $1 = CSLong_AsUnsignedLongLong($input);
+%typemap(out) unsigned long long {
+  $result = $1;
 }
-// In pop()
-%typemap(out) std::vector<ns::uint64_t>::value_type {
-    $result = CSLong_FromUnsignedLongLong($1);
-}
-// In __getitem__(), front(), back()
-%typemap(out) std::vector<ns::uint64_t>::value_type & {
-    $result = CsLong_FromUnsignedLongLong(*$1);
-}
-// In __setitem__(), append(), new Uint64Vector, push_back(), assign(), resize(), insert()
-// This allows a python long literal number to be used as a parameter to the above methods. 
-// Note the use of a local variable declared at the SWIG wrapper function scope,
-// by placing the variable declaration in parentheses () prior to the open brace {
-%typemap(in) std::vector<ns::uint64_t>::value_type & (std::vector<ns::uint64_t>::value_type temp) {
-    temp = CsLong_FromUnsignedLongLong($input);
-    $1 = &temp;
-}
+
+
 
 
 // The whole problem vs. problemBase question is a little confusing.  To make it better (or wo// rs// e)
@@ -98,14 +109,27 @@ $result = SWIG_NewPointerObj(SWIG_as_voidptr(&$1), $descriptor(std::vector<ns::u
 %include "pagmoWrapper/multi_objective.h"
 //#include <tuple> // tuple is not supported by swig yet...
 %apply void *VOID_INT_PTR { void * }
+
+%include "std_vector.i"
+%include "std_pair.i"    // (you already use std::pair templates)
+%include "pagmoWrapper/tuple_adapters.h"
+
+// ------------------------------------------------------------
+// STL templates used across the bindings
+// (ONLY define each template ONCE)
+// ------------------------------------------------------------
 namespace std {
-	%template(DoubleVector) std::vector<double>;
-	%template(ULongLongVector) std::vector<unsigned long long>;
-	%template(PairOfDoubleVectors) std::pair<std::vector<double>, std::vector<double> >;
-	%template(VectorOfVectorIndexes) std::vector<std::vector<unsigned long long> >;
-	%template(VectorOfVectorOfDoubles) std::vector<std::vector<double> >;
-	//%template() std::tuple<std::vector<std::vector<pop_size_t>>, std::vector<std::vector<pop_size_t>> std::vector<pop_size_t>, std::vector<pop_size_t>>;
+  %template(DoubleVector)              std::vector<double>;
+  %template(ULongLongVector)           std::vector<unsigned long long>;
+  %template(VectorOfVectorIndexes)     std::vector<std::vector<unsigned long long>>;
+  %template(VectorOfVectorOfDoubles)   std::vector<std::vector<double>>;
+  %template(PairOfDoubleVectors)       std::pair<std::vector<double>, std::vector<double>>;
+
+  // Your tuple adapter structs:
+  %template(IndividualsGroupVector)    std::vector<pagmoWrap::IndividualsGroup>;
+  %template(MigrationEntryVector)      std::vector<pagmoWrap::MigrationEntry>;
 }
+
 	
 namespace pagmo {
 	%typemap(csclassmodifiers) pagmo::DoubleVector "public partial class"
@@ -144,9 +168,7 @@ namespace pagmo {
 	}
 	};
 
-	using individuals_group_t = std::tuple<std::vector<unsigned long long>, std::vector<vector_double>, std::vector<vector_double>>;
 
-	using migration_entry_t = std::tuple<double, unsigned long long, vector_double, vector_double, size_type, size_type>;
 
 	enum class evolve_status {
 		idle = 0,       ///< No asynchronous operations are ongoing, and no error was generated
