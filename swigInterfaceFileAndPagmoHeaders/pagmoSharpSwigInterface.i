@@ -130,7 +130,8 @@ namespace std {
   %template(MigrationEntryVector)      std::vector<pagmoWrap::MigrationEntry>;
 }
 
-	
+%include swigInterfaceFiles\algorithms\bee_colony.i
+%include swigInterfaceFiles\archipelago.i
 namespace pagmo {
 	%typemap(csclassmodifiers) pagmo::DoubleVector "public partial class"
 	%typemap(csclassmodifiers) pagmo::VectorDoubleVector "public partial class"
@@ -194,7 +195,6 @@ namespace pagmo {
 	%include swigInterfaceFiles\island.i
 	%include swigInterfaceFiles\population.i
 	%include swigInterfaceFiles\algorithm.i
-	%include swigInterfaceFiles\archipelago.i
 	%include swigInterfaceFiles\bfe.i
 	//%include swigInterfaceFiles\exceptions.i // causing errors, not sure why, and not really implimented anyway
 	//NOTE: pagmo.hpp, threading.hpp and types.hpp are not really needed
@@ -203,7 +203,7 @@ namespace pagmo {
 	//%include swigInterfaceFiles\r_policy.i // needs the director/problem treatment
 	%include swigInterfaceFiles\topology.i
 
-	%include swigInterfaceFiles\algorithms\bee_colony.i
+	
 	%include swigInterfaceFiles\algorithms\cmaes.i
 	%include swigInterfaceFiles\algorithms\compass_search.i		
 	%include swigInterfaceFiles\algorithms\de.i

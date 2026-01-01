@@ -10,10 +10,12 @@
 
 namespace pagmo {
 
-public partial class bee_colony : algorithm {
+public partial class bee_colony : global::System.IDisposable {
   private global::System.Runtime.InteropServices.HandleRef swigCPtr;
+  protected bool swigCMemOwn;
 
-  internal bee_colony(global::System.IntPtr cPtr, bool cMemoryOwn) : base(pagmoPINVOKE.bee_colony_SWIGUpcast(cPtr), cMemoryOwn) {
+  internal bee_colony(global::System.IntPtr cPtr, bool cMemoryOwn) {
+    swigCMemOwn = cMemoryOwn;
     swigCPtr = new global::System.Runtime.InteropServices.HandleRef(this, cPtr);
   }
 
@@ -34,7 +36,16 @@ public partial class bee_colony : algorithm {
     }
   }
 
-  protected override void Dispose(bool disposing) {
+  ~bee_colony() {
+    Dispose(false);
+  }
+
+  public void Dispose() {
+    Dispose(true);
+    global::System.GC.SuppressFinalize(this);
+  }
+
+  protected virtual void Dispose(bool disposing) {
     lock(this) {
       if (swigCPtr.Handle != global::System.IntPtr.Zero) {
         if (swigCMemOwn) {
@@ -43,7 +54,6 @@ public partial class bee_colony : algorithm {
         }
         swigCPtr = new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero);
       }
-      base.Dispose(disposing);
     }
   }
 
@@ -80,7 +90,7 @@ public partial class bee_colony : algorithm {
     return ret;
   }
 
-  public new void set_verbosity(uint level) {
+  public void set_verbosity(uint level) {
     pagmoPINVOKE.bee_colony_set_verbosity(swigCPtr, level);
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
@@ -97,20 +107,20 @@ public partial class bee_colony : algorithm {
     return ret;
   }
 
-  public new string get_name() {
+  public string get_name() {
     string ret = pagmoPINVOKE.bee_colony_get_name(swigCPtr);
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
-  public new string get_extra_info() {
+  public string get_extra_info() {
     string ret = pagmoPINVOKE.bee_colony_get_extra_info(swigCPtr);
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
-  public SWIGTYPE_p_std__vectorT_std__tupleT_unsigned_int_unsigned_long_long_double_double_t_t get_log() {
-    SWIGTYPE_p_std__vectorT_std__tupleT_unsigned_int_unsigned_long_long_double_double_t_t ret = new SWIGTYPE_p_std__vectorT_std__tupleT_unsigned_int_unsigned_long_long_double_double_t_t(pagmoPINVOKE.bee_colony_get_log(swigCPtr), false);
+  public BeeColonyLogLineVector get_log_lines() {
+    BeeColonyLogLineVector ret = new BeeColonyLogLineVector(pagmoPINVOKE.bee_colony_get_log_lines(swigCPtr), true);
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }

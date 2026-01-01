@@ -1113,6 +1113,177 @@ SWIGINTERN void std_vector_Sl_pagmoWrap_MigrationEntry_Sg__SetRange(std::vector<
         std::copy(values.begin(), values.end(), self->begin()+index);
       }
 
+#include "pagmo/algorithm.hpp"
+#include "pagmo/algorithms/bee_colony.hpp"
+
+
+#include <vector>
+#include <tuple>
+
+namespace pagmoWrap
+{
+    struct BeeColonyLogLine
+    {
+        unsigned gen;
+        unsigned long long fevals;
+        double best;
+        double cur_best;
+
+        BeeColonyLogLine() : gen(0), fevals(0), best(0.0), cur_best(0.0) {}
+
+        BeeColonyLogLine(unsigned g, unsigned long long f, double b, double cb)
+            : gen(g), fevals(f), best(b), cur_best(cb) {}
+    };
+
+    inline BeeColonyLogLine FromBeeColonyLogTuple(const std::tuple<unsigned, unsigned long long, double, double> &t)
+    {
+        return BeeColonyLogLine(
+            std::get<0>(t),
+            std::get<1>(t),
+            std::get<2>(t),
+            std::get<3>(t)
+        );
+    }
+}
+
+SWIGINTERN std::vector< pagmoWrap::BeeColonyLogLine > *new_std_vector_Sl_pagmoWrap_BeeColonyLogLine_Sg___SWIG_2(int capacity){
+        std::vector< pagmoWrap::BeeColonyLogLine >* pv = 0;
+        if (capacity >= 0) {
+          pv = new std::vector< pagmoWrap::BeeColonyLogLine >();
+          pv->reserve(capacity);
+       } else {
+          throw std::out_of_range("capacity");
+       }
+       return pv;
+      }
+SWIGINTERN pagmoWrap::BeeColonyLogLine std_vector_Sl_pagmoWrap_BeeColonyLogLine_Sg__getitemcopy(std::vector< pagmoWrap::BeeColonyLogLine > *self,int index){
+        if (index>=0 && index<(int)self->size())
+          return (*self)[index];
+        else
+          throw std::out_of_range("index");
+      }
+SWIGINTERN std::vector< pagmoWrap::BeeColonyLogLine >::value_type const &std_vector_Sl_pagmoWrap_BeeColonyLogLine_Sg__getitem(std::vector< pagmoWrap::BeeColonyLogLine > *self,int index){
+        if (index>=0 && index<(int)self->size())
+          return (*self)[index];
+        else
+          throw std::out_of_range("index");
+      }
+SWIGINTERN void std_vector_Sl_pagmoWrap_BeeColonyLogLine_Sg__setitem(std::vector< pagmoWrap::BeeColonyLogLine > *self,int index,pagmoWrap::BeeColonyLogLine const &val){
+        if (index>=0 && index<(int)self->size())
+          (*self)[index] = val;
+        else
+          throw std::out_of_range("index");
+      }
+SWIGINTERN void std_vector_Sl_pagmoWrap_BeeColonyLogLine_Sg__AddRange(std::vector< pagmoWrap::BeeColonyLogLine > *self,std::vector< pagmoWrap::BeeColonyLogLine > const &values){
+        self->insert(self->end(), values.begin(), values.end());
+      }
+SWIGINTERN std::vector< pagmoWrap::BeeColonyLogLine > *std_vector_Sl_pagmoWrap_BeeColonyLogLine_Sg__GetRange(std::vector< pagmoWrap::BeeColonyLogLine > *self,int index,int count){
+        if (index < 0)
+          throw std::out_of_range("index");
+        if (count < 0)
+          throw std::out_of_range("count");
+        if (index >= (int)self->size()+1 || index+count > (int)self->size())
+          throw std::invalid_argument("invalid range");
+        return new std::vector< pagmoWrap::BeeColonyLogLine >(self->begin()+index, self->begin()+index+count);
+      }
+SWIGINTERN void std_vector_Sl_pagmoWrap_BeeColonyLogLine_Sg__Insert(std::vector< pagmoWrap::BeeColonyLogLine > *self,int index,pagmoWrap::BeeColonyLogLine const &x){
+        if (index>=0 && index<(int)self->size()+1)
+          self->insert(self->begin()+index, x);
+        else
+          throw std::out_of_range("index");
+      }
+SWIGINTERN void std_vector_Sl_pagmoWrap_BeeColonyLogLine_Sg__InsertRange(std::vector< pagmoWrap::BeeColonyLogLine > *self,int index,std::vector< pagmoWrap::BeeColonyLogLine > const &values){
+        if (index>=0 && index<(int)self->size()+1)
+          self->insert(self->begin()+index, values.begin(), values.end());
+        else
+          throw std::out_of_range("index");
+      }
+SWIGINTERN void std_vector_Sl_pagmoWrap_BeeColonyLogLine_Sg__RemoveAt(std::vector< pagmoWrap::BeeColonyLogLine > *self,int index){
+        if (index>=0 && index<(int)self->size())
+          self->erase(self->begin() + index);
+        else
+          throw std::out_of_range("index");
+      }
+SWIGINTERN void std_vector_Sl_pagmoWrap_BeeColonyLogLine_Sg__RemoveRange(std::vector< pagmoWrap::BeeColonyLogLine > *self,int index,int count){
+        if (index < 0)
+          throw std::out_of_range("index");
+        if (count < 0)
+          throw std::out_of_range("count");
+        if (index >= (int)self->size()+1 || index+count > (int)self->size())
+          throw std::invalid_argument("invalid range");
+        self->erase(self->begin()+index, self->begin()+index+count);
+      }
+SWIGINTERN std::vector< pagmoWrap::BeeColonyLogLine > *std_vector_Sl_pagmoWrap_BeeColonyLogLine_Sg__Repeat(pagmoWrap::BeeColonyLogLine const &value,int count){
+        if (count < 0)
+          throw std::out_of_range("count");
+        return new std::vector< pagmoWrap::BeeColonyLogLine >(count, value);
+      }
+SWIGINTERN void std_vector_Sl_pagmoWrap_BeeColonyLogLine_Sg__Reverse__SWIG_0(std::vector< pagmoWrap::BeeColonyLogLine > *self){
+        std::reverse(self->begin(), self->end());
+      }
+SWIGINTERN void std_vector_Sl_pagmoWrap_BeeColonyLogLine_Sg__Reverse__SWIG_1(std::vector< pagmoWrap::BeeColonyLogLine > *self,int index,int count){
+        if (index < 0)
+          throw std::out_of_range("index");
+        if (count < 0)
+          throw std::out_of_range("count");
+        if (index >= (int)self->size()+1 || index+count > (int)self->size())
+          throw std::invalid_argument("invalid range");
+        std::reverse(self->begin()+index, self->begin()+index+count);
+      }
+SWIGINTERN void std_vector_Sl_pagmoWrap_BeeColonyLogLine_Sg__SetRange(std::vector< pagmoWrap::BeeColonyLogLine > *self,int index,std::vector< pagmoWrap::BeeColonyLogLine > const &values){
+        if (index < 0)
+          throw std::out_of_range("index");
+        if (index+values.size() > self->size())
+          throw std::out_of_range("index");
+        std::copy(values.begin(), values.end(), self->begin()+index);
+      }
+SWIGINTERN std::vector< pagmoWrap::BeeColonyLogLine > pagmo_bee_colony_get_log_lines(pagmo::bee_colony const *self){
+        // Get the real log from pagmo
+        const auto &log = self->get_log();
+
+        std::vector<pagmoWrap::BeeColonyLogLine> out;
+        out.reserve(log.size());
+
+        for (const auto &t : log) {
+            out.push_back(pagmoWrap::FromBeeColonyLogTuple(t));
+        }
+
+        return out;
+    }
+
+#include "pagmo/archipelago.hpp"
+#include "tuple_adapters.h"
+
+SWIGINTERN std::vector< pagmoWrap::IndividualsGroup > pagmo_archipelago_get_migrants_db_wrapped(pagmo::archipelago const *self){
+        auto db = self->get_migrants_db(); // real method returns migrants_db_t
+        std::vector<pagmoWrap::IndividualsGroup> out;
+        out.reserve(db.size());
+        for (const auto &t : db) {
+            out.push_back(pagmoWrap::FromIndividualsGroupTuple(t));
+        }
+        return out;
+    }
+SWIGINTERN void pagmo_archipelago_set_migrants_db_wrapped(pagmo::archipelago *self,std::vector< pagmoWrap::IndividualsGroup > const &v){
+        pagmo::archipelago::migrants_db_t db;
+        db.reserve(v.size());
+        for (const auto &g : v) {
+            db.push_back(pagmoWrap::ToIndividualsGroupTuple(g));
+        }
+        self->set_migrants_db(std::move(db));
+    }
+SWIGINTERN std::vector< pagmoWrap::MigrationEntry > pagmo_archipelago_get_migration_log_wrapped(pagmo::archipelago const *self){
+        auto log = self->get_migration_log(); // real method returns migration_log_t
+        std::vector<pagmoWrap::MigrationEntry> out;
+        out.reserve(log.size());
+        for (const auto &t : log) {
+            out.push_back(pagmoWrap::FromMigrationEntryTuple(t));
+        }
+        return out;
+    }
+SWIGINTERN pagmo::island &pagmo_archipelago_get_island(pagmo::archipelago *self,pagmo::archipelago::size_type i){
+        return (*self)[i];
+    }
+
 #include "pagmo/island.hpp"
 
 
@@ -1145,36 +1316,6 @@ SWIGINTERN void std_vector_Sl_pagmoWrap_MigrationEntry_Sg__SetRange(std::vector<
 #include <memory>
 
 
-#include "pagmo/archipelago.hpp"
-#include "tuple_adapters.h"
-
-SWIGINTERN std::vector< pagmoWrap::IndividualsGroup > pagmo_archipelago_get_migrants_db(pagmo::archipelago const *self){
-    auto db = self->get_migrants_db();
-    std::vector<pagmoWrap::IndividualsGroup> out;
-    out.reserve(db.size());
-    for (const auto &t : db) {
-      out.push_back(pagmoWrap::FromIndividualsGroupTuple(t));
-    }
-    return out;
-  }
-SWIGINTERN void pagmo_archipelago_set_migrants_db(pagmo::archipelago *self,std::vector< pagmoWrap::IndividualsGroup > const &v){
-    pagmo::archipelago::migrants_db_t db;
-    db.reserve(v.size());
-    for (const auto &g : v) {
-      db.push_back(pagmoWrap::ToIndividualsGroupTuple(g));
-    }
-    self->set_migrants_db(std::move(db));
-  }
-SWIGINTERN std::vector< pagmoWrap::MigrationEntry > pagmo_archipelago_get_migration_log(pagmo::archipelago const *self){
-    auto log = self->get_migration_log();
-    std::vector<pagmoWrap::MigrationEntry> out;
-    out.reserve(log.size());
-    for (const auto &t : log) {
-      out.push_back(pagmoWrap::FromMigrationEntryTuple(t));
-    }
-    return out;
-  }
-
 #include "pagmo/bfe.hpp"
 
 
@@ -1198,10 +1339,6 @@ SWIGINTERN std::vector< pagmoWrap::MigrationEntry > pagmo_archipelago_get_migrat
 
 
 #include "pagmo/topology.hpp"
-
-
-#include "pagmo/algorithm.hpp"
-#include "pagmo/algorithms/bee_colony.hpp"
 
 
 #include "pagmo/algorithm.hpp"
@@ -9203,6 +9340,1625 @@ SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_delete_MigrationEntryVector(void * jarg
 }
 
 
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_BeeColonyLogLine_gen_set(void * jarg1, unsigned int jarg2) {
+  pagmoWrap::BeeColonyLogLine *arg1 = 0 ;
+  unsigned int arg2 ;
+  
+  arg1 = (pagmoWrap::BeeColonyLogLine *)jarg1; 
+  arg2 = (unsigned int)jarg2; 
+  if (arg1) (arg1)->gen = arg2;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_pagmo_BeeColonyLogLine_gen_get(void * jarg1) {
+  unsigned int jresult ;
+  pagmoWrap::BeeColonyLogLine *arg1 = 0 ;
+  unsigned int result;
+  
+  arg1 = (pagmoWrap::BeeColonyLogLine *)jarg1; 
+  result = (unsigned int) ((arg1)->gen);
+  jresult = (unsigned int)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_BeeColonyLogLine_fevals_set(void * jarg1, unsigned long long jarg2) {
+  pagmoWrap::BeeColonyLogLine *arg1 = 0 ;
+  unsigned long long arg2 ;
+  
+  arg1 = (pagmoWrap::BeeColonyLogLine *)jarg1; 
+  {
+    arg2 = (unsigned long long)jarg2;
+  }
+  if (arg1) (arg1)->fevals = arg2;
+}
+
+
+SWIGEXPORT unsigned long long SWIGSTDCALL CSharp_pagmo_BeeColonyLogLine_fevals_get(void * jarg1) {
+  unsigned long long jresult ;
+  pagmoWrap::BeeColonyLogLine *arg1 = 0 ;
+  unsigned long long result;
+  
+  arg1 = (pagmoWrap::BeeColonyLogLine *)jarg1; 
+  result = (unsigned long long) ((arg1)->fevals);
+  {
+    jresult = result;
+  }
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_BeeColonyLogLine_best_set(void * jarg1, double jarg2) {
+  pagmoWrap::BeeColonyLogLine *arg1 = 0 ;
+  double arg2 ;
+  
+  arg1 = (pagmoWrap::BeeColonyLogLine *)jarg1; 
+  arg2 = (double)jarg2; 
+  if (arg1) (arg1)->best = arg2;
+}
+
+
+SWIGEXPORT double SWIGSTDCALL CSharp_pagmo_BeeColonyLogLine_best_get(void * jarg1) {
+  double jresult ;
+  pagmoWrap::BeeColonyLogLine *arg1 = 0 ;
+  double result;
+  
+  arg1 = (pagmoWrap::BeeColonyLogLine *)jarg1; 
+  result = (double) ((arg1)->best);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_BeeColonyLogLine_cur_best_set(void * jarg1, double jarg2) {
+  pagmoWrap::BeeColonyLogLine *arg1 = 0 ;
+  double arg2 ;
+  
+  arg1 = (pagmoWrap::BeeColonyLogLine *)jarg1; 
+  arg2 = (double)jarg2; 
+  if (arg1) (arg1)->cur_best = arg2;
+}
+
+
+SWIGEXPORT double SWIGSTDCALL CSharp_pagmo_BeeColonyLogLine_cur_best_get(void * jarg1) {
+  double jresult ;
+  pagmoWrap::BeeColonyLogLine *arg1 = 0 ;
+  double result;
+  
+  arg1 = (pagmoWrap::BeeColonyLogLine *)jarg1; 
+  result = (double) ((arg1)->cur_best);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_BeeColonyLogLine__SWIG_0() {
+  void * jresult ;
+  pagmoWrap::BeeColonyLogLine *result = 0 ;
+  
+  {
+    try {
+      result = (pagmoWrap::BeeColonyLogLine *)new pagmoWrap::BeeColonyLogLine();
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_BeeColonyLogLine__SWIG_1(unsigned int jarg1, unsigned long long jarg2, double jarg3, double jarg4) {
+  void * jresult ;
+  unsigned int arg1 ;
+  unsigned long long arg2 ;
+  double arg3 ;
+  double arg4 ;
+  pagmoWrap::BeeColonyLogLine *result = 0 ;
+  
+  arg1 = (unsigned int)jarg1; 
+  {
+    arg2 = (unsigned long long)jarg2;
+  }
+  arg3 = (double)jarg3; 
+  arg4 = (double)jarg4; 
+  {
+    try {
+      result = (pagmoWrap::BeeColonyLogLine *)new pagmoWrap::BeeColonyLogLine(arg1,arg2,arg3,arg4);
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_delete_BeeColonyLogLine(void * jarg1) {
+  pagmoWrap::BeeColonyLogLine *arg1 = 0 ;
+  
+  arg1 = (pagmoWrap::BeeColonyLogLine *)jarg1; 
+  {
+    try {
+      delete arg1;
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return ; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return ; 
+      };
+    }
+  }
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_FromBeeColonyLogTuple(void * jarg1) {
+  void * jresult ;
+  std::tuple< unsigned int,unsigned long long,double,double > *arg1 = 0 ;
+  pagmoWrap::BeeColonyLogLine result;
+  
+  arg1 = (std::tuple< unsigned int,unsigned long long,double,double > *)jarg1;
+  if (!arg1) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "std::tuple< unsigned int,unsigned long long,double,double > const & is null", 0);
+    return 0;
+  } 
+  {
+    try {
+      result = pagmoWrap::FromBeeColonyLogTuple((std::tuple< unsigned int,unsigned long long,double,double > const &)*arg1);
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = new pagmoWrap::BeeColonyLogLine(result); 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_BeeColonyLogLineVector__SWIG_0() {
+  void * jresult ;
+  std::vector< pagmoWrap::BeeColonyLogLine > *result = 0 ;
+  
+  {
+    try {
+      result = (std::vector< pagmoWrap::BeeColonyLogLine > *)new std::vector< pagmoWrap::BeeColonyLogLine >();
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_BeeColonyLogLineVector__SWIG_1(void * jarg1) {
+  void * jresult ;
+  std::vector< pagmoWrap::BeeColonyLogLine > *arg1 = 0 ;
+  std::vector< pagmoWrap::BeeColonyLogLine > *result = 0 ;
+  
+  arg1 = (std::vector< pagmoWrap::BeeColonyLogLine > *)jarg1;
+  if (!arg1) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "std::vector< pagmoWrap::BeeColonyLogLine > const & is null", 0);
+    return 0;
+  } 
+  {
+    try {
+      result = (std::vector< pagmoWrap::BeeColonyLogLine > *)new std::vector< pagmoWrap::BeeColonyLogLine >((std::vector< pagmoWrap::BeeColonyLogLine > const &)*arg1);
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_BeeColonyLogLineVector_Clear(void * jarg1) {
+  std::vector< pagmoWrap::BeeColonyLogLine > *arg1 = 0 ;
+  
+  arg1 = (std::vector< pagmoWrap::BeeColonyLogLine > *)jarg1; 
+  {
+    try {
+      (arg1)->clear();
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return ; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return ; 
+      };
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_BeeColonyLogLineVector_Add(void * jarg1, void * jarg2) {
+  std::vector< pagmoWrap::BeeColonyLogLine > *arg1 = 0 ;
+  pagmoWrap::BeeColonyLogLine *arg2 = 0 ;
+  
+  arg1 = (std::vector< pagmoWrap::BeeColonyLogLine > *)jarg1; 
+  arg2 = (pagmoWrap::BeeColonyLogLine *)jarg2;
+  if (!arg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "pagmoWrap::BeeColonyLogLine const & is null", 0);
+    return ;
+  } 
+  {
+    try {
+      (arg1)->push_back((pagmoWrap::BeeColonyLogLine const &)*arg2);
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return ; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return ; 
+      };
+    }
+  }
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_pagmo_BeeColonyLogLineVector_size(void * jarg1) {
+  unsigned int jresult ;
+  std::vector< pagmoWrap::BeeColonyLogLine > *arg1 = 0 ;
+  std::vector< pagmoWrap::BeeColonyLogLine >::size_type result;
+  
+  arg1 = (std::vector< pagmoWrap::BeeColonyLogLine > *)jarg1; 
+  {
+    try {
+      result = ((std::vector< pagmoWrap::BeeColonyLogLine > const *)arg1)->size();
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = (unsigned int)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_pagmo_BeeColonyLogLineVector_empty(void * jarg1) {
+  unsigned int jresult ;
+  std::vector< pagmoWrap::BeeColonyLogLine > *arg1 = 0 ;
+  bool result;
+  
+  arg1 = (std::vector< pagmoWrap::BeeColonyLogLine > *)jarg1; 
+  {
+    try {
+      result = (bool)((std::vector< pagmoWrap::BeeColonyLogLine > const *)arg1)->empty();
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_pagmo_BeeColonyLogLineVector_capacity(void * jarg1) {
+  unsigned int jresult ;
+  std::vector< pagmoWrap::BeeColonyLogLine > *arg1 = 0 ;
+  std::vector< pagmoWrap::BeeColonyLogLine >::size_type result;
+  
+  arg1 = (std::vector< pagmoWrap::BeeColonyLogLine > *)jarg1; 
+  {
+    try {
+      result = ((std::vector< pagmoWrap::BeeColonyLogLine > const *)arg1)->capacity();
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = (unsigned int)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_BeeColonyLogLineVector_reserve(void * jarg1, unsigned int jarg2) {
+  std::vector< pagmoWrap::BeeColonyLogLine > *arg1 = 0 ;
+  std::vector< pagmoWrap::BeeColonyLogLine >::size_type arg2 ;
+  
+  arg1 = (std::vector< pagmoWrap::BeeColonyLogLine > *)jarg1; 
+  arg2 = (std::vector< pagmoWrap::BeeColonyLogLine >::size_type)jarg2; 
+  {
+    try {
+      (arg1)->reserve(SWIG_STD_MOVE(arg2));
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return ; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return ; 
+      };
+    }
+  }
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_BeeColonyLogLineVector__SWIG_2(int jarg1) {
+  void * jresult ;
+  int arg1 ;
+  std::vector< pagmoWrap::BeeColonyLogLine > *result = 0 ;
+  
+  arg1 = (int)jarg1; 
+  {
+    try {
+      try {
+        result = (std::vector< pagmoWrap::BeeColonyLogLine > *)new_std_vector_Sl_pagmoWrap_BeeColonyLogLine_Sg___SWIG_2(arg1);
+      } catch(std::out_of_range &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+        return 0;
+      }
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_BeeColonyLogLineVector_getitemcopy(void * jarg1, int jarg2) {
+  void * jresult ;
+  std::vector< pagmoWrap::BeeColonyLogLine > *arg1 = 0 ;
+  int arg2 ;
+  pagmoWrap::BeeColonyLogLine result;
+  
+  arg1 = (std::vector< pagmoWrap::BeeColonyLogLine > *)jarg1; 
+  arg2 = (int)jarg2; 
+  {
+    try {
+      try {
+        result = std_vector_Sl_pagmoWrap_BeeColonyLogLine_Sg__getitemcopy(arg1,arg2);
+      } catch(std::out_of_range &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+        return 0;
+      }
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = new pagmoWrap::BeeColonyLogLine(result); 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_BeeColonyLogLineVector_getitem(void * jarg1, int jarg2) {
+  void * jresult ;
+  std::vector< pagmoWrap::BeeColonyLogLine > *arg1 = 0 ;
+  int arg2 ;
+  std::vector< pagmoWrap::BeeColonyLogLine >::value_type *result = 0 ;
+  
+  arg1 = (std::vector< pagmoWrap::BeeColonyLogLine > *)jarg1; 
+  arg2 = (int)jarg2; 
+  {
+    try {
+      try {
+        result = (std::vector< pagmoWrap::BeeColonyLogLine >::value_type *) &std_vector_Sl_pagmoWrap_BeeColonyLogLine_Sg__getitem(arg1,arg2);
+      } catch(std::out_of_range &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+        return 0;
+      }
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_BeeColonyLogLineVector_setitem(void * jarg1, int jarg2, void * jarg3) {
+  std::vector< pagmoWrap::BeeColonyLogLine > *arg1 = 0 ;
+  int arg2 ;
+  pagmoWrap::BeeColonyLogLine *arg3 = 0 ;
+  
+  arg1 = (std::vector< pagmoWrap::BeeColonyLogLine > *)jarg1; 
+  arg2 = (int)jarg2; 
+  arg3 = (pagmoWrap::BeeColonyLogLine *)jarg3;
+  if (!arg3) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "pagmoWrap::BeeColonyLogLine const & is null", 0);
+    return ;
+  } 
+  {
+    try {
+      try {
+        std_vector_Sl_pagmoWrap_BeeColonyLogLine_Sg__setitem(arg1,arg2,(pagmoWrap::BeeColonyLogLine const &)*arg3);
+      } catch(std::out_of_range &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+        return ;
+      }
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return ; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return ; 
+      };
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_BeeColonyLogLineVector_AddRange(void * jarg1, void * jarg2) {
+  std::vector< pagmoWrap::BeeColonyLogLine > *arg1 = 0 ;
+  std::vector< pagmoWrap::BeeColonyLogLine > *arg2 = 0 ;
+  
+  arg1 = (std::vector< pagmoWrap::BeeColonyLogLine > *)jarg1; 
+  arg2 = (std::vector< pagmoWrap::BeeColonyLogLine > *)jarg2;
+  if (!arg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "std::vector< pagmoWrap::BeeColonyLogLine > const & is null", 0);
+    return ;
+  } 
+  {
+    try {
+      std_vector_Sl_pagmoWrap_BeeColonyLogLine_Sg__AddRange(arg1,(std::vector< pagmoWrap::BeeColonyLogLine > const &)*arg2);
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return ; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return ; 
+      };
+    }
+  }
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_BeeColonyLogLineVector_GetRange(void * jarg1, int jarg2, int jarg3) {
+  void * jresult ;
+  std::vector< pagmoWrap::BeeColonyLogLine > *arg1 = 0 ;
+  int arg2 ;
+  int arg3 ;
+  std::vector< pagmoWrap::BeeColonyLogLine > *result = 0 ;
+  
+  arg1 = (std::vector< pagmoWrap::BeeColonyLogLine > *)jarg1; 
+  arg2 = (int)jarg2; 
+  arg3 = (int)jarg3; 
+  {
+    try {
+      try {
+        result = (std::vector< pagmoWrap::BeeColonyLogLine > *)std_vector_Sl_pagmoWrap_BeeColonyLogLine_Sg__GetRange(arg1,arg2,arg3);
+      } catch(std::out_of_range &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+        return 0;
+      } catch(std::invalid_argument &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, (&_e)->what(), "");
+        return 0;
+      }
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_BeeColonyLogLineVector_Insert(void * jarg1, int jarg2, void * jarg3) {
+  std::vector< pagmoWrap::BeeColonyLogLine > *arg1 = 0 ;
+  int arg2 ;
+  pagmoWrap::BeeColonyLogLine *arg3 = 0 ;
+  
+  arg1 = (std::vector< pagmoWrap::BeeColonyLogLine > *)jarg1; 
+  arg2 = (int)jarg2; 
+  arg3 = (pagmoWrap::BeeColonyLogLine *)jarg3;
+  if (!arg3) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "pagmoWrap::BeeColonyLogLine const & is null", 0);
+    return ;
+  } 
+  {
+    try {
+      try {
+        std_vector_Sl_pagmoWrap_BeeColonyLogLine_Sg__Insert(arg1,arg2,(pagmoWrap::BeeColonyLogLine const &)*arg3);
+      } catch(std::out_of_range &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+        return ;
+      }
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return ; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return ; 
+      };
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_BeeColonyLogLineVector_InsertRange(void * jarg1, int jarg2, void * jarg3) {
+  std::vector< pagmoWrap::BeeColonyLogLine > *arg1 = 0 ;
+  int arg2 ;
+  std::vector< pagmoWrap::BeeColonyLogLine > *arg3 = 0 ;
+  
+  arg1 = (std::vector< pagmoWrap::BeeColonyLogLine > *)jarg1; 
+  arg2 = (int)jarg2; 
+  arg3 = (std::vector< pagmoWrap::BeeColonyLogLine > *)jarg3;
+  if (!arg3) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "std::vector< pagmoWrap::BeeColonyLogLine > const & is null", 0);
+    return ;
+  } 
+  {
+    try {
+      try {
+        std_vector_Sl_pagmoWrap_BeeColonyLogLine_Sg__InsertRange(arg1,arg2,(std::vector< pagmoWrap::BeeColonyLogLine > const &)*arg3);
+      } catch(std::out_of_range &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+        return ;
+      }
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return ; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return ; 
+      };
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_BeeColonyLogLineVector_RemoveAt(void * jarg1, int jarg2) {
+  std::vector< pagmoWrap::BeeColonyLogLine > *arg1 = 0 ;
+  int arg2 ;
+  
+  arg1 = (std::vector< pagmoWrap::BeeColonyLogLine > *)jarg1; 
+  arg2 = (int)jarg2; 
+  {
+    try {
+      try {
+        std_vector_Sl_pagmoWrap_BeeColonyLogLine_Sg__RemoveAt(arg1,arg2);
+      } catch(std::out_of_range &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+        return ;
+      }
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return ; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return ; 
+      };
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_BeeColonyLogLineVector_RemoveRange(void * jarg1, int jarg2, int jarg3) {
+  std::vector< pagmoWrap::BeeColonyLogLine > *arg1 = 0 ;
+  int arg2 ;
+  int arg3 ;
+  
+  arg1 = (std::vector< pagmoWrap::BeeColonyLogLine > *)jarg1; 
+  arg2 = (int)jarg2; 
+  arg3 = (int)jarg3; 
+  {
+    try {
+      try {
+        std_vector_Sl_pagmoWrap_BeeColonyLogLine_Sg__RemoveRange(arg1,arg2,arg3);
+      } catch(std::out_of_range &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+        return ;
+      } catch(std::invalid_argument &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, (&_e)->what(), "");
+        return ;
+      }
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return ; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return ; 
+      };
+    }
+  }
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_BeeColonyLogLineVector_Repeat(void * jarg1, int jarg2) {
+  void * jresult ;
+  pagmoWrap::BeeColonyLogLine *arg1 = 0 ;
+  int arg2 ;
+  std::vector< pagmoWrap::BeeColonyLogLine > *result = 0 ;
+  
+  arg1 = (pagmoWrap::BeeColonyLogLine *)jarg1;
+  if (!arg1) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "pagmoWrap::BeeColonyLogLine const & is null", 0);
+    return 0;
+  } 
+  arg2 = (int)jarg2; 
+  {
+    try {
+      try {
+        result = (std::vector< pagmoWrap::BeeColonyLogLine > *)std_vector_Sl_pagmoWrap_BeeColonyLogLine_Sg__Repeat((pagmoWrap::BeeColonyLogLine const &)*arg1,arg2);
+      } catch(std::out_of_range &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+        return 0;
+      }
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_BeeColonyLogLineVector_Reverse__SWIG_0(void * jarg1) {
+  std::vector< pagmoWrap::BeeColonyLogLine > *arg1 = 0 ;
+  
+  arg1 = (std::vector< pagmoWrap::BeeColonyLogLine > *)jarg1; 
+  {
+    try {
+      std_vector_Sl_pagmoWrap_BeeColonyLogLine_Sg__Reverse__SWIG_0(arg1);
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return ; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return ; 
+      };
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_BeeColonyLogLineVector_Reverse__SWIG_1(void * jarg1, int jarg2, int jarg3) {
+  std::vector< pagmoWrap::BeeColonyLogLine > *arg1 = 0 ;
+  int arg2 ;
+  int arg3 ;
+  
+  arg1 = (std::vector< pagmoWrap::BeeColonyLogLine > *)jarg1; 
+  arg2 = (int)jarg2; 
+  arg3 = (int)jarg3; 
+  {
+    try {
+      try {
+        std_vector_Sl_pagmoWrap_BeeColonyLogLine_Sg__Reverse__SWIG_1(arg1,arg2,arg3);
+      } catch(std::out_of_range &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+        return ;
+      } catch(std::invalid_argument &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, (&_e)->what(), "");
+        return ;
+      }
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return ; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return ; 
+      };
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_BeeColonyLogLineVector_SetRange(void * jarg1, int jarg2, void * jarg3) {
+  std::vector< pagmoWrap::BeeColonyLogLine > *arg1 = 0 ;
+  int arg2 ;
+  std::vector< pagmoWrap::BeeColonyLogLine > *arg3 = 0 ;
+  
+  arg1 = (std::vector< pagmoWrap::BeeColonyLogLine > *)jarg1; 
+  arg2 = (int)jarg2; 
+  arg3 = (std::vector< pagmoWrap::BeeColonyLogLine > *)jarg3;
+  if (!arg3) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "std::vector< pagmoWrap::BeeColonyLogLine > const & is null", 0);
+    return ;
+  } 
+  {
+    try {
+      try {
+        std_vector_Sl_pagmoWrap_BeeColonyLogLine_Sg__SetRange(arg1,arg2,(std::vector< pagmoWrap::BeeColonyLogLine > const &)*arg3);
+      } catch(std::out_of_range &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+        return ;
+      }
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return ; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return ; 
+      };
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_delete_BeeColonyLogLineVector(void * jarg1) {
+  std::vector< pagmoWrap::BeeColonyLogLine > *arg1 = 0 ;
+  
+  arg1 = (std::vector< pagmoWrap::BeeColonyLogLine > *)jarg1; 
+  {
+    try {
+      delete arg1;
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return ; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return ; 
+      };
+    }
+  }
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_bee_colony__SWIG_0(unsigned int jarg1, unsigned int jarg2, unsigned int jarg3) {
+  void * jresult ;
+  unsigned int arg1 ;
+  unsigned int arg2 ;
+  unsigned int arg3 ;
+  pagmo::bee_colony *result = 0 ;
+  
+  arg1 = (unsigned int)jarg1; 
+  arg2 = (unsigned int)jarg2; 
+  arg3 = (unsigned int)jarg3; 
+  {
+    try {
+      result = (pagmo::bee_colony *)new pagmo::bee_colony(arg1,arg2,arg3);
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_bee_colony__SWIG_1(unsigned int jarg1, unsigned int jarg2) {
+  void * jresult ;
+  unsigned int arg1 ;
+  unsigned int arg2 ;
+  pagmo::bee_colony *result = 0 ;
+  
+  arg1 = (unsigned int)jarg1; 
+  arg2 = (unsigned int)jarg2; 
+  {
+    try {
+      result = (pagmo::bee_colony *)new pagmo::bee_colony(arg1,arg2);
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_bee_colony__SWIG_2(unsigned int jarg1) {
+  void * jresult ;
+  unsigned int arg1 ;
+  pagmo::bee_colony *result = 0 ;
+  
+  arg1 = (unsigned int)jarg1; 
+  {
+    try {
+      result = (pagmo::bee_colony *)new pagmo::bee_colony(arg1);
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_bee_colony__SWIG_3() {
+  void * jresult ;
+  pagmo::bee_colony *result = 0 ;
+  
+  {
+    try {
+      result = (pagmo::bee_colony *)new pagmo::bee_colony();
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_bee_colony_evolve(void * jarg1, void * jarg2) {
+  void * jresult ;
+  pagmo::bee_colony *arg1 = 0 ;
+  SwigValueWrapper< pagmo::population > arg2 ;
+  pagmo::population *argp2 ;
+  SwigValueWrapper< pagmo::population > result;
+  
+  arg1 = (pagmo::bee_colony *)jarg1; 
+  argp2 = (pagmo::population *)jarg2; 
+  if (!argp2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "Attempt to dereference null pagmo::population", 0);
+    return 0;
+  }
+  arg2 = *argp2; 
+  {
+    try {
+      result = ((pagmo::bee_colony const *)arg1)->evolve(SWIG_STD_MOVE(arg2));
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = new pagmo::population(result); 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_bee_colony_set_seed(void * jarg1, unsigned int jarg2) {
+  pagmo::bee_colony *arg1 = 0 ;
+  unsigned int arg2 ;
+  
+  arg1 = (pagmo::bee_colony *)jarg1; 
+  arg2 = (unsigned int)jarg2; 
+  {
+    try {
+      (arg1)->set_seed(arg2);
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return ; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return ; 
+      };
+    }
+  }
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_pagmo_bee_colony_get_seed(void * jarg1) {
+  unsigned int jresult ;
+  pagmo::bee_colony *arg1 = 0 ;
+  unsigned int result;
+  
+  arg1 = (pagmo::bee_colony *)jarg1; 
+  {
+    try {
+      result = (unsigned int)((pagmo::bee_colony const *)arg1)->get_seed();
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = (unsigned int)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_bee_colony_set_verbosity(void * jarg1, unsigned int jarg2) {
+  pagmo::bee_colony *arg1 = 0 ;
+  unsigned int arg2 ;
+  
+  arg1 = (pagmo::bee_colony *)jarg1; 
+  arg2 = (unsigned int)jarg2; 
+  {
+    try {
+      (arg1)->set_verbosity(arg2);
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return ; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return ; 
+      };
+    }
+  }
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_pagmo_bee_colony_get_verbosity(void * jarg1) {
+  unsigned int jresult ;
+  pagmo::bee_colony *arg1 = 0 ;
+  unsigned int result;
+  
+  arg1 = (pagmo::bee_colony *)jarg1; 
+  {
+    try {
+      result = (unsigned int)((pagmo::bee_colony const *)arg1)->get_verbosity();
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = (unsigned int)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_pagmo_bee_colony_get_gen(void * jarg1) {
+  unsigned int jresult ;
+  pagmo::bee_colony *arg1 = 0 ;
+  unsigned int result;
+  
+  arg1 = (pagmo::bee_colony *)jarg1; 
+  {
+    try {
+      result = (unsigned int)((pagmo::bee_colony const *)arg1)->get_gen();
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = (unsigned int)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_bee_colony_get_name(void * jarg1) {
+  const char * jresult ;
+  pagmo::bee_colony *arg1 = 0 ;
+  std::string result;
+  
+  arg1 = (pagmo::bee_colony *)jarg1; 
+  {
+    try {
+      result = ((pagmo::bee_colony const *)arg1)->get_name();
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  return jresult;
+}
+
+
+SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_bee_colony_get_extra_info(void * jarg1) {
+  const char * jresult ;
+  pagmo::bee_colony *arg1 = 0 ;
+  std::string result;
+  
+  arg1 = (pagmo::bee_colony *)jarg1; 
+  {
+    try {
+      result = ((pagmo::bee_colony const *)arg1)->get_extra_info();
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_bee_colony_get_log_lines(void * jarg1) {
+  void * jresult ;
+  pagmo::bee_colony *arg1 = 0 ;
+  std::vector< pagmoWrap::BeeColonyLogLine > result;
+  
+  arg1 = (pagmo::bee_colony *)jarg1; 
+  {
+    try {
+      result = pagmo_bee_colony_get_log_lines((pagmo::bee_colony const *)arg1);
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = new std::vector< pagmoWrap::BeeColonyLogLine >(result); 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_delete_bee_colony(void * jarg1) {
+  pagmo::bee_colony *arg1 = 0 ;
+  
+  arg1 = (pagmo::bee_colony *)jarg1; 
+  {
+    try {
+      delete arg1;
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return ; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return ; 
+      };
+    }
+  }
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_archipelago__SWIG_0() {
+  void * jresult ;
+  pagmo::archipelago *result = 0 ;
+  
+  {
+    try {
+      result = (pagmo::archipelago *)new pagmo::archipelago();
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_archipelago__SWIG_1(void * jarg1) {
+  void * jresult ;
+  pagmo::archipelago *arg1 = 0 ;
+  pagmo::archipelago *result = 0 ;
+  
+  arg1 = (pagmo::archipelago *)jarg1;
+  if (!arg1) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "pagmo::archipelago const & is null", 0);
+    return 0;
+  } 
+  {
+    try {
+      result = (pagmo::archipelago *)new pagmo::archipelago((pagmo::archipelago const &)*arg1);
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_delete_archipelago(void * jarg1) {
+  pagmo::archipelago *arg1 = 0 ;
+  
+  arg1 = (pagmo::archipelago *)jarg1; 
+  {
+    try {
+      delete arg1;
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return ; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return ; 
+      };
+    }
+  }
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_pagmo_archipelago_size(void * jarg1) {
+  unsigned int jresult ;
+  pagmo::archipelago *arg1 = 0 ;
+  pagmo::archipelago::size_type result;
+  
+  arg1 = (pagmo::archipelago *)jarg1; 
+  {
+    try {
+      result = ((pagmo::archipelago const *)arg1)->size();
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = (unsigned int)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_archipelago_evolve__SWIG_0(void * jarg1, unsigned int jarg2) {
+  pagmo::archipelago *arg1 = 0 ;
+  unsigned int arg2 ;
+  
+  arg1 = (pagmo::archipelago *)jarg1; 
+  arg2 = (unsigned int)jarg2; 
+  {
+    try {
+      (arg1)->evolve(arg2);
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return ; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return ; 
+      };
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_archipelago_evolve__SWIG_1(void * jarg1) {
+  pagmo::archipelago *arg1 = 0 ;
+  
+  arg1 = (pagmo::archipelago *)jarg1; 
+  {
+    try {
+      (arg1)->evolve();
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return ; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return ; 
+      };
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_archipelago_wait(void * jarg1) {
+  pagmo::archipelago *arg1 = 0 ;
+  
+  arg1 = (pagmo::archipelago *)jarg1; 
+  {
+    try {
+      (arg1)->wait();
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return ; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return ; 
+      };
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_archipelago_wait_check(void * jarg1) {
+  pagmo::archipelago *arg1 = 0 ;
+  
+  arg1 = (pagmo::archipelago *)jarg1; 
+  {
+    try {
+      (arg1)->wait_check();
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return ; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return ; 
+      };
+    }
+  }
+}
+
+
+SWIGEXPORT int SWIGSTDCALL CSharp_pagmo_archipelago_status(void * jarg1) {
+  int jresult ;
+  pagmo::archipelago *arg1 = 0 ;
+  pagmo::evolve_status result;
+  
+  arg1 = (pagmo::archipelago *)jarg1; 
+  {
+    try {
+      result = (pagmo::evolve_status)((pagmo::archipelago const *)arg1)->status();
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = (int)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_archipelago_get_topology(void * jarg1) {
+  void * jresult ;
+  pagmo::archipelago *arg1 = 0 ;
+  SwigValueWrapper< pagmo::topology > result;
+  
+  arg1 = (pagmo::archipelago *)jarg1; 
+  {
+    try {
+      result = ((pagmo::archipelago const *)arg1)->get_topology();
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = new pagmo::topology(result); 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_archipelago_set_topology(void * jarg1, void * jarg2) {
+  pagmo::archipelago *arg1 = 0 ;
+  SwigValueWrapper< pagmo::topology > arg2 ;
+  pagmo::topology *argp2 ;
+  
+  arg1 = (pagmo::archipelago *)jarg1; 
+  argp2 = (pagmo::topology *)jarg2; 
+  if (!argp2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "Attempt to dereference null pagmo::topology", 0);
+    return ;
+  }
+  arg2 = *argp2; 
+  {
+    try {
+      (arg1)->set_topology(SWIG_STD_MOVE(arg2));
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return ; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return ; 
+      };
+    }
+  }
+}
+
+
+SWIGEXPORT int SWIGSTDCALL CSharp_pagmo_archipelago_get_migration_type(void * jarg1) {
+  int jresult ;
+  pagmo::archipelago *arg1 = 0 ;
+  pagmo::migration_type result;
+  
+  arg1 = (pagmo::archipelago *)jarg1; 
+  {
+    try {
+      result = (pagmo::migration_type)((pagmo::archipelago const *)arg1)->get_migration_type();
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = (int)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_archipelago_set_migration_type(void * jarg1, int jarg2) {
+  pagmo::archipelago *arg1 = 0 ;
+  pagmo::migration_type arg2 ;
+  
+  arg1 = (pagmo::archipelago *)jarg1; 
+  arg2 = (pagmo::migration_type)jarg2; 
+  {
+    try {
+      (arg1)->set_migration_type(arg2);
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return ; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return ; 
+      };
+    }
+  }
+}
+
+
+SWIGEXPORT int SWIGSTDCALL CSharp_pagmo_archipelago_get_migrant_handling(void * jarg1) {
+  int jresult ;
+  pagmo::archipelago *arg1 = 0 ;
+  pagmo::migrant_handling result;
+  
+  arg1 = (pagmo::archipelago *)jarg1; 
+  {
+    try {
+      result = (pagmo::migrant_handling)((pagmo::archipelago const *)arg1)->get_migrant_handling();
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = (int)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_archipelago_set_migrant_handling(void * jarg1, int jarg2) {
+  pagmo::archipelago *arg1 = 0 ;
+  pagmo::migrant_handling arg2 ;
+  
+  arg1 = (pagmo::archipelago *)jarg1; 
+  arg2 = (pagmo::migrant_handling)jarg2; 
+  {
+    try {
+      (arg1)->set_migrant_handling(arg2);
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return ; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return ; 
+      };
+    }
+  }
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_archipelago_get_migrants_db_wrapped(void * jarg1) {
+  void * jresult ;
+  pagmo::archipelago *arg1 = 0 ;
+  std::vector< pagmoWrap::IndividualsGroup > result;
+  
+  arg1 = (pagmo::archipelago *)jarg1; 
+  {
+    try {
+      result = pagmo_archipelago_get_migrants_db_wrapped((pagmo::archipelago const *)arg1);
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = new std::vector< pagmoWrap::IndividualsGroup >(result); 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_archipelago_set_migrants_db_wrapped(void * jarg1, void * jarg2) {
+  pagmo::archipelago *arg1 = 0 ;
+  std::vector< pagmoWrap::IndividualsGroup > *arg2 = 0 ;
+  
+  arg1 = (pagmo::archipelago *)jarg1; 
+  arg2 = (std::vector< pagmoWrap::IndividualsGroup > *)jarg2;
+  if (!arg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "std::vector< pagmoWrap::IndividualsGroup > const & is null", 0);
+    return ;
+  } 
+  {
+    try {
+      pagmo_archipelago_set_migrants_db_wrapped(arg1,(std::vector< pagmoWrap::IndividualsGroup > const &)*arg2);
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return ; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return ; 
+      };
+    }
+  }
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_archipelago_get_migration_log_wrapped(void * jarg1) {
+  void * jresult ;
+  pagmo::archipelago *arg1 = 0 ;
+  std::vector< pagmoWrap::MigrationEntry > result;
+  
+  arg1 = (pagmo::archipelago *)jarg1; 
+  {
+    try {
+      result = pagmo_archipelago_get_migration_log_wrapped((pagmo::archipelago const *)arg1);
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = new std::vector< pagmoWrap::MigrationEntry >(result); 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_archipelago_get_island(void * jarg1, unsigned int jarg2) {
+  void * jresult ;
+  pagmo::archipelago *arg1 = 0 ;
+  pagmo::archipelago::size_type arg2 ;
+  pagmo::island *result = 0 ;
+  
+  arg1 = (pagmo::archipelago *)jarg1; 
+  arg2 = (pagmo::archipelago::size_type)jarg2; 
+  {
+    try {
+      result = (pagmo::island *) &pagmo_archipelago_get_island(arg1,SWIG_STD_MOVE(arg2));
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
 SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_island() {
   void * jresult ;
   pagmo::island *result = 0 ;
@@ -10141,280 +11897,6 @@ SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_delete_algorithm(void * jarg1) {
 }
 
 
-SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_archipelago__SWIG_0() {
-  void * jresult ;
-  pagmo::archipelago *result = 0 ;
-  
-  {
-    try {
-      result = (pagmo::archipelago *)new pagmo::archipelago();
-    } catch (const std::exception &e) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
-      };
-    } catch (...) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
-      };
-    }
-  }
-  jresult = (void *)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_archipelago__SWIG_1(void * jarg1) {
-  void * jresult ;
-  pagmo::archipelago *arg1 = 0 ;
-  pagmo::archipelago *result = 0 ;
-  
-  arg1 = (pagmo::archipelago *)jarg1;
-  if (!arg1) {
-    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "pagmo::archipelago const & is null", 0);
-    return 0;
-  } 
-  {
-    try {
-      result = (pagmo::archipelago *)new pagmo::archipelago((pagmo::archipelago const &)*arg1);
-    } catch (const std::exception &e) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
-      };
-    } catch (...) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
-      };
-    }
-  }
-  jresult = (void *)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_delete_archipelago(void * jarg1) {
-  pagmo::archipelago *arg1 = 0 ;
-  
-  arg1 = (pagmo::archipelago *)jarg1; 
-  {
-    try {
-      delete arg1;
-    } catch (const std::exception &e) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return ; 
-      };
-    } catch (...) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return ; 
-      };
-    }
-  }
-}
-
-
-SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_archipelago_size(void * jarg1) {
-  void * jresult ;
-  pagmo::archipelago *arg1 = 0 ;
-  SwigValueWrapper< std::vector< std::unique_ptr< pagmo::island > >::size_type > result;
-  
-  arg1 = (pagmo::archipelago *)jarg1; 
-  {
-    try {
-      result = ((pagmo::archipelago const *)arg1)->size();
-    } catch (const std::exception &e) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
-      };
-    } catch (...) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
-      };
-    }
-  }
-  jresult = new pagmo::archipelago::size_type(result); 
-  return jresult;
-}
-
-
-SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_archipelago_evolve__SWIG_0(void * jarg1, unsigned int jarg2) {
-  pagmo::archipelago *arg1 = 0 ;
-  unsigned int arg2 ;
-  
-  arg1 = (pagmo::archipelago *)jarg1; 
-  arg2 = (unsigned int)jarg2; 
-  {
-    try {
-      (arg1)->evolve(arg2);
-    } catch (const std::exception &e) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return ; 
-      };
-    } catch (...) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return ; 
-      };
-    }
-  }
-}
-
-
-SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_archipelago_evolve__SWIG_1(void * jarg1) {
-  pagmo::archipelago *arg1 = 0 ;
-  
-  arg1 = (pagmo::archipelago *)jarg1; 
-  {
-    try {
-      (arg1)->evolve();
-    } catch (const std::exception &e) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return ; 
-      };
-    } catch (...) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return ; 
-      };
-    }
-  }
-}
-
-
-SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_archipelago_wait(void * jarg1) {
-  pagmo::archipelago *arg1 = 0 ;
-  
-  arg1 = (pagmo::archipelago *)jarg1; 
-  {
-    try {
-      (arg1)->wait();
-    } catch (const std::exception &e) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return ; 
-      };
-    } catch (...) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return ; 
-      };
-    }
-  }
-}
-
-
-SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_archipelago_wait_check(void * jarg1) {
-  pagmo::archipelago *arg1 = 0 ;
-  
-  arg1 = (pagmo::archipelago *)jarg1; 
-  {
-    try {
-      (arg1)->wait_check();
-    } catch (const std::exception &e) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return ; 
-      };
-    } catch (...) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return ; 
-      };
-    }
-  }
-}
-
-
-SWIGEXPORT int SWIGSTDCALL CSharp_pagmo_archipelago_status(void * jarg1) {
-  int jresult ;
-  pagmo::archipelago *arg1 = 0 ;
-  pagmo::evolve_status result;
-  
-  arg1 = (pagmo::archipelago *)jarg1; 
-  {
-    try {
-      result = (pagmo::evolve_status)((pagmo::archipelago const *)arg1)->status();
-    } catch (const std::exception &e) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
-      };
-    } catch (...) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
-      };
-    }
-  }
-  jresult = (int)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_archipelago_get_migrants_db(void * jarg1) {
-  void * jresult ;
-  pagmo::archipelago *arg1 = 0 ;
-  std::vector< pagmoWrap::IndividualsGroup > result;
-  
-  arg1 = (pagmo::archipelago *)jarg1; 
-  {
-    try {
-      result = pagmo_archipelago_get_migrants_db((pagmo::archipelago const *)arg1);
-    } catch (const std::exception &e) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
-      };
-    } catch (...) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
-      };
-    }
-  }
-  jresult = new std::vector< pagmoWrap::IndividualsGroup >(result); 
-  return jresult;
-}
-
-
-SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_archipelago_set_migrants_db(void * jarg1, void * jarg2) {
-  pagmo::archipelago *arg1 = 0 ;
-  std::vector< pagmoWrap::IndividualsGroup > *arg2 = 0 ;
-  
-  arg1 = (pagmo::archipelago *)jarg1; 
-  arg2 = (std::vector< pagmoWrap::IndividualsGroup > *)jarg2;
-  if (!arg2) {
-    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "std::vector< pagmoWrap::IndividualsGroup > const & is null", 0);
-    return ;
-  } 
-  {
-    try {
-      pagmo_archipelago_set_migrants_db(arg1,(std::vector< pagmoWrap::IndividualsGroup > const &)*arg2);
-    } catch (const std::exception &e) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return ; 
-      };
-    } catch (...) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return ; 
-      };
-    }
-  }
-}
-
-
-SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_archipelago_get_migration_log(void * jarg1) {
-  void * jresult ;
-  pagmo::archipelago *arg1 = 0 ;
-  std::vector< pagmoWrap::MigrationEntry > result;
-  
-  arg1 = (pagmo::archipelago *)jarg1; 
-  {
-    try {
-      result = pagmo_archipelago_get_migration_log((pagmo::archipelago const *)arg1);
-    } catch (const std::exception &e) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
-      };
-    } catch (...) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
-      };
-    }
-  }
-  jresult = new std::vector< pagmoWrap::MigrationEntry >(result); 
-  return jresult;
-}
-
-
 SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_delete_bfe(void * jarg1) {
   pagmo::bfe *arg1 = 0 ;
   
@@ -10769,346 +12251,6 @@ SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_delete_topology(void * jarg1) {
   pagmo::topology *arg1 = 0 ;
   
   arg1 = (pagmo::topology *)jarg1; 
-  {
-    try {
-      delete arg1;
-    } catch (const std::exception &e) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return ; 
-      };
-    } catch (...) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return ; 
-      };
-    }
-  }
-}
-
-
-SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_bee_colony__SWIG_0(unsigned int jarg1, unsigned int jarg2, unsigned int jarg3) {
-  void * jresult ;
-  unsigned int arg1 ;
-  unsigned int arg2 ;
-  unsigned int arg3 ;
-  pagmo::bee_colony *result = 0 ;
-  
-  arg1 = (unsigned int)jarg1; 
-  arg2 = (unsigned int)jarg2; 
-  arg3 = (unsigned int)jarg3; 
-  {
-    try {
-      result = (pagmo::bee_colony *)new pagmo::bee_colony(arg1,arg2,arg3);
-    } catch (const std::exception &e) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
-      };
-    } catch (...) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
-      };
-    }
-  }
-  jresult = (void *)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_bee_colony__SWIG_1(unsigned int jarg1, unsigned int jarg2) {
-  void * jresult ;
-  unsigned int arg1 ;
-  unsigned int arg2 ;
-  pagmo::bee_colony *result = 0 ;
-  
-  arg1 = (unsigned int)jarg1; 
-  arg2 = (unsigned int)jarg2; 
-  {
-    try {
-      result = (pagmo::bee_colony *)new pagmo::bee_colony(arg1,arg2);
-    } catch (const std::exception &e) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
-      };
-    } catch (...) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
-      };
-    }
-  }
-  jresult = (void *)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_bee_colony__SWIG_2(unsigned int jarg1) {
-  void * jresult ;
-  unsigned int arg1 ;
-  pagmo::bee_colony *result = 0 ;
-  
-  arg1 = (unsigned int)jarg1; 
-  {
-    try {
-      result = (pagmo::bee_colony *)new pagmo::bee_colony(arg1);
-    } catch (const std::exception &e) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
-      };
-    } catch (...) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
-      };
-    }
-  }
-  jresult = (void *)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_bee_colony__SWIG_3() {
-  void * jresult ;
-  pagmo::bee_colony *result = 0 ;
-  
-  {
-    try {
-      result = (pagmo::bee_colony *)new pagmo::bee_colony();
-    } catch (const std::exception &e) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
-      };
-    } catch (...) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
-      };
-    }
-  }
-  jresult = (void *)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_bee_colony_evolve(void * jarg1, void * jarg2) {
-  void * jresult ;
-  pagmo::bee_colony *arg1 = 0 ;
-  SwigValueWrapper< pagmo::population > arg2 ;
-  pagmo::population *argp2 ;
-  SwigValueWrapper< pagmo::population > result;
-  
-  arg1 = (pagmo::bee_colony *)jarg1; 
-  argp2 = (pagmo::population *)jarg2; 
-  if (!argp2) {
-    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "Attempt to dereference null pagmo::population", 0);
-    return 0;
-  }
-  arg2 = *argp2; 
-  {
-    try {
-      result = ((pagmo::bee_colony const *)arg1)->evolve(SWIG_STD_MOVE(arg2));
-    } catch (const std::exception &e) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
-      };
-    } catch (...) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
-      };
-    }
-  }
-  jresult = new pagmo::population(result); 
-  return jresult;
-}
-
-
-SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_bee_colony_set_seed(void * jarg1, unsigned int jarg2) {
-  pagmo::bee_colony *arg1 = 0 ;
-  unsigned int arg2 ;
-  
-  arg1 = (pagmo::bee_colony *)jarg1; 
-  arg2 = (unsigned int)jarg2; 
-  {
-    try {
-      (arg1)->set_seed(arg2);
-    } catch (const std::exception &e) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return ; 
-      };
-    } catch (...) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return ; 
-      };
-    }
-  }
-}
-
-
-SWIGEXPORT unsigned int SWIGSTDCALL CSharp_pagmo_bee_colony_get_seed(void * jarg1) {
-  unsigned int jresult ;
-  pagmo::bee_colony *arg1 = 0 ;
-  unsigned int result;
-  
-  arg1 = (pagmo::bee_colony *)jarg1; 
-  {
-    try {
-      result = (unsigned int)((pagmo::bee_colony const *)arg1)->get_seed();
-    } catch (const std::exception &e) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
-      };
-    } catch (...) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
-      };
-    }
-  }
-  jresult = (unsigned int)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_bee_colony_set_verbosity(void * jarg1, unsigned int jarg2) {
-  pagmo::bee_colony *arg1 = 0 ;
-  unsigned int arg2 ;
-  
-  arg1 = (pagmo::bee_colony *)jarg1; 
-  arg2 = (unsigned int)jarg2; 
-  {
-    try {
-      (arg1)->set_verbosity(arg2);
-    } catch (const std::exception &e) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return ; 
-      };
-    } catch (...) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return ; 
-      };
-    }
-  }
-}
-
-
-SWIGEXPORT unsigned int SWIGSTDCALL CSharp_pagmo_bee_colony_get_verbosity(void * jarg1) {
-  unsigned int jresult ;
-  pagmo::bee_colony *arg1 = 0 ;
-  unsigned int result;
-  
-  arg1 = (pagmo::bee_colony *)jarg1; 
-  {
-    try {
-      result = (unsigned int)((pagmo::bee_colony const *)arg1)->get_verbosity();
-    } catch (const std::exception &e) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
-      };
-    } catch (...) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
-      };
-    }
-  }
-  jresult = (unsigned int)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT unsigned int SWIGSTDCALL CSharp_pagmo_bee_colony_get_gen(void * jarg1) {
-  unsigned int jresult ;
-  pagmo::bee_colony *arg1 = 0 ;
-  unsigned int result;
-  
-  arg1 = (pagmo::bee_colony *)jarg1; 
-  {
-    try {
-      result = (unsigned int)((pagmo::bee_colony const *)arg1)->get_gen();
-    } catch (const std::exception &e) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
-      };
-    } catch (...) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
-      };
-    }
-  }
-  jresult = (unsigned int)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_bee_colony_get_name(void * jarg1) {
-  const char * jresult ;
-  pagmo::bee_colony *arg1 = 0 ;
-  std::string result;
-  
-  arg1 = (pagmo::bee_colony *)jarg1; 
-  {
-    try {
-      result = ((pagmo::bee_colony const *)arg1)->get_name();
-    } catch (const std::exception &e) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
-      };
-    } catch (...) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
-      };
-    }
-  }
-  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
-  return jresult;
-}
-
-
-SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_bee_colony_get_extra_info(void * jarg1) {
-  const char * jresult ;
-  pagmo::bee_colony *arg1 = 0 ;
-  std::string result;
-  
-  arg1 = (pagmo::bee_colony *)jarg1; 
-  {
-    try {
-      result = ((pagmo::bee_colony const *)arg1)->get_extra_info();
-    } catch (const std::exception &e) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
-      };
-    } catch (...) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
-      };
-    }
-  }
-  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
-  return jresult;
-}
-
-
-SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_bee_colony_get_log(void * jarg1) {
-  void * jresult ;
-  pagmo::bee_colony *arg1 = 0 ;
-  pagmo::bee_colony::log_type *result = 0 ;
-  
-  arg1 = (pagmo::bee_colony *)jarg1; 
-  {
-    try {
-      result = (pagmo::bee_colony::log_type *) &((pagmo::bee_colony const *)arg1)->get_log();
-    } catch (const std::exception &e) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
-      };
-    } catch (...) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
-      };
-    }
-  }
-  jresult = (void *)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_delete_bee_colony(void * jarg1) {
-  pagmo::bee_colony *arg1 = 0 ;
-  
-  arg1 = (pagmo::bee_colony *)jarg1; 
   {
     try {
       delete arg1;
@@ -23452,10 +24594,6 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_decompose_objectives(void * jarg1, vo
   return jresult;
 }
 
-
-SWIGEXPORT pagmo::algorithm * SWIGSTDCALL CSharp_pagmo_bee_colony_SWIGUpcast(pagmo::bee_colony *jarg1) {
-    return (pagmo::algorithm *)jarg1;
-}
 
 SWIGEXPORT pagmo::algorithm * SWIGSTDCALL CSharp_pagmo_cmaes_SWIGUpcast(pagmo::cmaes *jarg1) {
     return (pagmo::algorithm *)jarg1;

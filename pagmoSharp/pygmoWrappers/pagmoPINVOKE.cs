@@ -1086,6 +1086,210 @@ class pagmoPINVOKE {
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_delete_MigrationEntryVector")]
   public static extern void delete_MigrationEntryVector(global::System.Runtime.InteropServices.HandleRef jarg1);
 
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_BeeColonyLogLine_gen_set")]
+  public static extern void BeeColonyLogLine_gen_set(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_BeeColonyLogLine_gen_get")]
+  public static extern uint BeeColonyLogLine_gen_get(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_BeeColonyLogLine_fevals_set")]
+  public static extern void BeeColonyLogLine_fevals_set(global::System.Runtime.InteropServices.HandleRef jarg1, ulong jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_BeeColonyLogLine_fevals_get")]
+  public static extern ulong BeeColonyLogLine_fevals_get(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_BeeColonyLogLine_best_set")]
+  public static extern void BeeColonyLogLine_best_set(global::System.Runtime.InteropServices.HandleRef jarg1, double jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_BeeColonyLogLine_best_get")]
+  public static extern double BeeColonyLogLine_best_get(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_BeeColonyLogLine_cur_best_set")]
+  public static extern void BeeColonyLogLine_cur_best_set(global::System.Runtime.InteropServices.HandleRef jarg1, double jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_BeeColonyLogLine_cur_best_get")]
+  public static extern double BeeColonyLogLine_cur_best_get(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_new_BeeColonyLogLine__SWIG_0")]
+  public static extern global::System.IntPtr new_BeeColonyLogLine__SWIG_0();
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_new_BeeColonyLogLine__SWIG_1")]
+  public static extern global::System.IntPtr new_BeeColonyLogLine__SWIG_1(uint jarg1, ulong jarg2, double jarg3, double jarg4);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_delete_BeeColonyLogLine")]
+  public static extern void delete_BeeColonyLogLine(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_FromBeeColonyLogTuple")]
+  public static extern global::System.IntPtr FromBeeColonyLogTuple(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_new_BeeColonyLogLineVector__SWIG_0")]
+  public static extern global::System.IntPtr new_BeeColonyLogLineVector__SWIG_0();
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_new_BeeColonyLogLineVector__SWIG_1")]
+  public static extern global::System.IntPtr new_BeeColonyLogLineVector__SWIG_1(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_BeeColonyLogLineVector_Clear")]
+  public static extern void BeeColonyLogLineVector_Clear(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_BeeColonyLogLineVector_Add")]
+  public static extern void BeeColonyLogLineVector_Add(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_BeeColonyLogLineVector_size")]
+  public static extern uint BeeColonyLogLineVector_size(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_BeeColonyLogLineVector_empty")]
+  public static extern bool BeeColonyLogLineVector_empty(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_BeeColonyLogLineVector_capacity")]
+  public static extern uint BeeColonyLogLineVector_capacity(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_BeeColonyLogLineVector_reserve")]
+  public static extern void BeeColonyLogLineVector_reserve(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_new_BeeColonyLogLineVector__SWIG_2")]
+  public static extern global::System.IntPtr new_BeeColonyLogLineVector__SWIG_2(int jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_BeeColonyLogLineVector_getitemcopy")]
+  public static extern global::System.IntPtr BeeColonyLogLineVector_getitemcopy(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_BeeColonyLogLineVector_getitem")]
+  public static extern global::System.IntPtr BeeColonyLogLineVector_getitem(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_BeeColonyLogLineVector_setitem")]
+  public static extern void BeeColonyLogLineVector_setitem(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_BeeColonyLogLineVector_AddRange")]
+  public static extern void BeeColonyLogLineVector_AddRange(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_BeeColonyLogLineVector_GetRange")]
+  public static extern global::System.IntPtr BeeColonyLogLineVector_GetRange(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, int jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_BeeColonyLogLineVector_Insert")]
+  public static extern void BeeColonyLogLineVector_Insert(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_BeeColonyLogLineVector_InsertRange")]
+  public static extern void BeeColonyLogLineVector_InsertRange(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_BeeColonyLogLineVector_RemoveAt")]
+  public static extern void BeeColonyLogLineVector_RemoveAt(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_BeeColonyLogLineVector_RemoveRange")]
+  public static extern void BeeColonyLogLineVector_RemoveRange(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, int jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_BeeColonyLogLineVector_Repeat")]
+  public static extern global::System.IntPtr BeeColonyLogLineVector_Repeat(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_BeeColonyLogLineVector_Reverse__SWIG_0")]
+  public static extern void BeeColonyLogLineVector_Reverse__SWIG_0(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_BeeColonyLogLineVector_Reverse__SWIG_1")]
+  public static extern void BeeColonyLogLineVector_Reverse__SWIG_1(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, int jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_BeeColonyLogLineVector_SetRange")]
+  public static extern void BeeColonyLogLineVector_SetRange(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_delete_BeeColonyLogLineVector")]
+  public static extern void delete_BeeColonyLogLineVector(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_new_bee_colony__SWIG_0")]
+  public static extern global::System.IntPtr new_bee_colony__SWIG_0(uint jarg1, uint jarg2, uint jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_new_bee_colony__SWIG_1")]
+  public static extern global::System.IntPtr new_bee_colony__SWIG_1(uint jarg1, uint jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_new_bee_colony__SWIG_2")]
+  public static extern global::System.IntPtr new_bee_colony__SWIG_2(uint jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_new_bee_colony__SWIG_3")]
+  public static extern global::System.IntPtr new_bee_colony__SWIG_3();
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_bee_colony_evolve")]
+  public static extern global::System.IntPtr bee_colony_evolve(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_bee_colony_set_seed")]
+  public static extern void bee_colony_set_seed(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_bee_colony_get_seed")]
+  public static extern uint bee_colony_get_seed(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_bee_colony_set_verbosity")]
+  public static extern void bee_colony_set_verbosity(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_bee_colony_get_verbosity")]
+  public static extern uint bee_colony_get_verbosity(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_bee_colony_get_gen")]
+  public static extern uint bee_colony_get_gen(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_bee_colony_get_name")]
+  public static extern string bee_colony_get_name(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_bee_colony_get_extra_info")]
+  public static extern string bee_colony_get_extra_info(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_bee_colony_get_log_lines")]
+  public static extern global::System.IntPtr bee_colony_get_log_lines(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_delete_bee_colony")]
+  public static extern void delete_bee_colony(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_new_archipelago__SWIG_0")]
+  public static extern global::System.IntPtr new_archipelago__SWIG_0();
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_new_archipelago__SWIG_1")]
+  public static extern global::System.IntPtr new_archipelago__SWIG_1(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_delete_archipelago")]
+  public static extern void delete_archipelago(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_archipelago_size")]
+  public static extern uint archipelago_size(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_archipelago_evolve__SWIG_0")]
+  public static extern void archipelago_evolve__SWIG_0(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_archipelago_evolve__SWIG_1")]
+  public static extern void archipelago_evolve__SWIG_1(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_archipelago_wait")]
+  public static extern void archipelago_wait(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_archipelago_wait_check")]
+  public static extern void archipelago_wait_check(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_archipelago_status")]
+  public static extern int archipelago_status(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_archipelago_get_topology")]
+  public static extern global::System.IntPtr archipelago_get_topology(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_archipelago_set_topology")]
+  public static extern void archipelago_set_topology(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_archipelago_get_migration_type")]
+  public static extern int archipelago_get_migration_type(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_archipelago_set_migration_type")]
+  public static extern void archipelago_set_migration_type(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_archipelago_get_migrant_handling")]
+  public static extern int archipelago_get_migrant_handling(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_archipelago_set_migrant_handling")]
+  public static extern void archipelago_set_migrant_handling(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_archipelago_get_migrants_db_wrapped")]
+  public static extern global::System.IntPtr archipelago_get_migrants_db_wrapped(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_archipelago_set_migrants_db_wrapped")]
+  public static extern void archipelago_set_migrants_db_wrapped(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_archipelago_get_migration_log_wrapped")]
+  public static extern global::System.IntPtr archipelago_get_migration_log_wrapped(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_archipelago_get_island")]
+  public static extern global::System.IntPtr archipelago_get_island(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2);
+
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_new_island")]
   public static extern global::System.IntPtr new_island();
 
@@ -1197,42 +1401,6 @@ class pagmoPINVOKE {
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_delete_algorithm")]
   public static extern void delete_algorithm(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_new_archipelago__SWIG_0")]
-  public static extern global::System.IntPtr new_archipelago__SWIG_0();
-
-  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_new_archipelago__SWIG_1")]
-  public static extern global::System.IntPtr new_archipelago__SWIG_1(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_delete_archipelago")]
-  public static extern void delete_archipelago(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_archipelago_size")]
-  public static extern global::System.IntPtr archipelago_size(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_archipelago_evolve__SWIG_0")]
-  public static extern void archipelago_evolve__SWIG_0(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2);
-
-  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_archipelago_evolve__SWIG_1")]
-  public static extern void archipelago_evolve__SWIG_1(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_archipelago_wait")]
-  public static extern void archipelago_wait(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_archipelago_wait_check")]
-  public static extern void archipelago_wait_check(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_archipelago_status")]
-  public static extern int archipelago_status(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_archipelago_get_migrants_db")]
-  public static extern global::System.IntPtr archipelago_get_migrants_db(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_archipelago_set_migrants_db")]
-  public static extern void archipelago_set_migrants_db(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
-
-  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_archipelago_get_migration_log")]
-  public static extern global::System.IntPtr archipelago_get_migration_log(global::System.Runtime.InteropServices.HandleRef jarg1);
-
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_delete_bfe")]
   public static extern void delete_bfe(global::System.Runtime.InteropServices.HandleRef jarg1);
 
@@ -1280,48 +1448,6 @@ class pagmoPINVOKE {
 
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_delete_topology")]
   public static extern void delete_topology(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_new_bee_colony__SWIG_0")]
-  public static extern global::System.IntPtr new_bee_colony__SWIG_0(uint jarg1, uint jarg2, uint jarg3);
-
-  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_new_bee_colony__SWIG_1")]
-  public static extern global::System.IntPtr new_bee_colony__SWIG_1(uint jarg1, uint jarg2);
-
-  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_new_bee_colony__SWIG_2")]
-  public static extern global::System.IntPtr new_bee_colony__SWIG_2(uint jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_new_bee_colony__SWIG_3")]
-  public static extern global::System.IntPtr new_bee_colony__SWIG_3();
-
-  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_bee_colony_evolve")]
-  public static extern global::System.IntPtr bee_colony_evolve(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
-
-  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_bee_colony_set_seed")]
-  public static extern void bee_colony_set_seed(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2);
-
-  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_bee_colony_get_seed")]
-  public static extern uint bee_colony_get_seed(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_bee_colony_set_verbosity")]
-  public static extern void bee_colony_set_verbosity(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2);
-
-  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_bee_colony_get_verbosity")]
-  public static extern uint bee_colony_get_verbosity(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_bee_colony_get_gen")]
-  public static extern uint bee_colony_get_gen(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_bee_colony_get_name")]
-  public static extern string bee_colony_get_name(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_bee_colony_get_extra_info")]
-  public static extern string bee_colony_get_extra_info(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_bee_colony_get_log")]
-  public static extern global::System.IntPtr bee_colony_get_log(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_delete_bee_colony")]
-  public static extern void delete_bee_colony(global::System.Runtime.InteropServices.HandleRef jarg1);
 
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_new_cmaes__SWIG_0")]
   public static extern global::System.IntPtr new_cmaes__SWIG_0(uint jarg1, double jarg2, double jarg3, double jarg4, double jarg5, double jarg6, double jarg7, double jarg8, bool jarg9, bool jarg10, uint jarg11);
@@ -2708,9 +2834,6 @@ class pagmoPINVOKE {
 
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_decompose_objectives")]
   public static extern global::System.IntPtr decompose_objectives(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2, global::System.Runtime.InteropServices.HandleRef jarg3, string jarg4);
-
-  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_bee_colony_SWIGUpcast")]
-  public static extern global::System.IntPtr bee_colony_SWIGUpcast(global::System.IntPtr jarg1);
 
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_cmaes_SWIGUpcast")]
   public static extern global::System.IntPtr cmaes_SWIGUpcast(global::System.IntPtr jarg1);
