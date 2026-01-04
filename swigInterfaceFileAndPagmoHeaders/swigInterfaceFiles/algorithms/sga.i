@@ -1,4 +1,3 @@
-%module(naturalvar = 1, directors = "1") pagmo
 %{
 #include "pagmo/algorithm.hpp"
 #include "pagmo/algorithms/sga.hpp"
@@ -13,7 +12,7 @@ namespace detail
 
 }
 %typemap(csclassmodifiers) pagmo::sga "public partial class"
-class sga : public pagmo::algorithm
+class sga
 {
 public:
     /// Single entry of the log (gen, fevals, best, improvement)

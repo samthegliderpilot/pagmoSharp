@@ -1,4 +1,3 @@
-%module(naturalvar = 1, directors = "1") pagmo
 %{
 #include "pagmo/algorithm.hpp"
 #include "pagmo/algorithms/de.hpp"
@@ -6,7 +5,7 @@
 
 %typemap(csclassmodifiers) pagmo::de "public partial class"
 
-class de : public pagmo::algorithm {
+class de {
 public:
     typedef std::tuple<unsigned, unsigned long long, double, double, double> log_line_type;
     typedef std::vector<log_line_type> log_type;

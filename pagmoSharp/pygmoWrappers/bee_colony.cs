@@ -125,6 +125,12 @@ public partial class bee_colony : global::System.IDisposable {
     return ret;
   }
 
+  public algorithm to_algorithm() {
+    algorithm ret = new algorithm(pagmoPINVOKE.bee_colony_to_algorithm(swigCPtr), true);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
 }
 
 }

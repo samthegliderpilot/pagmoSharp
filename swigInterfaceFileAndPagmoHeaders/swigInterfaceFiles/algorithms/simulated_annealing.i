@@ -1,4 +1,3 @@
-%module(naturalvar = 1, directors = "1") pagmo
 %{
 #include "pagmo/algorithm.hpp"
 #include "pagmo/algorithms/simulated_annealing.hpp"
@@ -6,7 +5,7 @@
 
 %typemap(csclassmodifiers) pagmo::simulated_annealing "public partial class"
 
-class simulated_annealing : public pagmo::algorithm {
+class simulated_annealing {
 public:
     typedef std::tuple<unsigned long long, double, double, double, double> log_line_type;
     typedef std::vector<log_line_type> log_type;

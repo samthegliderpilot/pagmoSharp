@@ -1,6 +1,6 @@
 ﻿namespace pagmo;
 
-public abstract partial class algorithm 
+public partial class algorithm 
 {
 
 }

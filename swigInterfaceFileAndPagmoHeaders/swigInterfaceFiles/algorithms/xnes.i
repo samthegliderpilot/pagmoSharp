@@ -1,11 +1,10 @@
-%module(naturalvar = 1, directors = "1") pagmo
 %{
 #include "pagmo/algorithm.hpp"
 #include "pagmo/algorithms/xnes.hpp"
 %}
 
 %typemap(csclassmodifiers) pagmo::xnes "public partial class"
-class xnes : public pagmo::algorithm
+class xnes
 {
 public:
     typedef std::tuple<unsigned, unsigned long long, double, double, double, double> log_line_type;

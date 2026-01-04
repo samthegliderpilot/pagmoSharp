@@ -14,13 +14,13 @@ class topology {
         detail::conjunction<detail::negation<std::is_same<topology, uncvref_t<T>>>, is_udt<uncvref_t<T>>>::value, int>;
 
 public:
-    // Generic constructor.
-    template <typename T, generic_ctor_enabler<T> = 0>
-    explicit topology(T&& x) : m_ptr(std::make_unique<detail::topo_inner<uncvref_t<T>>>(std::forward<T>(x)))
-    {
-        generic_ctor_impl();
-    }
-    // Copy ctor.
+    //// Generic constructor.
+    //template <typename T, generic_ctor_enabler<T> = 0>
+    //explicit topology(T&& x) : m_ptr(std::make_unique<detail::topo_inner<uncvref_t<T>>>(std::forward<T>(x)))
+    //{
+    //    generic_ctor_impl();
+    //}
+    //// Copy ctor.
     extern topology(const topology&);
     // Move ctor.
     extern topology(topology&&) noexcept;

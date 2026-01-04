@@ -10,10 +10,12 @@
 
 namespace pagmo {
 
-public partial class pso_gen : algorithm {
+public partial class pso_gen : global::System.IDisposable {
   private global::System.Runtime.InteropServices.HandleRef swigCPtr;
+  protected bool swigCMemOwn;
 
-  internal pso_gen(global::System.IntPtr cPtr, bool cMemoryOwn) : base(pagmoPINVOKE.pso_gen_SWIGUpcast(cPtr), cMemoryOwn) {
+  internal pso_gen(global::System.IntPtr cPtr, bool cMemoryOwn) {
+    swigCMemOwn = cMemoryOwn;
     swigCPtr = new global::System.Runtime.InteropServices.HandleRef(this, cPtr);
   }
 
@@ -34,7 +36,16 @@ public partial class pso_gen : algorithm {
     }
   }
 
-  protected override void Dispose(bool disposing) {
+  ~pso_gen() {
+    Dispose(false);
+  }
+
+  public void Dispose() {
+    Dispose(true);
+    global::System.GC.SuppressFinalize(this);
+  }
+
+  protected virtual void Dispose(bool disposing) {
     lock(this) {
       if (swigCPtr.Handle != global::System.IntPtr.Zero) {
         if (swigCMemOwn) {
@@ -43,7 +54,6 @@ public partial class pso_gen : algorithm {
         }
         swigCPtr = new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero);
       }
-      base.Dispose(disposing);
     }
   }
 
@@ -97,7 +107,7 @@ public partial class pso_gen : algorithm {
     return ret;
   }
 
-  public new void set_verbosity(uint level) {
+  public void set_verbosity(uint level) {
     pagmoPINVOKE.pso_gen_set_verbosity(swigCPtr, level);
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
@@ -124,13 +134,13 @@ public partial class pso_gen : algorithm {
     return ret;
   }
 
-  public new string get_name() {
+  public string get_name() {
     string ret = pagmoPINVOKE.pso_gen_get_name(swigCPtr);
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
-  public new string get_extra_info() {
+  public string get_extra_info() {
     string ret = pagmoPINVOKE.pso_gen_get_extra_info(swigCPtr);
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;

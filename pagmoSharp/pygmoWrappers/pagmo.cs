@@ -17,12 +17,6 @@ public partial class pagmo {
     return ret;
   }
 
-  public static BeeColonyLogLine FromBeeColonyLogTuple(SWIGTYPE_p_std__tupleT_unsigned_int_unsigned_long_long_double_double_t t) {
-    BeeColonyLogLine ret = new BeeColonyLogLine(pagmoPINVOKE.FromBeeColonyLogTuple(SWIGTYPE_p_std__tupleT_unsigned_int_unsigned_long_long_double_double_t.getCPtr(t)), true);
-    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
-    return ret;
-  }
-
   public static void stream_impl(SWIGTYPE_p_std__ostream os, bool b) {
     pagmoPINVOKE.stream_impl(SWIGTYPE_p_std__ostream.getCPtr(os), b);
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
@@ -78,6 +72,12 @@ public partial class pagmo {
 
   public static DoubleVector decompose_objectives(DoubleVector arg0, DoubleVector arg1, DoubleVector arg2, string arg3) {
     DoubleVector ret = new DoubleVector(pagmoPINVOKE.decompose_objectives(DoubleVector.getCPtr(arg0), DoubleVector.getCPtr(arg1), DoubleVector.getCPtr(arg2), arg3), true);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  public static BeeColonyLogLine FromBeeColonyLogTuple(SWIGTYPE_p_std__tupleT_unsigned_int_unsigned_long_long_double_double_t t) {
+    BeeColonyLogLine ret = new BeeColonyLogLine(pagmoPINVOKE.FromBeeColonyLogTuple(SWIGTYPE_p_std__tupleT_unsigned_int_unsigned_long_long_double_double_t.getCPtr(t)), true);
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }

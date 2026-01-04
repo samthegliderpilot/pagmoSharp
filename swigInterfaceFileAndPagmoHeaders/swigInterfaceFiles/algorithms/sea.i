@@ -1,11 +1,10 @@
-%module(naturalvar = 1, directors = "1") pagmo
 %{
 #include "pagmo/algorithm.hpp"
 #include "pagmo/algorithms/sea.hpp"
 %}
 
 %typemap(csclassmodifiers) pagmo::sea "public partial class"
-class sea : public pagmo::algorithm
+class sea
 {
 public:
     typedef std::tuple<unsigned, unsigned long long, double, double, vector_double::size_type> log_line_type;

@@ -10,7 +10,7 @@
 
 namespace pagmo {
 
-public abstract partial class algorithm : global::System.IDisposable {
+public partial class algorithm : global::System.IDisposable {
   private global::System.Runtime.InteropServices.HandleRef swigCPtr;
   protected bool swigCMemOwn;
 
@@ -57,11 +57,14 @@ public abstract partial class algorithm : global::System.IDisposable {
     }
   }
 
-  public algorithm() : this(pagmoPINVOKE.new_algorithm__SWIG_0(), true) {
+  public population evolve(population arg0) {
+    population ret = new population(pagmoPINVOKE.algorithm_evolve(swigCPtr, population.getCPtr(arg0)), true);
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
   }
 
-  public algorithm(algorithm arg0) : this(pagmoPINVOKE.new_algorithm__SWIG_1(algorithm.getCPtr(arg0)), true) {
+  public void set_seed(uint arg0) {
+    pagmoPINVOKE.algorithm_set_seed(swigCPtr, arg0);
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
@@ -108,12 +111,6 @@ public abstract partial class algorithm : global::System.IDisposable {
 
   public bool is_valid() {
     bool ret = pagmoPINVOKE.algorithm_is_valid(swigCPtr);
-    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
-    return ret;
-  }
-
-  public global::System.IntPtr get_ptr() {
-    global::System.IntPtr ret = pagmoPINVOKE.algorithm_get_ptr__SWIG_0(swigCPtr);
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }

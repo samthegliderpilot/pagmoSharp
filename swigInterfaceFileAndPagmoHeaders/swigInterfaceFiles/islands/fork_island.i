@@ -1,11 +1,10 @@
-%module(naturalvar = 1, directors = "1") pagmo
 %{
 #include "pagmo/island.hpp"
 #include "pagmo/islands/fork_island.hpp"
 %}
 %typemap(csclassmodifiers) pagmo::fork_island "public partial class"
 //TODO: fork_island isn't avaialble on the platform...
-//class fork_island {
+//class pagmo::fork_island {
 //public:
 //	extern fork_island();
 //	extern fork_island(const fork_island&);

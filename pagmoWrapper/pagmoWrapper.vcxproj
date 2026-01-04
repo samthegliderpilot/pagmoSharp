@@ -116,6 +116,7 @@
       <LanguageStandard>stdcpp17</LanguageStandard>
       <CompileAsManaged>false</CompileAsManaged>
       <AdditionalIncludeDirectories>C:\src\vcpkg\installed\x64-windows\include</AdditionalIncludeDirectories>
+      <MultiProcessorCompilation>false</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -143,6 +144,7 @@ createSwigWrappersAndPlaceThem.bat
       <LanguageStandard>stdcpp17</LanguageStandard>
       <CompileAsManaged>false</CompileAsManaged>
       <AdditionalIncludeDirectories>C:\src\vcpkg\installed\x64-windows\include</AdditionalIncludeDirectories>
+      <MultiProcessorCompilation>false</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -170,6 +172,7 @@ createSwigWrappersAndPlaceThem.bat
       <LanguageStandard>stdcpp17</LanguageStandard>
       <CompileAsManaged>false</CompileAsManaged>
       <AdditionalIncludeDirectories>C:\src\vcpkg\installed\x64-windows\include\eigen3;C:\src\vcpkg\installed\x64-windows\include</AdditionalIncludeDirectories>
+      <MultiProcessorCompilation>false</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -195,6 +198,7 @@ createSwigWrappersAndPlaceThem.bat</Command>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <CompileAsManaged>false</CompileAsManaged>
       <AdditionalIncludeDirectories>C:\src\vcpkg\installed\x64-windows\include</AdditionalIncludeDirectories>
+      <MultiProcessorCompilation>false</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -213,6 +217,8 @@ createSwigWrappersAndPlaceThem.bat</Command>
     <ClCompile Include="nloptGenerated.cxx" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="archipelago_swig.h" />
+    <ClInclude Include="island_swig.h" />
     <ClInclude Include="multi_objective.h" />
     <ClInclude Include="pagmoSharpSwigInterface_wrap.h" />
     <ClInclude Include="problem.h" />

@@ -1,4 +1,3 @@
-%module(naturalvar = 1, directors = "1") pagmo
 %{
 #include "pagmo/algorithm.hpp"
 #include "pagmo/algorithms/compass_search.hpp"
@@ -6,7 +5,7 @@
 
 %typemap(csclassmodifiers) pagmo::compass_search "public partial class"
 
-class compass_search : public pagmo::algorithm {
+class compass_search {
 public:
     /// Single entry of the log (feval, best fitness, n. constraints violated, violation norm, range)
     typedef std::tuple<unsigned long long, double, vector_double::size_type, double, double> log_line_type;

@@ -51,45 +51,39 @@ namespace pagmoWrap
 }
 %}
 
-
 // Make std::vector<pagmoWrap::BeeColonyLogLine> available to C#
 namespace std {
     %template(BeeColonyLogLineVector) std::vector<pagmoWrap::BeeColonyLogLine>;
 }
 
+
 // -----------------------------------------------------------------------------
 // SWIG-visible class declaration
 // -----------------------------------------------------------------------------
 
-// IMPORTANT: bee_colony does NOT inherit from pagmo::algorithm in C++ (it’s a UDA).
-// Your original .i file had it inherit from pagmo::algorithm — that’s incorrect.
-// The real type that wraps it into an "algorithm" is pagmo::algorithm itself.
-// So we wrap bee_colony as its own class, matching the header.
 class pagmo::bee_colony
 {
 public:
     // Constructor
-    extern bee_colony(unsigned gen = 1u,
-                      unsigned limit = 20u,
-                      unsigned seed = pagmo::random_device::next());
+    bee_colony(unsigned gen = 1u,
+               unsigned limit = 20u,
+               unsigned seed = pagmo::random_device::next());
 
     // Core API
-    extern pagmo::population evolve(pagmo::population) const;
+    pagmo::population evolve(pagmo::population) const;
 
-    extern void set_seed(unsigned);
-    extern unsigned get_seed() const;
+    void set_seed(unsigned);
+    unsigned get_seed() const;
 
-    extern void set_verbosity(unsigned level);
-    extern unsigned get_verbosity() const;
+    void set_verbosity(unsigned level);
+    unsigned get_verbosity() const;
 
-    extern unsigned get_gen() const;
+    unsigned get_gen() const;
 
-    extern std::string get_name() const;
-    extern std::string get_extra_info() const;
+    std::string get_name() const;
+    std::string get_extra_info() const;
 
-    // We will NOT expose the original get_log(), because it returns:
-    //   const std::vector<std::tuple<...>>&
-    // which SWIG cannot marshal cleanly.
+    // We do NOT expose get_log() directly (returns const ref to vector<tuple<...>>)
 };
 
 
@@ -98,14 +92,14 @@ public:
 
 
 // -----------------------------------------------------------------------------
-// SWIG-safe replacement for get_log()
+// SWIG-safe replacements / extensions
 // -----------------------------------------------------------------------------
 
 %extend pagmo::bee_colony {
 
+    // Expose the log as a vector of struct lines.
     std::vector<pagmoWrap::BeeColonyLogLine> get_log_lines() const
     {
-        // Get the real log from pagmo
         const auto &log = self->get_log();
 
         std::vector<pagmoWrap::BeeColonyLogLine> out;
@@ -116,5 +110,19 @@ public:
         }
 
         return out;
+    }
+
+    // -------------------------------------------------------------------------
+    // The key: convert this UDA (bee_colony) into a pagmo::algorithm
+    //
+    // In C++:
+    //   pagmo::algorithm a{pagmo::bee_colony{}};
+    //
+    // We provide the same conversion for C#/SWIG:
+    //   bees.to_algorithm()  -> returns pagmo::algorithm
+    // -------------------------------------------------------------------------
+    pagmo::algorithm to_algorithm() const
+    {
+        return pagmo::algorithm(*self);
     }
 }

@@ -1,10 +1,9 @@
-%module(naturalvar = 1, directors = "1") pagmo
 %{
 #include "pagmo/island.hpp"
 #include "pagmo/islands/thread_island.hpp"
 %}
 %typemap(csclassmodifiers) pagmo::thread_island "public partial class"
-class thread_island : public pagmo::island {
+class pagmo::thread_island {
 	public:
 	extern thread_island();
 	extern std::string get_name() const;

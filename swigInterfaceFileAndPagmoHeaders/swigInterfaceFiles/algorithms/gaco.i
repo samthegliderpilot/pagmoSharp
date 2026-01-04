@@ -1,4 +1,3 @@
-%module(naturalvar = 1, directors = "1") pagmo
 %{
 #include "pagmo/algorithms/gaco.hpp"
 #include "pagmo/rng.hpp"
@@ -6,7 +5,7 @@
 
 %typemap(csclassmodifiers) pagmo::gaco "public partial class"
 
-class gaco : public pagmo::algorithm {
+class gaco {
 public:
 	typedef pop_size_t size_type;
 	typedef std::tuple<unsigned, vector_double::size_type, double, unsigned, double, double, double> log_line_type;

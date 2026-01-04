@@ -1,4 +1,3 @@
-%module(naturalvar = 1, directors = "1") pagmo
 %{
 #include "pagmo/algorithms/gwo.hpp"
 #include "pagmo/rng.hpp"
@@ -6,7 +5,7 @@
 
 %typemap(csclassmodifiers) pagmo::gwo "public partial class"
 
-class gwo : public pagmo::algorithm {
+class gwo {
 public:
     typedef std::tuple<unsigned, double, double, double> log_line_type;
     typedef std::vector<log_line_type> log_type;

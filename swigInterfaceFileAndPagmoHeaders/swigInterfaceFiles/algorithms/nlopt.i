@@ -1,5 +1,4 @@
 
-%module(naturalvar = 1, directors = "1") pagmo
 %{
 #include "pagmo/algorithm.hpp"
 #include "pagmo/algorithms/nlopt.hpp"
@@ -17,7 +16,7 @@ SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_nlopt_set_local_optimizer(void* jarg1, 
 //%nodefaultctor nlopt;
 %ignore nlopt::set_local_optimizer;
 %typemap(csclassmodifiers) nlopt "public partial class"
-class nlopt : public pagmo::algorithm {
+class nlop {
 public:
     using log_line_type = std::tuple<unsigned long, double, vector_double::size_type, double, bool>;
     using log_type = std::vector<log_line_type>;

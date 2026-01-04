@@ -1,4 +1,3 @@
-%module(naturalvar = 1, directors = "1") pagmo
 %{
 #include "pagmo/algorithm.hpp"
 #include "pagmo/population.hpp"
@@ -7,7 +6,7 @@
 
 %typemap(csclassmodifiers) pagmo::ipopt "public partial class"
 
-class ipopt : public pagmo::algorithm {
+class ipopt {
 public:
     using log_line_type = std::tuple<unsigned long, double, vector_double::size_type, double, bool>;
 

@@ -1,11 +1,10 @@
-%module(naturalvar = 1, directors = "1") pagmo
 %{
 #include "pagmo/algorithm.hpp"
 #include "pagmo/algorithms/cmaes.hpp"
 %}
 
 %typemap(csclassmodifiers) pagmo::cmaes "public partial class"
-class cmaes : public pagmo::algorithm
+class cmaes
 {
 public:
     typedef std::tuple<unsigned, unsigned long long, double, double, double, double> log_line_type;

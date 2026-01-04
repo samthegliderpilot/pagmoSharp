@@ -1,11 +1,10 @@
-%module(naturalvar = 1, directors = "1") pagmo
 %{
 #include "pagmo/algorithm.hpp"
 #include "pagmo/algorithms/nspso.hpp"
 %}
 
 %typemap(csclassmodifiers) pagmo::nspso "public partial class"
-class nspso : public pagmo::algorithm
+class nspso
 {
 public:
 

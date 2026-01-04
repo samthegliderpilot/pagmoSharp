@@ -44,5 +44,11 @@
     <ClInclude Include="tuple_adapters.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="island_swig.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="archipelago_swig.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -1,4 +1,3 @@
-%module(naturalvar = 1, directors = "1") pagmo
 %{
 #include "pagmo/algorithm.hpp"
 #include "pagmo/algorithms/pso.hpp"
@@ -6,7 +5,7 @@
 
 %typemap(csclassmodifiers) pagmo::pso "public partial class"
 
-class pso : public pagmo::algorithm {
+class pso {
 public:
     /// Single entry of the log (Gen, Fevals, gbest, Mean Vel., Mean lbest, Avg. Dist.)
     typedef std::tuple<unsigned, unsigned long long, double, double, double, double> log_line_type;

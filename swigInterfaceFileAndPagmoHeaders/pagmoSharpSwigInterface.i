@@ -19,10 +19,10 @@
 %module(naturalvar=1, directors="11") pagmo
 %{
 	#include "pagmo/algorithm.hpp"
+	#include "pagmo/island.hpp"
 	#include "pagmo/archipelago.hpp"	
 	#include "pagmo/bfe.hpp"
 	#include "pagmo/exceptions.hpp"
-	#include "pagmo/island.hpp"
 	#include "pagmo/population.hpp"	
 	#include "pagmo/problem.hpp"
 	#include "pagmo/rng.hpp"
@@ -46,7 +46,6 @@
 %include "std_pair.i"
 
 %include "pagmoWrapper/tuple_adapters.h"
-
 %pragma(csharp) moduleclassmodifiers = "public partial class"
 %typemap(csclassmodifiers) pagmoWrap::problemPagomWrapper "public partial class"
 %typemap(csclassmodifiers) pagmoWrap::problemBase "public partial class"
@@ -130,8 +129,8 @@ namespace std {
   %template(MigrationEntryVector)      std::vector<pagmoWrap::MigrationEntry>;
 }
 
-%include swigInterfaceFiles\algorithms\bee_colony.i
-%include swigInterfaceFiles\archipelago.i
+%include swigInterfaceFiles\island.i
+//%include swigInterfaceFiles\islands\thread_island.i
 namespace pagmo {
 	%typemap(csclassmodifiers) pagmo::DoubleVector "public partial class"
 	%typemap(csclassmodifiers) pagmo::VectorDoubleVector "public partial class"
@@ -192,9 +191,8 @@ namespace pagmo {
 		preserve, ///< Preserve migrants in the database.
 		evict     ///< Evict migrants from the database.
 	};
-	%include swigInterfaceFiles\island.i
 	%include swigInterfaceFiles\population.i
-	%include swigInterfaceFiles\algorithm.i
+	
 	%include swigInterfaceFiles\bfe.i
 	//%include swigInterfaceFiles\exceptions.i // causing errors, not sure why, and not really implimented anyway
 	//NOTE: pagmo.hpp, threading.hpp and types.hpp are not really needed
@@ -211,7 +209,7 @@ namespace pagmo {
 	%include swigInterfaceFiles\algorithms\gaco.i
 	%include swigInterfaceFiles\algorithms\gwo.i
 	//%include swigInterfaceFiles\algorithms\ipopt.i // my build of pagmo doesn't include ipopt
-	%include swigInterfaceFiles\algorithms\nlopt.i
+	//%include swigInterfaceFiles\algorithms\nlopt.i
 	%include swigInterfaceFiles\algorithms\nspso.i
 	%include swigInterfaceFiles\algorithms\pso.i
 	%include swigInterfaceFiles\algorithms\pso_gen.i
@@ -228,7 +226,6 @@ namespace pagmo {
 	//%include swigInterfaceFiles\detail\base_sr_policy.i // not sure if this is needed, and with no public constructors...
 	//%include swigInterfaceFiles\detail\bfe_impl.i // not sure if this is needed, and with no public constructors...
 
-	%include swigInterfaceFiles\islands\thread_island.i
 
 	%include swigInterfaceFiles\problems\ackley.i
 	%include swigInterfaceFiles\problems\cec2006.i
@@ -245,8 +242,10 @@ namespace pagmo {
 	//%include swigInterfaceFiles\utils\gradients_and_hessians.i // I couldn't get this to translate through swig so I just recreated the functions in C#
 	%include swigInterfaceFiles\utils\hypervolume.i
 	%include swigInterfaceFiles\utils\multi_objective.i
-};
-
+}; // end of pagmo namespace
+%include swigInterfaceFiles\algorithm.i
+%include swigInterfaceFiles\algorithms\bee_colony.i
+%include swigInterfaceFiles\archipelago.i
 
 // this exception logic might not be necessary after adding the global exception handling at the top of the file
 %{

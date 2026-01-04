@@ -10,10 +10,12 @@
 
 namespace pagmo {
 
-public partial class sade : algorithm {
+public partial class sade : global::System.IDisposable {
   private global::System.Runtime.InteropServices.HandleRef swigCPtr;
+  protected bool swigCMemOwn;
 
-  internal sade(global::System.IntPtr cPtr, bool cMemoryOwn) : base(pagmoPINVOKE.sade_SWIGUpcast(cPtr), cMemoryOwn) {
+  internal sade(global::System.IntPtr cPtr, bool cMemoryOwn) {
+    swigCMemOwn = cMemoryOwn;
     swigCPtr = new global::System.Runtime.InteropServices.HandleRef(this, cPtr);
   }
 
@@ -34,7 +36,16 @@ public partial class sade : algorithm {
     }
   }
 
-  protected override void Dispose(bool disposing) {
+  ~sade() {
+    Dispose(false);
+  }
+
+  public void Dispose() {
+    Dispose(true);
+    global::System.GC.SuppressFinalize(this);
+  }
+
+  protected virtual void Dispose(bool disposing) {
     lock(this) {
       if (swigCPtr.Handle != global::System.IntPtr.Zero) {
         if (swigCMemOwn) {
@@ -43,7 +54,6 @@ public partial class sade : algorithm {
         }
         swigCPtr = new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero);
       }
-      base.Dispose(disposing);
     }
   }
 
@@ -85,7 +95,7 @@ public partial class sade : algorithm {
     return ret;
   }
 
-  public new string get_name() {
+  public string get_name() {
     string ret = pagmoPINVOKE.sade_get_name(swigCPtr);
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
@@ -108,7 +118,7 @@ public partial class sade : algorithm {
     return ret;
   }
 
-  public new void set_verbosity(uint arg0) {
+  public void set_verbosity(uint arg0) {
     pagmoPINVOKE.sade_set_verbosity(swigCPtr, arg0);
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
@@ -119,7 +129,7 @@ public partial class sade : algorithm {
     return ret;
   }
 
-  public new string get_extra_info() {
+  public string get_extra_info() {
     string ret = pagmoPINVOKE.sade_get_extra_info(swigCPtr);
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
