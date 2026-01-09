@@ -18,13 +18,13 @@
 
 %module(naturalvar=1, directors="11") pagmo
 %{
+	#include "pagmo/problem.hpp"
 	#include "pagmo/algorithm.hpp"
 	#include "pagmo/island.hpp"
 	#include "pagmo/archipelago.hpp"	
 	#include "pagmo/bfe.hpp"
 	#include "pagmo/exceptions.hpp"
 	#include "pagmo/population.hpp"	
-	#include "pagmo/problem.hpp"
 	#include "pagmo/rng.hpp"
 	#include "pagmo/s11n.hpp"	// has to do with serialization of varidec templates, which swig doesn't support and I don't think is needed for this library
 	#include "pagmo/threading.hpp" 
@@ -45,13 +45,14 @@
 %include "std_vector.i"
 %include "std_pair.i"
 
-%include "pagmoWrapper/tuple_adapters.h"
+// Directors + handwritten base classes (include ONCE)
+// The whole problem vs. problemBase question is a little confusing.  To make it better (or wo// rs// e)
+// there is a C# implicit operator to convert from problem to problemBase by calling getBaseProblem on 
+// the wrapper (problem).  Hence the partial class here
 %pragma(csharp) moduleclassmodifiers = "public partial class"
 %typemap(csclassmodifiers) pagmoWrap::problemPagomWrapper "public partial class"
 %typemap(csclassmodifiers) pagmoWrap::problemBase "public partial class"
-%typemap(csclassmodifiers) std::vector<double> "public partial class"
-
-// Directors + handwritten base classes (include ONCE)
+%typemap(csclassmodifiers) std::vector <double> "public partial class"
 %feature("director") pagmoWrap::problemBase;
 %include "pagmoWrapper/problem.h"
 
@@ -87,19 +88,8 @@
 
 
 
-// The whole problem vs. problemBase question is a little confusing.  To make it better (or wo// rs// e)
-// there is a C# implicit operator to convert from problem to problemBase by calling getBaseProblem on 
-// the wrapper (problem).  Hence the partial class here
-%include "std_string.i"
-%include "std_vector.i"
-%include "std_pair.i"
-%pragma(csharp) moduleclassmodifiers = "public partial class"
-%typemap(csclassmodifiers) pagmoWrap::problemPagomWrapper "public partial class"
-%typemap(csclassmodifiers) pagmoWrap::problemBase "public partial class"
-%typemap(csclassmodifiers) std::vector <double> "public partial class"
 
-%feature("director") pagmoWrap::problemBase;
-%include "pagmoWrapper/problem.h"
+
 %feature("director") pagmoWrap::r_policyBase;
 %include "pagmoWrapper/r_policy.h"
 %feature("director") pagmoWrap::s_policyBase;

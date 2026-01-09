@@ -10,7 +10,7 @@ namespace pagmoWrap
 	typedef std::vector<double>::size_type pop_size_t;
 	
 	typedef std::vector<std::pair<vector_double::size_type, vector_double::size_type>> sparsity_pattern;
-	class problemBase : public pagmo::problem
+	class problemBase 
 	{
 	public:
 		virtual ~problemBase() {}

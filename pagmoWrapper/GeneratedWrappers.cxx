@@ -481,13 +481,13 @@ SWIGINTERN void SWIG_CSharpException(int code, const char *msg) {
 #include <pagmo/exceptions.hpp>  
 
 
+	#include "pagmo/problem.hpp"
 	#include "pagmo/algorithm.hpp"
 	#include "pagmo/island.hpp"
 	#include "pagmo/archipelago.hpp"	
 	#include "pagmo/bfe.hpp"
 	#include "pagmo/exceptions.hpp"
 	#include "pagmo/population.hpp"	
-	#include "pagmo/problem.hpp"
 	#include "pagmo/rng.hpp"
 	#include "pagmo/s11n.hpp"	// has to do with serialization of varidec templates, which swig doesn't support and I don't think is needed for this library
 	#include "pagmo/threading.hpp" 
