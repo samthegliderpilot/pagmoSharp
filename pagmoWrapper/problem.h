@@ -1,187 +1,152 @@
 ﻿#pragma once
 
+#include <memory>
+#include <stdexcept>
+#include <string>
+#include <utility>
+#include <vector>
+
 #include "pagmo/problem.hpp"
 #include "pagmo/types.hpp"
-#include "pagmo/utils/gradients_and_hessians.hpp"
+#include "pagmo/threading.hpp" // for pagmo::thread_safety (depending on your pagmo includes)
 
-namespace pagmoWrap
-{
-	typedef std::vector<double> vector_double;
-	typedef std::vector<double>::size_type pop_size_t;
-	
-	typedef std::vector<std::pair<vector_double::size_type, vector_double::size_type>> sparsity_pattern;
-	class problemBase 
-	{
-	public:
-		virtual ~problemBase() {}
+// NOTE: Keep everything in your existing namespace to minimize changes elsewhere.
+namespace pagmoWrap {
 
-		virtual vector_double fitness(const vector_double&) const
-		{
-			return vector_double();
-		}
+    using vector_double = std::vector<double>;
+    using bounds_type = std::pair<vector_double, vector_double>;
 
-		virtual std::pair<vector_double, vector_double> get_bounds() const
-		{
-			return std::pair< vector_double, vector_double>{vector_double(), vector_double()};
-		}
+    // -------------------------------------------------------------------------
+    // 1) Director interface: C# will subclass/override this.
+    //
+    // IMPORTANT:
+    // - This type must NOT be what pagmo stores/copies.
+    // - This is only for callbacks into managed code.
+    // -------------------------------------------------------------------------
+    class problem_callback
+    {
+    public:
+        virtual ~problem_callback() = default;
 
-		virtual bool has_batch_fitness() const {
-			return false;
-		}
+        // Required for v0.1
+        virtual vector_double fitness(const vector_double& x) const = 0;
+        virtual bounds_type get_bounds() const = 0;
 
-		//We cannot use [[nodiscard]] due to using this header to create the type
-		virtual std::string get_name() const {
-			return "Base c++ problem";
-		}
+        // Optional metadata (v0.1)
+        virtual std::string get_name() const { return "C# problem"; }
 
-		virtual std::vector<double>::size_type get_nobj() const
-		{
-			return static_cast<vector_double::size_type>(1); // default of 1
-		}
+        // v0.1: single-objective only
+        virtual vector_double::size_type get_nobj() const { return 1; }
 
-		virtual std::vector<double>::size_type get_nec() const
-		{
-			return static_cast<vector_double::size_type>(0);
-		}
+        // v0.1: no constraints
+        virtual vector_double::size_type get_nec() const { return 0; }
+        virtual vector_double::size_type get_nic() const { return 0; }
 
-		virtual std::vector<double>::size_type get_nic() const
-		{
-			return static_cast<vector_double::size_type>(0);
-		}
+        // v0.1: no integer variables
+        virtual vector_double::size_type get_nix() const { return 0; }
 
-		virtual std::vector<double>::size_type get_nix() const
-		{
-			return static_cast<vector_double::size_type>(0);
-		}
+        // v0.1: no thread safety guarantees
+        virtual pagmo::thread_safety get_thread_safety() const { return pagmo::thread_safety::none; }
+    };
 
-		virtual pagmo::thread_safety get_thread_safety() const
-		{
-			return pagmo::thread_safety::none;
-		}
+    // -------------------------------------------------------------------------
+    // 2) Copy-safe UDT that pagmo can store by value.
+    //
+    // This is the actual "problem implementation" in pagmo terms.
+    //
+    // It holds a shared_ptr to the director callback, so copies are safe.
+    // -------------------------------------------------------------------------
+    class managed_problem
+    {
+        class null_problem_callback final : public problem_callback
+        {
+        public:
+            vector_double fitness(const vector_double&) const override
+            {
+                return {0.0};
+            }
 
-		virtual bool has_gradient() const
-		{
-			return false;
-		}
-		virtual vector_double gradient(const vector_double&) const
-		{
-			return vector_double(0);
-		}
-		virtual bool has_gradient_sparsity() const
-		{
-			return false;
-		}
-		virtual pagmo::sparsity_pattern gradient_sparsity() const
-		{
-			return pagmo::sparsity_pattern();
-		}
-		//bool has_hessians() const;
-		//std::vector<vector_double> hessians(const vector_double&) const;
-		//bool has_hessians_sparsity() const;
-		//std::vector<sparsity_pattern> hessians_sparsity() const;
-		//bool has_set_seed() const;
-		//void set_seed(unsigned);
-		//thread_safety get_thread_safety() const;
+            bounds_type get_bounds() const override
+            {
+                return bounds_type{vector_double{0.0}, vector_double{1.0}};
+            }
+        };
 
+    public:
+        managed_problem()
+            : m_cb(std::make_shared<null_problem_callback>())
+        {
+        }
 
-	};
+        explicit managed_problem(problem_callback* cb)
+            : managed_problem(std::shared_ptr<problem_callback>(cb))
+        {
+            if (!cb) {
+                throw std::invalid_argument("managed_problem: callback must not be null");
+            }
+        }
 
+        explicit managed_problem(std::shared_ptr<problem_callback> cb)
+            : m_cb(std::move(cb))
+        {
+            if (!m_cb) {
+                throw std::invalid_argument("managed_problem: callback must not be null");
+            }
+        }
 
-	class problemPagomWrapper 
-	{
-	private:
-		problemBase* _base;
-		void deleteProblem() {
-			//TODO: This is something that has me worried.  pagmo will create copies of the problem,
-			// but if they all share the same pointer, when one of those copies gets destroyed, it
-			// deletes the whole pointer, which breaks other copies.  But not deleting it goes against
-			// the director example for swig, and I fear opens us up to a memory leak in sloppy cases
-			// (cases where the C# isn't behaving)
-			//delete _base;
-		}
-	public:
-		problemPagomWrapper() : _base(0) {}
+        // Required UDT methods
+        vector_double fitness(const vector_double& x) const
+        {
+            auto f = m_cb->fitness(x);
 
-		problemPagomWrapper(problemBase* base) : _base(base) { }
+            // v0.1 enforce single objective
+            if (f.size() != 1) {
+                throw std::runtime_error("managed_problem: v0.1 supports only fitness size == 1");
+            }
+            return f;
+        }
 
-		problemPagomWrapper(const problemPagomWrapper& old) : _base(0) {
-			_base = old._base;
-		}
-		~problemPagomWrapper() {
-			deleteProblem();
-		}
+        bounds_type get_bounds() const
+        {
+            auto b = m_cb->get_bounds();
 
-		void setBaseProblem(problemBase* b) {
-			deleteProblem(); _base = b;
-		}
+            // Basic validation (helps catch errors early)
+            if (b.first.size() != b.second.size()) {
+                throw std::runtime_error("managed_problem: bounds lower/upper size mismatch");
+            }
+            if (b.first.empty()) {
+                throw std::runtime_error("managed_problem: bounds must not be empty");
+            }
+            return b;
+        }
 
-		problemBase* getBaseProblem() {
-			return _base;
-		}
+        // Optional metadata
+        std::string get_name() const
+        {
+            return m_cb->get_name();
+        }
 
-		vector_double fitness(const vector_double& x) const {
-			return _base->fitness(x);
-		}
+        vector_double::size_type get_nobj() const
+        {
+            // v0.1: enforce single objective
+            const auto n = m_cb->get_nobj();
+            if (n != 1) {
+                throw std::runtime_error("managed_problem: v0.1 supports only nobj == 1");
+            }
+            return 1;
+        }
 
-		std::pair<vector_double, vector_double> get_bounds() const
-		{
-			return _base->get_bounds();
-		}
+        vector_double::size_type get_nec() const { return m_cb->get_nec(); }
+        vector_double::size_type get_nic() const { return m_cb->get_nic(); }
+        vector_double::size_type get_nix() const { return m_cb->get_nix(); }
 
-		bool has_batch_fitness() const
-		{
-			return _base->has_batch_fitness();
-		}
+        pagmo::thread_safety get_thread_safety() const
+        {
+            return m_cb->get_thread_safety();
+        }
 
-		std::string get_name() const
-		{
-			return _base->get_name();
-		}
+    private:
+        std::shared_ptr<problem_callback> m_cb;
+    };
 
-		std::vector<double>::size_type get_nobj() const
-		{
-			return _base->get_nobj();
-		}
-
-		std::vector<double>::size_type get_nec() const
-		{
-			return _base->get_nec();
-		}
-
-		std::vector<double>::size_type get_nic() const
-		{
-			return _base->get_nic();
-		}
-
-		std::vector<double>::size_type get_nix() const
-		{
-			return _base->get_nix();
-		}
-
-		pagmo::thread_safety get_thread_safety() const
-		{
-			return _base->get_thread_safety();
-		}
-
-		bool has_gradient() const
-		{
-			return _base->has_gradient();
-		}
-
-		vector_double gradient(const vector_double& dx) const
-		{
-			return _base->gradient(dx);
-		}
-
-		bool has_gradient_sparsity() const
-		{
-			return _base->has_gradient_sparsity();
-		}
-
-		pagmo::sparsity_pattern gradient_sparsity() const
-		{
-			return _base->gradient_sparsity();
-		}
-	};
-
-};
+} // namespace pagmoWrap

@@ -5,7 +5,7 @@
 %}
 
 %typemap(csclassmodifiers) pagmo::cec2006 "public partial class"
-class cec2006 : public pagmo::problem, public pagmoWrapper::problemBase {
+class cec2006 {
 public:
     extern cec2006(unsigned prob_id = 1u);
     // Equality constraint dimension

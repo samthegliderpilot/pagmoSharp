@@ -1225,23 +1225,14 @@ SWIGINTERN unsigned int pagmo_compass_search_get_gen(pagmo::compass_search const
 #include "pagmo/bfe.hpp"
 #include "pagmo/batch_evaluators/default_bfe.hpp"
 
-SWIGINTERN pagmo::vector_double pagmo_default_bfe_Operator(pagmo::default_bfe const *self,pagmoWrap::problemPagomWrapper const &theProblem,pagmo::vector_double const &values){
-	   return self->operator()(static_cast<pagmo::problem>(theProblem), values);
-	}
 
 #include "pagmo/bfe.hpp"
 #include "pagmo/batch_evaluators/member_bfe.hpp"
 
-SWIGINTERN pagmo::vector_double pagmo_member_bfe_Operator(pagmo::member_bfe const *self,pagmoWrap::problemPagomWrapper const &theProblem,pagmo::vector_double const &values){
-	   return self->operator()(static_cast<pagmo::problem>(theProblem), values);
-	}
 
 #include "pagmo/bfe.hpp"
 #include "pagmo/batch_evaluators/thread_bfe.hpp"
 
-SWIGINTERN pagmo::vector_double pagmo_thread_bfe_Operator(pagmo::thread_bfe const *self,pagmoWrap::problemPagomWrapper const &theProblem,pagmo::vector_double const &values){
-	   return self->operator()(static_cast<pagmo::problem>(theProblem), values);
-	}
 
 #include "pagmo/problems/ackley.hpp"
 #include "pagmo/problem.hpp"
@@ -1357,10 +1348,28 @@ SWIGINTERN pagmo::thread_safety pagmo_zdt_get_thread_safety(pagmo::zdt const *se
 #include "pagmo/r_policies/fair_replace.hpp"
 #include "tuple_adapters.h"   // your IndividualsGroup + tuple converters
 
+SWIGINTERN pagmoWrap::IndividualsGroup pagmo_fair_replace_replace_wrapped(pagmo::fair_replace const *self,pagmoWrap::IndividualsGroup const &a,pagmo::vector_double::size_type const &b,pagmo::vector_double::size_type const &c,pagmo::vector_double::size_type const &d,pagmo::vector_double::size_type const &e,pagmo::vector_double::size_type const &f,pagmo::vector_double const &g,pagmoWrap::IndividualsGroup const &h){
+
+        // Convert struct -> tuple
+        auto aa = pagmoWrap::ToIndividualsGroupTuple(a);
+        auto hh = pagmoWrap::ToIndividualsGroupTuple(h);
+
+        // Call real pagmo implementation
+        auto rr = self->replace(aa, b, c, d, e, f, g, hh);
+
+        // Convert tuple -> struct
+        return pagmoWrap::FromIndividualsGroupTuple(rr);
+    }
 
 #include "pagmo/s_policies/select_best.hpp"
 #include "tuple_adapters.h"
 
+SWIGINTERN pagmoWrap::IndividualsGroup pagmo_select_best_select(pagmo::select_best const *self,pagmoWrap::IndividualsGroup const &a,pagmo::vector_double::size_type const &b,pagmo::vector_double::size_type const &c,pagmo::vector_double::size_type const &d,pagmo::vector_double::size_type const &e,pagmo::vector_double::size_type const &f,pagmo::vector_double const &g){
+
+        auto aa = pagmoWrap::ToIndividualsGroupTuple(a);
+        auto rr = self->select(aa, b, c, d, e, f, g);
+        return pagmoWrap::FromIndividualsGroupTuple(rr);
+    }
 
 #include "pagmo/topologies/unconnected.hpp"
 #include <cstddef>
@@ -1617,25 +1626,26 @@ private:
 
 #include "pagmoSharpSwigInterface_wrap.h"
 
-SwigDirector_problemBase::SwigDirector_problemBase() : pagmoWrap::problemBase(), Swig::Director() {
+SwigDirector_problem_callback::SwigDirector_problem_callback() : pagmoWrap::problem_callback(), Swig::Director() {
   swig_init_callbacks();
 }
 
-SwigDirector_problemBase::~SwigDirector_problemBase() {
+SwigDirector_problem_callback::~SwigDirector_problem_callback() {
   
 }
 
 
-pagmoWrap::vector_double SwigDirector_problemBase::fitness(pagmoWrap::vector_double const &arg0) const {
+pagmoWrap::vector_double SwigDirector_problem_callback::fitness(pagmoWrap::vector_double const &x) const {
   pagmoWrap::vector_double c_result ;
   void * jresult = 0 ;
-  void * jarg0 = 0 ;
+  void * jx = 0 ;
   
   if (!swig_callbackfitness) {
-    return pagmoWrap::problemBase::fitness(arg0);
+    Swig::DirectorPureVirtualException::raise("pagmoWrap::problem_callback::fitness");
+    return c_result;
   } else {
-    jarg0 = (pagmoWrap::vector_double *) &arg0; 
-    jresult = (void *) swig_callbackfitness(jarg0);
+    jx = (pagmoWrap::vector_double *) &x; 
+    jresult = (void *) swig_callbackfitness(jx);
     if (!jresult) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "Unexpected null return for type pagmoWrap::vector_double", 0);
       return c_result;
@@ -1645,42 +1655,30 @@ pagmoWrap::vector_double SwigDirector_problemBase::fitness(pagmoWrap::vector_dou
   return c_result;
 }
 
-std::pair< pagmoWrap::vector_double,pagmoWrap::vector_double > SwigDirector_problemBase::get_bounds() const {
-  std::pair< pagmoWrap::vector_double,pagmoWrap::vector_double > c_result ;
+pagmoWrap::bounds_type SwigDirector_problem_callback::get_bounds() const {
+  pagmoWrap::bounds_type c_result ;
   void * jresult = 0 ;
   
   if (!swig_callbackget_bounds) {
-    return pagmoWrap::problemBase::get_bounds();
+    Swig::DirectorPureVirtualException::raise("pagmoWrap::problem_callback::get_bounds");
+    return c_result;
   } else {
     jresult = (void *) swig_callbackget_bounds();
     if (!jresult) {
-      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "Unexpected null return for type std::pair< pagmoWrap::vector_double,pagmoWrap::vector_double >", 0);
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "Unexpected null return for type pagmoWrap::bounds_type", 0);
       return c_result;
     }
-    c_result = *(std::pair< pagmoWrap::vector_double,pagmoWrap::vector_double > *)jresult; 
+    c_result = *(pagmoWrap::bounds_type *)jresult; 
   }
   return c_result;
 }
 
-bool SwigDirector_problemBase::has_batch_fitness() const {
-  bool c_result = SwigValueInit< bool >() ;
-  unsigned int jresult = 0 ;
-  
-  if (!swig_callbackhas_batch_fitness) {
-    return pagmoWrap::problemBase::has_batch_fitness();
-  } else {
-    jresult = (unsigned int) swig_callbackhas_batch_fitness();
-    c_result = jresult ? true : false; 
-  }
-  return c_result;
-}
-
-std::string SwigDirector_problemBase::get_name() const {
+std::string SwigDirector_problem_callback::get_name() const {
   std::string c_result ;
   const char * jresult = 0 ;
   
   if (!swig_callbackget_name) {
-    return pagmoWrap::problemBase::get_name();
+    return pagmoWrap::problem_callback::get_name();
   } else {
     jresult = (const char *) swig_callbackget_name();
     if (!jresult) {
@@ -1692,64 +1690,64 @@ std::string SwigDirector_problemBase::get_name() const {
   return c_result;
 }
 
-std::vector< double >::size_type SwigDirector_problemBase::get_nobj() const {
-  std::vector< double >::size_type c_result = SwigValueInit< std::vector< double >::size_type >() ;
+pagmoWrap::vector_double::size_type SwigDirector_problem_callback::get_nobj() const {
+  pagmoWrap::vector_double::size_type c_result = SwigValueInit< pagmoWrap::vector_double::size_type >() ;
   unsigned int jresult = 0 ;
   
   if (!swig_callbackget_nobj) {
-    return pagmoWrap::problemBase::get_nobj();
+    return pagmoWrap::problem_callback::get_nobj();
   } else {
     jresult = (unsigned int) swig_callbackget_nobj();
-    c_result = (std::vector< double >::size_type)jresult; 
+    c_result = (pagmoWrap::vector_double::size_type)jresult; 
   }
   return c_result;
 }
 
-std::vector< double >::size_type SwigDirector_problemBase::get_nec() const {
-  std::vector< double >::size_type c_result = SwigValueInit< std::vector< double >::size_type >() ;
+pagmoWrap::vector_double::size_type SwigDirector_problem_callback::get_nec() const {
+  pagmoWrap::vector_double::size_type c_result = SwigValueInit< pagmoWrap::vector_double::size_type >() ;
   unsigned int jresult = 0 ;
   
   if (!swig_callbackget_nec) {
-    return pagmoWrap::problemBase::get_nec();
+    return pagmoWrap::problem_callback::get_nec();
   } else {
     jresult = (unsigned int) swig_callbackget_nec();
-    c_result = (std::vector< double >::size_type)jresult; 
+    c_result = (pagmoWrap::vector_double::size_type)jresult; 
   }
   return c_result;
 }
 
-std::vector< double >::size_type SwigDirector_problemBase::get_nic() const {
-  std::vector< double >::size_type c_result = SwigValueInit< std::vector< double >::size_type >() ;
+pagmoWrap::vector_double::size_type SwigDirector_problem_callback::get_nic() const {
+  pagmoWrap::vector_double::size_type c_result = SwigValueInit< pagmoWrap::vector_double::size_type >() ;
   unsigned int jresult = 0 ;
   
   if (!swig_callbackget_nic) {
-    return pagmoWrap::problemBase::get_nic();
+    return pagmoWrap::problem_callback::get_nic();
   } else {
     jresult = (unsigned int) swig_callbackget_nic();
-    c_result = (std::vector< double >::size_type)jresult; 
+    c_result = (pagmoWrap::vector_double::size_type)jresult; 
   }
   return c_result;
 }
 
-std::vector< double >::size_type SwigDirector_problemBase::get_nix() const {
-  std::vector< double >::size_type c_result = SwigValueInit< std::vector< double >::size_type >() ;
+pagmoWrap::vector_double::size_type SwigDirector_problem_callback::get_nix() const {
+  pagmoWrap::vector_double::size_type c_result = SwigValueInit< pagmoWrap::vector_double::size_type >() ;
   unsigned int jresult = 0 ;
   
   if (!swig_callbackget_nix) {
-    return pagmoWrap::problemBase::get_nix();
+    return pagmoWrap::problem_callback::get_nix();
   } else {
     jresult = (unsigned int) swig_callbackget_nix();
-    c_result = (std::vector< double >::size_type)jresult; 
+    c_result = (pagmoWrap::vector_double::size_type)jresult; 
   }
   return c_result;
 }
 
-pagmo::thread_safety SwigDirector_problemBase::get_thread_safety() const {
+pagmo::thread_safety SwigDirector_problem_callback::get_thread_safety() const {
   pagmo::thread_safety c_result = SwigValueInit< pagmo::thread_safety >() ;
   int jresult = 0 ;
   
   if (!swig_callbackget_thread_safety) {
-    return pagmoWrap::problemBase::get_thread_safety();
+    return pagmoWrap::problem_callback::get_thread_safety();
   } else {
     jresult = (int) swig_callbackget_thread_safety();
     c_result = (pagmo::thread_safety)jresult; 
@@ -1757,98 +1755,26 @@ pagmo::thread_safety SwigDirector_problemBase::get_thread_safety() const {
   return c_result;
 }
 
-bool SwigDirector_problemBase::has_gradient() const {
-  bool c_result = SwigValueInit< bool >() ;
-  unsigned int jresult = 0 ;
-  
-  if (!swig_callbackhas_gradient) {
-    return pagmoWrap::problemBase::has_gradient();
-  } else {
-    jresult = (unsigned int) swig_callbackhas_gradient();
-    c_result = jresult ? true : false; 
-  }
-  return c_result;
-}
-
-pagmoWrap::vector_double SwigDirector_problemBase::gradient(pagmoWrap::vector_double const &arg0) const {
-  pagmoWrap::vector_double c_result ;
-  void * jresult = 0 ;
-  void * jarg0 = 0 ;
-  
-  if (!swig_callbackgradient) {
-    return pagmoWrap::problemBase::gradient(arg0);
-  } else {
-    jarg0 = (pagmoWrap::vector_double *) &arg0; 
-    jresult = (void *) swig_callbackgradient(jarg0);
-    if (!jresult) {
-      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "Unexpected null return for type pagmoWrap::vector_double", 0);
-      return c_result;
-    }
-    c_result = *(pagmoWrap::vector_double *)jresult; 
-  }
-  return c_result;
-}
-
-bool SwigDirector_problemBase::has_gradient_sparsity() const {
-  bool c_result = SwigValueInit< bool >() ;
-  unsigned int jresult = 0 ;
-  
-  if (!swig_callbackhas_gradient_sparsity) {
-    return pagmoWrap::problemBase::has_gradient_sparsity();
-  } else {
-    jresult = (unsigned int) swig_callbackhas_gradient_sparsity();
-    c_result = jresult ? true : false; 
-  }
-  return c_result;
-}
-
-pagmo::sparsity_pattern SwigDirector_problemBase::gradient_sparsity() const {
-  SwigValueWrapper< std::vector< std::pair< size_t,size_t > > > c_result ;
-  void * jresult = 0 ;
-  
-  if (!swig_callbackgradient_sparsity) {
-    return pagmoWrap::problemBase::gradient_sparsity();
-  } else {
-    jresult = (void *) swig_callbackgradient_sparsity();
-    if (!jresult) {
-      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "Unexpected null return for type pagmo::sparsity_pattern", 0);
-      return c_result;
-    }
-    c_result = *(pagmo::sparsity_pattern *)jresult; 
-  }
-  return c_result;
-}
-
-void SwigDirector_problemBase::swig_connect_director(SWIG_Callback0_t callbackfitness, SWIG_Callback1_t callbackget_bounds, SWIG_Callback2_t callbackhas_batch_fitness, SWIG_Callback3_t callbackget_name, SWIG_Callback4_t callbackget_nobj, SWIG_Callback5_t callbackget_nec, SWIG_Callback6_t callbackget_nic, SWIG_Callback7_t callbackget_nix, SWIG_Callback8_t callbackget_thread_safety, SWIG_Callback9_t callbackhas_gradient, SWIG_Callback10_t callbackgradient, SWIG_Callback11_t callbackhas_gradient_sparsity, SWIG_Callback12_t callbackgradient_sparsity) {
+void SwigDirector_problem_callback::swig_connect_director(SWIG_Callback0_t callbackfitness, SWIG_Callback1_t callbackget_bounds, SWIG_Callback2_t callbackget_name, SWIG_Callback3_t callbackget_nobj, SWIG_Callback4_t callbackget_nec, SWIG_Callback5_t callbackget_nic, SWIG_Callback6_t callbackget_nix, SWIG_Callback7_t callbackget_thread_safety) {
   swig_callbackfitness = callbackfitness;
   swig_callbackget_bounds = callbackget_bounds;
-  swig_callbackhas_batch_fitness = callbackhas_batch_fitness;
   swig_callbackget_name = callbackget_name;
   swig_callbackget_nobj = callbackget_nobj;
   swig_callbackget_nec = callbackget_nec;
   swig_callbackget_nic = callbackget_nic;
   swig_callbackget_nix = callbackget_nix;
   swig_callbackget_thread_safety = callbackget_thread_safety;
-  swig_callbackhas_gradient = callbackhas_gradient;
-  swig_callbackgradient = callbackgradient;
-  swig_callbackhas_gradient_sparsity = callbackhas_gradient_sparsity;
-  swig_callbackgradient_sparsity = callbackgradient_sparsity;
 }
 
-void SwigDirector_problemBase::swig_init_callbacks() {
+void SwigDirector_problem_callback::swig_init_callbacks() {
   swig_callbackfitness = 0;
   swig_callbackget_bounds = 0;
-  swig_callbackhas_batch_fitness = 0;
   swig_callbackget_name = 0;
   swig_callbackget_nobj = 0;
   swig_callbackget_nec = 0;
   swig_callbackget_nic = 0;
   swig_callbackget_nix = 0;
   swig_callbackget_thread_safety = 0;
-  swig_callbackhas_gradient = 0;
-  swig_callbackgradient = 0;
-  swig_callbackhas_gradient_sparsity = 0;
-  swig_callbackgradient_sparsity = 0;
 }
 
 SwigDirector_r_policyBase::SwigDirector_r_policyBase() : pagmoWrap::r_policyBase(), Swig::Director() {
@@ -2479,10 +2405,10 @@ SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_delete_MigrationEntry(void * jarg1) {
 }
 
 
-SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_delete_problemBase(void * jarg1) {
-  pagmoWrap::problemBase *arg1 = 0 ;
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_delete_problem_callback(void * jarg1) {
+  pagmoWrap::problem_callback *arg1 = 0 ;
   
-  arg1 = (pagmoWrap::problemBase *)jarg1; 
+  arg1 = (pagmoWrap::problem_callback *)jarg1; 
   {
     try {
       delete arg1;
@@ -2499,13 +2425,13 @@ SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_delete_problemBase(void * jarg1) {
 }
 
 
-SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_problemBase_fitness(void * jarg1, void * jarg2) {
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_problem_callback_fitness(void * jarg1, void * jarg2) {
   void * jresult ;
-  pagmoWrap::problemBase *arg1 = 0 ;
+  pagmoWrap::problem_callback *arg1 = 0 ;
   pagmoWrap::vector_double *arg2 = 0 ;
   pagmoWrap::vector_double result;
   
-  arg1 = (pagmoWrap::problemBase *)jarg1; 
+  arg1 = (pagmoWrap::problem_callback *)jarg1; 
   arg2 = (pagmoWrap::vector_double *)jarg2;
   if (!arg2) {
     SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "pagmoWrap::vector_double const & is null", 0);
@@ -2513,7 +2439,7 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_problemBase_fitness(void * jarg1, voi
   } 
   {
     try {
-      result = ((pagmoWrap::problemBase const *)arg1)->fitness((pagmoWrap::vector_double const &)*arg2);
+      result = ((pagmoWrap::problem_callback const *)arg1)->fitness((pagmoWrap::vector_double const &)*arg2);
     } catch (const std::exception &e) {
       {
         SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
@@ -2529,21 +2455,15 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_problemBase_fitness(void * jarg1, voi
 }
 
 
-SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_problemBase_fitnessSwigExplicitproblemBase(void * jarg1, void * jarg2) {
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_problem_callback_get_bounds(void * jarg1) {
   void * jresult ;
-  pagmoWrap::problemBase *arg1 = 0 ;
-  pagmoWrap::vector_double *arg2 = 0 ;
-  pagmoWrap::vector_double result;
+  pagmoWrap::problem_callback *arg1 = 0 ;
+  pagmoWrap::bounds_type result;
   
-  arg1 = (pagmoWrap::problemBase *)jarg1; 
-  arg2 = (pagmoWrap::vector_double *)jarg2;
-  if (!arg2) {
-    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "pagmoWrap::vector_double const & is null", 0);
-    return 0;
-  } 
+  arg1 = (pagmoWrap::problem_callback *)jarg1; 
   {
     try {
-      result = ((pagmoWrap::problemBase const *)arg1)->pagmoWrap::problemBase::fitness((pagmoWrap::vector_double const &)*arg2);
+      result = ((pagmoWrap::problem_callback const *)arg1)->get_bounds();
     } catch (const std::exception &e) {
       {
         SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
@@ -2554,116 +2474,20 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_problemBase_fitnessSwigExplicitproble
       };
     }
   }
-  jresult = new pagmoWrap::vector_double(result); 
+  jresult = new pagmoWrap::bounds_type(result); 
   return jresult;
 }
 
 
-SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_problemBase_get_bounds(void * jarg1) {
-  void * jresult ;
-  pagmoWrap::problemBase *arg1 = 0 ;
-  std::pair< pagmoWrap::vector_double,pagmoWrap::vector_double > result;
-  
-  arg1 = (pagmoWrap::problemBase *)jarg1; 
-  {
-    try {
-      result = ((pagmoWrap::problemBase const *)arg1)->get_bounds();
-    } catch (const std::exception &e) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
-      };
-    } catch (...) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
-      };
-    }
-  }
-  jresult = new std::pair< pagmoWrap::vector_double,pagmoWrap::vector_double >(result); 
-  return jresult;
-}
-
-
-SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_problemBase_get_boundsSwigExplicitproblemBase(void * jarg1) {
-  void * jresult ;
-  pagmoWrap::problemBase *arg1 = 0 ;
-  std::pair< pagmoWrap::vector_double,pagmoWrap::vector_double > result;
-  
-  arg1 = (pagmoWrap::problemBase *)jarg1; 
-  {
-    try {
-      result = ((pagmoWrap::problemBase const *)arg1)->pagmoWrap::problemBase::get_bounds();
-    } catch (const std::exception &e) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
-      };
-    } catch (...) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
-      };
-    }
-  }
-  jresult = new std::pair< pagmoWrap::vector_double,pagmoWrap::vector_double >(result); 
-  return jresult;
-}
-
-
-SWIGEXPORT unsigned int SWIGSTDCALL CSharp_pagmo_problemBase_has_batch_fitness(void * jarg1) {
-  unsigned int jresult ;
-  pagmoWrap::problemBase *arg1 = 0 ;
-  bool result;
-  
-  arg1 = (pagmoWrap::problemBase *)jarg1; 
-  {
-    try {
-      result = (bool)((pagmoWrap::problemBase const *)arg1)->has_batch_fitness();
-    } catch (const std::exception &e) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
-      };
-    } catch (...) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
-      };
-    }
-  }
-  jresult = result; 
-  return jresult;
-}
-
-
-SWIGEXPORT unsigned int SWIGSTDCALL CSharp_pagmo_problemBase_has_batch_fitnessSwigExplicitproblemBase(void * jarg1) {
-  unsigned int jresult ;
-  pagmoWrap::problemBase *arg1 = 0 ;
-  bool result;
-  
-  arg1 = (pagmoWrap::problemBase *)jarg1; 
-  {
-    try {
-      result = (bool)((pagmoWrap::problemBase const *)arg1)->pagmoWrap::problemBase::has_batch_fitness();
-    } catch (const std::exception &e) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
-      };
-    } catch (...) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
-      };
-    }
-  }
-  jresult = result; 
-  return jresult;
-}
-
-
-SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_problemBase_get_name(void * jarg1) {
+SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_problem_callback_get_name(void * jarg1) {
   const char * jresult ;
-  pagmoWrap::problemBase *arg1 = 0 ;
+  pagmoWrap::problem_callback *arg1 = 0 ;
   std::string result;
   
-  arg1 = (pagmoWrap::problemBase *)jarg1; 
+  arg1 = (pagmoWrap::problem_callback *)jarg1; 
   {
     try {
-      result = ((pagmoWrap::problemBase const *)arg1)->get_name();
+      result = ((pagmoWrap::problem_callback const *)arg1)->get_name();
     } catch (const std::exception &e) {
       {
         SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
@@ -2679,15 +2503,15 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_problemBase_get_name(void * jar
 }
 
 
-SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_problemBase_get_nameSwigExplicitproblemBase(void * jarg1) {
+SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_problem_callback_get_nameSwigExplicitproblem_callback(void * jarg1) {
   const char * jresult ;
-  pagmoWrap::problemBase *arg1 = 0 ;
+  pagmoWrap::problem_callback *arg1 = 0 ;
   std::string result;
   
-  arg1 = (pagmoWrap::problemBase *)jarg1; 
+  arg1 = (pagmoWrap::problem_callback *)jarg1; 
   {
     try {
-      result = ((pagmoWrap::problemBase const *)arg1)->pagmoWrap::problemBase::get_name();
+      result = ((pagmoWrap::problem_callback const *)arg1)->pagmoWrap::problem_callback::get_name();
     } catch (const std::exception &e) {
       {
         SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
@@ -2703,15 +2527,15 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_problemBase_get_nameSwigExplici
 }
 
 
-SWIGEXPORT unsigned int SWIGSTDCALL CSharp_pagmo_problemBase_get_nobj(void * jarg1) {
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_pagmo_problem_callback_get_nobj(void * jarg1) {
   unsigned int jresult ;
-  pagmoWrap::problemBase *arg1 = 0 ;
-  std::vector< double >::size_type result;
+  pagmoWrap::problem_callback *arg1 = 0 ;
+  pagmoWrap::vector_double::size_type result;
   
-  arg1 = (pagmoWrap::problemBase *)jarg1; 
+  arg1 = (pagmoWrap::problem_callback *)jarg1; 
   {
     try {
-      result = ((pagmoWrap::problemBase const *)arg1)->get_nobj();
+      result = ((pagmoWrap::problem_callback const *)arg1)->get_nobj();
     } catch (const std::exception &e) {
       {
         SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
@@ -2727,15 +2551,15 @@ SWIGEXPORT unsigned int SWIGSTDCALL CSharp_pagmo_problemBase_get_nobj(void * jar
 }
 
 
-SWIGEXPORT unsigned int SWIGSTDCALL CSharp_pagmo_problemBase_get_nobjSwigExplicitproblemBase(void * jarg1) {
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_pagmo_problem_callback_get_nobjSwigExplicitproblem_callback(void * jarg1) {
   unsigned int jresult ;
-  pagmoWrap::problemBase *arg1 = 0 ;
-  std::vector< double >::size_type result;
+  pagmoWrap::problem_callback *arg1 = 0 ;
+  pagmoWrap::vector_double::size_type result;
   
-  arg1 = (pagmoWrap::problemBase *)jarg1; 
+  arg1 = (pagmoWrap::problem_callback *)jarg1; 
   {
     try {
-      result = ((pagmoWrap::problemBase const *)arg1)->pagmoWrap::problemBase::get_nobj();
+      result = ((pagmoWrap::problem_callback const *)arg1)->pagmoWrap::problem_callback::get_nobj();
     } catch (const std::exception &e) {
       {
         SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
@@ -2751,15 +2575,15 @@ SWIGEXPORT unsigned int SWIGSTDCALL CSharp_pagmo_problemBase_get_nobjSwigExplici
 }
 
 
-SWIGEXPORT unsigned int SWIGSTDCALL CSharp_pagmo_problemBase_get_nec(void * jarg1) {
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_pagmo_problem_callback_get_nec(void * jarg1) {
   unsigned int jresult ;
-  pagmoWrap::problemBase *arg1 = 0 ;
-  std::vector< double >::size_type result;
+  pagmoWrap::problem_callback *arg1 = 0 ;
+  pagmoWrap::vector_double::size_type result;
   
-  arg1 = (pagmoWrap::problemBase *)jarg1; 
+  arg1 = (pagmoWrap::problem_callback *)jarg1; 
   {
     try {
-      result = ((pagmoWrap::problemBase const *)arg1)->get_nec();
+      result = ((pagmoWrap::problem_callback const *)arg1)->get_nec();
     } catch (const std::exception &e) {
       {
         SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
@@ -2775,15 +2599,15 @@ SWIGEXPORT unsigned int SWIGSTDCALL CSharp_pagmo_problemBase_get_nec(void * jarg
 }
 
 
-SWIGEXPORT unsigned int SWIGSTDCALL CSharp_pagmo_problemBase_get_necSwigExplicitproblemBase(void * jarg1) {
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_pagmo_problem_callback_get_necSwigExplicitproblem_callback(void * jarg1) {
   unsigned int jresult ;
-  pagmoWrap::problemBase *arg1 = 0 ;
-  std::vector< double >::size_type result;
+  pagmoWrap::problem_callback *arg1 = 0 ;
+  pagmoWrap::vector_double::size_type result;
   
-  arg1 = (pagmoWrap::problemBase *)jarg1; 
+  arg1 = (pagmoWrap::problem_callback *)jarg1; 
   {
     try {
-      result = ((pagmoWrap::problemBase const *)arg1)->pagmoWrap::problemBase::get_nec();
+      result = ((pagmoWrap::problem_callback const *)arg1)->pagmoWrap::problem_callback::get_nec();
     } catch (const std::exception &e) {
       {
         SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
@@ -2799,15 +2623,15 @@ SWIGEXPORT unsigned int SWIGSTDCALL CSharp_pagmo_problemBase_get_necSwigExplicit
 }
 
 
-SWIGEXPORT unsigned int SWIGSTDCALL CSharp_pagmo_problemBase_get_nic(void * jarg1) {
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_pagmo_problem_callback_get_nic(void * jarg1) {
   unsigned int jresult ;
-  pagmoWrap::problemBase *arg1 = 0 ;
-  std::vector< double >::size_type result;
+  pagmoWrap::problem_callback *arg1 = 0 ;
+  pagmoWrap::vector_double::size_type result;
   
-  arg1 = (pagmoWrap::problemBase *)jarg1; 
+  arg1 = (pagmoWrap::problem_callback *)jarg1; 
   {
     try {
-      result = ((pagmoWrap::problemBase const *)arg1)->get_nic();
+      result = ((pagmoWrap::problem_callback const *)arg1)->get_nic();
     } catch (const std::exception &e) {
       {
         SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
@@ -2823,15 +2647,15 @@ SWIGEXPORT unsigned int SWIGSTDCALL CSharp_pagmo_problemBase_get_nic(void * jarg
 }
 
 
-SWIGEXPORT unsigned int SWIGSTDCALL CSharp_pagmo_problemBase_get_nicSwigExplicitproblemBase(void * jarg1) {
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_pagmo_problem_callback_get_nicSwigExplicitproblem_callback(void * jarg1) {
   unsigned int jresult ;
-  pagmoWrap::problemBase *arg1 = 0 ;
-  std::vector< double >::size_type result;
+  pagmoWrap::problem_callback *arg1 = 0 ;
+  pagmoWrap::vector_double::size_type result;
   
-  arg1 = (pagmoWrap::problemBase *)jarg1; 
+  arg1 = (pagmoWrap::problem_callback *)jarg1; 
   {
     try {
-      result = ((pagmoWrap::problemBase const *)arg1)->pagmoWrap::problemBase::get_nic();
+      result = ((pagmoWrap::problem_callback const *)arg1)->pagmoWrap::problem_callback::get_nic();
     } catch (const std::exception &e) {
       {
         SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
@@ -2847,15 +2671,15 @@ SWIGEXPORT unsigned int SWIGSTDCALL CSharp_pagmo_problemBase_get_nicSwigExplicit
 }
 
 
-SWIGEXPORT unsigned int SWIGSTDCALL CSharp_pagmo_problemBase_get_nix(void * jarg1) {
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_pagmo_problem_callback_get_nix(void * jarg1) {
   unsigned int jresult ;
-  pagmoWrap::problemBase *arg1 = 0 ;
-  std::vector< double >::size_type result;
+  pagmoWrap::problem_callback *arg1 = 0 ;
+  pagmoWrap::vector_double::size_type result;
   
-  arg1 = (pagmoWrap::problemBase *)jarg1; 
+  arg1 = (pagmoWrap::problem_callback *)jarg1; 
   {
     try {
-      result = ((pagmoWrap::problemBase const *)arg1)->get_nix();
+      result = ((pagmoWrap::problem_callback const *)arg1)->get_nix();
     } catch (const std::exception &e) {
       {
         SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
@@ -2871,15 +2695,15 @@ SWIGEXPORT unsigned int SWIGSTDCALL CSharp_pagmo_problemBase_get_nix(void * jarg
 }
 
 
-SWIGEXPORT unsigned int SWIGSTDCALL CSharp_pagmo_problemBase_get_nixSwigExplicitproblemBase(void * jarg1) {
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_pagmo_problem_callback_get_nixSwigExplicitproblem_callback(void * jarg1) {
   unsigned int jresult ;
-  pagmoWrap::problemBase *arg1 = 0 ;
-  std::vector< double >::size_type result;
+  pagmoWrap::problem_callback *arg1 = 0 ;
+  pagmoWrap::vector_double::size_type result;
   
-  arg1 = (pagmoWrap::problemBase *)jarg1; 
+  arg1 = (pagmoWrap::problem_callback *)jarg1; 
   {
     try {
-      result = ((pagmoWrap::problemBase const *)arg1)->pagmoWrap::problemBase::get_nix();
+      result = ((pagmoWrap::problem_callback const *)arg1)->pagmoWrap::problem_callback::get_nix();
     } catch (const std::exception &e) {
       {
         SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
@@ -2895,15 +2719,15 @@ SWIGEXPORT unsigned int SWIGSTDCALL CSharp_pagmo_problemBase_get_nixSwigExplicit
 }
 
 
-SWIGEXPORT int SWIGSTDCALL CSharp_pagmo_problemBase_get_thread_safety(void * jarg1) {
+SWIGEXPORT int SWIGSTDCALL CSharp_pagmo_problem_callback_get_thread_safety(void * jarg1) {
   int jresult ;
-  pagmoWrap::problemBase *arg1 = 0 ;
+  pagmoWrap::problem_callback *arg1 = 0 ;
   pagmo::thread_safety result;
   
-  arg1 = (pagmoWrap::problemBase *)jarg1; 
+  arg1 = (pagmoWrap::problem_callback *)jarg1; 
   {
     try {
-      result = (pagmo::thread_safety)((pagmoWrap::problemBase const *)arg1)->get_thread_safety();
+      result = (pagmo::thread_safety)((pagmoWrap::problem_callback const *)arg1)->get_thread_safety();
     } catch (const std::exception &e) {
       {
         SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
@@ -2919,15 +2743,15 @@ SWIGEXPORT int SWIGSTDCALL CSharp_pagmo_problemBase_get_thread_safety(void * jar
 }
 
 
-SWIGEXPORT int SWIGSTDCALL CSharp_pagmo_problemBase_get_thread_safetySwigExplicitproblemBase(void * jarg1) {
+SWIGEXPORT int SWIGSTDCALL CSharp_pagmo_problem_callback_get_thread_safetySwigExplicitproblem_callback(void * jarg1) {
   int jresult ;
-  pagmoWrap::problemBase *arg1 = 0 ;
+  pagmoWrap::problem_callback *arg1 = 0 ;
   pagmo::thread_safety result;
   
-  arg1 = (pagmoWrap::problemBase *)jarg1; 
+  arg1 = (pagmoWrap::problem_callback *)jarg1; 
   {
     try {
-      result = (pagmo::thread_safety)((pagmoWrap::problemBase const *)arg1)->pagmoWrap::problemBase::get_thread_safety();
+      result = (pagmo::thread_safety)((pagmoWrap::problem_callback const *)arg1)->pagmoWrap::problem_callback::get_thread_safety();
     } catch (const std::exception &e) {
       {
         SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
@@ -2943,61 +2767,118 @@ SWIGEXPORT int SWIGSTDCALL CSharp_pagmo_problemBase_get_thread_safetySwigExplici
 }
 
 
-SWIGEXPORT unsigned int SWIGSTDCALL CSharp_pagmo_problemBase_has_gradient(void * jarg1) {
-  unsigned int jresult ;
-  pagmoWrap::problemBase *arg1 = 0 ;
-  bool result;
-  
-  arg1 = (pagmoWrap::problemBase *)jarg1; 
-  {
-    try {
-      result = (bool)((pagmoWrap::problemBase const *)arg1)->has_gradient();
-    } catch (const std::exception &e) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
-      };
-    } catch (...) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
-      };
-    }
-  }
-  jresult = result; 
-  return jresult;
-}
-
-
-SWIGEXPORT unsigned int SWIGSTDCALL CSharp_pagmo_problemBase_has_gradientSwigExplicitproblemBase(void * jarg1) {
-  unsigned int jresult ;
-  pagmoWrap::problemBase *arg1 = 0 ;
-  bool result;
-  
-  arg1 = (pagmoWrap::problemBase *)jarg1; 
-  {
-    try {
-      result = (bool)((pagmoWrap::problemBase const *)arg1)->pagmoWrap::problemBase::has_gradient();
-    } catch (const std::exception &e) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
-      };
-    } catch (...) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
-      };
-    }
-  }
-  jresult = result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_problemBase_gradient(void * jarg1, void * jarg2) {
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_problem_callback() {
   void * jresult ;
-  pagmoWrap::problemBase *arg1 = 0 ;
+  pagmoWrap::problem_callback *result = 0 ;
+  
+  {
+    try {
+      result = (pagmoWrap::problem_callback *)new SwigDirector_problem_callback();
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_problem_callback_director_connect(void *objarg, SwigDirector_problem_callback::SWIG_Callback0_t callback0, SwigDirector_problem_callback::SWIG_Callback1_t callback1, SwigDirector_problem_callback::SWIG_Callback2_t callback2, SwigDirector_problem_callback::SWIG_Callback3_t callback3, SwigDirector_problem_callback::SWIG_Callback4_t callback4, SwigDirector_problem_callback::SWIG_Callback5_t callback5, SwigDirector_problem_callback::SWIG_Callback6_t callback6, SwigDirector_problem_callback::SWIG_Callback7_t callback7) {
+  pagmoWrap::problem_callback *obj = (pagmoWrap::problem_callback *)objarg;
+  SwigDirector_problem_callback *director = static_cast<SwigDirector_problem_callback *>(obj);
+  director->swig_connect_director(callback0, callback1, callback2, callback3, callback4, callback5, callback6, callback7);
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_managed_problem__SWIG_0() {
+  void * jresult ;
+  pagmoWrap::managed_problem *result = 0 ;
+  
+  {
+    try {
+      result = (pagmoWrap::managed_problem *)new pagmoWrap::managed_problem();
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_managed_problem__SWIG_1(void * jarg1) {
+  void * jresult ;
+  pagmoWrap::problem_callback *arg1 = 0 ;
+  pagmoWrap::managed_problem *result = 0 ;
+  
+  arg1 = (pagmoWrap::problem_callback *)jarg1; 
+  {
+    try {
+      result = (pagmoWrap::managed_problem *)new pagmoWrap::managed_problem(arg1);
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_managed_problem__SWIG_2(void * jarg1) {
+  void * jresult ;
+  std::shared_ptr< pagmoWrap::problem_callback > arg1 ;
+  std::shared_ptr< pagmoWrap::problem_callback > *argp1 ;
+  pagmoWrap::managed_problem *result = 0 ;
+  
+  argp1 = (std::shared_ptr< pagmoWrap::problem_callback > *)jarg1; 
+  if (!argp1) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "Attempt to dereference null std::shared_ptr< pagmoWrap::problem_callback >", 0);
+    return 0;
+  }
+  arg1 = *argp1; 
+  {
+    try {
+      result = (pagmoWrap::managed_problem *)new pagmoWrap::managed_problem(SWIG_STD_MOVE(arg1));
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_managed_problem_fitness(void * jarg1, void * jarg2) {
+  void * jresult ;
+  pagmoWrap::managed_problem *arg1 = 0 ;
   pagmoWrap::vector_double *arg2 = 0 ;
   pagmoWrap::vector_double result;
   
-  arg1 = (pagmoWrap::problemBase *)jarg1; 
+  arg1 = (pagmoWrap::managed_problem *)jarg1; 
   arg2 = (pagmoWrap::vector_double *)jarg2;
   if (!arg2) {
     SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "pagmoWrap::vector_double const & is null", 0);
@@ -3005,7 +2886,7 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_problemBase_gradient(void * jarg1, vo
   } 
   {
     try {
-      result = ((pagmoWrap::problemBase const *)arg1)->gradient((pagmoWrap::vector_double const &)*arg2);
+      result = ((pagmoWrap::managed_problem const *)arg1)->fitness((pagmoWrap::vector_double const &)*arg2);
     } catch (const std::exception &e) {
       {
         SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
@@ -3021,21 +2902,15 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_problemBase_gradient(void * jarg1, vo
 }
 
 
-SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_problemBase_gradientSwigExplicitproblemBase(void * jarg1, void * jarg2) {
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_managed_problem_get_bounds(void * jarg1) {
   void * jresult ;
-  pagmoWrap::problemBase *arg1 = 0 ;
-  pagmoWrap::vector_double *arg2 = 0 ;
-  pagmoWrap::vector_double result;
+  pagmoWrap::managed_problem *arg1 = 0 ;
+  pagmoWrap::bounds_type result;
   
-  arg1 = (pagmoWrap::problemBase *)jarg1; 
-  arg2 = (pagmoWrap::vector_double *)jarg2;
-  if (!arg2) {
-    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "pagmoWrap::vector_double const & is null", 0);
-    return 0;
-  } 
+  arg1 = (pagmoWrap::managed_problem *)jarg1; 
   {
     try {
-      result = ((pagmoWrap::problemBase const *)arg1)->pagmoWrap::problemBase::gradient((pagmoWrap::vector_double const &)*arg2);
+      result = ((pagmoWrap::managed_problem const *)arg1)->get_bounds();
     } catch (const std::exception &e) {
       {
         SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
@@ -3046,20 +2921,44 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_problemBase_gradientSwigExplicitprobl
       };
     }
   }
-  jresult = new pagmoWrap::vector_double(result); 
+  jresult = new pagmoWrap::bounds_type(result); 
   return jresult;
 }
 
 
-SWIGEXPORT unsigned int SWIGSTDCALL CSharp_pagmo_problemBase_has_gradient_sparsity(void * jarg1) {
+SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_managed_problem_get_name(void * jarg1) {
+  const char * jresult ;
+  pagmoWrap::managed_problem *arg1 = 0 ;
+  std::string result;
+  
+  arg1 = (pagmoWrap::managed_problem *)jarg1; 
+  {
+    try {
+      result = ((pagmoWrap::managed_problem const *)arg1)->get_name();
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  return jresult;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_pagmo_managed_problem_get_nobj(void * jarg1) {
   unsigned int jresult ;
-  pagmoWrap::problemBase *arg1 = 0 ;
-  bool result;
+  pagmoWrap::managed_problem *arg1 = 0 ;
+  pagmoWrap::vector_double::size_type result;
   
-  arg1 = (pagmoWrap::problemBase *)jarg1; 
+  arg1 = (pagmoWrap::managed_problem *)jarg1; 
   {
     try {
-      result = (bool)((pagmoWrap::problemBase const *)arg1)->has_gradient_sparsity();
+      result = ((pagmoWrap::managed_problem const *)arg1)->get_nobj();
     } catch (const std::exception &e) {
       {
         SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
@@ -3070,20 +2969,20 @@ SWIGEXPORT unsigned int SWIGSTDCALL CSharp_pagmo_problemBase_has_gradient_sparsi
       };
     }
   }
-  jresult = result; 
+  jresult = (unsigned int)result; 
   return jresult;
 }
 
 
-SWIGEXPORT unsigned int SWIGSTDCALL CSharp_pagmo_problemBase_has_gradient_sparsitySwigExplicitproblemBase(void * jarg1) {
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_pagmo_managed_problem_get_nec(void * jarg1) {
   unsigned int jresult ;
-  pagmoWrap::problemBase *arg1 = 0 ;
-  bool result;
+  pagmoWrap::managed_problem *arg1 = 0 ;
+  pagmoWrap::vector_double::size_type result;
   
-  arg1 = (pagmoWrap::problemBase *)jarg1; 
+  arg1 = (pagmoWrap::managed_problem *)jarg1; 
   {
     try {
-      result = (bool)((pagmoWrap::problemBase const *)arg1)->pagmoWrap::problemBase::has_gradient_sparsity();
+      result = ((pagmoWrap::managed_problem const *)arg1)->get_nec();
     } catch (const std::exception &e) {
       {
         SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
@@ -3094,20 +2993,20 @@ SWIGEXPORT unsigned int SWIGSTDCALL CSharp_pagmo_problemBase_has_gradient_sparsi
       };
     }
   }
-  jresult = result; 
+  jresult = (unsigned int)result; 
   return jresult;
 }
 
 
-SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_problemBase_gradient_sparsity(void * jarg1) {
-  void * jresult ;
-  pagmoWrap::problemBase *arg1 = 0 ;
-  SwigValueWrapper< std::vector< std::pair< size_t,size_t > > > result;
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_pagmo_managed_problem_get_nic(void * jarg1) {
+  unsigned int jresult ;
+  pagmoWrap::managed_problem *arg1 = 0 ;
+  pagmoWrap::vector_double::size_type result;
   
-  arg1 = (pagmoWrap::problemBase *)jarg1; 
+  arg1 = (pagmoWrap::managed_problem *)jarg1; 
   {
     try {
-      result = ((pagmoWrap::problemBase const *)arg1)->gradient_sparsity();
+      result = ((pagmoWrap::managed_problem const *)arg1)->get_nic();
     } catch (const std::exception &e) {
       {
         SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
@@ -3118,20 +3017,20 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_problemBase_gradient_sparsity(void * 
       };
     }
   }
-  jresult = new pagmo::sparsity_pattern(result); 
+  jresult = (unsigned int)result; 
   return jresult;
 }
 
 
-SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_problemBase_gradient_sparsitySwigExplicitproblemBase(void * jarg1) {
-  void * jresult ;
-  pagmoWrap::problemBase *arg1 = 0 ;
-  SwigValueWrapper< std::vector< std::pair< size_t,size_t > > > result;
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_pagmo_managed_problem_get_nix(void * jarg1) {
+  unsigned int jresult ;
+  pagmoWrap::managed_problem *arg1 = 0 ;
+  pagmoWrap::vector_double::size_type result;
   
-  arg1 = (pagmoWrap::problemBase *)jarg1; 
+  arg1 = (pagmoWrap::managed_problem *)jarg1; 
   {
     try {
-      result = ((pagmoWrap::problemBase const *)arg1)->pagmoWrap::problemBase::gradient_sparsity();
+      result = ((pagmoWrap::managed_problem const *)arg1)->get_nix();
     } catch (const std::exception &e) {
       {
         SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
@@ -3142,18 +3041,20 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_problemBase_gradient_sparsitySwigExpl
       };
     }
   }
-  jresult = new pagmo::sparsity_pattern(result); 
+  jresult = (unsigned int)result; 
   return jresult;
 }
 
 
-SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_problemBase() {
-  void * jresult ;
-  pagmoWrap::problemBase *result = 0 ;
+SWIGEXPORT int SWIGSTDCALL CSharp_pagmo_managed_problem_get_thread_safety(void * jarg1) {
+  int jresult ;
+  pagmoWrap::managed_problem *arg1 = 0 ;
+  pagmo::thread_safety result;
   
+  arg1 = (pagmoWrap::managed_problem *)jarg1; 
   {
     try {
-      result = (pagmoWrap::problemBase *)new SwigDirector_problemBase();
+      result = (pagmo::thread_safety)((pagmoWrap::managed_problem const *)arg1)->get_thread_safety();
     } catch (const std::exception &e) {
       {
         SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
@@ -3164,96 +3065,15 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_problemBase() {
       };
     }
   }
-  jresult = (void *)result; 
+  jresult = (int)result; 
   return jresult;
 }
 
 
-SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_problemBase_director_connect(void *objarg, SwigDirector_problemBase::SWIG_Callback0_t callback0, SwigDirector_problemBase::SWIG_Callback1_t callback1, SwigDirector_problemBase::SWIG_Callback2_t callback2, SwigDirector_problemBase::SWIG_Callback3_t callback3, SwigDirector_problemBase::SWIG_Callback4_t callback4, SwigDirector_problemBase::SWIG_Callback5_t callback5, SwigDirector_problemBase::SWIG_Callback6_t callback6, SwigDirector_problemBase::SWIG_Callback7_t callback7, SwigDirector_problemBase::SWIG_Callback8_t callback8, SwigDirector_problemBase::SWIG_Callback9_t callback9, SwigDirector_problemBase::SWIG_Callback10_t callback10, SwigDirector_problemBase::SWIG_Callback11_t callback11, SwigDirector_problemBase::SWIG_Callback12_t callback12) {
-  pagmoWrap::problemBase *obj = (pagmoWrap::problemBase *)objarg;
-  SwigDirector_problemBase *director = static_cast<SwigDirector_problemBase *>(obj);
-  director->swig_connect_director(callback0, callback1, callback2, callback3, callback4, callback5, callback6, callback7, callback8, callback9, callback10, callback11, callback12);
-}
-
-
-SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_problemPagomWrapper__SWIG_0() {
-  void * jresult ;
-  pagmoWrap::problemPagomWrapper *result = 0 ;
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_delete_managed_problem(void * jarg1) {
+  pagmoWrap::managed_problem *arg1 = 0 ;
   
-  {
-    try {
-      result = (pagmoWrap::problemPagomWrapper *)new pagmoWrap::problemPagomWrapper();
-    } catch (const std::exception &e) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
-      };
-    } catch (...) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
-      };
-    }
-  }
-  jresult = (void *)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_problemPagomWrapper__SWIG_1(void * jarg1) {
-  void * jresult ;
-  pagmoWrap::problemBase *arg1 = 0 ;
-  pagmoWrap::problemPagomWrapper *result = 0 ;
-  
-  arg1 = (pagmoWrap::problemBase *)jarg1; 
-  {
-    try {
-      result = (pagmoWrap::problemPagomWrapper *)new pagmoWrap::problemPagomWrapper(arg1);
-    } catch (const std::exception &e) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
-      };
-    } catch (...) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
-      };
-    }
-  }
-  jresult = (void *)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_problemPagomWrapper__SWIG_2(void * jarg1) {
-  void * jresult ;
-  pagmoWrap::problemPagomWrapper *arg1 = 0 ;
-  pagmoWrap::problemPagomWrapper *result = 0 ;
-  
-  arg1 = (pagmoWrap::problemPagomWrapper *)jarg1;
-  if (!arg1) {
-    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "pagmoWrap::problemPagomWrapper const & is null", 0);
-    return 0;
-  } 
-  {
-    try {
-      result = (pagmoWrap::problemPagomWrapper *)new pagmoWrap::problemPagomWrapper((pagmoWrap::problemPagomWrapper const &)*arg1);
-    } catch (const std::exception &e) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
-      };
-    } catch (...) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
-      };
-    }
-  }
-  jresult = (void *)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_delete_problemPagomWrapper(void * jarg1) {
-  pagmoWrap::problemPagomWrapper *arg1 = 0 ;
-  
-  arg1 = (pagmoWrap::problemPagomWrapper *)jarg1; 
+  arg1 = (pagmoWrap::managed_problem *)jarg1; 
   {
     try {
       delete arg1;
@@ -3267,376 +3087,6 @@ SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_delete_problemPagomWrapper(void * jarg1
       };
     }
   }
-}
-
-
-SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_problemPagomWrapper_setBaseProblem(void * jarg1, void * jarg2) {
-  pagmoWrap::problemPagomWrapper *arg1 = 0 ;
-  pagmoWrap::problemBase *arg2 = 0 ;
-  
-  arg1 = (pagmoWrap::problemPagomWrapper *)jarg1; 
-  arg2 = (pagmoWrap::problemBase *)jarg2; 
-  {
-    try {
-      (arg1)->setBaseProblem(arg2);
-    } catch (const std::exception &e) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return ; 
-      };
-    } catch (...) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return ; 
-      };
-    }
-  }
-}
-
-
-SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_problemPagomWrapper_getBaseProblem(void * jarg1) {
-  void * jresult ;
-  pagmoWrap::problemPagomWrapper *arg1 = 0 ;
-  pagmoWrap::problemBase *result = 0 ;
-  
-  arg1 = (pagmoWrap::problemPagomWrapper *)jarg1; 
-  {
-    try {
-      result = (pagmoWrap::problemBase *)(arg1)->getBaseProblem();
-    } catch (const std::exception &e) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
-      };
-    } catch (...) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
-      };
-    }
-  }
-  jresult = (void *)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_problemPagomWrapper_fitness(void * jarg1, void * jarg2) {
-  void * jresult ;
-  pagmoWrap::problemPagomWrapper *arg1 = 0 ;
-  pagmoWrap::vector_double *arg2 = 0 ;
-  pagmoWrap::vector_double result;
-  
-  arg1 = (pagmoWrap::problemPagomWrapper *)jarg1; 
-  arg2 = (pagmoWrap::vector_double *)jarg2;
-  if (!arg2) {
-    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "pagmoWrap::vector_double const & is null", 0);
-    return 0;
-  } 
-  {
-    try {
-      result = ((pagmoWrap::problemPagomWrapper const *)arg1)->fitness((pagmoWrap::vector_double const &)*arg2);
-    } catch (const std::exception &e) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
-      };
-    } catch (...) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
-      };
-    }
-  }
-  jresult = new pagmoWrap::vector_double(result); 
-  return jresult;
-}
-
-
-SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_problemPagomWrapper_get_bounds(void * jarg1) {
-  void * jresult ;
-  pagmoWrap::problemPagomWrapper *arg1 = 0 ;
-  std::pair< pagmoWrap::vector_double,pagmoWrap::vector_double > result;
-  
-  arg1 = (pagmoWrap::problemPagomWrapper *)jarg1; 
-  {
-    try {
-      result = ((pagmoWrap::problemPagomWrapper const *)arg1)->get_bounds();
-    } catch (const std::exception &e) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
-      };
-    } catch (...) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
-      };
-    }
-  }
-  jresult = new std::pair< pagmoWrap::vector_double,pagmoWrap::vector_double >(result); 
-  return jresult;
-}
-
-
-SWIGEXPORT unsigned int SWIGSTDCALL CSharp_pagmo_problemPagomWrapper_has_batch_fitness(void * jarg1) {
-  unsigned int jresult ;
-  pagmoWrap::problemPagomWrapper *arg1 = 0 ;
-  bool result;
-  
-  arg1 = (pagmoWrap::problemPagomWrapper *)jarg1; 
-  {
-    try {
-      result = (bool)((pagmoWrap::problemPagomWrapper const *)arg1)->has_batch_fitness();
-    } catch (const std::exception &e) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
-      };
-    } catch (...) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
-      };
-    }
-  }
-  jresult = result; 
-  return jresult;
-}
-
-
-SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_problemPagomWrapper_get_name(void * jarg1) {
-  const char * jresult ;
-  pagmoWrap::problemPagomWrapper *arg1 = 0 ;
-  std::string result;
-  
-  arg1 = (pagmoWrap::problemPagomWrapper *)jarg1; 
-  {
-    try {
-      result = ((pagmoWrap::problemPagomWrapper const *)arg1)->get_name();
-    } catch (const std::exception &e) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
-      };
-    } catch (...) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
-      };
-    }
-  }
-  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
-  return jresult;
-}
-
-
-SWIGEXPORT unsigned int SWIGSTDCALL CSharp_pagmo_problemPagomWrapper_get_nobj(void * jarg1) {
-  unsigned int jresult ;
-  pagmoWrap::problemPagomWrapper *arg1 = 0 ;
-  std::vector< double >::size_type result;
-  
-  arg1 = (pagmoWrap::problemPagomWrapper *)jarg1; 
-  {
-    try {
-      result = ((pagmoWrap::problemPagomWrapper const *)arg1)->get_nobj();
-    } catch (const std::exception &e) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
-      };
-    } catch (...) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
-      };
-    }
-  }
-  jresult = (unsigned int)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT unsigned int SWIGSTDCALL CSharp_pagmo_problemPagomWrapper_get_nec(void * jarg1) {
-  unsigned int jresult ;
-  pagmoWrap::problemPagomWrapper *arg1 = 0 ;
-  std::vector< double >::size_type result;
-  
-  arg1 = (pagmoWrap::problemPagomWrapper *)jarg1; 
-  {
-    try {
-      result = ((pagmoWrap::problemPagomWrapper const *)arg1)->get_nec();
-    } catch (const std::exception &e) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
-      };
-    } catch (...) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
-      };
-    }
-  }
-  jresult = (unsigned int)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT unsigned int SWIGSTDCALL CSharp_pagmo_problemPagomWrapper_get_nic(void * jarg1) {
-  unsigned int jresult ;
-  pagmoWrap::problemPagomWrapper *arg1 = 0 ;
-  std::vector< double >::size_type result;
-  
-  arg1 = (pagmoWrap::problemPagomWrapper *)jarg1; 
-  {
-    try {
-      result = ((pagmoWrap::problemPagomWrapper const *)arg1)->get_nic();
-    } catch (const std::exception &e) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
-      };
-    } catch (...) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
-      };
-    }
-  }
-  jresult = (unsigned int)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT unsigned int SWIGSTDCALL CSharp_pagmo_problemPagomWrapper_get_nix(void * jarg1) {
-  unsigned int jresult ;
-  pagmoWrap::problemPagomWrapper *arg1 = 0 ;
-  std::vector< double >::size_type result;
-  
-  arg1 = (pagmoWrap::problemPagomWrapper *)jarg1; 
-  {
-    try {
-      result = ((pagmoWrap::problemPagomWrapper const *)arg1)->get_nix();
-    } catch (const std::exception &e) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
-      };
-    } catch (...) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
-      };
-    }
-  }
-  jresult = (unsigned int)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT int SWIGSTDCALL CSharp_pagmo_problemPagomWrapper_get_thread_safety(void * jarg1) {
-  int jresult ;
-  pagmoWrap::problemPagomWrapper *arg1 = 0 ;
-  pagmo::thread_safety result;
-  
-  arg1 = (pagmoWrap::problemPagomWrapper *)jarg1; 
-  {
-    try {
-      result = (pagmo::thread_safety)((pagmoWrap::problemPagomWrapper const *)arg1)->get_thread_safety();
-    } catch (const std::exception &e) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
-      };
-    } catch (...) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
-      };
-    }
-  }
-  jresult = (int)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT unsigned int SWIGSTDCALL CSharp_pagmo_problemPagomWrapper_has_gradient(void * jarg1) {
-  unsigned int jresult ;
-  pagmoWrap::problemPagomWrapper *arg1 = 0 ;
-  bool result;
-  
-  arg1 = (pagmoWrap::problemPagomWrapper *)jarg1; 
-  {
-    try {
-      result = (bool)((pagmoWrap::problemPagomWrapper const *)arg1)->has_gradient();
-    } catch (const std::exception &e) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
-      };
-    } catch (...) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
-      };
-    }
-  }
-  jresult = result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_problemPagomWrapper_gradient(void * jarg1, void * jarg2) {
-  void * jresult ;
-  pagmoWrap::problemPagomWrapper *arg1 = 0 ;
-  pagmoWrap::vector_double *arg2 = 0 ;
-  pagmoWrap::vector_double result;
-  
-  arg1 = (pagmoWrap::problemPagomWrapper *)jarg1; 
-  arg2 = (pagmoWrap::vector_double *)jarg2;
-  if (!arg2) {
-    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "pagmoWrap::vector_double const & is null", 0);
-    return 0;
-  } 
-  {
-    try {
-      result = ((pagmoWrap::problemPagomWrapper const *)arg1)->gradient((pagmoWrap::vector_double const &)*arg2);
-    } catch (const std::exception &e) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
-      };
-    } catch (...) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
-      };
-    }
-  }
-  jresult = new pagmoWrap::vector_double(result); 
-  return jresult;
-}
-
-
-SWIGEXPORT unsigned int SWIGSTDCALL CSharp_pagmo_problemPagomWrapper_has_gradient_sparsity(void * jarg1) {
-  unsigned int jresult ;
-  pagmoWrap::problemPagomWrapper *arg1 = 0 ;
-  bool result;
-  
-  arg1 = (pagmoWrap::problemPagomWrapper *)jarg1; 
-  {
-    try {
-      result = (bool)((pagmoWrap::problemPagomWrapper const *)arg1)->has_gradient_sparsity();
-    } catch (const std::exception &e) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
-      };
-    } catch (...) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
-      };
-    }
-  }
-  jresult = result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_problemPagomWrapper_gradient_sparsity(void * jarg1) {
-  void * jresult ;
-  pagmoWrap::problemPagomWrapper *arg1 = 0 ;
-  SwigValueWrapper< std::vector< std::pair< size_t,size_t > > > result;
-  
-  arg1 = (pagmoWrap::problemPagomWrapper *)jarg1; 
-  {
-    try {
-      result = ((pagmoWrap::problemPagomWrapper const *)arg1)->gradient_sparsity();
-    } catch (const std::exception &e) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
-      };
-    } catch (...) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
-      };
-    }
-  }
-  jresult = new pagmo::sparsity_pattern(result); 
-  return jresult;
 }
 
 
@@ -9323,102 +8773,6 @@ SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_delete_MigrationEntryVector(void * jarg
 }
 
 
-SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_population__SWIG_0(void * jarg1, unsigned int jarg2, unsigned int jarg3) {
-  void * jresult ;
-  pagmoWrap::problemPagomWrapper arg1 ;
-  pagmo::population::size_type arg2 ;
-  unsigned int arg3 ;
-  pagmoWrap::problemPagomWrapper *argp1 ;
-  pagmo::population *result = 0 ;
-  
-  argp1 = (pagmoWrap::problemPagomWrapper *)jarg1; 
-  if (!argp1) {
-    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "Attempt to dereference null pagmoWrap::problemPagomWrapper", 0);
-    return 0;
-  }
-  arg1 = *argp1; 
-  arg2 = (pagmo::population::size_type)jarg2; 
-  arg3 = (unsigned int)jarg3; 
-  {
-    try {
-      result = (pagmo::population *)new pagmo::population(SWIG_STD_MOVE(arg1),SWIG_STD_MOVE(arg2),arg3);
-    } catch (const std::exception &e) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
-      };
-    } catch (...) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
-      };
-    }
-  }
-  jresult = (void *)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_population__SWIG_1(void * jarg1, unsigned int jarg2) {
-  void * jresult ;
-  pagmoWrap::problemPagomWrapper arg1 ;
-  pagmo::population::size_type arg2 ;
-  pagmoWrap::problemPagomWrapper *argp1 ;
-  pagmo::population *result = 0 ;
-  
-  argp1 = (pagmoWrap::problemPagomWrapper *)jarg1; 
-  if (!argp1) {
-    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "Attempt to dereference null pagmoWrap::problemPagomWrapper", 0);
-    return 0;
-  }
-  arg1 = *argp1; 
-  arg2 = (pagmo::population::size_type)jarg2; 
-  {
-    try {
-      result = (pagmo::population *)new pagmo::population(SWIG_STD_MOVE(arg1),SWIG_STD_MOVE(arg2));
-    } catch (const std::exception &e) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
-      };
-    } catch (...) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
-      };
-    }
-  }
-  jresult = (void *)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_population__SWIG_2(void * jarg1) {
-  void * jresult ;
-  pagmoWrap::problemPagomWrapper arg1 ;
-  pagmoWrap::problemPagomWrapper *argp1 ;
-  pagmo::population *result = 0 ;
-  
-  argp1 = (pagmoWrap::problemPagomWrapper *)jarg1; 
-  if (!argp1) {
-    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "Attempt to dereference null pagmoWrap::problemPagomWrapper", 0);
-    return 0;
-  }
-  arg1 = *argp1; 
-  {
-    try {
-      result = (pagmo::population *)new pagmo::population(SWIG_STD_MOVE(arg1));
-    } catch (const std::exception &e) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
-      };
-    } catch (...) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
-      };
-    }
-  }
-  jresult = (void *)result; 
-  return jresult;
-}
-
-
 SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_population_push_back__SWIG_0(void * jarg1, void * jarg2) {
   pagmo::population *arg1 = 0 ;
   pagmo::vector_double *arg2 = 0 ;
@@ -9792,30 +9146,6 @@ SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_population_set_x(void * jarg1, unsigned
       };
     }
   }
-}
-
-
-SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_population_get_problem(void * jarg1) {
-  void * jresult ;
-  pagmo::population *arg1 = 0 ;
-  pagmoWrap::problemPagomWrapper *result = 0 ;
-  
-  arg1 = (pagmo::population *)jarg1; 
-  {
-    try {
-      result = (pagmoWrap::problemPagomWrapper *) &((pagmo::population const *)arg1)->get_problem();
-    } catch (const std::exception &e) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
-      };
-    } catch (...) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
-      };
-    }
-  }
-  jresult = (void *)result; 
-  return jresult;
 }
 
 
@@ -17703,42 +17033,6 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_default_bfe_get_name(void * jar
 }
 
 
-SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_default_bfe_Operator(void * jarg1, void * jarg2, void * jarg3) {
-  void * jresult ;
-  pagmo::default_bfe *arg1 = 0 ;
-  pagmoWrap::problemPagomWrapper *arg2 = 0 ;
-  pagmo::vector_double *arg3 = 0 ;
-  pagmo::vector_double result;
-  
-  arg1 = (pagmo::default_bfe *)jarg1; 
-  arg2 = (pagmoWrap::problemPagomWrapper *)jarg2;
-  if (!arg2) {
-    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "pagmoWrap::problemPagomWrapper const & is null", 0);
-    return 0;
-  } 
-  arg3 = (pagmo::vector_double *)jarg3;
-  if (!arg3) {
-    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "pagmo::vector_double const & is null", 0);
-    return 0;
-  } 
-  {
-    try {
-      result = pagmo_default_bfe_Operator((pagmo::default_bfe const *)arg1,(pagmoWrap::problemPagomWrapper const &)*arg2,(std::vector< double > const &)*arg3);
-    } catch (const std::exception &e) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
-      };
-    } catch (...) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
-      };
-    }
-  }
-  jresult = new pagmo::vector_double(result); 
-  return jresult;
-}
-
-
 SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_delete_default_bfe(void * jarg1) {
   pagmo::default_bfe *arg1 = 0 ;
   
@@ -17833,42 +17127,6 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_member_bfe_get_name(void * jarg
 }
 
 
-SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_member_bfe_Operator(void * jarg1, void * jarg2, void * jarg3) {
-  void * jresult ;
-  pagmo::member_bfe *arg1 = 0 ;
-  pagmoWrap::problemPagomWrapper *arg2 = 0 ;
-  pagmo::vector_double *arg3 = 0 ;
-  pagmo::vector_double result;
-  
-  arg1 = (pagmo::member_bfe *)jarg1; 
-  arg2 = (pagmoWrap::problemPagomWrapper *)jarg2;
-  if (!arg2) {
-    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "pagmoWrap::problemPagomWrapper const & is null", 0);
-    return 0;
-  } 
-  arg3 = (pagmo::vector_double *)jarg3;
-  if (!arg3) {
-    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "pagmo::vector_double const & is null", 0);
-    return 0;
-  } 
-  {
-    try {
-      result = pagmo_member_bfe_Operator((pagmo::member_bfe const *)arg1,(pagmoWrap::problemPagomWrapper const &)*arg2,(std::vector< double > const &)*arg3);
-    } catch (const std::exception &e) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
-      };
-    } catch (...) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
-      };
-    }
-  }
-  jresult = new pagmo::vector_double(result); 
-  return jresult;
-}
-
-
 SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_delete_member_bfe(void * jarg1) {
   pagmo::member_bfe *arg1 = 0 ;
   
@@ -17959,42 +17217,6 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_thread_bfe_get_name(void * jarg
     }
   }
   jresult = SWIG_csharp_string_callback((&result)->c_str()); 
-  return jresult;
-}
-
-
-SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_thread_bfe_Operator(void * jarg1, void * jarg2, void * jarg3) {
-  void * jresult ;
-  pagmo::thread_bfe *arg1 = 0 ;
-  pagmoWrap::problemPagomWrapper *arg2 = 0 ;
-  pagmo::vector_double *arg3 = 0 ;
-  pagmo::vector_double result;
-  
-  arg1 = (pagmo::thread_bfe *)jarg1; 
-  arg2 = (pagmoWrap::problemPagomWrapper *)jarg2;
-  if (!arg2) {
-    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "pagmoWrap::problemPagomWrapper const & is null", 0);
-    return 0;
-  } 
-  arg3 = (pagmo::vector_double *)jarg3;
-  if (!arg3) {
-    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "pagmo::vector_double const & is null", 0);
-    return 0;
-  } 
-  {
-    try {
-      result = pagmo_thread_bfe_Operator((pagmo::thread_bfe const *)arg1,(pagmoWrap::problemPagomWrapper const &)*arg2,(std::vector< double > const &)*arg3);
-    } catch (const std::exception &e) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
-      };
-    } catch (...) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
-      };
-    }
-  }
-  jresult = new pagmo::vector_double(result); 
   return jresult;
 }
 
@@ -20233,6 +19455,68 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_fair_replace_get_extra_info(voi
 }
 
 
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_fair_replace_replace_wrapped(void * jarg1, void * jarg2, unsigned int jarg3, unsigned int jarg4, unsigned int jarg5, unsigned int jarg6, unsigned int jarg7, void * jarg8, void * jarg9) {
+  void * jresult ;
+  pagmo::fair_replace *arg1 = 0 ;
+  pagmoWrap::IndividualsGroup *arg2 = 0 ;
+  pagmo::vector_double::size_type *arg3 = 0 ;
+  pagmo::vector_double::size_type *arg4 = 0 ;
+  pagmo::vector_double::size_type *arg5 = 0 ;
+  pagmo::vector_double::size_type *arg6 = 0 ;
+  pagmo::vector_double::size_type *arg7 = 0 ;
+  pagmo::vector_double *arg8 = 0 ;
+  pagmoWrap::IndividualsGroup *arg9 = 0 ;
+  pagmo::vector_double::size_type temp3 ;
+  pagmo::vector_double::size_type temp4 ;
+  pagmo::vector_double::size_type temp5 ;
+  pagmo::vector_double::size_type temp6 ;
+  pagmo::vector_double::size_type temp7 ;
+  pagmoWrap::IndividualsGroup result;
+  
+  arg1 = (pagmo::fair_replace *)jarg1; 
+  arg2 = (pagmoWrap::IndividualsGroup *)jarg2;
+  if (!arg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "pagmoWrap::IndividualsGroup const & is null", 0);
+    return 0;
+  } 
+  temp3 = (pagmo::vector_double::size_type)jarg3; 
+  arg3 = &temp3; 
+  temp4 = (pagmo::vector_double::size_type)jarg4; 
+  arg4 = &temp4; 
+  temp5 = (pagmo::vector_double::size_type)jarg5; 
+  arg5 = &temp5; 
+  temp6 = (pagmo::vector_double::size_type)jarg6; 
+  arg6 = &temp6; 
+  temp7 = (pagmo::vector_double::size_type)jarg7; 
+  arg7 = &temp7; 
+  arg8 = (pagmo::vector_double *)jarg8;
+  if (!arg8) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "pagmo::vector_double const & is null", 0);
+    return 0;
+  } 
+  arg9 = (pagmoWrap::IndividualsGroup *)jarg9;
+  if (!arg9) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "pagmoWrap::IndividualsGroup const & is null", 0);
+    return 0;
+  } 
+  {
+    try {
+      result = pagmo_fair_replace_replace_wrapped((pagmo::fair_replace const *)arg1,(pagmoWrap::IndividualsGroup const &)*arg2,(size_t const &)*arg3,(size_t const &)*arg4,(size_t const &)*arg5,(size_t const &)*arg6,(size_t const &)*arg7,(std::vector< double > const &)*arg8,(pagmoWrap::IndividualsGroup const &)*arg9);
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = new pagmoWrap::IndividualsGroup(result); 
+  return jresult;
+}
+
+
 SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_delete_fair_replace(void * jarg1) {
   pagmo::fair_replace *arg1 = 0 ;
   
@@ -20319,6 +19603,62 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_select_best_get_extra_info(void
     }
   }
   jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_select_best_select(void * jarg1, void * jarg2, unsigned int jarg3, unsigned int jarg4, unsigned int jarg5, unsigned int jarg6, unsigned int jarg7, void * jarg8) {
+  void * jresult ;
+  pagmo::select_best *arg1 = 0 ;
+  pagmoWrap::IndividualsGroup *arg2 = 0 ;
+  pagmo::vector_double::size_type *arg3 = 0 ;
+  pagmo::vector_double::size_type *arg4 = 0 ;
+  pagmo::vector_double::size_type *arg5 = 0 ;
+  pagmo::vector_double::size_type *arg6 = 0 ;
+  pagmo::vector_double::size_type *arg7 = 0 ;
+  pagmo::vector_double *arg8 = 0 ;
+  pagmo::vector_double::size_type temp3 ;
+  pagmo::vector_double::size_type temp4 ;
+  pagmo::vector_double::size_type temp5 ;
+  pagmo::vector_double::size_type temp6 ;
+  pagmo::vector_double::size_type temp7 ;
+  pagmoWrap::IndividualsGroup result;
+  
+  arg1 = (pagmo::select_best *)jarg1; 
+  arg2 = (pagmoWrap::IndividualsGroup *)jarg2;
+  if (!arg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "pagmoWrap::IndividualsGroup const & is null", 0);
+    return 0;
+  } 
+  temp3 = (pagmo::vector_double::size_type)jarg3; 
+  arg3 = &temp3; 
+  temp4 = (pagmo::vector_double::size_type)jarg4; 
+  arg4 = &temp4; 
+  temp5 = (pagmo::vector_double::size_type)jarg5; 
+  arg5 = &temp5; 
+  temp6 = (pagmo::vector_double::size_type)jarg6; 
+  arg6 = &temp6; 
+  temp7 = (pagmo::vector_double::size_type)jarg7; 
+  arg7 = &temp7; 
+  arg8 = (pagmo::vector_double *)jarg8;
+  if (!arg8) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "pagmo::vector_double const & is null", 0);
+    return 0;
+  } 
+  {
+    try {
+      result = pagmo_select_best_select((pagmo::select_best const *)arg1,(pagmoWrap::IndividualsGroup const &)*arg2,(size_t const &)*arg3,(size_t const &)*arg4,(size_t const &)*arg5,(size_t const &)*arg6,(size_t const &)*arg7,(std::vector< double > const &)*arg8);
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = new pagmoWrap::IndividualsGroup(result); 
   return jresult;
 }
 

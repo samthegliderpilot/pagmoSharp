@@ -8,13 +8,10 @@ namespace Tests.PagmoSharp.TestProblems
         public abstract double ExpectedOptimalFunctionValue { get; }
         public abstract double[] ExpectedOptimalX { get; }
 
-        protected override void Dispose(bool disposing)
+        public override void Dispose()
         {
-            if (disposing)
-            {
-                //_problem.Dispose();
-                base.Dispose(disposing);
-            }
+            //_problem.Dispose();
+            base.Dispose();
         }
     }
 }

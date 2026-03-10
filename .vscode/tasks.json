@@ -1,0 +1,42 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "pagmoSharp: build native (Debug x64)",
+      "type": "shell",
+      "command": "powershell",
+      "args": [
+        "-NoProfile",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "scripts/build-native.ps1",
+        "-Configuration",
+        "Debug",
+        "-Platform",
+        "x64"
+      ],
+      "group": "build",
+      "problemMatcher": "$msCompile"
+    },
+    {
+      "label": "pagmoSharp: test (Debug x64)",
+      "type": "shell",
+      "command": "powershell",
+      "args": [
+        "-NoProfile",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "scripts/test.ps1",
+        "-Configuration",
+        "Debug"
+      ],
+      "dependsOn": [
+        "pagmoSharp: build native (Debug x64)"
+      ],
+      "group": "test",
+      "problemMatcher": "$msCompile"
+    }
+  ]
+}

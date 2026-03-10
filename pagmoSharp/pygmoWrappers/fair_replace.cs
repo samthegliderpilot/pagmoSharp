@@ -73,6 +73,12 @@ public partial class fair_replace : global::System.IDisposable {
     return ret;
   }
 
+  public IndividualsGroup replace_wrapped(IndividualsGroup a, uint b, uint c, uint d, uint e, uint f, DoubleVector g, IndividualsGroup h) {
+    IndividualsGroup ret = new IndividualsGroup(pagmoPINVOKE.fair_replace_replace_wrapped(swigCPtr, IndividualsGroup.getCPtr(a), b, c, d, e, f, DoubleVector.getCPtr(g), IndividualsGroup.getCPtr(h)), true);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
 }
 
 }

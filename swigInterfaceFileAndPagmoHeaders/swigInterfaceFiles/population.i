@@ -11,7 +11,7 @@ public:
 	template <typename T, generic_ctor_enabler<T> = 0>
 	extern population(T&& x, size_type pop_size = 0u, unsigned seed = pagmo::random_device::next());
 
-	extern population(pagmoWrap::problemPagomWrapper x, size_type pop_size = 0u, unsigned seed = pagmo::random_device::next());
+	//extern population(pagmoWrap::problemPagomWrapper x, size_type pop_size = 0u, unsigned seed = pagmo::random_device::next());
 	extern void push_back(const vector_double&);
 	extern void push_back(const vector_double&, const vector_double&);
 	extern vector_double random_decision_vector() const;
@@ -26,7 +26,7 @@ public:
 	extern size_type size() const;
 	extern void set_xf(size_type, const vector_double&, const vector_double&);
 	extern void set_x(size_type, const vector_double&);
-	extern const pagmoWrap::problemPagomWrapper& get_problem() const;
+	//extern const pagmoWrap::problemPagomWrapper& get_problem() const;
 	extern const std::vector<vector_double>& get_f() const;
 	extern const std::vector<vector_double>& get_x() const;
 	extern const std::vector<unsigned long long>& get_ID() const;

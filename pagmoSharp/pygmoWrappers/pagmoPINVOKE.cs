@@ -297,149 +297,92 @@ class pagmoPINVOKE {
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_delete_MigrationEntry")]
   public static extern void delete_MigrationEntry(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_delete_problemBase")]
-  public static extern void delete_problemBase(global::System.Runtime.InteropServices.HandleRef jarg1);
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_delete_problem_callback")]
+  public static extern void delete_problem_callback(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_problemBase_fitness")]
-  public static extern global::System.IntPtr problemBase_fitness(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_problem_callback_fitness")]
+  public static extern global::System.IntPtr problem_callback_fitness(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_problemBase_fitnessSwigExplicitproblemBase")]
-  public static extern global::System.IntPtr problemBase_fitnessSwigExplicitproblemBase(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_problem_callback_get_bounds")]
+  public static extern global::System.IntPtr problem_callback_get_bounds(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_problemBase_get_bounds")]
-  public static extern global::System.IntPtr problemBase_get_bounds(global::System.Runtime.InteropServices.HandleRef jarg1);
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_problem_callback_get_name")]
+  public static extern string problem_callback_get_name(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_problemBase_get_boundsSwigExplicitproblemBase")]
-  public static extern global::System.IntPtr problemBase_get_boundsSwigExplicitproblemBase(global::System.Runtime.InteropServices.HandleRef jarg1);
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_problem_callback_get_nameSwigExplicitproblem_callback")]
+  public static extern string problem_callback_get_nameSwigExplicitproblem_callback(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_problemBase_has_batch_fitness")]
-  public static extern bool problemBase_has_batch_fitness(global::System.Runtime.InteropServices.HandleRef jarg1);
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_problem_callback_get_nobj")]
+  public static extern uint problem_callback_get_nobj(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_problemBase_has_batch_fitnessSwigExplicitproblemBase")]
-  public static extern bool problemBase_has_batch_fitnessSwigExplicitproblemBase(global::System.Runtime.InteropServices.HandleRef jarg1);
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_problem_callback_get_nobjSwigExplicitproblem_callback")]
+  public static extern uint problem_callback_get_nobjSwigExplicitproblem_callback(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_problemBase_get_name")]
-  public static extern string problemBase_get_name(global::System.Runtime.InteropServices.HandleRef jarg1);
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_problem_callback_get_nec")]
+  public static extern uint problem_callback_get_nec(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_problemBase_get_nameSwigExplicitproblemBase")]
-  public static extern string problemBase_get_nameSwigExplicitproblemBase(global::System.Runtime.InteropServices.HandleRef jarg1);
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_problem_callback_get_necSwigExplicitproblem_callback")]
+  public static extern uint problem_callback_get_necSwigExplicitproblem_callback(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_problemBase_get_nobj")]
-  public static extern uint problemBase_get_nobj(global::System.Runtime.InteropServices.HandleRef jarg1);
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_problem_callback_get_nic")]
+  public static extern uint problem_callback_get_nic(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_problemBase_get_nobjSwigExplicitproblemBase")]
-  public static extern uint problemBase_get_nobjSwigExplicitproblemBase(global::System.Runtime.InteropServices.HandleRef jarg1);
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_problem_callback_get_nicSwigExplicitproblem_callback")]
+  public static extern uint problem_callback_get_nicSwigExplicitproblem_callback(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_problemBase_get_nec")]
-  public static extern uint problemBase_get_nec(global::System.Runtime.InteropServices.HandleRef jarg1);
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_problem_callback_get_nix")]
+  public static extern uint problem_callback_get_nix(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_problemBase_get_necSwigExplicitproblemBase")]
-  public static extern uint problemBase_get_necSwigExplicitproblemBase(global::System.Runtime.InteropServices.HandleRef jarg1);
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_problem_callback_get_nixSwigExplicitproblem_callback")]
+  public static extern uint problem_callback_get_nixSwigExplicitproblem_callback(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_problemBase_get_nic")]
-  public static extern uint problemBase_get_nic(global::System.Runtime.InteropServices.HandleRef jarg1);
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_problem_callback_get_thread_safety")]
+  public static extern int problem_callback_get_thread_safety(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_problemBase_get_nicSwigExplicitproblemBase")]
-  public static extern uint problemBase_get_nicSwigExplicitproblemBase(global::System.Runtime.InteropServices.HandleRef jarg1);
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_problem_callback_get_thread_safetySwigExplicitproblem_callback")]
+  public static extern int problem_callback_get_thread_safetySwigExplicitproblem_callback(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_problemBase_get_nix")]
-  public static extern uint problemBase_get_nix(global::System.Runtime.InteropServices.HandleRef jarg1);
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_new_problem_callback")]
+  public static extern global::System.IntPtr new_problem_callback();
 
-  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_problemBase_get_nixSwigExplicitproblemBase")]
-  public static extern uint problemBase_get_nixSwigExplicitproblemBase(global::System.Runtime.InteropServices.HandleRef jarg1);
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_problem_callback_director_connect")]
+  public static extern void problem_callback_director_connect(global::System.Runtime.InteropServices.HandleRef jarg1, problem_callback.SwigDelegateproblem_callback_0 delegate0, problem_callback.SwigDelegateproblem_callback_1 delegate1, problem_callback.SwigDelegateproblem_callback_2 delegate2, problem_callback.SwigDelegateproblem_callback_3 delegate3, problem_callback.SwigDelegateproblem_callback_4 delegate4, problem_callback.SwigDelegateproblem_callback_5 delegate5, problem_callback.SwigDelegateproblem_callback_6 delegate6, problem_callback.SwigDelegateproblem_callback_7 delegate7);
 
-  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_problemBase_get_thread_safety")]
-  public static extern int problemBase_get_thread_safety(global::System.Runtime.InteropServices.HandleRef jarg1);
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_new_managed_problem__SWIG_0")]
+  public static extern global::System.IntPtr new_managed_problem__SWIG_0();
 
-  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_problemBase_get_thread_safetySwigExplicitproblemBase")]
-  public static extern int problemBase_get_thread_safetySwigExplicitproblemBase(global::System.Runtime.InteropServices.HandleRef jarg1);
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_new_managed_problem__SWIG_1")]
+  public static extern global::System.IntPtr new_managed_problem__SWIG_1(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_problemBase_has_gradient")]
-  public static extern bool problemBase_has_gradient(global::System.Runtime.InteropServices.HandleRef jarg1);
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_new_managed_problem__SWIG_2")]
+  public static extern global::System.IntPtr new_managed_problem__SWIG_2(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_problemBase_has_gradientSwigExplicitproblemBase")]
-  public static extern bool problemBase_has_gradientSwigExplicitproblemBase(global::System.Runtime.InteropServices.HandleRef jarg1);
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_managed_problem_fitness")]
+  public static extern global::System.IntPtr managed_problem_fitness(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_problemBase_gradient")]
-  public static extern global::System.IntPtr problemBase_gradient(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_managed_problem_get_bounds")]
+  public static extern global::System.IntPtr managed_problem_get_bounds(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_problemBase_gradientSwigExplicitproblemBase")]
-  public static extern global::System.IntPtr problemBase_gradientSwigExplicitproblemBase(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_managed_problem_get_name")]
+  public static extern string managed_problem_get_name(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_problemBase_has_gradient_sparsity")]
-  public static extern bool problemBase_has_gradient_sparsity(global::System.Runtime.InteropServices.HandleRef jarg1);
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_managed_problem_get_nobj")]
+  public static extern uint managed_problem_get_nobj(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_problemBase_has_gradient_sparsitySwigExplicitproblemBase")]
-  public static extern bool problemBase_has_gradient_sparsitySwigExplicitproblemBase(global::System.Runtime.InteropServices.HandleRef jarg1);
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_managed_problem_get_nec")]
+  public static extern uint managed_problem_get_nec(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_problemBase_gradient_sparsity")]
-  public static extern global::System.IntPtr problemBase_gradient_sparsity(global::System.Runtime.InteropServices.HandleRef jarg1);
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_managed_problem_get_nic")]
+  public static extern uint managed_problem_get_nic(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_problemBase_gradient_sparsitySwigExplicitproblemBase")]
-  public static extern global::System.IntPtr problemBase_gradient_sparsitySwigExplicitproblemBase(global::System.Runtime.InteropServices.HandleRef jarg1);
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_managed_problem_get_nix")]
+  public static extern uint managed_problem_get_nix(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_new_problemBase")]
-  public static extern global::System.IntPtr new_problemBase();
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_managed_problem_get_thread_safety")]
+  public static extern int managed_problem_get_thread_safety(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_problemBase_director_connect")]
-  public static extern void problemBase_director_connect(global::System.Runtime.InteropServices.HandleRef jarg1, problemBase.SwigDelegateproblemBase_0 delegate0, problemBase.SwigDelegateproblemBase_1 delegate1, problemBase.SwigDelegateproblemBase_2 delegate2, problemBase.SwigDelegateproblemBase_3 delegate3, problemBase.SwigDelegateproblemBase_4 delegate4, problemBase.SwigDelegateproblemBase_5 delegate5, problemBase.SwigDelegateproblemBase_6 delegate6, problemBase.SwigDelegateproblemBase_7 delegate7, problemBase.SwigDelegateproblemBase_8 delegate8, problemBase.SwigDelegateproblemBase_9 delegate9, problemBase.SwigDelegateproblemBase_10 delegate10, problemBase.SwigDelegateproblemBase_11 delegate11, problemBase.SwigDelegateproblemBase_12 delegate12);
-
-  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_new_problemPagomWrapper__SWIG_0")]
-  public static extern global::System.IntPtr new_problemPagomWrapper__SWIG_0();
-
-  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_new_problemPagomWrapper__SWIG_1")]
-  public static extern global::System.IntPtr new_problemPagomWrapper__SWIG_1(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_new_problemPagomWrapper__SWIG_2")]
-  public static extern global::System.IntPtr new_problemPagomWrapper__SWIG_2(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_delete_problemPagomWrapper")]
-  public static extern void delete_problemPagomWrapper(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_problemPagomWrapper_setBaseProblem")]
-  public static extern void problemPagomWrapper_setBaseProblem(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
-
-  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_problemPagomWrapper_getBaseProblem")]
-  public static extern global::System.IntPtr problemPagomWrapper_getBaseProblem(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_problemPagomWrapper_fitness")]
-  public static extern global::System.IntPtr problemPagomWrapper_fitness(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
-
-  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_problemPagomWrapper_get_bounds")]
-  public static extern global::System.IntPtr problemPagomWrapper_get_bounds(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_problemPagomWrapper_has_batch_fitness")]
-  public static extern bool problemPagomWrapper_has_batch_fitness(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_problemPagomWrapper_get_name")]
-  public static extern string problemPagomWrapper_get_name(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_problemPagomWrapper_get_nobj")]
-  public static extern uint problemPagomWrapper_get_nobj(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_problemPagomWrapper_get_nec")]
-  public static extern uint problemPagomWrapper_get_nec(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_problemPagomWrapper_get_nic")]
-  public static extern uint problemPagomWrapper_get_nic(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_problemPagomWrapper_get_nix")]
-  public static extern uint problemPagomWrapper_get_nix(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_problemPagomWrapper_get_thread_safety")]
-  public static extern int problemPagomWrapper_get_thread_safety(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_problemPagomWrapper_has_gradient")]
-  public static extern bool problemPagomWrapper_has_gradient(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_problemPagomWrapper_gradient")]
-  public static extern global::System.IntPtr problemPagomWrapper_gradient(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
-
-  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_problemPagomWrapper_has_gradient_sparsity")]
-  public static extern bool problemPagomWrapper_has_gradient_sparsity(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_problemPagomWrapper_gradient_sparsity")]
-  public static extern global::System.IntPtr problemPagomWrapper_gradient_sparsity(global::System.Runtime.InteropServices.HandleRef jarg1);
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_delete_managed_problem")]
+  public static extern void delete_managed_problem(global::System.Runtime.InteropServices.HandleRef jarg1);
 
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_delete_r_policyBase")]
   public static extern void delete_r_policyBase(global::System.Runtime.InteropServices.HandleRef jarg1);
@@ -1086,15 +1029,6 @@ class pagmoPINVOKE {
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_delete_MigrationEntryVector")]
   public static extern void delete_MigrationEntryVector(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_new_population__SWIG_0")]
-  public static extern global::System.IntPtr new_population__SWIG_0(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2, uint jarg3);
-
-  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_new_population__SWIG_1")]
-  public static extern global::System.IntPtr new_population__SWIG_1(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2);
-
-  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_new_population__SWIG_2")]
-  public static extern global::System.IntPtr new_population__SWIG_2(global::System.Runtime.InteropServices.HandleRef jarg1);
-
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_population_push_back__SWIG_0")]
   public static extern void population_push_back__SWIG_0(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
 
@@ -1136,9 +1070,6 @@ class pagmoPINVOKE {
 
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_population_set_x")]
   public static extern void population_set_x(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
-
-  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_population_get_problem")]
-  public static extern global::System.IntPtr population_get_problem(global::System.Runtime.InteropServices.HandleRef jarg1);
 
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_population_get_f")]
   public static extern global::System.IntPtr population_get_f(global::System.Runtime.InteropServices.HandleRef jarg1);
@@ -2010,9 +1941,6 @@ class pagmoPINVOKE {
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_default_bfe_get_name")]
   public static extern string default_bfe_get_name(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_default_bfe_Operator")]
-  public static extern global::System.IntPtr default_bfe_Operator(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
-
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_delete_default_bfe")]
   public static extern void delete_default_bfe(global::System.Runtime.InteropServices.HandleRef jarg1);
 
@@ -2025,9 +1953,6 @@ class pagmoPINVOKE {
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_member_bfe_get_name")]
   public static extern string member_bfe_get_name(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_member_bfe_Operator")]
-  public static extern global::System.IntPtr member_bfe_Operator(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
-
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_delete_member_bfe")]
   public static extern void delete_member_bfe(global::System.Runtime.InteropServices.HandleRef jarg1);
 
@@ -2039,9 +1964,6 @@ class pagmoPINVOKE {
 
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_thread_bfe_get_name")]
   public static extern string thread_bfe_get_name(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_thread_bfe_Operator")]
-  public static extern global::System.IntPtr thread_bfe_Operator(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
 
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_delete_thread_bfe")]
   public static extern void delete_thread_bfe(global::System.Runtime.InteropServices.HandleRef jarg1);
@@ -2322,6 +2244,9 @@ class pagmoPINVOKE {
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_fair_replace_get_extra_info")]
   public static extern string fair_replace_get_extra_info(global::System.Runtime.InteropServices.HandleRef jarg1);
 
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_fair_replace_replace_wrapped")]
+  public static extern global::System.IntPtr fair_replace_replace_wrapped(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2, uint jarg3, uint jarg4, uint jarg5, uint jarg6, uint jarg7, global::System.Runtime.InteropServices.HandleRef jarg8, global::System.Runtime.InteropServices.HandleRef jarg9);
+
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_delete_fair_replace")]
   public static extern void delete_fair_replace(global::System.Runtime.InteropServices.HandleRef jarg1);
 
@@ -2333,6 +2258,9 @@ class pagmoPINVOKE {
 
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_select_best_get_extra_info")]
   public static extern string select_best_get_extra_info(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_select_best_select")]
+  public static extern global::System.IntPtr select_best_select(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2, uint jarg3, uint jarg4, uint jarg5, uint jarg6, uint jarg7, global::System.Runtime.InteropServices.HandleRef jarg8);
 
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_delete_select_best")]
   public static extern void delete_select_best(global::System.Runtime.InteropServices.HandleRef jarg1);

@@ -5,7 +5,7 @@
 %}
 
 %typemap(csclassmodifiers) pagmo::zdt "public partial class"
-class zdt : public pagmo::problem, public pagmoWrapper::problemBase {
+class zdt {
 public:
     extern zdt(unsigned prob_id = 1u, unsigned param = 30u);
     extern vector_double fitness(const vector_double&) const;

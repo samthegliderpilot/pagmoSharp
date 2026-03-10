@@ -5,7 +5,7 @@
 %}
 
 %typemap(csclassmodifiers) pagmo::ackley "public partial class"
-class ackley : public pagmo::problem, public pagmoWrapper::problemBase {
+class ackley {
 public:
     
     extern ackley(unsigned dim = 1u);

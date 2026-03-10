@@ -38,7 +38,7 @@ public:
 // ------------------------------------------------------------
 // SWIG-safe wrapper for tuple-based select()
 // ------------------------------------------------------------
-%extend pagmo::select_best {
+%extend select_best {
 
     pagmoWrap::IndividualsGroup select(
         const pagmoWrap::IndividualsGroup &a,

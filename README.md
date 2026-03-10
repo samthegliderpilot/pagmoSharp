@@ -34,3 +34,32 @@ True, but they don't have to.  These tests need to only test the wrappers; they 
 I need to learn how to build pagmo2 completely locally first, I'm using vcpkg to get a nlopt binary and it doesn't include IPOPT.
 
 Also, this is made completely independently of the base pagmo and the team that makes and maintains it.  This is independent of ESA and the original developers of pagmo.
+
+## VS Code workflow
+
+Repo now includes VS Code tasks/launch config in `.vscode/`:
+
+- `pagmoSharp: build native (Debug x64)`
+- `pagmoSharp: build tests (Debug x64)`
+- `pagmoSharp: test (Debug x64)`
+
+Native build task uses `scripts/build-native.ps1` and finds `MSBuild.exe` via `vswhere`.
+
+### Requirements for local VS Code test runs
+
+- Visual Studio Build Tools 2022 (or VS 2022) with MSBuild + C++ toolchain
+- .NET SDK (net6-targeting project; newer SDKs also work)
+- NuGet connectivity
+- `pagmo2` headers/libs available at paths configured in `pagmoWrapper/pagmoWrapper.vcxproj`
+
+## Managed problem architecture (C# UDP support)
+
+The core C# problem pipeline is:
+
+1. User implements `IProblem` / `problemBase` in C#
+2. A SWIG director adapter (`problem_callback`) forwards calls to managed code
+3. Native bridge wraps callback into `managed_problem` (`std::shared_ptr` owned)
+4. A real `pagmo::problem` is built from `managed_problem`
+5. `population`, `archipelago`, and BFE operator helpers consume that `pagmo::problem`
+
+This keeps ownership on the native side with `shared_ptr`, avoiding raw-pointer lifetime bugs for managed UDPs.

@@ -124,8 +124,8 @@
       <OutputFile>$(SolutionDir)\$(ProjectName)\bin\$(TargetName)$(TargetExt)</OutputFile>
     </Link>
     <PreBuildEvent>
-      <Command>cd $(SolutionDir)
-createSwigWrappersAndPlaceThem.bat
+      <Command>cd $(ProjectDir)..\
+call "$(ProjectDir)..\createSwigWrappersAndPlaceThem.bat"
 </Command>
     </PreBuildEvent>
     <PostBuildEvent>
@@ -154,8 +154,8 @@ createSwigWrappersAndPlaceThem.bat
       <OutputFile>$(SolutionDir)\$(ProjectName)\bin\$(TargetName)$(TargetExt)</OutputFile>
     </Link>
     <PreBuildEvent>
-      <Command>cd $(SolutionDir)
-createSwigWrappersAndPlaceThem.bat
+      <Command>cd $(ProjectDir)..\
+call "$(ProjectDir)..\createSwigWrappersAndPlaceThem.bat"
 </Command>
     </PreBuildEvent>
     <PostBuildEvent>
@@ -183,8 +183,8 @@ createSwigWrappersAndPlaceThem.bat
       </AdditionalLibraryDirectories>
     </Link>
     <PreBuildEvent>
-      <Command>cd $(SolutionDir)
-createSwigWrappersAndPlaceThem.bat</Command>
+      <Command>cd $(ProjectDir)..\
+call "$(ProjectDir)..\createSwigWrappersAndPlaceThem.bat"</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -208,12 +208,13 @@ createSwigWrappersAndPlaceThem.bat</Command>
       <OutputFile>$(SolutionDir)\$(ProjectName)\bin\$(TargetName)$(TargetExt)</OutputFile>
     </Link>
     <PreBuildEvent>
-      <Command>cd $(SolutionDir)
-createSwigWrappersAndPlaceThem.bat</Command>
+      <Command>cd $(ProjectDir)..\
+call "$(ProjectDir)..\createSwigWrappersAndPlaceThem.bat"</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="GeneratedWrappers.cxx" />
+    <ClCompile Include="managed_bridge.cpp" />
     <ClCompile Include="nloptGenerated.cxx" />
   </ItemGroup>
   <ItemGroup>

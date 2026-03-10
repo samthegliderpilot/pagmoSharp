@@ -6,7 +6,7 @@
 
 %typemap(csclassmodifiers) pagmo::inventory "public partial class"
 
-class inventory : public pagmo::problem, public pagmoWrapper::problemBase {
+class inventory {
 public:
     extern inventory(unsigned weeks = 4u, unsigned sample_size = 10u, unsigned seed = pagmo::random_device::next())
         : m_weeks(weeks), m_sample_size(sample_size), m_e(seed), m_seed(seed);

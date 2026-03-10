@@ -1,0 +1,23 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "PagmoSharp: Debug Tests",
+      "type": "coreclr",
+      "request": "launch",
+      "program": "powershell",
+      "args": [
+        "-NoProfile",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "scripts/test.ps1",
+        "-Configuration",
+        "Debug"
+      ],
+      "cwd": "${workspaceFolder}",
+      "preLaunchTask": "pagmoSharp: build native (Debug x64)",
+      "console": "integratedTerminal"
+    }
+  ]
+}

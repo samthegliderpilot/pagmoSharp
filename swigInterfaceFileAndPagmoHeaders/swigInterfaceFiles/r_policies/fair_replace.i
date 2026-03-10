@@ -34,7 +34,7 @@ public:
 };
 
 // Add a SWIG-safe wrapper for the tuple-based method.
-%extend pagmo::fair_replace {
+%extend fair_replace {
 
     pagmoWrap::IndividualsGroup replace_wrapped(
         const pagmoWrap::IndividualsGroup &a,

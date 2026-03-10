@@ -6,7 +6,7 @@
 
 %typemap(csclassmodifiers) pagmo::golomb_ruler "public partial class"
 
-class golomb_ruler : public pagmo::problem, public pagmoWrapper::problemBase {
+class golomb_ruler {
 public:
 	extern golomb_ruler(unsigned order = 3u, unsigned upper_bound = 10);
 

@@ -61,12 +61,6 @@ public partial class thread_bfe : bfe {
     return ret;
   }
 
-  public DoubleVector Operator(problemPagomWrapper theProblem, DoubleVector values) {
-    DoubleVector ret = new DoubleVector(pagmoPINVOKE.thread_bfe_Operator(swigCPtr, problemPagomWrapper.getCPtr(theProblem), DoubleVector.getCPtr(values)), true);
-    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
-    return ret;
-  }
-
 }
 
 }

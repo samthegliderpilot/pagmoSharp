@@ -73,6 +73,12 @@ public partial class select_best : global::System.IDisposable {
     return ret;
   }
 
+  public IndividualsGroup select(IndividualsGroup a, uint b, uint c, uint d, uint e, uint f, DoubleVector g) {
+    IndividualsGroup ret = new IndividualsGroup(pagmoPINVOKE.select_best_select(swigCPtr, IndividualsGroup.getCPtr(a), b, c, d, e, f, DoubleVector.getCPtr(g)), true);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
 }
 
 }

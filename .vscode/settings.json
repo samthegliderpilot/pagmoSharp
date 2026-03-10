@@ -1,0 +1,13 @@
+{
+  "dotnet.defaultSolution": "pagmoSharp.sln",
+  "files.exclude": {
+    "**/bin": true,
+    "**/obj": true,
+    "**/Intermediate": true
+  },
+  "search.exclude": {
+    "**/bin": true,
+    "**/obj": true,
+    "**/Intermediate": true
+  }
+}

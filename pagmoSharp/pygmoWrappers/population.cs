@@ -57,18 +57,6 @@ public partial class population : global::System.IDisposable {
     }
   }
 
-  public population(problemPagomWrapper x, uint pop_size, uint seed) : this(pagmoPINVOKE.new_population__SWIG_0(problemPagomWrapper.getCPtr(x), pop_size, seed), true) {
-    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
-  }
-
-  public population(problemPagomWrapper x, uint pop_size) : this(pagmoPINVOKE.new_population__SWIG_1(problemPagomWrapper.getCPtr(x), pop_size), true) {
-    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
-  }
-
-  public population(problemPagomWrapper x) : this(pagmoPINVOKE.new_population__SWIG_2(problemPagomWrapper.getCPtr(x)), true) {
-    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
-  }
-
   public void push_back(DoubleVector arg0) {
     pagmoPINVOKE.population_push_back__SWIG_0(swigCPtr, DoubleVector.getCPtr(arg0));
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
@@ -147,12 +135,6 @@ public partial class population : global::System.IDisposable {
   public void set_x(uint arg0, DoubleVector arg1) {
     pagmoPINVOKE.population_set_x(swigCPtr, arg0, DoubleVector.getCPtr(arg1));
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
-  }
-
-  public problemPagomWrapper get_problem() {
-    problemPagomWrapper ret = new problemPagomWrapper(pagmoPINVOKE.population_get_problem(swigCPtr), false);
-    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
-    return ret;
   }
 
   public VectorOfVectorOfDoubles get_f() {

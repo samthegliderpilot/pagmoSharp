@@ -41,6 +41,7 @@
 %include "pagmoWrapper/tuple_adapters.h"
 
 
+%include <std_shared_ptr.i>
 %include "std_string.i"
 %include "std_vector.i"
 %include "std_pair.i"
@@ -50,11 +51,13 @@
 // there is a C# implicit operator to convert from problem to problemBase by calling getBaseProblem on 
 // the wrapper (problem).  Hence the partial class here
 %pragma(csharp) moduleclassmodifiers = "public partial class"
-%typemap(csclassmodifiers) pagmoWrap::problemPagomWrapper "public partial class"
-%typemap(csclassmodifiers) pagmoWrap::problemBase "public partial class"
+%typemap(csclassmodifiers) pagmoWrap::problem_callback "public partial class"
+%typemap(csclassmodifiers) pagmoWrap::managed_problem "public partial class"
+
 %typemap(csclassmodifiers) std::vector <double> "public partial class"
-%feature("director") pagmoWrap::problemBase;
+%feature("director") pagmoWrap::problem_callback;
 %include "pagmoWrapper/problem.h"
+%shared_ptr(pagmoWrap::problem_callback);
 
 %feature("director") pagmoWrap::r_policyBase;
 %include "pagmoWrapper/r_policy.h"
@@ -98,9 +101,6 @@
 %include "pagmoWrapper/multi_objective.h"
 //#include <tuple> // tuple is not supported by swig yet...
 %apply void *VOID_INT_PTR { void * }
-
-%include "std_vector.i"
-%include "std_pair.i"    // (you already use std::pair templates)
 %include "pagmoWrapper/tuple_adapters.h"
 
 // ------------------------------------------------------------
@@ -137,26 +137,26 @@ namespace pagmo {
 
 	enum class thread_safety { none, basic, constant };
 
-	%extend default_bfe{
-	vector_double Operator(const pagmoWrap::problemPagomWrapper& theProblem, const vector_double & values) const
-	{
-	   return self->operator()(static_cast<pagmo::problem>(theProblem), values);
-	}
-	};
+	//%extend default_bfe{
+	//vector_double Operator(const pagmoWrap::problemPagomWrapper& theProblem, const vector_double & values) const
+	//{
+	//   return self->operator()(static_cast<pagmo::problem>(theProblem), values);
+	//}
+	//};
 
-	%extend member_bfe{
-	vector_double Operator(const pagmoWrap::problemPagomWrapper& theProblem, const vector_double & values) const
-	{
-	   return self->operator()(static_cast<pagmo::problem>(theProblem), values);
-	}
-	};
+	//%extend member_bfe{
+	//vector_double Operator(const pagmoWrap::problemPagomWrapper& theProblem, const vector_double & values) const
+	//{
+	//   return self->operator()(static_cast<pagmo::problem>(theProblem), values);
+	//}
+	//};
 
-	%extend thread_bfe{
-	vector_double Operator(const pagmoWrap::problemPagomWrapper& theProblem, const vector_double & values) const
-	{
-	   return self->operator()(static_cast<pagmo::problem>(theProblem), values);
-	}
-	};
+	//%extend thread_bfe{
+	//vector_double Operator(const pagmoWrap::problemPagomWrapper& theProblem, const vector_double & values) const
+	//{
+	//   return self->operator()(static_cast<pagmo::problem>(theProblem), values);
+	//}
+	//};
 
 
 

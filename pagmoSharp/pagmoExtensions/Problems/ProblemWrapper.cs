@@ -65,14 +65,16 @@
         }
 
         /// <inheritdoc />
-        protected override void Dispose(bool disposing)
+        public override void Dispose()
         {
-            if (disposing && !_disposed)
+            if (_disposed)
             {
-                _disposed = true;
-                base.Dispose(disposing);
-                WrappedProblem.Dispose();
+                return;
             }
+
+            _disposed = true;
+            WrappedProblem.Dispose();
+            base.Dispose();
         }
 
         /// <inheritdoc />

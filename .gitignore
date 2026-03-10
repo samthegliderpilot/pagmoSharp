@@ -8,7 +8,8 @@ v16
 .vs
 __pycache__
 .ipynb_checkpoints
-*/Intermediate*
+*Intermediate*
+*intermediate*
 pagmoWrapper/Intermediate/*
 *.dll
 *.pdb

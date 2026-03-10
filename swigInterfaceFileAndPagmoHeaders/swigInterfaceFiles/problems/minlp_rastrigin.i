@@ -5,7 +5,7 @@
 %}
 
 %typemap(csclassmodifiers) pagmo::minlp_rastrigin "public partial class"
-class minlp_rastrigin : public pagmo::problem, public pagmoWrapper::problemBase {
+class minlp_rastrigin {
 public:
     extern minlp_rastrigin(unsigned dim_c = 1u, unsigned dim_i = 1u);
     extern vector_double fitness(const vector_double&) const;
