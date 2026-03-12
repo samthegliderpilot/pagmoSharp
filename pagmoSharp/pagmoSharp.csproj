@@ -6,6 +6,7 @@
     <Platforms>x64</Platforms>
     <ApplicationIcon />
     <StartupObject />
+    <PagmoWrapperBinDir>$([System.IO.Path]::GetFullPath('$(MSBuildProjectDirectory)\..\pagmoWrapper\bin'))</PagmoWrapperBinDir>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -16,6 +17,9 @@
     <Compile Remove="cPlusPlusFiles\**" />
     <EmbeddedResource Remove="cPlusPlusFiles\**" />
     <None Remove="cPlusPlusFiles\**" />
+    <Compile Remove="obj\**;bin\**" />
+    <EmbeddedResource Remove="obj\**;bin\**" />
+    <None Remove="obj\**;bin\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -25,8 +29,8 @@
     <Folder Include="pygmoWrappers\" />
   </ItemGroup>
 
-  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="xcopy /Y &quot;$(SolutionDir)\pagmoWrapper\bin&quot; &quot;$(TargetDir)&quot;" />
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent" Condition="Exists('$(PagmoWrapperBinDir)')">
+    <Exec Command="xcopy /Y /I /E &quot;$(PagmoWrapperBinDir)\*&quot; &quot;$(TargetDir)&quot;" />
   </Target>
 
 </Project>

@@ -6,14 +6,12 @@ namespace Tests.PagmoSharp.Algorithms
     [TestFixture]
     public class Test_de_managed_problem_pipeline
     {
-        private sealed class SeedableBatchProblem : problemBase
+        private sealed class DeterministicBatchProblem : problemBase
         {
             private readonly DoubleVector _lb = new(new[] { -10.0, -10.0 });
             private readonly DoubleVector _ub = new(new[] { 10.0, 10.0 });
 
-            public uint LastSeed { get; private set; }
-
-            public override string get_name() => "SeedableBatchProblem";
+            public override string get_name() => "DeterministicBatchProblem";
             public override string get_extra_info() => "Managed pipeline test UDP";
             public override PairOfDoubleVectors get_bounds() => new(_lb, _ub);
             public override thread_safety get_thread_safety() => thread_safety.constant;
@@ -48,23 +46,16 @@ namespace Tests.PagmoSharp.Algorithms
             {
                 return new DoubleVector(new[] { 2.0 * x[0], 2.0 * x[1] - 6.0 });
             }
-
-            public override bool has_set_seed() => true;
-
-            public override void set_seed(uint seed)
-            {
-                LastSeed = seed;
-            }
         }
 
         [Test]
         public void ManagedProblemExposesProblemSurface()
         {
-            using var managed = new SeedableBatchProblem();
+            using var managed = new DeterministicBatchProblem();
             using var prob = new problem(managed);
 
             Assert.IsTrue(prob.is_valid());
-            Assert.AreEqual("SeedableBatchProblem", prob.get_name());
+            Assert.AreEqual("DeterministicBatchProblem", prob.get_name());
             Assert.AreEqual("Managed pipeline test UDP", prob.get_extra_info());
             Assert.AreEqual(thread_safety.constant, prob.get_thread_safety());
 
@@ -78,7 +69,7 @@ namespace Tests.PagmoSharp.Algorithms
             Assert.IsTrue(prob.has_batch_fitness());
             Assert.IsTrue(prob.has_gradient());
             Assert.IsFalse(prob.has_hessians());
-            Assert.IsTrue(prob.has_set_seed());
+            Assert.IsFalse(prob.has_set_seed());
 
             using var x = new DoubleVector(new[] { 1.0, 3.0 });
             using var f = prob.fitness(x);
@@ -96,9 +87,6 @@ namespace Tests.PagmoSharp.Algorithms
             Assert.AreEqual(1.0, batchF[0], 1e-12);
             Assert.AreEqual(4.0, batchF[1], 1e-12);
 
-            prob.set_seed(123u);
-            Assert.AreEqual(123u, managed.LastSeed);
-
             prob.set_c_tol(1e-6);
             using var cTol = prob.get_c_tol();
             Assert.AreEqual(0, cTol.Count);
@@ -112,7 +100,7 @@ namespace Tests.PagmoSharp.Algorithms
         [Test]
         public void DeEvolvesPopulationFromManagedProblemWrapper()
         {
-            using var managed = new SeedableBatchProblem();
+            using var managed = new DeterministicBatchProblem();
             using var prob = new problem(managed);
             using var algo = new de(80);
             using var pop = new population(prob, 128u, 2u);

@@ -164,9 +164,8 @@ namespace Tests.PagmoSharp.Algorithms
             //TODO: Need a unconstrained version of this test method
 
             using var problemBase = new golomb_ruler();
-            var problemBase2 = new ProblemWrapper(problemBase);
             using (var algorithm = CreateAlgorithm())
-            using (var pop = new population(problemBase2, 1024))
+            using (var pop = new population(problemBase, 1024))
             {
                 algorithm.set_seed(2); // for consistent results
 
@@ -194,9 +193,8 @@ namespace Tests.PagmoSharp.Algorithms
             //TODO: Need a unconstrained version of this test method
 
             using var problemBase = new minlp_rastrigin(2, 2);
-            var problemBase2 = new ProblemWrapper(problemBase);
             using (var algorithm = CreateAlgorithm())
-            using (var pop = new population(problemBase2, 10000))
+            using (var pop = new population(problemBase, 10000))
             {
                 algorithm.set_seed(2); // for consistent results
 
@@ -223,9 +221,8 @@ namespace Tests.PagmoSharp.Algorithms
                 return; // pass, unsupported
             }
             using var problemBase = new zdt(1);
-            var problemBase2 = new ProblemWrapper(problemBase);
             using (var algorithm = CreateAlgorithm())
-            using (var pop = new population(problemBase2, 512))
+            using (var pop = new population(problemBase, 512))
             {
                 algorithm.set_seed(2); // for consistent results
 

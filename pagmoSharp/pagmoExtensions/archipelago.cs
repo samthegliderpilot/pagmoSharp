@@ -37,6 +37,7 @@ namespace pagmo
 
         public ulong push_back_island(algorithm algo, IProblem prob, ulong popSize, uint seed)
         {
+            prob.throwIfNotThreadSafe();
             var problemPtr = NativeInterop.CreateProblemPointer(prob);
             try
             {

@@ -6,7 +6,7 @@ namespace pagmo
     {
         public DoubleVector Operator(IProblem problem, DoubleVector batchX)
         {
-            return BfeBridge.BatchEvaluate(problem, batchX, NativeInterop.default_bfe_operator, getCPtr(this).Handle);
+            return BfeBridge.BatchEvaluate(problem, batchX, NativeInterop.default_bfe_operator, getCPtr(this).Handle, requiresParallelSafety: false);
         }
     }
 
@@ -14,7 +14,7 @@ namespace pagmo
     {
         public DoubleVector Operator(IProblem problem, DoubleVector batchX)
         {
-            return BfeBridge.BatchEvaluate(problem, batchX, NativeInterop.thread_bfe_operator, getCPtr(this).Handle);
+            return BfeBridge.BatchEvaluate(problem, batchX, NativeInterop.thread_bfe_operator, getCPtr(this).Handle, requiresParallelSafety: true);
         }
     }
 
@@ -22,7 +22,7 @@ namespace pagmo
     {
         public DoubleVector Operator(IProblem problem, DoubleVector batchX)
         {
-            return BfeBridge.BatchEvaluate(problem, batchX, NativeInterop.member_bfe_operator, getCPtr(this).Handle);
+            return BfeBridge.BatchEvaluate(problem, batchX, NativeInterop.member_bfe_operator, getCPtr(this).Handle, requiresParallelSafety: false);
         }
     }
 
@@ -30,8 +30,13 @@ namespace pagmo
 
     internal static class BfeBridge
     {
-        internal static DoubleVector BatchEvaluate(IProblem problem, DoubleVector batchX, BfeOperator op, IntPtr bfePtr)
+        internal static DoubleVector BatchEvaluate(IProblem problem, DoubleVector batchX, BfeOperator op, IntPtr bfePtr, bool requiresParallelSafety)
         {
+            if (requiresParallelSafety)
+            {
+                problem.throwIfNotThreadSafe();
+            }
+
             var problemPtr = NativeInterop.CreateProblemPointer(problem);
             try
             {

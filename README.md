@@ -71,3 +71,28 @@ The core C# problem pipeline is:
 5. `population`, `archipelago`, and BFE operator helpers consume that `pagmo::problem`
 
 This keeps ownership on the native side with `shared_ptr`, avoiding raw-pointer lifetime bugs for managed UDPs.
+
+### Managed UDP authoring defaults
+
+- Minimal managed UDPs can implement just:
+  - `fitness(DoubleVector x)`
+  - `get_bounds()`
+- Optional capabilities (`batch_fitness`, gradients, hessians, seed hooks, metadata, thread safety) have defaults on `IProblem` / `problemBase`.
+- `problemBase` includes helper methods for concise authoring:
+  - `vec(...)`
+  - `bounds(lower, upper)`
+
+### Threading policy for managed UDPs
+
+- `thread_bfe.Operator(IProblem, ...)` and `archipelago.push_back_island(..., IProblem, ...)` require explicit parallel-safety opt-in.
+- Managed UDPs declaring `thread_safety.none` are rejected on those threaded entrypoints.
+- Declare `thread_safety.basic` or `thread_safety.constant` when your managed UDP is safe for concurrent evaluation.
+
+## Code style preferences
+
+- Keep code lean and readable; avoid defensive scaffolding unless it provides clear operational value.
+- Prefer direct checks near callsites over indirection-heavy policy layers when there are only a few callsites.
+- Throw exceptions only when:
+  - the message adds useful, novel context beyond the default exception/debugger signal, or
+  - there is a strong boundary contract that benefits from explicit validation.
+- Favor tight exception usage and concise error messages.

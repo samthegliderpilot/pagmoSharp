@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using NUnit.Framework;
 using pagmo;
 using Tests.PagmoSharp.TestProblems;
@@ -49,6 +50,17 @@ namespace Tests.PagmoSharp
                 }
             }
             Assert.True(pass);
+        }
+
+        [Test]
+        public void TestThreadBfeRejectsManagedProblemWithThreadSafetyNone()
+        {
+            using var bfeSample = new pagmo.thread_bfe();
+            using var problem = new OneDimensionalSimpleProblem();
+            var batchX = new DoubleVector(new[] { 1.2 });
+
+            var ex = Assert.Throws<InvalidOperationException>(() => bfeSample.Operator(problem, batchX));
+            Assert.That(ex!.Message, Does.Contain("thread_safety.basic or thread_safety.constant"));
         }
 
         //[Test]
