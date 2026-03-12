@@ -13,10 +13,13 @@
         "-File",
         "scripts/test.ps1",
         "-Configuration",
-        "Debug"
+        "Debug",
+        "-Stage",
+        "test",
+        "-NoRestore"
       ],
       "cwd": "${workspaceFolder}",
-      "preLaunchTask": "pagmoSharp: build native (Debug x64)",
+      "preLaunchTask": "pagmoSharp: build tests (Debug x64)",
       "console": "integratedTerminal"
     }
   ]

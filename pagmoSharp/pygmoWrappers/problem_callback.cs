@@ -75,32 +75,109 @@ public partial class problem_callback : global::System.IDisposable {
     return ret;
   }
 
+  public virtual string get_extra_info() {
+    string ret = (SwigDerivedClassHasMethod("get_extra_info", swigMethodTypes3) ? pagmoPINVOKE.problem_callback_get_extra_infoSwigExplicitproblem_callback(swigCPtr) : pagmoPINVOKE.problem_callback_get_extra_info(swigCPtr));
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
   public virtual uint get_nobj() {
-    uint ret = (SwigDerivedClassHasMethod("get_nobj", swigMethodTypes3) ? pagmoPINVOKE.problem_callback_get_nobjSwigExplicitproblem_callback(swigCPtr) : pagmoPINVOKE.problem_callback_get_nobj(swigCPtr));
+    uint ret = (SwigDerivedClassHasMethod("get_nobj", swigMethodTypes4) ? pagmoPINVOKE.problem_callback_get_nobjSwigExplicitproblem_callback(swigCPtr) : pagmoPINVOKE.problem_callback_get_nobj(swigCPtr));
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public virtual uint get_nec() {
-    uint ret = (SwigDerivedClassHasMethod("get_nec", swigMethodTypes4) ? pagmoPINVOKE.problem_callback_get_necSwigExplicitproblem_callback(swigCPtr) : pagmoPINVOKE.problem_callback_get_nec(swigCPtr));
+    uint ret = (SwigDerivedClassHasMethod("get_nec", swigMethodTypes5) ? pagmoPINVOKE.problem_callback_get_necSwigExplicitproblem_callback(swigCPtr) : pagmoPINVOKE.problem_callback_get_nec(swigCPtr));
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public virtual uint get_nic() {
-    uint ret = (SwigDerivedClassHasMethod("get_nic", swigMethodTypes5) ? pagmoPINVOKE.problem_callback_get_nicSwigExplicitproblem_callback(swigCPtr) : pagmoPINVOKE.problem_callback_get_nic(swigCPtr));
+    uint ret = (SwigDerivedClassHasMethod("get_nic", swigMethodTypes6) ? pagmoPINVOKE.problem_callback_get_nicSwigExplicitproblem_callback(swigCPtr) : pagmoPINVOKE.problem_callback_get_nic(swigCPtr));
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public virtual uint get_nix() {
-    uint ret = (SwigDerivedClassHasMethod("get_nix", swigMethodTypes6) ? pagmoPINVOKE.problem_callback_get_nixSwigExplicitproblem_callback(swigCPtr) : pagmoPINVOKE.problem_callback_get_nix(swigCPtr));
+    uint ret = (SwigDerivedClassHasMethod("get_nix", swigMethodTypes7) ? pagmoPINVOKE.problem_callback_get_nixSwigExplicitproblem_callback(swigCPtr) : pagmoPINVOKE.problem_callback_get_nix(swigCPtr));
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  public virtual DoubleVector batch_fitness(DoubleVector arg0) {
+    DoubleVector ret = new DoubleVector((SwigDerivedClassHasMethod("batch_fitness", swigMethodTypes8) ? pagmoPINVOKE.problem_callback_batch_fitnessSwigExplicitproblem_callback(swigCPtr, DoubleVector.getCPtr(arg0)) : pagmoPINVOKE.problem_callback_batch_fitness(swigCPtr, DoubleVector.getCPtr(arg0))), true);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  public virtual bool has_batch_fitness() {
+    bool ret = (SwigDerivedClassHasMethod("has_batch_fitness", swigMethodTypes9) ? pagmoPINVOKE.problem_callback_has_batch_fitnessSwigExplicitproblem_callback(swigCPtr) : pagmoPINVOKE.problem_callback_has_batch_fitness(swigCPtr));
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  public virtual DoubleVector gradient(DoubleVector arg0) {
+    DoubleVector ret = new DoubleVector((SwigDerivedClassHasMethod("gradient", swigMethodTypes10) ? pagmoPINVOKE.problem_callback_gradientSwigExplicitproblem_callback(swigCPtr, DoubleVector.getCPtr(arg0)) : pagmoPINVOKE.problem_callback_gradient(swigCPtr, DoubleVector.getCPtr(arg0))), true);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  public virtual bool has_gradient() {
+    bool ret = (SwigDerivedClassHasMethod("has_gradient", swigMethodTypes11) ? pagmoPINVOKE.problem_callback_has_gradientSwigExplicitproblem_callback(swigCPtr) : pagmoPINVOKE.problem_callback_has_gradient(swigCPtr));
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  public virtual SWIGTYPE_p_std__vectorT_std__pairT_size_t_size_t_t_t gradient_sparsity() {
+    SWIGTYPE_p_std__vectorT_std__pairT_size_t_size_t_t_t ret = new SWIGTYPE_p_std__vectorT_std__pairT_size_t_size_t_t_t((SwigDerivedClassHasMethod("gradient_sparsity", swigMethodTypes12) ? pagmoPINVOKE.problem_callback_gradient_sparsitySwigExplicitproblem_callback(swigCPtr) : pagmoPINVOKE.problem_callback_gradient_sparsity(swigCPtr)), true);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  public virtual bool has_gradient_sparsity() {
+    bool ret = (SwigDerivedClassHasMethod("has_gradient_sparsity", swigMethodTypes13) ? pagmoPINVOKE.problem_callback_has_gradient_sparsitySwigExplicitproblem_callback(swigCPtr) : pagmoPINVOKE.problem_callback_has_gradient_sparsity(swigCPtr));
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  public virtual VectorOfVectorOfDoubles hessians(DoubleVector arg0) {
+    VectorOfVectorOfDoubles ret = new VectorOfVectorOfDoubles((SwigDerivedClassHasMethod("hessians", swigMethodTypes14) ? pagmoPINVOKE.problem_callback_hessiansSwigExplicitproblem_callback(swigCPtr, DoubleVector.getCPtr(arg0)) : pagmoPINVOKE.problem_callback_hessians(swigCPtr, DoubleVector.getCPtr(arg0))), true);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  public virtual bool has_hessians() {
+    bool ret = (SwigDerivedClassHasMethod("has_hessians", swigMethodTypes15) ? pagmoPINVOKE.problem_callback_has_hessiansSwigExplicitproblem_callback(swigCPtr) : pagmoPINVOKE.problem_callback_has_hessians(swigCPtr));
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  public virtual SWIGTYPE_p_std__vectorT_std__vectorT_std__pairT_size_t_size_t_t_t_t hessians_sparsity() {
+    SWIGTYPE_p_std__vectorT_std__vectorT_std__pairT_size_t_size_t_t_t_t ret = new SWIGTYPE_p_std__vectorT_std__vectorT_std__pairT_size_t_size_t_t_t_t((SwigDerivedClassHasMethod("hessians_sparsity", swigMethodTypes16) ? pagmoPINVOKE.problem_callback_hessians_sparsitySwigExplicitproblem_callback(swigCPtr) : pagmoPINVOKE.problem_callback_hessians_sparsity(swigCPtr)), true);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  public virtual bool has_hessians_sparsity() {
+    bool ret = (SwigDerivedClassHasMethod("has_hessians_sparsity", swigMethodTypes17) ? pagmoPINVOKE.problem_callback_has_hessians_sparsitySwigExplicitproblem_callback(swigCPtr) : pagmoPINVOKE.problem_callback_has_hessians_sparsity(swigCPtr));
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  public virtual void set_seed(uint arg0) {
+    if (SwigDerivedClassHasMethod("set_seed", swigMethodTypes18)) pagmoPINVOKE.problem_callback_set_seedSwigExplicitproblem_callback(swigCPtr, arg0); else pagmoPINVOKE.problem_callback_set_seed(swigCPtr, arg0);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
+  }
+
+  public virtual bool has_set_seed() {
+    bool ret = (SwigDerivedClassHasMethod("has_set_seed", swigMethodTypes19) ? pagmoPINVOKE.problem_callback_has_set_seedSwigExplicitproblem_callback(swigCPtr) : pagmoPINVOKE.problem_callback_has_set_seed(swigCPtr));
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public virtual thread_safety get_thread_safety() {
-    thread_safety ret = (thread_safety)(SwigDerivedClassHasMethod("get_thread_safety", swigMethodTypes7) ? pagmoPINVOKE.problem_callback_get_thread_safetySwigExplicitproblem_callback(swigCPtr) : pagmoPINVOKE.problem_callback_get_thread_safety(swigCPtr));
+    thread_safety ret = (thread_safety)(SwigDerivedClassHasMethod("get_thread_safety", swigMethodTypes20) ? pagmoPINVOKE.problem_callback_get_thread_safetySwigExplicitproblem_callback(swigCPtr) : pagmoPINVOKE.problem_callback_get_thread_safety(swigCPtr));
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
@@ -117,17 +194,43 @@ public partial class problem_callback : global::System.IDisposable {
       swigDelegate1 = new SwigDelegateproblem_callback_1(SwigDirectorMethodget_bounds);
     if (SwigDerivedClassHasMethod("get_name", swigMethodTypes2))
       swigDelegate2 = new SwigDelegateproblem_callback_2(SwigDirectorMethodget_name);
-    if (SwigDerivedClassHasMethod("get_nobj", swigMethodTypes3))
-      swigDelegate3 = new SwigDelegateproblem_callback_3(SwigDirectorMethodget_nobj);
-    if (SwigDerivedClassHasMethod("get_nec", swigMethodTypes4))
-      swigDelegate4 = new SwigDelegateproblem_callback_4(SwigDirectorMethodget_nec);
-    if (SwigDerivedClassHasMethod("get_nic", swigMethodTypes5))
-      swigDelegate5 = new SwigDelegateproblem_callback_5(SwigDirectorMethodget_nic);
-    if (SwigDerivedClassHasMethod("get_nix", swigMethodTypes6))
-      swigDelegate6 = new SwigDelegateproblem_callback_6(SwigDirectorMethodget_nix);
-    if (SwigDerivedClassHasMethod("get_thread_safety", swigMethodTypes7))
-      swigDelegate7 = new SwigDelegateproblem_callback_7(SwigDirectorMethodget_thread_safety);
-    pagmoPINVOKE.problem_callback_director_connect(swigCPtr, swigDelegate0, swigDelegate1, swigDelegate2, swigDelegate3, swigDelegate4, swigDelegate5, swigDelegate6, swigDelegate7);
+    if (SwigDerivedClassHasMethod("get_extra_info", swigMethodTypes3))
+      swigDelegate3 = new SwigDelegateproblem_callback_3(SwigDirectorMethodget_extra_info);
+    if (SwigDerivedClassHasMethod("get_nobj", swigMethodTypes4))
+      swigDelegate4 = new SwigDelegateproblem_callback_4(SwigDirectorMethodget_nobj);
+    if (SwigDerivedClassHasMethod("get_nec", swigMethodTypes5))
+      swigDelegate5 = new SwigDelegateproblem_callback_5(SwigDirectorMethodget_nec);
+    if (SwigDerivedClassHasMethod("get_nic", swigMethodTypes6))
+      swigDelegate6 = new SwigDelegateproblem_callback_6(SwigDirectorMethodget_nic);
+    if (SwigDerivedClassHasMethod("get_nix", swigMethodTypes7))
+      swigDelegate7 = new SwigDelegateproblem_callback_7(SwigDirectorMethodget_nix);
+    if (SwigDerivedClassHasMethod("batch_fitness", swigMethodTypes8))
+      swigDelegate8 = new SwigDelegateproblem_callback_8(SwigDirectorMethodbatch_fitness);
+    if (SwigDerivedClassHasMethod("has_batch_fitness", swigMethodTypes9))
+      swigDelegate9 = new SwigDelegateproblem_callback_9(SwigDirectorMethodhas_batch_fitness);
+    if (SwigDerivedClassHasMethod("gradient", swigMethodTypes10))
+      swigDelegate10 = new SwigDelegateproblem_callback_10(SwigDirectorMethodgradient);
+    if (SwigDerivedClassHasMethod("has_gradient", swigMethodTypes11))
+      swigDelegate11 = new SwigDelegateproblem_callback_11(SwigDirectorMethodhas_gradient);
+    if (SwigDerivedClassHasMethod("gradient_sparsity", swigMethodTypes12))
+      swigDelegate12 = new SwigDelegateproblem_callback_12(SwigDirectorMethodgradient_sparsity);
+    if (SwigDerivedClassHasMethod("has_gradient_sparsity", swigMethodTypes13))
+      swigDelegate13 = new SwigDelegateproblem_callback_13(SwigDirectorMethodhas_gradient_sparsity);
+    if (SwigDerivedClassHasMethod("hessians", swigMethodTypes14))
+      swigDelegate14 = new SwigDelegateproblem_callback_14(SwigDirectorMethodhessians);
+    if (SwigDerivedClassHasMethod("has_hessians", swigMethodTypes15))
+      swigDelegate15 = new SwigDelegateproblem_callback_15(SwigDirectorMethodhas_hessians);
+    if (SwigDerivedClassHasMethod("hessians_sparsity", swigMethodTypes16))
+      swigDelegate16 = new SwigDelegateproblem_callback_16(SwigDirectorMethodhessians_sparsity);
+    if (SwigDerivedClassHasMethod("has_hessians_sparsity", swigMethodTypes17))
+      swigDelegate17 = new SwigDelegateproblem_callback_17(SwigDirectorMethodhas_hessians_sparsity);
+    if (SwigDerivedClassHasMethod("set_seed", swigMethodTypes18))
+      swigDelegate18 = new SwigDelegateproblem_callback_18(SwigDirectorMethodset_seed);
+    if (SwigDerivedClassHasMethod("has_set_seed", swigMethodTypes19))
+      swigDelegate19 = new SwigDelegateproblem_callback_19(SwigDirectorMethodhas_set_seed);
+    if (SwigDerivedClassHasMethod("get_thread_safety", swigMethodTypes20))
+      swigDelegate20 = new SwigDelegateproblem_callback_20(SwigDirectorMethodget_thread_safety);
+    pagmoPINVOKE.problem_callback_director_connect(swigCPtr, swigDelegate0, swigDelegate1, swigDelegate2, swigDelegate3, swigDelegate4, swigDelegate5, swigDelegate6, swigDelegate7, swigDelegate8, swigDelegate9, swigDelegate10, swigDelegate11, swigDelegate12, swigDelegate13, swigDelegate14, swigDelegate15, swigDelegate16, swigDelegate17, swigDelegate18, swigDelegate19, swigDelegate20);
   }
 
   private bool SwigDerivedClassHasMethod(string methodName, global::System.Type[] methodTypes) {
@@ -176,6 +279,10 @@ public partial class problem_callback : global::System.IDisposable {
     return get_name();
   }
 
+  private string SwigDirectorMethodget_extra_info() {
+    return get_extra_info();
+  }
+
   private uint SwigDirectorMethodget_nobj() {
     return get_nobj();
   }
@@ -192,6 +299,54 @@ public partial class problem_callback : global::System.IDisposable {
     return get_nix();
   }
 
+  private global::System.IntPtr SwigDirectorMethodbatch_fitness(global::System.IntPtr arg0) {
+    return DoubleVector.getCPtr(batch_fitness(new DoubleVector(arg0, false))).Handle;
+  }
+
+  private bool SwigDirectorMethodhas_batch_fitness() {
+    return has_batch_fitness();
+  }
+
+  private global::System.IntPtr SwigDirectorMethodgradient(global::System.IntPtr arg0) {
+    return DoubleVector.getCPtr(gradient(new DoubleVector(arg0, false))).Handle;
+  }
+
+  private bool SwigDirectorMethodhas_gradient() {
+    return has_gradient();
+  }
+
+  private global::System.IntPtr SwigDirectorMethodgradient_sparsity() {
+    return SWIGTYPE_p_std__vectorT_std__pairT_size_t_size_t_t_t.getCPtr(gradient_sparsity()).Handle;
+  }
+
+  private bool SwigDirectorMethodhas_gradient_sparsity() {
+    return has_gradient_sparsity();
+  }
+
+  private global::System.IntPtr SwigDirectorMethodhessians(global::System.IntPtr arg0) {
+    return VectorOfVectorOfDoubles.getCPtr(hessians(new DoubleVector(arg0, false))).Handle;
+  }
+
+  private bool SwigDirectorMethodhas_hessians() {
+    return has_hessians();
+  }
+
+  private global::System.IntPtr SwigDirectorMethodhessians_sparsity() {
+    return SWIGTYPE_p_std__vectorT_std__vectorT_std__pairT_size_t_size_t_t_t_t.getCPtr(hessians_sparsity()).Handle;
+  }
+
+  private bool SwigDirectorMethodhas_hessians_sparsity() {
+    return has_hessians_sparsity();
+  }
+
+  private void SwigDirectorMethodset_seed(uint arg0) {
+    set_seed(arg0);
+  }
+
+  private bool SwigDirectorMethodhas_set_seed() {
+    return has_set_seed();
+  }
+
   private int SwigDirectorMethodget_thread_safety() {
     return (int)get_thread_safety();
   }
@@ -199,11 +354,24 @@ public partial class problem_callback : global::System.IDisposable {
   public delegate global::System.IntPtr SwigDelegateproblem_callback_0(global::System.IntPtr x);
   public delegate global::System.IntPtr SwigDelegateproblem_callback_1();
   public delegate string SwigDelegateproblem_callback_2();
-  public delegate uint SwigDelegateproblem_callback_3();
+  public delegate string SwigDelegateproblem_callback_3();
   public delegate uint SwigDelegateproblem_callback_4();
   public delegate uint SwigDelegateproblem_callback_5();
   public delegate uint SwigDelegateproblem_callback_6();
-  public delegate int SwigDelegateproblem_callback_7();
+  public delegate uint SwigDelegateproblem_callback_7();
+  public delegate global::System.IntPtr SwigDelegateproblem_callback_8(global::System.IntPtr arg0);
+  public delegate bool SwigDelegateproblem_callback_9();
+  public delegate global::System.IntPtr SwigDelegateproblem_callback_10(global::System.IntPtr arg0);
+  public delegate bool SwigDelegateproblem_callback_11();
+  public delegate global::System.IntPtr SwigDelegateproblem_callback_12();
+  public delegate bool SwigDelegateproblem_callback_13();
+  public delegate global::System.IntPtr SwigDelegateproblem_callback_14(global::System.IntPtr arg0);
+  public delegate bool SwigDelegateproblem_callback_15();
+  public delegate global::System.IntPtr SwigDelegateproblem_callback_16();
+  public delegate bool SwigDelegateproblem_callback_17();
+  public delegate void SwigDelegateproblem_callback_18(uint arg0);
+  public delegate bool SwigDelegateproblem_callback_19();
+  public delegate int SwigDelegateproblem_callback_20();
 
   private SwigDelegateproblem_callback_0 swigDelegate0;
   private SwigDelegateproblem_callback_1 swigDelegate1;
@@ -213,6 +381,19 @@ public partial class problem_callback : global::System.IDisposable {
   private SwigDelegateproblem_callback_5 swigDelegate5;
   private SwigDelegateproblem_callback_6 swigDelegate6;
   private SwigDelegateproblem_callback_7 swigDelegate7;
+  private SwigDelegateproblem_callback_8 swigDelegate8;
+  private SwigDelegateproblem_callback_9 swigDelegate9;
+  private SwigDelegateproblem_callback_10 swigDelegate10;
+  private SwigDelegateproblem_callback_11 swigDelegate11;
+  private SwigDelegateproblem_callback_12 swigDelegate12;
+  private SwigDelegateproblem_callback_13 swigDelegate13;
+  private SwigDelegateproblem_callback_14 swigDelegate14;
+  private SwigDelegateproblem_callback_15 swigDelegate15;
+  private SwigDelegateproblem_callback_16 swigDelegate16;
+  private SwigDelegateproblem_callback_17 swigDelegate17;
+  private SwigDelegateproblem_callback_18 swigDelegate18;
+  private SwigDelegateproblem_callback_19 swigDelegate19;
+  private SwigDelegateproblem_callback_20 swigDelegate20;
 
   private static global::System.Type[] swigMethodTypes0 = new global::System.Type[] { typeof(DoubleVector) };
   private static global::System.Type[] swigMethodTypes1 = new global::System.Type[] {  };
@@ -222,6 +403,19 @@ public partial class problem_callback : global::System.IDisposable {
   private static global::System.Type[] swigMethodTypes5 = new global::System.Type[] {  };
   private static global::System.Type[] swigMethodTypes6 = new global::System.Type[] {  };
   private static global::System.Type[] swigMethodTypes7 = new global::System.Type[] {  };
+  private static global::System.Type[] swigMethodTypes8 = new global::System.Type[] { typeof(DoubleVector) };
+  private static global::System.Type[] swigMethodTypes9 = new global::System.Type[] {  };
+  private static global::System.Type[] swigMethodTypes10 = new global::System.Type[] { typeof(DoubleVector) };
+  private static global::System.Type[] swigMethodTypes11 = new global::System.Type[] {  };
+  private static global::System.Type[] swigMethodTypes12 = new global::System.Type[] {  };
+  private static global::System.Type[] swigMethodTypes13 = new global::System.Type[] {  };
+  private static global::System.Type[] swigMethodTypes14 = new global::System.Type[] { typeof(DoubleVector) };
+  private static global::System.Type[] swigMethodTypes15 = new global::System.Type[] {  };
+  private static global::System.Type[] swigMethodTypes16 = new global::System.Type[] {  };
+  private static global::System.Type[] swigMethodTypes17 = new global::System.Type[] {  };
+  private static global::System.Type[] swigMethodTypes18 = new global::System.Type[] { typeof(uint) };
+  private static global::System.Type[] swigMethodTypes19 = new global::System.Type[] {  };
+  private static global::System.Type[] swigMethodTypes20 = new global::System.Type[] {  };
 }
 
 }

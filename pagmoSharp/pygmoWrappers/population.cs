@@ -57,6 +57,18 @@ public partial class population : global::System.IDisposable {
     }
   }
 
+  public population(problem prob, uint pop_size, uint seed) : this(pagmoPINVOKE.new_population__SWIG_0(problem.getCPtr(prob), pop_size, seed), true) {
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
+  }
+
+  public population(problem prob, uint pop_size) : this(pagmoPINVOKE.new_population__SWIG_1(problem.getCPtr(prob), pop_size), true) {
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
+  }
+
+  public population(problem prob) : this(pagmoPINVOKE.new_population__SWIG_2(problem.getCPtr(prob)), true) {
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
+  }
+
   public void push_back(DoubleVector arg0) {
     pagmoPINVOKE.population_push_back__SWIG_0(swigCPtr, DoubleVector.getCPtr(arg0));
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();

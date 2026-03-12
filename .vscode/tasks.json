@@ -2,6 +2,22 @@
   "version": "2.0.0",
   "tasks": [
     {
+      "label": "pagmoSharp: regenerate SWIG wrappers",
+      "type": "shell",
+      "command": "powershell",
+      "args": [
+        "-NoProfile",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "scripts/regen-swig.ps1"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": []
+    },
+    {
       "label": "pagmoSharp: build native (Debug x64)",
       "type": "shell",
       "command": "powershell",
@@ -16,6 +32,38 @@
         "-Platform",
         "x64"
       ],
+      "dependsOn": [
+        "pagmoSharp: regenerate SWIG wrappers"
+      ],
+      "dependsOrder": "sequence",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "group": "build",
+      "problemMatcher": "$msCompile"
+    },
+    {
+      "label": "pagmoSharp: build tests (Debug x64)",
+      "type": "shell",
+      "command": "powershell",
+      "args": [
+        "-NoProfile",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "scripts/test.ps1",
+        "-Configuration",
+        "Debug",
+        "-Stage",
+        "build"
+      ],
+      "dependsOn": [
+        "pagmoSharp: build native (Debug x64)"
+      ],
+      "dependsOrder": "sequence",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
       "group": "build",
       "problemMatcher": "$msCompile"
     },
@@ -30,12 +78,26 @@
         "-File",
         "scripts/test.ps1",
         "-Configuration",
-        "Debug"
+        "Debug",
+        "-Stage",
+        "test",
+        "-NoRestore"
       ],
       "dependsOn": [
-        "pagmoSharp: build native (Debug x64)"
+        "pagmoSharp: build tests (Debug x64)"
       ],
-      "group": "test",
+      "dependsOrder": "sequence",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "group": {
+        "kind": "test",
+        "isDefault": true
+      },
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      },
       "problemMatcher": "$msCompile"
     }
   ]

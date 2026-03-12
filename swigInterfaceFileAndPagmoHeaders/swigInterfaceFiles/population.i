@@ -10,6 +10,7 @@ class population {
 public:
 	template <typename T, generic_ctor_enabler<T> = 0>
 	extern population(T&& x, size_type pop_size = 0u, unsigned seed = pagmo::random_device::next());
+	extern population(const pagmo::problem &prob, size_type pop_size = 0u, unsigned seed = pagmo::random_device::next());
 
 	//extern population(pagmoWrap::problemPagomWrapper x, size_type pop_size = 0u, unsigned seed = pagmo::random_device::next());
 	extern void push_back(const vector_double&);

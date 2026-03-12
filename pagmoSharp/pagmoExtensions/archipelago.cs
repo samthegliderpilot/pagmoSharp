@@ -40,8 +40,8 @@ namespace pagmo
             var problemPtr = NativeInterop.CreateProblemPointer(prob);
             try
             {
-                var swigProblem = NativeInterop.AsSwigProblem(problemPtr);
-                return push_back_island(algo, swigProblem, checked((uint)popSize), seed);
+                using var wrappedProblem = new problem(problemPtr, false);
+                return push_back_island(algo, wrappedProblem, checked((uint)popSize), seed);
             }
             finally
             {

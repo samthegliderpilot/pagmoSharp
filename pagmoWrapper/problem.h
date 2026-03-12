@@ -7,8 +7,8 @@
 #include <vector>
 
 #include "pagmo/problem.hpp"
+#include "pagmo/threading.hpp"
 #include "pagmo/types.hpp"
-#include "pagmo/threading.hpp" // for pagmo::thread_safety (depending on your pagmo includes)
 
 // NOTE: Keep everything in your existing namespace to minimize changes elsewhere.
 namespace pagmoWrap {
@@ -28,24 +28,59 @@ namespace pagmoWrap {
     public:
         virtual ~problem_callback() = default;
 
-        // Required for v0.1
+        // Required UDP surface
         virtual vector_double fitness(const vector_double& x) const = 0;
         virtual bounds_type get_bounds() const = 0;
 
-        // Optional metadata (v0.1)
+        // Optional metadata
         virtual std::string get_name() const { return "C# problem"; }
+        virtual std::string get_extra_info() const { return ""; }
 
-        // v0.1: single-objective only
+        // Optional dimensions / constraints
         virtual vector_double::size_type get_nobj() const { return 1; }
-
-        // v0.1: no constraints
         virtual vector_double::size_type get_nec() const { return 0; }
         virtual vector_double::size_type get_nic() const { return 0; }
-
-        // v0.1: no integer variables
         virtual vector_double::size_type get_nix() const { return 0; }
 
-        // v0.1: no thread safety guarantees
+        // Optional batch/derivatives
+        virtual vector_double batch_fitness(const vector_double&) const
+        {
+            throw std::runtime_error("batch_fitness() is not implemented in managed callback.");
+        }
+        virtual bool has_batch_fitness() const { return false; }
+
+        virtual vector_double gradient(const vector_double&) const
+        {
+            throw std::runtime_error("gradient() is not implemented in managed callback.");
+        }
+        virtual bool has_gradient() const { return false; }
+
+        virtual pagmo::sparsity_pattern gradient_sparsity() const
+        {
+            throw std::runtime_error("gradient_sparsity() is not implemented in managed callback.");
+        }
+        virtual bool has_gradient_sparsity() const { return false; }
+
+        virtual std::vector<vector_double> hessians(const vector_double&) const
+        {
+            throw std::runtime_error("hessians() is not implemented in managed callback.");
+        }
+        virtual bool has_hessians() const { return false; }
+
+        virtual std::vector<pagmo::sparsity_pattern> hessians_sparsity() const
+        {
+            throw std::runtime_error("hessians_sparsity() is not implemented in managed callback.");
+        }
+        virtual bool has_hessians_sparsity() const { return false; }
+
+        // Optional stochastic hooks
+        virtual void set_seed(unsigned)
+        {
+            throw std::runtime_error("set_seed() is not implemented in managed callback.");
+        }
+        virtual bool has_set_seed() const { return false; }
+
+        // Optional thread safety metadata
         virtual pagmo::thread_safety get_thread_safety() const { return pagmo::thread_safety::none; }
     };
 
@@ -99,10 +134,6 @@ namespace pagmoWrap {
         {
             auto f = m_cb->fitness(x);
 
-            // v0.1 enforce single objective
-            if (f.size() != 1) {
-                throw std::runtime_error("managed_problem: v0.1 supports only fitness size == 1");
-            }
             return f;
         }
 
@@ -120,25 +151,61 @@ namespace pagmoWrap {
             return b;
         }
 
-        // Optional metadata
+        // Optional metadata / properties
         std::string get_name() const
         {
             return m_cb->get_name();
         }
 
+        std::string get_extra_info() const
+        {
+            return m_cb->get_extra_info();
+        }
+
         vector_double::size_type get_nobj() const
         {
-            // v0.1: enforce single objective
-            const auto n = m_cb->get_nobj();
-            if (n != 1) {
-                throw std::runtime_error("managed_problem: v0.1 supports only nobj == 1");
-            }
-            return 1;
+            return m_cb->get_nobj();
         }
 
         vector_double::size_type get_nec() const { return m_cb->get_nec(); }
         vector_double::size_type get_nic() const { return m_cb->get_nic(); }
         vector_double::size_type get_nix() const { return m_cb->get_nix(); }
+
+        vector_double batch_fitness(const vector_double& dvs) const
+        {
+            return m_cb->batch_fitness(dvs);
+        }
+        bool has_batch_fitness() const { return m_cb->has_batch_fitness(); }
+
+        vector_double gradient(const vector_double& x) const
+        {
+            return m_cb->gradient(x);
+        }
+        bool has_gradient() const { return m_cb->has_gradient(); }
+
+        pagmo::sparsity_pattern gradient_sparsity() const
+        {
+            return m_cb->gradient_sparsity();
+        }
+        bool has_gradient_sparsity() const { return m_cb->has_gradient_sparsity(); }
+
+        std::vector<vector_double> hessians(const vector_double& x) const
+        {
+            return m_cb->hessians(x);
+        }
+        bool has_hessians() const { return m_cb->has_hessians(); }
+
+        std::vector<pagmo::sparsity_pattern> hessians_sparsity() const
+        {
+            return m_cb->hessians_sparsity();
+        }
+        bool has_hessians_sparsity() const { return m_cb->has_hessians_sparsity(); }
+
+        void set_seed(unsigned seed)
+        {
+            m_cb->set_seed(seed);
+        }
+        bool has_set_seed() const { return m_cb->has_set_seed(); }
 
         pagmo::thread_safety get_thread_safety() const
         {

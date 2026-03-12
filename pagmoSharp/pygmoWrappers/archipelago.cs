@@ -97,8 +97,8 @@ public partial class archipelago : global::System.IDisposable {
     return ret;
   }
 
-  public uint push_back_island(algorithm algo, SWIGTYPE_p_pagmo__problem prob, uint pop_size, uint seed) {
-    uint ret = pagmoPINVOKE.archipelago_push_back_island(swigCPtr, algorithm.getCPtr(algo), SWIGTYPE_p_pagmo__problem.getCPtr(prob), pop_size, seed);
+  public uint push_back_island(algorithm algo, problem prob, uint pop_size, uint seed) {
+    uint ret = pagmoPINVOKE.archipelago_push_back_island(swigCPtr, algorithm.getCPtr(algo), problem.getCPtr(prob), pop_size, seed);
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }

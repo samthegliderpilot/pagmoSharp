@@ -39,11 +39,14 @@ Also, this is made completely independently of the base pagmo and the team that 
 
 Repo now includes VS Code tasks/launch config in `.vscode/`:
 
+- `pagmoSharp: regenerate SWIG wrappers`
 - `pagmoSharp: build native (Debug x64)`
 - `pagmoSharp: build tests (Debug x64)`
 - `pagmoSharp: test (Debug x64)`
 
 Native build task uses `scripts/build-native.ps1` and finds `MSBuild.exe` via `vswhere`.
+SWIG regen task uses `scripts/regen-swig.ps1`.
+Test build/run tasks use `scripts/test.ps1` with staged execution (`build` then `test`).
 
 ### Requirements for local VS Code test runs
 
@@ -51,6 +54,11 @@ Native build task uses `scripts/build-native.ps1` and finds `MSBuild.exe` via `v
 - .NET SDK (net6-targeting project; newer SDKs also work)
 - NuGet connectivity
 - `pagmo2` headers/libs available at paths configured in `pagmoWrapper/pagmoWrapper.vcxproj`
+- VS Code extensions:
+  - `ms-dotnettools.csharp`
+  - `ms-dotnettools.csdevkit`
+  - `ms-vscode.cpptools`
+  - `ms-vscode.powershell`
 
 ## Managed problem architecture (C# UDP support)
 

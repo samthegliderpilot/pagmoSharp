@@ -14,4 +14,6 @@ pagmoWrapper/Intermediate/*
 *.dll
 *.pdb
 *.exe
+.dotnet/
+artifacts/
 

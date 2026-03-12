@@ -38,9 +38,5 @@ namespace pagmo
             return problemPtr;
         }
 
-        internal static SWIGTYPE_p_pagmo__problem AsSwigProblem(IntPtr problemPtr)
-        {
-            return new SWIGTYPE_p_pagmo__problem(problemPtr, false);
-        }
     }
 }

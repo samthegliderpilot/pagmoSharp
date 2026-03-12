@@ -109,6 +109,9 @@
 // ------------------------------------------------------------
 namespace std {
   %template(DoubleVector)              std::vector<double>;
+  %template(SizeTPair)                 std::pair<std::size_t, std::size_t>;
+  %template(SparsityPattern)           std::vector<std::pair<std::size_t, std::size_t>>;
+  %template(VectorOfSparsityPattern)   std::vector<std::vector<std::pair<std::size_t, std::size_t>>>;
   %template(ULongLongVector)           std::vector<unsigned long long>;
   %template(VectorOfVectorIndexes)     std::vector<std::vector<unsigned long long>>;
   %template(VectorOfVectorOfDoubles)   std::vector<std::vector<double>>;
@@ -121,17 +124,16 @@ namespace std {
 
 %include swigInterfaceFiles\island.i
 //%include swigInterfaceFiles\islands\thread_island.i
-namespace pagmo {
-	%typemap(csclassmodifiers) pagmo::DoubleVector "public partial class"
-	%typemap(csclassmodifiers) pagmo::VectorDoubleVector "public partial class"
-	%typemap(csclassmodifiers) pagmo::PairOfDoubleVectors "public partial class"
-	%typemap(csclassmodifiers) pagmo::ULongLongVector "public partial class"
-	typedef std::vector<double> vector_double;
-	
-	typedef std::vector<std::pair<vector_double::size_type, vector_double::size_type>> sparsity_pattern;
-	%rename(SWIGTYPE_p_std__vectorT_std__pairT_size_t_size_t_t_t) sparsity_pattern;
-	//typedef std::vector<vector_double>::size_type pop_size_t;
-	typedef std::vector<std::vector<double>> VectorOfVectorOfDoubles;
+	namespace pagmo {
+		%typemap(csclassmodifiers) pagmo::DoubleVector "public partial class"
+		%typemap(csclassmodifiers) pagmo::VectorDoubleVector "public partial class"
+		%typemap(csclassmodifiers) pagmo::PairOfDoubleVectors "public partial class"
+		%typemap(csclassmodifiers) pagmo::ULongLongVector "public partial class"
+		typedef std::vector<double> vector_double;
+		
+		typedef std::vector<std::pair<vector_double::size_type, vector_double::size_type>> sparsity_pattern;
+		//typedef std::vector<vector_double>::size_type pop_size_t;
+		typedef std::vector<std::vector<double>> VectorOfVectorOfDoubles;
 	
 
 
@@ -181,7 +183,8 @@ namespace pagmo {
 		preserve, ///< Preserve migrants in the database.
 		evict     ///< Evict migrants from the database.
 	};
-	%include swigInterfaceFiles\population.i
+		%include swigInterfaceFiles\problem.i
+		%include swigInterfaceFiles\population.i
 	
 	%include swigInterfaceFiles\bfe.i
 	//%include swigInterfaceFiles\exceptions.i // causing errors, not sure why, and not really implimented anyway

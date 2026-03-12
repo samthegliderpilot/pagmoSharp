@@ -87,6 +87,12 @@ public partial class managed_problem : global::System.IDisposable {
     return ret;
   }
 
+  public string get_extra_info() {
+    string ret = pagmoPINVOKE.managed_problem_get_extra_info(swigCPtr);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
   public uint get_nobj() {
     uint ret = pagmoPINVOKE.managed_problem_get_nobj(swigCPtr);
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
@@ -107,6 +113,77 @@ public partial class managed_problem : global::System.IDisposable {
 
   public uint get_nix() {
     uint ret = pagmoPINVOKE.managed_problem_get_nix(swigCPtr);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  public DoubleVector batch_fitness(DoubleVector dvs) {
+    DoubleVector ret = new DoubleVector(pagmoPINVOKE.managed_problem_batch_fitness(swigCPtr, DoubleVector.getCPtr(dvs)), true);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  public bool has_batch_fitness() {
+    bool ret = pagmoPINVOKE.managed_problem_has_batch_fitness(swigCPtr);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  public DoubleVector gradient(DoubleVector x) {
+    DoubleVector ret = new DoubleVector(pagmoPINVOKE.managed_problem_gradient(swigCPtr, DoubleVector.getCPtr(x)), true);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  public bool has_gradient() {
+    bool ret = pagmoPINVOKE.managed_problem_has_gradient(swigCPtr);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  public SWIGTYPE_p_std__vectorT_std__pairT_size_t_size_t_t_t gradient_sparsity() {
+    SWIGTYPE_p_std__vectorT_std__pairT_size_t_size_t_t_t ret = new SWIGTYPE_p_std__vectorT_std__pairT_size_t_size_t_t_t(pagmoPINVOKE.managed_problem_gradient_sparsity(swigCPtr), true);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  public bool has_gradient_sparsity() {
+    bool ret = pagmoPINVOKE.managed_problem_has_gradient_sparsity(swigCPtr);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  public VectorOfVectorOfDoubles hessians(DoubleVector x) {
+    VectorOfVectorOfDoubles ret = new VectorOfVectorOfDoubles(pagmoPINVOKE.managed_problem_hessians(swigCPtr, DoubleVector.getCPtr(x)), true);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  public bool has_hessians() {
+    bool ret = pagmoPINVOKE.managed_problem_has_hessians(swigCPtr);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  public SWIGTYPE_p_std__vectorT_std__vectorT_std__pairT_size_t_size_t_t_t_t hessians_sparsity() {
+    SWIGTYPE_p_std__vectorT_std__vectorT_std__pairT_size_t_size_t_t_t_t ret = new SWIGTYPE_p_std__vectorT_std__vectorT_std__pairT_size_t_size_t_t_t_t(pagmoPINVOKE.managed_problem_hessians_sparsity(swigCPtr), true);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  public bool has_hessians_sparsity() {
+    bool ret = pagmoPINVOKE.managed_problem_has_hessians_sparsity(swigCPtr);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  public void set_seed(uint seed) {
+    pagmoPINVOKE.managed_problem_set_seed(swigCPtr, seed);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
+  }
+
+  public bool has_set_seed() {
+    bool ret = pagmoPINVOKE.managed_problem_has_set_seed(swigCPtr);
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
