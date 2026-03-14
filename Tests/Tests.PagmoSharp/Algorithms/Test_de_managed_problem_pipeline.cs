@@ -6,7 +6,7 @@ namespace Tests.PagmoSharp.Algorithms
     [TestFixture]
     public class Test_de_managed_problem_pipeline
     {
-        private sealed class DeterministicBatchProblem : problemBase
+        private sealed class DeterministicBatchProblem : ManagedProblemBase
         {
             private readonly DoubleVector _lb = new(new[] { -10.0, -10.0 });
             private readonly DoubleVector _ub = new(new[] { 10.0, 10.0 });

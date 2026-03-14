@@ -34,7 +34,7 @@ namespace pagmo
         {
             if (requiresParallelSafety)
             {
-                problem.throwIfNotThreadSafe();
+                problem.ThrowIfNotThreadSafe();
             }
 
             var problemPtr = NativeInterop.CreateProblemPointer(problem);

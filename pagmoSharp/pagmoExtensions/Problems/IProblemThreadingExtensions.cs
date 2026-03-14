@@ -4,7 +4,7 @@ namespace pagmo
 {
     internal static class IProblemThreadingExtensions
     {
-        internal static void throwIfNotThreadSafe(this IProblem problem)
+        internal static void ThrowIfNotThreadSafe(this IProblem problem)
         {
             if (problem.get_thread_safety() == thread_safety.none)
             {

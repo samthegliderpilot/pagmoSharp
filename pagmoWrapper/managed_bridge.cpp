@@ -8,6 +8,7 @@
 #include <pagmo/batch_evaluators/thread_bfe.hpp>
 #include <pagmo/batch_evaluators/member_bfe.hpp>
 #include <pagmo/types.hpp>
+#include <pagmo/utils/gradients_and_hessians.hpp>
 
 #include "problem.h"
 
@@ -107,6 +108,55 @@ PAGMOSHARP_EXPORT void *pagmosharp_member_bfe_operator(void *bfe_ptr, void *prob
 
         auto result = (*bfe)(*problem, *batch_x);
         return static_cast<void *>(new pagmo::vector_double(std::move(result)));
+    } catch (...) {
+        return nullptr;
+    }
+}
+
+PAGMOSHARP_EXPORT void *pagmosharp_estimate_gradient_problem(void *problem_ptr, void *x_ptr, double dx)
+{
+    if (problem_ptr == nullptr || x_ptr == nullptr) {
+        return nullptr;
+    }
+
+    try {
+        auto *problem = static_cast<pagmo::problem *>(problem_ptr);
+        auto *x = static_cast<pagmo::vector_double *>(x_ptr);
+        auto result = pagmo::estimate_gradient([problem](const pagmo::vector_double &dv) { return problem->fitness(dv); }, *x, dx);
+        return static_cast<void *>(new pagmo::vector_double(std::move(result)));
+    } catch (...) {
+        return nullptr;
+    }
+}
+
+PAGMOSHARP_EXPORT void *pagmosharp_estimate_gradient_h_problem(void *problem_ptr, void *x_ptr, double dx)
+{
+    if (problem_ptr == nullptr || x_ptr == nullptr) {
+        return nullptr;
+    }
+
+    try {
+        auto *problem = static_cast<pagmo::problem *>(problem_ptr);
+        auto *x = static_cast<pagmo::vector_double *>(x_ptr);
+        auto result
+            = pagmo::estimate_gradient_h([problem](const pagmo::vector_double &dv) { return problem->fitness(dv); }, *x, dx);
+        return static_cast<void *>(new pagmo::vector_double(std::move(result)));
+    } catch (...) {
+        return nullptr;
+    }
+}
+
+PAGMOSHARP_EXPORT void *pagmosharp_estimate_sparsity_problem(void *problem_ptr, void *x_ptr, double dx)
+{
+    if (problem_ptr == nullptr || x_ptr == nullptr) {
+        return nullptr;
+    }
+
+    try {
+        auto *problem = static_cast<pagmo::problem *>(problem_ptr);
+        auto *x = static_cast<pagmo::vector_double *>(x_ptr);
+        auto result = pagmo::estimate_sparsity([problem](const pagmo::vector_double &dv) { return problem->fitness(dv); }, *x, dx);
+        return static_cast<void *>(new pagmo::sparsity_pattern(std::move(result)));
     } catch (...) {
         return nullptr;
     }

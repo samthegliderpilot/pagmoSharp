@@ -64,7 +64,7 @@ Test build/run tasks use `scripts/test.ps1` with staged execution (`build` then 
 
 The core C# problem pipeline is:
 
-1. User implements `IProblem` / `problemBase` in C#
+1. User implements `IProblem` / `ManagedProblemBase` in C#
 2. A SWIG director adapter (`problem_callback`) forwards calls to managed code
 3. Native bridge wraps callback into `managed_problem` (`std::shared_ptr` owned)
 4. A real `pagmo::problem` is built from `managed_problem`
@@ -77,10 +77,10 @@ This keeps ownership on the native side with `shared_ptr`, avoiding raw-pointer 
 - Minimal managed UDPs can implement just:
   - `fitness(DoubleVector x)`
   - `get_bounds()`
-- Optional capabilities (`batch_fitness`, gradients, hessians, seed hooks, metadata, thread safety) have defaults on `IProblem` / `problemBase`.
-- `problemBase` includes helper methods for concise authoring:
-  - `vec(...)`
-  - `bounds(lower, upper)`
+- Optional capabilities (`batch_fitness`, gradients, hessians, seed hooks, metadata, thread safety) have defaults on `IProblem` / `ManagedProblemBase`.
+- `ManagedProblemBase` includes helper methods for concise authoring:
+  - `Vec(...)`
+  - `Bounds(lower, upper)`
 
 ### Threading policy for managed UDPs
 

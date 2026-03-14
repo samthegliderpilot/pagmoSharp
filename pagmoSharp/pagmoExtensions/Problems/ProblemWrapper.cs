@@ -4,7 +4,7 @@
     /// Wraps a problem in pure .Net code.  This ends up being useful for
     /// calling existing C++ problems that are wrapped by swig.
     /// </summary>
-    public class ProblemWrapper : problemBase
+    public class ProblemWrapper : ManagedProblemBase
     {
         /// <summary>
         /// Initializes a new instance.

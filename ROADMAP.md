@@ -15,7 +15,7 @@ Last updated: 2026-03-10
 
 ## Current Architecture Snapshot
 - Managed UDP flow:
-  - C# `IProblem`/`problemBase` -> `ProblemCallbackAdapter` (director) -> native `managed_problem` -> `pagmo::problem`.
+  - C# `IProblem`/`ManagedProblemBase` -> `ProblemCallbackAdapter` (director) -> native `managed_problem` -> `pagmo::problem`.
 - Native bridge exists for managed callback construction and selected helper calls:
   - `pagmoWrapper/managed_bridge.cpp`
 - First-class SWIG `problem` wrapper added:

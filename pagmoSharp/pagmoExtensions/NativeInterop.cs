@@ -25,6 +25,15 @@ namespace pagmo
         [DllImport(NativeLib, EntryPoint = "pagmosharp_member_bfe_operator", CallingConvention = CallingConvention.Cdecl)]
         internal static extern IntPtr member_bfe_operator(IntPtr bfePtr, IntPtr problemPtr, IntPtr batchXPtr);
 
+        [DllImport(NativeLib, EntryPoint = "pagmosharp_estimate_gradient_problem", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern IntPtr estimate_gradient_problem(IntPtr problemPtr, IntPtr xPtr, double dx);
+
+        [DllImport(NativeLib, EntryPoint = "pagmosharp_estimate_gradient_h_problem", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern IntPtr estimate_gradient_h_problem(IntPtr problemPtr, IntPtr xPtr, double dx);
+
+        [DllImport(NativeLib, EntryPoint = "pagmosharp_estimate_sparsity_problem", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern IntPtr estimate_sparsity_problem(IntPtr problemPtr, IntPtr xPtr, double dx);
+
         internal static IntPtr CreateProblemPointer(IProblem problem)
         {
             var callback = new ProblemCallbackAdapter(problem);

@@ -5,7 +5,7 @@ namespace pagmo
     /// <summary>
     /// Base class for managed C# problems.
     /// </summary>
-    public abstract partial class problemBase : IProblem
+    public abstract partial class ManagedProblemBase : IProblem
     {
         public abstract DoubleVector fitness(DoubleVector x);
         public abstract PairOfDoubleVectors get_bounds();
@@ -66,16 +66,16 @@ namespace pagmo
         /// <summary>
         /// Convenience helper for compact vector creation in managed UDPs.
         /// </summary>
-        protected static DoubleVector vec(params double[] values) => new(values);
+        protected static DoubleVector Vec(params double[] values) => new(values);
 
         /// <summary>
         /// Convenience helper for compact bound creation in managed UDPs.
         /// </summary>
-        protected static PairOfDoubleVectors bounds(DoubleVector lower, DoubleVector upper) => new(lower, upper);
+        protected static PairOfDoubleVectors Bounds(DoubleVector lower, DoubleVector upper) => new(lower, upper);
 
         /// <summary>
         /// Convenience helper for compact bound creation in managed UDPs.
         /// </summary>
-        protected static PairOfDoubleVectors bounds(double[] lower, double[] upper) => new(new DoubleVector(lower), new DoubleVector(upper));
+        protected static PairOfDoubleVectors Bounds(double[] lower, double[] upper) => new(new DoubleVector(lower), new DoubleVector(upper));
     }
 }
