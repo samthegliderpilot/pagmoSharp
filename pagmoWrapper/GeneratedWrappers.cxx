@@ -1302,18 +1302,38 @@ SWIGINTERN void std_vector_Sl_pagmoWrap_MigrationEntry_Sg__SetRange(std::vector<
 #include "pagmo/bfe.hpp"
 #include "pagmo/r_policy.hpp"
 #include "pagmo/s_policy.hpp"
+#include "pagmo/r_policies/fair_replace.hpp"
+#include "pagmo/s_policies/select_best.hpp"
 
 // Facade + shims
 #include "island_swig.h"
 
 
+#include <memory>
+
+SWIGINTERN pagmo::island pagmo_island_CreateFromPopulation(pagmo::algorithm const &a,pagmo::population const &p){
+        return pagmoWrap::Island_FromAlgoPop(a, p);
+    }
+SWIGINTERN pagmo::island pagmo_island_CreateFromPopulationWithPolicies(pagmo::algorithm const &a,pagmo::population const &p,pagmo::fair_replace const &r,pagmo::select_best const &s){
+        return pagmoWrap::Island_FromAlgoPopFairSelect(a, p, r, s);
+    }
+SWIGINTERN pagmo::island pagmo_island_Create(pagmo::algorithm const &a,pagmo::problem const &prob,std::size_t pop_size,unsigned int seed){
+        return pagmoWrap::Island_FromAlgoProb(a, prob, pop_size, seed);
+    }
+SWIGINTERN pagmo::island pagmo_island_CreateWithPolicies(pagmo::algorithm const &a,pagmo::problem const &prob,std::size_t pop_size,pagmo::fair_replace const &r,pagmo::select_best const &s,unsigned int seed){
+        return pagmoWrap::Island_FromAlgoProbFairSelect(a, prob, pop_size, r, s, seed);
+    }
+SWIGINTERN pagmo::island pagmo_island_CreateWithBfe(pagmo::algorithm const &a,pagmo::problem const &prob,pagmo::bfe const &b,std::size_t pop_size,unsigned int seed){
+        return pagmoWrap::Island_FromAlgoProbBfe(a, prob, b, pop_size, seed);
+    }
+SWIGINTERN pagmo::island pagmo_island_CreateWithBfeAndPolicies(pagmo::algorithm const &a,pagmo::problem const &prob,pagmo::bfe const &b,std::size_t pop_size,pagmo::fair_replace const &r,pagmo::select_best const &s,unsigned int seed){
+        return pagmoWrap::Island_FromAlgoProbBfeFairSelect(a, prob, b, pop_size, r, s, seed);
+    }
+
 #include <stdint.h>		// Use the C99 official header
 
 
 #include "pagmo/problem.hpp"
-
-
-#include <memory>
 
 
 #include "pagmo/population.hpp"
@@ -11585,6 +11605,600 @@ SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_delete_MigrationEntryVector(void * jarg
       };
     }
   }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_delete_island(void * jarg1) {
+  pagmo::island *arg1 = 0 ;
+  
+  arg1 = (pagmo::island *)jarg1; 
+  {
+    try {
+      delete arg1;
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return ; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return ; 
+      };
+    }
+  }
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_island__SWIG_0(void * jarg1) {
+  void * jresult ;
+  pagmo::island *arg1 = 0 ;
+  pagmo::island *result = 0 ;
+  
+  arg1 = (pagmo::island *)jarg1;
+  if (!arg1) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "pagmo::island const & is null", 0);
+    return 0;
+  } 
+  {
+    try {
+      result = (pagmo::island *)new pagmo::island((pagmo::island const &)*arg1);
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_island_evolve__SWIG_0(void * jarg1, unsigned int jarg2) {
+  pagmo::island *arg1 = 0 ;
+  unsigned int arg2 ;
+  
+  arg1 = (pagmo::island *)jarg1; 
+  arg2 = (unsigned int)jarg2; 
+  {
+    try {
+      (arg1)->evolve(arg2);
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return ; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return ; 
+      };
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_island_evolve__SWIG_1(void * jarg1) {
+  pagmo::island *arg1 = 0 ;
+  
+  arg1 = (pagmo::island *)jarg1; 
+  {
+    try {
+      (arg1)->evolve();
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return ; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return ; 
+      };
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_island_wait_check(void * jarg1) {
+  pagmo::island *arg1 = 0 ;
+  
+  arg1 = (pagmo::island *)jarg1; 
+  {
+    try {
+      (arg1)->wait_check();
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return ; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return ; 
+      };
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_island_wait(void * jarg1) {
+  pagmo::island *arg1 = 0 ;
+  
+  arg1 = (pagmo::island *)jarg1; 
+  {
+    try {
+      (arg1)->wait();
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return ; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return ; 
+      };
+    }
+  }
+}
+
+
+SWIGEXPORT int SWIGSTDCALL CSharp_pagmo_island_status(void * jarg1) {
+  int jresult ;
+  pagmo::island *arg1 = 0 ;
+  pagmo::evolve_status result;
+  
+  arg1 = (pagmo::island *)jarg1; 
+  {
+    try {
+      result = (pagmo::evolve_status)((pagmo::island const *)arg1)->status();
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = (int)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_island_get_algorithm(void * jarg1) {
+  void * jresult ;
+  pagmo::island *arg1 = 0 ;
+  pagmo::algorithm result;
+  
+  arg1 = (pagmo::island *)jarg1; 
+  {
+    try {
+      result = ((pagmo::island const *)arg1)->get_algorithm();
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = new pagmo::algorithm(result); 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_island_set_algorithm(void * jarg1, void * jarg2) {
+  pagmo::island *arg1 = 0 ;
+  pagmo::algorithm *arg2 = 0 ;
+  
+  arg1 = (pagmo::island *)jarg1; 
+  arg2 = (pagmo::algorithm *)jarg2;
+  if (!arg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "pagmo::algorithm const & is null", 0);
+    return ;
+  } 
+  {
+    try {
+      (arg1)->set_algorithm((pagmo::algorithm const &)*arg2);
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return ; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return ; 
+      };
+    }
+  }
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_island_get_population(void * jarg1) {
+  void * jresult ;
+  pagmo::island *arg1 = 0 ;
+  SwigValueWrapper< pagmo::population > result;
+  
+  arg1 = (pagmo::island *)jarg1; 
+  {
+    try {
+      result = ((pagmo::island const *)arg1)->get_population();
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = new pagmo::population(result); 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_island_set_population(void * jarg1, void * jarg2) {
+  pagmo::island *arg1 = 0 ;
+  pagmo::population *arg2 = 0 ;
+  
+  arg1 = (pagmo::island *)jarg1; 
+  arg2 = (pagmo::population *)jarg2;
+  if (!arg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "pagmo::population const & is null", 0);
+    return ;
+  } 
+  {
+    try {
+      (arg1)->set_population((pagmo::population const &)*arg2);
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return ; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return ; 
+      };
+    }
+  }
+}
+
+
+SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_island_get_name(void * jarg1) {
+  const char * jresult ;
+  pagmo::island *arg1 = 0 ;
+  std::string result;
+  
+  arg1 = (pagmo::island *)jarg1; 
+  {
+    try {
+      result = ((pagmo::island const *)arg1)->get_name();
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  return jresult;
+}
+
+
+SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_island_get_extra_info(void * jarg1) {
+  const char * jresult ;
+  pagmo::island *arg1 = 0 ;
+  std::string result;
+  
+  arg1 = (pagmo::island *)jarg1; 
+  {
+    try {
+      result = ((pagmo::island const *)arg1)->get_extra_info();
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  return jresult;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_pagmo_island_is_valid(void * jarg1) {
+  unsigned int jresult ;
+  pagmo::island *arg1 = 0 ;
+  bool result;
+  
+  arg1 = (pagmo::island *)jarg1; 
+  {
+    try {
+      result = (bool)((pagmo::island const *)arg1)->is_valid();
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_island_CreateFromPopulation(void * jarg1, void * jarg2) {
+  void * jresult ;
+  pagmo::algorithm *arg1 = 0 ;
+  pagmo::population *arg2 = 0 ;
+  SwigValueWrapper< pagmo::island > result;
+  
+  arg1 = (pagmo::algorithm *)jarg1;
+  if (!arg1) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "pagmo::algorithm const & is null", 0);
+    return 0;
+  } 
+  arg2 = (pagmo::population *)jarg2;
+  if (!arg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "pagmo::population const & is null", 0);
+    return 0;
+  } 
+  {
+    try {
+      result = pagmo_island_CreateFromPopulation((pagmo::algorithm const &)*arg1,(pagmo::population const &)*arg2);
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = new pagmo::island(result); 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_island_CreateFromPopulationWithPolicies(void * jarg1, void * jarg2, void * jarg3, void * jarg4) {
+  void * jresult ;
+  pagmo::algorithm *arg1 = 0 ;
+  pagmo::population *arg2 = 0 ;
+  pagmo::fair_replace *arg3 = 0 ;
+  pagmo::select_best *arg4 = 0 ;
+  SwigValueWrapper< pagmo::island > result;
+  
+  arg1 = (pagmo::algorithm *)jarg1;
+  if (!arg1) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "pagmo::algorithm const & is null", 0);
+    return 0;
+  } 
+  arg2 = (pagmo::population *)jarg2;
+  if (!arg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "pagmo::population const & is null", 0);
+    return 0;
+  } 
+  arg3 = (pagmo::fair_replace *)jarg3;
+  if (!arg3) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "pagmo::fair_replace const & is null", 0);
+    return 0;
+  } 
+  arg4 = (pagmo::select_best *)jarg4;
+  if (!arg4) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "pagmo::select_best const & is null", 0);
+    return 0;
+  } 
+  {
+    try {
+      result = pagmo_island_CreateFromPopulationWithPolicies((pagmo::algorithm const &)*arg1,(pagmo::population const &)*arg2,(pagmo::fair_replace const &)*arg3,(pagmo::select_best const &)*arg4);
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = new pagmo::island(result); 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_island_Create(void * jarg1, void * jarg2, unsigned int jarg3, unsigned int jarg4) {
+  void * jresult ;
+  pagmo::algorithm *arg1 = 0 ;
+  pagmo::problem *arg2 = 0 ;
+  std::size_t arg3 ;
+  unsigned int arg4 ;
+  SwigValueWrapper< pagmo::island > result;
+  
+  arg1 = (pagmo::algorithm *)jarg1;
+  if (!arg1) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "pagmo::algorithm const & is null", 0);
+    return 0;
+  } 
+  arg2 = (pagmo::problem *)jarg2;
+  if (!arg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "pagmo::problem const & is null", 0);
+    return 0;
+  } 
+  arg3 = (std::size_t)jarg3; 
+  arg4 = (unsigned int)jarg4; 
+  {
+    try {
+      result = pagmo_island_Create((pagmo::algorithm const &)*arg1,(pagmo::problem const &)*arg2,SWIG_STD_MOVE(arg3),arg4);
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = new pagmo::island(result); 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_island_CreateWithPolicies(void * jarg1, void * jarg2, unsigned int jarg3, void * jarg4, void * jarg5, unsigned int jarg6) {
+  void * jresult ;
+  pagmo::algorithm *arg1 = 0 ;
+  pagmo::problem *arg2 = 0 ;
+  std::size_t arg3 ;
+  pagmo::fair_replace *arg4 = 0 ;
+  pagmo::select_best *arg5 = 0 ;
+  unsigned int arg6 ;
+  SwigValueWrapper< pagmo::island > result;
+  
+  arg1 = (pagmo::algorithm *)jarg1;
+  if (!arg1) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "pagmo::algorithm const & is null", 0);
+    return 0;
+  } 
+  arg2 = (pagmo::problem *)jarg2;
+  if (!arg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "pagmo::problem const & is null", 0);
+    return 0;
+  } 
+  arg3 = (std::size_t)jarg3; 
+  arg4 = (pagmo::fair_replace *)jarg4;
+  if (!arg4) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "pagmo::fair_replace const & is null", 0);
+    return 0;
+  } 
+  arg5 = (pagmo::select_best *)jarg5;
+  if (!arg5) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "pagmo::select_best const & is null", 0);
+    return 0;
+  } 
+  arg6 = (unsigned int)jarg6; 
+  {
+    try {
+      result = pagmo_island_CreateWithPolicies((pagmo::algorithm const &)*arg1,(pagmo::problem const &)*arg2,SWIG_STD_MOVE(arg3),(pagmo::fair_replace const &)*arg4,(pagmo::select_best const &)*arg5,arg6);
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = new pagmo::island(result); 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_island_CreateWithBfe(void * jarg1, void * jarg2, void * jarg3, unsigned int jarg4, unsigned int jarg5) {
+  void * jresult ;
+  pagmo::algorithm *arg1 = 0 ;
+  pagmo::problem *arg2 = 0 ;
+  pagmo::bfe *arg3 = 0 ;
+  std::size_t arg4 ;
+  unsigned int arg5 ;
+  SwigValueWrapper< pagmo::island > result;
+  
+  arg1 = (pagmo::algorithm *)jarg1;
+  if (!arg1) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "pagmo::algorithm const & is null", 0);
+    return 0;
+  } 
+  arg2 = (pagmo::problem *)jarg2;
+  if (!arg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "pagmo::problem const & is null", 0);
+    return 0;
+  } 
+  arg3 = (pagmo::bfe *)jarg3;
+  if (!arg3) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "pagmo::bfe const & is null", 0);
+    return 0;
+  } 
+  arg4 = (std::size_t)jarg4; 
+  arg5 = (unsigned int)jarg5; 
+  {
+    try {
+      result = pagmo_island_CreateWithBfe((pagmo::algorithm const &)*arg1,(pagmo::problem const &)*arg2,(pagmo::bfe const &)*arg3,SWIG_STD_MOVE(arg4),arg5);
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = new pagmo::island(result); 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_island_CreateWithBfeAndPolicies(void * jarg1, void * jarg2, void * jarg3, unsigned int jarg4, void * jarg5, void * jarg6, unsigned int jarg7) {
+  void * jresult ;
+  pagmo::algorithm *arg1 = 0 ;
+  pagmo::problem *arg2 = 0 ;
+  pagmo::bfe *arg3 = 0 ;
+  std::size_t arg4 ;
+  pagmo::fair_replace *arg5 = 0 ;
+  pagmo::select_best *arg6 = 0 ;
+  unsigned int arg7 ;
+  SwigValueWrapper< pagmo::island > result;
+  
+  arg1 = (pagmo::algorithm *)jarg1;
+  if (!arg1) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "pagmo::algorithm const & is null", 0);
+    return 0;
+  } 
+  arg2 = (pagmo::problem *)jarg2;
+  if (!arg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "pagmo::problem const & is null", 0);
+    return 0;
+  } 
+  arg3 = (pagmo::bfe *)jarg3;
+  if (!arg3) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "pagmo::bfe const & is null", 0);
+    return 0;
+  } 
+  arg4 = (std::size_t)jarg4; 
+  arg5 = (pagmo::fair_replace *)jarg5;
+  if (!arg5) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "pagmo::fair_replace const & is null", 0);
+    return 0;
+  } 
+  arg6 = (pagmo::select_best *)jarg6;
+  if (!arg6) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "pagmo::select_best const & is null", 0);
+    return 0;
+  } 
+  arg7 = (unsigned int)jarg7; 
+  {
+    try {
+      result = pagmo_island_CreateWithBfeAndPolicies((pagmo::algorithm const &)*arg1,(pagmo::problem const &)*arg2,(pagmo::bfe const &)*arg3,SWIG_STD_MOVE(arg4),(pagmo::fair_replace const &)*arg5,(pagmo::select_best const &)*arg6,arg7);
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = new pagmo::island(result); 
+  return jresult;
 }
 
 

@@ -4,7 +4,7 @@
     <TargetFramework>net6.0</TargetFramework>
     <PlatformTarget>x64</PlatformTarget>
     <Platforms>x64</Platforms>
-    <PagmoWrapperBinDir>$([System.IO.Path]::GetFullPath('$(MSBuildProjectDirectory)\..\..\pagmoWrapper\bin'))</PagmoWrapperBinDir>
+    <PagmoWrapperBinDir>$([System.IO.Path]::GetFullPath('$(MSBuildProjectDirectory)\..\..\pagmoWrapper\pagmoWrapper\bin'))</PagmoWrapperBinDir>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">

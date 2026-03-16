@@ -42,9 +42,8 @@ namespace Tests.PagmoSharp.Problems
         public override void TestOptimizing()
         {
             using var problemBase = CreateStandardProblem();
-            var problemBase2 = new ProblemWrapper(problemBase);
             using var algorithm = new gwo(20);
-            using (var pop = new population(problemBase2, 1024))
+            using (var pop = new population(problemBase, 1024))
             {
                 algorithm.set_seed(2); // for consistent results
                 

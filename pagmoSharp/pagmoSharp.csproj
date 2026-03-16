@@ -6,7 +6,7 @@
     <Platforms>x64</Platforms>
     <ApplicationIcon />
     <StartupObject />
-    <PagmoWrapperBinDir>$([System.IO.Path]::GetFullPath('$(MSBuildProjectDirectory)\..\pagmoWrapper\bin'))</PagmoWrapperBinDir>
+    <PagmoWrapperBinDir>$([System.IO.Path]::GetFullPath('$(MSBuildProjectDirectory)\..\pagmoWrapper\pagmoWrapper\bin'))</PagmoWrapperBinDir>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

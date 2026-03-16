@@ -1,6 +1,6 @@
 # PagmoSharp Roadmap
 
-Last updated: 2026-03-10
+Last updated: 2026-03-13
 
 ## Intent
 - Build a robust C#-first wrapper over pagmo with safe lifetimes and predictable behavior.
@@ -28,6 +28,16 @@ Last updated: 2026-03-10
 - Managed problem contract expanded (batch/gradient/hessians/sparsity/seed/extra-info/thread-safety).
 - End-to-end DE managed pipeline test added:
   - `Tests/Tests.PagmoSharp/Algorithms/Test_de_managed_problem_pipeline.cs`
+- Island wrapping completed for managed and native workflows:
+  - generated wrapper: `pagmoSharp/pygmoWrappers/island.cs`
+  - extension factories: `pagmoSharp/pagmoExtensions/island.cs`
+  - tests: `Tests/Tests.PagmoSharp/Test_island.cs`
+- Managed sparsity contract matured:
+  - `IProblem` / `ManagedProblemBase` now use concrete `SparsityPattern` / `VectorOfSparsityPattern`
+  - `ProblemCallbackAdapter` converts to director raw pointer wrappers internally
+  - `problem` partial helpers added: `GradientSparsity()` / `HessiansSparsity()`
+- Inheritance-heavy `ProblemWrapper` removed.
+- Native DLL post-build copy paths corrected to `pagmoWrapper/pagmoWrapper/bin` in both C# projects.
 
 ## Known Issues / Gaps
 - SWIG currently emits sparsity callback signatures as opaque `SWIGTYPE_*` in some director methods (`problem_callback`), even though concrete wrappers (`SparsityPattern`, `VectorOfSparsityPattern`) are generated.
@@ -36,6 +46,12 @@ Last updated: 2026-03-10
 - Repo includes generated files in working tree; keep generation deterministic and avoid manual edits in generated wrappers.
 
 ## Immediate Next Steps (Priority Order)
+0. Complete generic `r_policy` / `s_policy` support end-to-end
+- Remove temporary island policy narrowing to concrete `fair_replace` / `select_best`.
+- Expose and use generic `r_policy` / `s_policy` in island APIs (constructors/factories/getters) for C# clients.
+- Ensure C# surface uses real wrapped policy types, not `SWIGTYPE_*` pointers.
+- Keep concrete-policy overloads only as convenience helpers.
+
 1. Normalize problem/sparsity API ergonomics
 - Make director-facing sparsity methods return concrete wrapper types instead of `SWIGTYPE_*` where possible.
 - Add C# partial helpers to convert between ergonomic and raw forms only if typemap cleanup is not feasible.

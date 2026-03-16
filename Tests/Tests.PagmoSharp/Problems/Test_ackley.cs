@@ -30,9 +30,8 @@ public class Test_ackley : TestProblemBase
     {
         using var problemBase = CreateStandardProblem();
         Assert.AreEqual(-15, problemBase.get_bounds().first[0]);
-        var problemBase2 = new ProblemWrapper(problemBase);
         using var algorithm = new gaco(20);
-        using (var pop = new population(problemBase2, 1024))
+        using (var pop = new population(problemBase, 1024))
         {
             algorithm.set_seed(2); // for consistent results
 
@@ -45,7 +44,7 @@ public class Test_ackley : TestProblemBase
 
             Assert.AreEqual(1, champF.Length, "1 in f(x)");
             Assert.AreEqual(0.00010319491007537707, champF[0], 1e-3, "optimal function value");
-            
+
         }
     }
 

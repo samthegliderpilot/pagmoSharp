@@ -11,6 +11,8 @@ namespace pagmo {
     class bfe;
     class r_policy;
     class s_policy;
+    class fair_replace;
+    class select_best;
 
     enum class evolve_status;
 
@@ -39,16 +41,10 @@ namespace pagmo {
         population get_population() const;
         void set_population(const population&);
 
-        r_policy get_r_policy() const;
-        s_policy get_s_policy() const;
-
         std::string get_name() const;
         std::string get_extra_info() const;
 
         bool is_valid() const;
-
-        const void* get_ptr() const;
-        void* get_ptr();
     };
 #else
     // ------------------------------------------------------------
@@ -72,6 +68,8 @@ namespace pagmo {
 #include <pagmo/bfe.hpp>
 #include <pagmo/r_policy.hpp>
 #include <pagmo/s_policy.hpp>
+#include <pagmo/r_policies/fair_replace.hpp>
+#include <pagmo/s_policies/select_best.hpp>
 
 namespace pagmoWrap {
 
@@ -87,6 +85,15 @@ namespace pagmoWrap {
         const pagmo::population& p,
         const pagmo::r_policy& r,
         const pagmo::s_policy& s)
+    {
+        return pagmo::island(a, p, r, s);
+    }
+
+    // algorithm + population + concrete policies
+    inline pagmo::island Island_FromAlgoPopFairSelect(const pagmo::algorithm& a,
+        const pagmo::population& p,
+        const pagmo::fair_replace& r,
+        const pagmo::select_best& s)
     {
         return pagmo::island(a, p, r, s);
     }
@@ -118,6 +125,21 @@ namespace pagmoWrap {
             seed);
     }
 
+    // algorithm + problem + pop size + concrete policies + seed
+    inline pagmo::island Island_FromAlgoProbFairSelect(const pagmo::algorithm& a,
+        const pagmo::problem& prob,
+        std::size_t pop_size,
+        const pagmo::fair_replace& r,
+        const pagmo::select_best& s,
+        unsigned seed)
+    {
+        return pagmo::island(a,
+            prob,
+            static_cast<pagmo::population::size_type>(pop_size),
+            r, s,
+            seed);
+    }
+
     // algorithm + problem + bfe + pop size + seed
     inline pagmo::island Island_FromAlgoProbBfe(const pagmo::algorithm& a,
         const pagmo::problem& prob,
@@ -139,6 +161,23 @@ namespace pagmoWrap {
         std::size_t pop_size,
         const pagmo::r_policy& r,
         const pagmo::s_policy& s,
+        unsigned seed)
+    {
+        return pagmo::island(a,
+            prob,
+            b,
+            static_cast<pagmo::population::size_type>(pop_size),
+            r, s,
+            seed);
+    }
+
+    // algorithm + problem + bfe + pop size + concrete policies + seed
+    inline pagmo::island Island_FromAlgoProbBfeFairSelect(const pagmo::algorithm& a,
+        const pagmo::problem& prob,
+        const pagmo::bfe& b,
+        std::size_t pop_size,
+        const pagmo::fair_replace& r,
+        const pagmo::select_best& s,
         unsigned seed)
     {
         return pagmo::island(a,

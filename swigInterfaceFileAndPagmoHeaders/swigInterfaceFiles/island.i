@@ -8,16 +8,19 @@
 #include "pagmo/bfe.hpp"
 #include "pagmo/r_policy.hpp"
 #include "pagmo/s_policy.hpp"
+#include "pagmo/r_policies/fair_replace.hpp"
+#include "pagmo/s_policies/select_best.hpp"
 
 // Facade + shims
 #include "island_swig.h"
 %}
 
-// SWIG parses the facade only.
-%import "pagmoWrapper/island_swig.h"
-
 // C# partial class support (your pattern)
 %typemap(csclassmodifiers) pagmo::island "public partial class"
+%typemap(csclassmodifiers) island "public partial class"
+
+// SWIG parses and wraps the facade.
+%include "pagmoWrapper/island_swig.h"
 
 // We use std::size_t in factory signatures.
 %include "stdint.i"
@@ -26,6 +29,9 @@
 // IMPORTANT: Do NOT expose default ctor in bindings.
 // -----------------------------------------------------------------------------
 %ignore pagmo::island::island();
+%ignore pagmo::island::get_ptr;
+%ignore pagmo::island::get_r_policy;
+%ignore pagmo::island::get_s_policy;
 
 // -----------------------------------------------------------------------------
 // Factory methods (shim-backed)
@@ -45,10 +51,10 @@
     static pagmo::island CreateFromPopulationWithPolicies(
         const pagmo::algorithm &a,
         const pagmo::population &p,
-        const pagmo::r_policy &r,
-        const pagmo::s_policy &s
+        const pagmo::fair_replace &r,
+        const pagmo::select_best &s
     ) {
-        return pagmoWrap::Island_FromAlgoPopPolicies(a, p, r, s);
+        return pagmoWrap::Island_FromAlgoPopFairSelect(a, p, r, s);
     }
 
     static pagmo::island Create(
@@ -64,11 +70,11 @@
         const pagmo::algorithm &a,
         const pagmo::problem &prob,
         std::size_t pop_size,
-        const pagmo::r_policy &r,
-        const pagmo::s_policy &s,
+        const pagmo::fair_replace &r,
+        const pagmo::select_best &s,
         unsigned seed
     ) {
-        return pagmoWrap::Island_FromAlgoProbPolicies(a, prob, pop_size, r, s, seed);
+        return pagmoWrap::Island_FromAlgoProbFairSelect(a, prob, pop_size, r, s, seed);
     }
 
     static pagmo::island CreateWithBfe(
@@ -86,10 +92,10 @@
         const pagmo::problem &prob,
         const pagmo::bfe &b,
         std::size_t pop_size,
-        const pagmo::r_policy &r,
-        const pagmo::s_policy &s,
+        const pagmo::fair_replace &r,
+        const pagmo::select_best &s,
         unsigned seed
     ) {
-        return pagmoWrap::Island_FromAlgoProbBfePolicies(a, prob, b, pop_size, r, s, seed);
+        return pagmoWrap::Island_FromAlgoProbBfeFairSelect(a, prob, b, pop_size, r, s, seed);
     }
 }

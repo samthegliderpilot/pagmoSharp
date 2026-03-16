@@ -25,11 +25,21 @@ namespace pagmo
         public override bool has_gradient() => _problem.has_gradient();
         public override DoubleVector gradient(DoubleVector x) => _problem.gradient(x);
         public override bool has_gradient_sparsity() => _problem.has_gradient_sparsity();
-        public override SWIGTYPE_p_std__vectorT_std__pairT_size_t_size_t_t_t gradient_sparsity() => _problem.gradient_sparsity();
+        public override SWIGTYPE_p_std__vectorT_std__pairT_size_t_size_t_t_t gradient_sparsity()
+        {
+            var sparsity = _problem.gradient_sparsity();
+            return new SWIGTYPE_p_std__vectorT_std__pairT_size_t_size_t_t_t(SparsityPattern.swigRelease(sparsity).Handle, true);
+        }
+
         public override bool has_hessians() => _problem.has_hessians();
         public override VectorOfVectorOfDoubles hessians(DoubleVector x) => _problem.hessians(x);
         public override bool has_hessians_sparsity() => _problem.has_hessians_sparsity();
-        public override SWIGTYPE_p_std__vectorT_std__vectorT_std__pairT_size_t_size_t_t_t_t hessians_sparsity() => _problem.hessians_sparsity();
+        public override SWIGTYPE_p_std__vectorT_std__vectorT_std__pairT_size_t_size_t_t_t_t hessians_sparsity()
+        {
+            var sparsity = _problem.hessians_sparsity();
+            return new SWIGTYPE_p_std__vectorT_std__vectorT_std__pairT_size_t_size_t_t_t_t(VectorOfSparsityPattern.swigRelease(sparsity).Handle, true);
+        }
+
         public override void set_seed(uint seed) => _problem.set_seed(seed);
         public override bool has_set_seed() => _problem.has_set_seed();
         public override thread_safety get_thread_safety() => _problem.get_thread_safety();

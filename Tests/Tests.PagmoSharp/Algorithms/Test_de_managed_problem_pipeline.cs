@@ -46,6 +46,13 @@ namespace Tests.PagmoSharp.Algorithms
             {
                 return new DoubleVector(new[] { 2.0 * x[0], 2.0 * x[1] - 6.0 });
             }
+
+            public override bool has_gradient_sparsity() => true;
+
+            public override SparsityPattern gradient_sparsity()
+            {
+                return Sparsity((0u, 0u), (0u, 1u));
+            }
         }
 
         [Test]
@@ -68,6 +75,7 @@ namespace Tests.PagmoSharp.Algorithms
 
             Assert.IsTrue(prob.has_batch_fitness());
             Assert.IsTrue(prob.has_gradient());
+            Assert.IsTrue(prob.has_gradient_sparsity());
             Assert.IsFalse(prob.has_hessians());
             Assert.IsFalse(prob.has_set_seed());
 
@@ -80,6 +88,13 @@ namespace Tests.PagmoSharp.Algorithms
             Assert.AreEqual(2.0, g[0], 1e-12);
             Assert.AreEqual(0.0, g[1], 1e-12);
             Assert.AreEqual(1ul, prob.get_gevals());
+
+            using var gradientSparsity = prob.GradientSparsity();
+            Assert.AreEqual(2, gradientSparsity.Count);
+            Assert.AreEqual(0u, gradientSparsity[0].first);
+            Assert.AreEqual(0u, gradientSparsity[0].second);
+            Assert.AreEqual(0u, gradientSparsity[1].first);
+            Assert.AreEqual(1u, gradientSparsity[1].second);
 
             using var batch = new DoubleVector(new[] { 1.0, 3.0, 2.0, 3.0 });
             using var batchF = prob.batch_fitness(batch);

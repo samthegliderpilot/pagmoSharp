@@ -30,9 +30,8 @@ public class Test_minlp_Rastrigin : TestProblemBase
     {
         using var problemBase = CreateStandardProblem();
         Assert.AreEqual(-5.12, problemBase.get_bounds().first[0], 0.000001);
-        var problemBase2 = new ProblemWrapper(problemBase);
         using var algorithm = new gaco(20);
-        using (var pop = new population(problemBase2, 1024))
+        using (var pop = new population(problemBase, 1024))
         {
             algorithm.set_seed(2); // for consistent results
 

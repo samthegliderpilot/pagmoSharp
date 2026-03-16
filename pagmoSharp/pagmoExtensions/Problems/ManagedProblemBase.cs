@@ -33,7 +33,7 @@ namespace pagmo
 
         public virtual bool has_gradient_sparsity() => false;
 
-        public virtual SWIGTYPE_p_std__vectorT_std__pairT_size_t_size_t_t_t gradient_sparsity()
+        public virtual SparsityPattern gradient_sparsity()
         {
             throw new NotSupportedException($"{get_name()} does not provide gradient_sparsity().");
         }
@@ -47,7 +47,7 @@ namespace pagmo
 
         public virtual bool has_hessians_sparsity() => false;
 
-        public virtual SWIGTYPE_p_std__vectorT_std__vectorT_std__pairT_size_t_size_t_t_t_t hessians_sparsity()
+        public virtual VectorOfSparsityPattern hessians_sparsity()
         {
             throw new NotSupportedException($"{get_name()} does not provide hessians_sparsity().");
         }
@@ -77,5 +77,24 @@ namespace pagmo
         /// Convenience helper for compact bound creation in managed UDPs.
         /// </summary>
         protected static PairOfDoubleVectors Bounds(double[] lower, double[] upper) => new(new DoubleVector(lower), new DoubleVector(upper));
+
+        /// <summary>
+        /// Convenience helper for compact gradient sparsity creation in managed UDPs.
+        /// </summary>
+        protected static SparsityPattern Sparsity(params (uint Row, uint Col)[] entries)
+        {
+            var result = new SparsityPattern();
+            foreach (var (row, col) in entries)
+            {
+                result.Add(new SizeTPair(row, col));
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// Convenience helper for compact hessian sparsity creation in managed UDPs.
+        /// </summary>
+        protected static VectorOfSparsityPattern HessiansSparsity(params SparsityPattern[] patterns) => new(patterns);
     }
 }
