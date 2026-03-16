@@ -1,6 +1,6 @@
 # PagmoSharp Roadmap
 
-Last updated: 2026-03-13
+Last updated: 2026-03-16
 
 ## Intent
 - Build a robust C#-first wrapper over pagmo with safe lifetimes and predictable behavior.
@@ -44,6 +44,7 @@ Last updated: 2026-03-13
   - This is functional but not ergonomic.
 - Local environment/sandbox lock contention on `pagmoSharp/bin` and `pagmoSharp/obj` can block managed builds/tests.
 - Repo includes generated files in working tree; keep generation deterministic and avoid manual edits in generated wrappers.
+- Full generic `r_policy` / `s_policy` surface is not complete yet (temporary island narrowing still in place).
 
 ## Immediate Next Steps (Priority Order)
 0. Complete generic `r_policy` / `s_policy` support end-to-end
@@ -96,6 +97,49 @@ Last updated: 2026-03-13
   - `pagmoSharp: test (Debug x64)`
 - If build fails due lock:
   - ensure no running testhost/dotnet process is holding `pagmoSharp/bin` or `obj`.
+
+## Laptop Travel Handoff (Do This First)
+1. Prerequisites to verify
+- Visual Studio 2022 Build Tools (MSBuild + MSVC C++ toolchain).
+- .NET SDK (net6-targeting works with newer SDKs).
+- SWIG available at the path used by `createSwigWrappersAndPlaceThem.bat`.
+- vcpkg dependencies installed so `pagmoWrapper.vcxproj` include/lib paths resolve.
+
+2. First-run command sequence (repo root)
+- `powershell -ExecutionPolicy Bypass -File scripts/regen-swig.ps1`
+- `powershell -ExecutionPolicy Bypass -File scripts/build-native.ps1 -Configuration Debug -Platform x64`
+- `powershell -ExecutionPolicy Bypass -File scripts/test.ps1 -Configuration Debug -Stage build`
+- `powershell -ExecutionPolicy Bypass -File scripts/test.ps1 -Configuration Debug -Stage test -NoRestore`
+
+3. Important build-path note
+- Native build output expected by managed projects is `pagmoWrapper/pagmoWrapper/bin` (not `pagmoWrapper/bin`).
+- Both `.csproj` files were updated to copy native DLLs from that path.
+
+4. If lock/contention appears on `bin/obj`
+- Stop stale processes: `dotnet`, `vstest.console`, `testhost`.
+- Use artifact paths to avoid locked default output folders:
+  - `dotnet build ... -p:BaseOutputPath=artifacts/out/ -p:IntermediateOutputPath=artifacts/obj/x64/Debug/net6.0/`
+- In constrained environments, adding `-p:GenerateDependencyFile=false` can avoid `.deps.json` write contention during build-only validation.
+
+5. If NuGet is unavailable (travel/offline network)
+- Prefer `--no-restore` after one successful restore on that machine.
+- If restore is required and offline, expect `NU1301` failures until connectivity is restored.
+
+6. Current verified test baseline (2026-03-16)
+- Targeted maturation set passes:
+  - `Test_de_managed_problem_pipeline`
+  - `Test_bfe`
+  - `Test_archipelago`
+  - `Test_island`
+  - Result: `9 passed, 0 failed`
+- Full suite currently has pre-existing failures unrelated to this handoff work:
+  - `TestAlgorithmBase.TestGetLog` (`bee_colony.get_log` missing)
+  - `TestAlgorithmBase.TestIntegerProgrammingWithUnConstraints` (threshold/behavior drift)
+  - `TestAlgorithmBase.TestMultiobjectiveUnconstrained` (champion extraction on multi-objective population)
+  - `Test_multi_objective.TestDecompositionWeights` (invalid method string in test input)
+
+7. Next sprint priority on return
+- Complete generic `r_policy` / `s_policy` support end-to-end (remove temporary island narrowing).
 
 ## Notes for Future GPT Sessions
 - Respect user preference to discard flawed inheritance decisions.
