@@ -97,8 +97,80 @@ public partial class archipelago : global::System.IDisposable {
     return ret;
   }
 
+  public island get_island_copy(uint idx) {
+    island ret = new island(pagmoPINVOKE.archipelago_get_island_copy(swigCPtr, idx), true);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
   public uint push_back_island(algorithm algo, problem prob, uint pop_size, uint seed) {
-    uint ret = pagmoPINVOKE.archipelago_push_back_island(swigCPtr, algorithm.getCPtr(algo), problem.getCPtr(prob), pop_size, seed);
+    uint ret = pagmoPINVOKE.archipelago_push_back_island__SWIG_0(swigCPtr, algorithm.getCPtr(algo), problem.getCPtr(prob), pop_size, seed);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  public uint push_back_island(algorithm algo, problem prob, uint pop_size, fair_replace r, select_best s, uint seed) {
+    uint ret = pagmoPINVOKE.archipelago_push_back_island__SWIG_1(swigCPtr, algorithm.getCPtr(algo), problem.getCPtr(prob), pop_size, fair_replace.getCPtr(r), select_best.getCPtr(s), seed);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  public uint push_back_island(algorithm algo, problem prob, uint pop_size, r_policyPagmoWrapper r, s_policyPagmoWrapper s, uint seed) {
+    uint ret = pagmoPINVOKE.archipelago_push_back_island__SWIG_2(swigCPtr, algorithm.getCPtr(algo), problem.getCPtr(prob), pop_size, r_policyPagmoWrapper.getCPtr(r), s_policyPagmoWrapper.getCPtr(s), seed);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  public uint push_back_island(algorithm algo, problem prob, bfe b, uint pop_size, uint seed) {
+    uint ret = pagmoPINVOKE.archipelago_push_back_island__SWIG_3(swigCPtr, algorithm.getCPtr(algo), problem.getCPtr(prob), bfe.getCPtr(b), pop_size, seed);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  public uint push_back_island(algorithm algo, problem prob, bfe b, uint pop_size, fair_replace r, select_best s, uint seed) {
+    uint ret = pagmoPINVOKE.archipelago_push_back_island__SWIG_4(swigCPtr, algorithm.getCPtr(algo), problem.getCPtr(prob), bfe.getCPtr(b), pop_size, fair_replace.getCPtr(r), select_best.getCPtr(s), seed);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  public uint push_back_island(algorithm algo, problem prob, bfe b, uint pop_size, r_policyPagmoWrapper r, s_policyPagmoWrapper s, uint seed) {
+    uint ret = pagmoPINVOKE.archipelago_push_back_island__SWIG_5(swigCPtr, algorithm.getCPtr(algo), problem.getCPtr(prob), bfe.getCPtr(b), pop_size, r_policyPagmoWrapper.getCPtr(r), s_policyPagmoWrapper.getCPtr(s), seed);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  public uint push_back_island(thread_island isl, algorithm algo, problem prob, uint pop_size, uint seed) {
+    uint ret = pagmoPINVOKE.archipelago_push_back_island__SWIG_6(swigCPtr, thread_island.getCPtr(isl), algorithm.getCPtr(algo), problem.getCPtr(prob), pop_size, seed);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  public uint push_back_island(thread_island isl, algorithm algo, problem prob, uint pop_size, fair_replace r, select_best s, uint seed) {
+    uint ret = pagmoPINVOKE.archipelago_push_back_island__SWIG_7(swigCPtr, thread_island.getCPtr(isl), algorithm.getCPtr(algo), problem.getCPtr(prob), pop_size, fair_replace.getCPtr(r), select_best.getCPtr(s), seed);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  public uint push_back_island(thread_island isl, algorithm algo, problem prob, uint pop_size, r_policyPagmoWrapper r, s_policyPagmoWrapper s, uint seed) {
+    uint ret = pagmoPINVOKE.archipelago_push_back_island__SWIG_8(swigCPtr, thread_island.getCPtr(isl), algorithm.getCPtr(algo), problem.getCPtr(prob), pop_size, r_policyPagmoWrapper.getCPtr(r), s_policyPagmoWrapper.getCPtr(s), seed);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  public uint push_back_island(thread_island isl, algorithm algo, problem prob, bfe b, uint pop_size, uint seed) {
+    uint ret = pagmoPINVOKE.archipelago_push_back_island__SWIG_9(swigCPtr, thread_island.getCPtr(isl), algorithm.getCPtr(algo), problem.getCPtr(prob), bfe.getCPtr(b), pop_size, seed);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  public uint push_back_island(thread_island isl, algorithm algo, problem prob, bfe b, uint pop_size, fair_replace r, select_best s, uint seed) {
+    uint ret = pagmoPINVOKE.archipelago_push_back_island__SWIG_10(swigCPtr, thread_island.getCPtr(isl), algorithm.getCPtr(algo), problem.getCPtr(prob), bfe.getCPtr(b), pop_size, fair_replace.getCPtr(r), select_best.getCPtr(s), seed);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  public uint push_back_island(thread_island isl, algorithm algo, problem prob, bfe b, uint pop_size, r_policyPagmoWrapper r, s_policyPagmoWrapper s, uint seed) {
+    uint ret = pagmoPINVOKE.archipelago_push_back_island__SWIG_11(swigCPtr, thread_island.getCPtr(isl), algorithm.getCPtr(algo), problem.getCPtr(prob), bfe.getCPtr(b), pop_size, r_policyPagmoWrapper.getCPtr(r), s_policyPagmoWrapper.getCPtr(s), seed);
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }

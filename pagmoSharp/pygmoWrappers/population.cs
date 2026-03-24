@@ -149,6 +149,12 @@ public partial class population : global::System.IDisposable {
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
+  public problem get_problem() {
+    problem ret = new problem(pagmoPINVOKE.population_get_problem(swigCPtr), false);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
   public VectorOfVectorOfDoubles get_f() {
     VectorOfVectorOfDoubles ret = new VectorOfVectorOfDoubles(pagmoPINVOKE.population_get_f(swigCPtr), false);
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();

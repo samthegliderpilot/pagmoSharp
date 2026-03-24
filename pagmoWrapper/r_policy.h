@@ -122,33 +122,22 @@ namespace pagmoWrap
     class r_policyPagmoWrapper
     {
     private:
-        r_policyBase* _base;
-        void deleteProblem() {
-            //TODO: This is something that has me worried.  pagmo will create copies of the problem,
-            // but if they all share the same pointer, when one of those copies gets destroyed, it
-            // deletes the whole pointer, which breaks other copies.  But not deleting it goes against
-            // the director example for swig, and I fear opens us up to a memory leak in sloppy cases
-            // (cases where the C# isn't behaving)
-            //delete _base;
-        }
+        std::shared_ptr<r_policyBase> _base;
     public:
-        r_policyPagmoWrapper() : _base(0) {}
+        r_policyPagmoWrapper() = default;
 
-        r_policyPagmoWrapper(r_policyBase* base) : _base(base) { }
+        explicit r_policyPagmoWrapper(r_policyBase* base) : _base(base) { }
 
-        r_policyPagmoWrapper(const r_policyPagmoWrapper& old) : _base(0) {
-            _base = old._base;
-        }
-        ~r_policyPagmoWrapper() {
-            deleteProblem();
-        }
+        r_policyPagmoWrapper(const r_policyPagmoWrapper&) = default;
+        r_policyPagmoWrapper& operator=(const r_policyPagmoWrapper&) = default;
+        ~r_policyPagmoWrapper() = default;
 
         void setBasePolicy(r_policyBase* b) {
-            deleteProblem(); _base = b;
+            _base.reset(b);
         }
 
         r_policyBase* getBasePolicy() {
-            return _base;
+            return _base.get();
         }
 
         pagmo::individuals_group_t replace(
@@ -167,6 +156,9 @@ namespace pagmoWrap
             pagmoWrap::IndividualsGroup hh = pagmoWrap::FromIndividualsGroupTuple(h);
 
             // Call the C#/director override
+            if (!_base) {
+                return a;
+            }
             pagmoWrap::IndividualsGroup rr = _base->replace(aa, b, c, d, e, f, g, hh);
 
             // Convert struct -> tuple for pagmo
@@ -177,18 +169,27 @@ namespace pagmoWrap
         // Name.
         std::string get_name() const
         {
+            if (!_base) {
+                return "";
+            }
             return _base->get_name();
         }
 
         // Extra info.
         std::string get_extra_info() const
         {
+            if (!_base) {
+                return "";
+            }
             return _base->get_extra_info();
         }
 
         // Check if the r_policy is valid.
         bool is_valid() const
         {
+            if (!_base) {
+                return false;
+            }
             return _base->is_valid();
         }
     };

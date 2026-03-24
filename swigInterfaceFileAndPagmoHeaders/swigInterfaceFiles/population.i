@@ -27,7 +27,7 @@ public:
 	extern size_type size() const;
 	extern void set_xf(size_type, const vector_double&, const vector_double&);
 	extern void set_x(size_type, const vector_double&);
-	//extern const pagmoWrap::problemPagomWrapper& get_problem() const;
+		extern const pagmo::problem& get_problem() const;
 	extern const std::vector<vector_double>& get_f() const;
 	extern const std::vector<vector_double>& get_x() const;
 	extern const std::vector<unsigned long long>& get_ID() const;

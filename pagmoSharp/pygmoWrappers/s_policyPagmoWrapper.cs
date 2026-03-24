@@ -65,7 +65,7 @@ public class s_policyPagmoWrapper : global::System.IDisposable {
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
-  public s_policyPagmoWrapper(s_policyPagmoWrapper old) : this(pagmoPINVOKE.new_s_policyPagmoWrapper__SWIG_2(s_policyPagmoWrapper.getCPtr(old)), true) {
+  public s_policyPagmoWrapper(s_policyPagmoWrapper arg0) : this(pagmoPINVOKE.new_s_policyPagmoWrapper__SWIG_2(s_policyPagmoWrapper.getCPtr(arg0)), true) {
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 

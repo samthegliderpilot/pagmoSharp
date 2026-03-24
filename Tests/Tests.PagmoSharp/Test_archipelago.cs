@@ -8,6 +8,20 @@ namespace Tests.PagmoSharp
     [TestFixture]
     public class Test_archipelago
     {
+        private static void AssertArchipelagoIslandConfiguration(archipelago archi, uint islandIndex, uint expectedPopulationSize)
+        {
+            using var islandSnapshot = archi.GetIslandCopy(islandIndex);
+            using var configuredAlgorithm = islandSnapshot.get_algorithm();
+            Assert.AreEqual("ABC: Artificial Bee Colony", configuredAlgorithm.get_name());
+
+            using var population = islandSnapshot.get_population();
+            Assert.AreEqual(expectedPopulationSize, population.size());
+            using var championDecisionVector = population.champion_x();
+            using var championFitnessVector = population.champion_f();
+            Assert.AreEqual(2, championDecisionVector.Count);
+            Assert.AreEqual(1, championFitnessVector.Count);
+        }
+
         private sealed class UnsupportedAlgorithm : IAlgorithm
         {
             public population evolve(population pop) => pop;
@@ -41,15 +55,38 @@ namespace Tests.PagmoSharp
 
             archi.push_back_island(algo, problem, 32, 2);
             Assert.AreEqual(1u, archi.size());
+            AssertArchipelagoIslandConfiguration(archi, 0, 32);
 
             archi.evolve(1);
             archi.wait_check();
             Assert.AreEqual(evolve_status.idle, archi.status());
+            AssertArchipelagoIslandConfiguration(archi, 0, 32);
 
             var db = archi.MigrantsDb;
             Assert.IsNotNull(db);
             var log = archi.MigrationLog;
             Assert.IsNotNull(log);
+        }
+
+        [Test]
+        public void ManagedThreadSafeProblemCanEvolveInArchipelagoWithBfeAndThreadIsland()
+        {
+            using var archi = new archipelago();
+            using IAlgorithm algo = new bee_colony();
+            using var problem = new TwoDimensionalSingleObjectiveProblemWrapper();
+            using var bfe = new default_bfe();
+            using var threadIsland = new thread_island();
+            using var replacementPolicy = new fair_replace();
+            using var selectionPolicy = new select_best();
+
+            archi.push_back_island(threadIsland, algo, problem, bfe, 24, replacementPolicy, selectionPolicy, 2);
+            Assert.AreEqual(1u, archi.size());
+            AssertArchipelagoIslandConfiguration(archi, 0, 24);
+
+            archi.evolve(1);
+            archi.wait_check();
+            Assert.AreEqual(evolve_status.idle, archi.status());
+            AssertArchipelagoIslandConfiguration(archi, 0, 24);
         }
 
         [Test]

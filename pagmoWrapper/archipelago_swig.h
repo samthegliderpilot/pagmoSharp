@@ -13,6 +13,7 @@ namespace pagmo {
     class bfe;
     class r_policy;
     class s_policy;
+    class thread_island;
 
     enum class evolve_status;
     enum class migration_type;
@@ -62,16 +63,21 @@ namespace pagmo {
 #include <pagmo/bfe.hpp>
 #include <pagmo/r_policy.hpp>
 #include <pagmo/s_policy.hpp>
+#include <pagmo/r_policies/fair_replace.hpp>
+#include <pagmo/s_policies/select_best.hpp>
+#include <pagmo/islands/thread_island.hpp>
+#include "r_policy.h"
+#include "s_policy.h"
 
 namespace pagmoWrap {
 
-    //// ----------------------------
-    //// Island access - return by VALUE
-    //// ----------------------------
-    //inline pagmo::island Archipelago_GetIslandCopy(const pagmo::archipelago& a, std::size_t idx)
-    //{
-    //    return a[static_cast<pagmo::archipelago::size_type>(idx)];
-    //}
+    // ----------------------------
+    // Island access - return by VALUE snapshot
+    // ----------------------------
+    inline pagmo::island Archipelago_GetIslandCopy(const pagmo::archipelago& a, std::size_t idx)
+    {
+        return a[static_cast<pagmo::archipelago::size_type>(idx)];
+    }
 
     //// If you want a "mutable" island (non-const) you still return by value.
     //// In C# you'll mutate the returned island instance, NOT the one in the archipelago.
@@ -109,6 +115,239 @@ namespace pagmoWrap {
         const auto idx = static_cast<std::size_t>(a.size());
         a.push_back(algo, prob, b,
             static_cast<pagmo::population::size_type>(pop_size),
+            seed);
+        return idx;
+    }
+
+    inline std::size_t Archipelago_PushBack_AlgoProbSizePoliciesSeed(pagmo::archipelago& a,
+        const pagmo::algorithm& algo,
+        const pagmo::problem& prob,
+        std::size_t pop_size,
+        const pagmo::r_policy& r,
+        const pagmo::s_policy& s,
+        unsigned seed)
+    {
+        const auto idx = static_cast<std::size_t>(a.size());
+        a.push_back(algo, prob,
+            static_cast<pagmo::population::size_type>(pop_size),
+            r, s,
+            seed);
+        return idx;
+    }
+
+    inline std::size_t Archipelago_PushBack_AlgoProbSizeFairSelectSeed(pagmo::archipelago& a,
+        const pagmo::algorithm& algo,
+        const pagmo::problem& prob,
+        std::size_t pop_size,
+        const pagmo::fair_replace& r,
+        const pagmo::select_best& s,
+        unsigned seed)
+    {
+        const auto idx = static_cast<std::size_t>(a.size());
+        a.push_back(algo, prob,
+            static_cast<pagmo::population::size_type>(pop_size),
+            r, s,
+            seed);
+        return idx;
+    }
+
+    inline std::size_t Archipelago_PushBack_AlgoProbSizeManagedPoliciesSeed(pagmo::archipelago& a,
+        const pagmo::algorithm& algo,
+        const pagmo::problem& prob,
+        std::size_t pop_size,
+        const pagmoWrap::r_policyPagmoWrapper& r,
+        const pagmoWrap::s_policyPagmoWrapper& s,
+        unsigned seed)
+    {
+        const auto idx = static_cast<std::size_t>(a.size());
+        a.push_back(algo, prob,
+            static_cast<pagmo::population::size_type>(pop_size),
+            pagmo::r_policy(r), pagmo::s_policy(s),
+            seed);
+        return idx;
+    }
+
+    inline std::size_t Archipelago_PushBack_AlgoProbBfeSizePoliciesSeed(pagmo::archipelago& a,
+        const pagmo::algorithm& algo,
+        const pagmo::problem& prob,
+        const pagmo::bfe& b,
+        std::size_t pop_size,
+        const pagmo::r_policy& r,
+        const pagmo::s_policy& s,
+        unsigned seed)
+    {
+        const auto idx = static_cast<std::size_t>(a.size());
+        a.push_back(algo, prob, b,
+            static_cast<pagmo::population::size_type>(pop_size),
+            r, s,
+            seed);
+        return idx;
+    }
+
+    inline std::size_t Archipelago_PushBack_AlgoProbBfeSizeFairSelectSeed(pagmo::archipelago& a,
+        const pagmo::algorithm& algo,
+        const pagmo::problem& prob,
+        const pagmo::bfe& b,
+        std::size_t pop_size,
+        const pagmo::fair_replace& r,
+        const pagmo::select_best& s,
+        unsigned seed)
+    {
+        const auto idx = static_cast<std::size_t>(a.size());
+        a.push_back(algo, prob, b,
+            static_cast<pagmo::population::size_type>(pop_size),
+            r, s,
+            seed);
+        return idx;
+    }
+
+    inline std::size_t Archipelago_PushBack_AlgoProbBfeSizeManagedPoliciesSeed(pagmo::archipelago& a,
+        const pagmo::algorithm& algo,
+        const pagmo::problem& prob,
+        const pagmo::bfe& b,
+        std::size_t pop_size,
+        const pagmoWrap::r_policyPagmoWrapper& r,
+        const pagmoWrap::s_policyPagmoWrapper& s,
+        unsigned seed)
+    {
+        const auto idx = static_cast<std::size_t>(a.size());
+        a.push_back(algo, prob, b,
+            static_cast<pagmo::population::size_type>(pop_size),
+            pagmo::r_policy(r), pagmo::s_policy(s),
+            seed);
+        return idx;
+    }
+
+    inline std::size_t Archipelago_PushBack_ThreadIslAlgoProbSizeSeed(pagmo::archipelago& a,
+        const pagmo::thread_island& isl,
+        const pagmo::algorithm& algo,
+        const pagmo::problem& prob,
+        std::size_t pop_size,
+        unsigned seed)
+    {
+        const auto idx = static_cast<std::size_t>(a.size());
+        a.push_back(isl, algo, prob,
+            static_cast<pagmo::population::size_type>(pop_size),
+            seed);
+        return idx;
+    }
+
+    inline std::size_t Archipelago_PushBack_ThreadIslAlgoProbSizePoliciesSeed(pagmo::archipelago& a,
+        const pagmo::thread_island& isl,
+        const pagmo::algorithm& algo,
+        const pagmo::problem& prob,
+        std::size_t pop_size,
+        const pagmo::r_policy& r,
+        const pagmo::s_policy& s,
+        unsigned seed)
+    {
+        const auto idx = static_cast<std::size_t>(a.size());
+        a.push_back(isl, algo, prob,
+            static_cast<pagmo::population::size_type>(pop_size),
+            r, s,
+            seed);
+        return idx;
+    }
+
+    inline std::size_t Archipelago_PushBack_ThreadIslAlgoProbSizeFairSelectSeed(pagmo::archipelago& a,
+        const pagmo::thread_island& isl,
+        const pagmo::algorithm& algo,
+        const pagmo::problem& prob,
+        std::size_t pop_size,
+        const pagmo::fair_replace& r,
+        const pagmo::select_best& s,
+        unsigned seed)
+    {
+        const auto idx = static_cast<std::size_t>(a.size());
+        a.push_back(isl, algo, prob,
+            static_cast<pagmo::population::size_type>(pop_size),
+            r, s,
+            seed);
+        return idx;
+    }
+
+    inline std::size_t Archipelago_PushBack_ThreadIslAlgoProbSizeManagedPoliciesSeed(pagmo::archipelago& a,
+        const pagmo::thread_island& isl,
+        const pagmo::algorithm& algo,
+        const pagmo::problem& prob,
+        std::size_t pop_size,
+        const pagmoWrap::r_policyPagmoWrapper& r,
+        const pagmoWrap::s_policyPagmoWrapper& s,
+        unsigned seed)
+    {
+        const auto idx = static_cast<std::size_t>(a.size());
+        a.push_back(isl, algo, prob,
+            static_cast<pagmo::population::size_type>(pop_size),
+            pagmo::r_policy(r), pagmo::s_policy(s),
+            seed);
+        return idx;
+    }
+
+    inline std::size_t Archipelago_PushBack_ThreadIslAlgoProbBfeSizeSeed(pagmo::archipelago& a,
+        const pagmo::thread_island& isl,
+        const pagmo::algorithm& algo,
+        const pagmo::problem& prob,
+        const pagmo::bfe& b,
+        std::size_t pop_size,
+        unsigned seed)
+    {
+        const auto idx = static_cast<std::size_t>(a.size());
+        a.push_back(isl, algo, prob, b,
+            static_cast<pagmo::population::size_type>(pop_size),
+            seed);
+        return idx;
+    }
+
+    inline std::size_t Archipelago_PushBack_ThreadIslAlgoProbBfeSizeFairSelectSeed(pagmo::archipelago& a,
+        const pagmo::thread_island& isl,
+        const pagmo::algorithm& algo,
+        const pagmo::problem& prob,
+        const pagmo::bfe& b,
+        std::size_t pop_size,
+        const pagmo::fair_replace& r,
+        const pagmo::select_best& s,
+        unsigned seed)
+    {
+        const auto idx = static_cast<std::size_t>(a.size());
+        a.push_back(isl, algo, prob, b,
+            static_cast<pagmo::population::size_type>(pop_size),
+            r, s,
+            seed);
+        return idx;
+    }
+
+    inline std::size_t Archipelago_PushBack_ThreadIslAlgoProbBfeSizeManagedPoliciesSeed(pagmo::archipelago& a,
+        const pagmo::thread_island& isl,
+        const pagmo::algorithm& algo,
+        const pagmo::problem& prob,
+        const pagmo::bfe& b,
+        std::size_t pop_size,
+        const pagmoWrap::r_policyPagmoWrapper& r,
+        const pagmoWrap::s_policyPagmoWrapper& s,
+        unsigned seed)
+    {
+        const auto idx = static_cast<std::size_t>(a.size());
+        a.push_back(isl, algo, prob, b,
+            static_cast<pagmo::population::size_type>(pop_size),
+            pagmo::r_policy(r), pagmo::s_policy(s),
+            seed);
+        return idx;
+    }
+
+    inline std::size_t Archipelago_PushBack_ThreadIslAlgoProbBfeSizePoliciesSeed(pagmo::archipelago& a,
+        const pagmo::thread_island& isl,
+        const pagmo::algorithm& algo,
+        const pagmo::problem& prob,
+        const pagmo::bfe& b,
+        std::size_t pop_size,
+        const pagmo::r_policy& r,
+        const pagmo::s_policy& s,
+        unsigned seed)
+    {
+        const auto idx = static_cast<std::size_t>(a.size());
+        a.push_back(isl, algo, prob, b,
+            static_cast<pagmo::population::size_type>(pop_size),
+            r, s,
             seed);
         return idx;
     }

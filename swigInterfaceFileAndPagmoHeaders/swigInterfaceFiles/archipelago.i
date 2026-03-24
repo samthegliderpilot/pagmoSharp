@@ -56,16 +56,11 @@
 %extend pagmo::archipelago {
 
     // ----------------------------
-    // Island access
-    // Return by value (copy) to avoid pointer/ref lifetime and island(IntPtr,...) ctor issues.
+    // Island snapshot access
     // ----------------------------
-    /*pagmo::island get_island(std::size_t idx) {
-        return pagmoWrap::Archipelago_GetIslandCopyMutable(*self, idx);
-    }
-
-    pagmo::island get_island_const(std::size_t idx) const {
+    pagmo::island get_island_copy(std::size_t idx) const {
         return pagmoWrap::Archipelago_GetIslandCopy(*self, idx);
-    }*/
+    }
 
     // ----------------------------
     // push_back wrappers
@@ -76,6 +71,111 @@
                                  std::size_t pop_size,
                                  unsigned seed) {
         return pagmoWrap::Archipelago_PushBack_AlgoProbSizeSeed(*self, algo, prob, pop_size, seed);
+    }
+
+    std::size_t push_back_island(const pagmo::algorithm &algo,
+                                 const pagmo::problem &prob,
+                                 std::size_t pop_size,
+                                 const pagmo::fair_replace &r,
+                                 const pagmo::select_best &s,
+                                 unsigned seed) {
+        return pagmoWrap::Archipelago_PushBack_AlgoProbSizeFairSelectSeed(*self, algo, prob, pop_size, r, s, seed);
+    }
+
+    std::size_t push_back_island(const pagmo::algorithm &algo,
+                                 const pagmo::problem &prob,
+                                 std::size_t pop_size,
+                                 const pagmoWrap::r_policyPagmoWrapper &r,
+                                 const pagmoWrap::s_policyPagmoWrapper &s,
+                                 unsigned seed) {
+        return pagmoWrap::Archipelago_PushBack_AlgoProbSizeManagedPoliciesSeed(*self, algo, prob, pop_size, r, s, seed);
+    }
+
+    std::size_t push_back_island(const pagmo::algorithm &algo,
+                                 const pagmo::problem &prob,
+                                 const pagmo::bfe &b,
+                                 std::size_t pop_size,
+                                 unsigned seed) {
+        return pagmoWrap::Archipelago_PushBack_AlgoProbBfeSizeSeed(*self, algo, prob, b, pop_size, seed);
+    }
+
+    std::size_t push_back_island(const pagmo::algorithm &algo,
+                                 const pagmo::problem &prob,
+                                 const pagmo::bfe &b,
+                                 std::size_t pop_size,
+                                 const pagmo::fair_replace &r,
+                                 const pagmo::select_best &s,
+                                 unsigned seed) {
+        return pagmoWrap::Archipelago_PushBack_AlgoProbBfeSizeFairSelectSeed(*self, algo, prob, b, pop_size, r, s, seed);
+    }
+
+    std::size_t push_back_island(const pagmo::algorithm &algo,
+                                 const pagmo::problem &prob,
+                                 const pagmo::bfe &b,
+                                 std::size_t pop_size,
+                                 const pagmoWrap::r_policyPagmoWrapper &r,
+                                 const pagmoWrap::s_policyPagmoWrapper &s,
+                                 unsigned seed) {
+        return pagmoWrap::Archipelago_PushBack_AlgoProbBfeSizeManagedPoliciesSeed(*self, algo, prob, b, pop_size, r, s, seed);
+    }
+
+    std::size_t push_back_island(const pagmo::thread_island &isl,
+                                 const pagmo::algorithm &algo,
+                                 const pagmo::problem &prob,
+                                 std::size_t pop_size,
+                                 unsigned seed) {
+        return pagmoWrap::Archipelago_PushBack_ThreadIslAlgoProbSizeSeed(*self, isl, algo, prob, pop_size, seed);
+    }
+
+    std::size_t push_back_island(const pagmo::thread_island &isl,
+                                 const pagmo::algorithm &algo,
+                                 const pagmo::problem &prob,
+                                 std::size_t pop_size,
+                                 const pagmo::fair_replace &r,
+                                 const pagmo::select_best &s,
+                                 unsigned seed) {
+        return pagmoWrap::Archipelago_PushBack_ThreadIslAlgoProbSizeFairSelectSeed(*self, isl, algo, prob, pop_size, r, s, seed);
+    }
+
+    std::size_t push_back_island(const pagmo::thread_island &isl,
+                                 const pagmo::algorithm &algo,
+                                 const pagmo::problem &prob,
+                                 std::size_t pop_size,
+                                 const pagmoWrap::r_policyPagmoWrapper &r,
+                                 const pagmoWrap::s_policyPagmoWrapper &s,
+                                 unsigned seed) {
+        return pagmoWrap::Archipelago_PushBack_ThreadIslAlgoProbSizeManagedPoliciesSeed(*self, isl, algo, prob, pop_size, r, s, seed);
+    }
+
+    std::size_t push_back_island(const pagmo::thread_island &isl,
+                                 const pagmo::algorithm &algo,
+                                 const pagmo::problem &prob,
+                                 const pagmo::bfe &b,
+                                 std::size_t pop_size,
+                                 unsigned seed) {
+        return pagmoWrap::Archipelago_PushBack_ThreadIslAlgoProbBfeSizeSeed(*self, isl, algo, prob, b, pop_size, seed);
+    }
+
+    std::size_t push_back_island(const pagmo::thread_island &isl,
+                                 const pagmo::algorithm &algo,
+                                 const pagmo::problem &prob,
+                                 const pagmo::bfe &b,
+                                 std::size_t pop_size,
+                                 const pagmo::fair_replace &r,
+                                 const pagmo::select_best &s,
+                                 unsigned seed) {
+        return pagmoWrap::Archipelago_PushBack_ThreadIslAlgoProbBfeSizeFairSelectSeed(*self, isl, algo, prob, b, pop_size, r, s, seed);
+    }
+
+    std::size_t push_back_island(const pagmo::thread_island &isl,
+                                 const pagmo::algorithm &algo,
+                                 const pagmo::problem &prob,
+                                 const pagmo::bfe &b,
+                                 std::size_t pop_size,
+                                 const pagmoWrap::r_policyPagmoWrapper &r,
+                                 const pagmoWrap::s_policyPagmoWrapper &s,
+                                 unsigned seed) {
+        return pagmoWrap::Archipelago_PushBack_ThreadIslAlgoProbBfeSizeManagedPoliciesSeed(*self, isl, algo, prob, b, pop_size, r, s, seed);
     }
 
     
