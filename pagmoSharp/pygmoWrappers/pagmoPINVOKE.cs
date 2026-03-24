@@ -2058,6 +2058,18 @@ class pagmoPINVOKE {
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_delete_nspso")]
   public static extern void delete_nspso(global::System.Runtime.InteropServices.HandleRef jarg1);
 
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_null_algorithm_evolve")]
+  public static extern global::System.IntPtr null_algorithm_evolve(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_null_algorithm_get_name")]
+  public static extern string null_algorithm_get_name(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_new_null_algorithm")]
+  public static extern global::System.IntPtr new_null_algorithm();
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_delete_null_algorithm")]
+  public static extern void delete_null_algorithm(global::System.Runtime.InteropServices.HandleRef jarg1);
+
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_new_pso__SWIG_0")]
   public static extern global::System.IntPtr new_pso__SWIG_0(uint jarg1, double jarg2, double jarg3, double jarg4, double jarg5, uint jarg6, uint jarg7, uint jarg8, bool jarg9, uint jarg10);
 

@@ -204,6 +204,7 @@ namespace std {
 	//%include swigInterfaceFiles\algorithms\ipopt.i // my build of pagmo doesn't include ipopt
 	//%include swigInterfaceFiles\algorithms\nlopt.i
 	%include swigInterfaceFiles\algorithms\nspso.i
+	%include swigInterfaceFiles\algorithms\null_algorithm.i
 	%include swigInterfaceFiles\algorithms\pso.i
 	%include swigInterfaceFiles\algorithms\pso_gen.i
 	%include swigInterfaceFiles\algorithms\sea.i

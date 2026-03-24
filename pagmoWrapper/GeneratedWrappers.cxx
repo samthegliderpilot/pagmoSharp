@@ -1433,6 +1433,10 @@ SWIGINTERN unsigned int pagmo_compass_search_get_gen(pagmo::compass_search const
 
 
 #include "pagmo/algorithm.hpp"
+#include "pagmo/algorithms/null_algorithm.hpp"
+
+
+#include "pagmo/algorithm.hpp"
 #include "pagmo/algorithms/pso.hpp"
 
 
@@ -18656,6 +18660,102 @@ SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_delete_nspso(void * jarg1) {
   pagmo::nspso *arg1 = 0 ;
   
   arg1 = (pagmo::nspso *)jarg1; 
+  {
+    try {
+      delete arg1;
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return ; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return ; 
+      };
+    }
+  }
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_null_algorithm_evolve(void * jarg1, void * jarg2) {
+  void * jresult ;
+  pagmo::null_algorithm *arg1 = 0 ;
+  pagmo::population *arg2 = 0 ;
+  SwigValueWrapper< pagmo::population > result;
+  
+  arg1 = (pagmo::null_algorithm *)jarg1; 
+  arg2 = (pagmo::population *)jarg2;
+  if (!arg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "pagmo::population const & is null", 0);
+    return 0;
+  } 
+  {
+    try {
+      result = ((pagmo::null_algorithm const *)arg1)->evolve((pagmo::population const &)*arg2);
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = new pagmo::population(result); 
+  return jresult;
+}
+
+
+SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_null_algorithm_get_name(void * jarg1) {
+  const char * jresult ;
+  pagmo::null_algorithm *arg1 = 0 ;
+  std::string result;
+  
+  arg1 = (pagmo::null_algorithm *)jarg1; 
+  {
+    try {
+      result = ((pagmo::null_algorithm const *)arg1)->get_name();
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_null_algorithm() {
+  void * jresult ;
+  pagmo::null_algorithm *result = 0 ;
+  
+  {
+    try {
+      result = (pagmo::null_algorithm *)new pagmo::null_algorithm();
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_delete_null_algorithm(void * jarg1) {
+  pagmo::null_algorithm *arg1 = 0 ;
+  
+  arg1 = (pagmo::null_algorithm *)jarg1; 
   {
     try {
       delete arg1;

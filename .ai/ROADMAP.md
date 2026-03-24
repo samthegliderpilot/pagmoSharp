@@ -45,6 +45,8 @@ Last updated: 2026-03-24
 - [ ] Primary goal: add `.i` + wrapper coverage for targeted v1 algorithm/problem catalog (the "dozens" sprint).
 - [ ] Include only minimal smoke validation per added type (construct/use basic APIs/evolve where applicable).
 - [ ] Output: large usable surface, not final ergonomics.
+- Active progress:
+  - [x] Fully wrap `null_algorithm` with managed extension polish (`IAlgorithm` compatibility helpers) and dedicated regression tests.
 
 5. **Sprint 3B: Hardening + Extensibility Completion (Depth)**
 - [ ] Apply/complete C# extensibility surfaces where in v1 scope.
@@ -52,6 +54,7 @@ Last updated: 2026-03-24
 - [ ] Audit and eliminate shallow raw-pointer ownership semantics across wrapper facades (copy/assign/destructor ownership rules), replacing with robust lifetime-safe patterns.
 - [ ] Normalize naming/signatures and add deeper behavior/regression tests.
 - [ ] Standardize C++→C# exception bubbling and mapping (constructor/evolve/wait paths, including async/runtime wrapper paths).
+- [ ] Complete multi-objective support end-to-end (problem/algorithm flows, champion and population semantics, and static helper functions in `utils/multi_objective`).
 - [ ] Anything from 3A is not considered production-ready until 3B gates pass.
 
 6. **Sprint 4: Documentation + Samples**
