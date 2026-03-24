@@ -134,7 +134,13 @@ public partial class island : global::System.IDisposable {
   }
 
   public static island CreateFromPopulationWithPolicies(algorithm a, population p, fair_replace r, select_best s) {
-    island ret = new island(pagmoPINVOKE.island_CreateFromPopulationWithPolicies(algorithm.getCPtr(a), population.getCPtr(p), fair_replace.getCPtr(r), select_best.getCPtr(s)), true);
+    island ret = new island(pagmoPINVOKE.island_CreateFromPopulationWithPolicies__SWIG_0(algorithm.getCPtr(a), population.getCPtr(p), fair_replace.getCPtr(r), select_best.getCPtr(s)), true);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  public static island CreateFromPopulationWithPolicies(algorithm a, population p, r_policyPagmoWrapper r, s_policyPagmoWrapper s) {
+    island ret = new island(pagmoPINVOKE.island_CreateFromPopulationWithPolicies__SWIG_1(algorithm.getCPtr(a), population.getCPtr(p), r_policyPagmoWrapper.getCPtr(r), s_policyPagmoWrapper.getCPtr(s)), true);
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
@@ -146,7 +152,13 @@ public partial class island : global::System.IDisposable {
   }
 
   public static island CreateWithPolicies(algorithm a, problem prob, uint pop_size, fair_replace r, select_best s, uint seed) {
-    island ret = new island(pagmoPINVOKE.island_CreateWithPolicies(algorithm.getCPtr(a), problem.getCPtr(prob), pop_size, fair_replace.getCPtr(r), select_best.getCPtr(s), seed), true);
+    island ret = new island(pagmoPINVOKE.island_CreateWithPolicies__SWIG_0(algorithm.getCPtr(a), problem.getCPtr(prob), pop_size, fair_replace.getCPtr(r), select_best.getCPtr(s), seed), true);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  public static island CreateWithPolicies(algorithm a, problem prob, uint pop_size, r_policyPagmoWrapper r, s_policyPagmoWrapper s, uint seed) {
+    island ret = new island(pagmoPINVOKE.island_CreateWithPolicies__SWIG_1(algorithm.getCPtr(a), problem.getCPtr(prob), pop_size, r_policyPagmoWrapper.getCPtr(r), s_policyPagmoWrapper.getCPtr(s), seed), true);
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
@@ -158,7 +170,13 @@ public partial class island : global::System.IDisposable {
   }
 
   public static island CreateWithBfeAndPolicies(algorithm a, problem prob, bfe b, uint pop_size, fair_replace r, select_best s, uint seed) {
-    island ret = new island(pagmoPINVOKE.island_CreateWithBfeAndPolicies(algorithm.getCPtr(a), problem.getCPtr(prob), bfe.getCPtr(b), pop_size, fair_replace.getCPtr(r), select_best.getCPtr(s), seed), true);
+    island ret = new island(pagmoPINVOKE.island_CreateWithBfeAndPolicies__SWIG_0(algorithm.getCPtr(a), problem.getCPtr(prob), bfe.getCPtr(b), pop_size, fair_replace.getCPtr(r), select_best.getCPtr(s), seed), true);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  public static island CreateWithBfeAndPolicies(algorithm a, problem prob, bfe b, uint pop_size, r_policyPagmoWrapper r, s_policyPagmoWrapper s, uint seed) {
+    island ret = new island(pagmoPINVOKE.island_CreateWithBfeAndPolicies__SWIG_1(algorithm.getCPtr(a), problem.getCPtr(prob), bfe.getCPtr(b), pop_size, r_policyPagmoWrapper.getCPtr(r), s_policyPagmoWrapper.getCPtr(s), seed), true);
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }

@@ -19,6 +19,9 @@
     <Compile Remove="obj\**;bin\**" />
     <EmbeddedResource Remove="obj\**;bin\**" />
     <None Remove="obj\**;bin\**" />
+    <Compile Remove="artifacts\**" />
+    <EmbeddedResource Remove="artifacts\**" />
+    <None Remove="artifacts\**" />
   </ItemGroup>
 
   <ItemGroup>

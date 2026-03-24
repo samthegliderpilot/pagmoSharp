@@ -57,6 +57,15 @@
         return pagmoWrap::Island_FromAlgoPopFairSelect(a, p, r, s);
     }
 
+    static pagmo::island CreateFromPopulationWithPolicies(
+        const pagmo::algorithm &a,
+        const pagmo::population &p,
+        const pagmoWrap::r_policyPagmoWrapper &r,
+        const pagmoWrap::s_policyPagmoWrapper &s
+    ) {
+        return pagmoWrap::Island_FromAlgoPopManagedPolicies(a, p, r, s);
+    }
+
     static pagmo::island Create(
         const pagmo::algorithm &a,
         const pagmo::problem &prob,
@@ -75,6 +84,17 @@
         unsigned seed
     ) {
         return pagmoWrap::Island_FromAlgoProbFairSelect(a, prob, pop_size, r, s, seed);
+    }
+
+    static pagmo::island CreateWithPolicies(
+        const pagmo::algorithm &a,
+        const pagmo::problem &prob,
+        std::size_t pop_size,
+        const pagmoWrap::r_policyPagmoWrapper &r,
+        const pagmoWrap::s_policyPagmoWrapper &s,
+        unsigned seed
+    ) {
+        return pagmoWrap::Island_FromAlgoProbManagedPolicies(a, prob, pop_size, r, s, seed);
     }
 
     static pagmo::island CreateWithBfe(
@@ -97,5 +117,17 @@
         unsigned seed
     ) {
         return pagmoWrap::Island_FromAlgoProbBfeFairSelect(a, prob, b, pop_size, r, s, seed);
+    }
+
+    static pagmo::island CreateWithBfeAndPolicies(
+        const pagmo::algorithm &a,
+        const pagmo::problem &prob,
+        const pagmo::bfe &b,
+        std::size_t pop_size,
+        const pagmoWrap::r_policyPagmoWrapper &r,
+        const pagmoWrap::s_policyPagmoWrapper &s,
+        unsigned seed
+    ) {
+        return pagmoWrap::Island_FromAlgoProbBfeManagedPolicies(a, prob, b, pop_size, r, s, seed);
     }
 }

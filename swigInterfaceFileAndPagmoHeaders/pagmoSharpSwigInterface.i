@@ -227,11 +227,12 @@ namespace std {
 	%include swigInterfaceFiles\problems\minlp_rastrigin.i
 	%include swigInterfaceFiles\problems\zdt.i
 
-	%include swigInterfaceFiles\r_policies\fair_replace.i
-	%include swigInterfaceFiles\s_policies\select_best.i
-	%include swigInterfaceFiles\topologies\unconnected.i
+		%include swigInterfaceFiles\r_policies\fair_replace.i
+		%include swigInterfaceFiles\s_policies\select_best.i
+		%include swigInterfaceFiles\topologies\unconnected.i
+		%include swigInterfaceFiles\topologies\fully_connected.i
 
-	%include swigInterfaceFiles\utils\hv_algos\hv_algorithm.i
+		%include swigInterfaceFiles\utils\hv_algos\hv_algorithm.i
 	//%include swigInterfaceFiles\utils\gradients_and_hessians.i // I couldn't get this to translate through swig so I just recreated the functions in C#
 	%include swigInterfaceFiles\utils\hypervolume.i
 	%include swigInterfaceFiles\utils\multi_objective.i

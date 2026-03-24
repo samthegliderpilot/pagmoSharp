@@ -89,6 +89,15 @@ namespace pagmoWrap {
         return pagmo::island(a, p, r, s);
     }
 
+    // algorithm + population + managed-policy wrappers
+    inline pagmo::island Island_FromAlgoPopManagedPolicies(const pagmo::algorithm& a,
+        const pagmo::population& p,
+        const pagmoWrap::r_policyPagmoWrapper& r,
+        const pagmoWrap::s_policyPagmoWrapper& s)
+    {
+        return pagmo::island(a, p, pagmo::r_policy(r), pagmo::s_policy(s));
+    }
+
     // algorithm + population + concrete policies
     inline pagmo::island Island_FromAlgoPopFairSelect(const pagmo::algorithm& a,
         const pagmo::population& p,
@@ -140,6 +149,21 @@ namespace pagmoWrap {
             seed);
     }
 
+    // algorithm + problem + pop size + managed-policy wrappers + seed
+    inline pagmo::island Island_FromAlgoProbManagedPolicies(const pagmo::algorithm& a,
+        const pagmo::problem& prob,
+        std::size_t pop_size,
+        const pagmoWrap::r_policyPagmoWrapper& r,
+        const pagmoWrap::s_policyPagmoWrapper& s,
+        unsigned seed)
+    {
+        return pagmo::island(a,
+            prob,
+            static_cast<pagmo::population::size_type>(pop_size),
+            pagmo::r_policy(r), pagmo::s_policy(s),
+            seed);
+    }
+
     // algorithm + problem + bfe + pop size + seed
     inline pagmo::island Island_FromAlgoProbBfe(const pagmo::algorithm& a,
         const pagmo::problem& prob,
@@ -168,6 +192,23 @@ namespace pagmoWrap {
             b,
             static_cast<pagmo::population::size_type>(pop_size),
             r, s,
+            seed);
+    }
+
+    // algorithm + problem + bfe + pop size + managed-policy wrappers + seed
+    inline pagmo::island Island_FromAlgoProbBfeManagedPolicies(const pagmo::algorithm& a,
+        const pagmo::problem& prob,
+        const pagmo::bfe& b,
+        std::size_t pop_size,
+        const pagmoWrap::r_policyPagmoWrapper& r,
+        const pagmoWrap::s_policyPagmoWrapper& s,
+        unsigned seed)
+    {
+        return pagmo::island(a,
+            prob,
+            b,
+            static_cast<pagmo::population::size_type>(pop_size),
+            pagmo::r_policy(r), pagmo::s_policy(s),
             seed);
     }
 

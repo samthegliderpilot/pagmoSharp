@@ -1,6 +1,13 @@
-﻿namespace pagmo;
+namespace pagmo;
 
-public partial class r_policy
+public sealed class r_policy : r_policyPagmoWrapper
 {
-    
+    public r_policy()
+    {
+    }
+
+    public r_policy(r_policyBase basePolicy)
+        : base(basePolicy)
+    {
+    }
 }
