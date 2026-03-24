@@ -123,7 +123,7 @@ namespace std {
 }
 
 %include swigInterfaceFiles\island.i
-//%include swigInterfaceFiles\islands\thread_island.i
+%include swigInterfaceFiles\islands\thread_island.i
 	namespace pagmo {
 		%typemap(csclassmodifiers) pagmo::DoubleVector "public partial class"
 		%typemap(csclassmodifiers) pagmo::VectorDoubleVector "public partial class"

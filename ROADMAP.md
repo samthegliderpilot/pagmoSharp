@@ -5,50 +5,57 @@ Last updated: 2026-03-24
 ## PagmoSharp Roadmap Reset (v1.0 with Explicit Breadth Sprint)
 
 ### Summary
-- Preserve reset from Sprint 0 with completed items marked complete.
-- Keep Windows-first v1.0 release before Linux/CMake.
-- v1.0 extensibility targets: `Problem`, `Algorithm`, `BFE`, `Policy`, `Topology`.
-- Defer `Island` and custom threading extensibility.
-- Make breadth explicit: **Sprint 3A is the "dozens of algorithms/problems" wrapping sprint**.
+- ☑ Preserve reset from Sprint 0 with completed items marked complete.
+- ☑ Keep Windows-first v1.0 release before Linux/CMake.
+- ☑ v1.0 extensibility targets: `Problem`, `Algorithm`, `BFE`, `Policy`, `Topology`.
+- ☑ Defer `Island` and custom threading extensibility.
+- ☑ Make breadth explicit: **Sprint 3A is the "dozens of algorithms/problems" wrapping sprint**.
 
 ### Sprint Structure
 1. **Sprint 0 (Completed): Tooling Baseline**
-- SWIG workflow, build/test path, hello-world SWIG validation.
+- ☑ SWIG workflow, build/test path, hello-world SWIG validation.
 
 2. **Sprint 1 (Completed): Fundamentals**
-- `Program` and C# `Problem` baseline, partial types, foundational tests.
+- ☑ `Program` and C# `Problem` baseline, partial types, foundational tests.
 
 3. **Sprint 2 (In Progress): Critical Runtime + Patterns**
-- Finish runtime-critical orchestration (`island/archipelago`, migration controls, policies/topologies needed for runtime correctness).
-- Establish extensibility implementation patterns for `Algorithm`, `BFE`, `Policy`, `Topology`.
-- Acceptance: core runtime scenarios and pattern examples are stable.
+- ☑ Finish runtime-critical orchestration (`island/archipelago`, migration controls, policies/topologies needed for runtime correctness).
+- ☐ Establish extensibility implementation patterns for `Algorithm`, `BFE`, `Policy`, `Topology`.
+- ☐ Acceptance: core runtime scenarios and pattern examples are stable.
 - Active backlog additions:
-  - Serialize SWIG regeneration and native build execution to prevent concurrent wrapper-copy races.
-  - Replace `Assert.Ignore()` with `Assert.Pass()` where algorithm-test non-applicability is expected behavior.
-  - Prefer descriptive parameter names in handwritten managed/test code (avoid `arg0` / `arg1`).
+  - ☑ Serialize SWIG regeneration and native build execution to prevent concurrent wrapper-copy races.
+  - ☑ Replace `Assert.Ignore()` with `Assert.Pass()` where algorithm-test non-applicability is expected behavior.
+  - ☑ Prefer descriptive parameter names in handwritten managed/test code (avoid `arg0` / `arg1`).
+  - ☑ Add topology runtime coverage for `fully_connected`, `ring`, and `free_form` with smoke tests.
+  - ☑ Add archipelago migration/topology control wrappers and validation tests.
+  - ☑ Add explicit `thread_island` creation paths for `island` and cover with runtime tests.
+  - ☑ Strengthen `ring` topology tests to validate constructor-argument effects, not just type construction.
+  - ☑ Add thread-island managed-policy constructor coverage tests (`CreateWithThreadIslandAndPolicies`).
+  - ☐ Rework `bfe` interop model before exposing `island + bfe` constructor surfaces with explicit thread-island variants (current SWIG upcast pattern is unsafe).
+  - ☐ Add first concrete extensibility pattern examples for `Algorithm` and `BFE` (matching `Policy`/`Topology` treatment).
 
 4. **Sprint 3A: Broad Coverage Pass (Breadth)**
-- Primary goal: add `.i` + wrapper coverage for targeted v1 algorithm/problem catalog (the "dozens" sprint).
-- Include only minimal smoke validation per added type (construct/use basic APIs/evolve where applicable).
-- Output: large usable surface, not final ergonomics.
+- ☐ Primary goal: add `.i` + wrapper coverage for targeted v1 algorithm/problem catalog (the "dozens" sprint).
+- ☐ Include only minimal smoke validation per added type (construct/use basic APIs/evolve where applicable).
+- ☐ Output: large usable surface, not final ergonomics.
 
 5. **Sprint 3B: Hardening + Extensibility Completion (Depth)**
-- Apply/complete C# extensibility surfaces where in v1 scope.
-- Remove/contain `SWIGTYPE_*` leakage on touched public APIs.
-- Normalize naming/signatures and add deeper behavior/regression tests.
-- Anything from 3A is not considered production-ready until 3B gates pass.
+- ☐ Apply/complete C# extensibility surfaces where in v1 scope.
+- ☐ Remove/contain `SWIGTYPE_*` leakage on touched public APIs.
+- ☐ Normalize naming/signatures and add deeper behavior/regression tests.
+- ☐ Anything from 3A is not considered production-ready until 3B gates pass.
 
 6. **Sprint 4: Documentation + Samples**
-- C#-first docs, quickstart, and canonical runnable examples.
+- ☐ C#-first docs, quickstart, and canonical runnable examples.
 
 7. **Sprint 5: Release Readiness**
-- Packaging/versioning/changelog/release checklist and ship gates.
+- ☐ Packaging/versioning/changelog/release checklist and ship gates.
 
 8. **Sprint 6: v1.0 Release**
-- Publish artifacts and release notes.
+- ☐ Publish artifacts and release notes.
 
 9. **Sprint 7 (v1.x/2.0): Linux/CMake**
-- Cross-platform build track after v1.0.
+- ☐ Cross-platform build track after v1.0.
 
 ### API and Quality Rules
 - During 3A breadth, prioritize coverage velocity with smoke tests.
