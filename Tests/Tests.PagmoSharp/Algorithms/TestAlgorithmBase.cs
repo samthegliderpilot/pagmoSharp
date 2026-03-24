@@ -33,7 +33,7 @@ namespace Tests.PagmoSharp.Algorithms
         {
             if (!SingleObjective || !Unconstrained)
             {
-                Assert.Ignore();
+                Assert.Pass("Not applicable: algorithm does not support single-objective unconstrained problems.");
                 return;
             }
 
@@ -52,7 +52,7 @@ namespace Tests.PagmoSharp.Algorithms
         {
             if (!SingleObjective || !Unconstrained)
             {
-                Assert.Ignore();
+                Assert.Pass("Not applicable: algorithm does not support single-objective unconstrained problems.");
                 return;
             }
 
@@ -71,7 +71,7 @@ namespace Tests.PagmoSharp.Algorithms
         {
             if (!Constrained || !SingleObjective)
             {
-                Assert.Ignore();
+                Assert.Pass("Not applicable: algorithm does not support constrained single-objective problems.");
                 return; // pass, unsupported
             }
 
@@ -134,7 +134,7 @@ namespace Tests.PagmoSharp.Algorithms
         {
             if (!Stochastic)
             {
-                Assert.Ignore();
+                Assert.Pass("Not applicable: algorithm is not stochastic.");
                 return;
             }
             using (var problem = new InventoryProblemWrapper())
@@ -158,7 +158,7 @@ namespace Tests.PagmoSharp.Algorithms
         {
             if (!IntegerPrograming || !Constrained)
             {
-                Assert.Ignore();
+                Assert.Pass("Not applicable: algorithm does not support constrained integer programming.");
                 return; // pass, unsupported
             }
             //TODO: Need a unconstrained version of this test method
@@ -187,7 +187,7 @@ namespace Tests.PagmoSharp.Algorithms
         {
             if (!IntegerPrograming || !Unconstrained)
             {
-                Assert.Ignore();
+                Assert.Pass("Not applicable: algorithm does not support unconstrained integer programming.");
                 return; // pass, unsupported
             }
             //TODO: Need a unconstrained version of this test method
@@ -217,7 +217,7 @@ namespace Tests.PagmoSharp.Algorithms
         {
             if (!MultiObjective || !Unconstrained)
             {
-                Assert.Ignore();
+                Assert.Pass("Not applicable: algorithm does not support unconstrained multi-objective problems.");
                 return; // pass, unsupported
             }
             using var problemBase = new zdt(1);

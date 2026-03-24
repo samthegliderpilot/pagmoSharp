@@ -12,9 +12,9 @@ namespace Tests.PagmoSharp.TestProblems
             return new PairOfDoubleVectors(_lowerBounds, _upperBounds);
         }
 
-        public override DoubleVector fitness(DoubleVector arg0)
+        public override DoubleVector fitness(DoubleVector decisionVector)
         {
-            return new DoubleVector(new[] { arg0[0] * arg0[0] });
+            return new DoubleVector(new[] { decisionVector[0] * decisionVector[0] });
         }
 
         public override string get_name()
@@ -52,9 +52,9 @@ namespace Tests.PagmoSharp.TestProblems
             return true;
         }
 
-        public override DoubleVector gradient(DoubleVector arg0)
+        public override DoubleVector gradient(DoubleVector decisionVector)
         {
-            var ans = new DoubleVector(new []{2*arg0[0]});
+            var ans = new DoubleVector(new []{2 * decisionVector[0]});
             return ans;
         }
 

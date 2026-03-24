@@ -9,6 +9,11 @@
 #include "pagmo/bfe.hpp"
 #include "pagmo/r_policy.hpp"
 #include "pagmo/s_policy.hpp"
+#include "pagmo/topology.hpp"
+#include "pagmo/topologies/unconnected.hpp"
+#include "pagmo/topologies/fully_connected.hpp"
+#include "pagmo/topologies/ring.hpp"
+#include "pagmo/topologies/free_form.hpp"
 
 #include "tuple_adapters.h"
 #include "archipelago_swig.h"
@@ -95,6 +100,42 @@
             db.push_back(pagmoWrap::ToIndividualsGroupTuple(g));
         }
         self->set_migrants_db(std::move(db));
+    }
+
+    migration_type get_migration_type() const {
+        return self->get_migration_type();
+    }
+
+    void set_migration_type(migration_type t) {
+        self->set_migration_type(t);
+    }
+
+    migrant_handling get_migrant_handling() const {
+        return self->get_migrant_handling();
+    }
+
+    void set_migrant_handling(migrant_handling m) {
+        self->set_migrant_handling(m);
+    }
+
+    std::string get_topology_name() const {
+        return self->get_topology().get_name();
+    }
+
+    void set_topology_unconnected(const pagmo::unconnected &t) {
+        self->set_topology(pagmo::topology(t));
+    }
+
+    void set_topology_fully_connected(const pagmo::fully_connected &t) {
+        self->set_topology(pagmo::topology(t));
+    }
+
+    void set_topology_ring(const pagmo::ring &t) {
+        self->set_topology(pagmo::topology(t));
+    }
+
+    void set_topology_free_form(const pagmo::free_form &t) {
+        self->set_topology(pagmo::topology(t));
     }
 
     // ----------------------------

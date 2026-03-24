@@ -14,12 +14,12 @@ namespace Tests.PagmoSharp.TestProblems
             return new PairOfDoubleVectors(_lowerBounds, _upperBounds);
         }
 
-        public override DoubleVector fitness(DoubleVector arg0)
+        public override DoubleVector fitness(DoubleVector decisionVector)
         {
             TwoDimensionalSingleObjectiveProblemWrapper.ThreadIds.Add(System.Threading.Thread.CurrentThread
                 .ManagedThreadId);
-            double x = arg0[0];
-            double y = arg0[1];
+            double x = decisionVector[0];
+            double y = decisionVector[1];
             return new DoubleVector(new[] { x * x + (y - 3) * (y - 3) });
         }
 
@@ -28,9 +28,9 @@ namespace Tests.PagmoSharp.TestProblems
             return true;
         }
 
-        public override DoubleVector gradient(DoubleVector arg0)
+        public override DoubleVector gradient(DoubleVector decisionVector)
         {
-            var ans = new DoubleVector(new [] { 2 * arg0[0] , 2 * arg0[1]-6.0 });
+            var ans = new DoubleVector(new [] { 2 * decisionVector[0], 2 * decisionVector[1] - 6.0 });
             return ans;
         }
 

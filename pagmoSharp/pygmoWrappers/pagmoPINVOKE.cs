@@ -2787,6 +2787,45 @@ class pagmoPINVOKE {
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_delete_fully_connected")]
   public static extern void delete_fully_connected(global::System.Runtime.InteropServices.HandleRef jarg1);
 
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_new_ring__SWIG_0")]
+  public static extern global::System.IntPtr new_ring__SWIG_0();
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_new_ring__SWIG_1")]
+  public static extern global::System.IntPtr new_ring__SWIG_1(double jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_new_ring__SWIG_2")]
+  public static extern global::System.IntPtr new_ring__SWIG_2(uint jarg1, double jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_ring_get_connections")]
+  public static extern global::System.IntPtr ring_get_connections(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_ring_push_back")]
+  public static extern void ring_push_back(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_ring_num_vertices")]
+  public static extern uint ring_num_vertices(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_ring_get_name")]
+  public static extern string ring_get_name(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_ring_get_weight")]
+  public static extern double ring_get_weight(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_delete_ring")]
+  public static extern void delete_ring(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_new_free_form")]
+  public static extern global::System.IntPtr new_free_form();
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_free_form_push_back")]
+  public static extern void free_form_push_back(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_free_form_get_name")]
+  public static extern string free_form_get_name(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_delete_free_form")]
+  public static extern void delete_free_form(global::System.Runtime.InteropServices.HandleRef jarg1);
+
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_hv_algorithm_volume_between__SWIG_0")]
   public static extern double hv_algorithm_volume_between__SWIG_0(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2, uint jarg3);
 
@@ -3146,6 +3185,33 @@ class pagmoPINVOKE {
 
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_archipelago_set_migrants_db_items")]
   public static extern void archipelago_set_migrants_db_items(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_archipelago_get_migration_type")]
+  public static extern int archipelago_get_migration_type(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_archipelago_set_migration_type")]
+  public static extern void archipelago_set_migration_type(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_archipelago_get_migrant_handling")]
+  public static extern int archipelago_get_migrant_handling(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_archipelago_set_migrant_handling")]
+  public static extern void archipelago_set_migrant_handling(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_archipelago_get_topology_name")]
+  public static extern string archipelago_get_topology_name(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_archipelago_set_topology_unconnected")]
+  public static extern void archipelago_set_topology_unconnected(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_archipelago_set_topology_fully_connected")]
+  public static extern void archipelago_set_topology_fully_connected(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_archipelago_set_topology_ring")]
+  public static extern void archipelago_set_topology_ring(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_archipelago_set_topology_free_form")]
+  public static extern void archipelago_set_topology_free_form(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
 
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_archipelago_get_migration_log_entries")]
   public static extern global::System.IntPtr archipelago_get_migration_log_entries(global::System.Runtime.InteropServices.HandleRef jarg1);

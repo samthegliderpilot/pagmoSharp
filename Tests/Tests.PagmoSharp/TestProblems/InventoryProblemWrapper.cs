@@ -21,9 +21,9 @@ public class InventoryProblemWrapper : TestProblemWrapper
         get { return new[] { 57.665307645771854 }; }
     }
 
-    public override DoubleVector fitness(DoubleVector arg0)
+    public override DoubleVector fitness(DoubleVector decisionVector)
     {
-        return InventoryProblem.fitness(arg0);
+        return InventoryProblem.fitness(decisionVector);
     }
 
     public override PairOfDoubleVectors get_bounds()

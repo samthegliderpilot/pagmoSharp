@@ -22,6 +22,10 @@ Last updated: 2026-03-24
 - Finish runtime-critical orchestration (`island/archipelago`, migration controls, policies/topologies needed for runtime correctness).
 - Establish extensibility implementation patterns for `Algorithm`, `BFE`, `Policy`, `Topology`.
 - Acceptance: core runtime scenarios and pattern examples are stable.
+- Active backlog additions:
+  - Serialize SWIG regeneration and native build execution to prevent concurrent wrapper-copy races.
+  - Replace `Assert.Ignore()` with `Assert.Pass()` where algorithm-test non-applicability is expected behavior.
+  - Prefer descriptive parameter names in handwritten managed/test code (avoid `arg0` / `arg1`).
 
 4. **Sprint 3A: Broad Coverage Pass (Breadth)**
 - Primary goal: add `.i` + wrapper coverage for targeted v1 algorithm/problem catalog (the "dozens" sprint).

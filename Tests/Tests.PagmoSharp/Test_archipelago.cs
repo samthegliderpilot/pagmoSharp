@@ -39,5 +39,20 @@ namespace Tests.PagmoSharp
             var log = archi.MigrationLog;
             Assert.IsNotNull(log);
         }
+
+        [Test]
+        public void MigrationAndTopologyControlsCanBeSet()
+        {
+            using var archi = new archipelago();
+            using var ringTopo = new ring(4, 0.7);
+
+            archi.set_migration_type(migration_type.broadcast);
+            archi.set_migrant_handling(migrant_handling.evict);
+            archi.set_topology_ring(ringTopo);
+
+            Assert.AreEqual(migration_type.broadcast, archi.get_migration_type());
+            Assert.AreEqual(migrant_handling.evict, archi.get_migrant_handling());
+            Assert.AreEqual("Ring", archi.get_topology_name());
+        }
     }
 }

@@ -114,6 +114,54 @@ public partial class archipelago : global::System.IDisposable {
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
+  public migration_type get_migration_type() {
+    migration_type ret = (migration_type)pagmoPINVOKE.archipelago_get_migration_type(swigCPtr);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  public void set_migration_type(migration_type t) {
+    pagmoPINVOKE.archipelago_set_migration_type(swigCPtr, (int)t);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
+  }
+
+  public migrant_handling get_migrant_handling() {
+    migrant_handling ret = (migrant_handling)pagmoPINVOKE.archipelago_get_migrant_handling(swigCPtr);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  public void set_migrant_handling(migrant_handling m) {
+    pagmoPINVOKE.archipelago_set_migrant_handling(swigCPtr, (int)m);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
+  }
+
+  public string get_topology_name() {
+    string ret = pagmoPINVOKE.archipelago_get_topology_name(swigCPtr);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  public void set_topology_unconnected(unconnected t) {
+    pagmoPINVOKE.archipelago_set_topology_unconnected(swigCPtr, unconnected.getCPtr(t));
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
+  }
+
+  public void set_topology_fully_connected(fully_connected t) {
+    pagmoPINVOKE.archipelago_set_topology_fully_connected(swigCPtr, fully_connected.getCPtr(t));
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
+  }
+
+  public void set_topology_ring(ring t) {
+    pagmoPINVOKE.archipelago_set_topology_ring(swigCPtr, ring.getCPtr(t));
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
+  }
+
+  public void set_topology_free_form(free_form t) {
+    pagmoPINVOKE.archipelago_set_topology_free_form(swigCPtr, free_form.getCPtr(t));
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
+  }
+
   public MigrationEntryVector get_migration_log_entries() {
     MigrationEntryVector ret = new MigrationEntryVector(pagmoPINVOKE.archipelago_get_migration_log_entries(swigCPtr), true);
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();

@@ -1609,6 +1609,25 @@ SWIGINTERN pagmoWrap::IndividualsGroup pagmo_select_best_select(pagmo::select_be
 #include "pagmo/types.hpp"
 
 
+#include "pagmo/topologies/ring.hpp"
+#include <cstddef>
+#include <string>
+
+#include "pagmo/detail/visibility.hpp"
+#include "pagmo/s11n.hpp"
+#include "pagmo/topology.hpp"
+#include "pagmo/types.hpp"
+
+
+#include "pagmo/topologies/free_form.hpp"
+#include <string>
+
+#include "pagmo/detail/visibility.hpp"
+#include "pagmo/s11n.hpp"
+#include "pagmo/topology.hpp"
+#include "pagmo/types.hpp"
+
+
 #include "pagmo/utils/hv_algos/hv_algorithm.hpp"
 #include "pagmo/detail/visibility.hpp"
 #include "pagmo/types.hpp"
@@ -1800,6 +1819,11 @@ SWIGINTERN pagmo::algorithm pagmo_bee_colony_to_algorithm(pagmo::bee_colony cons
 #include "pagmo/bfe.hpp"
 #include "pagmo/r_policy.hpp"
 #include "pagmo/s_policy.hpp"
+#include "pagmo/topology.hpp"
+#include "pagmo/topologies/unconnected.hpp"
+#include "pagmo/topologies/fully_connected.hpp"
+#include "pagmo/topologies/ring.hpp"
+#include "pagmo/topologies/free_form.hpp"
 
 #include "tuple_adapters.h"
 #include "archipelago_swig.h"
@@ -1823,6 +1847,33 @@ SWIGINTERN void pagmo_archipelago_set_migrants_db_items(pagmo::archipelago *self
             db.push_back(pagmoWrap::ToIndividualsGroupTuple(g));
         }
         self->set_migrants_db(std::move(db));
+    }
+SWIGINTERN pagmo::migration_type pagmo_archipelago_get_migration_type(pagmo::archipelago const *self){
+        return self->get_migration_type();
+    }
+SWIGINTERN void pagmo_archipelago_set_migration_type(pagmo::archipelago *self,pagmo::migration_type t){
+        self->set_migration_type(t);
+    }
+SWIGINTERN pagmo::migrant_handling pagmo_archipelago_get_migrant_handling(pagmo::archipelago const *self){
+        return self->get_migrant_handling();
+    }
+SWIGINTERN void pagmo_archipelago_set_migrant_handling(pagmo::archipelago *self,pagmo::migrant_handling m){
+        self->set_migrant_handling(m);
+    }
+SWIGINTERN std::string pagmo_archipelago_get_topology_name(pagmo::archipelago const *self){
+        return self->get_topology().get_name();
+    }
+SWIGINTERN void pagmo_archipelago_set_topology_unconnected(pagmo::archipelago *self,pagmo::unconnected const &t){
+        self->set_topology(pagmo::topology(t));
+    }
+SWIGINTERN void pagmo_archipelago_set_topology_fully_connected(pagmo::archipelago *self,pagmo::fully_connected const &t){
+        self->set_topology(pagmo::topology(t));
+    }
+SWIGINTERN void pagmo_archipelago_set_topology_ring(pagmo::archipelago *self,pagmo::ring const &t){
+        self->set_topology(pagmo::topology(t));
+    }
+SWIGINTERN void pagmo_archipelago_set_topology_free_form(pagmo::archipelago *self,pagmo::free_form const &t){
+        self->set_topology(pagmo::topology(t));
     }
 SWIGINTERN std::vector< pagmoWrap::MigrationEntry > pagmo_archipelago_get_migration_log_entries(pagmo::archipelago const *self){
         auto log = self->get_migration_log();
@@ -24719,6 +24770,302 @@ SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_delete_fully_connected(void * jarg1) {
 }
 
 
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_ring__SWIG_0() {
+  void * jresult ;
+  pagmo::ring *result = 0 ;
+  
+  {
+    try {
+      result = (pagmo::ring *)new pagmo::ring();
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_ring__SWIG_1(double jarg1) {
+  void * jresult ;
+  double arg1 ;
+  pagmo::ring *result = 0 ;
+  
+  arg1 = (double)jarg1; 
+  {
+    try {
+      result = (pagmo::ring *)new pagmo::ring(arg1);
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_ring__SWIG_2(unsigned int jarg1, double jarg2) {
+  void * jresult ;
+  std::size_t arg1 ;
+  double arg2 ;
+  pagmo::ring *result = 0 ;
+  
+  arg1 = (std::size_t)jarg1; 
+  arg2 = (double)jarg2; 
+  {
+    try {
+      result = (pagmo::ring *)new pagmo::ring(SWIG_STD_MOVE(arg1),arg2);
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_ring_get_connections(void * jarg1, unsigned int jarg2) {
+  void * jresult ;
+  pagmo::ring *arg1 = 0 ;
+  std::size_t arg2 ;
+  SwigValueWrapper< std::pair< std::vector< std::size_t >,std::vector< double > > > result;
+  
+  arg1 = (pagmo::ring *)jarg1; 
+  arg2 = (std::size_t)jarg2; 
+  {
+    try {
+      result = ((pagmo::ring const *)arg1)->get_connections(SWIG_STD_MOVE(arg2));
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = new std::pair< std::vector< std::size_t >,pagmo::vector_double >(result); 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_ring_push_back(void * jarg1) {
+  pagmo::ring *arg1 = 0 ;
+  
+  arg1 = (pagmo::ring *)jarg1; 
+  {
+    try {
+      (arg1)->push_back();
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return ; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return ; 
+      };
+    }
+  }
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_pagmo_ring_num_vertices(void * jarg1) {
+  unsigned int jresult ;
+  pagmo::ring *arg1 = 0 ;
+  std::size_t result;
+  
+  arg1 = (pagmo::ring *)jarg1; 
+  {
+    try {
+      result = ((pagmo::ring const *)arg1)->num_vertices();
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = (unsigned int)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_ring_get_name(void * jarg1) {
+  const char * jresult ;
+  pagmo::ring *arg1 = 0 ;
+  std::string result;
+  
+  arg1 = (pagmo::ring *)jarg1; 
+  {
+    try {
+      result = ((pagmo::ring const *)arg1)->get_name();
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  return jresult;
+}
+
+
+SWIGEXPORT double SWIGSTDCALL CSharp_pagmo_ring_get_weight(void * jarg1) {
+  double jresult ;
+  pagmo::ring *arg1 = 0 ;
+  double result;
+  
+  arg1 = (pagmo::ring *)jarg1; 
+  {
+    try {
+      result = (double)((pagmo::ring const *)arg1)->get_weight();
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_delete_ring(void * jarg1) {
+  pagmo::ring *arg1 = 0 ;
+  
+  arg1 = (pagmo::ring *)jarg1; 
+  {
+    try {
+      delete arg1;
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return ; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return ; 
+      };
+    }
+  }
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_free_form() {
+  void * jresult ;
+  pagmo::free_form *result = 0 ;
+  
+  {
+    try {
+      result = (pagmo::free_form *)new pagmo::free_form();
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_free_form_push_back(void * jarg1) {
+  pagmo::free_form *arg1 = 0 ;
+  
+  arg1 = (pagmo::free_form *)jarg1; 
+  {
+    try {
+      (arg1)->push_back();
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return ; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return ; 
+      };
+    }
+  }
+}
+
+
+SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_free_form_get_name(void * jarg1) {
+  const char * jresult ;
+  pagmo::free_form *arg1 = 0 ;
+  std::string result;
+  
+  arg1 = (pagmo::free_form *)jarg1; 
+  {
+    try {
+      result = ((pagmo::free_form const *)arg1)->get_name();
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_delete_free_form(void * jarg1) {
+  pagmo::free_form *arg1 = 0 ;
+  
+  arg1 = (pagmo::free_form *)jarg1; 
+  {
+    try {
+      delete arg1;
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return ; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return ; 
+      };
+    }
+  }
+}
+
+
 SWIGEXPORT double SWIGSTDCALL CSharp_pagmo_hv_algorithm_volume_between__SWIG_0(void * jarg1, void * jarg2, unsigned int jarg3) {
   double jresult ;
   pagmo::vector_double *arg1 = 0 ;
@@ -27880,6 +28227,226 @@ SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_archipelago_set_migrants_db_items(void 
   {
     try {
       pagmo_archipelago_set_migrants_db_items(arg1,(std::vector< pagmoWrap::IndividualsGroup > const &)*arg2);
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return ; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return ; 
+      };
+    }
+  }
+}
+
+
+SWIGEXPORT int SWIGSTDCALL CSharp_pagmo_archipelago_get_migration_type(void * jarg1) {
+  int jresult ;
+  pagmo::archipelago *arg1 = 0 ;
+  pagmo::migration_type result;
+  
+  arg1 = (pagmo::archipelago *)jarg1; 
+  {
+    try {
+      result = (pagmo::migration_type)pagmo_archipelago_get_migration_type((pagmo::archipelago const *)arg1);
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = (int)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_archipelago_set_migration_type(void * jarg1, int jarg2) {
+  pagmo::archipelago *arg1 = 0 ;
+  pagmo::migration_type arg2 ;
+  
+  arg1 = (pagmo::archipelago *)jarg1; 
+  arg2 = (pagmo::migration_type)jarg2; 
+  {
+    try {
+      pagmo_archipelago_set_migration_type(arg1,arg2);
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return ; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return ; 
+      };
+    }
+  }
+}
+
+
+SWIGEXPORT int SWIGSTDCALL CSharp_pagmo_archipelago_get_migrant_handling(void * jarg1) {
+  int jresult ;
+  pagmo::archipelago *arg1 = 0 ;
+  pagmo::migrant_handling result;
+  
+  arg1 = (pagmo::archipelago *)jarg1; 
+  {
+    try {
+      result = (pagmo::migrant_handling)pagmo_archipelago_get_migrant_handling((pagmo::archipelago const *)arg1);
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = (int)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_archipelago_set_migrant_handling(void * jarg1, int jarg2) {
+  pagmo::archipelago *arg1 = 0 ;
+  pagmo::migrant_handling arg2 ;
+  
+  arg1 = (pagmo::archipelago *)jarg1; 
+  arg2 = (pagmo::migrant_handling)jarg2; 
+  {
+    try {
+      pagmo_archipelago_set_migrant_handling(arg1,arg2);
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return ; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return ; 
+      };
+    }
+  }
+}
+
+
+SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_archipelago_get_topology_name(void * jarg1) {
+  const char * jresult ;
+  pagmo::archipelago *arg1 = 0 ;
+  std::string result;
+  
+  arg1 = (pagmo::archipelago *)jarg1; 
+  {
+    try {
+      result = pagmo_archipelago_get_topology_name((pagmo::archipelago const *)arg1);
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_archipelago_set_topology_unconnected(void * jarg1, void * jarg2) {
+  pagmo::archipelago *arg1 = 0 ;
+  pagmo::unconnected *arg2 = 0 ;
+  
+  arg1 = (pagmo::archipelago *)jarg1; 
+  arg2 = (pagmo::unconnected *)jarg2;
+  if (!arg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "pagmo::unconnected const & is null", 0);
+    return ;
+  } 
+  {
+    try {
+      pagmo_archipelago_set_topology_unconnected(arg1,(pagmo::unconnected const &)*arg2);
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return ; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return ; 
+      };
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_archipelago_set_topology_fully_connected(void * jarg1, void * jarg2) {
+  pagmo::archipelago *arg1 = 0 ;
+  pagmo::fully_connected *arg2 = 0 ;
+  
+  arg1 = (pagmo::archipelago *)jarg1; 
+  arg2 = (pagmo::fully_connected *)jarg2;
+  if (!arg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "pagmo::fully_connected const & is null", 0);
+    return ;
+  } 
+  {
+    try {
+      pagmo_archipelago_set_topology_fully_connected(arg1,(pagmo::fully_connected const &)*arg2);
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return ; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return ; 
+      };
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_archipelago_set_topology_ring(void * jarg1, void * jarg2) {
+  pagmo::archipelago *arg1 = 0 ;
+  pagmo::ring *arg2 = 0 ;
+  
+  arg1 = (pagmo::archipelago *)jarg1; 
+  arg2 = (pagmo::ring *)jarg2;
+  if (!arg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "pagmo::ring const & is null", 0);
+    return ;
+  } 
+  {
+    try {
+      pagmo_archipelago_set_topology_ring(arg1,(pagmo::ring const &)*arg2);
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return ; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return ; 
+      };
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_archipelago_set_topology_free_form(void * jarg1, void * jarg2) {
+  pagmo::archipelago *arg1 = 0 ;
+  pagmo::free_form *arg2 = 0 ;
+  
+  arg1 = (pagmo::archipelago *)jarg1; 
+  arg2 = (pagmo::free_form *)jarg2;
+  if (!arg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "pagmo::free_form const & is null", 0);
+    return ;
+  } 
+  {
+    try {
+      pagmo_archipelago_set_topology_free_form(arg1,(pagmo::free_form const &)*arg2);
     } catch (const std::exception &e) {
       {
         SWIG_CSharpException(SWIG_RuntimeError, e.what()); return ; 
