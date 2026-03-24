@@ -1380,11 +1380,20 @@ class pagmoPINVOKE {
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_island_CreateWithBfe")]
   public static extern global::System.IntPtr island_CreateWithBfe(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2, global::System.Runtime.InteropServices.HandleRef jarg3, uint jarg4, uint jarg5);
 
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_island_CreateWithThreadIslandAndBfe")]
+  public static extern global::System.IntPtr island_CreateWithThreadIslandAndBfe(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2, global::System.Runtime.InteropServices.HandleRef jarg3, global::System.Runtime.InteropServices.HandleRef jarg4, uint jarg5, uint jarg6);
+
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_island_CreateWithBfeAndPolicies__SWIG_0")]
   public static extern global::System.IntPtr island_CreateWithBfeAndPolicies__SWIG_0(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2, global::System.Runtime.InteropServices.HandleRef jarg3, uint jarg4, global::System.Runtime.InteropServices.HandleRef jarg5, global::System.Runtime.InteropServices.HandleRef jarg6, uint jarg7);
 
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_island_CreateWithThreadIslandAndBfeAndPolicies__SWIG_0")]
+  public static extern global::System.IntPtr island_CreateWithThreadIslandAndBfeAndPolicies__SWIG_0(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2, global::System.Runtime.InteropServices.HandleRef jarg3, global::System.Runtime.InteropServices.HandleRef jarg4, uint jarg5, global::System.Runtime.InteropServices.HandleRef jarg6, global::System.Runtime.InteropServices.HandleRef jarg7, uint jarg8);
+
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_island_CreateWithBfeAndPolicies__SWIG_1")]
   public static extern global::System.IntPtr island_CreateWithBfeAndPolicies__SWIG_1(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2, global::System.Runtime.InteropServices.HandleRef jarg3, uint jarg4, global::System.Runtime.InteropServices.HandleRef jarg5, global::System.Runtime.InteropServices.HandleRef jarg6, uint jarg7);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_island_CreateWithThreadIslandAndBfeAndPolicies__SWIG_1")]
+  public static extern global::System.IntPtr island_CreateWithThreadIslandAndBfeAndPolicies__SWIG_1(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2, global::System.Runtime.InteropServices.HandleRef jarg3, global::System.Runtime.InteropServices.HandleRef jarg4, uint jarg5, global::System.Runtime.InteropServices.HandleRef jarg6, global::System.Runtime.InteropServices.HandleRef jarg7, uint jarg8);
 
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_new_thread_island")]
   public static extern global::System.IntPtr new_thread_island();

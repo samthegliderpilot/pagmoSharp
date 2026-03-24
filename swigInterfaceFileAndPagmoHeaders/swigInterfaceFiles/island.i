@@ -142,6 +142,17 @@
         return pagmoWrap::Island_FromAlgoProbBfe(a, prob, b, pop_size, seed);
     }
 
+    static pagmo::island CreateWithThreadIslandAndBfe(
+        const pagmo::thread_island &isl,
+        const pagmo::algorithm &a,
+        const pagmo::problem &prob,
+        const pagmo::bfe &b,
+        std::size_t pop_size,
+        unsigned seed
+    ) {
+        return pagmoWrap::Island_FromThreadIslAlgoProbBfe(isl, a, prob, b, pop_size, seed);
+    }
+
     static pagmo::island CreateWithBfeAndPolicies(
         const pagmo::algorithm &a,
         const pagmo::problem &prob,
@@ -154,6 +165,19 @@
         return pagmoWrap::Island_FromAlgoProbBfeFairSelect(a, prob, b, pop_size, r, s, seed);
     }
 
+    static pagmo::island CreateWithThreadIslandAndBfeAndPolicies(
+        const pagmo::thread_island &isl,
+        const pagmo::algorithm &a,
+        const pagmo::problem &prob,
+        const pagmo::bfe &b,
+        std::size_t pop_size,
+        const pagmo::fair_replace &r,
+        const pagmo::select_best &s,
+        unsigned seed
+    ) {
+        return pagmoWrap::Island_FromThreadIslAlgoProbBfeFairSelect(isl, a, prob, b, pop_size, r, s, seed);
+    }
+
     static pagmo::island CreateWithBfeAndPolicies(
         const pagmo::algorithm &a,
         const pagmo::problem &prob,
@@ -164,6 +188,19 @@
         unsigned seed
     ) {
         return pagmoWrap::Island_FromAlgoProbBfeManagedPolicies(a, prob, b, pop_size, r, s, seed);
+    }
+
+    static pagmo::island CreateWithThreadIslandAndBfeAndPolicies(
+        const pagmo::thread_island &isl,
+        const pagmo::algorithm &a,
+        const pagmo::problem &prob,
+        const pagmo::bfe &b,
+        std::size_t pop_size,
+        const pagmoWrap::r_policyPagmoWrapper &r,
+        const pagmoWrap::s_policyPagmoWrapper &s,
+        unsigned seed
+    ) {
+        return pagmoWrap::Island_FromThreadIslAlgoProbBfeManagedPolicies(isl, a, prob, b, pop_size, r, s, seed);
     }
 
 }

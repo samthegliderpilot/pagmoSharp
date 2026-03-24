@@ -87,10 +87,22 @@ namespace pagmo
             return island.CreateWithBfe(a, prob, b, checked((uint)popSize), seed ?? new random_device().next());
         }
 
+        public static island CreateWithThreadIslandAndBfe(thread_island isl, algorithm a, IProblem p, bfe b, ulong popSize, uint? seed = null)
+        {
+            using var prob = new problem(p);
+            return island.CreateWithThreadIslandAndBfe(isl, a, prob, b, checked((uint)popSize), seed ?? new random_device().next());
+        }
+
         public static island CreateWithBfe(IAlgorithm a, IProblem p, bfe b, ulong popSize, uint? seed = null)
         {
             using var normalized = AlgorithmInterop.NormalizeToTypeErased(a);
             return CreateWithBfe(normalized, p, b, popSize, seed);
+        }
+
+        public static island CreateWithThreadIslandAndBfe(thread_island isl, IAlgorithm a, IProblem p, bfe b, ulong popSize, uint? seed = null)
+        {
+            using var normalized = AlgorithmInterop.NormalizeToTypeErased(a);
+            return CreateWithThreadIslandAndBfe(isl, normalized, p, b, popSize, seed);
         }
 
         public static island CreateWithBfe(algorithm a, IProblem p, default_bfe b, ulong popSize, uint? seed = null)
@@ -99,10 +111,22 @@ namespace pagmo
             return CreateWithBfe(a, p, typeErasedBfe, popSize, seed);
         }
 
+        public static island CreateWithThreadIslandAndBfe(thread_island isl, algorithm a, IProblem p, default_bfe b, ulong popSize, uint? seed = null)
+        {
+            using var typeErasedBfe = b.to_bfe();
+            return CreateWithThreadIslandAndBfe(isl, a, p, typeErasedBfe, popSize, seed);
+        }
+
         public static island CreateWithBfe(algorithm a, IProblem p, thread_bfe b, ulong popSize, uint? seed = null)
         {
             using var typeErasedBfe = b.to_bfe();
             return CreateWithBfe(a, p, typeErasedBfe, popSize, seed);
+        }
+
+        public static island CreateWithThreadIslandAndBfe(thread_island isl, algorithm a, IProblem p, thread_bfe b, ulong popSize, uint? seed = null)
+        {
+            using var typeErasedBfe = b.to_bfe();
+            return CreateWithThreadIslandAndBfe(isl, a, p, typeErasedBfe, popSize, seed);
         }
 
         public static island CreateWithBfe(algorithm a, IProblem p, member_bfe b, ulong popSize, uint? seed = null)
@@ -111,10 +135,22 @@ namespace pagmo
             return CreateWithBfe(a, p, typeErasedBfe, popSize, seed);
         }
 
+        public static island CreateWithThreadIslandAndBfe(thread_island isl, algorithm a, IProblem p, member_bfe b, ulong popSize, uint? seed = null)
+        {
+            using var typeErasedBfe = b.to_bfe();
+            return CreateWithThreadIslandAndBfe(isl, a, p, typeErasedBfe, popSize, seed);
+        }
+
         public static island CreateWithBfe(IAlgorithm a, IProblem p, default_bfe b, ulong popSize, uint? seed = null)
         {
             using var normalized = AlgorithmInterop.NormalizeToTypeErased(a);
             return CreateWithBfe(normalized, p, b, popSize, seed);
+        }
+
+        public static island CreateWithThreadIslandAndBfe(thread_island isl, IAlgorithm a, IProblem p, default_bfe b, ulong popSize, uint? seed = null)
+        {
+            using var normalized = AlgorithmInterop.NormalizeToTypeErased(a);
+            return CreateWithThreadIslandAndBfe(isl, normalized, p, b, popSize, seed);
         }
 
         public static island CreateWithBfe(IAlgorithm a, IProblem p, thread_bfe b, ulong popSize, uint? seed = null)
@@ -123,10 +159,22 @@ namespace pagmo
             return CreateWithBfe(normalized, p, b, popSize, seed);
         }
 
+        public static island CreateWithThreadIslandAndBfe(thread_island isl, IAlgorithm a, IProblem p, thread_bfe b, ulong popSize, uint? seed = null)
+        {
+            using var normalized = AlgorithmInterop.NormalizeToTypeErased(a);
+            return CreateWithThreadIslandAndBfe(isl, normalized, p, b, popSize, seed);
+        }
+
         public static island CreateWithBfe(IAlgorithm a, IProblem p, member_bfe b, ulong popSize, uint? seed = null)
         {
             using var normalized = AlgorithmInterop.NormalizeToTypeErased(a);
             return CreateWithBfe(normalized, p, b, popSize, seed);
+        }
+
+        public static island CreateWithThreadIslandAndBfe(thread_island isl, IAlgorithm a, IProblem p, member_bfe b, ulong popSize, uint? seed = null)
+        {
+            using var normalized = AlgorithmInterop.NormalizeToTypeErased(a);
+            return CreateWithThreadIslandAndBfe(isl, normalized, p, b, popSize, seed);
         }
 
 
@@ -136,10 +184,22 @@ namespace pagmo
             return island.CreateWithBfeAndPolicies(a, prob, b, checked((uint)popSize), r, s, seed ?? new random_device().next());
         }
 
+        public static island CreateWithThreadIslandAndBfeAndPolicies(thread_island isl, algorithm a, IProblem p, bfe b, ulong popSize, fair_replace r, select_best s, uint? seed = null)
+        {
+            using var prob = new problem(p);
+            return island.CreateWithThreadIslandAndBfeAndPolicies(isl, a, prob, b, checked((uint)popSize), r, s, seed ?? new random_device().next());
+        }
+
         public static island CreateWithBfeAndPolicies(IAlgorithm a, IProblem p, bfe b, ulong popSize, fair_replace r, select_best s, uint? seed = null)
         {
             using var normalized = AlgorithmInterop.NormalizeToTypeErased(a);
             return CreateWithBfeAndPolicies(normalized, p, b, popSize, r, s, seed);
+        }
+
+        public static island CreateWithThreadIslandAndBfeAndPolicies(thread_island isl, IAlgorithm a, IProblem p, bfe b, ulong popSize, fair_replace r, select_best s, uint? seed = null)
+        {
+            using var normalized = AlgorithmInterop.NormalizeToTypeErased(a);
+            return CreateWithThreadIslandAndBfeAndPolicies(isl, normalized, p, b, popSize, r, s, seed);
         }
 
         public static island CreateWithBfeAndPolicies(algorithm a, IProblem p, default_bfe b, ulong popSize, fair_replace r, select_best s, uint? seed = null)
@@ -148,10 +208,22 @@ namespace pagmo
             return CreateWithBfeAndPolicies(a, p, typeErasedBfe, popSize, r, s, seed);
         }
 
+        public static island CreateWithThreadIslandAndBfeAndPolicies(thread_island isl, algorithm a, IProblem p, default_bfe b, ulong popSize, fair_replace r, select_best s, uint? seed = null)
+        {
+            using var typeErasedBfe = b.to_bfe();
+            return CreateWithThreadIslandAndBfeAndPolicies(isl, a, p, typeErasedBfe, popSize, r, s, seed);
+        }
+
         public static island CreateWithBfeAndPolicies(algorithm a, IProblem p, thread_bfe b, ulong popSize, fair_replace r, select_best s, uint? seed = null)
         {
             using var typeErasedBfe = b.to_bfe();
             return CreateWithBfeAndPolicies(a, p, typeErasedBfe, popSize, r, s, seed);
+        }
+
+        public static island CreateWithThreadIslandAndBfeAndPolicies(thread_island isl, algorithm a, IProblem p, thread_bfe b, ulong popSize, fair_replace r, select_best s, uint? seed = null)
+        {
+            using var typeErasedBfe = b.to_bfe();
+            return CreateWithThreadIslandAndBfeAndPolicies(isl, a, p, typeErasedBfe, popSize, r, s, seed);
         }
 
         public static island CreateWithBfeAndPolicies(algorithm a, IProblem p, member_bfe b, ulong popSize, fair_replace r, select_best s, uint? seed = null)
@@ -160,10 +232,22 @@ namespace pagmo
             return CreateWithBfeAndPolicies(a, p, typeErasedBfe, popSize, r, s, seed);
         }
 
+        public static island CreateWithThreadIslandAndBfeAndPolicies(thread_island isl, algorithm a, IProblem p, member_bfe b, ulong popSize, fair_replace r, select_best s, uint? seed = null)
+        {
+            using var typeErasedBfe = b.to_bfe();
+            return CreateWithThreadIslandAndBfeAndPolicies(isl, a, p, typeErasedBfe, popSize, r, s, seed);
+        }
+
         public static island CreateWithBfeAndPolicies(IAlgorithm a, IProblem p, default_bfe b, ulong popSize, fair_replace r, select_best s, uint? seed = null)
         {
             using var normalized = AlgorithmInterop.NormalizeToTypeErased(a);
             return CreateWithBfeAndPolicies(normalized, p, b, popSize, r, s, seed);
+        }
+
+        public static island CreateWithThreadIslandAndBfeAndPolicies(thread_island isl, IAlgorithm a, IProblem p, default_bfe b, ulong popSize, fair_replace r, select_best s, uint? seed = null)
+        {
+            using var normalized = AlgorithmInterop.NormalizeToTypeErased(a);
+            return CreateWithThreadIslandAndBfeAndPolicies(isl, normalized, p, b, popSize, r, s, seed);
         }
 
         public static island CreateWithBfeAndPolicies(IAlgorithm a, IProblem p, thread_bfe b, ulong popSize, fair_replace r, select_best s, uint? seed = null)
@@ -172,10 +256,22 @@ namespace pagmo
             return CreateWithBfeAndPolicies(normalized, p, b, popSize, r, s, seed);
         }
 
+        public static island CreateWithThreadIslandAndBfeAndPolicies(thread_island isl, IAlgorithm a, IProblem p, thread_bfe b, ulong popSize, fair_replace r, select_best s, uint? seed = null)
+        {
+            using var normalized = AlgorithmInterop.NormalizeToTypeErased(a);
+            return CreateWithThreadIslandAndBfeAndPolicies(isl, normalized, p, b, popSize, r, s, seed);
+        }
+
         public static island CreateWithBfeAndPolicies(IAlgorithm a, IProblem p, member_bfe b, ulong popSize, fair_replace r, select_best s, uint? seed = null)
         {
             using var normalized = AlgorithmInterop.NormalizeToTypeErased(a);
             return CreateWithBfeAndPolicies(normalized, p, b, popSize, r, s, seed);
+        }
+
+        public static island CreateWithThreadIslandAndBfeAndPolicies(thread_island isl, IAlgorithm a, IProblem p, member_bfe b, ulong popSize, fair_replace r, select_best s, uint? seed = null)
+        {
+            using var normalized = AlgorithmInterop.NormalizeToTypeErased(a);
+            return CreateWithThreadIslandAndBfeAndPolicies(isl, normalized, p, b, popSize, r, s, seed);
         }
 
 
@@ -185,10 +281,22 @@ namespace pagmo
             return island.CreateWithBfeAndPolicies(a, prob, b, checked((uint)popSize), r, s, seed ?? new random_device().next());
         }
 
+        public static island CreateWithThreadIslandAndBfeAndPolicies(thread_island isl, algorithm a, IProblem p, bfe b, ulong popSize, r_policy r, s_policy s, uint? seed = null)
+        {
+            using var prob = new problem(p);
+            return island.CreateWithThreadIslandAndBfeAndPolicies(isl, a, prob, b, checked((uint)popSize), r, s, seed ?? new random_device().next());
+        }
+
         public static island CreateWithBfeAndPolicies(IAlgorithm a, IProblem p, bfe b, ulong popSize, r_policy r, s_policy s, uint? seed = null)
         {
             using var normalized = AlgorithmInterop.NormalizeToTypeErased(a);
             return CreateWithBfeAndPolicies(normalized, p, b, popSize, r, s, seed);
+        }
+
+        public static island CreateWithThreadIslandAndBfeAndPolicies(thread_island isl, IAlgorithm a, IProblem p, bfe b, ulong popSize, r_policy r, s_policy s, uint? seed = null)
+        {
+            using var normalized = AlgorithmInterop.NormalizeToTypeErased(a);
+            return CreateWithThreadIslandAndBfeAndPolicies(isl, normalized, p, b, popSize, r, s, seed);
         }
 
         public static island CreateWithBfeAndPolicies(algorithm a, IProblem p, default_bfe b, ulong popSize, r_policy r, s_policy s, uint? seed = null)
@@ -197,10 +305,22 @@ namespace pagmo
             return CreateWithBfeAndPolicies(a, p, typeErasedBfe, popSize, r, s, seed);
         }
 
+        public static island CreateWithThreadIslandAndBfeAndPolicies(thread_island isl, algorithm a, IProblem p, default_bfe b, ulong popSize, r_policy r, s_policy s, uint? seed = null)
+        {
+            using var typeErasedBfe = b.to_bfe();
+            return CreateWithThreadIslandAndBfeAndPolicies(isl, a, p, typeErasedBfe, popSize, r, s, seed);
+        }
+
         public static island CreateWithBfeAndPolicies(algorithm a, IProblem p, thread_bfe b, ulong popSize, r_policy r, s_policy s, uint? seed = null)
         {
             using var typeErasedBfe = b.to_bfe();
             return CreateWithBfeAndPolicies(a, p, typeErasedBfe, popSize, r, s, seed);
+        }
+
+        public static island CreateWithThreadIslandAndBfeAndPolicies(thread_island isl, algorithm a, IProblem p, thread_bfe b, ulong popSize, r_policy r, s_policy s, uint? seed = null)
+        {
+            using var typeErasedBfe = b.to_bfe();
+            return CreateWithThreadIslandAndBfeAndPolicies(isl, a, p, typeErasedBfe, popSize, r, s, seed);
         }
 
         public static island CreateWithBfeAndPolicies(algorithm a, IProblem p, member_bfe b, ulong popSize, r_policy r, s_policy s, uint? seed = null)
@@ -209,10 +329,22 @@ namespace pagmo
             return CreateWithBfeAndPolicies(a, p, typeErasedBfe, popSize, r, s, seed);
         }
 
+        public static island CreateWithThreadIslandAndBfeAndPolicies(thread_island isl, algorithm a, IProblem p, member_bfe b, ulong popSize, r_policy r, s_policy s, uint? seed = null)
+        {
+            using var typeErasedBfe = b.to_bfe();
+            return CreateWithThreadIslandAndBfeAndPolicies(isl, a, p, typeErasedBfe, popSize, r, s, seed);
+        }
+
         public static island CreateWithBfeAndPolicies(IAlgorithm a, IProblem p, default_bfe b, ulong popSize, r_policy r, s_policy s, uint? seed = null)
         {
             using var normalized = AlgorithmInterop.NormalizeToTypeErased(a);
             return CreateWithBfeAndPolicies(normalized, p, b, popSize, r, s, seed);
+        }
+
+        public static island CreateWithThreadIslandAndBfeAndPolicies(thread_island isl, IAlgorithm a, IProblem p, default_bfe b, ulong popSize, r_policy r, s_policy s, uint? seed = null)
+        {
+            using var normalized = AlgorithmInterop.NormalizeToTypeErased(a);
+            return CreateWithThreadIslandAndBfeAndPolicies(isl, normalized, p, b, popSize, r, s, seed);
         }
 
         public static island CreateWithBfeAndPolicies(IAlgorithm a, IProblem p, thread_bfe b, ulong popSize, r_policy r, s_policy s, uint? seed = null)
@@ -221,10 +353,22 @@ namespace pagmo
             return CreateWithBfeAndPolicies(normalized, p, b, popSize, r, s, seed);
         }
 
+        public static island CreateWithThreadIslandAndBfeAndPolicies(thread_island isl, IAlgorithm a, IProblem p, thread_bfe b, ulong popSize, r_policy r, s_policy s, uint? seed = null)
+        {
+            using var normalized = AlgorithmInterop.NormalizeToTypeErased(a);
+            return CreateWithThreadIslandAndBfeAndPolicies(isl, normalized, p, b, popSize, r, s, seed);
+        }
+
         public static island CreateWithBfeAndPolicies(IAlgorithm a, IProblem p, member_bfe b, ulong popSize, r_policy r, s_policy s, uint? seed = null)
         {
             using var normalized = AlgorithmInterop.NormalizeToTypeErased(a);
             return CreateWithBfeAndPolicies(normalized, p, b, popSize, r, s, seed);
+        }
+
+        public static island CreateWithThreadIslandAndBfeAndPolicies(thread_island isl, IAlgorithm a, IProblem p, member_bfe b, ulong popSize, r_policy r, s_policy s, uint? seed = null)
+        {
+            using var normalized = AlgorithmInterop.NormalizeToTypeErased(a);
+            return CreateWithThreadIslandAndBfeAndPolicies(isl, normalized, p, b, popSize, r, s, seed);
         }
 
     }

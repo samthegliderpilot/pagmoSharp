@@ -1,4 +1,4 @@
-# PagmoSharp Roadmap
+﻿# PagmoSharp Roadmap
 
 Last updated: 2026-03-24
 
@@ -33,7 +33,7 @@ Last updated: 2026-03-24
   - ☑ Add thread-island managed-policy constructor coverage tests (`CreateWithThreadIslandAndPolicies`).
   - ☑ Rework `bfe` interop model for safe concrete-BFE to type-erased-BFE conversion (remove invalid inheritance/upcasts).
   - ☑ Re-enable `island + bfe` constructor surfaces using explicit safe conversion paths.
-  - ☐ Reintroduce explicit `thread_island + bfe` constructor surfaces once parity coverage is added on top of the new bfe model.
+  - ☑ Reintroduce explicit `thread_island + bfe` constructor surfaces with parity runtime tests.`r`n  - ☑ Strengthen island/thread-island constructor tests to assert configuration wiring (algorithm identity, population size, vector dimensions), not only no-throw.
   - ☑ Add first concrete extensibility boundary patterns for `Algorithm` and `BFE` (internal normalization/dispatch, no new public factory surface).
 
 4. **Sprint 3A: Broad Coverage Pass (Breadth)**
@@ -77,3 +77,4 @@ Last updated: 2026-03-24
 - Breadth-first then depth-hardening is intentional for large catalog onboarding.
 - `Problem` remains core and already mature enough to build on.
 - v1.0 stays Windows-first; Linux is explicitly post-release.
+
