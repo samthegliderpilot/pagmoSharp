@@ -1453,14 +1453,23 @@ SWIGINTERN unsigned int pagmo_compass_search_get_gen(pagmo::compass_search const
 #include "pagmo/bfe.hpp"
 #include "pagmo/batch_evaluators/default_bfe.hpp"
 
+SWIGINTERN pagmo::bfe pagmo_default_bfe_to_bfe(pagmo::default_bfe const *self){
+        return pagmo::bfe(*self);
+    }
 
 #include "pagmo/bfe.hpp"
 #include "pagmo/batch_evaluators/member_bfe.hpp"
 
+SWIGINTERN pagmo::bfe pagmo_member_bfe_to_bfe(pagmo::member_bfe const *self){
+        return pagmo::bfe(*self);
+    }
 
 #include "pagmo/bfe.hpp"
 #include "pagmo/batch_evaluators/thread_bfe.hpp"
 
+SWIGINTERN pagmo::bfe pagmo_thread_bfe_to_bfe(pagmo::thread_bfe const *self){
+        return pagmo::bfe(*self);
+    }
 
 #include "pagmo/problems/ackley.hpp"
 #include "pagmo/problem.hpp"
@@ -22060,6 +22069,30 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_default_bfe_get_name(void * jar
 }
 
 
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_default_bfe_to_bfe(void * jarg1) {
+  void * jresult ;
+  pagmo::default_bfe *arg1 = 0 ;
+  pagmo::bfe result;
+  
+  arg1 = (pagmo::default_bfe *)jarg1; 
+  {
+    try {
+      result = pagmo_default_bfe_to_bfe((pagmo::default_bfe const *)arg1);
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = new pagmo::bfe(result); 
+  return jresult;
+}
+
+
 SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_delete_default_bfe(void * jarg1) {
   pagmo::default_bfe *arg1 = 0 ;
   
@@ -22154,6 +22187,30 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_member_bfe_get_name(void * jarg
 }
 
 
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_member_bfe_to_bfe(void * jarg1) {
+  void * jresult ;
+  pagmo::member_bfe *arg1 = 0 ;
+  pagmo::bfe result;
+  
+  arg1 = (pagmo::member_bfe *)jarg1; 
+  {
+    try {
+      result = pagmo_member_bfe_to_bfe((pagmo::member_bfe const *)arg1);
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = new pagmo::bfe(result); 
+  return jresult;
+}
+
+
 SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_delete_member_bfe(void * jarg1) {
   pagmo::member_bfe *arg1 = 0 ;
   
@@ -22244,6 +22301,30 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_thread_bfe_get_name(void * jarg
     }
   }
   jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_thread_bfe_to_bfe(void * jarg1) {
+  void * jresult ;
+  pagmo::thread_bfe *arg1 = 0 ;
+  pagmo::bfe result;
+  
+  arg1 = (pagmo::thread_bfe *)jarg1; 
+  {
+    try {
+      result = pagmo_thread_bfe_to_bfe((pagmo::thread_bfe const *)arg1);
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = new pagmo::bfe(result); 
   return jresult;
 }
 
@@ -28769,18 +28850,6 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_archipelago_get_migration_log_entries
   return jresult;
 }
 
-
-SWIGEXPORT pagmo::bfe * SWIGSTDCALL CSharp_pagmo_default_bfe_SWIGUpcast(pagmo::default_bfe *jarg1) {
-    return (pagmo::bfe *)jarg1;
-}
-
-SWIGEXPORT pagmo::bfe * SWIGSTDCALL CSharp_pagmo_member_bfe_SWIGUpcast(pagmo::member_bfe *jarg1) {
-    return (pagmo::bfe *)jarg1;
-}
-
-SWIGEXPORT pagmo::bfe * SWIGSTDCALL CSharp_pagmo_thread_bfe_SWIGUpcast(pagmo::thread_bfe *jarg1) {
-    return (pagmo::bfe *)jarg1;
-}
 
 #ifdef __cplusplus
 }

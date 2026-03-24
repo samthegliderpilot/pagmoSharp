@@ -10,10 +10,12 @@
 
 namespace pagmo {
 
-public partial class member_bfe : bfe {
+public partial class member_bfe : global::System.IDisposable {
   private global::System.Runtime.InteropServices.HandleRef swigCPtr;
+  protected bool swigCMemOwn;
 
-  internal member_bfe(global::System.IntPtr cPtr, bool cMemoryOwn) : base(pagmoPINVOKE.member_bfe_SWIGUpcast(cPtr), cMemoryOwn) {
+  internal member_bfe(global::System.IntPtr cPtr, bool cMemoryOwn) {
+    swigCMemOwn = cMemoryOwn;
     swigCPtr = new global::System.Runtime.InteropServices.HandleRef(this, cPtr);
   }
 
@@ -34,7 +36,16 @@ public partial class member_bfe : bfe {
     }
   }
 
-  protected override void Dispose(bool disposing) {
+  ~member_bfe() {
+    Dispose(false);
+  }
+
+  public void Dispose() {
+    Dispose(true);
+    global::System.GC.SuppressFinalize(this);
+  }
+
+  protected virtual void Dispose(bool disposing) {
     lock(this) {
       if (swigCPtr.Handle != global::System.IntPtr.Zero) {
         if (swigCMemOwn) {
@@ -43,7 +54,6 @@ public partial class member_bfe : bfe {
         }
         swigCPtr = new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero);
       }
-      base.Dispose(disposing);
     }
   }
 
@@ -55,8 +65,14 @@ public partial class member_bfe : bfe {
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
-  public virtual string get_name() {
+  public string get_name() {
     string ret = pagmoPINVOKE.member_bfe_get_name(swigCPtr);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  public bfe to_bfe() {
+    bfe ret = new bfe(pagmoPINVOKE.member_bfe_to_bfe(swigCPtr), true);
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }

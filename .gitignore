@@ -16,4 +16,6 @@ pagmoWrapper/Intermediate/*
 *.exe
 .dotnet/
 artifacts/
+copyout.txt
+copyerr.txt
 

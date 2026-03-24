@@ -2442,6 +2442,9 @@ class pagmoPINVOKE {
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_default_bfe_get_name")]
   public static extern string default_bfe_get_name(global::System.Runtime.InteropServices.HandleRef jarg1);
 
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_default_bfe_to_bfe")]
+  public static extern global::System.IntPtr default_bfe_to_bfe(global::System.Runtime.InteropServices.HandleRef jarg1);
+
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_delete_default_bfe")]
   public static extern void delete_default_bfe(global::System.Runtime.InteropServices.HandleRef jarg1);
 
@@ -2454,6 +2457,9 @@ class pagmoPINVOKE {
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_member_bfe_get_name")]
   public static extern string member_bfe_get_name(global::System.Runtime.InteropServices.HandleRef jarg1);
 
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_member_bfe_to_bfe")]
+  public static extern global::System.IntPtr member_bfe_to_bfe(global::System.Runtime.InteropServices.HandleRef jarg1);
+
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_delete_member_bfe")]
   public static extern void delete_member_bfe(global::System.Runtime.InteropServices.HandleRef jarg1);
 
@@ -2465,6 +2471,9 @@ class pagmoPINVOKE {
 
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_thread_bfe_get_name")]
   public static extern string thread_bfe_get_name(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_thread_bfe_to_bfe")]
+  public static extern global::System.IntPtr thread_bfe_to_bfe(global::System.Runtime.InteropServices.HandleRef jarg1);
 
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_delete_thread_bfe")]
   public static extern void delete_thread_bfe(global::System.Runtime.InteropServices.HandleRef jarg1);
@@ -3239,15 +3248,6 @@ class pagmoPINVOKE {
 
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_archipelago_get_migration_log_entries")]
   public static extern global::System.IntPtr archipelago_get_migration_log_entries(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_default_bfe_SWIGUpcast")]
-  public static extern global::System.IntPtr default_bfe_SWIGUpcast(global::System.IntPtr jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_member_bfe_SWIGUpcast")]
-  public static extern global::System.IntPtr member_bfe_SWIGUpcast(global::System.IntPtr jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_thread_bfe_SWIGUpcast")]
-  public static extern global::System.IntPtr thread_bfe_SWIGUpcast(global::System.IntPtr jarg1);
 }
 
 }

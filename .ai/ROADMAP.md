@@ -31,7 +31,9 @@ Last updated: 2026-03-24
   - ☑ Add explicit `thread_island` creation paths for `island` and cover with runtime tests.
   - ☑ Strengthen `ring` topology tests to validate constructor-argument effects, not just type construction.
   - ☑ Add thread-island managed-policy constructor coverage tests (`CreateWithThreadIslandAndPolicies`).
-  - ☐ Rework `bfe` interop model before exposing `island + bfe` constructor surfaces with explicit thread-island variants (current SWIG upcast pattern is unsafe).
+  - ☑ Rework `bfe` interop model for safe concrete-BFE to type-erased-BFE conversion (remove invalid inheritance/upcasts).
+  - ☑ Re-enable `island + bfe` constructor surfaces using explicit safe conversion paths.
+  - ☐ Reintroduce explicit `thread_island + bfe` constructor surfaces once parity coverage is added on top of the new bfe model.
   - ☑ Add first concrete extensibility boundary patterns for `Algorithm` and `BFE` (internal normalization/dispatch, no new public factory surface).
 
 4. **Sprint 3A: Broad Coverage Pass (Breadth)**
