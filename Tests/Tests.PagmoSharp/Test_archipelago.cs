@@ -8,15 +8,27 @@ namespace Tests.PagmoSharp
     [TestFixture]
     public class Test_archipelago
     {
+        private sealed class UnsupportedAlgorithm : IAlgorithm
+        {
+            public population evolve(population pop) => pop;
+            public void set_seed(uint seed) { }
+            public uint get_seed() => 0;
+            public uint get_verbosity() => 0;
+            public void set_verbosity(uint level) { }
+            public string get_name() => "UnsupportedAlgorithm";
+            public string get_extra_info() => string.Empty;
+            public void Dispose() { }
+        }
+
         [Test]
         public void PushBackIslandRejectsManagedProblemWithThreadSafetyNone()
         {
             using var archi = new archipelago();
-            using var algo = new bee_colony();
+            using IAlgorithm algo = new bee_colony();
             using var problem = new OneDimensionalSimpleProblem();
 
             var ex = Assert.Throws<InvalidOperationException>(
-                () => archi.push_back_island(algo.to_algorithm(), problem, 8, 2));
+                () => archi.push_back_island(algo, problem, 8, 2));
             Assert.That(ex!.Message, Does.Contain("thread_safety.basic or thread_safety.constant"));
         }
 
@@ -24,10 +36,10 @@ namespace Tests.PagmoSharp
         public void ManagedThreadSafeProblemCanEvolveInArchipelago()
         {
             using var archi = new archipelago();
-            using var algo = new bee_colony();
+            using IAlgorithm algo = new bee_colony();
             using var problem = new TwoDimensionalSingleObjectiveProblemWrapper();
 
-            archi.push_back_island(algo.to_algorithm(), problem, 32, 2);
+            archi.push_back_island(algo, problem, 32, 2);
             Assert.AreEqual(1u, archi.size());
 
             archi.evolve(1);
@@ -38,6 +50,17 @@ namespace Tests.PagmoSharp
             Assert.IsNotNull(db);
             var log = archi.MigrationLog;
             Assert.IsNotNull(log);
+        }
+
+        [Test]
+        public void PushBackIslandRejectsUnsupportedManagedAlgorithmType()
+        {
+            using var archi = new archipelago();
+            using IAlgorithm algo = new UnsupportedAlgorithm();
+            using var problem = new TwoDimensionalSingleObjectiveProblemWrapper();
+
+            var ex = Assert.Throws<NotSupportedException>(() => archi.push_back_island(algo, problem, 8, 2));
+            Assert.That(ex!.Message, Does.Contain("UnsupportedAlgorithm"));
         }
 
         [Test]

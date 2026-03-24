@@ -44,7 +44,7 @@ namespace Tests.PagmoSharp
         {
             using var islandImpl = new thread_island();
             using var managed = new TwoDimensionalSingleObjectiveProblemWrapper();
-            using var algo = new bee_colony().to_algorithm();
+            using IAlgorithm algo = new bee_colony();
             using var isl = island.CreateWithThreadIsland(islandImpl, algo, managed, 24, 2);
 
             Assert.IsTrue(isl.is_valid());
@@ -58,7 +58,7 @@ namespace Tests.PagmoSharp
         {
             using var islandImpl = new thread_island();
             using var managed = new TwoDimensionalSingleObjectiveProblemWrapper();
-            using var algo = new bee_colony().to_algorithm();
+            using IAlgorithm algo = new bee_colony();
             using var replacementPolicyBase = new ManagedReplacementPolicy();
             using var selectionPolicyBase = new ManagedSelectionPolicy();
             using var replacementPolicy = new r_policy(replacementPolicyBase);

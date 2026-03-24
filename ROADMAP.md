@@ -32,7 +32,7 @@ Last updated: 2026-03-24
   - ☑ Strengthen `ring` topology tests to validate constructor-argument effects, not just type construction.
   - ☑ Add thread-island managed-policy constructor coverage tests (`CreateWithThreadIslandAndPolicies`).
   - ☐ Rework `bfe` interop model before exposing `island + bfe` constructor surfaces with explicit thread-island variants (current SWIG upcast pattern is unsafe).
-  - ☐ Add first concrete extensibility pattern examples for `Algorithm` and `BFE` (matching `Policy`/`Topology` treatment).
+  - ☑ Add first concrete extensibility boundary patterns for `Algorithm` and `BFE` (internal normalization/dispatch, no new public factory surface).
 
 4. **Sprint 3A: Broad Coverage Pass (Breadth)**
 - ☐ Primary goal: add `.i` + wrapper coverage for targeted v1 algorithm/problem catalog (the "dozens" sprint).
@@ -43,6 +43,7 @@ Last updated: 2026-03-24
 - ☐ Apply/complete C# extensibility surfaces where in v1 scope.
 - ☐ Remove/contain `SWIGTYPE_*` leakage on touched public APIs.
 - ☐ Normalize naming/signatures and add deeper behavior/regression tests.
+- ☐ Standardize C++→C# exception bubbling and mapping (constructor/evolve/wait paths, including async/runtime wrapper paths).
 - ☐ Anything from 3A is not considered production-ready until 3B gates pass.
 
 6. **Sprint 4: Documentation + Samples**

@@ -49,5 +49,11 @@ namespace pagmo
                 NativeInterop.problem_delete(problemPtr);
             }
         }
+
+        public ulong push_back_island(IAlgorithm algo, IProblem prob, ulong popSize, uint seed)
+        {
+            using var normalized = AlgorithmInterop.NormalizeToTypeErased(algo);
+            return push_back_island(normalized, prob, popSize, seed);
+        }
     }
 }

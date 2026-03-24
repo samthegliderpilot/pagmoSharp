@@ -11,7 +11,7 @@ namespace Tests.PagmoSharp
         public void IslandCanBeCreatedFromManagedProblemAndEvolved()
         {
             using var managed = new TwoDimensionalSingleObjectiveProblemWrapper();
-            using var algo = new bee_colony().to_algorithm();
+            using IAlgorithm algo = new bee_colony();
             using var isl = island.Create(algo, managed, 32, 2);
 
             Assert.IsTrue(isl.is_valid());
@@ -30,7 +30,7 @@ namespace Tests.PagmoSharp
         public void IslandCanBeCreatedWithPoliciesFromManagedProblem()
         {
             using var managed = new TwoDimensionalSingleObjectiveProblemWrapper();
-            using var algo = new bee_colony().to_algorithm();
+            using IAlgorithm algo = new bee_colony();
             using var r = new fair_replace();
             using var s = new select_best();
             using var isl = island.CreateWithPolicies(algo, managed, 24, r, s, 2);
