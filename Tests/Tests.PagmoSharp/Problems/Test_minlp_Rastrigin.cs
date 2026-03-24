@@ -48,15 +48,12 @@ public class Test_minlp_Rastrigin : TestProblemBase
         }
     }
 
-    public static IEnumerable<ProblemTestData> RegressionData
+    protected override IEnumerable<ProblemTestData> GetRegressionData()
     {
-        get
+        return new List<ProblemTestData>()
         {
-            return new List<ProblemTestData>()
-            {
-                new ProblemTestData("MINLP Rastrigin Function", "simpleTest", new double[] { 1, 1, },
-                    new double[] { 2.0, })
-            };
-        }
+            new ProblemTestData("MINLP Rastrigin Function", "simpleTest", new double[] { 1, 1, },
+                new double[] { 2.0, })
+        };
     }
 }

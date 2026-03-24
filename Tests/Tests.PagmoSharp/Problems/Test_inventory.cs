@@ -12,16 +12,13 @@ namespace Tests.PagmoSharp.Problems
             return new inventory(4u, 10u, 2u);
         }
 
-        public static IEnumerable<ProblemTestData> RegressionData
+        protected override IEnumerable<ProblemTestData> GetRegressionData()
         {
-            get
+            return new List<ProblemTestData>()
             {
-                return new List<ProblemTestData>()
-                {
-                    new ProblemTestData("inventory", "SimpleTest", new double[] { 1,2,3,4, },
-                        new double[] { 294.60824716582886d }),
-                };
-            }
+                new ProblemTestData("inventory", "SimpleTest", new double[] { 1,2,3,4, },
+                    new double[] { 294.60824716582886d }),
+            };
         }
 
         [Test]

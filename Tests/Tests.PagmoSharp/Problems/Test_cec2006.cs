@@ -61,24 +61,21 @@ namespace Tests.PagmoSharp.Problems
             }
         }
 
-        public static IEnumerable<ProblemTestData> RegressionData
+        protected override IEnumerable<ProblemTestData> GetRegressionData()
         {
-            get
+            return new List<ProblemTestData>()
             {
-                return new List<ProblemTestData>()
-                {
-                    new ProblemTestData("cec2006", "simpleTest1",
-                        new double[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 },
-                        new double[] { -181, 17, 20, 23, 2, -5, -12, -3, -8, -13 }, 1),
-                    new ProblemTestData("cec2006", "simpleTest2",
-                        new double[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, },
-                        new double[] { -0.03410429993861006, -2.43290200817664E+18, 60, }, 2),
+                new ProblemTestData("cec2006", "simpleTest1",
+                    new double[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 },
+                    new double[] { -181, 17, 20, 23, 2, -5, -12, -3, -8, -13 }, 1),
+                new ProblemTestData("cec2006", "simpleTest2",
+                    new double[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, },
+                    new double[] { -0.03410429993861006, -2.43290200817664E+18, 60, }, 2),
 
-                    //new ProblemTestData("cec2006", "simpleTest3",
-                    //    new double[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, },
-                    //    new double[] { -0.03410429993861006, -2.43290200817664E+18, 60, }, 3),
-                };
-            }
+                //new ProblemTestData("cec2006", "simpleTest3",
+                //    new double[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, },
+                //    new double[] { -0.03410429993861006, -2.43290200817664E+18, 60, }, 3),
+            };
         }
     }
 }

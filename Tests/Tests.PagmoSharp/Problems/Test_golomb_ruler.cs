@@ -12,16 +12,13 @@ namespace Tests.PagmoSharp.Problems
             return new golomb_ruler();
         }
 
-        public static IEnumerable<ProblemTestData> RegressionData
+        protected override IEnumerable<ProblemTestData> GetRegressionData()
         {
-            get
+            return new List<ProblemTestData>()
             {
-                return new List<ProblemTestData>()
-                {
-                    new ProblemTestData("Golomb Ruler(order 3)", "SimpleTest", new double[] { 2, 3, 4, },
-                        new double[] { 9, 0, }),
-                };
-            }
+                new ProblemTestData("Golomb Ruler(order 3)", "SimpleTest", new double[] { 2, 3, 4, },
+                    new double[] { 9, 0, }),
+            };
         }
 
         [Test]

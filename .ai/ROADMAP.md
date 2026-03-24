@@ -1,4 +1,4 @@
-﻿# PagmoSharp Roadmap
+# PagmoSharp Roadmap
 
 Last updated: 2026-03-24
 
@@ -43,17 +43,20 @@ Last updated: 2026-03-24
 
 4. **Sprint 3A: Broad Coverage Pass (Breadth)**
 - [ ] Primary goal: add `.i` + wrapper coverage for targeted v1 algorithm/problem catalog (the "dozens" sprint).
-- [ ] Include only minimal smoke validation per added type (construct/use basic APIs/evolve where applicable).
-- [ ] Output: large usable surface, not final ergonomics.
+- [ ] For each newly wrapped type, complete pragmatic finish work in the same slice (meaningful assertions, API polish, and lifecycle sanity), not smoke-only.
+- [ ] Output: large usable surface with per-type baseline quality, while deeper cross-cutting hardening remains in 3B.
 - Active progress:
   - [x] Fully wrap `null_algorithm` with managed extension polish (`IAlgorithm` compatibility helpers) and dedicated regression tests.
+  - [x] Fully wrap `null_problem` with managed extension polish and dedicated regression tests (metadata + fitness behavior assertions).
+  - [x] Fully wrap `rosenbrock` with managed extension polish and dedicated regression tests (metadata, bounds, optimum fitness, and evolve-path assertions).
+  - [x] Fully wrap `rastrigin` with managed extension polish and dedicated regression tests (metadata, differential-info APIs, optimum fitness, and evolve-path assertions).
 
 5. **Sprint 3B: Hardening + Extensibility Completion (Depth)**
 - [ ] Apply/complete C# extensibility surfaces where in v1 scope.
 - [ ] Remove/contain `SWIGTYPE_*` leakage on touched public APIs.
 - [ ] Audit and eliminate shallow raw-pointer ownership semantics across wrapper facades (copy/assign/destructor ownership rules), replacing with robust lifetime-safe patterns.
 - [ ] Normalize naming/signatures and add deeper behavior/regression tests.
-- [ ] Standardize C++→C# exception bubbling and mapping (constructor/evolve/wait paths, including async/runtime wrapper paths).
+- [ ] Standardize C++?C# exception bubbling and mapping (constructor/evolve/wait paths, including async/runtime wrapper paths).
 - [ ] Complete multi-objective support end-to-end (problem/algorithm flows, champion and population semantics, and static helper functions in `utils/multi_objective`).
 - [ ] Anything from 3A is not considered production-ready until 3B gates pass.
 
@@ -71,6 +74,7 @@ Last updated: 2026-03-24
 
 ### API and Quality Rules
 - During 3A breadth, prioritize coverage velocity with smoke tests.
+- During 3A execution, do not add new `SWIGTYPE_*` leakage on touched public surfaces; either map to usable managed types now or keep the API out of scope until a later sprint.
 - During 3B depth, enforce public API quality:
   - no unresolved `SWIGTYPE_*` exposure for in-scope v1 surfaces
   - consistent API shape and lifecycle behavior

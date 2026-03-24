@@ -48,15 +48,12 @@ public class Test_ackley : TestProblemBase
         }
     }
 
-    public static IEnumerable<ProblemTestData> RegressionData
+    protected override IEnumerable<ProblemTestData> GetRegressionData()
     {
-        get
+        return new List<ProblemTestData>()
         {
-            return new List<ProblemTestData>()
-            {
-                new ProblemTestData("ackley", "simpleTest", new double[] { 1, 1, },
-                    new double[] { 3.6253849384403627, })
-            };
-        }
+            new ProblemTestData("ackley", "simpleTest", new double[] { 1, 1, },
+                new double[] { 3.6253849384403627, })
+        };
     }
 }

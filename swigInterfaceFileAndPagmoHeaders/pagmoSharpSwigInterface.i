@@ -1,4 +1,4 @@
-﻿/* File pagmoSharpSwigInterface.i */
+/* File pagmoSharpSwigInterface.i */
 #define SUPPORT_VARIDEC FALSE
 %include "exception.i"
 %{
@@ -226,6 +226,9 @@ namespace std {
 	%include swigInterfaceFiles\problems\golomb_ruler.i
 	%include swigInterfaceFiles\problems\inventory.i
 	%include swigInterfaceFiles\problems\minlp_rastrigin.i
+	%include swigInterfaceFiles\problems\null_problem.i
+		%include swigInterfaceFiles\problems\rosenbrock.i
+		%include swigInterfaceFiles\problems\rastrigin.i
 	%include swigInterfaceFiles\problems\zdt.i
 
 		%include swigInterfaceFiles\r_policies\fair_replace.i
