@@ -1,0 +1,22 @@
+%{
+#include "pagmo/algorithm.hpp"
+#include "pagmo/algorithms/ihs.hpp"
+%}
+
+%typemap(csclassmodifiers) pagmo::ihs "public partial class"
+class ihs
+{
+public:
+    typedef std::tuple<unsigned long long, double, double, double, double, vector_double::size_type, double, vector_double> log_line_type;
+    typedef std::vector<log_line_type> log_type;
+
+    extern ihs(unsigned gen = 1u, double phmcr = 0.85, double ppar_min = 0.35, double ppar_max = 0.99, double bw_min = 1E-5, double bw_max = 1., unsigned seed = pagmo::random_device::next());
+    extern population evolve(population) const;
+    extern void set_verbosity(unsigned);
+    extern unsigned get_verbosity() const;
+    extern void set_seed(unsigned);
+    extern unsigned get_seed() const;
+    extern std::string get_name() const;
+    extern std::string get_extra_info() const;
+    extern const log_type &get_log() const;
+};

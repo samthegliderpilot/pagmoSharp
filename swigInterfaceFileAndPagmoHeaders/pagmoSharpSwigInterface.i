@@ -197,12 +197,20 @@ namespace std {
 	
 	%include swigInterfaceFiles\algorithms\cmaes.i
 	%include swigInterfaceFiles\algorithms\compass_search.i		
+	%include swigInterfaceFiles\algorithms\cstrs_self_adaptive.i
 	%include swigInterfaceFiles\algorithms\de.i
-	%include swigInterfaceFiles\algorithms\de1220.i
-	%include swigInterfaceFiles\algorithms\gaco.i
-	%include swigInterfaceFiles\algorithms\gwo.i
-	//%include swigInterfaceFiles\algorithms\ipopt.i // my build of pagmo doesn't include ipopt
+		%include swigInterfaceFiles\algorithms\de1220.i
+		%include swigInterfaceFiles\algorithms\gaco.i
+		%include swigInterfaceFiles\algorithms\gwo.i
+		%include swigInterfaceFiles\algorithms\ihs.i
+		//%include swigInterfaceFiles\algorithms\ipopt.i // my build of pagmo doesn't include ipopt
+	%include swigInterfaceFiles\algorithms\maco.i
+	%include swigInterfaceFiles\algorithms\mbh.i
+	%include swigInterfaceFiles\algorithms\moead.i
+	%include swigInterfaceFiles\algorithms\moead_gen.i
 	//%include swigInterfaceFiles\algorithms\nlopt.i
+	%include swigInterfaceFiles\algorithms\not_population_based.i
+	%include swigInterfaceFiles\algorithms\nsga2.i
 	%include swigInterfaceFiles\algorithms\nspso.i
 	%include swigInterfaceFiles\algorithms\null_algorithm.i
 	%include swigInterfaceFiles\algorithms\pso.i

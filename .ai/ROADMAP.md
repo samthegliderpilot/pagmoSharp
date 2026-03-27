@@ -68,6 +68,15 @@ Last updated: 2026-03-24
   - [x] Harden shared problem test base with per-problem midpoint-probe opt-out to avoid singular fitness crashes while preserving explicit safe-input contract checks.
   - [x] Harden legacy `cec2006` tests with explicit safe-input fitness-length checks and midpoint-probe opt-out to eliminate host-crash instability during grouped runs.
   - [x] Standardize problem test architecture with shared `TestProblemBase` runtime checks and instance-based regression data providers (no static-only regression plumbing).
+  - [x] Fully wrap `ihs` with managed extension polish and dedicated regression tests (name/seed/verbosity/log access, evolve-path assertions, and compatibility gating in shared algorithm tests).
+  - [x] Fully wrap `nsga2` with managed extension polish and dedicated regression tests (multi-objective evolve-path assertions and compatibility gating in shared algorithm tests).
+  - [x] Fully wrap `moead` with managed extension polish and dedicated regression tests (multi-objective evolve-path assertions and compatibility gating in shared algorithm tests).
+  - [x] Fully wrap `moead_gen` with managed extension polish and dedicated regression tests (multi-objective evolve-path assertions and compatibility gating in shared algorithm tests).
+  - [x] Fully wrap `maco` with managed extension polish and dedicated regression tests (multi-objective evolve-path assertions and compatibility gating in shared algorithm tests).
+  - [x] Fully wrap `cstrs_self_adaptive` with managed extension polish and dedicated regression tests (constrained evolve-path assertions, seed/verbosity coverage, and runtime API checks).
+  - [x] Fully wrap `mbh` with managed extension polish and dedicated regression tests (name/seed/verbosity coverage and perturbation configuration assertions).
+  - [x] Fully wrap `not_population_based` helper surface with managed extension polish and dedicated regression tests (selection/replacement policy configuration coverage).
+  - [x] Reach full parity with current pagmo `algorithms/*.hpp` catalog in Sprint 3A wrapper coverage (no remaining unwrapped algorithm headers).
 
 5. **Sprint 3B: Hardening + Extensibility Completion (Depth)**
 - [ ] Apply/complete C# extensibility surfaces where in v1 scope.
