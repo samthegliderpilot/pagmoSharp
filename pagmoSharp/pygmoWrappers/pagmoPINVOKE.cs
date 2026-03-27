@@ -2799,6 +2799,51 @@ class pagmoPINVOKE {
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_delete_lennard_jones")]
   public static extern void delete_lennard_jones(global::System.Runtime.InteropServices.HandleRef jarg1);
 
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_new_luksan_vlcek1__SWIG_0")]
+  public static extern global::System.IntPtr new_luksan_vlcek1__SWIG_0(uint jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_new_luksan_vlcek1__SWIG_1")]
+  public static extern global::System.IntPtr new_luksan_vlcek1__SWIG_1();
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_luksan_vlcek1_fitness")]
+  public static extern global::System.IntPtr luksan_vlcek1_fitness(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_luksan_vlcek1_get_bounds")]
+  public static extern global::System.IntPtr luksan_vlcek1_get_bounds(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_luksan_vlcek1_get_nec")]
+  public static extern uint luksan_vlcek1_get_nec(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_luksan_vlcek1_gradient")]
+  public static extern global::System.IntPtr luksan_vlcek1_gradient(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_luksan_vlcek1_get_name")]
+  public static extern string luksan_vlcek1_get_name(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_luksan_vlcek1_m_dim_set")]
+  public static extern void luksan_vlcek1_m_dim_set(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_luksan_vlcek1_m_dim_get")]
+  public static extern uint luksan_vlcek1_m_dim_get(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_luksan_vlcek1_get_nic")]
+  public static extern uint luksan_vlcek1_get_nic(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_luksan_vlcek1_get_nix")]
+  public static extern uint luksan_vlcek1_get_nix(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_luksan_vlcek1_get_nobj")]
+  public static extern uint luksan_vlcek1_get_nobj(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_luksan_vlcek1_has_batch_fitness")]
+  public static extern bool luksan_vlcek1_has_batch_fitness(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_luksan_vlcek1_get_thread_safety")]
+  public static extern int luksan_vlcek1_get_thread_safety(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_delete_luksan_vlcek1")]
+  public static extern void delete_luksan_vlcek1(global::System.Runtime.InteropServices.HandleRef jarg1);
+
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_new_minlp_rastrigin__SWIG_0")]
   public static extern global::System.IntPtr new_minlp_rastrigin__SWIG_0(uint jarg1, uint jarg2);
 

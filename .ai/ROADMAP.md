@@ -54,6 +54,8 @@ Last updated: 2026-03-24
   - [x] Fully wrap `schwefel` with managed extension polish and dedicated regression tests (metadata, bounds, near-optimum fitness, and evolve-path assertions).
   - [x] Fully wrap `lennard_jones` with managed extension polish and dedicated regression tests (metadata, safe fitness evaluation, and evolve-path assertions).
   - [x] Fully wrap `hock_schittkowski_71` with managed extension polish and dedicated regression tests (constrained outputs, differential-info surfaces, and evolve-path assertions).
+  - [x] Fully wrap `luksan_vlcek1` with managed extension polish and dedicated regression tests (constraint-vector outputs, gradient contract checks, and evolve-path assertions).
+  - [x] Extend midpoint-probe hardening to constrained/singular-probe problems by adding explicit safe-input fitness-size checks in per-type tests.
   - [x] Harden shared problem test base with per-problem midpoint-probe opt-out to avoid singular fitness crashes while preserving explicit safe-input contract checks.
   - [x] Standardize problem test architecture with shared `TestProblemBase` runtime checks and instance-based regression data providers (no static-only regression plumbing).
 
