@@ -50,6 +50,8 @@ Last updated: 2026-03-24
   - [x] Fully wrap `null_problem` with managed extension polish and dedicated regression tests (metadata + fitness behavior assertions).
   - [x] Fully wrap `rosenbrock` with managed extension polish and dedicated regression tests (metadata, bounds, optimum fitness, and evolve-path assertions).
   - [x] Fully wrap `rastrigin` with managed extension polish and dedicated regression tests (metadata, differential-info APIs, optimum fitness, and evolve-path assertions).
+  - [x] Fully wrap `griewank` with managed extension polish and dedicated regression tests (metadata, bounds, optimum fitness, and evolve-path assertions).
+  - [x] Standardize problem test architecture with shared `TestProblemBase` runtime checks and instance-based regression data providers (no static-only regression plumbing).
 
 5. **Sprint 3B: Hardening + Extensibility Completion (Depth)**
 - [ ] Apply/complete C# extensibility surfaces where in v1 scope.

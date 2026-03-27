@@ -224,6 +224,7 @@ namespace std {
 	%include swigInterfaceFiles\problems\ackley.i
 	%include swigInterfaceFiles\problems\cec2006.i
 	%include swigInterfaceFiles\problems\golomb_ruler.i
+        %include swigInterfaceFiles\problems\griewank.i
 	%include swigInterfaceFiles\problems\inventory.i
 	%include swigInterfaceFiles\problems\minlp_rastrigin.i
 	%include swigInterfaceFiles\problems\null_problem.i
