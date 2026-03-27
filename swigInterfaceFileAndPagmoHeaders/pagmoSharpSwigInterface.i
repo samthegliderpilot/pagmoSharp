@@ -221,9 +221,13 @@ namespace std {
 	//%include swigInterfaceFiles\detail\bfe_impl.i // not sure if this is needed, and with no public constructors...
 
 
-	%include swigInterfaceFiles\problems\ackley.i
-	%include swigInterfaceFiles\problems\cec2006.i
-        %include swigInterfaceFiles\problems\hock_schittkowski_71.i
+		%include swigInterfaceFiles\problems\ackley.i
+		%include swigInterfaceFiles\problems\cec2006.i
+		%include swigInterfaceFiles\problems\cec2009.i
+		%include swigInterfaceFiles\problems\cec2013.i
+		%include swigInterfaceFiles\problems\cec2014.i
+		%include swigInterfaceFiles\problems\dtlz.i
+	        %include swigInterfaceFiles\problems\hock_schittkowski_71.i
 	%include swigInterfaceFiles\problems\golomb_ruler.i
         %include swigInterfaceFiles\problems\griewank.i
 	%include swigInterfaceFiles\problems\inventory.i

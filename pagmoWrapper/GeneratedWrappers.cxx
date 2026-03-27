@@ -1522,6 +1522,85 @@ SWIGINTERN bool pagmo_cec2006_has_batch_fitness(pagmo::cec2006 const *self){
 	return false;
 }
 
+#include "pagmo/problems/cec2009.hpp"
+#include "pagmo/problem.hpp"
+
+SWIGINTERN pagmo::vector_double::size_type pagmo_cec2009_get_nec(pagmo::cec2009 const *self){
+   return 0;
+}
+SWIGINTERN pagmo::vector_double::size_type pagmo_cec2009_get_nix(pagmo::cec2009 const *self){
+   return 0;
+}
+SWIGINTERN bool pagmo_cec2009_has_batch_fitness(pagmo::cec2009 const *self){
+    return false;
+}
+SWIGINTERN pagmo::thread_safety pagmo_cec2009_get_thread_safety(pagmo::cec2009 const *self){
+    return pagmo::thread_safety::none;
+}
+
+#include "pagmo/problems/cec2013.hpp"
+#include "pagmo/problem.hpp"
+
+SWIGINTERN pagmo::vector_double::size_type pagmo_cec2013_get_nec(pagmo::cec2013 const *self){
+   return 0;
+}
+SWIGINTERN pagmo::vector_double::size_type pagmo_cec2013_get_nic(pagmo::cec2013 const *self){
+   return 0;
+}
+SWIGINTERN pagmo::vector_double::size_type pagmo_cec2013_get_nix(pagmo::cec2013 const *self){
+   return 0;
+}
+SWIGINTERN pagmo::vector_double::size_type pagmo_cec2013_get_nobj(pagmo::cec2013 const *self){
+   return 1;
+}
+SWIGINTERN bool pagmo_cec2013_has_batch_fitness(pagmo::cec2013 const *self){
+    return false;
+}
+SWIGINTERN pagmo::thread_safety pagmo_cec2013_get_thread_safety(pagmo::cec2013 const *self){
+    return pagmo::thread_safety::none;
+}
+
+#include "pagmo/problems/cec2014.hpp"
+#include "pagmo/problem.hpp"
+
+SWIGINTERN pagmo::vector_double::size_type pagmo_cec2014_get_nec(pagmo::cec2014 const *self){
+   return 0;
+}
+SWIGINTERN pagmo::vector_double::size_type pagmo_cec2014_get_nic(pagmo::cec2014 const *self){
+   return 0;
+}
+SWIGINTERN pagmo::vector_double::size_type pagmo_cec2014_get_nix(pagmo::cec2014 const *self){
+   return 0;
+}
+SWIGINTERN pagmo::vector_double::size_type pagmo_cec2014_get_nobj(pagmo::cec2014 const *self){
+   return 1;
+}
+SWIGINTERN bool pagmo_cec2014_has_batch_fitness(pagmo::cec2014 const *self){
+    return false;
+}
+SWIGINTERN pagmo::thread_safety pagmo_cec2014_get_thread_safety(pagmo::cec2014 const *self){
+    return pagmo::thread_safety::none;
+}
+
+#include "pagmo/problems/dtlz.hpp"
+#include "pagmo/problem.hpp"
+
+SWIGINTERN pagmo::vector_double::size_type pagmo_dtlz_get_nec(pagmo::dtlz const *self){
+   return 0;
+}
+SWIGINTERN pagmo::vector_double::size_type pagmo_dtlz_get_nic(pagmo::dtlz const *self){
+   return 0;
+}
+SWIGINTERN pagmo::vector_double::size_type pagmo_dtlz_get_nix(pagmo::dtlz const *self){
+   return 0;
+}
+SWIGINTERN bool pagmo_dtlz_has_batch_fitness(pagmo::dtlz const *self){
+    return false;
+}
+SWIGINTERN pagmo::thread_safety pagmo_dtlz_get_thread_safety(pagmo::dtlz const *self){
+    return pagmo::thread_safety::none;
+}
+
 #include "pagmo/problems/hock_schittkowski_71.hpp"
 #include "pagmo/problem.hpp"
 
@@ -23474,6 +23553,1408 @@ SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_delete_cec2006(void * jarg1) {
   pagmo::cec2006 *arg1 = 0 ;
   
   arg1 = (pagmo::cec2006 *)jarg1; 
+  {
+    try {
+      delete arg1;
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return ; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return ; 
+      };
+    }
+  }
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_cec2009__SWIG_0(unsigned int jarg1, unsigned int jarg2, unsigned int jarg3) {
+  void * jresult ;
+  unsigned int arg1 ;
+  bool arg2 ;
+  unsigned int arg3 ;
+  pagmo::cec2009 *result = 0 ;
+  
+  arg1 = (unsigned int)jarg1; 
+  arg2 = jarg2 ? true : false; 
+  arg3 = (unsigned int)jarg3; 
+  {
+    try {
+      result = (pagmo::cec2009 *)new pagmo::cec2009(arg1,arg2,arg3);
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_cec2009__SWIG_1(unsigned int jarg1, unsigned int jarg2) {
+  void * jresult ;
+  unsigned int arg1 ;
+  bool arg2 ;
+  pagmo::cec2009 *result = 0 ;
+  
+  arg1 = (unsigned int)jarg1; 
+  arg2 = jarg2 ? true : false; 
+  {
+    try {
+      result = (pagmo::cec2009 *)new pagmo::cec2009(arg1,arg2);
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_cec2009__SWIG_2(unsigned int jarg1) {
+  void * jresult ;
+  unsigned int arg1 ;
+  pagmo::cec2009 *result = 0 ;
+  
+  arg1 = (unsigned int)jarg1; 
+  {
+    try {
+      result = (pagmo::cec2009 *)new pagmo::cec2009(arg1);
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_cec2009__SWIG_3() {
+  void * jresult ;
+  pagmo::cec2009 *result = 0 ;
+  
+  {
+    try {
+      result = (pagmo::cec2009 *)new pagmo::cec2009();
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_pagmo_cec2009_get_nic(void * jarg1) {
+  unsigned int jresult ;
+  pagmo::cec2009 *arg1 = 0 ;
+  pagmo::vector_double::size_type result;
+  
+  arg1 = (pagmo::cec2009 *)jarg1; 
+  {
+    try {
+      result = ((pagmo::cec2009 const *)arg1)->get_nic();
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = (unsigned int)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_pagmo_cec2009_get_nobj(void * jarg1) {
+  unsigned int jresult ;
+  pagmo::cec2009 *arg1 = 0 ;
+  pagmo::vector_double::size_type result;
+  
+  arg1 = (pagmo::cec2009 *)jarg1; 
+  {
+    try {
+      result = ((pagmo::cec2009 const *)arg1)->get_nobj();
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = (unsigned int)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_cec2009_get_bounds(void * jarg1) {
+  void * jresult ;
+  pagmo::cec2009 *arg1 = 0 ;
+  std::pair< pagmo::vector_double,pagmo::vector_double > result;
+  
+  arg1 = (pagmo::cec2009 *)jarg1; 
+  {
+    try {
+      result = ((pagmo::cec2009 const *)arg1)->get_bounds();
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = new std::pair< pagmo::vector_double,pagmo::vector_double >(result); 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_cec2009_fitness(void * jarg1, void * jarg2) {
+  void * jresult ;
+  pagmo::cec2009 *arg1 = 0 ;
+  pagmo::vector_double *arg2 = 0 ;
+  pagmo::vector_double result;
+  
+  arg1 = (pagmo::cec2009 *)jarg1; 
+  arg2 = (pagmo::vector_double *)jarg2;
+  if (!arg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "pagmo::vector_double const & is null", 0);
+    return 0;
+  } 
+  {
+    try {
+      result = ((pagmo::cec2009 const *)arg1)->fitness((pagmo::vector_double const &)*arg2);
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = new pagmo::vector_double(result); 
+  return jresult;
+}
+
+
+SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_cec2009_get_name(void * jarg1) {
+  const char * jresult ;
+  pagmo::cec2009 *arg1 = 0 ;
+  std::string result;
+  
+  arg1 = (pagmo::cec2009 *)jarg1; 
+  {
+    try {
+      result = ((pagmo::cec2009 const *)arg1)->get_name();
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  return jresult;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_pagmo_cec2009_get_nec(void * jarg1) {
+  unsigned int jresult ;
+  pagmo::cec2009 *arg1 = 0 ;
+  pagmo::vector_double::size_type result;
+  
+  arg1 = (pagmo::cec2009 *)jarg1; 
+  {
+    try {
+      result = pagmo_cec2009_get_nec((pagmo::cec2009 const *)arg1);
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = (unsigned int)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_pagmo_cec2009_get_nix(void * jarg1) {
+  unsigned int jresult ;
+  pagmo::cec2009 *arg1 = 0 ;
+  pagmo::vector_double::size_type result;
+  
+  arg1 = (pagmo::cec2009 *)jarg1; 
+  {
+    try {
+      result = pagmo_cec2009_get_nix((pagmo::cec2009 const *)arg1);
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = (unsigned int)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_pagmo_cec2009_has_batch_fitness(void * jarg1) {
+  unsigned int jresult ;
+  pagmo::cec2009 *arg1 = 0 ;
+  bool result;
+  
+  arg1 = (pagmo::cec2009 *)jarg1; 
+  {
+    try {
+      result = (bool)pagmo_cec2009_has_batch_fitness((pagmo::cec2009 const *)arg1);
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT int SWIGSTDCALL CSharp_pagmo_cec2009_get_thread_safety(void * jarg1) {
+  int jresult ;
+  pagmo::cec2009 *arg1 = 0 ;
+  pagmo::thread_safety result;
+  
+  arg1 = (pagmo::cec2009 *)jarg1; 
+  {
+    try {
+      result = (pagmo::thread_safety)pagmo_cec2009_get_thread_safety((pagmo::cec2009 const *)arg1);
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = (int)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_delete_cec2009(void * jarg1) {
+  pagmo::cec2009 *arg1 = 0 ;
+  
+  arg1 = (pagmo::cec2009 *)jarg1; 
+  {
+    try {
+      delete arg1;
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return ; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return ; 
+      };
+    }
+  }
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_cec2013__SWIG_0(unsigned int jarg1, unsigned int jarg2) {
+  void * jresult ;
+  unsigned int arg1 ;
+  unsigned int arg2 ;
+  pagmo::cec2013 *result = 0 ;
+  
+  arg1 = (unsigned int)jarg1; 
+  arg2 = (unsigned int)jarg2; 
+  {
+    try {
+      result = (pagmo::cec2013 *)new pagmo::cec2013(arg1,arg2);
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_cec2013__SWIG_1(unsigned int jarg1) {
+  void * jresult ;
+  unsigned int arg1 ;
+  pagmo::cec2013 *result = 0 ;
+  
+  arg1 = (unsigned int)jarg1; 
+  {
+    try {
+      result = (pagmo::cec2013 *)new pagmo::cec2013(arg1);
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_cec2013__SWIG_2() {
+  void * jresult ;
+  pagmo::cec2013 *result = 0 ;
+  
+  {
+    try {
+      result = (pagmo::cec2013 *)new pagmo::cec2013();
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_cec2013_get_bounds(void * jarg1) {
+  void * jresult ;
+  pagmo::cec2013 *arg1 = 0 ;
+  std::pair< pagmo::vector_double,pagmo::vector_double > result;
+  
+  arg1 = (pagmo::cec2013 *)jarg1; 
+  {
+    try {
+      result = ((pagmo::cec2013 const *)arg1)->get_bounds();
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = new std::pair< pagmo::vector_double,pagmo::vector_double >(result); 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_cec2013_fitness(void * jarg1, void * jarg2) {
+  void * jresult ;
+  pagmo::cec2013 *arg1 = 0 ;
+  pagmo::vector_double *arg2 = 0 ;
+  pagmo::vector_double result;
+  
+  arg1 = (pagmo::cec2013 *)jarg1; 
+  arg2 = (pagmo::vector_double *)jarg2;
+  if (!arg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "pagmo::vector_double const & is null", 0);
+    return 0;
+  } 
+  {
+    try {
+      result = ((pagmo::cec2013 const *)arg1)->fitness((pagmo::vector_double const &)*arg2);
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = new pagmo::vector_double(result); 
+  return jresult;
+}
+
+
+SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_cec2013_get_name(void * jarg1) {
+  const char * jresult ;
+  pagmo::cec2013 *arg1 = 0 ;
+  std::string result;
+  
+  arg1 = (pagmo::cec2013 *)jarg1; 
+  {
+    try {
+      result = ((pagmo::cec2013 const *)arg1)->get_name();
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  return jresult;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_pagmo_cec2013_get_nec(void * jarg1) {
+  unsigned int jresult ;
+  pagmo::cec2013 *arg1 = 0 ;
+  pagmo::vector_double::size_type result;
+  
+  arg1 = (pagmo::cec2013 *)jarg1; 
+  {
+    try {
+      result = pagmo_cec2013_get_nec((pagmo::cec2013 const *)arg1);
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = (unsigned int)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_pagmo_cec2013_get_nic(void * jarg1) {
+  unsigned int jresult ;
+  pagmo::cec2013 *arg1 = 0 ;
+  pagmo::vector_double::size_type result;
+  
+  arg1 = (pagmo::cec2013 *)jarg1; 
+  {
+    try {
+      result = pagmo_cec2013_get_nic((pagmo::cec2013 const *)arg1);
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = (unsigned int)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_pagmo_cec2013_get_nix(void * jarg1) {
+  unsigned int jresult ;
+  pagmo::cec2013 *arg1 = 0 ;
+  pagmo::vector_double::size_type result;
+  
+  arg1 = (pagmo::cec2013 *)jarg1; 
+  {
+    try {
+      result = pagmo_cec2013_get_nix((pagmo::cec2013 const *)arg1);
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = (unsigned int)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_pagmo_cec2013_get_nobj(void * jarg1) {
+  unsigned int jresult ;
+  pagmo::cec2013 *arg1 = 0 ;
+  pagmo::vector_double::size_type result;
+  
+  arg1 = (pagmo::cec2013 *)jarg1; 
+  {
+    try {
+      result = pagmo_cec2013_get_nobj((pagmo::cec2013 const *)arg1);
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = (unsigned int)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_pagmo_cec2013_has_batch_fitness(void * jarg1) {
+  unsigned int jresult ;
+  pagmo::cec2013 *arg1 = 0 ;
+  bool result;
+  
+  arg1 = (pagmo::cec2013 *)jarg1; 
+  {
+    try {
+      result = (bool)pagmo_cec2013_has_batch_fitness((pagmo::cec2013 const *)arg1);
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT int SWIGSTDCALL CSharp_pagmo_cec2013_get_thread_safety(void * jarg1) {
+  int jresult ;
+  pagmo::cec2013 *arg1 = 0 ;
+  pagmo::thread_safety result;
+  
+  arg1 = (pagmo::cec2013 *)jarg1; 
+  {
+    try {
+      result = (pagmo::thread_safety)pagmo_cec2013_get_thread_safety((pagmo::cec2013 const *)arg1);
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = (int)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_delete_cec2013(void * jarg1) {
+  pagmo::cec2013 *arg1 = 0 ;
+  
+  arg1 = (pagmo::cec2013 *)jarg1; 
+  {
+    try {
+      delete arg1;
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return ; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return ; 
+      };
+    }
+  }
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_cec2014__SWIG_0(unsigned int jarg1, unsigned int jarg2) {
+  void * jresult ;
+  unsigned int arg1 ;
+  unsigned int arg2 ;
+  pagmo::cec2014 *result = 0 ;
+  
+  arg1 = (unsigned int)jarg1; 
+  arg2 = (unsigned int)jarg2; 
+  {
+    try {
+      result = (pagmo::cec2014 *)new pagmo::cec2014(arg1,arg2);
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_cec2014__SWIG_1(unsigned int jarg1) {
+  void * jresult ;
+  unsigned int arg1 ;
+  pagmo::cec2014 *result = 0 ;
+  
+  arg1 = (unsigned int)jarg1; 
+  {
+    try {
+      result = (pagmo::cec2014 *)new pagmo::cec2014(arg1);
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_cec2014__SWIG_2() {
+  void * jresult ;
+  pagmo::cec2014 *result = 0 ;
+  
+  {
+    try {
+      result = (pagmo::cec2014 *)new pagmo::cec2014();
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_cec2014_get_bounds(void * jarg1) {
+  void * jresult ;
+  pagmo::cec2014 *arg1 = 0 ;
+  std::pair< pagmo::vector_double,pagmo::vector_double > result;
+  
+  arg1 = (pagmo::cec2014 *)jarg1; 
+  {
+    try {
+      result = ((pagmo::cec2014 const *)arg1)->get_bounds();
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = new std::pair< pagmo::vector_double,pagmo::vector_double >(result); 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_cec2014_fitness(void * jarg1, void * jarg2) {
+  void * jresult ;
+  pagmo::cec2014 *arg1 = 0 ;
+  pagmo::vector_double *arg2 = 0 ;
+  pagmo::vector_double result;
+  
+  arg1 = (pagmo::cec2014 *)jarg1; 
+  arg2 = (pagmo::vector_double *)jarg2;
+  if (!arg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "pagmo::vector_double const & is null", 0);
+    return 0;
+  } 
+  {
+    try {
+      result = ((pagmo::cec2014 const *)arg1)->fitness((pagmo::vector_double const &)*arg2);
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = new pagmo::vector_double(result); 
+  return jresult;
+}
+
+
+SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_cec2014_get_name(void * jarg1) {
+  const char * jresult ;
+  pagmo::cec2014 *arg1 = 0 ;
+  std::string result;
+  
+  arg1 = (pagmo::cec2014 *)jarg1; 
+  {
+    try {
+      result = ((pagmo::cec2014 const *)arg1)->get_name();
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  return jresult;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_pagmo_cec2014_get_nec(void * jarg1) {
+  unsigned int jresult ;
+  pagmo::cec2014 *arg1 = 0 ;
+  pagmo::vector_double::size_type result;
+  
+  arg1 = (pagmo::cec2014 *)jarg1; 
+  {
+    try {
+      result = pagmo_cec2014_get_nec((pagmo::cec2014 const *)arg1);
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = (unsigned int)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_pagmo_cec2014_get_nic(void * jarg1) {
+  unsigned int jresult ;
+  pagmo::cec2014 *arg1 = 0 ;
+  pagmo::vector_double::size_type result;
+  
+  arg1 = (pagmo::cec2014 *)jarg1; 
+  {
+    try {
+      result = pagmo_cec2014_get_nic((pagmo::cec2014 const *)arg1);
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = (unsigned int)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_pagmo_cec2014_get_nix(void * jarg1) {
+  unsigned int jresult ;
+  pagmo::cec2014 *arg1 = 0 ;
+  pagmo::vector_double::size_type result;
+  
+  arg1 = (pagmo::cec2014 *)jarg1; 
+  {
+    try {
+      result = pagmo_cec2014_get_nix((pagmo::cec2014 const *)arg1);
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = (unsigned int)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_pagmo_cec2014_get_nobj(void * jarg1) {
+  unsigned int jresult ;
+  pagmo::cec2014 *arg1 = 0 ;
+  pagmo::vector_double::size_type result;
+  
+  arg1 = (pagmo::cec2014 *)jarg1; 
+  {
+    try {
+      result = pagmo_cec2014_get_nobj((pagmo::cec2014 const *)arg1);
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = (unsigned int)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_pagmo_cec2014_has_batch_fitness(void * jarg1) {
+  unsigned int jresult ;
+  pagmo::cec2014 *arg1 = 0 ;
+  bool result;
+  
+  arg1 = (pagmo::cec2014 *)jarg1; 
+  {
+    try {
+      result = (bool)pagmo_cec2014_has_batch_fitness((pagmo::cec2014 const *)arg1);
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT int SWIGSTDCALL CSharp_pagmo_cec2014_get_thread_safety(void * jarg1) {
+  int jresult ;
+  pagmo::cec2014 *arg1 = 0 ;
+  pagmo::thread_safety result;
+  
+  arg1 = (pagmo::cec2014 *)jarg1; 
+  {
+    try {
+      result = (pagmo::thread_safety)pagmo_cec2014_get_thread_safety((pagmo::cec2014 const *)arg1);
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = (int)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_delete_cec2014(void * jarg1) {
+  pagmo::cec2014 *arg1 = 0 ;
+  
+  arg1 = (pagmo::cec2014 *)jarg1; 
+  {
+    try {
+      delete arg1;
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return ; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return ; 
+      };
+    }
+  }
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_dtlz__SWIG_0(unsigned int jarg1, unsigned int jarg2, unsigned int jarg3, unsigned int jarg4) {
+  void * jresult ;
+  unsigned int arg1 ;
+  pagmo::vector_double::size_type arg2 ;
+  pagmo::vector_double::size_type arg3 ;
+  unsigned int arg4 ;
+  pagmo::dtlz *result = 0 ;
+  
+  arg1 = (unsigned int)jarg1; 
+  arg2 = (pagmo::vector_double::size_type)jarg2; 
+  arg3 = (pagmo::vector_double::size_type)jarg3; 
+  arg4 = (unsigned int)jarg4; 
+  {
+    try {
+      result = (pagmo::dtlz *)new pagmo::dtlz(arg1,SWIG_STD_MOVE(arg2),SWIG_STD_MOVE(arg3),arg4);
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_dtlz__SWIG_1(unsigned int jarg1, unsigned int jarg2, unsigned int jarg3) {
+  void * jresult ;
+  unsigned int arg1 ;
+  pagmo::vector_double::size_type arg2 ;
+  pagmo::vector_double::size_type arg3 ;
+  pagmo::dtlz *result = 0 ;
+  
+  arg1 = (unsigned int)jarg1; 
+  arg2 = (pagmo::vector_double::size_type)jarg2; 
+  arg3 = (pagmo::vector_double::size_type)jarg3; 
+  {
+    try {
+      result = (pagmo::dtlz *)new pagmo::dtlz(arg1,SWIG_STD_MOVE(arg2),SWIG_STD_MOVE(arg3));
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_dtlz__SWIG_2(unsigned int jarg1, unsigned int jarg2) {
+  void * jresult ;
+  unsigned int arg1 ;
+  pagmo::vector_double::size_type arg2 ;
+  pagmo::dtlz *result = 0 ;
+  
+  arg1 = (unsigned int)jarg1; 
+  arg2 = (pagmo::vector_double::size_type)jarg2; 
+  {
+    try {
+      result = (pagmo::dtlz *)new pagmo::dtlz(arg1,SWIG_STD_MOVE(arg2));
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_dtlz__SWIG_3(unsigned int jarg1) {
+  void * jresult ;
+  unsigned int arg1 ;
+  pagmo::dtlz *result = 0 ;
+  
+  arg1 = (unsigned int)jarg1; 
+  {
+    try {
+      result = (pagmo::dtlz *)new pagmo::dtlz(arg1);
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_dtlz__SWIG_4() {
+  void * jresult ;
+  pagmo::dtlz *result = 0 ;
+  
+  {
+    try {
+      result = (pagmo::dtlz *)new pagmo::dtlz();
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_dtlz_fitness(void * jarg1, void * jarg2) {
+  void * jresult ;
+  pagmo::dtlz *arg1 = 0 ;
+  pagmo::vector_double *arg2 = 0 ;
+  pagmo::vector_double result;
+  
+  arg1 = (pagmo::dtlz *)jarg1; 
+  arg2 = (pagmo::vector_double *)jarg2;
+  if (!arg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "pagmo::vector_double const & is null", 0);
+    return 0;
+  } 
+  {
+    try {
+      result = ((pagmo::dtlz const *)arg1)->fitness((pagmo::vector_double const &)*arg2);
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = new pagmo::vector_double(result); 
+  return jresult;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_pagmo_dtlz_get_nobj(void * jarg1) {
+  unsigned int jresult ;
+  pagmo::dtlz *arg1 = 0 ;
+  pagmo::vector_double::size_type result;
+  
+  arg1 = (pagmo::dtlz *)jarg1; 
+  {
+    try {
+      result = ((pagmo::dtlz const *)arg1)->get_nobj();
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = (unsigned int)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_dtlz_get_bounds(void * jarg1) {
+  void * jresult ;
+  pagmo::dtlz *arg1 = 0 ;
+  std::pair< pagmo::vector_double,pagmo::vector_double > result;
+  
+  arg1 = (pagmo::dtlz *)jarg1; 
+  {
+    try {
+      result = ((pagmo::dtlz const *)arg1)->get_bounds();
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = new std::pair< pagmo::vector_double,pagmo::vector_double >(result); 
+  return jresult;
+}
+
+
+SWIGEXPORT double SWIGSTDCALL CSharp_pagmo_dtlz_p_distance__SWIG_0(void * jarg1, void * jarg2) {
+  double jresult ;
+  pagmo::dtlz *arg1 = 0 ;
+  pagmo::population *arg2 = 0 ;
+  double result;
+  
+  arg1 = (pagmo::dtlz *)jarg1; 
+  arg2 = (pagmo::population *)jarg2;
+  if (!arg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "pagmo::population const & is null", 0);
+    return 0;
+  } 
+  {
+    try {
+      result = (double)((pagmo::dtlz const *)arg1)->p_distance((pagmo::population const &)*arg2);
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT double SWIGSTDCALL CSharp_pagmo_dtlz_p_distance__SWIG_1(void * jarg1, void * jarg2) {
+  double jresult ;
+  pagmo::dtlz *arg1 = 0 ;
+  pagmo::vector_double *arg2 = 0 ;
+  double result;
+  
+  arg1 = (pagmo::dtlz *)jarg1; 
+  arg2 = (pagmo::vector_double *)jarg2;
+  if (!arg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "pagmo::vector_double const & is null", 0);
+    return 0;
+  } 
+  {
+    try {
+      result = (double)((pagmo::dtlz const *)arg1)->p_distance((pagmo::vector_double const &)*arg2);
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_dtlz_get_name(void * jarg1) {
+  const char * jresult ;
+  pagmo::dtlz *arg1 = 0 ;
+  std::string result;
+  
+  arg1 = (pagmo::dtlz *)jarg1; 
+  {
+    try {
+      result = ((pagmo::dtlz const *)arg1)->get_name();
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  return jresult;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_pagmo_dtlz_get_nec(void * jarg1) {
+  unsigned int jresult ;
+  pagmo::dtlz *arg1 = 0 ;
+  pagmo::vector_double::size_type result;
+  
+  arg1 = (pagmo::dtlz *)jarg1; 
+  {
+    try {
+      result = pagmo_dtlz_get_nec((pagmo::dtlz const *)arg1);
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = (unsigned int)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_pagmo_dtlz_get_nic(void * jarg1) {
+  unsigned int jresult ;
+  pagmo::dtlz *arg1 = 0 ;
+  pagmo::vector_double::size_type result;
+  
+  arg1 = (pagmo::dtlz *)jarg1; 
+  {
+    try {
+      result = pagmo_dtlz_get_nic((pagmo::dtlz const *)arg1);
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = (unsigned int)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_pagmo_dtlz_get_nix(void * jarg1) {
+  unsigned int jresult ;
+  pagmo::dtlz *arg1 = 0 ;
+  pagmo::vector_double::size_type result;
+  
+  arg1 = (pagmo::dtlz *)jarg1; 
+  {
+    try {
+      result = pagmo_dtlz_get_nix((pagmo::dtlz const *)arg1);
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = (unsigned int)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_pagmo_dtlz_has_batch_fitness(void * jarg1) {
+  unsigned int jresult ;
+  pagmo::dtlz *arg1 = 0 ;
+  bool result;
+  
+  arg1 = (pagmo::dtlz *)jarg1; 
+  {
+    try {
+      result = (bool)pagmo_dtlz_has_batch_fitness((pagmo::dtlz const *)arg1);
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT int SWIGSTDCALL CSharp_pagmo_dtlz_get_thread_safety(void * jarg1) {
+  int jresult ;
+  pagmo::dtlz *arg1 = 0 ;
+  pagmo::thread_safety result;
+  
+  arg1 = (pagmo::dtlz *)jarg1; 
+  {
+    try {
+      result = (pagmo::thread_safety)pagmo_dtlz_get_thread_safety((pagmo::dtlz const *)arg1);
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = (int)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_delete_dtlz(void * jarg1) {
+  pagmo::dtlz *arg1 = 0 ;
+  
+  arg1 = (pagmo::dtlz *)jarg1; 
   {
     try {
       delete arg1;
