@@ -26,3 +26,10 @@ public:
     extern std::string get_extra_info() const;
     extern const log_type &get_log() const;
 };
+
+%extend moead {
+    pagmo::algorithm to_algorithm() const
+    {
+        return pagmo::algorithm(*self);
+    }
+}

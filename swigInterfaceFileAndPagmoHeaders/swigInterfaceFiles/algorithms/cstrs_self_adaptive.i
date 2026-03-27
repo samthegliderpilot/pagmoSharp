@@ -29,3 +29,10 @@ public:
     extern algorithm &get_inner_algorithm();
     extern const log_type &get_log() const;
 };
+
+%extend cstrs_self_adaptive {
+    pagmo::algorithm to_algorithm() const
+    {
+        return pagmo::algorithm(*self);
+    }
+}

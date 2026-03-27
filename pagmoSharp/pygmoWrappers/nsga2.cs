@@ -136,6 +136,12 @@ public partial class nsga2 : global::System.IDisposable {
     return ret;
   }
 
+  public algorithm to_algorithm() {
+    algorithm ret = new algorithm(pagmoPINVOKE.nsga2_to_algorithm(swigCPtr), true);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
 }
 
 }

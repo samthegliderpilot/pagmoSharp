@@ -8,18 +8,34 @@ namespace Tests.PagmoSharp
     [TestFixture]
     public class Test_archipelago
     {
-        private static void AssertArchipelagoIslandConfiguration(archipelago archi, uint islandIndex, uint expectedPopulationSize)
+        private static void AssertArchipelagoIslandConfiguration(
+            archipelago archi,
+            uint islandIndex,
+            uint expectedPopulationSize,
+            string expectedAlgorithmName = "ABC: Artificial Bee Colony",
+            uint? expectedObjectiveCount = 1u,
+            bool assertChampionShape = true)
         {
             using var islandSnapshot = archi.GetIslandCopy(islandIndex);
             using var configuredAlgorithm = islandSnapshot.get_algorithm();
-            Assert.AreEqual("ABC: Artificial Bee Colony", configuredAlgorithm.get_name());
+            Assert.AreEqual(expectedAlgorithmName, configuredAlgorithm.get_name());
 
             using var population = islandSnapshot.get_population();
             Assert.AreEqual(expectedPopulationSize, population.size());
-            using var championDecisionVector = population.champion_x();
-            using var championFitnessVector = population.champion_f();
-            Assert.AreEqual(2, championDecisionVector.Count);
-            Assert.AreEqual(1, championFitnessVector.Count);
+
+            using var problem = population.get_problem();
+            if (expectedObjectiveCount.HasValue)
+            {
+                Assert.AreEqual(expectedObjectiveCount.Value, problem.get_nobj());
+            }
+
+            if (assertChampionShape)
+            {
+                using var championDecisionVector = population.champion_x();
+                using var championFitnessVector = population.champion_f();
+                Assert.AreEqual(2, championDecisionVector.Count);
+                Assert.AreEqual(1, championFitnessVector.Count);
+            }
         }
 
         private sealed class UnsupportedAlgorithm : IAlgorithm
@@ -66,6 +82,43 @@ namespace Tests.PagmoSharp
             Assert.IsNotNull(db);
             var log = archi.MigrationLog;
             Assert.IsNotNull(log);
+        }
+
+        [Test]
+        public void ManagedThreadSafeProblemCanEvolveInArchipelagoWithIhs()
+        {
+            using var archi = new archipelago();
+            using IAlgorithm algo = new ihs(12u);
+            using var problem = new TwoDimensionalSingleObjectiveProblemWrapper();
+
+            var expectedName = algo.get_name();
+            var expectedObjectiveCount = problem.get_nobj();
+            archi.push_back_island(algo, problem, 32, 2);
+            Assert.AreEqual(1u, archi.size());
+            AssertArchipelagoIslandConfiguration(archi, 0, 32, expectedName, expectedObjectiveCount);
+
+            archi.evolve(1);
+            archi.wait_check();
+            Assert.AreEqual(evolve_status.idle, archi.status());
+            AssertArchipelagoIslandConfiguration(archi, 0, 32, expectedName, expectedObjectiveCount);
+        }
+
+        [Test]
+        public void ManagedConstrainedProblemCanEvolveInArchipelagoWithSelfAdaptiveConstraints()
+        {
+            using var archi = new archipelago();
+            using IAlgorithm algo = new cstrs_self_adaptive(5u);
+            using var problem = new TwoDimensionalConstrainedProblem();
+
+            var expectedName = algo.get_name();
+            archi.push_back_island(algo, problem, 32, 2);
+            Assert.AreEqual(1u, archi.size());
+            AssertArchipelagoIslandConfiguration(archi, 0, 32, expectedName, null, false);
+
+            archi.evolve(1);
+            archi.wait_check();
+            Assert.AreEqual(evolve_status.idle, archi.status());
+            AssertArchipelagoIslandConfiguration(archi, 0, 32, expectedName, null, false);
         }
 
         [Test]

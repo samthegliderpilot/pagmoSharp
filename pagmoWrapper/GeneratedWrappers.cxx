@@ -1416,6 +1416,9 @@ SWIGINTERN unsigned int pagmo_compass_search_get_gen(pagmo::compass_search const
 #include "pagmo/algorithm.hpp"
 #include "pagmo/algorithms/cstrs_self_adaptive.hpp"
 
+SWIGINTERN pagmo::algorithm pagmo_cstrs_self_adaptive_to_algorithm(pagmo::cstrs_self_adaptive const *self){
+        return pagmo::algorithm(*self);
+    }
 
 #include "pagmo/algorithm.hpp"
 #include "pagmo/algorithms/de.hpp"
@@ -1435,22 +1438,37 @@ SWIGINTERN unsigned int pagmo_compass_search_get_gen(pagmo::compass_search const
 #include "pagmo/algorithm.hpp"
 #include "pagmo/algorithms/ihs.hpp"
 
+SWIGINTERN pagmo::algorithm pagmo_ihs_to_algorithm(pagmo::ihs const *self){
+        return pagmo::algorithm(*self);
+    }
 
 #include "pagmo/algorithm.hpp"
 #include "pagmo/algorithms/maco.hpp"
 
+SWIGINTERN pagmo::algorithm pagmo_maco_to_algorithm(pagmo::maco const *self){
+        return pagmo::algorithm(*self);
+    }
 
 #include "pagmo/algorithm.hpp"
 #include "pagmo/algorithms/mbh.hpp"
 
+SWIGINTERN pagmo::algorithm pagmo_mbh_to_algorithm(pagmo::mbh const *self){
+        return pagmo::algorithm(*self);
+    }
 
 #include "pagmo/algorithm.hpp"
 #include "pagmo/algorithms/moead.hpp"
 
+SWIGINTERN pagmo::algorithm pagmo_moead_to_algorithm(pagmo::moead const *self){
+        return pagmo::algorithm(*self);
+    }
 
 #include "pagmo/algorithm.hpp"
 #include "pagmo/algorithms/moead_gen.hpp"
 
+SWIGINTERN pagmo::algorithm pagmo_moead_gen_to_algorithm(pagmo::moead_gen const *self){
+        return pagmo::algorithm(*self);
+    }
 
 #include "pagmo/algorithms/not_population_based.hpp"
 
@@ -1458,6 +1476,9 @@ SWIGINTERN unsigned int pagmo_compass_search_get_gen(pagmo::compass_search const
 #include "pagmo/algorithm.hpp"
 #include "pagmo/algorithms/nsga2.hpp"
 
+SWIGINTERN pagmo::algorithm pagmo_nsga2_to_algorithm(pagmo::nsga2 const *self){
+        return pagmo::algorithm(*self);
+    }
 
 #include "pagmo/algorithm.hpp"
 #include "pagmo/algorithms/nspso.hpp"
@@ -16706,6 +16727,30 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_cstrs_self_adaptive_get_log(void * ja
 }
 
 
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_cstrs_self_adaptive_to_algorithm(void * jarg1) {
+  void * jresult ;
+  pagmo::cstrs_self_adaptive *arg1 = 0 ;
+  pagmo::algorithm result;
+  
+  arg1 = (pagmo::cstrs_self_adaptive *)jarg1; 
+  {
+    try {
+      result = pagmo_cstrs_self_adaptive_to_algorithm((pagmo::cstrs_self_adaptive const *)arg1);
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = new pagmo::algorithm(result); 
+  return jresult;
+}
+
+
 SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_delete_cstrs_self_adaptive(void * jarg1) {
   pagmo::cstrs_self_adaptive *arg1 = 0 ;
   
@@ -19154,6 +19199,30 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_ihs_get_log(void * jarg1) {
 }
 
 
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_ihs_to_algorithm(void * jarg1) {
+  void * jresult ;
+  pagmo::ihs *arg1 = 0 ;
+  pagmo::algorithm result;
+  
+  arg1 = (pagmo::ihs *)jarg1; 
+  {
+    try {
+      result = pagmo_ihs_to_algorithm((pagmo::ihs const *)arg1);
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = new pagmo::algorithm(result); 
+  return jresult;
+}
+
+
 SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_delete_ihs(void * jarg1) {
   pagmo::ihs *arg1 = 0 ;
   
@@ -19730,6 +19799,30 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_maco_get_log(void * jarg1) {
 }
 
 
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_maco_to_algorithm(void * jarg1) {
+  void * jresult ;
+  pagmo::maco *arg1 = 0 ;
+  pagmo::algorithm result;
+  
+  arg1 = (pagmo::maco *)jarg1; 
+  {
+    try {
+      result = pagmo_maco_to_algorithm((pagmo::maco const *)arg1);
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = new pagmo::algorithm(result); 
+  return jresult;
+}
+
+
 SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_delete_maco(void * jarg1) {
   pagmo::maco *arg1 = 0 ;
   
@@ -20206,6 +20299,30 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_mbh_get_extra_info(void * jarg1
     }
   }
   jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_mbh_to_algorithm(void * jarg1) {
+  void * jresult ;
+  pagmo::mbh *arg1 = 0 ;
+  pagmo::algorithm result;
+  
+  arg1 = (pagmo::mbh *)jarg1; 
+  {
+    try {
+      result = pagmo_mbh_to_algorithm((pagmo::mbh const *)arg1);
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = new pagmo::algorithm(result); 
   return jresult;
 }
 
@@ -20918,6 +21035,30 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_moead_get_log(void * jarg1) {
     }
   }
   jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_moead_to_algorithm(void * jarg1) {
+  void * jresult ;
+  pagmo::moead *arg1 = 0 ;
+  pagmo::algorithm result;
+  
+  arg1 = (pagmo::moead *)jarg1; 
+  {
+    try {
+      result = pagmo_moead_to_algorithm((pagmo::moead const *)arg1);
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = new pagmo::algorithm(result); 
   return jresult;
 }
 
@@ -21660,6 +21801,30 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_moead_gen_get_log(void * jarg1) {
 }
 
 
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_moead_gen_to_algorithm(void * jarg1) {
+  void * jresult ;
+  pagmo::moead_gen *arg1 = 0 ;
+  pagmo::algorithm result;
+  
+  arg1 = (pagmo::moead_gen *)jarg1; 
+  {
+    try {
+      result = pagmo_moead_gen_to_algorithm((pagmo::moead_gen const *)arg1);
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = new pagmo::algorithm(result); 
+  return jresult;
+}
+
+
 SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_delete_moead_gen(void * jarg1) {
   pagmo::moead_gen *arg1 = 0 ;
   
@@ -22256,6 +22421,30 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_nsga2_get_log(void * jarg1) {
     }
   }
   jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_nsga2_to_algorithm(void * jarg1) {
+  void * jresult ;
+  pagmo::nsga2 *arg1 = 0 ;
+  pagmo::algorithm result;
+  
+  arg1 = (pagmo::nsga2 *)jarg1; 
+  {
+    try {
+      result = pagmo_nsga2_to_algorithm((pagmo::nsga2 const *)arg1);
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = new pagmo::algorithm(result); 
   return jresult;
 }
 

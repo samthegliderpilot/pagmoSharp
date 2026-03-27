@@ -29,3 +29,10 @@ public:
     extern std::string get_name() const;
     extern std::string get_extra_info() const;
 };
+
+%extend mbh {
+    pagmo::algorithm to_algorithm() const
+    {
+        return pagmo::algorithm(*self);
+    }
+}
