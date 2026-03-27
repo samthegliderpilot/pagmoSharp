@@ -59,8 +59,14 @@ Last updated: 2026-03-24
   - [x] Fully wrap `cec2013` with managed extension polish and dedicated regression tests (metadata, bounds, evolve-path assertions, and guarded safe-input fitness validation for unstable midpoint probes).
   - [x] Fully wrap `cec2014` with managed extension polish and dedicated regression tests (metadata, bounds, evolve-path assertions, and regression baseline checks).
   - [x] Fully wrap `dtlz` with managed extension polish and dedicated regression tests (multi-objective metadata, bounded evolve-path assertions, Pareto-distance API checks, and safe known-input fitness validation).
+  - [x] Fully wrap `wfg` with managed extension polish and dedicated regression tests (multi-objective metadata, bounded evolve-path assertions, and safe known-input fitness validation).
+  - [x] Fully wrap `unconstrain` with managed extension polish and dedicated regression tests (death-penalty semantics, constrained-input adaptation, and safe known-input validation).
+  - [x] Reach full parity with current pagmo `problems/*.hpp` catalog in Sprint 3A wrapper coverage (no remaining unwrapped problem headers).
+  - [x] Fully wrap `translate` with managed extension polish and dedicated regression tests (translation vector surfaces, shifted-optimum behavior checks, and safe known-input validation).
+  - [x] Fully wrap `decompose` with managed extension polish and dedicated regression tests (meta-problem construction from managed `IProblem`, decomposed/original fitness assertions, and safe known-input validation).
   - [x] Extend midpoint-probe hardening to constrained/singular-probe problems by adding explicit safe-input fitness-size checks in per-type tests.
   - [x] Harden shared problem test base with per-problem midpoint-probe opt-out to avoid singular fitness crashes while preserving explicit safe-input contract checks.
+  - [x] Harden legacy `cec2006` tests with explicit safe-input fitness-length checks and midpoint-probe opt-out to eliminate host-crash instability during grouped runs.
   - [x] Standardize problem test architecture with shared `TestProblemBase` runtime checks and instance-based regression data providers (no static-only regression plumbing).
 
 5. **Sprint 3B: Hardening + Extensibility Completion (Depth)**
@@ -102,6 +108,9 @@ Last updated: 2026-03-24
 - Breadth-first then depth-hardening is intentional for large catalog onboarding.
 - `Problem` remains core and already mature enough to build on.
 - v1.0 stays Windows-first; Linux is explicitly post-release.
+
+
+
 
 
 

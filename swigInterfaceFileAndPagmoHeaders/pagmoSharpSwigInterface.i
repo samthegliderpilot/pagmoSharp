@@ -226,6 +226,7 @@ namespace std {
 		%include swigInterfaceFiles\problems\cec2009.i
 		%include swigInterfaceFiles\problems\cec2013.i
 		%include swigInterfaceFiles\problems\cec2014.i
+		%include swigInterfaceFiles\problems\decompose.i
 		%include swigInterfaceFiles\problems\dtlz.i
 	        %include swigInterfaceFiles\problems\hock_schittkowski_71.i
 	%include swigInterfaceFiles\problems\golomb_ruler.i
@@ -236,9 +237,12 @@ namespace std {
 	%include swigInterfaceFiles\problems\minlp_rastrigin.i
 	%include swigInterfaceFiles\problems\null_problem.i
 		%include swigInterfaceFiles\problems\rosenbrock.i
-        %include swigInterfaceFiles\problems\schwefel.i
-		%include swigInterfaceFiles\problems\rastrigin.i
-	%include swigInterfaceFiles\problems\zdt.i
+		%include swigInterfaceFiles\problems\schwefel.i
+			%include swigInterfaceFiles\problems\rastrigin.i
+		%include swigInterfaceFiles\problems\translate.i
+		%include swigInterfaceFiles\problems\unconstrain.i
+		%include swigInterfaceFiles\problems\wfg.i
+		%include swigInterfaceFiles\problems\zdt.i
 
 		%include swigInterfaceFiles\r_policies\fair_replace.i
 		%include swigInterfaceFiles\s_policies\select_best.i

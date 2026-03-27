@@ -77,5 +77,19 @@ namespace Tests.PagmoSharp.Problems
                 //    new double[] { -0.03410429993861006, -2.43290200817664E+18, 60, }, 3),
             };
         }
+
+        [Test]
+        public void TestFitnessVectorLengthForKnownValidInput()
+        {
+            using var problem = CreateStandardProblem(1);
+            using var x = new DoubleVector(new double[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 });
+            using var fitness = problem.fitness(x);
+            Assert.AreEqual(problem.get_nobj() + problem.get_nec() + problem.get_nic(), (uint)fitness.Count);
+        }
+
+        protected override bool SupportsMidpointFitnessProbe()
+        {
+            return false;
+        }
     }
 }
