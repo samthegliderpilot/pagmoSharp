@@ -29,6 +29,11 @@ public abstract class TestProblemBase
         return Enumerable.Empty<ProblemTestData>();
     }
 
+    protected virtual bool SupportsMidpointFitnessProbe()
+    {
+        return true;
+    }
+
     [Test]
     public void TestBase_CanConstructAndReadMetadata()
     {
@@ -58,6 +63,12 @@ public abstract class TestProblemBase
     [Test]
     public void TestBase_FitnessVectorSizeMatchesDeclaredCounts()
     {
+        if (!SupportsMidpointFitnessProbe())
+        {
+            Assert.Pass("Midpoint probe is disabled for this problem.");
+            return;
+        }
+
         using var problem = CreateStandardProblem();
         using var bounds = problem.get_bounds();
         using var x = new DoubleVector(bounds.first.Count);
