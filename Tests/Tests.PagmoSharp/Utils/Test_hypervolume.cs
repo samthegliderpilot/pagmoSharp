@@ -1,9 +1,4 @@
-﻿using NUnit.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using NUnit.Framework;
 using pagmo;
 
 namespace Tests.PagmoSharp.Utils
@@ -12,11 +7,34 @@ namespace Tests.PagmoSharp.Utils
     public class Test_hypervolume
     {
         [Test]
-        [Explicit("I don't know how this works")]
-        public void TestSomething() //TODO: Obviously
+        public void ComputeReturnsExpectedValueForSimple2DFront()
         {
-            hypervolume hyper = new hypervolume(new VectorOfVectorOfDoubles(new []{new DoubleVector(3, 4), new DoubleVector(3, -4), new DoubleVector(-3, -4) , new DoubleVector(-3, 4) }));
-            Assert.AreEqual(0, hyper.compute(new DoubleVector(3.5, 3.5)));
+            using var points = new VectorOfVectorOfDoubles(new[]
+            {
+                new DoubleVector(1.0, 3.0),
+                new DoubleVector(2.0, 2.0)
+            });
+            using var hv = new hypervolume(points);
+            using var reference = new DoubleVector(4.0, 4.0);
+
+            var value = hv.compute(reference);
+            Assert.AreEqual(5.0, value, 1e-12);
+        }
+
+        [Test]
+        public void ContributionsMatchPointCount()
+        {
+            using var points = new VectorOfVectorOfDoubles(new[]
+            {
+                new DoubleVector(1.0, 3.0),
+                new DoubleVector(2.0, 2.0),
+                new DoubleVector(3.0, 1.0)
+            });
+            using var hv = new hypervolume(points);
+            using var reference = new DoubleVector(4.0, 4.0);
+
+            using var contributions = hv.contributions(reference);
+            Assert.AreEqual(3, contributions.Count);
         }
     }
 }
