@@ -79,7 +79,9 @@ Last updated: 2026-03-24
   - [x] Reach full parity with current pagmo `algorithms/*.hpp` catalog in Sprint 3A wrapper coverage (no remaining unwrapped algorithm headers).
   - [x] Add type-erasure bridges (`to_algorithm`) for newly wrapped v1 algorithms (`ihs`, `nsga2`, `moead`, `moead_gen`, `maco`, `mbh`, `cstrs_self_adaptive`) and wire them in `AlgorithmInterop`.
   - [x] Add runtime validation that new bridged algorithms flow through `archipelago`/`island` managed paths without unsupported-type failures (including constrained and unconstrained managed-problem cases).
+  - [x] Refactor shared `TestAlgorithmBase` multi-objective coverage to assert correct population/objective-shape behavior (instead of single-objective champion assumptions), and re-enable `MultiObjective=true` on wrapped MO algorithms.
   - [ ] Add managed multi-objective `IProblem` test wrapper so multi-objective algorithm bridges can be validated through managed `archipelago` overloads end-to-end.
+  - [ ] Remove SWIG `%include`-level `namespace pagmo` wrapping (user-identified design bug) via phased migration to explicit fully-qualified `.i` declarations; start with touched algorithm surfaces, then roll across remaining wrappers.
 
 5. **Sprint 3B: Hardening + Extensibility Completion (Depth)**
 - [ ] Apply/complete C# extensibility surfaces where in v1 scope.

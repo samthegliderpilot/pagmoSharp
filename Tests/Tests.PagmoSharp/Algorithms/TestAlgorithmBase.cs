@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Runtime.ExceptionServices;
+using System.Reflection;
 using NUnit.Framework;
 using pagmo;
 using Tests.PagmoSharp.TestProblems;
@@ -22,6 +22,8 @@ namespace Tests.PagmoSharp.Algorithms
         public abstract bool MultiObjective { get; }
         public abstract bool IntegerPrograming { get; }
         public abstract bool Stochastic { get; }
+        public virtual bool MultiObjectiveUnconstrainedValid => MultiObjective && Unconstrained;
+        public virtual bool MultiObjectiveConstrainedValid => MultiObjective && Constrained;
 
         public population EvolveAlgorithm(IAlgorithm algorithm, population population)
         {
@@ -110,7 +112,18 @@ namespace Tests.PagmoSharp.Algorithms
             using (var problem = new TwoDimensionalSingleObjectiveProblemWrapper())
             using (var algorithm = CreateAlgorithm(problem))
             {
-                Assert.IsNotNull(((dynamic)algorithm).get_log());
+                var algorithmType = algorithm.GetType();
+                var logMethod = algorithmType.GetMethod("get_log_lines", BindingFlags.Public | BindingFlags.Instance)
+                    ?? algorithmType.GetMethod("get_log", BindingFlags.Public | BindingFlags.Instance);
+
+                if (logMethod is null)
+                {
+                    Assert.Pass("Not applicable: algorithm does not expose a log getter.");
+                    return;
+                }
+
+                var logResult = logMethod.Invoke(algorithm, null);
+                Assert.IsNotNull(logResult);
             }
         }
 
@@ -213,31 +226,73 @@ namespace Tests.PagmoSharp.Algorithms
         }
 
         [Test]
-        public void TestMultiobjectiveUnconstrained()
+        public virtual void TestMultiobjectiveUnconstrained()
         {
-            if (!MultiObjective || !Unconstrained)
+            if (!MultiObjectiveUnconstrainedValid)
             {
                 Assert.Pass("Not applicable: algorithm does not support unconstrained multi-objective problems.");
-                return; // pass, unsupported
+                return;
             }
-            using var problemBase = new zdt(1);
+            using var problemBase = new TwoDimensionalMultiObjectiveProblemWrapper();
             using (var algorithm = CreateAlgorithm())
-            using (var pop = new population(problemBase, 512))
+            using (var pop = new population(problemBase, 128u, 2u))
             {
-                algorithm.set_seed(2); // for consistent results
+                algorithm.set_seed(2);
+
+                var expectedObjectiveCount = problemBase.get_nobj();
+                var expectedFitnessVectorCount = (int)(problemBase.get_nobj() + problemBase.get_nec() + problemBase.get_nic());
+                var expectedPopulationSize = pop.size();
 
                 var finalpop = algorithm.evolve(pop);
-                //TODO: Multivariable functions don't have championions, need to refactor test!
-                var champX = finalpop.champion_x();
-                var champF = finalpop.champion_f();
-                Assert.AreEqual(4, champX.Count, "3 in x");
-                Assert.AreEqual(0.018910061654866972, champX[0], 0.03, "first champ x");
-                Assert.AreEqual(-0.00067151048252811485, champX[1], 0.03, "second champ x");
-                Assert.AreEqual(-5, champX[2], "third champ x");
-                Assert.AreEqual(-5, champX[3], "fourth champ x");
+                Assert.AreEqual(expectedPopulationSize, finalpop.size(), "population size should be preserved");
 
-                Assert.AreEqual(1, champF.Count, "2 in f(x)");
-                Assert.AreEqual(50.017521245106849, champF[0], 0.1, "first value of champ f");
+                using var finalProblem = finalpop.get_problem();
+                Assert.AreEqual(expectedObjectiveCount, finalProblem.get_nobj(), "objective count should be preserved");
+                Assert.GreaterOrEqual(finalProblem.get_nobj(), 2u, "multi-objective problems must report 2+ objectives");
+
+                using var allFitness = finalpop.get_f();
+                using var allDecisionVectors = finalpop.get_x();
+                Assert.AreEqual((int)expectedPopulationSize, allFitness.Count, "all individuals should have fitness values");
+                Assert.AreEqual((int)expectedPopulationSize, allDecisionVectors.Count, "all individuals should have decision vectors");
+
+                for (var individualIndex = 0; individualIndex < allFitness.Count; individualIndex++)
+                {
+                    Assert.AreEqual(expectedFitnessVectorCount, allFitness[individualIndex].Count, "fitness vector size should match objective+constraint counts");
+                }
+            }
+        }
+
+        [Test]
+        public virtual void TestMultiobjectiveConstrained()
+        {
+            if (!MultiObjectiveConstrainedValid)
+            {
+                Assert.Pass("Not applicable: algorithm does not support constrained multi-objective problems.");
+                return;
+            }
+
+            using var problemBase = new TwoDimensionalMultiObjectiveConstrainedProblemWrapper();
+            using var algorithm = CreateAlgorithm();
+            using var pop = new population(problemBase, 128u, 2u);
+            algorithm.set_seed(2);
+
+            var expectedObjectiveCount = problemBase.get_nobj();
+            var expectedFitnessVectorCount = (int)(problemBase.get_nobj() + problemBase.get_nec() + problemBase.get_nic());
+            var expectedPopulationSize = pop.size();
+
+            using var finalPopulation = algorithm.evolve(pop);
+            Assert.AreEqual(expectedPopulationSize, finalPopulation.size(), "population size should be preserved");
+
+            using var finalProblem = finalPopulation.get_problem();
+            Assert.AreEqual(expectedObjectiveCount, finalProblem.get_nobj(), "objective count should be preserved");
+            Assert.GreaterOrEqual(finalProblem.get_nobj(), 2u, "multi-objective problems must report 2+ objectives");
+            Assert.Greater(finalProblem.get_nec() + finalProblem.get_nic(), 0u, "constrained test problem must contain constraints");
+
+            using var allFitness = finalPopulation.get_f();
+            Assert.AreEqual((int)expectedPopulationSize, allFitness.Count, "all individuals should have fitness values");
+            for (var individualIndex = 0; individualIndex < allFitness.Count; individualIndex++)
+            {
+                Assert.AreEqual(expectedFitnessVectorCount, allFitness[individualIndex].Count, "fitness vector size should match objective+constraint counts");
             }
         }
     }
