@@ -194,23 +194,37 @@ namespace std {
 	//%include swigInterfaceFiles\r_policy.i // needs the director/problem treatment
 	%include swigInterfaceFiles\topology.i
 
-	
+}; // end of pagmo namespace (segment 1)
+
+	%include swigInterfaceFiles\algorithms\cstrs_self_adaptive.i
+	%include swigInterfaceFiles\algorithms\ihs.i
+		%include swigInterfaceFiles\algorithms\maco.i
+		%include swigInterfaceFiles\algorithms\mbh.i
+		%include swigInterfaceFiles\algorithms\moead.i
+		%include swigInterfaceFiles\algorithms\moead_gen.i
+		%include swigInterfaceFiles\algorithms\nsga2.i
+		%include swigInterfaceFiles\batch_evaluators\default_bfe.i
+		%include swigInterfaceFiles\batch_evaluators\member_bfe.i
+		%include swigInterfaceFiles\batch_evaluators\thread_bfe.i
+		%include swigInterfaceFiles\r_policies\fair_replace.i
+		%include swigInterfaceFiles\s_policies\select_best.i
+		%include swigInterfaceFiles\topologies\unconnected.i
+		%include swigInterfaceFiles\topologies\fully_connected.i
+		%include swigInterfaceFiles\topologies\ring.i
+		%include swigInterfaceFiles\topologies\free_form.i
+		%include swigInterfaceFiles\utils\hv_algos\hv_algorithm.i
+		%include swigInterfaceFiles\utils\hypervolume.i
+
+namespace pagmo {
 	%include swigInterfaceFiles\algorithms\cmaes.i
 	%include swigInterfaceFiles\algorithms\compass_search.i		
-	%include swigInterfaceFiles\algorithms\cstrs_self_adaptive.i
 	%include swigInterfaceFiles\algorithms\de.i
 		%include swigInterfaceFiles\algorithms\de1220.i
 		%include swigInterfaceFiles\algorithms\gaco.i
 		%include swigInterfaceFiles\algorithms\gwo.i
-		%include swigInterfaceFiles\algorithms\ihs.i
 		//%include swigInterfaceFiles\algorithms\ipopt.i // my build of pagmo doesn't include ipopt
-	%include swigInterfaceFiles\algorithms\maco.i
-	%include swigInterfaceFiles\algorithms\mbh.i
-	%include swigInterfaceFiles\algorithms\moead.i
-	%include swigInterfaceFiles\algorithms\moead_gen.i
 	//%include swigInterfaceFiles\algorithms\nlopt.i
 	%include swigInterfaceFiles\algorithms\not_population_based.i
-	%include swigInterfaceFiles\algorithms\nsga2.i
 	%include swigInterfaceFiles\algorithms\nspso.i
 	%include swigInterfaceFiles\algorithms\null_algorithm.i
 	%include swigInterfaceFiles\algorithms\pso.i
@@ -221,12 +235,8 @@ namespace std {
 	%include swigInterfaceFiles\algorithms\sga.i
 	%include swigInterfaceFiles\algorithms\xnes.i
 
-	%include swigInterfaceFiles\batch_evaluators\default_bfe.i
-	%include swigInterfaceFiles\batch_evaluators\member_bfe.i
-	%include swigInterfaceFiles\batch_evaluators\thread_bfe.i
-
-	//%include swigInterfaceFiles\detail\base_sr_policy.i // not sure if this is needed, and with no public constructors...
-	//%include swigInterfaceFiles\detail\bfe_impl.i // not sure if this is needed, and with no public constructors...
+		//%include swigInterfaceFiles\detail\base_sr_policy.i // not sure if this is needed, and with no public constructors...
+		//%include swigInterfaceFiles\detail\bfe_impl.i // not sure if this is needed, and with no public constructors...
 
 
 		%include swigInterfaceFiles\problems\ackley.i
@@ -252,18 +262,9 @@ namespace std {
 		%include swigInterfaceFiles\problems\wfg.i
 		%include swigInterfaceFiles\problems\zdt.i
 
-		%include swigInterfaceFiles\r_policies\fair_replace.i
-		%include swigInterfaceFiles\s_policies\select_best.i
-		%include swigInterfaceFiles\topologies\unconnected.i
-		%include swigInterfaceFiles\topologies\fully_connected.i
-		%include swigInterfaceFiles\topologies\ring.i
-		%include swigInterfaceFiles\topologies\free_form.i
-
-		%include swigInterfaceFiles\utils\hv_algos\hv_algorithm.i
-	//%include swigInterfaceFiles\utils\gradients_and_hessians.i // I couldn't get this to translate through swig so I just recreated the functions in C#
-	%include swigInterfaceFiles\utils\hypervolume.i
-	%include swigInterfaceFiles\utils\multi_objective.i
-}; // end of pagmo namespace
+		//%include swigInterfaceFiles\utils\gradients_and_hessians.i // I couldn't get this to translate through swig so I just recreated the functions in C#
+		%include swigInterfaceFiles\utils\multi_objective.i
+	}; // end of pagmo namespace
 %include swigInterfaceFiles\algorithm.i
 %include swigInterfaceFiles\algorithms\bee_colony.i
 %include swigInterfaceFiles\archipelago.i

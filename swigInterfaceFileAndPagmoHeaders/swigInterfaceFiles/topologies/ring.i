@@ -12,13 +12,13 @@
 
 %typemap(csclassmodifiers) pagmo::ring "public partial class"
 
-class ring {
+class pagmo::ring {
 public:
     extern ring();
     extern ring(double);
     extern ring(std::size_t, double);
 
-    extern std::pair<std::vector<std::size_t>, vector_double> get_connections(std::size_t) const;
+    extern std::pair<std::vector<std::size_t>, pagmo::vector_double> get_connections(std::size_t) const;
     extern void push_back();
     extern std::size_t num_vertices() const;
 

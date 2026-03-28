@@ -1,6 +1,6 @@
 # PagmoSharp Roadmap
 
-Last updated: 2026-03-24
+Last updated: 2026-03-28
 
 ## PagmoSharp Roadmap Reset (v1.0 with Explicit Breadth Sprint)
 
@@ -80,8 +80,11 @@ Last updated: 2026-03-24
   - [x] Add type-erasure bridges (`to_algorithm`) for newly wrapped v1 algorithms (`ihs`, `nsga2`, `moead`, `moead_gen`, `maco`, `mbh`, `cstrs_self_adaptive`) and wire them in `AlgorithmInterop`.
   - [x] Add runtime validation that new bridged algorithms flow through `archipelago`/`island` managed paths without unsupported-type failures (including constrained and unconstrained managed-problem cases).
   - [x] Refactor shared `TestAlgorithmBase` multi-objective coverage to assert correct population/objective-shape behavior (instead of single-objective champion assumptions), and re-enable `MultiObjective=true` on wrapped MO algorithms.
-  - [ ] Add managed multi-objective `IProblem` test wrapper so multi-objective algorithm bridges can be validated through managed `archipelago` overloads end-to-end.
-  - [ ] Remove SWIG `%include`-level `namespace pagmo` wrapping (user-identified design bug) via phased migration to explicit fully-qualified `.i` declarations; start with touched algorithm surfaces, then roll across remaining wrappers.
+  - [x] Add managed multi-objective `IProblem` test wrapper so multi-objective algorithm bridges can be validated through managed `archipelago` overloads end-to-end.
+  - [x] Phase 1: remove SWIG `%include`-level `namespace pagmo` wrapping for touched algorithm surfaces (`cstrs_self_adaptive`, `ihs`, `maco`, `mbh`, `moead`, `moead_gen`, `nsga2`) using fully-qualified `.i` declarations.
+  - [x] Phase 2 slice: remove SWIG `%include`-level `namespace pagmo` wrapping for `batch_evaluators` + `r/s_policies` + `topologies` by converting touched `.i` declarations to fully qualified `pagmo::` forms and moving includes outside namespace scope.
+  - [x] Phase 2 slice: remove `%include`-level namespace wrapping for `utils/hv_algos/hv_algorithm` and `utils/hypervolume` (fully-qualified `pagmo::` declarations + includes moved outside namespace scope).
+  - [ ] Phase 2+: continue rolling namespace-wrapper removal across remaining wrapper groups (`problems/*` and residual `utils/*`, especially `utils/multi_objective`) with per-slice regen/build/test gates.
 
 5. **Sprint 3B: Hardening + Extensibility Completion (Depth)**
 - [ ] Apply/complete C# extensibility surfaces where in v1 scope.
@@ -122,6 +125,7 @@ Last updated: 2026-03-24
 - Breadth-first then depth-hardening is intentional for large catalog onboarding.
 - `Problem` remains core and already mature enough to build on.
 - v1.0 stays Windows-first; Linux is explicitly post-release.
+
 
 
 

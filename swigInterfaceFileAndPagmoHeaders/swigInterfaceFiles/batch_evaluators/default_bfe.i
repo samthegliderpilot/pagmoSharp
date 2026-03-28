@@ -4,14 +4,14 @@
 #include "pagmo/batch_evaluators/default_bfe.hpp"
 %}
 %typemap(csclassmodifiers) pagmo::default_bfe "public partial class"
-class default_bfe {
+class pagmo::default_bfe {
 public:
 	extern default_bfe();
-	extern default_bfe(const default_bfe&);
+	extern default_bfe(const pagmo::default_bfe&);
 	extern std::string get_name() const;
 };
 
-%extend default_bfe {
+%extend pagmo::default_bfe {
     pagmo::bfe to_bfe() const
     {
         return pagmo::bfe(*self);

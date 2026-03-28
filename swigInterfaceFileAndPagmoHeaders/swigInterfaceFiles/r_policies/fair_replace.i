@@ -19,7 +19,7 @@
 ) const;
 
 // Now we define the class with only what SWIG can safely handle.
-class fair_replace {
+class pagmo::fair_replace {
 public:
     extern fair_replace();
 
@@ -34,7 +34,7 @@ public:
 };
 
 // Add a SWIG-safe wrapper for the tuple-based method.
-%extend fair_replace {
+%extend pagmo::fair_replace {
 
     pagmoWrap::IndividualsGroup replace_wrapped(
         const pagmoWrap::IndividualsGroup &a,

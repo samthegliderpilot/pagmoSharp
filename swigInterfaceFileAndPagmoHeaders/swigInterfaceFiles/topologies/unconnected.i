@@ -14,9 +14,9 @@
 
 %typemap(csclassmodifiers) pagmo::unconnected "public partial class"
 
-class unconnected {
+class pagmo::unconnected {
 public:
-    extern std::pair<std::vector<std::size_t>, vector_double> get_connections(std::size_t) const;
+    extern std::pair<std::vector<std::size_t>, pagmo::vector_double> get_connections(std::size_t) const;
 
     extern void push_back();
 

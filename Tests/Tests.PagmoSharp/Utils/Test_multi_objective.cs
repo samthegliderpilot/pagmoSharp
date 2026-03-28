@@ -20,23 +20,17 @@ public class Test_multi_objective
     {
         var thing = new VectorOfVectorOfDoubles(new List<DoubleVector>()
             { new DoubleVector(0.0, 2.0, 1.0), new DoubleVector(5.0, 9.0, 10.0) });
-        pagmo.RekSum.reksum(thing, new ULongLongVector(new ulong[]{1l, 2l, 3l}), 1, 2);
+        pagmo.RekSum.reksum(thing, new ULongLongVector(new ulong[]{1L, 2L, 3L}), 1, 2);
     }
 
     [Test]
     public void TestDecompositionWeights()
     {
-        pagmo.DecompositionWeights.decomposition_weights(2, 2, "huh");
+        var ex = Assert.Throws<ApplicationException>(
+            () => pagmo.DecompositionWeights.decomposition_weights(2, 2, "huh"));
+        Assert.That(ex!.Message, Does.Contain("unknown"));
 
-        try
-        {
-            pagmo.DecompositionWeights.decomposition_weights(2, 2, "huh");
-
-        }
-        catch (Exception e)
-        {
-            Console.WriteLine(e);
-            throw;
-        }
+        var weights = pagmo.DecompositionWeights.decomposition_weights(2, 4, "grid");
+        Assert.That(weights.Count, Is.GreaterThan(0));
     }
 }

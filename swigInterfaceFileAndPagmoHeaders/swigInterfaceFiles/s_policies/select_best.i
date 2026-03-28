@@ -21,7 +21,7 @@
 // ------------------------------------------------------------
 // SWIG-visible class declaration (ONLY safe methods)
 // ------------------------------------------------------------
-class select_best {
+class pagmo::select_best {
 public:
     extern select_best();
 
@@ -38,7 +38,7 @@ public:
 // ------------------------------------------------------------
 // SWIG-safe wrapper for tuple-based select()
 // ------------------------------------------------------------
-%extend select_best {
+%extend pagmo::select_best {
 
     pagmoWrap::IndividualsGroup select(
         const pagmoWrap::IndividualsGroup &a,

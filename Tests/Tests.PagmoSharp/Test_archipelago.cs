@@ -95,12 +95,31 @@ namespace Tests.PagmoSharp
             var expectedObjectiveCount = problem.get_nobj();
             archi.push_back_island(algo, problem, 32, 2);
             Assert.AreEqual(1u, archi.size());
-            AssertArchipelagoIslandConfiguration(archi, 0, 32, expectedName, expectedObjectiveCount);
+            AssertArchipelagoIslandConfiguration(archi, 0, 32, expectedName, expectedObjectiveCount, false);
 
             archi.evolve(1);
             archi.wait_check();
             Assert.AreEqual(evolve_status.idle, archi.status());
-            AssertArchipelagoIslandConfiguration(archi, 0, 32, expectedName, expectedObjectiveCount);
+            AssertArchipelagoIslandConfiguration(archi, 0, 32, expectedName, expectedObjectiveCount, false);
+        }
+
+        [Test]
+        public void ManagedMultiObjectiveProblemCanEvolveInArchipelagoWithNsga2()
+        {
+            using var archi = new archipelago();
+            using IAlgorithm algo = new nsga2(8u);
+            using var problem = new TwoDimensionalMultiObjectiveProblemWrapper();
+
+            var expectedName = algo.get_name();
+            var expectedObjectiveCount = problem.get_nobj();
+            archi.push_back_island(algo, problem, 32, 2);
+            Assert.AreEqual(1u, archi.size());
+            AssertArchipelagoIslandConfiguration(archi, 0, 32, expectedName, expectedObjectiveCount, false);
+
+            archi.evolve(1);
+            archi.wait_check();
+            Assert.AreEqual(evolve_status.idle, archi.status());
+            AssertArchipelagoIslandConfiguration(archi, 0, 32, expectedName, expectedObjectiveCount, false);
         }
 
         [Test]

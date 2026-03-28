@@ -11,7 +11,7 @@
 
 %typemap(csclassmodifiers) pagmo::free_form "public partial class"
 
-class free_form {
+class pagmo::free_form {
 public:
     extern free_form();
 

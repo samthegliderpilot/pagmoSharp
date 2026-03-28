@@ -14,13 +14,13 @@
 
 %typemap(csclassmodifiers) pagmo::fully_connected "public partial class"
 
-class fully_connected {
+class pagmo::fully_connected {
 public:
     extern fully_connected();
     extern fully_connected(double);
     extern fully_connected(std::size_t, double);
 
-    extern std::pair<std::vector<std::size_t>, vector_double> get_connections(std::size_t) const;
+    extern std::pair<std::vector<std::size_t>, pagmo::vector_double> get_connections(std::size_t) const;
 
     extern void push_back();
 
