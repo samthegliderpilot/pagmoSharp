@@ -2706,6 +2706,24 @@ class pagmoPINVOKE {
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_not_population_based_set_replacement__SWIG_1")]
   public static extern void not_population_based_set_replacement__SWIG_1(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2);
 
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_not_population_based_selection_uses_count")]
+  public static extern bool not_population_based_selection_uses_count(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_not_population_based_selection_count")]
+  public static extern uint not_population_based_selection_count(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_not_population_based_selection_policy")]
+  public static extern string not_population_based_selection_policy(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_not_population_based_replacement_uses_count")]
+  public static extern bool not_population_based_replacement_uses_count(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_not_population_based_replacement_count")]
+  public static extern uint not_population_based_replacement_count(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_not_population_based_replacement_policy")]
+  public static extern string not_population_based_replacement_policy(global::System.Runtime.InteropServices.HandleRef jarg1);
+
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_delete_not_population_based")]
   public static extern void delete_not_population_based(global::System.Runtime.InteropServices.HandleRef jarg1);
 

@@ -86,6 +86,42 @@ public partial class not_population_based : global::System.IDisposable {
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
+  public bool selection_uses_count() {
+    bool ret = pagmoPINVOKE.not_population_based_selection_uses_count(swigCPtr);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  public uint selection_count() {
+    uint ret = pagmoPINVOKE.not_population_based_selection_count(swigCPtr);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  public string selection_policy() {
+    string ret = pagmoPINVOKE.not_population_based_selection_policy(swigCPtr);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  public bool replacement_uses_count() {
+    bool ret = pagmoPINVOKE.not_population_based_replacement_uses_count(swigCPtr);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  public uint replacement_count() {
+    uint ret = pagmoPINVOKE.not_population_based_replacement_count(swigCPtr);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  public string replacement_policy() {
+    string ret = pagmoPINVOKE.not_population_based_replacement_policy(swigCPtr);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
 }
 
 }

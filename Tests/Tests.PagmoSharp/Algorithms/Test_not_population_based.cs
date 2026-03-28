@@ -12,11 +12,23 @@ public class Test_not_population_based
     {
         using var helper = new not_population_based();
 
-        Assert.DoesNotThrow(() => helper.set_random_sr_seed(11u));
-        Assert.DoesNotThrow(() => helper.set_selection("best"));
-        Assert.DoesNotThrow(() => helper.set_replacement("worst"));
-        Assert.DoesNotThrow(() => helper.set_selection(0u));
-        Assert.DoesNotThrow(() => helper.set_replacement(1u));
+        helper.set_random_sr_seed(11u);
+
+        helper.set_selection("best");
+        Assert.IsFalse(helper.selection_uses_count());
+        Assert.AreEqual("best", helper.selection_policy());
+
+        helper.set_replacement("worst");
+        Assert.IsFalse(helper.replacement_uses_count());
+        Assert.AreEqual("worst", helper.replacement_policy());
+
+        helper.set_selection(0u);
+        Assert.IsTrue(helper.selection_uses_count());
+        Assert.AreEqual(0u, helper.selection_count());
+
+        helper.set_replacement(1u);
+        Assert.IsTrue(helper.replacement_uses_count());
+        Assert.AreEqual(1u, helper.replacement_count());
     }
 
     [Test]

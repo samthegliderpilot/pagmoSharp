@@ -1586,6 +1586,24 @@ SWIGINTERN unsigned int pagmo_compass_search_get_gen(pagmo::compass_search const
 
 #include "pagmo/algorithms/not_population_based.hpp"
 
+SWIGINTERN bool pagmo_not_population_based_selection_uses_count(pagmo::not_population_based const *self){
+        return self->get_selection().type() == typeid(pagmo::population::size_type);
+    }
+SWIGINTERN pagmo::population::size_type pagmo_not_population_based_selection_count(pagmo::not_population_based const *self){
+        return boost::any_cast<pagmo::population::size_type>(self->get_selection());
+    }
+SWIGINTERN std::string pagmo_not_population_based_selection_policy(pagmo::not_population_based const *self){
+        return boost::any_cast<std::string>(self->get_selection());
+    }
+SWIGINTERN bool pagmo_not_population_based_replacement_uses_count(pagmo::not_population_based const *self){
+        return self->get_replacement().type() == typeid(pagmo::population::size_type);
+    }
+SWIGINTERN pagmo::population::size_type pagmo_not_population_based_replacement_count(pagmo::not_population_based const *self){
+        return boost::any_cast<pagmo::population::size_type>(self->get_replacement());
+    }
+SWIGINTERN std::string pagmo_not_population_based_replacement_policy(pagmo::not_population_based const *self){
+        return boost::any_cast<std::string>(self->get_replacement());
+    }
 
 #include "pagmo/algorithm.hpp"
 #include "pagmo/algorithms/nspso.hpp"
@@ -24910,6 +24928,150 @@ SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_not_population_based_set_replacement__S
       };
     }
   }
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_pagmo_not_population_based_selection_uses_count(void * jarg1) {
+  unsigned int jresult ;
+  pagmo::not_population_based *arg1 = 0 ;
+  bool result;
+  
+  arg1 = (pagmo::not_population_based *)jarg1; 
+  {
+    try {
+      result = (bool)pagmo_not_population_based_selection_uses_count((pagmo::not_population_based const *)arg1);
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_pagmo_not_population_based_selection_count(void * jarg1) {
+  unsigned int jresult ;
+  pagmo::not_population_based *arg1 = 0 ;
+  pagmo::population::size_type result;
+  
+  arg1 = (pagmo::not_population_based *)jarg1; 
+  {
+    try {
+      result = pagmo_not_population_based_selection_count((pagmo::not_population_based const *)arg1);
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = (unsigned int)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_not_population_based_selection_policy(void * jarg1) {
+  const char * jresult ;
+  pagmo::not_population_based *arg1 = 0 ;
+  std::string result;
+  
+  arg1 = (pagmo::not_population_based *)jarg1; 
+  {
+    try {
+      result = pagmo_not_population_based_selection_policy((pagmo::not_population_based const *)arg1);
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  return jresult;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_pagmo_not_population_based_replacement_uses_count(void * jarg1) {
+  unsigned int jresult ;
+  pagmo::not_population_based *arg1 = 0 ;
+  bool result;
+  
+  arg1 = (pagmo::not_population_based *)jarg1; 
+  {
+    try {
+      result = (bool)pagmo_not_population_based_replacement_uses_count((pagmo::not_population_based const *)arg1);
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_pagmo_not_population_based_replacement_count(void * jarg1) {
+  unsigned int jresult ;
+  pagmo::not_population_based *arg1 = 0 ;
+  pagmo::population::size_type result;
+  
+  arg1 = (pagmo::not_population_based *)jarg1; 
+  {
+    try {
+      result = pagmo_not_population_based_replacement_count((pagmo::not_population_based const *)arg1);
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = (unsigned int)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_not_population_based_replacement_policy(void * jarg1) {
+  const char * jresult ;
+  pagmo::not_population_based *arg1 = 0 ;
+  std::string result;
+  
+  arg1 = (pagmo::not_population_based *)jarg1; 
+  {
+    try {
+      result = pagmo_not_population_based_replacement_policy((pagmo::not_population_based const *)arg1);
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  return jresult;
 }
 
 
