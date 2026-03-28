@@ -1,4 +1,3 @@
-%module(naturalvar = 1, directors = "1") pagmo
 %{
 #include "pagmo/r_policies/fair_replace.hpp"
 #include "tuple_adapters.h"   // your IndividualsGroup + tuple converters

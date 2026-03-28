@@ -1,5 +1,6 @@
 using NUnit.Framework;
 using pagmo;
+using System;
 
 namespace Tests.PagmoSharp.Algorithms;
 
@@ -7,16 +8,23 @@ namespace Tests.PagmoSharp.Algorithms;
 public class Test_not_population_based
 {
     [Test]
-    public void SelectionAndReplacementPoliciesCanBeConfigured()
+    public void SelectionAndReplacementPoliciesAcceptValidInputs()
     {
         using var helper = new not_population_based();
 
-        helper.set_random_sr_seed(11u);
-        helper.set_selection("best");
-        helper.set_replacement("worst");
-        helper.set_selection(0u);
-        helper.set_replacement(1u);
+        Assert.DoesNotThrow(() => helper.set_random_sr_seed(11u));
+        Assert.DoesNotThrow(() => helper.set_selection("best"));
+        Assert.DoesNotThrow(() => helper.set_replacement("worst"));
+        Assert.DoesNotThrow(() => helper.set_selection(0u));
+        Assert.DoesNotThrow(() => helper.set_replacement(1u));
+    }
 
-        Assert.Pass();
+    [Test]
+    public void SelectionAndReplacementPoliciesRejectInvalidInputs()
+    {
+        using var helper = new not_population_based();
+
+        Assert.Throws<ApplicationException>(() => helper.set_selection("not-a-valid-selection"));
+        Assert.Throws<ApplicationException>(() => helper.set_replacement("not-a-valid-replacement"));
     }
 }

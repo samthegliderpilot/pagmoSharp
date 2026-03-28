@@ -1,11 +1,10 @@
-%module(naturalvar = 1, directors = "1") pagmo
 %{
 #include "pagmo/problems/dtlz.hpp"
 #include "pagmo/problem.hpp"
 %}
 
 %typemap(csclassmodifiers) pagmo::dtlz "public partial class"
-class dtlz {
+class pagmo::dtlz {
 public:
     extern dtlz(unsigned prob_id = 1u, vector_double::size_type dim = 5u, vector_double::size_type fdim = 3u,
                 unsigned alpha = 100u);
@@ -17,31 +16,31 @@ public:
     extern std::string get_name() const;
 };
 
-%extend dtlz {
+%extend pagmo::dtlz{
 vector_double::size_type get_nec() const
 {
    return 0;
 } };
 
-%extend dtlz {
+%extend pagmo::dtlz{
 vector_double::size_type get_nic() const
 {
    return 0;
 } };
 
-%extend dtlz {
+%extend pagmo::dtlz{
 vector_double::size_type get_nix() const
 {
    return 0;
 } };
 
-%extend dtlz {
+%extend pagmo::dtlz{
 bool has_batch_fitness() const
 {
     return false;
 } };
 
-%extend dtlz {
+%extend pagmo::dtlz{
 thread_safety get_thread_safety() const
 {
     return pagmo::thread_safety::none;

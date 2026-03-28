@@ -1,11 +1,10 @@
-%module(naturalvar = 1, directors = "1") pagmo
 %{
 #include "pagmo/problems/decompose.hpp"
 #include "pagmo/problem.hpp"
 %}
 
 %typemap(csclassmodifiers) pagmo::decompose "public partial class"
-class decompose {
+class pagmo::decompose {
 public:
     extern decompose();
     extern decompose(const problem &, const vector_double &, const vector_double &, const std::string &method = "weighted", bool adapt_ideal = false);
@@ -23,19 +22,19 @@ public:
     extern const problem &get_inner_problem() const;
 };
 
-%extend decompose {
+%extend pagmo::decompose{
 vector_double::size_type get_nec() const
 {
    return 0;
 } };
 
-%extend decompose {
+%extend pagmo::decompose{
 vector_double::size_type get_nic() const
 {
    return 0;
 } };
 
-%extend decompose {
+%extend pagmo::decompose{
 bool has_batch_fitness() const
 {
     return false;

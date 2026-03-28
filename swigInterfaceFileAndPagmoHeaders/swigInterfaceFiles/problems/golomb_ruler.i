@@ -1,4 +1,3 @@
-%module(naturalvar = 1, directors = "1") pagmo
 %{
 #include "pagmo/problems/golomb_ruler.hpp"
 #include "pagmo/problem.hpp"
@@ -6,7 +5,7 @@
 
 %typemap(csclassmodifiers) pagmo::golomb_ruler "public partial class"
 
-class golomb_ruler {
+class pagmo::golomb_ruler {
 public:
 	extern golomb_ruler(unsigned order = 3u, unsigned upper_bound = 10);
 
@@ -22,25 +21,25 @@ public:
 	extern std::string get_name() const;
 };
 
-%extend golomb_ruler{
+%extend pagmo::golomb_ruler{
 vector_double::size_type get_nic() const
 {
    return 0;
 } };
 
-%extend golomb_ruler{
+%extend pagmo::golomb_ruler{
 vector_double::size_type get_nobj() const
 {
    return 1;
 } };
 
-%extend golomb_ruler{
+%extend pagmo::golomb_ruler{
 bool has_batch_fitness() const
 {
 	return true;
 } };
 
-%extend golomb_ruler{
+%extend pagmo::golomb_ruler{
 thread_safety get_thread_safety() const
 {
 	return pagmo::thread_safety::none; //TODO: What is the right answer?

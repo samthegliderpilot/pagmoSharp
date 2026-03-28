@@ -1,11 +1,10 @@
-%module(naturalvar = 1, directors = "1") pagmo
 %{
 #include "pagmo/problems/hock_schittkowski_71.hpp"
 #include "pagmo/problem.hpp"
 %}
 
 %typemap(csclassmodifiers) pagmo::hock_schittkowski_71 "public partial class"
-class hock_schittkowski_71 {
+class pagmo::hock_schittkowski_71 {
 public:
     extern vector_double fitness(const vector_double&) const;
     extern vector_double::size_type get_nec() const;
@@ -18,25 +17,25 @@ public:
     extern vector_double best_known() const;
 };
 
-%extend hock_schittkowski_71 {
+%extend pagmo::hock_schittkowski_71{
 vector_double::size_type get_nix() const
 {
    return 0;
 } };
 
-%extend hock_schittkowski_71 {
+%extend pagmo::hock_schittkowski_71{
 vector_double::size_type get_nobj() const
 {
    return 1;
 } };
 
-%extend hock_schittkowski_71 {
+%extend pagmo::hock_schittkowski_71{
 bool has_batch_fitness() const
 {
     return false;
 } };
 
-%extend hock_schittkowski_71 {
+%extend pagmo::hock_schittkowski_71{
 thread_safety get_thread_safety() const
 {
     return pagmo::thread_safety::none;

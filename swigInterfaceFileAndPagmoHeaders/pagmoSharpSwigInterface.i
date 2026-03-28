@@ -93,10 +93,6 @@
 
 
 
-%feature("director") pagmoWrap::r_policyBase;
-%include "pagmoWrapper/r_policy.h"
-%feature("director") pagmoWrap::s_policyBase;
-%include "pagmoWrapper/s_policy.h"
 %feature("director") pagmoWrap::multi_objective;
 %include "pagmoWrapper/multi_objective.h"
 //#include <tuple> // tuple is not supported by swig yet...
@@ -239,32 +235,33 @@ namespace pagmo {
 		//%include swigInterfaceFiles\detail\bfe_impl.i // not sure if this is needed, and with no public constructors...
 
 
-		%include swigInterfaceFiles\problems\ackley.i
-		%include swigInterfaceFiles\problems\cec2006.i
-		%include swigInterfaceFiles\problems\cec2009.i
-		%include swigInterfaceFiles\problems\cec2013.i
-		%include swigInterfaceFiles\problems\cec2014.i
-		%include swigInterfaceFiles\problems\decompose.i
-		%include swigInterfaceFiles\problems\dtlz.i
-	        %include swigInterfaceFiles\problems\hock_schittkowski_71.i
+	}; // end of pagmo namespace
+
+	%include swigInterfaceFiles\problems\ackley.i
+	%include swigInterfaceFiles\problems\cec2006.i
+	%include swigInterfaceFiles\problems\cec2009.i
+	%include swigInterfaceFiles\problems\cec2013.i
+	%include swigInterfaceFiles\problems\cec2014.i
+	%include swigInterfaceFiles\problems\decompose.i
+	%include swigInterfaceFiles\problems\dtlz.i
+	%include swigInterfaceFiles\problems\hock_schittkowski_71.i
 	%include swigInterfaceFiles\problems\golomb_ruler.i
-        %include swigInterfaceFiles\problems\griewank.i
+	%include swigInterfaceFiles\problems\griewank.i
 	%include swigInterfaceFiles\problems\inventory.i
-        %include swigInterfaceFiles\problems\lennard_jones.i
-        %include swigInterfaceFiles\problems\luksan_vlcek1.i
+	%include swigInterfaceFiles\problems\lennard_jones.i
+	%include swigInterfaceFiles\problems\luksan_vlcek1.i
 	%include swigInterfaceFiles\problems\minlp_rastrigin.i
 	%include swigInterfaceFiles\problems\null_problem.i
-		%include swigInterfaceFiles\problems\rosenbrock.i
-		%include swigInterfaceFiles\problems\schwefel.i
-			%include swigInterfaceFiles\problems\rastrigin.i
-		%include swigInterfaceFiles\problems\translate.i
-		%include swigInterfaceFiles\problems\unconstrain.i
-		%include swigInterfaceFiles\problems\wfg.i
-		%include swigInterfaceFiles\problems\zdt.i
+	%include swigInterfaceFiles\problems\rosenbrock.i
+	%include swigInterfaceFiles\problems\schwefel.i
+	%include swigInterfaceFiles\problems\rastrigin.i
+	%include swigInterfaceFiles\problems\translate.i
+	%include swigInterfaceFiles\problems\unconstrain.i
+	%include swigInterfaceFiles\problems\wfg.i
+	%include swigInterfaceFiles\problems\zdt.i
 
-		//%include swigInterfaceFiles\utils\gradients_and_hessians.i // I couldn't get this to translate through swig so I just recreated the functions in C#
-		%include swigInterfaceFiles\utils\multi_objective.i
-	}; // end of pagmo namespace
+	//%include swigInterfaceFiles\utils\gradients_and_hessians.i // I couldn't get this to translate through swig so I just recreated the functions in C#
+	%include swigInterfaceFiles\utils\multi_objective.i
 %include swigInterfaceFiles\algorithm.i
 %include swigInterfaceFiles\algorithms\bee_colony.i
 %include swigInterfaceFiles\archipelago.i

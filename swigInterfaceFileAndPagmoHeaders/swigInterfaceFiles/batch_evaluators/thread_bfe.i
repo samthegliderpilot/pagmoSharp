@@ -1,4 +1,3 @@
-%module(naturalvar = 1, directors = "1") pagmo
 %{
 #include "pagmo/bfe.hpp"
 #include "pagmo/batch_evaluators/thread_bfe.hpp"

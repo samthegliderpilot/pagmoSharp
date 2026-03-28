@@ -1,11 +1,10 @@
-%module(naturalvar = 1, directors = "1") pagmo
 %{
 #include "pagmo/problems/translate.hpp"
 #include "pagmo/problem.hpp"
 %}
 
 %typemap(csclassmodifiers) pagmo::translate "public partial class"
-class translate {
+class pagmo::translate {
 public:
     extern translate();
     extern translate(const problem &, const vector_double &);

@@ -1,4 +1,3 @@
-%module(naturalvar = 1, directors = "1") pagmo
 %{
 #include "pagmo/utils/hv_algos/hv_algorithm.hpp"
 #include "pagmo/detail/visibility.hpp"

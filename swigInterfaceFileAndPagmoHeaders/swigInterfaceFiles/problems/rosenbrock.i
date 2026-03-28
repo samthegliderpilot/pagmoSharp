@@ -1,11 +1,10 @@
-%module(naturalvar = 1, directors = "1") pagmo
 %{
 #include "pagmo/problems/rosenbrock.hpp"
 #include "pagmo/problem.hpp"
 %}
 
 %typemap(csclassmodifiers) pagmo::rosenbrock "public partial class"
-class rosenbrock {
+class pagmo::rosenbrock {
 public:
     extern rosenbrock(unsigned dim = 2u);
     extern vector_double fitness(const vector_double&) const;
@@ -17,31 +16,31 @@ public:
     extern vector_double::size_type m_dim;
 };
 
-%extend rosenbrock {
+%extend pagmo::rosenbrock{
 vector_double::size_type get_nic() const
 {
    return 0;
 } };
 
-%extend rosenbrock {
+%extend pagmo::rosenbrock{
 vector_double::size_type get_nec() const
 {
    return 0;
 } };
 
-%extend rosenbrock {
+%extend pagmo::rosenbrock{
 vector_double::size_type get_nix() const
 {
    return 0;
 } };
 
-%extend rosenbrock {
+%extend pagmo::rosenbrock{
 vector_double::size_type get_nobj() const
 {
    return 1;
 } };
 
-%extend rosenbrock {
+%extend pagmo::rosenbrock{
 bool has_batch_fitness() const
 {
     return false;

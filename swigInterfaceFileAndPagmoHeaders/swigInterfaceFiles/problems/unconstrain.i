@@ -1,11 +1,10 @@
-%module(naturalvar = 1, directors = "1") pagmo
 %{
 #include "pagmo/problems/unconstrain.hpp"
 #include "pagmo/problem.hpp"
 %}
 
 %typemap(csclassmodifiers) pagmo::unconstrain "public partial class"
-class unconstrain {
+class pagmo::unconstrain {
 public:
     extern unconstrain();
     extern unconstrain(const problem &, const std::string &method = "death penalty", const vector_double &weights = vector_double());
@@ -23,13 +22,13 @@ public:
     extern std::string get_extra_info() const;
 };
 
-%extend unconstrain {
+%extend pagmo::unconstrain{
 vector_double::size_type get_nec() const
 {
    return 0;
 } };
 
-%extend unconstrain {
+%extend pagmo::unconstrain{
 vector_double::size_type get_nic() const
 {
    return 0;

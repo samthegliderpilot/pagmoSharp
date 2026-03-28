@@ -1,4 +1,3 @@
-%module(naturalvar = 1, directors = "1") pagmo
 %{
 #include "pagmo/problems/inventory.hpp"
 #include "pagmo/problem.hpp"
@@ -6,7 +5,7 @@
 
 %typemap(csclassmodifiers) pagmo::inventory "public partial class"
 
-class inventory {
+class pagmo::inventory {
 public:
     extern inventory(unsigned weeks = 4u, unsigned sample_size = 10u, unsigned seed = pagmo::random_device::next())
         : m_weeks(weeks), m_sample_size(sample_size), m_e(seed), m_seed(seed);
@@ -18,37 +17,37 @@ public:
 };
 
 
-%extend inventory{
+%extend pagmo::inventory{
 vector_double::size_type get_nic() const
 {
    return 0;
 } };
 
-%extend inventory{
+%extend pagmo::inventory{
 vector_double::size_type get_nec() const
 {
    return 0;
 } };
 
-%extend inventory{
+%extend pagmo::inventory{
 vector_double::size_type get_nix() const
 {
    return 0;
 } };
 
-%extend inventory{
+%extend pagmo::inventory{
 vector_double::size_type get_nobj() const
 {
    return 1;
 } };
 
-%extend inventory{
+%extend pagmo::inventory{
 bool has_batch_fitness() const
 {
 	return true;
 } };
 
-%extend inventory{
+%extend pagmo::inventory{
 thread_safety get_thread_safety() const
 {
 	return pagmo::thread_safety::none; //TODO: What is the right answer?

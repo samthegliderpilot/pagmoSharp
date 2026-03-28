@@ -71,12 +71,12 @@ public abstract class TestProblemBase
 
         using var problem = CreateStandardProblem();
         using var bounds = problem.get_bounds();
-        using var x = new DoubleVector(bounds.first.Count);
-
-        for (var i = 0; i < x.Count; i++)
+        var midpointValues = new double[bounds.first.Count];
+        for (var i = 0; i < midpointValues.Length; i++)
         {
-            x[i] = 0.5 * (bounds.first[i] + bounds.second[i]);
+            midpointValues[i] = 0.5 * (bounds.first[i] + bounds.second[i]);
         }
+        using var x = new DoubleVector(midpointValues);
 
         using var fitness = problem.fitness(x);
         var expected = problem.get_nobj() + problem.get_nec() + problem.get_nic();

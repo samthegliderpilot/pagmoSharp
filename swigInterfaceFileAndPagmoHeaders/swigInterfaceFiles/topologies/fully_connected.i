@@ -1,4 +1,3 @@
-%module(naturalvar = 1, directors = "1") pagmo
 %{
 #include "pagmo/topologies/fully_connected.hpp"
 #include <cstddef>

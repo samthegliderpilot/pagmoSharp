@@ -28,54 +28,6 @@ public partial class pagmo {
     return ret;
   }
 
-  public static bool pareto_dominance(DoubleVector arg0, DoubleVector arg1) {
-    bool ret = pagmoPINVOKE.pareto_dominance(DoubleVector.getCPtr(arg0), DoubleVector.getCPtr(arg1));
-    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
-    return ret;
-  }
-
-  public static ULongLongVector non_dominated_front_2d(VectorOfVectorOfDoubles arg0) {
-    ULongLongVector ret = new ULongLongVector(pagmoPINVOKE.non_dominated_front_2d(VectorOfVectorOfDoubles.getCPtr(arg0)), true);
-    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
-    return ret;
-  }
-
-  public static DoubleVector crowding_distance(VectorOfVectorOfDoubles arg0) {
-    DoubleVector ret = new DoubleVector(pagmoPINVOKE.crowding_distance(VectorOfVectorOfDoubles.getCPtr(arg0)), true);
-    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
-    return ret;
-  }
-
-  public static ULongLongVector sort_population_mo(VectorOfVectorOfDoubles arg0) {
-    ULongLongVector ret = new ULongLongVector(pagmoPINVOKE.sort_population_mo(VectorOfVectorOfDoubles.getCPtr(arg0)), true);
-    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
-    return ret;
-  }
-
-  public static ULongLongVector select_best_N_mo(VectorOfVectorOfDoubles arg0, ulong arg1) {
-    ULongLongVector ret = new ULongLongVector(pagmoPINVOKE.select_best_N_mo(VectorOfVectorOfDoubles.getCPtr(arg0), arg1), true);
-    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
-    return ret;
-  }
-
-  public static DoubleVector ideal(VectorOfVectorOfDoubles arg0) {
-    DoubleVector ret = new DoubleVector(pagmoPINVOKE.ideal(VectorOfVectorOfDoubles.getCPtr(arg0)), true);
-    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
-    return ret;
-  }
-
-  public static DoubleVector nadir(VectorOfVectorOfDoubles arg0) {
-    DoubleVector ret = new DoubleVector(pagmoPINVOKE.nadir(VectorOfVectorOfDoubles.getCPtr(arg0)), true);
-    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
-    return ret;
-  }
-
-  public static DoubleVector decompose_objectives(DoubleVector arg0, DoubleVector arg1, DoubleVector arg2, string arg3) {
-    DoubleVector ret = new DoubleVector(pagmoPINVOKE.decompose_objectives(DoubleVector.getCPtr(arg0), DoubleVector.getCPtr(arg1), DoubleVector.getCPtr(arg2), arg3), true);
-    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
-    return ret;
-  }
-
   public static BeeColonyLogLine FromBeeColonyLogTuple(SWIGTYPE_p_std__tupleT_unsigned_int_unsigned_long_long_double_double_t t) {
     BeeColonyLogLine ret = new BeeColonyLogLine(pagmoPINVOKE.FromBeeColonyLogTuple(SWIGTYPE_p_std__tupleT_unsigned_int_unsigned_long_long_double_double_t.getCPtr(t)), true);
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();

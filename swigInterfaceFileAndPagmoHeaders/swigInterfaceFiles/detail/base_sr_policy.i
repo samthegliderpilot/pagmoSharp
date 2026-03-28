@@ -1,4 +1,3 @@
-%module(naturalvar = 1, directors = "1") pagmo
 %{
 #include "pagmo/detail/base_sr_policy.hpp"
 #include <type_traits>

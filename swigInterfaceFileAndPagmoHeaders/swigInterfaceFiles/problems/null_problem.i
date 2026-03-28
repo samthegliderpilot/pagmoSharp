@@ -1,11 +1,10 @@
-%module(naturalvar = 1, directors = "1") pagmo
 %{
 #include "pagmo/problems/null_problem.hpp"
 #include "pagmo/problem.hpp"
 %}
 
 %typemap(csclassmodifiers) pagmo::null_problem "public partial class"
-class null_problem {
+class pagmo::null_problem {
 public:
     extern null_problem(vector_double::size_type nobj = 1u, vector_double::size_type nec = 0u,
                         vector_double::size_type nic = 0u, vector_double::size_type nix = 0u);
@@ -18,13 +17,13 @@ public:
     extern std::string get_name() const;
 };
 
-%extend null_problem {
+%extend pagmo::null_problem{
 bool has_batch_fitness() const
 {
     return false;
 } };
 
-%extend null_problem {
+%extend pagmo::null_problem{
 thread_safety get_thread_safety() const
 {
     return pagmo::thread_safety::none;

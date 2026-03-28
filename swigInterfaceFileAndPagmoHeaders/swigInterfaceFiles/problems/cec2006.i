@@ -1,11 +1,10 @@
-%module(naturalvar = 1, directors = "1") pagmo
 %{
 #include "pagmo/problems/cec2006.hpp"
 #include "pagmo/problem.hpp"
 %}
 
 %typemap(csclassmodifiers) pagmo::cec2006 "public partial class"
-class cec2006 {
+class pagmo::cec2006 {
 public:
     extern cec2006(unsigned prob_id = 1u);
     // Equality constraint dimension
@@ -22,25 +21,25 @@ public:
     extern std::string get_name() const;
 };
 
-%extend cec2006{
+%extend pagmo::cec2006{
 vector_double::size_type get_nix() const
 {
    return 0;
 } };
 
-%extend cec2006{
+%extend pagmo::cec2006{
 vector_double::size_type get_nobj() const
 {
    return 1;
 } };
 
-%extend cec2006{
+%extend pagmo::cec2006{
 thread_safety get_thread_safety() const
 {
 	return pagmo::thread_safety::none; //TODO: What is the right answer?
 } };
 
-%extend cec2006{
+%extend pagmo::cec2006{
 bool has_batch_fitness() const
 {
 	return false;

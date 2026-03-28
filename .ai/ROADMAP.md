@@ -76,6 +76,7 @@ Last updated: 2026-03-28
   - [x] Fully wrap `cstrs_self_adaptive` with managed extension polish and dedicated regression tests (constrained evolve-path assertions, seed/verbosity coverage, and runtime API checks).
   - [x] Fully wrap `mbh` with managed extension polish and dedicated regression tests (name/seed/verbosity coverage and perturbation configuration assertions).
   - [x] Fully wrap `not_population_based` helper surface with managed extension polish and dedicated regression tests (selection/replacement policy configuration coverage).
+  - [x] Strengthen `not_population_based` regression tests to assert invalid selection/replacement inputs throw expected wrapper exceptions (not just happy-path no-throw).
   - [x] Reach full parity with current pagmo `algorithms/*.hpp` catalog in Sprint 3A wrapper coverage (no remaining unwrapped algorithm headers).
   - [x] Add type-erasure bridges (`to_algorithm`) for newly wrapped v1 algorithms (`ihs`, `nsga2`, `moead`, `moead_gen`, `maco`, `mbh`, `cstrs_self_adaptive`) and wire them in `AlgorithmInterop`.
   - [x] Add runtime validation that new bridged algorithms flow through `archipelago`/`island` managed paths without unsupported-type failures (including constrained and unconstrained managed-problem cases).
@@ -84,7 +85,7 @@ Last updated: 2026-03-28
   - [x] Phase 1: remove SWIG `%include`-level `namespace pagmo` wrapping for touched algorithm surfaces (`cstrs_self_adaptive`, `ihs`, `maco`, `mbh`, `moead`, `moead_gen`, `nsga2`) using fully-qualified `.i` declarations.
   - [x] Phase 2 slice: remove SWIG `%include`-level `namespace pagmo` wrapping for `batch_evaluators` + `r/s_policies` + `topologies` by converting touched `.i` declarations to fully qualified `pagmo::` forms and moving includes outside namespace scope.
   - [x] Phase 2 slice: remove `%include`-level namespace wrapping for `utils/hv_algos/hv_algorithm` and `utils/hypervolume` (fully-qualified `pagmo::` declarations + includes moved outside namespace scope).
-  - [ ] Phase 2+: continue rolling namespace-wrapper removal across remaining wrapper groups (`problems/*` and residual `utils/*`, especially `utils/multi_objective`) with per-slice regen/build/test gates.
+  - [x] Phase 2+: continue rolling namespace-wrapper removal across remaining wrapper groups (`problems/*` and residual `utils/*`, especially `utils/multi_objective`) with per-slice regen/build/test gates.
 
 5. **Sprint 3B: Hardening + Extensibility Completion (Depth)**
 - [ ] Apply/complete C# extensibility surfaces where in v1 scope.
@@ -94,8 +95,9 @@ Last updated: 2026-03-28
 - [ ] Standardize C++?C# exception bubbling and mapping (constructor/evolve/wait paths, including async/runtime wrapper paths).
 - [ ] Replace null-return `catch (...)` patterns in native bridge with explicit error propagation so managed exceptions preserve actionable native context.
 - [ ] Correct built-in problem `thread_safety` metadata in wrappers (remove placeholder `none` defaults where inaccurate) and add threaded runtime verification coverage.
-- [ ] Deduplicate SWIG director/include declarations in root interface and keep one canonical registration path for `problem`, `r_policy`, and `s_policy` bridges.
-- [ ] Normalize SWIG fragment hygiene by removing per-file `%module` directives from included `.i` fragments and keeping module definition at the root interface only.
+- [x] Investigate and eliminate full-suite post-run test-host crashes (all tests pass but host process aborts during teardown), with explicit native-lifetime root cause and regression guard (resolved by switching midpoint probe vector construction to array-based initialization in `TestProblemBase`).
+- [x] Deduplicate SWIG director/include declarations in root interface and keep one canonical registration path for `problem`, `r_policy`, and `s_policy` bridges.
+- [x] Normalize SWIG fragment hygiene by removing per-file `%module` directives from included `.i` fragments and keeping module definition at the root interface only.
 - [ ] Complete multi-objective support end-to-end (problem/algorithm flows, champion and population semantics, and static helper functions in `utils/multi_objective`).
 - [ ] Anything from 3A is not considered production-ready until 3B gates pass.
 
@@ -113,6 +115,7 @@ Last updated: 2026-03-28
 
 9. **Sprint 7 (v1.x/2.0): Linux/CMake**
 - [ ] Cross-platform build track after v1.0.
+- [ ] Evaluate optional managed thread-clone strategy for non-thread-safe managed problems (for example `IThreadCloneableProblem` with per-thread clone context) and integrate only if it fits pagmo execution semantics cleanly.
 
 ### API and Quality Rules
 - During 3A breadth, prioritize coverage velocity with smoke tests.
