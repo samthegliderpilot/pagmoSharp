@@ -37,6 +37,26 @@ public class Test_cstrs_self_adaptive
     }
 
     [Test]
+    public void ImprovesFeasibleObjectiveOnTwoParabolaConstrainedProblem()
+    {
+        using var problem = new TwoParabolaConstrainedProblemWrapper();
+        using var innerAlgorithm = new de(2u);
+        using var erasedInnerAlgorithm = innerAlgorithm.to_algorithm();
+        using var algorithm = new cstrs_self_adaptive(30u, erasedInnerAlgorithm, 7u);
+        using var initialPopulation = new population(problem, 96u, 11u);
+
+        var initialBestFeasibleObjective = GetBestFeasibleObjective(initialPopulation);
+        Assert.That(initialBestFeasibleObjective, Is.Not.EqualTo(double.PositiveInfinity), "initial population should contain feasible points");
+
+        using var evolvedPopulation = algorithm.evolve(initialPopulation);
+        var evolvedBestFeasibleObjective = GetBestFeasibleObjective(evolvedPopulation);
+
+        Assert.That(evolvedBestFeasibleObjective, Is.Not.EqualTo(double.PositiveInfinity), "evolved population should contain feasible points");
+        Assert.That(evolvedBestFeasibleObjective, Is.LessThan(initialBestFeasibleObjective), "optimization should improve best feasible objective");
+        Assert.That(evolvedBestFeasibleObjective, Is.LessThan(1.2), "problem minimum is 1.0 at (0.5, -0.5), evolved solution should get close");
+    }
+
+    [Test]
     public void TypedAndGenericLogsAreExposed()
     {
         using var problem = new TwoDimensionalConstrainedProblem();
@@ -71,5 +91,29 @@ public class Test_cstrs_self_adaptive
         Assert.That((double)raw["best_fitness"], Is.EqualTo(typedLines[0].BestFitness));
         Assert.That((double)raw["infeasibility"], Is.EqualTo(typedLines[0].Infeasibility));
         Assert.That((ulong)raw["feasible_count"], Is.EqualTo(typedLines[0].FeasibleCount));
+    }
+
+    private static double GetBestFeasibleObjective(population pop)
+    {
+        using var allFitness = pop.get_f();
+
+        var best = double.PositiveInfinity;
+        for (var individualIndex = 0; individualIndex < allFitness.Count; individualIndex++)
+        {
+            var fitness = allFitness[individualIndex];
+            if (fitness.Count < 2)
+            {
+                continue;
+            }
+
+            var objective = fitness[0];
+            var inequalityConstraint = fitness[1];
+            if (inequalityConstraint <= 0.0 && objective < best)
+            {
+                best = objective;
+            }
+        }
+
+        return best;
     }
 }

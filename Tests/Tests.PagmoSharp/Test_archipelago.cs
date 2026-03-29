@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using NUnit.Framework;
 using pagmo;
 using Tests.PagmoSharp.TestProblems;
@@ -36,6 +37,31 @@ namespace Tests.PagmoSharp
                 Assert.AreEqual(2, championDecisionVector.Count);
                 Assert.AreEqual(1, championFitnessVector.Count);
             }
+        }
+
+        private static List<DoubleVector> SnapshotObjectivePoints(population populationSnapshot)
+        {
+            using var allFitness = populationSnapshot.get_f();
+            var objectivePoints = new List<DoubleVector>(allFitness.Count);
+            for (var i = 0; i < allFitness.Count; i++)
+            {
+                var fitness = allFitness[i];
+                if (fitness.Count < 2)
+                {
+                    throw new AssertionException("Expected at least 2 objective values for multi-objective population.");
+                }
+
+                objectivePoints.Add(new DoubleVector(new[] { fitness[0], fitness[1] }));
+            }
+
+            return objectivePoints;
+        }
+
+        private static (double objective1, double objective2) GetIdealPoint(List<DoubleVector> objectivePoints)
+        {
+            using var container = new VectorOfVectorOfDoubles(objectivePoints);
+            using var ideal = pagmo.pagmo.ideal(container);
+            return (ideal[0], ideal[1]);
         }
 
         private sealed class UnsupportedAlgorithm : IAlgorithm
@@ -110,16 +136,39 @@ namespace Tests.PagmoSharp
             using IAlgorithm algo = new nsga2(8u);
             using var problem = new TwoDimensionalMultiObjectiveProblemWrapper();
 
+            algo.set_seed(2u);
             var expectedName = algo.get_name();
             var expectedObjectiveCount = problem.get_nobj();
             archi.push_back_island(algo, problem, 32, 2);
             Assert.AreEqual(1u, archi.size());
             AssertArchipelagoIslandConfiguration(archi, 0, 32, expectedName, expectedObjectiveCount, false);
 
-            archi.evolve(1);
+            using var initialIsland = archi.GetIslandCopy(0u);
+            using var initialPopulation = initialIsland.get_population();
+            var initialObjectivePoints = SnapshotObjectivePoints(initialPopulation);
+            var initialIdeal = GetIdealPoint(initialObjectivePoints);
+
+            archi.evolve(4);
             archi.wait_check();
             Assert.AreEqual(evolve_status.idle, archi.status());
             AssertArchipelagoIslandConfiguration(archi, 0, 32, expectedName, expectedObjectiveCount, false);
+
+            using var evolvedIsland = archi.GetIslandCopy(0u);
+            using var evolvedPopulation = evolvedIsland.get_population();
+            var evolvedObjectivePoints = SnapshotObjectivePoints(evolvedPopulation);
+            var evolvedIdeal = GetIdealPoint(evolvedObjectivePoints);
+
+            Assert.That(evolvedIdeal.objective1, Is.LessThanOrEqualTo(initialIdeal.objective1 + 1e-12));
+            Assert.That(evolvedIdeal.objective2, Is.LessThanOrEqualTo(initialIdeal.objective2 + 1e-12));
+            Assert.That(
+                evolvedIdeal.objective1 < initialIdeal.objective1 - 1e-9 ||
+                evolvedIdeal.objective2 < initialIdeal.objective2 - 1e-9,
+                Is.True,
+                "NSGA-II evolve should improve at least one ideal-point objective in this end-to-end managed runtime flow.");
+
+            using var evolvedObjectiveContainer = new VectorOfVectorOfDoubles(evolvedObjectivePoints);
+            using var front = pagmo.pagmo.non_dominated_front_2d(evolvedObjectiveContainer);
+            Assert.That(front.Count, Is.GreaterThan(1), "Evolved MO population should contain a non-trivial non-dominated front.");
         }
 
         [Test]

@@ -93,9 +93,12 @@ Last updated: 2026-03-29
 - [ ] Apply/complete C# extensibility surfaces where in v1 scope.
 - [ ] Remove/contain `SWIGTYPE_*` leakage on touched public APIs.
 - [ ] Audit and eliminate shallow raw-pointer ownership semantics across wrapper facades (copy/assign/destructor ownership rules), replacing with robust lifetime-safe patterns.
+- [x] Hardened managed policy ownership transfer paths (`r_policy`/`s_policy`) to be exception-safe after ownership release, with regression coverage for null/disposed inputs and validity checks.
+- [x] Fixed managed problem callback lifetime in native director flows by rooting `ProblemCallbackAdapter` instances via `ConditionalWeakTable`, preventing GC callback crashes during long-running native calls.
 - [ ] Normalize naming/signatures and add deeper behavior/regression tests.
 - [ ] Standardize C++?C# exception bubbling and mapping (constructor/evolve/wait paths, including async/runtime wrapper paths).
-- [ ] Replace null-return `catch (...)` patterns in native bridge with explicit error propagation so managed exceptions preserve actionable native context.
+- [x] Replace null-return `catch (...)` patterns in native bridge with explicit error propagation so managed exceptions preserve actionable native context.
+- [x] Verified non-generated native bridge surface (`managed_bridge.cpp`) consistently records contextual thread-local errors for both `std::exception` and `catch (...)` paths before null returns, and managed interop consumes that channel.
 - [x] Add thread-local native bridge error channel for managed_bridge exports (pagmosharp_get_last_error / pagmosharp_clear_last_error) and consume it in managed interop (problem creation, population creation, gradient/sparsity helpers, BFE operators) so null-return paths surface actionable failure messages.
 - [x] Add execute-path SWIG exception context for runtime orchestration methods (`algorithm.evolve`, `island.evolve`, `island.wait`, `island.wait_check`, `archipelago.evolve`, `archipelago.wait`, `archipelago.wait_check`, `thread_island.run_evolve`) and lock behavior with regression tests.
 - [ ] Correct built-in problem `thread_safety` metadata in wrappers (remove placeholder `none` defaults where inaccurate) and add threaded runtime verification coverage.
@@ -103,7 +106,7 @@ Last updated: 2026-03-29
 - [x] Investigate and eliminate full-suite post-run test-host crashes (all tests pass but host process aborts during teardown), with explicit native-lifetime root cause and regression guard (resolved by switching midpoint probe vector construction to array-based initialization in `TestProblemBase`).
 - [x] Deduplicate SWIG director/include declarations in root interface and keep one canonical registration path for `problem`, `r_policy`, and `s_policy` bridges.
 - [x] Normalize SWIG fragment hygiene by removing per-file `%module` directives from included `.i` fragments and keeping module definition at the root interface only.
-- [ ] Complete multi-objective support end-to-end (problem/algorithm flows, champion and population semantics, and static helper functions in `utils/multi_objective`).
+- [x] Complete multi-objective support end-to-end (problem/algorithm flows, champion and population semantics, and static helper functions in `utils/multi_objective`).
 - [ ] Define and implement a project-wide std::size_t managed mapping strategy (beyond current migration-entry adapter conversion) without breaking SWIG STL wrappers/ABI contracts.
 - [x] Documented Sprint 3B size_t compatibility matrix and phased plan in `.ai/SIZE_T_STRATEGY.md`.
 - [ ] Implement managed projection wrappers for remaining size_t-heavy opaque log/sparsity surfaces so touched public APIs avoid `SWIGTYPE_*size_t*`.
@@ -116,6 +119,11 @@ Last updated: 2026-03-29
 - [x] Added fifth size_t projection slice: de log projection (get_log_entries + typed/generic managed logs) with field-parity assertions in Test_de.
 - [x] Added sixth size_t projection slice: cmaes log projection (get_log_entries + typed/generic managed logs) with field-parity assertions in Test_cmaes.
 - [x] Completed algorithm-log projection sweep for all active wrapped algorithms that expose logs in v1 surface (`bee_colony`, `compass_search`, `cmaes`, `cstrs_self_adaptive`, `de`, `de1220`, `gaco`, `gwo`, `ihs`, `maco`, `mbh`, `moead`, `moead_gen`, `nsga2`, `nspso`, `pso`, `pso_gen`, `sade`, `sea`, `sga`, `simulated_annealing`, `xnes`), with universal `IAlgorithm.GetLogLines()` plus typed `GetTypedLogLines()` surfaces and shared evolve-path log assertions.
+- [x] Added a concrete end-to-end constrained optimization regression using a simple managed two-parabola problem (`objective = parabola1 + parabola2`, one inequality constraint) and asserted real feasible-objective improvement after `cstrs_self_adaptive` evolve.
+- [x] Strengthened managed multi-objective runtime regression in `archipelago` (`nsga2` + managed MO problem): assert ideal-point improvement after evolve and verify non-trivial non-dominated front extraction via `non_dominated_front_2d`.
+- [x] Expanded type-erasure bridge coverage to all active algorithm UDAs with explicit `to_algorithm()` regressions (`Test_algorithm_type_erasure_bridges`) so `AlgorithmInterop` mappings are locked by tests.
+- [x] Added end-to-end managed runtime interop coverage for all active bridged algorithms via `island.Create(IAlgorithm, IProblem, ...)` (single-objective, constrained, and multi-objective cases), including evolve/wait_check and population-shape assertions.
+- [x] Added matching `archipelago.push_back_island(IAlgorithm, IProblem, ...)` interop matrix coverage for all active bridged algorithms with evolve/wait_check and objective/champion-shape assertions.
 - [x] Add managed wrapper surface for core `utils/multi_objective` static helpers (`pareto_dominance`, `non_dominated_front_2d`, `crowding_distance`, `sort_population_mo`, `select_best_N_mo`, `ideal`, `nadir`, `decompose_objectives`) and assert concrete behavior in `Test_multi_objective`.
 - [x] Assert and lock multi-objective population semantics in shared algorithm tests: champion_x/champion_f must throw on multi-objective populations while get_x/get_f remain the supported data path.
 - [x] Reduce wrapper layering for multi-objective helpers by removing intermediate MultiObjectiveUtils C++/C# helper classes and exposing direct pagmo.pagmo.* static bindings via SWIG namespace declarations.

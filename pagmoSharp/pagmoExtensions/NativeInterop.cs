@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 namespace pagmo
@@ -40,6 +42,49 @@ namespace pagmo
         [DllImport(NativeLib, EntryPoint = "pagmosharp_clear_last_error", CallingConvention = CallingConvention.Cdecl)]
         private static extern void clear_last_error();
 
+        private sealed class CallbackRootBucket
+        {
+            private readonly List<GCHandle> _handles = new();
+            private readonly object _gate = new();
+
+            public void Add(problem_callback callback)
+            {
+                lock (_gate)
+                {
+                    _handles.Add(GCHandle.Alloc(callback));
+                }
+            }
+
+            ~CallbackRootBucket()
+            {
+                lock (_gate)
+                {
+                    for (var i = 0; i < _handles.Count; i++)
+                    {
+                        if (_handles[i].IsAllocated)
+                        {
+                            _handles[i].Free();
+                        }
+                    }
+
+                    _handles.Clear();
+                }
+            }
+        }
+
+        private static readonly ConditionalWeakTable<object, CallbackRootBucket> ProblemCallbackRoots = new();
+
+        internal static void AttachProblemCallbackRoot(object owner, problem_callback callback)
+        {
+            if (owner == null || callback == null)
+            {
+                return;
+            }
+
+            var bucket = ProblemCallbackRoots.GetOrCreateValue(owner);
+            bucket.Add(callback);
+        }
+
         internal static string TakeLastErrorOrDefault(string fallbackMessage)
         {
             var errorPtr = get_last_error();
@@ -59,6 +104,8 @@ namespace pagmo
                     TakeLastErrorOrDefault("Failed to build native pagmo::problem from IProblem callback."));
             }
 
+            // Keep director delegates alive for the same managed owner lifetime to avoid callback GC crashes.
+            AttachProblemCallbackRoot(problem, callback);
             return problemPtr;
         }
 
