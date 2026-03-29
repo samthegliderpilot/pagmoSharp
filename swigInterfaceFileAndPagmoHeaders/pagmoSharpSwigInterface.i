@@ -61,13 +61,19 @@ PAGMOSHARP_EXEC_EXCEPTION(pagmo::thread_island::run_evolve, "thread_island.run_e
 	    
 	#include "problem.h" // this is a manually created item.  We want to include it in the wrappers so the generated cxx code can use the handwritten code for the problem
 	#include "tuple_adapters.h"
+	#include "cstrs_log_projection.h"
 	#include "gaco_log_projection.h"
+	#include "ihs_log_projection.h"
+	#include "mbh_log_projection.h"
 	#include "r_policy.h"
 	#include "s_policy.h"
 	//#include "multi_objective.h"
 %}
 %include "pagmoWrapper/tuple_adapters.h"
+%include "pagmoWrapper/cstrs_log_projection.h"
 %include "pagmoWrapper/gaco_log_projection.h"
+%include "pagmoWrapper/ihs_log_projection.h"
+%include "pagmoWrapper/mbh_log_projection.h"
 
 
 %include <std_shared_ptr.i>
@@ -149,7 +155,10 @@ namespace std {
   // Your tuple adapter structs:
   %template(IndividualsGroupVector)    std::vector<pagmoWrap::IndividualsGroup>;
   %template(MigrationEntryVector)      std::vector<pagmoWrap::MigrationEntry>;
+  %template(CstrsLogEntryVector)       std::vector<pagmoWrap::CstrsLogEntry>;
   %template(GacoLogEntryVector)        std::vector<pagmoWrap::GacoLogEntry>;
+  %template(IhsLogEntryVector)         std::vector<pagmoWrap::IhsLogEntry>;
+  %template(MbhLogEntryVector)         std::vector<pagmoWrap::MbhLogEntry>;
 }
 
 %include swigInterfaceFiles\island.i

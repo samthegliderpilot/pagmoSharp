@@ -33,4 +33,38 @@ public class Test_mbh
         Assert.AreEqual(0.15, configured[0], 1e-12);
         Assert.AreEqual(0.25, configured[1], 1e-12);
     }
+
+    [Test]
+    public void TypedAndGenericLogsAreExposed()
+    {
+        using var inner = new ihs(40u);
+        using var innerAlgo = inner.to_algorithm();
+        using var algorithm = new mbh(innerAlgo, 3u, 0.05);
+        using var problem = new rosenbrock(2u);
+        using var population = new population(problem, 48u, 2u);
+
+        algorithm.set_seed(2u);
+        algorithm.set_verbosity(1u);
+
+        using var _ = algorithm.evolve(population);
+
+        var typedLines = algorithm.GetTypedLogLines();
+        Assert.That(typedLines.Count, Is.GreaterThan(0), "mbh verbosity should produce at least one log line");
+
+        IAlgorithm algorithmInterface = algorithm;
+        var genericLines = algorithmInterface.GetLogLines();
+        Assert.That(genericLines.Count, Is.EqualTo(typedLines.Count));
+
+        var raw = genericLines[0].RawFields;
+        Assert.That(genericLines[0].AlgorithmName, Is.EqualTo("mbh"));
+        Assert.That(raw.ContainsKey("function_evaluations"), Is.True);
+        Assert.That(raw.ContainsKey("best_fitness"), Is.True);
+        Assert.That(raw.ContainsKey("violated_constraints"), Is.True);
+        Assert.That(raw.ContainsKey("violation_norm"), Is.True);
+        Assert.That(raw.ContainsKey("trial"), Is.True);
+        Assert.That(genericLines[0].ToDisplayString(), Does.Contain("fevals="));
+
+        Assert.That((ulong)raw["function_evaluations"], Is.EqualTo(typedLines[0].FunctionEvaluations));
+        Assert.That((double)raw["best_fitness"], Is.EqualTo(typedLines[0].BestFitness));
+    }
 }

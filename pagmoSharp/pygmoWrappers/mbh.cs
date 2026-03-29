@@ -146,6 +146,12 @@ public partial class mbh : global::System.IDisposable {
     return ret;
   }
 
+  public MbhLogEntryVector get_log_entries() {
+    MbhLogEntryVector ret = new MbhLogEntryVector(pagmoPINVOKE.mbh_get_log_entries(swigCPtr), true);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
   public algorithm to_algorithm() {
     algorithm ret = new algorithm(pagmoPINVOKE.mbh_to_algorithm(swigCPtr), true);
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();

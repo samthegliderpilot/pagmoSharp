@@ -31,6 +31,11 @@ public:
 };
 
 %extend pagmo::cstrs_self_adaptive {
+    std::vector<pagmoWrap::CstrsLogEntry> get_log_entries() const
+    {
+        return pagmoWrap::Cstrs_GetLogEntries(*self);
+    }
+
     pagmo::algorithm to_algorithm() const
     {
         return pagmo::algorithm(*self);

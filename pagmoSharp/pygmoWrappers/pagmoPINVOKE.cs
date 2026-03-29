@@ -297,6 +297,60 @@ class pagmoPINVOKE {
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_delete_MigrationEntry")]
   public static extern void delete_MigrationEntry(global::System.Runtime.InteropServices.HandleRef jarg1);
 
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_CstrsLogEntry_iter_set")]
+  public static extern void CstrsLogEntry_iter_set(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_CstrsLogEntry_iter_get")]
+  public static extern uint CstrsLogEntry_iter_get(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_CstrsLogEntry_fevals_set")]
+  public static extern void CstrsLogEntry_fevals_set(global::System.Runtime.InteropServices.HandleRef jarg1, ulong jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_CstrsLogEntry_fevals_get")]
+  public static extern ulong CstrsLogEntry_fevals_get(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_CstrsLogEntry_best_set")]
+  public static extern void CstrsLogEntry_best_set(global::System.Runtime.InteropServices.HandleRef jarg1, double jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_CstrsLogEntry_best_get")]
+  public static extern double CstrsLogEntry_best_get(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_CstrsLogEntry_infeasibility_set")]
+  public static extern void CstrsLogEntry_infeasibility_set(global::System.Runtime.InteropServices.HandleRef jarg1, double jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_CstrsLogEntry_infeasibility_get")]
+  public static extern double CstrsLogEntry_infeasibility_get(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_CstrsLogEntry_violated_set")]
+  public static extern void CstrsLogEntry_violated_set(global::System.Runtime.InteropServices.HandleRef jarg1, ulong jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_CstrsLogEntry_violated_get")]
+  public static extern ulong CstrsLogEntry_violated_get(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_CstrsLogEntry_violation_norm_set")]
+  public static extern void CstrsLogEntry_violation_norm_set(global::System.Runtime.InteropServices.HandleRef jarg1, double jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_CstrsLogEntry_violation_norm_get")]
+  public static extern double CstrsLogEntry_violation_norm_get(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_CstrsLogEntry_feasible_set")]
+  public static extern void CstrsLogEntry_feasible_set(global::System.Runtime.InteropServices.HandleRef jarg1, ulong jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_CstrsLogEntry_feasible_get")]
+  public static extern ulong CstrsLogEntry_feasible_get(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_new_CstrsLogEntry__SWIG_0")]
+  public static extern global::System.IntPtr new_CstrsLogEntry__SWIG_0();
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_new_CstrsLogEntry__SWIG_1")]
+  public static extern global::System.IntPtr new_CstrsLogEntry__SWIG_1(uint jarg1, ulong jarg2, double jarg3, double jarg4, ulong jarg5, double jarg6, ulong jarg7);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_delete_CstrsLogEntry")]
+  public static extern void delete_CstrsLogEntry(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_Cstrs_GetLogEntries")]
+  public static extern global::System.IntPtr Cstrs_GetLogEntries(global::System.Runtime.InteropServices.HandleRef jarg1);
+
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_GacoLogEntry_gen_set")]
   public static extern void GacoLogEntry_gen_set(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2);
 
@@ -347,6 +401,105 @@ class pagmoPINVOKE {
 
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_delete_GacoLogEntry")]
   public static extern void delete_GacoLogEntry(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_IhsLogEntry_fevals_set")]
+  public static extern void IhsLogEntry_fevals_set(global::System.Runtime.InteropServices.HandleRef jarg1, ulong jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_IhsLogEntry_fevals_get")]
+  public static extern ulong IhsLogEntry_fevals_get(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_IhsLogEntry_ppar_set")]
+  public static extern void IhsLogEntry_ppar_set(global::System.Runtime.InteropServices.HandleRef jarg1, double jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_IhsLogEntry_ppar_get")]
+  public static extern double IhsLogEntry_ppar_get(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_IhsLogEntry_bw_set")]
+  public static extern void IhsLogEntry_bw_set(global::System.Runtime.InteropServices.HandleRef jarg1, double jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_IhsLogEntry_bw_get")]
+  public static extern double IhsLogEntry_bw_get(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_IhsLogEntry_dx_set")]
+  public static extern void IhsLogEntry_dx_set(global::System.Runtime.InteropServices.HandleRef jarg1, double jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_IhsLogEntry_dx_get")]
+  public static extern double IhsLogEntry_dx_get(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_IhsLogEntry_df_set")]
+  public static extern void IhsLogEntry_df_set(global::System.Runtime.InteropServices.HandleRef jarg1, double jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_IhsLogEntry_df_get")]
+  public static extern double IhsLogEntry_df_get(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_IhsLogEntry_violated_set")]
+  public static extern void IhsLogEntry_violated_set(global::System.Runtime.InteropServices.HandleRef jarg1, ulong jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_IhsLogEntry_violated_get")]
+  public static extern ulong IhsLogEntry_violated_get(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_IhsLogEntry_violation_norm_set")]
+  public static extern void IhsLogEntry_violation_norm_set(global::System.Runtime.InteropServices.HandleRef jarg1, double jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_IhsLogEntry_violation_norm_get")]
+  public static extern double IhsLogEntry_violation_norm_get(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_IhsLogEntry_ideal_set")]
+  public static extern void IhsLogEntry_ideal_set(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_IhsLogEntry_ideal_get")]
+  public static extern global::System.IntPtr IhsLogEntry_ideal_get(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_new_IhsLogEntry__SWIG_0")]
+  public static extern global::System.IntPtr new_IhsLogEntry__SWIG_0();
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_new_IhsLogEntry__SWIG_1")]
+  public static extern global::System.IntPtr new_IhsLogEntry__SWIG_1(ulong jarg1, double jarg2, double jarg3, double jarg4, double jarg5, ulong jarg6, double jarg7, global::System.Runtime.InteropServices.HandleRef jarg8);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_delete_IhsLogEntry")]
+  public static extern void delete_IhsLogEntry(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_Ihs_GetLogEntries")]
+  public static extern global::System.IntPtr Ihs_GetLogEntries(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_MbhLogEntry_fevals_set")]
+  public static extern void MbhLogEntry_fevals_set(global::System.Runtime.InteropServices.HandleRef jarg1, ulong jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_MbhLogEntry_fevals_get")]
+  public static extern ulong MbhLogEntry_fevals_get(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_MbhLogEntry_best_set")]
+  public static extern void MbhLogEntry_best_set(global::System.Runtime.InteropServices.HandleRef jarg1, double jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_MbhLogEntry_best_get")]
+  public static extern double MbhLogEntry_best_get(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_MbhLogEntry_violated_set")]
+  public static extern void MbhLogEntry_violated_set(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_MbhLogEntry_violated_get")]
+  public static extern uint MbhLogEntry_violated_get(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_MbhLogEntry_violation_norm_set")]
+  public static extern void MbhLogEntry_violation_norm_set(global::System.Runtime.InteropServices.HandleRef jarg1, double jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_MbhLogEntry_violation_norm_get")]
+  public static extern double MbhLogEntry_violation_norm_get(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_MbhLogEntry_trial_set")]
+  public static extern void MbhLogEntry_trial_set(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_MbhLogEntry_trial_get")]
+  public static extern uint MbhLogEntry_trial_get(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_new_MbhLogEntry__SWIG_0")]
+  public static extern global::System.IntPtr new_MbhLogEntry__SWIG_0();
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_new_MbhLogEntry__SWIG_1")]
+  public static extern global::System.IntPtr new_MbhLogEntry__SWIG_1(ulong jarg1, double jarg2, uint jarg3, double jarg4, uint jarg5);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_delete_MbhLogEntry")]
+  public static extern void delete_MbhLogEntry(global::System.Runtime.InteropServices.HandleRef jarg1);
 
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_delete_problem_callback")]
   public static extern void delete_problem_callback(global::System.Runtime.InteropServices.HandleRef jarg1);
@@ -1539,6 +1692,75 @@ class pagmoPINVOKE {
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_delete_MigrationEntryVector")]
   public static extern void delete_MigrationEntryVector(global::System.Runtime.InteropServices.HandleRef jarg1);
 
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_new_CstrsLogEntryVector__SWIG_0")]
+  public static extern global::System.IntPtr new_CstrsLogEntryVector__SWIG_0();
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_new_CstrsLogEntryVector__SWIG_1")]
+  public static extern global::System.IntPtr new_CstrsLogEntryVector__SWIG_1(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_CstrsLogEntryVector_Clear")]
+  public static extern void CstrsLogEntryVector_Clear(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_CstrsLogEntryVector_Add")]
+  public static extern void CstrsLogEntryVector_Add(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_CstrsLogEntryVector_size")]
+  public static extern uint CstrsLogEntryVector_size(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_CstrsLogEntryVector_empty")]
+  public static extern bool CstrsLogEntryVector_empty(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_CstrsLogEntryVector_capacity")]
+  public static extern uint CstrsLogEntryVector_capacity(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_CstrsLogEntryVector_reserve")]
+  public static extern void CstrsLogEntryVector_reserve(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_new_CstrsLogEntryVector__SWIG_2")]
+  public static extern global::System.IntPtr new_CstrsLogEntryVector__SWIG_2(int jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_CstrsLogEntryVector_getitemcopy")]
+  public static extern global::System.IntPtr CstrsLogEntryVector_getitemcopy(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_CstrsLogEntryVector_getitem")]
+  public static extern global::System.IntPtr CstrsLogEntryVector_getitem(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_CstrsLogEntryVector_setitem")]
+  public static extern void CstrsLogEntryVector_setitem(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_CstrsLogEntryVector_AddRange")]
+  public static extern void CstrsLogEntryVector_AddRange(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_CstrsLogEntryVector_GetRange")]
+  public static extern global::System.IntPtr CstrsLogEntryVector_GetRange(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, int jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_CstrsLogEntryVector_Insert")]
+  public static extern void CstrsLogEntryVector_Insert(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_CstrsLogEntryVector_InsertRange")]
+  public static extern void CstrsLogEntryVector_InsertRange(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_CstrsLogEntryVector_RemoveAt")]
+  public static extern void CstrsLogEntryVector_RemoveAt(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_CstrsLogEntryVector_RemoveRange")]
+  public static extern void CstrsLogEntryVector_RemoveRange(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, int jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_CstrsLogEntryVector_Repeat")]
+  public static extern global::System.IntPtr CstrsLogEntryVector_Repeat(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_CstrsLogEntryVector_Reverse__SWIG_0")]
+  public static extern void CstrsLogEntryVector_Reverse__SWIG_0(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_CstrsLogEntryVector_Reverse__SWIG_1")]
+  public static extern void CstrsLogEntryVector_Reverse__SWIG_1(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, int jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_CstrsLogEntryVector_SetRange")]
+  public static extern void CstrsLogEntryVector_SetRange(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_delete_CstrsLogEntryVector")]
+  public static extern void delete_CstrsLogEntryVector(global::System.Runtime.InteropServices.HandleRef jarg1);
+
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_new_GacoLogEntryVector__SWIG_0")]
   public static extern global::System.IntPtr new_GacoLogEntryVector__SWIG_0();
 
@@ -1607,6 +1829,144 @@ class pagmoPINVOKE {
 
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_delete_GacoLogEntryVector")]
   public static extern void delete_GacoLogEntryVector(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_new_IhsLogEntryVector__SWIG_0")]
+  public static extern global::System.IntPtr new_IhsLogEntryVector__SWIG_0();
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_new_IhsLogEntryVector__SWIG_1")]
+  public static extern global::System.IntPtr new_IhsLogEntryVector__SWIG_1(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_IhsLogEntryVector_Clear")]
+  public static extern void IhsLogEntryVector_Clear(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_IhsLogEntryVector_Add")]
+  public static extern void IhsLogEntryVector_Add(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_IhsLogEntryVector_size")]
+  public static extern uint IhsLogEntryVector_size(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_IhsLogEntryVector_empty")]
+  public static extern bool IhsLogEntryVector_empty(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_IhsLogEntryVector_capacity")]
+  public static extern uint IhsLogEntryVector_capacity(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_IhsLogEntryVector_reserve")]
+  public static extern void IhsLogEntryVector_reserve(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_new_IhsLogEntryVector__SWIG_2")]
+  public static extern global::System.IntPtr new_IhsLogEntryVector__SWIG_2(int jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_IhsLogEntryVector_getitemcopy")]
+  public static extern global::System.IntPtr IhsLogEntryVector_getitemcopy(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_IhsLogEntryVector_getitem")]
+  public static extern global::System.IntPtr IhsLogEntryVector_getitem(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_IhsLogEntryVector_setitem")]
+  public static extern void IhsLogEntryVector_setitem(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_IhsLogEntryVector_AddRange")]
+  public static extern void IhsLogEntryVector_AddRange(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_IhsLogEntryVector_GetRange")]
+  public static extern global::System.IntPtr IhsLogEntryVector_GetRange(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, int jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_IhsLogEntryVector_Insert")]
+  public static extern void IhsLogEntryVector_Insert(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_IhsLogEntryVector_InsertRange")]
+  public static extern void IhsLogEntryVector_InsertRange(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_IhsLogEntryVector_RemoveAt")]
+  public static extern void IhsLogEntryVector_RemoveAt(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_IhsLogEntryVector_RemoveRange")]
+  public static extern void IhsLogEntryVector_RemoveRange(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, int jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_IhsLogEntryVector_Repeat")]
+  public static extern global::System.IntPtr IhsLogEntryVector_Repeat(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_IhsLogEntryVector_Reverse__SWIG_0")]
+  public static extern void IhsLogEntryVector_Reverse__SWIG_0(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_IhsLogEntryVector_Reverse__SWIG_1")]
+  public static extern void IhsLogEntryVector_Reverse__SWIG_1(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, int jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_IhsLogEntryVector_SetRange")]
+  public static extern void IhsLogEntryVector_SetRange(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_delete_IhsLogEntryVector")]
+  public static extern void delete_IhsLogEntryVector(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_new_MbhLogEntryVector__SWIG_0")]
+  public static extern global::System.IntPtr new_MbhLogEntryVector__SWIG_0();
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_new_MbhLogEntryVector__SWIG_1")]
+  public static extern global::System.IntPtr new_MbhLogEntryVector__SWIG_1(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_MbhLogEntryVector_Clear")]
+  public static extern void MbhLogEntryVector_Clear(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_MbhLogEntryVector_Add")]
+  public static extern void MbhLogEntryVector_Add(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_MbhLogEntryVector_size")]
+  public static extern uint MbhLogEntryVector_size(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_MbhLogEntryVector_empty")]
+  public static extern bool MbhLogEntryVector_empty(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_MbhLogEntryVector_capacity")]
+  public static extern uint MbhLogEntryVector_capacity(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_MbhLogEntryVector_reserve")]
+  public static extern void MbhLogEntryVector_reserve(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_new_MbhLogEntryVector__SWIG_2")]
+  public static extern global::System.IntPtr new_MbhLogEntryVector__SWIG_2(int jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_MbhLogEntryVector_getitemcopy")]
+  public static extern global::System.IntPtr MbhLogEntryVector_getitemcopy(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_MbhLogEntryVector_getitem")]
+  public static extern global::System.IntPtr MbhLogEntryVector_getitem(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_MbhLogEntryVector_setitem")]
+  public static extern void MbhLogEntryVector_setitem(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_MbhLogEntryVector_AddRange")]
+  public static extern void MbhLogEntryVector_AddRange(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_MbhLogEntryVector_GetRange")]
+  public static extern global::System.IntPtr MbhLogEntryVector_GetRange(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, int jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_MbhLogEntryVector_Insert")]
+  public static extern void MbhLogEntryVector_Insert(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_MbhLogEntryVector_InsertRange")]
+  public static extern void MbhLogEntryVector_InsertRange(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_MbhLogEntryVector_RemoveAt")]
+  public static extern void MbhLogEntryVector_RemoveAt(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_MbhLogEntryVector_RemoveRange")]
+  public static extern void MbhLogEntryVector_RemoveRange(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, int jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_MbhLogEntryVector_Repeat")]
+  public static extern global::System.IntPtr MbhLogEntryVector_Repeat(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_MbhLogEntryVector_Reverse__SWIG_0")]
+  public static extern void MbhLogEntryVector_Reverse__SWIG_0(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_MbhLogEntryVector_Reverse__SWIG_1")]
+  public static extern void MbhLogEntryVector_Reverse__SWIG_1(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, int jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_MbhLogEntryVector_SetRange")]
+  public static extern void MbhLogEntryVector_SetRange(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_delete_MbhLogEntryVector")]
+  public static extern void delete_MbhLogEntryVector(global::System.Runtime.InteropServices.HandleRef jarg1);
 
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_delete_island")]
   public static extern void delete_island(global::System.Runtime.InteropServices.HandleRef jarg1);
@@ -1989,6 +2349,9 @@ class pagmoPINVOKE {
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_cstrs_self_adaptive_get_log")]
   public static extern global::System.IntPtr cstrs_self_adaptive_get_log(global::System.Runtime.InteropServices.HandleRef jarg1);
 
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_cstrs_self_adaptive_get_log_entries")]
+  public static extern global::System.IntPtr cstrs_self_adaptive_get_log_entries(global::System.Runtime.InteropServices.HandleRef jarg1);
+
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_cstrs_self_adaptive_to_algorithm")]
   public static extern global::System.IntPtr cstrs_self_adaptive_to_algorithm(global::System.Runtime.InteropServices.HandleRef jarg1);
 
@@ -2042,6 +2405,9 @@ class pagmoPINVOKE {
 
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_ihs_get_log")]
   public static extern global::System.IntPtr ihs_get_log(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_ihs_get_log_entries")]
+  public static extern global::System.IntPtr ihs_get_log_entries(global::System.Runtime.InteropServices.HandleRef jarg1);
 
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_ihs_to_algorithm")]
   public static extern global::System.IntPtr ihs_to_algorithm(global::System.Runtime.InteropServices.HandleRef jarg1);
@@ -2165,6 +2531,9 @@ class pagmoPINVOKE {
 
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_mbh_get_extra_info")]
   public static extern string mbh_get_extra_info(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_mbh_get_log_entries")]
+  public static extern global::System.IntPtr mbh_get_log_entries(global::System.Runtime.InteropServices.HandleRef jarg1);
 
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_mbh_to_algorithm")]
   public static extern global::System.IntPtr mbh_to_algorithm(global::System.Runtime.InteropServices.HandleRef jarg1);

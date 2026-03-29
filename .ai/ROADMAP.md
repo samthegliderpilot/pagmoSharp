@@ -109,7 +109,10 @@ Last updated: 2026-03-29
 - [ ] Implement managed projection wrappers for remaining size_t-heavy opaque log/sparsity surfaces so touched public APIs avoid `SWIGTYPE_*size_t*`.
 - [ ] Add regression tests for size_t projection wrappers (shape/count/index transfer assertions).
 - [x] First size_t projection slice completed: gaco log projection (get_log_entries + managed GetLogLines()) with behavior assertions in Test_gaco.
-- [x] Added shared C# log abstraction (IAlgorithmLogLine + universal IAlgorithm.GetLogLines() default-empty contract) and implemented it for gaco with generic raw-field access assertions.
+- [x] Added shared C# log abstraction (IAlgorithmLogLine + universal IAlgorithm.GetLogLines() default-empty contract, no per-algorithm `IHas...` marker interface requirement) and implemented it for gaco with generic raw-field access assertions.
+- [x] Added second size_t projection slice: mbh log projection (get_log_entries + typed/generic managed logs) with field-parity assertions in Test_mbh.
+- [x] Added third size_t projection slice: ihs log projection (including ideal-point vector payload) with field-parity assertions in Test_ihs.
+- [x] Added fourth size_t projection slice: cstrs_self_adaptive log projection with typed/generic managed logs and field-parity assertions in Test_cstrs_self_adaptive.
 - [x] Add managed wrapper surface for core `utils/multi_objective` static helpers (`pareto_dominance`, `non_dominated_front_2d`, `crowding_distance`, `sort_population_mo`, `select_best_N_mo`, `ideal`, `nadir`, `decompose_objectives`) and assert concrete behavior in `Test_multi_objective`.
 - [x] Assert and lock multi-objective population semantics in shared algorithm tests: champion_x/champion_f must throw on multi-objective populations while get_x/get_f remain the supported data path.
 - [x] Reduce wrapper layering for multi-objective helpers by removing intermediate MultiObjectiveUtils C++/C# helper classes and exposing direct pagmo.pagmo.* static bindings via SWIG namespace declarations.

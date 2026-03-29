@@ -40,6 +40,7 @@
   - "No throw" is insufficient by itself.
   - Include negative-path contract tests for unsupported/invalid usage.
 - Style preference: pragmatic, minimal noise, fail-fast with useful messages at true boundaries.
+- Logging API preference: avoid per-algorithm `IHas...` marker interfaces; expose a universal `IAlgorithm.GetLogLines()` (default empty) and add typed per-algorithm log helpers where useful.
 
 ## Technical Notes / Pitfalls
 - `bfe` interop is sensitive; fake inheritance/upcasts between concrete BFE types and `bfe` can cause access violations.

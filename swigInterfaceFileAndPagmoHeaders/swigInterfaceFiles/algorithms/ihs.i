@@ -22,6 +22,11 @@ public:
 };
 
 %extend pagmo::ihs {
+    std::vector<pagmoWrap::IhsLogEntry> get_log_entries() const
+    {
+        return pagmoWrap::Ihs_GetLogEntries(*self);
+    }
+
     pagmo::algorithm to_algorithm() const
     {
         return pagmo::algorithm(*self);

@@ -11,6 +11,18 @@
 namespace pagmo {
 
 public partial class pagmo {
+  public static CstrsLogEntryVector Cstrs_GetLogEntries(cstrs_self_adaptive algo) {
+    CstrsLogEntryVector ret = new CstrsLogEntryVector(pagmoPINVOKE.Cstrs_GetLogEntries(cstrs_self_adaptive.getCPtr(algo)), true);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  public static IhsLogEntryVector Ihs_GetLogEntries(ihs algo) {
+    IhsLogEntryVector ret = new IhsLogEntryVector(pagmoPINVOKE.Ihs_GetLogEntries(ihs.getCPtr(algo)), true);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
   public static FNDSResult FastNonDominatedSorting(VectorOfVectorOfDoubles input) {
     FNDSResult ret = new FNDSResult(pagmoPINVOKE.FastNonDominatedSorting(VectorOfVectorOfDoubles.getCPtr(input)), true);
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
