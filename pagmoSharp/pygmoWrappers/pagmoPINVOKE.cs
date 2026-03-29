@@ -277,22 +277,22 @@ class pagmoPINVOKE {
   public static extern global::System.IntPtr MigrationEntry_f_get(global::System.Runtime.InteropServices.HandleRef jarg1);
 
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_MigrationEntry_migration_id_set")]
-  public static extern void MigrationEntry_migration_id_set(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
+  public static extern void MigrationEntry_migration_id_set(global::System.Runtime.InteropServices.HandleRef jarg1, ulong jarg2);
 
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_MigrationEntry_migration_id_get")]
-  public static extern global::System.IntPtr MigrationEntry_migration_id_get(global::System.Runtime.InteropServices.HandleRef jarg1);
+  public static extern ulong MigrationEntry_migration_id_get(global::System.Runtime.InteropServices.HandleRef jarg1);
 
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_MigrationEntry_immigrant_id_set")]
-  public static extern void MigrationEntry_immigrant_id_set(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
+  public static extern void MigrationEntry_immigrant_id_set(global::System.Runtime.InteropServices.HandleRef jarg1, ulong jarg2);
 
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_MigrationEntry_immigrant_id_get")]
-  public static extern global::System.IntPtr MigrationEntry_immigrant_id_get(global::System.Runtime.InteropServices.HandleRef jarg1);
+  public static extern ulong MigrationEntry_immigrant_id_get(global::System.Runtime.InteropServices.HandleRef jarg1);
 
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_new_MigrationEntry__SWIG_0")]
   public static extern global::System.IntPtr new_MigrationEntry__SWIG_0();
 
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_new_MigrationEntry__SWIG_1")]
-  public static extern global::System.IntPtr new_MigrationEntry__SWIG_1(double jarg1, ulong jarg2, global::System.Runtime.InteropServices.HandleRef jarg3, global::System.Runtime.InteropServices.HandleRef jarg4, global::System.Runtime.InteropServices.HandleRef jarg5, global::System.Runtime.InteropServices.HandleRef jarg6);
+  public static extern global::System.IntPtr new_MigrationEntry__SWIG_1(double jarg1, ulong jarg2, global::System.Runtime.InteropServices.HandleRef jarg3, global::System.Runtime.InteropServices.HandleRef jarg4, ulong jarg5, ulong jarg6);
 
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_delete_MigrationEntry")]
   public static extern void delete_MigrationEntry(global::System.Runtime.InteropServices.HandleRef jarg1);

@@ -105,25 +105,25 @@ public class MigrationEntry : global::System.IDisposable {
     } 
   }
 
-  public SWIGTYPE_p_std__size_t migration_id {
+  public ulong migration_id {
     set {
-      pagmoPINVOKE.MigrationEntry_migration_id_set(swigCPtr, SWIGTYPE_p_std__size_t.getCPtr(value));
+      pagmoPINVOKE.MigrationEntry_migration_id_set(swigCPtr, value);
       if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     } 
     get {
-      SWIGTYPE_p_std__size_t ret = new SWIGTYPE_p_std__size_t(pagmoPINVOKE.MigrationEntry_migration_id_get(swigCPtr), true);
+      ulong ret = pagmoPINVOKE.MigrationEntry_migration_id_get(swigCPtr);
       if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
       return ret;
     } 
   }
 
-  public SWIGTYPE_p_std__size_t immigrant_id {
+  public ulong immigrant_id {
     set {
-      pagmoPINVOKE.MigrationEntry_immigrant_id_set(swigCPtr, SWIGTYPE_p_std__size_t.getCPtr(value));
+      pagmoPINVOKE.MigrationEntry_immigrant_id_set(swigCPtr, value);
       if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     } 
     get {
-      SWIGTYPE_p_std__size_t ret = new SWIGTYPE_p_std__size_t(pagmoPINVOKE.MigrationEntry_immigrant_id_get(swigCPtr), true);
+      ulong ret = pagmoPINVOKE.MigrationEntry_immigrant_id_get(swigCPtr);
       if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
       return ret;
     } 
@@ -133,7 +133,7 @@ public class MigrationEntry : global::System.IDisposable {
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
-  public MigrationEntry(double t_, ulong island_id_, DoubleVector x_, DoubleVector f_, SWIGTYPE_p_std__size_t migration_id_, SWIGTYPE_p_std__size_t immigrant_id_) : this(pagmoPINVOKE.new_MigrationEntry__SWIG_1(t_, island_id_, DoubleVector.getCPtr(x_), DoubleVector.getCPtr(f_), SWIGTYPE_p_std__size_t.getCPtr(migration_id_), SWIGTYPE_p_std__size_t.getCPtr(immigrant_id_)), true) {
+  public MigrationEntry(double t_, ulong island_id_, DoubleVector x_, DoubleVector f_, ulong migration_id_, ulong immigrant_id_) : this(pagmoPINVOKE.new_MigrationEntry__SWIG_1(t_, island_id_, DoubleVector.getCPtr(x_), DoubleVector.getCPtr(f_), migration_id_, immigrant_id_), true) {
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 

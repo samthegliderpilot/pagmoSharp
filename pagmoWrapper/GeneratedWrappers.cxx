@@ -3400,58 +3400,46 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_MigrationEntry_f_get(void * jarg1) {
 }
 
 
-SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_MigrationEntry_migration_id_set(void * jarg1, void * jarg2) {
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_MigrationEntry_migration_id_set(void * jarg1, unsigned long long jarg2) {
   pagmoWrap::MigrationEntry *arg1 = 0 ;
-  std::size_t arg2 ;
-  std::size_t *argp2 ;
+  unsigned long long arg2 ;
   
   arg1 = (pagmoWrap::MigrationEntry *)jarg1; 
-  argp2 = (std::size_t *)jarg2; 
-  if (!argp2) {
-    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "Attempt to dereference null std::size_t", 0);
-    return ;
-  }
-  arg2 = *argp2; 
+  arg2 = (unsigned long long)jarg2; 
   if (arg1) (arg1)->migration_id = arg2;
 }
 
 
-SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_MigrationEntry_migration_id_get(void * jarg1) {
-  void * jresult ;
+SWIGEXPORT unsigned long long SWIGSTDCALL CSharp_pagmo_MigrationEntry_migration_id_get(void * jarg1) {
+  unsigned long long jresult ;
   pagmoWrap::MigrationEntry *arg1 = 0 ;
-  std::size_t result;
+  unsigned long long result;
   
   arg1 = (pagmoWrap::MigrationEntry *)jarg1; 
-  result =  ((arg1)->migration_id);
-  jresult = new std::size_t(result); 
+  result = (unsigned long long) ((arg1)->migration_id);
+  jresult = result; 
   return jresult;
 }
 
 
-SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_MigrationEntry_immigrant_id_set(void * jarg1, void * jarg2) {
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_MigrationEntry_immigrant_id_set(void * jarg1, unsigned long long jarg2) {
   pagmoWrap::MigrationEntry *arg1 = 0 ;
-  std::size_t arg2 ;
-  std::size_t *argp2 ;
+  unsigned long long arg2 ;
   
   arg1 = (pagmoWrap::MigrationEntry *)jarg1; 
-  argp2 = (std::size_t *)jarg2; 
-  if (!argp2) {
-    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "Attempt to dereference null std::size_t", 0);
-    return ;
-  }
-  arg2 = *argp2; 
+  arg2 = (unsigned long long)jarg2; 
   if (arg1) (arg1)->immigrant_id = arg2;
 }
 
 
-SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_MigrationEntry_immigrant_id_get(void * jarg1) {
-  void * jresult ;
+SWIGEXPORT unsigned long long SWIGSTDCALL CSharp_pagmo_MigrationEntry_immigrant_id_get(void * jarg1) {
+  unsigned long long jresult ;
   pagmoWrap::MigrationEntry *arg1 = 0 ;
-  std::size_t result;
+  unsigned long long result;
   
   arg1 = (pagmoWrap::MigrationEntry *)jarg1; 
-  result =  ((arg1)->immigrant_id);
-  jresult = new std::size_t(result); 
+  result = (unsigned long long) ((arg1)->immigrant_id);
+  jresult = result; 
   return jresult;
 }
 
@@ -3478,18 +3466,16 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_MigrationEntry__SWIG_0() {
 }
 
 
-SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_MigrationEntry__SWIG_1(double jarg1, unsigned long long jarg2, void * jarg3, void * jarg4, void * jarg5, void * jarg6) {
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_MigrationEntry__SWIG_1(double jarg1, unsigned long long jarg2, void * jarg3, void * jarg4, unsigned long long jarg5, unsigned long long jarg6) {
   void * jresult ;
   double arg1 ;
   unsigned long long arg2 ;
   pagmo::vector_double arg3 ;
   pagmo::vector_double arg4 ;
-  std::size_t arg5 ;
-  std::size_t arg6 ;
+  unsigned long long arg5 ;
+  unsigned long long arg6 ;
   pagmo::vector_double *argp3 ;
   pagmo::vector_double *argp4 ;
-  std::size_t *argp5 ;
-  std::size_t *argp6 ;
   pagmoWrap::MigrationEntry *result = 0 ;
   
   arg1 = (double)jarg1; 
@@ -3506,21 +3492,11 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_MigrationEntry__SWIG_1(double jar
     return 0;
   }
   arg4 = *argp4; 
-  argp5 = (std::size_t *)jarg5; 
-  if (!argp5) {
-    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "Attempt to dereference null std::size_t", 0);
-    return 0;
-  }
-  arg5 = *argp5; 
-  argp6 = (std::size_t *)jarg6; 
-  if (!argp6) {
-    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "Attempt to dereference null std::size_t", 0);
-    return 0;
-  }
-  arg6 = *argp6; 
+  arg5 = (unsigned long long)jarg5; 
+  arg6 = (unsigned long long)jarg6; 
   {
     try {
-      result = (pagmoWrap::MigrationEntry *)new pagmoWrap::MigrationEntry(arg1,arg2,SWIG_STD_MOVE(arg3),SWIG_STD_MOVE(arg4),SWIG_STD_MOVE(arg5),SWIG_STD_MOVE(arg6));
+      result = (pagmoWrap::MigrationEntry *)new pagmoWrap::MigrationEntry(arg1,arg2,SWIG_STD_MOVE(arg3),SWIG_STD_MOVE(arg4),arg5,arg6);
     } catch (const std::exception &e) {
       {
         SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 

@@ -29,8 +29,8 @@ namespace pagmoWrap {
         unsigned long long island_id = 0;
         pagmo::vector_double x;
         pagmo::vector_double f;
-        std::size_t migration_id = 0;
-        std::size_t immigrant_id = 0;
+        unsigned long long migration_id = 0;
+        unsigned long long immigrant_id = 0;
 
         MigrationEntry() = default;
 
@@ -38,8 +38,8 @@ namespace pagmoWrap {
             unsigned long long island_id_,
             pagmo::vector_double x_,
             pagmo::vector_double f_,
-            std::size_t migration_id_,
-            std::size_t immigrant_id_)
+            unsigned long long migration_id_,
+            unsigned long long immigrant_id_)
             : t(t_),
             island_id(island_id_),
             x(std::move(x_)),
@@ -53,7 +53,7 @@ namespace pagmoWrap {
 
 
 // ------------------------------------------------------------
-// Tuple helpers � NOT for SWIG parsing
+// Tuple helpers Ã¢â‚¬â€ NOT for SWIG parsing
 // ------------------------------------------------------------
 #ifndef SWIG
 
@@ -84,8 +84,8 @@ namespace pagmoWrap {
             std::get<1>(tup),
             std::get<2>(tup),
             std::get<3>(tup),
-            std::get<4>(tup),
-            std::get<5>(tup)
+            static_cast<unsigned long long>(std::get<4>(tup)),
+            static_cast<unsigned long long>(std::get<5>(tup))
         );
     }
 
@@ -97,3 +97,4 @@ namespace pagmoWrap {
 } // namespace pagmoWrap
 
 #endif
+

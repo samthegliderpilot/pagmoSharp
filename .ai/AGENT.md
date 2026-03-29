@@ -1,4 +1,4 @@
-﻿# AGENT NOTES - pagmoSharp
+# AGENT NOTES - pagmoSharp
 
 ## Project Summary
 - `pagmoSharp` is a C# wrapper/binding layer over pagmo2 using SWIG + native C++ bridge code.
@@ -45,6 +45,7 @@
 - `bfe` interop is sensitive; fake inheritance/upcasts between concrete BFE types and `bfe` can cause access violations.
 - Prefer explicit conversion to type-erased `bfe` (`to_bfe()`) over relying on unsafe casts.
 - Keep algorithm normalization centralized at the interop boundary (`IAlgorithm` -> `algorithm`).
+- `std::size_t` policy for v1: keep native `size_t` signatures and avoid global typemap flips; use managed projection wrappers to remove `SWIGTYPE_*size_t*` from touched public APIs (details: `.ai/SIZE_T_STRATEGY.md`).
 
 ## Collaboration Expectations
 - If design seems wrong or fragile, explicitly push back and explain why.

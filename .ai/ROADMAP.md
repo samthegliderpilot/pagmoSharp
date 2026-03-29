@@ -1,6 +1,6 @@
 # PagmoSharp Roadmap
 
-Last updated: 2026-03-28
+Last updated: 2026-03-29
 
 ## PagmoSharp Roadmap Reset (v1.0 with Explicit Breadth Sprint)
 
@@ -104,15 +104,21 @@ Last updated: 2026-03-28
 - [x] Deduplicate SWIG director/include declarations in root interface and keep one canonical registration path for `problem`, `r_policy`, and `s_policy` bridges.
 - [x] Normalize SWIG fragment hygiene by removing per-file `%module` directives from included `.i` fragments and keeping module definition at the root interface only.
 - [ ] Complete multi-objective support end-to-end (problem/algorithm flows, champion and population semantics, and static helper functions in `utils/multi_objective`).
+- [ ] Define and implement a project-wide std::size_t managed mapping strategy (beyond current migration-entry adapter conversion) without breaking SWIG STL wrappers/ABI contracts.
+- [x] Documented Sprint 3B size_t compatibility matrix and phased plan in `.ai/SIZE_T_STRATEGY.md`.
+- [ ] Implement managed projection wrappers for remaining size_t-heavy opaque log/sparsity surfaces so touched public APIs avoid `SWIGTYPE_*size_t*`.
+- [ ] Add regression tests for size_t projection wrappers (shape/count/index transfer assertions).
 - [x] Add managed wrapper surface for core `utils/multi_objective` static helpers (`pareto_dominance`, `non_dominated_front_2d`, `crowding_distance`, `sort_population_mo`, `select_best_N_mo`, `ideal`, `nadir`, `decompose_objectives`) and assert concrete behavior in `Test_multi_objective`.
 - [x] Assert and lock multi-objective population semantics in shared algorithm tests: champion_x/champion_f must throw on multi-objective populations while get_x/get_f remain the supported data path.
 - [x] Reduce wrapper layering for multi-objective helpers by removing intermediate MultiObjectiveUtils C++/C# helper classes and exposing direct pagmo.pagmo.* static bindings via SWIG namespace declarations.
 - [x] Remove hypervolume/hv_algorithm shared-pointer SWIGTYPE_* exposure by instantiating typed HvAlgorithmSharedPtr and add runtime selector coverage in Test_hypervolume.
+- [x] Remove MigrationEntry ID SWIGTYPE_* exposure by mapping adapter IDs (migration_id, immigrant_id) to ulong and add dedicated regression coverage in Test_migration_entry.
 - [ ] Anything from 3A is not considered production-ready until 3B gates pass.
 
 6. **Sprint 4: Documentation + Samples**
 - [ ] C#-first docs, quickstart, and canonical runnable examples.
 - [ ] Publish a supported-feature matrix by build/environment (for example optional algorithm availability such as IPOPT/NLopt).
+- [ ] Perform an exception-usage audit across managed/native wrapper layers to verify existing code is surfacing actionable exceptions consistently and not silently swallowing failure context.
 
 7. **Sprint 5: Release Readiness**
 - [ ] Packaging/versioning/changelog/release checklist and ship gates.
@@ -144,6 +150,8 @@ Last updated: 2026-03-28
 - Breadth-first then depth-hardening is intentional for large catalog onboarding.
 - `Problem` remains core and already mature enough to build on.
 - v1.0 stays Windows-first; Linux is explicitly post-release.
+
+
 
 
 
