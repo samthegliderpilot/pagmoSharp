@@ -27,10 +27,11 @@
 	#include "pagmo/population.hpp"	
 	#include "pagmo/rng.hpp"
 	#include "pagmo/s11n.hpp"	// has to do with serialization of varidec templates, which swig doesn't support and I don't think is needed for this library
-	#include "pagmo/threading.hpp" 
-	#include "pagmo/topology.hpp"
-	#include "pagmo/type_traits.hpp"
-	#include "pagmo/types.hpp"
+		#include "pagmo/threading.hpp" 
+		#include "pagmo/topology.hpp"
+		#include "pagmo/type_traits.hpp"
+		#include "pagmo/types.hpp"
+		#include "pagmo/utils/hv_algos/hv_algorithm.hpp"
 	    
 	#include "problem.h" // this is a manually created item.  We want to include it in the wrappers so the generated cxx code can use the handwritten code for the problem
 	#include "tuple_adapters.h"
@@ -114,7 +115,8 @@ namespace std {
   %template(ULongLongVector)           std::vector<unsigned long long>;
   %template(VectorOfVectorIndexes)     std::vector<std::vector<unsigned long long>>;
   %template(VectorOfVectorOfDoubles)   std::vector<std::vector<double>>;
-  %template(PairOfDoubleVectors)       std::pair<std::vector<double>, std::vector<double>>;
+	  %template(PairOfDoubleVectors)       std::pair<std::vector<double>, std::vector<double>>;
+	  %template(HvAlgorithmSharedPtr)      std::shared_ptr<pagmo::hv_algorithm>;
 
   // Your tuple adapter structs:
   %template(IndividualsGroupVector)    std::vector<pagmoWrap::IndividualsGroup>;

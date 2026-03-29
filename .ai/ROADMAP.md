@@ -98,6 +98,7 @@ Last updated: 2026-03-28
 - [ ] Replace null-return `catch (...)` patterns in native bridge with explicit error propagation so managed exceptions preserve actionable native context.
 - [x] Add thread-local native bridge error channel for managed_bridge exports (pagmosharp_get_last_error / pagmosharp_clear_last_error) and consume it in managed interop (problem creation, population creation, gradient/sparsity helpers, BFE operators) so null-return paths surface actionable failure messages.
 - [ ] Correct built-in problem `thread_safety` metadata in wrappers (remove placeholder `none` defaults where inaccurate) and add threaded runtime verification coverage.
+- [x] Partial pass: corrected placeholder thread-safety metadata from `none` to `basic` for `ackley`, `cec2006`, `golomb_ruler`, `inventory`, `minlp_rastrigin`, and `zdt`, with explicit assertions added in corresponding problem tests.
 - [x] Investigate and eliminate full-suite post-run test-host crashes (all tests pass but host process aborts during teardown), with explicit native-lifetime root cause and regression guard (resolved by switching midpoint probe vector construction to array-based initialization in `TestProblemBase`).
 - [x] Deduplicate SWIG director/include declarations in root interface and keep one canonical registration path for `problem`, `r_policy`, and `s_policy` bridges.
 - [x] Normalize SWIG fragment hygiene by removing per-file `%module` directives from included `.i` fragments and keeping module definition at the root interface only.
@@ -105,6 +106,7 @@ Last updated: 2026-03-28
 - [x] Add managed wrapper surface for core `utils/multi_objective` static helpers (`pareto_dominance`, `non_dominated_front_2d`, `crowding_distance`, `sort_population_mo`, `select_best_N_mo`, `ideal`, `nadir`, `decompose_objectives`) and assert concrete behavior in `Test_multi_objective`.
 - [x] Assert and lock multi-objective population semantics in shared algorithm tests: champion_x/champion_f must throw on multi-objective populations while get_x/get_f remain the supported data path.
 - [x] Reduce wrapper layering for multi-objective helpers by removing intermediate MultiObjectiveUtils C++/C# helper classes and exposing direct pagmo.pagmo.* static bindings via SWIG namespace declarations.
+- [x] Remove hypervolume/hv_algorithm shared-pointer SWIGTYPE_* exposure by instantiating typed HvAlgorithmSharedPtr and add runtime selector coverage in Test_hypervolume.
 - [ ] Anything from 3A is not considered production-ready until 3B gates pass.
 
 6. **Sprint 4: Documentation + Samples**
@@ -141,6 +143,7 @@ Last updated: 2026-03-28
 - Breadth-first then depth-hardening is intentional for large catalog onboarding.
 - `Problem` remains core and already mature enough to build on.
 - v1.0 stays Windows-first; Linux is explicitly post-release.
+
 
 
 

@@ -42,5 +42,5 @@ bool has_batch_fitness() const
 %extend pagmo::golomb_ruler{
 thread_safety get_thread_safety() const
 {
-	return pagmo::thread_safety::none; //TODO: What is the right answer?
+	return pagmo::thread_safety::basic;
 } };

@@ -36,7 +36,7 @@ vector_double::size_type get_nobj() const
 %extend pagmo::cec2006{
 thread_safety get_thread_safety() const
 {
-	return pagmo::thread_safety::none; //TODO: What is the right answer?
+	return pagmo::thread_safety::basic;
 } };
 
 %extend pagmo::cec2006{

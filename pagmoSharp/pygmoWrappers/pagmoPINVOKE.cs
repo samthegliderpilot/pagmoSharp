@@ -1344,6 +1344,12 @@ class pagmoPINVOKE {
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_delete_PairOfDoubleVectors")]
   public static extern void delete_PairOfDoubleVectors(global::System.Runtime.InteropServices.HandleRef jarg1);
 
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_new_HvAlgorithmSharedPtr")]
+  public static extern global::System.IntPtr new_HvAlgorithmSharedPtr();
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_delete_HvAlgorithmSharedPtr")]
+  public static extern void delete_HvAlgorithmSharedPtr(global::System.Runtime.InteropServices.HandleRef jarg1);
+
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_new_IndividualsGroupVector__SWIG_0")]
   public static extern global::System.IntPtr new_IndividualsGroupVector__SWIG_0();
 
@@ -2513,6 +2519,15 @@ class pagmoPINVOKE {
 
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_hypervolume_greatest_contributor__SWIG_1")]
   public static extern ulong hypervolume_greatest_contributor__SWIG_1(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_hypervolume_compute_via_best_compute")]
+  public static extern double hypervolume_compute_via_best_compute(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_hypervolume_exclusive_via_best_exclusive")]
+  public static extern double hypervolume_exclusive_via_best_exclusive(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_hypervolume_contributions_via_best_contributions")]
+  public static extern global::System.IntPtr hypervolume_contributions_via_best_contributions(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
 
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_delete_hypervolume")]
   public static extern void delete_hypervolume(global::System.Runtime.InteropServices.HandleRef jarg1);

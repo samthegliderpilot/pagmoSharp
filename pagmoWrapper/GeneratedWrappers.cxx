@@ -490,10 +490,11 @@ SWIGINTERN void SWIG_CSharpException(int code, const char *msg) {
 	#include "pagmo/population.hpp"	
 	#include "pagmo/rng.hpp"
 	#include "pagmo/s11n.hpp"	// has to do with serialization of varidec templates, which swig doesn't support and I don't think is needed for this library
-	#include "pagmo/threading.hpp" 
-	#include "pagmo/topology.hpp"
-	#include "pagmo/type_traits.hpp"
-	#include "pagmo/types.hpp"
+		#include "pagmo/threading.hpp" 
+		#include "pagmo/topology.hpp"
+		#include "pagmo/type_traits.hpp"
+		#include "pagmo/types.hpp"
+		#include "pagmo/utils/hv_algos/hv_algorithm.hpp"
 	    
 	#include "problem.h" // this is a manually created item.  We want to include it in the wrappers so the generated cxx code can use the handwritten code for the problem
 	#include "tuple_adapters.h"
@@ -1750,6 +1751,7 @@ SWIGINTERN pagmoWrap::IndividualsGroup pagmo_select_best_select(pagmo::select_be
 #include "pagmo/utils/hypervolume.hpp"
 
 #include <memory>
+#include <stdexcept>
 #include <vector>
 
 #include "pagmo/detail/visibility.hpp"
@@ -1758,6 +1760,27 @@ SWIGINTERN pagmoWrap::IndividualsGroup pagmo_select_best_select(pagmo::select_be
 #include "pagmo/types.hpp"
 #include "pagmo/utils/hv_algos/hv_algorithm.hpp"
 
+SWIGINTERN double pagmo_hypervolume_compute_via_best_compute(pagmo::hypervolume const *self,pagmo::vector_double const &reference_point){
+        auto selected = self->get_best_compute(reference_point);
+        if (!selected) {
+            throw std::runtime_error("get_best_compute returned null algorithm.");
+        }
+        return self->compute(reference_point, *selected);
+    }
+SWIGINTERN double pagmo_hypervolume_exclusive_via_best_exclusive(pagmo::hypervolume const *self,unsigned int point_index,pagmo::vector_double const &reference_point){
+        auto selected = self->get_best_exclusive(point_index, reference_point);
+        if (!selected) {
+            throw std::runtime_error("get_best_exclusive returned null algorithm.");
+        }
+        return self->exclusive(point_index, reference_point, *selected);
+    }
+SWIGINTERN std::vector< double > pagmo_hypervolume_contributions_via_best_contributions(pagmo::hypervolume const *self,pagmo::vector_double const &reference_point){
+        auto selected = self->get_best_contributions(reference_point);
+        if (!selected) {
+            throw std::runtime_error("get_best_contributions returned null algorithm.");
+        }
+        return self->contributions(reference_point, *selected);
+    }
 
 #include "pagmo/algorithm.hpp"
 #include "pagmo/algorithms/cmaes.hpp"
@@ -1866,7 +1889,7 @@ SWIGINTERN bool pagmo_ackley_has_batch_fitness(pagmo::ackley const *self){
 	return true;
 }
 SWIGINTERN pagmo::thread_safety pagmo_ackley_get_thread_safety(pagmo::ackley const *self){
-	return pagmo::thread_safety::none; //TODO: What is the right answer?
+	return pagmo::thread_safety::basic;
 }
 
 #include "pagmo/problems/cec2006.hpp"
@@ -1879,7 +1902,7 @@ SWIGINTERN pagmo::vector_double::size_type pagmo_cec2006_get_nobj(pagmo::cec2006
    return 1;
 }
 SWIGINTERN pagmo::thread_safety pagmo_cec2006_get_thread_safety(pagmo::cec2006 const *self){
-	return pagmo::thread_safety::none; //TODO: What is the right answer?
+	return pagmo::thread_safety::basic;
 }
 SWIGINTERN bool pagmo_cec2006_has_batch_fitness(pagmo::cec2006 const *self){
 	return false;
@@ -2006,7 +2029,7 @@ SWIGINTERN bool pagmo_golomb_ruler_has_batch_fitness(pagmo::golomb_ruler const *
 	return true;
 }
 SWIGINTERN pagmo::thread_safety pagmo_golomb_ruler_get_thread_safety(pagmo::golomb_ruler const *self){
-	return pagmo::thread_safety::none; //TODO: What is the right answer?
+	return pagmo::thread_safety::basic;
 }
 
 #include "pagmo/problems/griewank.hpp"
@@ -2050,7 +2073,7 @@ SWIGINTERN bool pagmo_inventory_has_batch_fitness(pagmo::inventory const *self){
 	return true;
 }
 SWIGINTERN pagmo::thread_safety pagmo_inventory_get_thread_safety(pagmo::inventory const *self){
-	return pagmo::thread_safety::none; //TODO: What is the right answer?
+	return pagmo::thread_safety::basic;
 }
 
 #include "pagmo/problems/lennard_jones.hpp"
@@ -2110,7 +2133,7 @@ SWIGINTERN bool pagmo_minlp_rastrigin_has_batch_fitness(pagmo::minlp_rastrigin c
 	return true;
 }
 SWIGINTERN pagmo::thread_safety pagmo_minlp_rastrigin_get_thread_safety(pagmo::minlp_rastrigin const *self){
-	return pagmo::thread_safety::none; //TODO: What is the right answer?
+	return pagmo::thread_safety::basic;
 }
 
 #include "pagmo/problems/null_problem.hpp"
@@ -2232,7 +2255,7 @@ SWIGINTERN bool pagmo_zdt_has_batch_fitness(pagmo::zdt const *self){
 	return true;
 }
 SWIGINTERN pagmo::thread_safety pagmo_zdt_get_thread_safety(pagmo::zdt const *self){
-	return pagmo::thread_safety::none; //TODO: What is the right answer?
+	return pagmo::thread_safety::basic;
 }
 
 #include <cmath>
@@ -12562,6 +12585,48 @@ SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_delete_PairOfDoubleVectors(void * jarg1
 }
 
 
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_HvAlgorithmSharedPtr() {
+  void * jresult ;
+  std::shared_ptr< pagmo::hv_algorithm > *result = 0 ;
+  
+  {
+    try {
+      result = (std::shared_ptr< pagmo::hv_algorithm > *)new std::shared_ptr< pagmo::hv_algorithm >();
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_delete_HvAlgorithmSharedPtr(void * jarg1) {
+  std::shared_ptr< pagmo::hv_algorithm > *arg1 = 0 ;
+  
+  arg1 = (std::shared_ptr< pagmo::hv_algorithm > *)jarg1; 
+  {
+    try {
+      delete arg1;
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return ; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return ; 
+      };
+    }
+  }
+}
+
+
 SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_IndividualsGroupVector__SWIG_0() {
   void * jresult ;
   std::vector< pagmoWrap::IndividualsGroup > *result = 0 ;
@@ -22555,7 +22620,7 @@ SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_hv_algorithm_verify_before_compute(void
 SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_hv_algorithm_clone(void * jarg1) {
   void * jresult ;
   pagmo::hv_algorithm *arg1 = 0 ;
-  SwigValueWrapper< std::shared_ptr< pagmo::hv_algorithm > > result;
+  std::shared_ptr< pagmo::hv_algorithm > result;
   
   arg1 = (pagmo::hv_algorithm *)jarg1; 
   {
@@ -22956,7 +23021,7 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_hypervolume_get_best_compute(void * j
   void * jresult ;
   pagmo::hypervolume *arg1 = 0 ;
   pagmo::vector_double *arg2 = 0 ;
-  SwigValueWrapper< std::shared_ptr< pagmo::hv_algorithm > > result;
+  std::shared_ptr< pagmo::hv_algorithm > result;
   
   arg1 = (pagmo::hypervolume *)jarg1; 
   arg2 = (pagmo::vector_double *)jarg2;
@@ -22987,7 +23052,7 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_hypervolume_get_best_exclusive(void *
   pagmo::hypervolume *arg1 = 0 ;
   unsigned int arg2 ;
   pagmo::vector_double *arg3 = 0 ;
-  SwigValueWrapper< std::shared_ptr< pagmo::hv_algorithm > > result;
+  std::shared_ptr< pagmo::hv_algorithm > result;
   
   arg1 = (pagmo::hypervolume *)jarg1; 
   arg2 = (unsigned int)jarg2; 
@@ -23018,7 +23083,7 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_hypervolume_get_best_contributions(vo
   void * jresult ;
   pagmo::hypervolume *arg1 = 0 ;
   pagmo::vector_double *arg2 = 0 ;
-  SwigValueWrapper< std::shared_ptr< pagmo::hv_algorithm > > result;
+  std::shared_ptr< pagmo::hv_algorithm > result;
   
   arg1 = (pagmo::hypervolume *)jarg1; 
   arg2 = (pagmo::vector_double *)jarg2;
@@ -23382,6 +23447,98 @@ SWIGEXPORT unsigned long long SWIGSTDCALL CSharp_pagmo_hypervolume_greatest_cont
   {
     jresult = result;
   }
+  return jresult;
+}
+
+
+SWIGEXPORT double SWIGSTDCALL CSharp_pagmo_hypervolume_compute_via_best_compute(void * jarg1, void * jarg2) {
+  double jresult ;
+  pagmo::hypervolume *arg1 = 0 ;
+  pagmo::vector_double *arg2 = 0 ;
+  double result;
+  
+  arg1 = (pagmo::hypervolume *)jarg1; 
+  arg2 = (pagmo::vector_double *)jarg2;
+  if (!arg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "pagmo::vector_double const & is null", 0);
+    return 0;
+  } 
+  {
+    try {
+      result = (double)pagmo_hypervolume_compute_via_best_compute((pagmo::hypervolume const *)arg1,(std::vector< double > const &)*arg2);
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT double SWIGSTDCALL CSharp_pagmo_hypervolume_exclusive_via_best_exclusive(void * jarg1, unsigned int jarg2, void * jarg3) {
+  double jresult ;
+  pagmo::hypervolume *arg1 = 0 ;
+  unsigned int arg2 ;
+  pagmo::vector_double *arg3 = 0 ;
+  double result;
+  
+  arg1 = (pagmo::hypervolume *)jarg1; 
+  arg2 = (unsigned int)jarg2; 
+  arg3 = (pagmo::vector_double *)jarg3;
+  if (!arg3) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "pagmo::vector_double const & is null", 0);
+    return 0;
+  } 
+  {
+    try {
+      result = (double)pagmo_hypervolume_exclusive_via_best_exclusive((pagmo::hypervolume const *)arg1,arg2,(std::vector< double > const &)*arg3);
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_hypervolume_contributions_via_best_contributions(void * jarg1, void * jarg2) {
+  void * jresult ;
+  pagmo::hypervolume *arg1 = 0 ;
+  pagmo::vector_double *arg2 = 0 ;
+  std::vector< double > result;
+  
+  arg1 = (pagmo::hypervolume *)jarg1; 
+  arg2 = (pagmo::vector_double *)jarg2;
+  if (!arg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "pagmo::vector_double const & is null", 0);
+    return 0;
+  } 
+  {
+    try {
+      result = pagmo_hypervolume_contributions_via_best_contributions((pagmo::hypervolume const *)arg1,(std::vector< double > const &)*arg2);
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = new std::vector< double >(result); 
   return jresult;
 }
 

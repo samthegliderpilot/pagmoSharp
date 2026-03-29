@@ -110,8 +110,8 @@ public partial class hv_algorithm : global::System.IDisposable {
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
-  public virtual SWIGTYPE_p_std__shared_ptrT_pagmo__hv_algorithm_t clone() {
-    SWIGTYPE_p_std__shared_ptrT_pagmo__hv_algorithm_t ret = new SWIGTYPE_p_std__shared_ptrT_pagmo__hv_algorithm_t(pagmoPINVOKE.hv_algorithm_clone(swigCPtr), true);
+  public virtual HvAlgorithmSharedPtr clone() {
+    HvAlgorithmSharedPtr ret = new HvAlgorithmSharedPtr(pagmoPINVOKE.hv_algorithm_clone(swigCPtr), true);
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }

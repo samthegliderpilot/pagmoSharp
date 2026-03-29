@@ -22,7 +22,7 @@ public class Test_decompose : TestProblemBase
         Assert.AreEqual(0u, problem.get_nec());
         Assert.AreEqual(0u, problem.get_nic());
         Assert.AreEqual(0u, problem.get_nix());
-        Assert.AreEqual(thread_safety.none, problem.get_thread_safety());
+        Assert.AreEqual(thread_safety.basic, problem.get_thread_safety());
         Assert.IsFalse(problem.has_batch_fitness());
 
         using var bounds = problem.get_bounds();

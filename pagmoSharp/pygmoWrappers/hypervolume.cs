@@ -121,20 +121,20 @@ public partial class hypervolume : global::System.IDisposable {
     return ret;
   }
 
-  public SWIGTYPE_p_std__shared_ptrT_pagmo__hv_algorithm_t get_best_compute(DoubleVector arg0) {
-    SWIGTYPE_p_std__shared_ptrT_pagmo__hv_algorithm_t ret = new SWIGTYPE_p_std__shared_ptrT_pagmo__hv_algorithm_t(pagmoPINVOKE.hypervolume_get_best_compute(swigCPtr, DoubleVector.getCPtr(arg0)), true);
+  public HvAlgorithmSharedPtr get_best_compute(DoubleVector arg0) {
+    HvAlgorithmSharedPtr ret = new HvAlgorithmSharedPtr(pagmoPINVOKE.hypervolume_get_best_compute(swigCPtr, DoubleVector.getCPtr(arg0)), true);
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
-  public SWIGTYPE_p_std__shared_ptrT_pagmo__hv_algorithm_t get_best_exclusive(uint arg0, DoubleVector arg1) {
-    SWIGTYPE_p_std__shared_ptrT_pagmo__hv_algorithm_t ret = new SWIGTYPE_p_std__shared_ptrT_pagmo__hv_algorithm_t(pagmoPINVOKE.hypervolume_get_best_exclusive(swigCPtr, arg0, DoubleVector.getCPtr(arg1)), true);
+  public HvAlgorithmSharedPtr get_best_exclusive(uint arg0, DoubleVector arg1) {
+    HvAlgorithmSharedPtr ret = new HvAlgorithmSharedPtr(pagmoPINVOKE.hypervolume_get_best_exclusive(swigCPtr, arg0, DoubleVector.getCPtr(arg1)), true);
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
-  public SWIGTYPE_p_std__shared_ptrT_pagmo__hv_algorithm_t get_best_contributions(DoubleVector arg0) {
-    SWIGTYPE_p_std__shared_ptrT_pagmo__hv_algorithm_t ret = new SWIGTYPE_p_std__shared_ptrT_pagmo__hv_algorithm_t(pagmoPINVOKE.hypervolume_get_best_contributions(swigCPtr, DoubleVector.getCPtr(arg0)), true);
+  public HvAlgorithmSharedPtr get_best_contributions(DoubleVector arg0) {
+    HvAlgorithmSharedPtr ret = new HvAlgorithmSharedPtr(pagmoPINVOKE.hypervolume_get_best_contributions(swigCPtr, DoubleVector.getCPtr(arg0)), true);
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
@@ -195,6 +195,24 @@ public partial class hypervolume : global::System.IDisposable {
 
   public ulong greatest_contributor(DoubleVector arg0) {
     ulong ret = pagmoPINVOKE.hypervolume_greatest_contributor__SWIG_1(swigCPtr, DoubleVector.getCPtr(arg0));
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  public double compute_via_best_compute(DoubleVector reference_point) {
+    double ret = pagmoPINVOKE.hypervolume_compute_via_best_compute(swigCPtr, DoubleVector.getCPtr(reference_point));
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  public double exclusive_via_best_exclusive(uint point_index, DoubleVector reference_point) {
+    double ret = pagmoPINVOKE.hypervolume_exclusive_via_best_exclusive(swigCPtr, point_index, DoubleVector.getCPtr(reference_point));
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  public DoubleVector contributions_via_best_contributions(DoubleVector reference_point) {
+    DoubleVector ret = new DoubleVector(pagmoPINVOKE.hypervolume_contributions_via_best_contributions(swigCPtr, DoubleVector.getCPtr(reference_point)), true);
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }

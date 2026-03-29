@@ -29,6 +29,7 @@ namespace Tests.PagmoSharp.Problems
             Assert.AreEqual(0, problem.get_nec(), "equality constraint count");
             Assert.AreEqual(1, problem.get_nobj(), "objective count");
             Assert.AreEqual(0, problem.get_nix(), "integer count");
+            Assert.AreEqual(thread_safety.basic, problem.get_thread_safety(), "thread safety");
             var bounds = problem.get_bounds();
             Assert.IsNotNull(bounds);
             Assert.AreEqual(4, bounds.first.Count, "first element is length 4");
