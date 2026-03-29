@@ -30,6 +30,23 @@ namespace Tests.PagmoSharp.Algorithms
             return algorithm.evolve(population);
         }
 
+        private static void AssertChampionUnavailableForMultiObjectivePopulation(population finalPopulation)
+        {
+            var championFitnessException = Assert.Throws<ApplicationException>(() =>
+            {
+                using var _ = finalPopulation.champion_f();
+            });
+            Assert.That(championFitnessException, Is.Not.Null);
+            Assert.That(championFitnessException!.Message.ToLowerInvariant(), Does.Contain("single objective"));
+
+            var championDecisionException = Assert.Throws<ApplicationException>(() =>
+            {
+                using var _ = finalPopulation.champion_x();
+            });
+            Assert.That(championDecisionException, Is.Not.Null);
+            Assert.That(championDecisionException!.Message.ToLowerInvariant(), Does.Contain("single objective"));
+        }
+
         [Test]
         public virtual void TestOneDimensionalProblem()
         {
@@ -259,6 +276,8 @@ namespace Tests.PagmoSharp.Algorithms
                 {
                     Assert.AreEqual(expectedFitnessVectorCount, allFitness[individualIndex].Count, "fitness vector size should match objective+constraint counts");
                 }
+
+                AssertChampionUnavailableForMultiObjectivePopulation(finalpop);
             }
         }
 
@@ -294,6 +313,8 @@ namespace Tests.PagmoSharp.Algorithms
             {
                 Assert.AreEqual(expectedFitnessVectorCount, allFitness[individualIndex].Count, "fitness vector size should match objective+constraint counts");
             }
+
+            AssertChampionUnavailableForMultiObjectivePopulation(finalPopulation);
         }
     }
 }
