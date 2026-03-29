@@ -166,6 +166,12 @@ public partial class gaco : global::System.IDisposable {
     return ret;
   }
 
+  public GacoLogEntryVector get_log_entries() {
+    GacoLogEntryVector ret = new GacoLogEntryVector(pagmoPINVOKE.gaco_get_log_entries(swigCPtr), true);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
 }
 
 }

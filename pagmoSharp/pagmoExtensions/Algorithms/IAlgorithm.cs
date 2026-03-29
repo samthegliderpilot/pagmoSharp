@@ -1,4 +1,5 @@
-﻿using System;
+using System;
+using System.Collections.Generic;
 
 namespace pagmo
 {
@@ -13,7 +14,7 @@ namespace pagmo
         /// </summary>
         /// <param name="pop">The population to evolve.</param>
         /// <returns>The evolved population.</returns>
-		public population evolve(population pop);
+        public population evolve(population pop);
 
         /// <summary>
         /// Sets the seed value to use when evolving the population.
@@ -50,5 +51,11 @@ namespace pagmo
         /// </summary>
         /// <returns>Any extra info included with the algorithm.</returns>
         public string get_extra_info();
+
+        /// <summary>
+        /// Returns algorithm log lines using a child-type-agnostic shape.
+        /// Algorithms that do not expose logs return an empty list.
+        /// </summary>
+        public IReadOnlyList<IAlgorithmLogLine> GetLogLines() => Array.Empty<IAlgorithmLogLine>();
     }
 }

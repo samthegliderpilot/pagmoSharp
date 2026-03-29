@@ -25,3 +25,10 @@ public:
 	typedef std::vector<log_line_type> log_type;
 	extern const log_type& get_log() const;
 };
+
+%extend gaco {
+    std::vector<pagmoWrap::GacoLogEntry> get_log_entries() const
+    {
+        return pagmoWrap::Gaco_GetLogEntries(*$self);
+    }
+}
