@@ -34,6 +34,20 @@ namespace pagmo
         [DllImport(NativeLib, EntryPoint = "pagmosharp_estimate_sparsity_problem", CallingConvention = CallingConvention.Cdecl)]
         internal static extern IntPtr estimate_sparsity_problem(IntPtr problemPtr, IntPtr xPtr, double dx);
 
+        [DllImport(NativeLib, EntryPoint = "pagmosharp_get_last_error", CallingConvention = CallingConvention.Cdecl)]
+        private static extern IntPtr get_last_error();
+
+        [DllImport(NativeLib, EntryPoint = "pagmosharp_clear_last_error", CallingConvention = CallingConvention.Cdecl)]
+        private static extern void clear_last_error();
+
+        internal static string TakeLastErrorOrDefault(string fallbackMessage)
+        {
+            var errorPtr = get_last_error();
+            var message = errorPtr == IntPtr.Zero ? null : Marshal.PtrToStringAnsi(errorPtr);
+            clear_last_error();
+            return string.IsNullOrWhiteSpace(message) ? fallbackMessage : message!;
+        }
+
         internal static IntPtr CreateProblemPointer(IProblem problem)
         {
             var callback = new ProblemCallbackAdapter(problem);
@@ -41,7 +55,8 @@ namespace pagmo
             var problemPtr = problem_from_callback(callbackPtr);
             if (problemPtr == IntPtr.Zero)
             {
-                throw new InvalidOperationException("Failed to build native pagmo::problem from IProblem callback.");
+                throw new InvalidOperationException(
+                    TakeLastErrorOrDefault("Failed to build native pagmo::problem from IProblem callback."));
             }
 
             return problemPtr;

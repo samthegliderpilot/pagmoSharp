@@ -12,7 +12,8 @@ public static class GradientsAndHessians
         var ptr = NativeInterop.estimate_sparsity_problem(problem.getCPtr(prob).Handle, DoubleVector.getCPtr(x).Handle, dx);
         if (ptr == IntPtr.Zero)
         {
-            throw new InvalidOperationException("Native estimate_sparsity() failed.");
+            throw new InvalidOperationException(
+                NativeInterop.TakeLastErrorOrDefault("Native estimate_sparsity() failed."));
         }
 
         return new SparsityPattern(ptr, true);
@@ -29,7 +30,8 @@ public static class GradientsAndHessians
         var ptr = NativeInterop.estimate_gradient_problem(problem.getCPtr(prob).Handle, DoubleVector.getCPtr(x).Handle, dx);
         if (ptr == IntPtr.Zero)
         {
-            throw new InvalidOperationException("Native estimate_gradient() failed.");
+            throw new InvalidOperationException(
+                NativeInterop.TakeLastErrorOrDefault("Native estimate_gradient() failed."));
         }
 
         return new DoubleVector(ptr, true);
@@ -46,7 +48,8 @@ public static class GradientsAndHessians
         var ptr = NativeInterop.estimate_gradient_h_problem(problem.getCPtr(prob).Handle, DoubleVector.getCPtr(x).Handle, dx);
         if (ptr == IntPtr.Zero)
         {
-            throw new InvalidOperationException("Native estimate_gradient_h() failed.");
+            throw new InvalidOperationException(
+                NativeInterop.TakeLastErrorOrDefault("Native estimate_gradient_h() failed."));
         }
 
         return new DoubleVector(ptr, true);

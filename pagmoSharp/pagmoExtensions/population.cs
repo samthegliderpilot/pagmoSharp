@@ -22,7 +22,8 @@ namespace pagmo
                 var populationPtr = NativeInterop.population_new(problemPtr, (UIntPtr)popSize, seed);
                 if (populationPtr == IntPtr.Zero)
                 {
-                    throw new InvalidOperationException("Failed to create native pagmo::population.");
+                    throw new InvalidOperationException(
+                        NativeInterop.TakeLastErrorOrDefault("Failed to create native pagmo::population."));
                 }
 
                 return populationPtr;

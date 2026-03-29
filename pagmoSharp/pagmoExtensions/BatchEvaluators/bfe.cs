@@ -43,7 +43,8 @@ namespace pagmo
                 var resultPtr = op(bfePtr, problemPtr, DoubleVector.getCPtr(batchX).Handle);
                 if (resultPtr == IntPtr.Zero)
                 {
-                    throw new InvalidOperationException("Native batch evaluator returned null.");
+                    throw new InvalidOperationException(
+                        NativeInterop.TakeLastErrorOrDefault("Native batch evaluator returned null."));
                 }
 
                 return new DoubleVector(resultPtr, true);
