@@ -23,6 +23,16 @@ namespace Tests.PagmoSharp.Algorithms
             }
         }
 
+        [Test]
+        public void ConstructorAcceptsTypedAllowedVariantsVector()
+        {
+            using var allowedVariants = new UIntVector(new uint[] { 2u, 7u, 12u });
+            using var algorithm = new de1220(10u, allowedVariants);
+
+            Assert.AreEqual(10u, algorithm.get_gen(), "Typed allowed-variants constructor should preserve configured generation count.");
+            Assert.AreEqual("sa-DE1220: Self-adaptive Differential Evolution 1220", algorithm.get_name());
+        }
+
         /// <inheritdoc />
         public override bool Constrained => false;
 

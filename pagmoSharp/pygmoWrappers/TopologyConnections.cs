@@ -10,20 +10,20 @@
 
 namespace pagmo {
 
-public partial class ring : global::System.IDisposable {
+public class TopologyConnections : global::System.IDisposable {
   private global::System.Runtime.InteropServices.HandleRef swigCPtr;
   protected bool swigCMemOwn;
 
-  internal ring(global::System.IntPtr cPtr, bool cMemoryOwn) {
+  internal TopologyConnections(global::System.IntPtr cPtr, bool cMemoryOwn) {
     swigCMemOwn = cMemoryOwn;
     swigCPtr = new global::System.Runtime.InteropServices.HandleRef(this, cPtr);
   }
 
-  internal static global::System.Runtime.InteropServices.HandleRef getCPtr(ring obj) {
+  internal static global::System.Runtime.InteropServices.HandleRef getCPtr(TopologyConnections obj) {
     return (obj == null) ? new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero) : obj.swigCPtr;
   }
 
-  internal static global::System.Runtime.InteropServices.HandleRef swigRelease(ring obj) {
+  internal static global::System.Runtime.InteropServices.HandleRef swigRelease(TopologyConnections obj) {
     if (obj != null) {
       if (!obj.swigCMemOwn)
         throw new global::System.ApplicationException("Cannot release ownership as memory is not owned");
@@ -36,7 +36,7 @@ public partial class ring : global::System.IDisposable {
     }
   }
 
-  ~ring() {
+  ~TopologyConnections() {
     Dispose(false);
   }
 
@@ -50,52 +50,47 @@ public partial class ring : global::System.IDisposable {
       if (swigCPtr.Handle != global::System.IntPtr.Zero) {
         if (swigCMemOwn) {
           swigCMemOwn = false;
-          pagmoPINVOKE.delete_ring(swigCPtr);
+          pagmoPINVOKE.delete_TopologyConnections(swigCPtr);
         }
         swigCPtr = new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero);
       }
     }
   }
 
-  public ring() : this(pagmoPINVOKE.new_ring__SWIG_0(), true) {
+  public TopologyConnections() : this(pagmoPINVOKE.new_TopologyConnections__SWIG_0(), true) {
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
-  public ring(double arg0) : this(pagmoPINVOKE.new_ring__SWIG_1(arg0), true) {
+  public TopologyConnections(SizeTVector first, DoubleVector second) : this(pagmoPINVOKE.new_TopologyConnections__SWIG_1(SizeTVector.getCPtr(first), DoubleVector.getCPtr(second)), true) {
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
-  public ring(uint arg0, double arg1) : this(pagmoPINVOKE.new_ring__SWIG_2(arg0, arg1), true) {
+  public TopologyConnections(TopologyConnections other) : this(pagmoPINVOKE.new_TopologyConnections__SWIG_2(TopologyConnections.getCPtr(other)), true) {
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
-  public TopologyConnections get_connections(uint arg0) {
-    TopologyConnections ret = new TopologyConnections(pagmoPINVOKE.ring_get_connections(swigCPtr, arg0), true);
-    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
-    return ret;
+  public SizeTVector first {
+    set {
+      pagmoPINVOKE.TopologyConnections_first_set(swigCPtr, SizeTVector.getCPtr(value));
+      if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
+    } 
+    get {
+      SizeTVector ret = new SizeTVector(pagmoPINVOKE.TopologyConnections_first_get(swigCPtr), false);
+      if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
+      return ret;
+    } 
   }
 
-  public void push_back() {
-    pagmoPINVOKE.ring_push_back(swigCPtr);
-    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
-  }
-
-  public uint num_vertices() {
-    uint ret = pagmoPINVOKE.ring_num_vertices(swigCPtr);
-    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
-    return ret;
-  }
-
-  public string get_name() {
-    string ret = pagmoPINVOKE.ring_get_name(swigCPtr);
-    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
-    return ret;
-  }
-
-  public double get_weight() {
-    double ret = pagmoPINVOKE.ring_get_weight(swigCPtr);
-    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
-    return ret;
+  public DoubleVector second {
+    set {
+      pagmoPINVOKE.TopologyConnections_second_set(swigCPtr, DoubleVector.getCPtr(value));
+      if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
+    } 
+    get {
+      DoubleVector ret = new DoubleVector(pagmoPINVOKE.TopologyConnections_second_get(swigCPtr), false);
+      if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
+      return ret;
+    } 
   }
 
 }

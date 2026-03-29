@@ -57,8 +57,8 @@ public partial class unconnected : global::System.IDisposable {
     }
   }
 
-  public SWIGTYPE_p_std__pairT_std__vectorT_std__size_t_t_std__vectorT_double_t_t get_connections(uint arg0) {
-    SWIGTYPE_p_std__pairT_std__vectorT_std__size_t_t_std__vectorT_double_t_t ret = new SWIGTYPE_p_std__pairT_std__vectorT_std__size_t_t_std__vectorT_double_t_t(pagmoPINVOKE.unconnected_get_connections(swigCPtr, arg0), true);
+  public TopologyConnections get_connections(uint arg0) {
+    TopologyConnections ret = new TopologyConnections(pagmoPINVOKE.unconnected_get_connections(swigCPtr, arg0), true);
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }

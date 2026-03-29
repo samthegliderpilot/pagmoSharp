@@ -86,6 +86,8 @@ Last updated: 2026-03-28
   - [x] Phase 2 slice: remove SWIG `%include`-level `namespace pagmo` wrapping for `batch_evaluators` + `r/s_policies` + `topologies` by converting touched `.i` declarations to fully qualified `pagmo::` forms and moving includes outside namespace scope.
   - [x] Phase 2 slice: remove `%include`-level namespace wrapping for `utils/hv_algos/hv_algorithm` and `utils/hypervolume` (fully-qualified `pagmo::` declarations + includes moved outside namespace scope).
   - [x] Phase 2+: continue rolling namespace-wrapper removal across remaining wrapper groups (`problems/*` and residual `utils/*`, especially `utils/multi_objective`) with per-slice regen/build/test gates.
+  - [x] Remove topology connection `SWIGTYPE_*` exposure by instantiating typed SWIG templates (`SizeTVector`, `TopologyConnections`), add managed `GetConnectionsData` helpers, and strengthen topology tests to assert neighbor/weight wiring.
+  - [x] Remove `de1220` constructor `SWIGTYPE_*` leakage by instantiating typed `UIntVector` and add dedicated constructor regression coverage for `allowed_variants`.
 
 5. **Sprint 3B: Hardening + Extensibility Completion (Depth)**
 - [ ] Apply/complete C# extensibility surfaces where in v1 scope.
@@ -99,6 +101,8 @@ Last updated: 2026-03-28
 - [x] Deduplicate SWIG director/include declarations in root interface and keep one canonical registration path for `problem`, `r_policy`, and `s_policy` bridges.
 - [x] Normalize SWIG fragment hygiene by removing per-file `%module` directives from included `.i` fragments and keeping module definition at the root interface only.
 - [ ] Complete multi-objective support end-to-end (problem/algorithm flows, champion and population semantics, and static helper functions in `utils/multi_objective`).
+- [x] Add managed wrapper surface for core `utils/multi_objective` static helpers (`pareto_dominance`, `non_dominated_front_2d`, `crowding_distance`, `sort_population_mo`, `select_best_N_mo`, `ideal`, `nadir`, `decompose_objectives`) and assert concrete behavior in `Test_multi_objective`.
+- [x] Reduce wrapper layering for multi-objective helpers by removing intermediate MultiObjectiveUtils C++/C# helper classes and exposing direct pagmo.pagmo.* static bindings via SWIG namespace declarations.
 - [ ] Anything from 3A is not considered production-ready until 3B gates pass.
 
 6. **Sprint 4: Documentation + Samples**
@@ -135,6 +139,9 @@ Last updated: 2026-03-28
 - Breadth-first then depth-hardening is intentional for large catalog onboarding.
 - `Problem` remains core and already mature enough to build on.
 - v1.0 stays Windows-first; Linux is explicitly post-release.
+
+
+
 
 
 

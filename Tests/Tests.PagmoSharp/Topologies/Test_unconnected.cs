@@ -1,23 +1,34 @@
 ﻿using NUnit.Framework;
 using pagmo;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Tests.PagmoSharp.TestProblems;
-
 namespace Tests.PagmoSharp
 {
     [TestFixture]
     public class Test_unconnected
     {
-        [Test]
-        public void TestBasic() //TODO: Really understand topologies and retest
+        private static void AssertNoOutgoingConnections(unconnected topology, uint vertexId)
         {
-            unconnected thing = new unconnected();
-            Assert.IsNotNull(thing.get_connections(1));
-            Assert.AreEqual("Unconnected", thing.get_name());
+            var connections = topology.GetConnectionsData(vertexId);
+            Assert.AreEqual(
+                connections.NeighborIds.Length,
+                connections.Weights.Length,
+                $"Neighbor/weight shape mismatch for vertex {vertexId}.");
+            Assert.AreEqual(0, connections.NeighborIds.Length, $"Vertex {vertexId} should have no outgoing neighbors.");
+            Assert.AreEqual(0, connections.Weights.Length, $"Vertex {vertexId} should have no outgoing weights.");
+        }
+
+        [Test]
+        public void TestBasic()
+        {
+            using var topology = new unconnected();
+            Assert.AreEqual("Unconnected", topology.get_name());
+
+            AssertNoOutgoingConnections(topology, 0u);
+            AssertNoOutgoingConnections(topology, 1u);
+
+            topology.push_back();
+            topology.push_back();
+            AssertNoOutgoingConnections(topology, 2u);
+            AssertNoOutgoingConnections(topology, 3u);
         }
     }
 }

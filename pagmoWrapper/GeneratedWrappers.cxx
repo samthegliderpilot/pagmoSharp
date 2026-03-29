@@ -632,6 +632,213 @@ SWIGINTERN bool std_vector_Sl_double_Sg__Remove(std::vector< double > *self,doub
         }
         return false;
       }
+SWIGINTERN std::vector< unsigned int > *new_std_vector_Sl_unsigned_SS_int_Sg___SWIG_2(int capacity){
+        std::vector< unsigned int >* pv = 0;
+        if (capacity >= 0) {
+          pv = new std::vector< unsigned int >();
+          pv->reserve(capacity);
+       } else {
+          throw std::out_of_range("capacity");
+       }
+       return pv;
+      }
+SWIGINTERN unsigned int std_vector_Sl_unsigned_SS_int_Sg__getitemcopy(std::vector< unsigned int > *self,int index){
+        if (index>=0 && index<(int)self->size())
+          return (*self)[index];
+        else
+          throw std::out_of_range("index");
+      }
+SWIGINTERN std::vector< unsigned int >::value_type const &std_vector_Sl_unsigned_SS_int_Sg__getitem(std::vector< unsigned int > *self,int index){
+        if (index>=0 && index<(int)self->size())
+          return (*self)[index];
+        else
+          throw std::out_of_range("index");
+      }
+SWIGINTERN void std_vector_Sl_unsigned_SS_int_Sg__setitem(std::vector< unsigned int > *self,int index,unsigned int const &val){
+        if (index>=0 && index<(int)self->size())
+          (*self)[index] = val;
+        else
+          throw std::out_of_range("index");
+      }
+SWIGINTERN void std_vector_Sl_unsigned_SS_int_Sg__AddRange(std::vector< unsigned int > *self,std::vector< unsigned int > const &values){
+        self->insert(self->end(), values.begin(), values.end());
+      }
+SWIGINTERN std::vector< unsigned int > *std_vector_Sl_unsigned_SS_int_Sg__GetRange(std::vector< unsigned int > *self,int index,int count){
+        if (index < 0)
+          throw std::out_of_range("index");
+        if (count < 0)
+          throw std::out_of_range("count");
+        if (index >= (int)self->size()+1 || index+count > (int)self->size())
+          throw std::invalid_argument("invalid range");
+        return new std::vector< unsigned int >(self->begin()+index, self->begin()+index+count);
+      }
+SWIGINTERN void std_vector_Sl_unsigned_SS_int_Sg__Insert(std::vector< unsigned int > *self,int index,unsigned int const &x){
+        if (index>=0 && index<(int)self->size()+1)
+          self->insert(self->begin()+index, x);
+        else
+          throw std::out_of_range("index");
+      }
+SWIGINTERN void std_vector_Sl_unsigned_SS_int_Sg__InsertRange(std::vector< unsigned int > *self,int index,std::vector< unsigned int > const &values){
+        if (index>=0 && index<(int)self->size()+1)
+          self->insert(self->begin()+index, values.begin(), values.end());
+        else
+          throw std::out_of_range("index");
+      }
+SWIGINTERN void std_vector_Sl_unsigned_SS_int_Sg__RemoveAt(std::vector< unsigned int > *self,int index){
+        if (index>=0 && index<(int)self->size())
+          self->erase(self->begin() + index);
+        else
+          throw std::out_of_range("index");
+      }
+SWIGINTERN void std_vector_Sl_unsigned_SS_int_Sg__RemoveRange(std::vector< unsigned int > *self,int index,int count){
+        if (index < 0)
+          throw std::out_of_range("index");
+        if (count < 0)
+          throw std::out_of_range("count");
+        if (index >= (int)self->size()+1 || index+count > (int)self->size())
+          throw std::invalid_argument("invalid range");
+        self->erase(self->begin()+index, self->begin()+index+count);
+      }
+SWIGINTERN std::vector< unsigned int > *std_vector_Sl_unsigned_SS_int_Sg__Repeat(unsigned int const &value,int count){
+        if (count < 0)
+          throw std::out_of_range("count");
+        return new std::vector< unsigned int >(count, value);
+      }
+SWIGINTERN void std_vector_Sl_unsigned_SS_int_Sg__Reverse__SWIG_0(std::vector< unsigned int > *self){
+        std::reverse(self->begin(), self->end());
+      }
+SWIGINTERN void std_vector_Sl_unsigned_SS_int_Sg__Reverse__SWIG_1(std::vector< unsigned int > *self,int index,int count){
+        if (index < 0)
+          throw std::out_of_range("index");
+        if (count < 0)
+          throw std::out_of_range("count");
+        if (index >= (int)self->size()+1 || index+count > (int)self->size())
+          throw std::invalid_argument("invalid range");
+        std::reverse(self->begin()+index, self->begin()+index+count);
+      }
+SWIGINTERN void std_vector_Sl_unsigned_SS_int_Sg__SetRange(std::vector< unsigned int > *self,int index,std::vector< unsigned int > const &values){
+        if (index < 0)
+          throw std::out_of_range("index");
+        if (index+values.size() > self->size())
+          throw std::out_of_range("index");
+        std::copy(values.begin(), values.end(), self->begin()+index);
+      }
+SWIGINTERN bool std_vector_Sl_unsigned_SS_int_Sg__Contains(std::vector< unsigned int > *self,unsigned int const &value){
+        return std::find(self->begin(), self->end(), value) != self->end();
+      }
+SWIGINTERN int std_vector_Sl_unsigned_SS_int_Sg__IndexOf(std::vector< unsigned int > *self,unsigned int const &value){
+        int index = -1;
+        std::vector< unsigned int >::iterator it = std::find(self->begin(), self->end(), value);
+        if (it != self->end())
+          index = (int)(it - self->begin());
+        return index;
+      }
+SWIGINTERN int std_vector_Sl_unsigned_SS_int_Sg__LastIndexOf(std::vector< unsigned int > *self,unsigned int const &value){
+        int index = -1;
+        std::vector< unsigned int >::reverse_iterator rit = std::find(self->rbegin(), self->rend(), value);
+        if (rit != self->rend())
+          index = (int)(self->rend() - 1 - rit);
+        return index;
+      }
+SWIGINTERN bool std_vector_Sl_unsigned_SS_int_Sg__Remove(std::vector< unsigned int > *self,unsigned int const &value){
+        std::vector< unsigned int >::iterator it = std::find(self->begin(), self->end(), value);
+        if (it != self->end()) {
+          self->erase(it);
+          return true;
+        }
+        return false;
+      }
+SWIGINTERN std::vector< std::size_t > *new_std_vector_Sl_std_size_t_Sg___SWIG_2(int capacity){
+        std::vector< std::size_t >* pv = 0;
+        if (capacity >= 0) {
+          pv = new std::vector< std::size_t >();
+          pv->reserve(capacity);
+       } else {
+          throw std::out_of_range("capacity");
+       }
+       return pv;
+      }
+SWIGINTERN std::size_t std_vector_Sl_std_size_t_Sg__getitemcopy(std::vector< std::size_t > *self,int index){
+        if (index>=0 && index<(int)self->size())
+          return (*self)[index];
+        else
+          throw std::out_of_range("index");
+      }
+SWIGINTERN std::vector< std::size_t >::value_type const &std_vector_Sl_std_size_t_Sg__getitem(std::vector< std::size_t > *self,int index){
+        if (index>=0 && index<(int)self->size())
+          return (*self)[index];
+        else
+          throw std::out_of_range("index");
+      }
+SWIGINTERN void std_vector_Sl_std_size_t_Sg__setitem(std::vector< std::size_t > *self,int index,std::size_t const &val){
+        if (index>=0 && index<(int)self->size())
+          (*self)[index] = val;
+        else
+          throw std::out_of_range("index");
+      }
+SWIGINTERN void std_vector_Sl_std_size_t_Sg__AddRange(std::vector< std::size_t > *self,std::vector< std::size_t > const &values){
+        self->insert(self->end(), values.begin(), values.end());
+      }
+SWIGINTERN std::vector< std::size_t > *std_vector_Sl_std_size_t_Sg__GetRange(std::vector< std::size_t > *self,int index,int count){
+        if (index < 0)
+          throw std::out_of_range("index");
+        if (count < 0)
+          throw std::out_of_range("count");
+        if (index >= (int)self->size()+1 || index+count > (int)self->size())
+          throw std::invalid_argument("invalid range");
+        return new std::vector< std::size_t >(self->begin()+index, self->begin()+index+count);
+      }
+SWIGINTERN void std_vector_Sl_std_size_t_Sg__Insert(std::vector< std::size_t > *self,int index,std::size_t const &x){
+        if (index>=0 && index<(int)self->size()+1)
+          self->insert(self->begin()+index, x);
+        else
+          throw std::out_of_range("index");
+      }
+SWIGINTERN void std_vector_Sl_std_size_t_Sg__InsertRange(std::vector< std::size_t > *self,int index,std::vector< std::size_t > const &values){
+        if (index>=0 && index<(int)self->size()+1)
+          self->insert(self->begin()+index, values.begin(), values.end());
+        else
+          throw std::out_of_range("index");
+      }
+SWIGINTERN void std_vector_Sl_std_size_t_Sg__RemoveAt(std::vector< std::size_t > *self,int index){
+        if (index>=0 && index<(int)self->size())
+          self->erase(self->begin() + index);
+        else
+          throw std::out_of_range("index");
+      }
+SWIGINTERN void std_vector_Sl_std_size_t_Sg__RemoveRange(std::vector< std::size_t > *self,int index,int count){
+        if (index < 0)
+          throw std::out_of_range("index");
+        if (count < 0)
+          throw std::out_of_range("count");
+        if (index >= (int)self->size()+1 || index+count > (int)self->size())
+          throw std::invalid_argument("invalid range");
+        self->erase(self->begin()+index, self->begin()+index+count);
+      }
+SWIGINTERN std::vector< std::size_t > *std_vector_Sl_std_size_t_Sg__Repeat(std::size_t const &value,int count){
+        if (count < 0)
+          throw std::out_of_range("count");
+        return new std::vector< std::size_t >(count, value);
+      }
+SWIGINTERN void std_vector_Sl_std_size_t_Sg__Reverse__SWIG_0(std::vector< std::size_t > *self){
+        std::reverse(self->begin(), self->end());
+      }
+SWIGINTERN void std_vector_Sl_std_size_t_Sg__Reverse__SWIG_1(std::vector< std::size_t > *self,int index,int count){
+        if (index < 0)
+          throw std::out_of_range("index");
+        if (count < 0)
+          throw std::out_of_range("count");
+        if (index >= (int)self->size()+1 || index+count > (int)self->size())
+          throw std::invalid_argument("invalid range");
+        std::reverse(self->begin()+index, self->begin()+index+count);
+      }
+SWIGINTERN void std_vector_Sl_std_size_t_Sg__SetRange(std::vector< std::size_t > *self,int index,std::vector< std::size_t > const &values){
+        if (index < 0)
+          throw std::out_of_range("index");
+        if (index+values.size() > self->size())
+          throw std::out_of_range("index");
+        std::copy(values.begin(), values.end(), self->begin()+index);
+      }
 SWIGINTERN std::vector< std::pair< std::size_t,std::size_t > > *new_std_vector_Sl_std_pair_Sl_std_size_t_Sc_std_size_t_Sg__Sg___SWIG_2(int capacity){
         std::vector< std::pair< std::size_t,std::size_t > >* pv = 0;
         if (capacity >= 0) {
@@ -7206,6 +7413,1384 @@ SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_delete_DoubleVector(void * jarg1) {
 }
 
 
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_UIntVector__SWIG_0() {
+  void * jresult ;
+  std::vector< unsigned int > *result = 0 ;
+  
+  {
+    try {
+      result = (std::vector< unsigned int > *)new std::vector< unsigned int >();
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_UIntVector__SWIG_1(void * jarg1) {
+  void * jresult ;
+  std::vector< unsigned int > *arg1 = 0 ;
+  std::vector< unsigned int > *result = 0 ;
+  
+  arg1 = (std::vector< unsigned int > *)jarg1;
+  if (!arg1) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "std::vector< unsigned int > const & is null", 0);
+    return 0;
+  } 
+  {
+    try {
+      result = (std::vector< unsigned int > *)new std::vector< unsigned int >((std::vector< unsigned int > const &)*arg1);
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_UIntVector_Clear(void * jarg1) {
+  std::vector< unsigned int > *arg1 = 0 ;
+  
+  arg1 = (std::vector< unsigned int > *)jarg1; 
+  {
+    try {
+      (arg1)->clear();
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return ; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return ; 
+      };
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_UIntVector_Add(void * jarg1, unsigned int jarg2) {
+  std::vector< unsigned int > *arg1 = 0 ;
+  unsigned int *arg2 = 0 ;
+  unsigned int temp2 ;
+  
+  arg1 = (std::vector< unsigned int > *)jarg1; 
+  temp2 = (unsigned int)jarg2; 
+  arg2 = &temp2; 
+  {
+    try {
+      (arg1)->push_back((unsigned int const &)*arg2);
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return ; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return ; 
+      };
+    }
+  }
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_pagmo_UIntVector_size(void * jarg1) {
+  unsigned int jresult ;
+  std::vector< unsigned int > *arg1 = 0 ;
+  std::vector< unsigned int >::size_type result;
+  
+  arg1 = (std::vector< unsigned int > *)jarg1; 
+  {
+    try {
+      result = ((std::vector< unsigned int > const *)arg1)->size();
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = (unsigned int)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_pagmo_UIntVector_empty(void * jarg1) {
+  unsigned int jresult ;
+  std::vector< unsigned int > *arg1 = 0 ;
+  bool result;
+  
+  arg1 = (std::vector< unsigned int > *)jarg1; 
+  {
+    try {
+      result = (bool)((std::vector< unsigned int > const *)arg1)->empty();
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_pagmo_UIntVector_capacity(void * jarg1) {
+  unsigned int jresult ;
+  std::vector< unsigned int > *arg1 = 0 ;
+  std::vector< unsigned int >::size_type result;
+  
+  arg1 = (std::vector< unsigned int > *)jarg1; 
+  {
+    try {
+      result = ((std::vector< unsigned int > const *)arg1)->capacity();
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = (unsigned int)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_UIntVector_reserve(void * jarg1, unsigned int jarg2) {
+  std::vector< unsigned int > *arg1 = 0 ;
+  std::vector< unsigned int >::size_type arg2 ;
+  
+  arg1 = (std::vector< unsigned int > *)jarg1; 
+  arg2 = (std::vector< unsigned int >::size_type)jarg2; 
+  {
+    try {
+      (arg1)->reserve(SWIG_STD_MOVE(arg2));
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return ; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return ; 
+      };
+    }
+  }
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_UIntVector__SWIG_2(int jarg1) {
+  void * jresult ;
+  int arg1 ;
+  std::vector< unsigned int > *result = 0 ;
+  
+  arg1 = (int)jarg1; 
+  {
+    try {
+      try {
+        result = (std::vector< unsigned int > *)new_std_vector_Sl_unsigned_SS_int_Sg___SWIG_2(arg1);
+      } catch(std::out_of_range &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+        return 0;
+      }
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_pagmo_UIntVector_getitemcopy(void * jarg1, int jarg2) {
+  unsigned int jresult ;
+  std::vector< unsigned int > *arg1 = 0 ;
+  int arg2 ;
+  unsigned int result;
+  
+  arg1 = (std::vector< unsigned int > *)jarg1; 
+  arg2 = (int)jarg2; 
+  {
+    try {
+      try {
+        result = (unsigned int)std_vector_Sl_unsigned_SS_int_Sg__getitemcopy(arg1,arg2);
+      } catch(std::out_of_range &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+        return 0;
+      }
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = (unsigned int)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_pagmo_UIntVector_getitem(void * jarg1, int jarg2) {
+  unsigned int jresult ;
+  std::vector< unsigned int > *arg1 = 0 ;
+  int arg2 ;
+  std::vector< unsigned int >::value_type *result = 0 ;
+  
+  arg1 = (std::vector< unsigned int > *)jarg1; 
+  arg2 = (int)jarg2; 
+  {
+    try {
+      try {
+        result = (std::vector< unsigned int >::value_type *) &std_vector_Sl_unsigned_SS_int_Sg__getitem(arg1,arg2);
+      } catch(std::out_of_range &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+        return 0;
+      }
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = (unsigned int)*result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_UIntVector_setitem(void * jarg1, int jarg2, unsigned int jarg3) {
+  std::vector< unsigned int > *arg1 = 0 ;
+  int arg2 ;
+  unsigned int *arg3 = 0 ;
+  unsigned int temp3 ;
+  
+  arg1 = (std::vector< unsigned int > *)jarg1; 
+  arg2 = (int)jarg2; 
+  temp3 = (unsigned int)jarg3; 
+  arg3 = &temp3; 
+  {
+    try {
+      try {
+        std_vector_Sl_unsigned_SS_int_Sg__setitem(arg1,arg2,(unsigned int const &)*arg3);
+      } catch(std::out_of_range &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+        return ;
+      }
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return ; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return ; 
+      };
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_UIntVector_AddRange(void * jarg1, void * jarg2) {
+  std::vector< unsigned int > *arg1 = 0 ;
+  std::vector< unsigned int > *arg2 = 0 ;
+  
+  arg1 = (std::vector< unsigned int > *)jarg1; 
+  arg2 = (std::vector< unsigned int > *)jarg2;
+  if (!arg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "std::vector< unsigned int > const & is null", 0);
+    return ;
+  } 
+  {
+    try {
+      std_vector_Sl_unsigned_SS_int_Sg__AddRange(arg1,(std::vector< unsigned int > const &)*arg2);
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return ; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return ; 
+      };
+    }
+  }
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_UIntVector_GetRange(void * jarg1, int jarg2, int jarg3) {
+  void * jresult ;
+  std::vector< unsigned int > *arg1 = 0 ;
+  int arg2 ;
+  int arg3 ;
+  std::vector< unsigned int > *result = 0 ;
+  
+  arg1 = (std::vector< unsigned int > *)jarg1; 
+  arg2 = (int)jarg2; 
+  arg3 = (int)jarg3; 
+  {
+    try {
+      try {
+        result = (std::vector< unsigned int > *)std_vector_Sl_unsigned_SS_int_Sg__GetRange(arg1,arg2,arg3);
+      } catch(std::out_of_range &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+        return 0;
+      } catch(std::invalid_argument &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, (&_e)->what(), "");
+        return 0;
+      }
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_UIntVector_Insert(void * jarg1, int jarg2, unsigned int jarg3) {
+  std::vector< unsigned int > *arg1 = 0 ;
+  int arg2 ;
+  unsigned int *arg3 = 0 ;
+  unsigned int temp3 ;
+  
+  arg1 = (std::vector< unsigned int > *)jarg1; 
+  arg2 = (int)jarg2; 
+  temp3 = (unsigned int)jarg3; 
+  arg3 = &temp3; 
+  {
+    try {
+      try {
+        std_vector_Sl_unsigned_SS_int_Sg__Insert(arg1,arg2,(unsigned int const &)*arg3);
+      } catch(std::out_of_range &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+        return ;
+      }
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return ; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return ; 
+      };
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_UIntVector_InsertRange(void * jarg1, int jarg2, void * jarg3) {
+  std::vector< unsigned int > *arg1 = 0 ;
+  int arg2 ;
+  std::vector< unsigned int > *arg3 = 0 ;
+  
+  arg1 = (std::vector< unsigned int > *)jarg1; 
+  arg2 = (int)jarg2; 
+  arg3 = (std::vector< unsigned int > *)jarg3;
+  if (!arg3) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "std::vector< unsigned int > const & is null", 0);
+    return ;
+  } 
+  {
+    try {
+      try {
+        std_vector_Sl_unsigned_SS_int_Sg__InsertRange(arg1,arg2,(std::vector< unsigned int > const &)*arg3);
+      } catch(std::out_of_range &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+        return ;
+      }
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return ; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return ; 
+      };
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_UIntVector_RemoveAt(void * jarg1, int jarg2) {
+  std::vector< unsigned int > *arg1 = 0 ;
+  int arg2 ;
+  
+  arg1 = (std::vector< unsigned int > *)jarg1; 
+  arg2 = (int)jarg2; 
+  {
+    try {
+      try {
+        std_vector_Sl_unsigned_SS_int_Sg__RemoveAt(arg1,arg2);
+      } catch(std::out_of_range &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+        return ;
+      }
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return ; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return ; 
+      };
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_UIntVector_RemoveRange(void * jarg1, int jarg2, int jarg3) {
+  std::vector< unsigned int > *arg1 = 0 ;
+  int arg2 ;
+  int arg3 ;
+  
+  arg1 = (std::vector< unsigned int > *)jarg1; 
+  arg2 = (int)jarg2; 
+  arg3 = (int)jarg3; 
+  {
+    try {
+      try {
+        std_vector_Sl_unsigned_SS_int_Sg__RemoveRange(arg1,arg2,arg3);
+      } catch(std::out_of_range &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+        return ;
+      } catch(std::invalid_argument &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, (&_e)->what(), "");
+        return ;
+      }
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return ; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return ; 
+      };
+    }
+  }
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_UIntVector_Repeat(unsigned int jarg1, int jarg2) {
+  void * jresult ;
+  unsigned int *arg1 = 0 ;
+  int arg2 ;
+  unsigned int temp1 ;
+  std::vector< unsigned int > *result = 0 ;
+  
+  temp1 = (unsigned int)jarg1; 
+  arg1 = &temp1; 
+  arg2 = (int)jarg2; 
+  {
+    try {
+      try {
+        result = (std::vector< unsigned int > *)std_vector_Sl_unsigned_SS_int_Sg__Repeat((unsigned int const &)*arg1,arg2);
+      } catch(std::out_of_range &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+        return 0;
+      }
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_UIntVector_Reverse__SWIG_0(void * jarg1) {
+  std::vector< unsigned int > *arg1 = 0 ;
+  
+  arg1 = (std::vector< unsigned int > *)jarg1; 
+  {
+    try {
+      std_vector_Sl_unsigned_SS_int_Sg__Reverse__SWIG_0(arg1);
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return ; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return ; 
+      };
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_UIntVector_Reverse__SWIG_1(void * jarg1, int jarg2, int jarg3) {
+  std::vector< unsigned int > *arg1 = 0 ;
+  int arg2 ;
+  int arg3 ;
+  
+  arg1 = (std::vector< unsigned int > *)jarg1; 
+  arg2 = (int)jarg2; 
+  arg3 = (int)jarg3; 
+  {
+    try {
+      try {
+        std_vector_Sl_unsigned_SS_int_Sg__Reverse__SWIG_1(arg1,arg2,arg3);
+      } catch(std::out_of_range &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+        return ;
+      } catch(std::invalid_argument &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, (&_e)->what(), "");
+        return ;
+      }
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return ; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return ; 
+      };
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_UIntVector_SetRange(void * jarg1, int jarg2, void * jarg3) {
+  std::vector< unsigned int > *arg1 = 0 ;
+  int arg2 ;
+  std::vector< unsigned int > *arg3 = 0 ;
+  
+  arg1 = (std::vector< unsigned int > *)jarg1; 
+  arg2 = (int)jarg2; 
+  arg3 = (std::vector< unsigned int > *)jarg3;
+  if (!arg3) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "std::vector< unsigned int > const & is null", 0);
+    return ;
+  } 
+  {
+    try {
+      try {
+        std_vector_Sl_unsigned_SS_int_Sg__SetRange(arg1,arg2,(std::vector< unsigned int > const &)*arg3);
+      } catch(std::out_of_range &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+        return ;
+      }
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return ; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return ; 
+      };
+    }
+  }
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_pagmo_UIntVector_Contains(void * jarg1, unsigned int jarg2) {
+  unsigned int jresult ;
+  std::vector< unsigned int > *arg1 = 0 ;
+  unsigned int *arg2 = 0 ;
+  unsigned int temp2 ;
+  bool result;
+  
+  arg1 = (std::vector< unsigned int > *)jarg1; 
+  temp2 = (unsigned int)jarg2; 
+  arg2 = &temp2; 
+  {
+    try {
+      result = (bool)std_vector_Sl_unsigned_SS_int_Sg__Contains(arg1,(unsigned int const &)*arg2);
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT int SWIGSTDCALL CSharp_pagmo_UIntVector_IndexOf(void * jarg1, unsigned int jarg2) {
+  int jresult ;
+  std::vector< unsigned int > *arg1 = 0 ;
+  unsigned int *arg2 = 0 ;
+  unsigned int temp2 ;
+  int result;
+  
+  arg1 = (std::vector< unsigned int > *)jarg1; 
+  temp2 = (unsigned int)jarg2; 
+  arg2 = &temp2; 
+  {
+    try {
+      result = (int)std_vector_Sl_unsigned_SS_int_Sg__IndexOf(arg1,(unsigned int const &)*arg2);
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT int SWIGSTDCALL CSharp_pagmo_UIntVector_LastIndexOf(void * jarg1, unsigned int jarg2) {
+  int jresult ;
+  std::vector< unsigned int > *arg1 = 0 ;
+  unsigned int *arg2 = 0 ;
+  unsigned int temp2 ;
+  int result;
+  
+  arg1 = (std::vector< unsigned int > *)jarg1; 
+  temp2 = (unsigned int)jarg2; 
+  arg2 = &temp2; 
+  {
+    try {
+      result = (int)std_vector_Sl_unsigned_SS_int_Sg__LastIndexOf(arg1,(unsigned int const &)*arg2);
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_pagmo_UIntVector_Remove(void * jarg1, unsigned int jarg2) {
+  unsigned int jresult ;
+  std::vector< unsigned int > *arg1 = 0 ;
+  unsigned int *arg2 = 0 ;
+  unsigned int temp2 ;
+  bool result;
+  
+  arg1 = (std::vector< unsigned int > *)jarg1; 
+  temp2 = (unsigned int)jarg2; 
+  arg2 = &temp2; 
+  {
+    try {
+      result = (bool)std_vector_Sl_unsigned_SS_int_Sg__Remove(arg1,(unsigned int const &)*arg2);
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_delete_UIntVector(void * jarg1) {
+  std::vector< unsigned int > *arg1 = 0 ;
+  
+  arg1 = (std::vector< unsigned int > *)jarg1; 
+  {
+    try {
+      delete arg1;
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return ; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return ; 
+      };
+    }
+  }
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_SizeTVector__SWIG_0() {
+  void * jresult ;
+  std::vector< std::size_t > *result = 0 ;
+  
+  {
+    try {
+      result = (std::vector< std::size_t > *)new std::vector< std::size_t >();
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_SizeTVector__SWIG_1(void * jarg1) {
+  void * jresult ;
+  std::vector< std::size_t > *arg1 = 0 ;
+  std::vector< std::size_t > *result = 0 ;
+  
+  arg1 = (std::vector< std::size_t > *)jarg1;
+  if (!arg1) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "std::vector< std::size_t > const & is null", 0);
+    return 0;
+  } 
+  {
+    try {
+      result = (std::vector< std::size_t > *)new std::vector< std::size_t >((std::vector< std::size_t > const &)*arg1);
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_SizeTVector_Clear(void * jarg1) {
+  std::vector< std::size_t > *arg1 = 0 ;
+  
+  arg1 = (std::vector< std::size_t > *)jarg1; 
+  {
+    try {
+      (arg1)->clear();
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return ; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return ; 
+      };
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_SizeTVector_Add(void * jarg1, unsigned int jarg2) {
+  std::vector< std::size_t > *arg1 = 0 ;
+  std::size_t *arg2 = 0 ;
+  std::size_t temp2 ;
+  
+  arg1 = (std::vector< std::size_t > *)jarg1; 
+  temp2 = (std::size_t)jarg2; 
+  arg2 = &temp2; 
+  {
+    try {
+      (arg1)->push_back((std::size_t const &)*arg2);
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return ; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return ; 
+      };
+    }
+  }
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_pagmo_SizeTVector_size(void * jarg1) {
+  unsigned int jresult ;
+  std::vector< std::size_t > *arg1 = 0 ;
+  std::vector< std::size_t >::size_type result;
+  
+  arg1 = (std::vector< std::size_t > *)jarg1; 
+  {
+    try {
+      result = ((std::vector< std::size_t > const *)arg1)->size();
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = (unsigned int)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_pagmo_SizeTVector_empty(void * jarg1) {
+  unsigned int jresult ;
+  std::vector< std::size_t > *arg1 = 0 ;
+  bool result;
+  
+  arg1 = (std::vector< std::size_t > *)jarg1; 
+  {
+    try {
+      result = (bool)((std::vector< std::size_t > const *)arg1)->empty();
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_pagmo_SizeTVector_capacity(void * jarg1) {
+  unsigned int jresult ;
+  std::vector< std::size_t > *arg1 = 0 ;
+  std::vector< std::size_t >::size_type result;
+  
+  arg1 = (std::vector< std::size_t > *)jarg1; 
+  {
+    try {
+      result = ((std::vector< std::size_t > const *)arg1)->capacity();
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = (unsigned int)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_SizeTVector_reserve(void * jarg1, unsigned int jarg2) {
+  std::vector< std::size_t > *arg1 = 0 ;
+  std::vector< std::size_t >::size_type arg2 ;
+  
+  arg1 = (std::vector< std::size_t > *)jarg1; 
+  arg2 = (std::vector< std::size_t >::size_type)jarg2; 
+  {
+    try {
+      (arg1)->reserve(SWIG_STD_MOVE(arg2));
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return ; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return ; 
+      };
+    }
+  }
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_SizeTVector__SWIG_2(int jarg1) {
+  void * jresult ;
+  int arg1 ;
+  std::vector< std::size_t > *result = 0 ;
+  
+  arg1 = (int)jarg1; 
+  {
+    try {
+      try {
+        result = (std::vector< std::size_t > *)new_std_vector_Sl_std_size_t_Sg___SWIG_2(arg1);
+      } catch(std::out_of_range &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+        return 0;
+      }
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_pagmo_SizeTVector_getitemcopy(void * jarg1, int jarg2) {
+  unsigned int jresult ;
+  std::vector< std::size_t > *arg1 = 0 ;
+  int arg2 ;
+  std::size_t result;
+  
+  arg1 = (std::vector< std::size_t > *)jarg1; 
+  arg2 = (int)jarg2; 
+  {
+    try {
+      try {
+        result = std_vector_Sl_std_size_t_Sg__getitemcopy(arg1,arg2);
+      } catch(std::out_of_range &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+        return 0;
+      }
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = (unsigned int)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_pagmo_SizeTVector_getitem(void * jarg1, int jarg2) {
+  unsigned int jresult ;
+  std::vector< std::size_t > *arg1 = 0 ;
+  int arg2 ;
+  std::vector< std::size_t >::value_type *result = 0 ;
+  
+  arg1 = (std::vector< std::size_t > *)jarg1; 
+  arg2 = (int)jarg2; 
+  {
+    try {
+      try {
+        result = (std::vector< std::size_t >::value_type *) &std_vector_Sl_std_size_t_Sg__getitem(arg1,arg2);
+      } catch(std::out_of_range &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+        return 0;
+      }
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = (unsigned int)*result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_SizeTVector_setitem(void * jarg1, int jarg2, unsigned int jarg3) {
+  std::vector< std::size_t > *arg1 = 0 ;
+  int arg2 ;
+  std::size_t *arg3 = 0 ;
+  std::size_t temp3 ;
+  
+  arg1 = (std::vector< std::size_t > *)jarg1; 
+  arg2 = (int)jarg2; 
+  temp3 = (std::size_t)jarg3; 
+  arg3 = &temp3; 
+  {
+    try {
+      try {
+        std_vector_Sl_std_size_t_Sg__setitem(arg1,arg2,(std::size_t const &)*arg3);
+      } catch(std::out_of_range &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+        return ;
+      }
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return ; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return ; 
+      };
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_SizeTVector_AddRange(void * jarg1, void * jarg2) {
+  std::vector< std::size_t > *arg1 = 0 ;
+  std::vector< std::size_t > *arg2 = 0 ;
+  
+  arg1 = (std::vector< std::size_t > *)jarg1; 
+  arg2 = (std::vector< std::size_t > *)jarg2;
+  if (!arg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "std::vector< std::size_t > const & is null", 0);
+    return ;
+  } 
+  {
+    try {
+      std_vector_Sl_std_size_t_Sg__AddRange(arg1,(std::vector< std::size_t > const &)*arg2);
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return ; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return ; 
+      };
+    }
+  }
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_SizeTVector_GetRange(void * jarg1, int jarg2, int jarg3) {
+  void * jresult ;
+  std::vector< std::size_t > *arg1 = 0 ;
+  int arg2 ;
+  int arg3 ;
+  std::vector< std::size_t > *result = 0 ;
+  
+  arg1 = (std::vector< std::size_t > *)jarg1; 
+  arg2 = (int)jarg2; 
+  arg3 = (int)jarg3; 
+  {
+    try {
+      try {
+        result = (std::vector< std::size_t > *)std_vector_Sl_std_size_t_Sg__GetRange(arg1,arg2,arg3);
+      } catch(std::out_of_range &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+        return 0;
+      } catch(std::invalid_argument &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, (&_e)->what(), "");
+        return 0;
+      }
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_SizeTVector_Insert(void * jarg1, int jarg2, unsigned int jarg3) {
+  std::vector< std::size_t > *arg1 = 0 ;
+  int arg2 ;
+  std::size_t *arg3 = 0 ;
+  std::size_t temp3 ;
+  
+  arg1 = (std::vector< std::size_t > *)jarg1; 
+  arg2 = (int)jarg2; 
+  temp3 = (std::size_t)jarg3; 
+  arg3 = &temp3; 
+  {
+    try {
+      try {
+        std_vector_Sl_std_size_t_Sg__Insert(arg1,arg2,(std::size_t const &)*arg3);
+      } catch(std::out_of_range &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+        return ;
+      }
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return ; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return ; 
+      };
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_SizeTVector_InsertRange(void * jarg1, int jarg2, void * jarg3) {
+  std::vector< std::size_t > *arg1 = 0 ;
+  int arg2 ;
+  std::vector< std::size_t > *arg3 = 0 ;
+  
+  arg1 = (std::vector< std::size_t > *)jarg1; 
+  arg2 = (int)jarg2; 
+  arg3 = (std::vector< std::size_t > *)jarg3;
+  if (!arg3) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "std::vector< std::size_t > const & is null", 0);
+    return ;
+  } 
+  {
+    try {
+      try {
+        std_vector_Sl_std_size_t_Sg__InsertRange(arg1,arg2,(std::vector< std::size_t > const &)*arg3);
+      } catch(std::out_of_range &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+        return ;
+      }
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return ; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return ; 
+      };
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_SizeTVector_RemoveAt(void * jarg1, int jarg2) {
+  std::vector< std::size_t > *arg1 = 0 ;
+  int arg2 ;
+  
+  arg1 = (std::vector< std::size_t > *)jarg1; 
+  arg2 = (int)jarg2; 
+  {
+    try {
+      try {
+        std_vector_Sl_std_size_t_Sg__RemoveAt(arg1,arg2);
+      } catch(std::out_of_range &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+        return ;
+      }
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return ; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return ; 
+      };
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_SizeTVector_RemoveRange(void * jarg1, int jarg2, int jarg3) {
+  std::vector< std::size_t > *arg1 = 0 ;
+  int arg2 ;
+  int arg3 ;
+  
+  arg1 = (std::vector< std::size_t > *)jarg1; 
+  arg2 = (int)jarg2; 
+  arg3 = (int)jarg3; 
+  {
+    try {
+      try {
+        std_vector_Sl_std_size_t_Sg__RemoveRange(arg1,arg2,arg3);
+      } catch(std::out_of_range &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+        return ;
+      } catch(std::invalid_argument &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, (&_e)->what(), "");
+        return ;
+      }
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return ; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return ; 
+      };
+    }
+  }
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_SizeTVector_Repeat(unsigned int jarg1, int jarg2) {
+  void * jresult ;
+  std::size_t *arg1 = 0 ;
+  int arg2 ;
+  std::size_t temp1 ;
+  std::vector< std::size_t > *result = 0 ;
+  
+  temp1 = (std::size_t)jarg1; 
+  arg1 = &temp1; 
+  arg2 = (int)jarg2; 
+  {
+    try {
+      try {
+        result = (std::vector< std::size_t > *)std_vector_Sl_std_size_t_Sg__Repeat((std::size_t const &)*arg1,arg2);
+      } catch(std::out_of_range &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+        return 0;
+      }
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_SizeTVector_Reverse__SWIG_0(void * jarg1) {
+  std::vector< std::size_t > *arg1 = 0 ;
+  
+  arg1 = (std::vector< std::size_t > *)jarg1; 
+  {
+    try {
+      std_vector_Sl_std_size_t_Sg__Reverse__SWIG_0(arg1);
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return ; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return ; 
+      };
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_SizeTVector_Reverse__SWIG_1(void * jarg1, int jarg2, int jarg3) {
+  std::vector< std::size_t > *arg1 = 0 ;
+  int arg2 ;
+  int arg3 ;
+  
+  arg1 = (std::vector< std::size_t > *)jarg1; 
+  arg2 = (int)jarg2; 
+  arg3 = (int)jarg3; 
+  {
+    try {
+      try {
+        std_vector_Sl_std_size_t_Sg__Reverse__SWIG_1(arg1,arg2,arg3);
+      } catch(std::out_of_range &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+        return ;
+      } catch(std::invalid_argument &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, (&_e)->what(), "");
+        return ;
+      }
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return ; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return ; 
+      };
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_SizeTVector_SetRange(void * jarg1, int jarg2, void * jarg3) {
+  std::vector< std::size_t > *arg1 = 0 ;
+  int arg2 ;
+  std::vector< std::size_t > *arg3 = 0 ;
+  
+  arg1 = (std::vector< std::size_t > *)jarg1; 
+  arg2 = (int)jarg2; 
+  arg3 = (std::vector< std::size_t > *)jarg3;
+  if (!arg3) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "std::vector< std::size_t > const & is null", 0);
+    return ;
+  } 
+  {
+    try {
+      try {
+        std_vector_Sl_std_size_t_Sg__SetRange(arg1,arg2,(std::vector< std::size_t > const &)*arg3);
+      } catch(std::out_of_range &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+        return ;
+      }
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return ; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return ; 
+      };
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_delete_SizeTVector(void * jarg1) {
+  std::vector< std::size_t > *arg1 = 0 ;
+  
+  arg1 = (std::vector< std::size_t > *)jarg1; 
+  {
+    try {
+      delete arg1;
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return ; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return ; 
+      };
+    }
+  }
+}
+
+
 SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_SizeTPair__SWIG_0() {
   void * jresult ;
   std::pair< std::size_t,std::size_t > *result = 0 ;
@@ -7330,6 +8915,166 @@ SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_delete_SizeTPair(void * jarg1) {
   std::pair< std::size_t,std::size_t > *arg1 = 0 ;
   
   arg1 = (std::pair< std::size_t,std::size_t > *)jarg1; 
+  {
+    try {
+      delete arg1;
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return ; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return ; 
+      };
+    }
+  }
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_TopologyConnections__SWIG_0() {
+  void * jresult ;
+  std::pair< std::vector< std::size_t >,std::vector< double > > *result = 0 ;
+  
+  {
+    try {
+      result = (std::pair< std::vector< std::size_t >,std::vector< double > > *)new std::pair< std::vector< std::size_t >,std::vector< double > >();
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_TopologyConnections__SWIG_1(void * jarg1, void * jarg2) {
+  void * jresult ;
+  std::vector< std::size_t > arg1 ;
+  std::vector< double > arg2 ;
+  std::vector< std::size_t > *argp1 ;
+  std::vector< double > *argp2 ;
+  std::pair< std::vector< std::size_t >,std::vector< double > > *result = 0 ;
+  
+  argp1 = (std::vector< std::size_t > *)jarg1; 
+  if (!argp1) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "Attempt to dereference null std::vector< std::size_t >", 0);
+    return 0;
+  }
+  arg1 = *argp1; 
+  argp2 = (std::vector< double > *)jarg2; 
+  if (!argp2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "Attempt to dereference null std::vector< double >", 0);
+    return 0;
+  }
+  arg2 = *argp2; 
+  {
+    try {
+      result = (std::pair< std::vector< std::size_t >,std::vector< double > > *)new std::pair< std::vector< std::size_t >,std::vector< double > >(SWIG_STD_MOVE(arg1),SWIG_STD_MOVE(arg2));
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_TopologyConnections__SWIG_2(void * jarg1) {
+  void * jresult ;
+  std::pair< std::vector< std::size_t >,std::vector< double > > *arg1 = 0 ;
+  std::pair< std::vector< std::size_t >,std::vector< double > > *result = 0 ;
+  
+  arg1 = (std::pair< std::vector< std::size_t >,std::vector< double > > *)jarg1;
+  if (!arg1) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "std::pair< std::vector< std::size_t >,std::vector< double > > const & is null", 0);
+    return 0;
+  } 
+  {
+    try {
+      result = (std::pair< std::vector< std::size_t >,std::vector< double > > *)new std::pair< std::vector< std::size_t >,std::vector< double > >((std::pair< std::vector< std::size_t >,std::vector< double > > const &)*arg1);
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_TopologyConnections_first_set(void * jarg1, void * jarg2) {
+  std::pair< std::vector< std::size_t >,std::vector< double > > *arg1 = 0 ;
+  std::vector< std::size_t > *arg2 = 0 ;
+  
+  arg1 = (std::pair< std::vector< std::size_t >,std::vector< double > > *)jarg1; 
+  arg2 = (std::vector< std::size_t > *)jarg2;
+  if (!arg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "std::vector< std::size_t > const & is null", 0);
+    return ;
+  } 
+  if (arg1) (arg1)->first = *arg2;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_TopologyConnections_first_get(void * jarg1) {
+  void * jresult ;
+  std::pair< std::vector< std::size_t >,std::vector< double > > *arg1 = 0 ;
+  std::vector< std::size_t > *result = 0 ;
+  
+  arg1 = (std::pair< std::vector< std::size_t >,std::vector< double > > *)jarg1; 
+  result = (std::vector< std::size_t > *) & ((arg1)->first);
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_TopologyConnections_second_set(void * jarg1, void * jarg2) {
+  std::pair< std::vector< std::size_t >,std::vector< double > > *arg1 = 0 ;
+  std::vector< double > *arg2 = 0 ;
+  
+  arg1 = (std::pair< std::vector< std::size_t >,std::vector< double > > *)jarg1; 
+  arg2 = (std::vector< double > *)jarg2;
+  if (!arg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "std::vector< double > const & is null", 0);
+    return ;
+  } 
+  if (arg1) (arg1)->second = *arg2;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_TopologyConnections_second_get(void * jarg1) {
+  void * jresult ;
+  std::pair< std::vector< std::size_t >,std::vector< double > > *arg1 = 0 ;
+  std::vector< double > *result = 0 ;
+  
+  arg1 = (std::pair< std::vector< std::size_t >,std::vector< double > > *)jarg1; 
+  result = (std::vector< double > *) & ((arg1)->second);
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_delete_TopologyConnections(void * jarg1) {
+  std::pair< std::vector< std::size_t >,std::vector< double > > *arg1 = 0 ;
+  
+  arg1 = (std::pair< std::vector< std::size_t >,std::vector< double > > *)jarg1; 
   {
     try {
       delete arg1;
@@ -15157,7 +16902,7 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_topology_get_connections(void * jarg1
   void * jresult ;
   pagmo::topology *arg1 = 0 ;
   std::size_t arg2 ;
-  SwigValueWrapper< std::pair< std::vector< std::size_t >,std::vector< double > > > result;
+  std::pair< std::vector< std::size_t >,pagmo::vector_double > result;
   
   arg1 = (pagmo::topology *)jarg1; 
   arg2 = (std::size_t)jarg2; 
@@ -19853,7 +21598,7 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_unconnected_get_connections(void * ja
   void * jresult ;
   pagmo::unconnected *arg1 = 0 ;
   std::size_t arg2 ;
-  SwigValueWrapper< std::pair< std::vector< std::size_t >,std::vector< double > > > result;
+  std::pair< std::vector< std::size_t >,pagmo::vector_double > result;
   
   arg1 = (pagmo::unconnected *)jarg1; 
   arg2 = (std::size_t)jarg2; 
@@ -20037,7 +21782,7 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_fully_connected_get_connections(void 
   void * jresult ;
   pagmo::fully_connected *arg1 = 0 ;
   std::size_t arg2 ;
-  SwigValueWrapper< std::pair< std::vector< std::size_t >,std::vector< double > > > result;
+  std::pair< std::vector< std::size_t >,pagmo::vector_double > result;
   
   arg1 = (pagmo::fully_connected *)jarg1; 
   arg2 = (std::size_t)jarg2; 
@@ -20271,7 +22016,7 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_ring_get_connections(void * jarg1, un
   void * jresult ;
   pagmo::ring *arg1 = 0 ;
   std::size_t arg2 ;
-  SwigValueWrapper< std::pair< std::vector< std::size_t >,std::vector< double > > > result;
+  std::pair< std::vector< std::size_t >,pagmo::vector_double > result;
   
   arg1 = (pagmo::ring *)jarg1; 
   arg2 = (std::size_t)jarg2; 
@@ -37586,6 +39331,259 @@ SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_delete_zdt(void * jarg1) {
       };
     }
   }
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_pagmo_pareto_dominance(void * jarg1, void * jarg2) {
+  unsigned int jresult ;
+  pagmo::vector_double *arg1 = 0 ;
+  pagmo::vector_double *arg2 = 0 ;
+  bool result;
+  
+  arg1 = (pagmo::vector_double *)jarg1;
+  if (!arg1) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "pagmo::vector_double const & is null", 0);
+    return 0;
+  } 
+  arg2 = (pagmo::vector_double *)jarg2;
+  if (!arg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "pagmo::vector_double const & is null", 0);
+    return 0;
+  } 
+  {
+    try {
+      result = (bool)pagmo::pareto_dominance((std::vector< double > const &)*arg1,(std::vector< double > const &)*arg2);
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_non_dominated_front_2d(void * jarg1) {
+  void * jresult ;
+  std::vector< pagmo::vector_double > *arg1 = 0 ;
+  std::vector< pagmo::pop_size_t > result;
+  
+  arg1 = (std::vector< pagmo::vector_double > *)jarg1;
+  if (!arg1) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "std::vector< pagmo::vector_double > const & is null", 0);
+    return 0;
+  } 
+  {
+    try {
+      result = pagmo::non_dominated_front_2d((std::vector< std::vector< double > > const &)*arg1);
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = new std::vector< pagmo::pop_size_t >(result); 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_crowding_distance(void * jarg1) {
+  void * jresult ;
+  std::vector< pagmo::vector_double > *arg1 = 0 ;
+  pagmo::vector_double result;
+  
+  arg1 = (std::vector< pagmo::vector_double > *)jarg1;
+  if (!arg1) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "std::vector< pagmo::vector_double > const & is null", 0);
+    return 0;
+  } 
+  {
+    try {
+      result = pagmo::crowding_distance((std::vector< std::vector< double > > const &)*arg1);
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = new pagmo::vector_double(result); 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_sort_population_mo(void * jarg1) {
+  void * jresult ;
+  std::vector< pagmo::vector_double > *arg1 = 0 ;
+  std::vector< pagmo::pop_size_t > result;
+  
+  arg1 = (std::vector< pagmo::vector_double > *)jarg1;
+  if (!arg1) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "std::vector< pagmo::vector_double > const & is null", 0);
+    return 0;
+  } 
+  {
+    try {
+      result = pagmo::sort_population_mo((std::vector< std::vector< double > > const &)*arg1);
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = new std::vector< pagmo::pop_size_t >(result); 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_select_best_N_mo(void * jarg1, unsigned long long jarg2) {
+  void * jresult ;
+  std::vector< pagmo::vector_double > *arg1 = 0 ;
+  pagmo::pop_size_t arg2 ;
+  std::vector< pagmo::pop_size_t > result;
+  
+  arg1 = (std::vector< pagmo::vector_double > *)jarg1;
+  if (!arg1) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "std::vector< pagmo::vector_double > const & is null", 0);
+    return 0;
+  } 
+  {
+    arg2 = (unsigned long long)jarg2;
+  }
+  {
+    try {
+      result = pagmo::select_best_N_mo((std::vector< std::vector< double > > const &)*arg1,arg2);
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = new std::vector< pagmo::pop_size_t >(result); 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_ideal(void * jarg1) {
+  void * jresult ;
+  std::vector< pagmo::vector_double > *arg1 = 0 ;
+  pagmo::vector_double result;
+  
+  arg1 = (std::vector< pagmo::vector_double > *)jarg1;
+  if (!arg1) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "std::vector< pagmo::vector_double > const & is null", 0);
+    return 0;
+  } 
+  {
+    try {
+      result = pagmo::ideal((std::vector< std::vector< double > > const &)*arg1);
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = new pagmo::vector_double(result); 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_nadir(void * jarg1) {
+  void * jresult ;
+  std::vector< pagmo::vector_double > *arg1 = 0 ;
+  pagmo::vector_double result;
+  
+  arg1 = (std::vector< pagmo::vector_double > *)jarg1;
+  if (!arg1) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "std::vector< pagmo::vector_double > const & is null", 0);
+    return 0;
+  } 
+  {
+    try {
+      result = pagmo::nadir((std::vector< std::vector< double > > const &)*arg1);
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = new pagmo::vector_double(result); 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_decompose_objectives(void * jarg1, void * jarg2, void * jarg3, const char * jarg4) {
+  void * jresult ;
+  pagmo::vector_double *arg1 = 0 ;
+  pagmo::vector_double *arg2 = 0 ;
+  pagmo::vector_double *arg3 = 0 ;
+  std::string *arg4 = 0 ;
+  pagmo::vector_double result;
+  
+  arg1 = (pagmo::vector_double *)jarg1;
+  if (!arg1) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "pagmo::vector_double const & is null", 0);
+    return 0;
+  } 
+  arg2 = (pagmo::vector_double *)jarg2;
+  if (!arg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "pagmo::vector_double const & is null", 0);
+    return 0;
+  } 
+  arg3 = (pagmo::vector_double *)jarg3;
+  if (!arg3) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "pagmo::vector_double const & is null", 0);
+    return 0;
+  } 
+  if (!jarg4) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "null string", 0);
+    return 0;
+  }
+  std::string arg4_str(jarg4);
+  arg4 = &arg4_str; 
+  {
+    try {
+      result = pagmo::decompose_objectives((std::vector< double > const &)*arg1,(std::vector< double > const &)*arg2,(std::vector< double > const &)*arg3,(std::string const &)*arg4);
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = new pagmo::vector_double(result); 
+  return jresult;
 }
 
 

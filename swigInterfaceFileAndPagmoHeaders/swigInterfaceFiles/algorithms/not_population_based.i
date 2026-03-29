@@ -14,7 +14,6 @@ public:
     extern void set_replacement(const std::string &);
     extern void set_replacement(population::size_type n);
 };
-
 %extend not_population_based {
     bool selection_uses_count() const
     {

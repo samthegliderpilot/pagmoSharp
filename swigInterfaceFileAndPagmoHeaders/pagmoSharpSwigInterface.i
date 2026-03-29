@@ -105,7 +105,10 @@
 // ------------------------------------------------------------
 namespace std {
   %template(DoubleVector)              std::vector<double>;
+  %template(UIntVector)                std::vector<unsigned int>;
+  %template(SizeTVector)               std::vector<std::size_t>;
   %template(SizeTPair)                 std::pair<std::size_t, std::size_t>;
+  %template(TopologyConnections)       std::pair<std::vector<std::size_t>, std::vector<double>>;
   %template(SparsityPattern)           std::vector<std::pair<std::size_t, std::size_t>>;
   %template(VectorOfSparsityPattern)   std::vector<std::vector<std::pair<std::size_t, std::size_t>>>;
   %template(ULongLongVector)           std::vector<unsigned long long>;

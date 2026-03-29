@@ -57,27 +57,27 @@ public partial class de1220 : global::System.IDisposable {
     }
   }
 
-  public de1220(uint gen, SWIGTYPE_p_std__vectorT_unsigned_int_t allowed_variants, uint variant_adptv, double ftol, double xtol, bool memory, uint seed) : this(pagmoPINVOKE.new_de1220__SWIG_0(gen, SWIGTYPE_p_std__vectorT_unsigned_int_t.getCPtr(allowed_variants), variant_adptv, ftol, xtol, memory, seed), true) {
+  public de1220(uint gen, UIntVector allowed_variants, uint variant_adptv, double ftol, double xtol, bool memory, uint seed) : this(pagmoPINVOKE.new_de1220__SWIG_0(gen, UIntVector.getCPtr(allowed_variants), variant_adptv, ftol, xtol, memory, seed), true) {
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
-  public de1220(uint gen, SWIGTYPE_p_std__vectorT_unsigned_int_t allowed_variants, uint variant_adptv, double ftol, double xtol, bool memory) : this(pagmoPINVOKE.new_de1220__SWIG_1(gen, SWIGTYPE_p_std__vectorT_unsigned_int_t.getCPtr(allowed_variants), variant_adptv, ftol, xtol, memory), true) {
+  public de1220(uint gen, UIntVector allowed_variants, uint variant_adptv, double ftol, double xtol, bool memory) : this(pagmoPINVOKE.new_de1220__SWIG_1(gen, UIntVector.getCPtr(allowed_variants), variant_adptv, ftol, xtol, memory), true) {
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
-  public de1220(uint gen, SWIGTYPE_p_std__vectorT_unsigned_int_t allowed_variants, uint variant_adptv, double ftol, double xtol) : this(pagmoPINVOKE.new_de1220__SWIG_2(gen, SWIGTYPE_p_std__vectorT_unsigned_int_t.getCPtr(allowed_variants), variant_adptv, ftol, xtol), true) {
+  public de1220(uint gen, UIntVector allowed_variants, uint variant_adptv, double ftol, double xtol) : this(pagmoPINVOKE.new_de1220__SWIG_2(gen, UIntVector.getCPtr(allowed_variants), variant_adptv, ftol, xtol), true) {
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
-  public de1220(uint gen, SWIGTYPE_p_std__vectorT_unsigned_int_t allowed_variants, uint variant_adptv, double ftol) : this(pagmoPINVOKE.new_de1220__SWIG_3(gen, SWIGTYPE_p_std__vectorT_unsigned_int_t.getCPtr(allowed_variants), variant_adptv, ftol), true) {
+  public de1220(uint gen, UIntVector allowed_variants, uint variant_adptv, double ftol) : this(pagmoPINVOKE.new_de1220__SWIG_3(gen, UIntVector.getCPtr(allowed_variants), variant_adptv, ftol), true) {
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
-  public de1220(uint gen, SWIGTYPE_p_std__vectorT_unsigned_int_t allowed_variants, uint variant_adptv) : this(pagmoPINVOKE.new_de1220__SWIG_4(gen, SWIGTYPE_p_std__vectorT_unsigned_int_t.getCPtr(allowed_variants), variant_adptv), true) {
+  public de1220(uint gen, UIntVector allowed_variants, uint variant_adptv) : this(pagmoPINVOKE.new_de1220__SWIG_4(gen, UIntVector.getCPtr(allowed_variants), variant_adptv), true) {
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
-  public de1220(uint gen, SWIGTYPE_p_std__vectorT_unsigned_int_t allowed_variants) : this(pagmoPINVOKE.new_de1220__SWIG_5(gen, SWIGTYPE_p_std__vectorT_unsigned_int_t.getCPtr(allowed_variants)), true) {
+  public de1220(uint gen, UIntVector allowed_variants) : this(pagmoPINVOKE.new_de1220__SWIG_5(gen, UIntVector.getCPtr(allowed_variants)), true) {
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
