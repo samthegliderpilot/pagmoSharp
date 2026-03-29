@@ -61,7 +61,9 @@ PAGMOSHARP_EXEC_EXCEPTION(pagmo::thread_island::run_evolve, "thread_island.run_e
 	    
 	#include "problem.h" // this is a manually created item.  We want to include it in the wrappers so the generated cxx code can use the handwritten code for the problem
 	#include "tuple_adapters.h"
+	#include "cmaes_log_projection.h"
 	#include "cstrs_log_projection.h"
+	#include "de_log_projection.h"
 	#include "gaco_log_projection.h"
 	#include "ihs_log_projection.h"
 	#include "mbh_log_projection.h"
@@ -70,7 +72,9 @@ PAGMOSHARP_EXEC_EXCEPTION(pagmo::thread_island::run_evolve, "thread_island.run_e
 	//#include "multi_objective.h"
 %}
 %include "pagmoWrapper/tuple_adapters.h"
+%include "pagmoWrapper/cmaes_log_projection.h"
 %include "pagmoWrapper/cstrs_log_projection.h"
+%include "pagmoWrapper/de_log_projection.h"
 %include "pagmoWrapper/gaco_log_projection.h"
 %include "pagmoWrapper/ihs_log_projection.h"
 %include "pagmoWrapper/mbh_log_projection.h"
@@ -155,7 +159,9 @@ namespace std {
   // Your tuple adapter structs:
   %template(IndividualsGroupVector)    std::vector<pagmoWrap::IndividualsGroup>;
   %template(MigrationEntryVector)      std::vector<pagmoWrap::MigrationEntry>;
+  %template(CmaesLogEntryVector)       std::vector<pagmoWrap::CmaesLogEntry>;
   %template(CstrsLogEntryVector)       std::vector<pagmoWrap::CstrsLogEntry>;
+  %template(DeLogEntryVector)          std::vector<pagmoWrap::DeLogEntry>;
   %template(GacoLogEntryVector)        std::vector<pagmoWrap::GacoLogEntry>;
   %template(IhsLogEntryVector)         std::vector<pagmoWrap::IhsLogEntry>;
   %template(MbhLogEntryVector)         std::vector<pagmoWrap::MbhLogEntry>;

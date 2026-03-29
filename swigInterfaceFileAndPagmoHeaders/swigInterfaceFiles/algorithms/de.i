@@ -21,3 +21,10 @@ public:
     extern std::string get_extra_info() const;
     extern const log_type& get_log() const;
 };
+
+%extend de {
+    std::vector<pagmoWrap::DeLogEntry> get_log_entries() const
+    {
+        return pagmoWrap::De_GetLogEntries(*self);
+    }
+}

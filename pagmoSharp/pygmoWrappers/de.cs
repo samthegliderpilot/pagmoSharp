@@ -141,6 +141,12 @@ public partial class de : global::System.IDisposable {
     return ret;
   }
 
+  public DeLogEntryVector get_log_entries() {
+    DeLogEntryVector ret = new DeLogEntryVector(pagmoPINVOKE.de_get_log_entries(swigCPtr), true);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
 }
 
 }

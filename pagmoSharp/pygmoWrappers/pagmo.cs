@@ -11,8 +11,20 @@
 namespace pagmo {
 
 public partial class pagmo {
+  public static CmaesLogEntryVector Cmaes_GetLogEntries(cmaes algo) {
+    CmaesLogEntryVector ret = new CmaesLogEntryVector(pagmoPINVOKE.Cmaes_GetLogEntries(cmaes.getCPtr(algo)), true);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
   public static CstrsLogEntryVector Cstrs_GetLogEntries(cstrs_self_adaptive algo) {
     CstrsLogEntryVector ret = new CstrsLogEntryVector(pagmoPINVOKE.Cstrs_GetLogEntries(cstrs_self_adaptive.getCPtr(algo)), true);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  public static DeLogEntryVector De_GetLogEntries(de algo) {
+    DeLogEntryVector ret = new DeLogEntryVector(pagmoPINVOKE.De_GetLogEntries(de.getCPtr(algo)), true);
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }

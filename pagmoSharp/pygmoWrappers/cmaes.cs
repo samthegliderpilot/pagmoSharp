@@ -162,6 +162,12 @@ public partial class cmaes : global::System.IDisposable {
     return ret;
   }
 
+  public CmaesLogEntryVector get_log_entries() {
+    CmaesLogEntryVector ret = new CmaesLogEntryVector(pagmoPINVOKE.cmaes_get_log_entries(swigCPtr), true);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
 }
 
 }

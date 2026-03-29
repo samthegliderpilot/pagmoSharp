@@ -24,3 +24,10 @@ public:
     extern std::string get_extra_info() const;
     extern const log_type& get_log() const;
 };
+
+%extend cmaes {
+    std::vector<pagmoWrap::CmaesLogEntry> get_log_entries() const
+    {
+        return pagmoWrap::Cmaes_GetLogEntries(*self);
+    }
+}
