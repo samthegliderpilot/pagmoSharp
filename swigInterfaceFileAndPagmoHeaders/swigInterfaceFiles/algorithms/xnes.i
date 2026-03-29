@@ -24,3 +24,15 @@ public:
     extern std::string get_extra_info() const;
     extern const log_type& get_log() const;
 };
+
+%extend xnes {
+    std::vector<pagmoWrap::XnesLogEntry> get_log_entries() const
+    {
+        return pagmoWrap::Xnes_GetLogEntries(*self);
+    }
+
+    pagmo::algorithm to_algorithm() const
+    {
+        return pagmo::algorithm(*self);
+    }
+}

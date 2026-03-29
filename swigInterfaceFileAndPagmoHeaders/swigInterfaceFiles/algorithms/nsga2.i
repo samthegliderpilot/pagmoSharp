@@ -26,6 +26,11 @@ public:
 };
 
 %extend pagmo::nsga2 {
+    std::vector<pagmoWrap::MoVectorLogEntry> get_log_entries() const
+    {
+        return pagmoWrap::Nsga2_GetLogEntries(*self);
+    }
+
     pagmo::algorithm to_algorithm() const
     {
         return pagmo::algorithm(*self);

@@ -141,6 +141,18 @@ public partial class de1220 : global::System.IDisposable {
     return ret;
   }
 
+  public De1220LogEntryVector get_log_entries() {
+    De1220LogEntryVector ret = new De1220LogEntryVector(pagmoPINVOKE.de1220_get_log_entries(swigCPtr), true);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  public algorithm to_algorithm() {
+    algorithm ret = new algorithm(pagmoPINVOKE.de1220_to_algorithm(swigCPtr), true);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
 }
 
 }

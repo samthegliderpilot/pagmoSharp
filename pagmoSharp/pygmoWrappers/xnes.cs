@@ -153,6 +153,18 @@ public partial class xnes : global::System.IDisposable {
     return ret;
   }
 
+  public XnesLogEntryVector get_log_entries() {
+    XnesLogEntryVector ret = new XnesLogEntryVector(pagmoPINVOKE.xnes_get_log_entries(swigCPtr), true);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  public algorithm to_algorithm() {
+    algorithm ret = new algorithm(pagmoPINVOKE.xnes_to_algorithm(swigCPtr), true);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
 }
 
 }

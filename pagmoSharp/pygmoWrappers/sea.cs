@@ -115,6 +115,18 @@ public partial class sea : global::System.IDisposable {
     return ret;
   }
 
+  public SeaLogEntryVector get_log_entries() {
+    SeaLogEntryVector ret = new SeaLogEntryVector(pagmoPINVOKE.sea_get_log_entries(swigCPtr), true);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  public algorithm to_algorithm() {
+    algorithm ret = new algorithm(pagmoPINVOKE.sea_to_algorithm(swigCPtr), true);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
 }
 
 }

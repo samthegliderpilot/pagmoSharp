@@ -10,3 +10,10 @@ public:
     extern population evolve(const population &) const;
     extern std::string get_name() const;
 };
+
+%extend null_algorithm {
+    pagmo::algorithm to_algorithm() const
+    {
+        return pagmo::algorithm(*self);
+    }
+}

@@ -147,6 +147,18 @@ public partial class sga : global::System.IDisposable {
     return ret;
   }
 
+  public SgaLogEntryVector get_log_entries() {
+    SgaLogEntryVector ret = new SgaLogEntryVector(pagmoPINVOKE.sga_get_log_entries(swigCPtr), true);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  public algorithm to_algorithm() {
+    algorithm ret = new algorithm(pagmoPINVOKE.sga_to_algorithm(swigCPtr), true);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
 }
 
 }

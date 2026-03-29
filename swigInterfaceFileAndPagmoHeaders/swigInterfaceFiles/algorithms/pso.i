@@ -24,3 +24,15 @@ public:
     extern std::string get_extra_info() const;
     extern const log_type& get_log() const;
 };
+
+%extend pso {
+    std::vector<pagmoWrap::PsoLogEntry> get_log_entries() const
+    {
+        return pagmoWrap::Pso_GetLogEntries(*self);
+    }
+
+    pagmo::algorithm to_algorithm() const
+    {
+        return pagmo::algorithm(*self);
+    }
+}

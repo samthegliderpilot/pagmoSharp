@@ -168,6 +168,12 @@ public partial class cmaes : global::System.IDisposable {
     return ret;
   }
 
+  public algorithm to_algorithm() {
+    algorithm ret = new algorithm(pagmoPINVOKE.cmaes_to_algorithm(swigCPtr), true);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
 }
 
 }

@@ -135,6 +135,18 @@ public partial class simulated_annealing : global::System.IDisposable {
     return ret;
   }
 
+  public SimulatedAnnealingLogEntryVector get_log_entries() {
+    SimulatedAnnealingLogEntryVector ret = new SimulatedAnnealingLogEntryVector(pagmoPINVOKE.simulated_annealing_get_log_entries(swigCPtr), true);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  public algorithm to_algorithm() {
+    algorithm ret = new algorithm(pagmoPINVOKE.simulated_annealing_to_algorithm(swigCPtr), true);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
 }
 
 }

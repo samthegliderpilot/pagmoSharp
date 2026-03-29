@@ -1,4 +1,5 @@
 %{
+#include "pagmo/algorithm.hpp"
 #include "pagmo/algorithms/gwo.hpp"
 #include "pagmo/rng.hpp"
 %}
@@ -21,3 +22,15 @@ public:
     extern std::string get_extra_info() const;
     extern const log_type& get_log() const;
 };
+
+%extend gwo {
+    std::vector<pagmoWrap::GwoLogEntry> get_log_entries() const
+    {
+        return pagmoWrap::Gwo_GetLogEntries(*self);
+    }
+
+    pagmo::algorithm to_algorithm() const
+    {
+        return pagmo::algorithm(*self);
+    }
+}

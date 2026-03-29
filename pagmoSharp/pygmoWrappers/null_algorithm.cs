@@ -69,6 +69,12 @@ public partial class null_algorithm : global::System.IDisposable {
     return ret;
   }
 
+  public algorithm to_algorithm() {
+    algorithm ret = new algorithm(pagmoPINVOKE.null_algorithm_to_algorithm(swigCPtr), true);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
   public null_algorithm() : this(pagmoPINVOKE.new_null_algorithm(), true) {
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }

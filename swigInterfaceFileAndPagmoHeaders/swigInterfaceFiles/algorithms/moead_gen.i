@@ -29,6 +29,11 @@ public:
 };
 
 %extend pagmo::moead_gen {
+    std::vector<pagmoWrap::MoeadLogEntry> get_log_entries() const
+    {
+        return pagmoWrap::MoeadGen_GetLogEntries(*self);
+    }
+
     pagmo::algorithm to_algorithm() const
     {
         return pagmo::algorithm(*self);

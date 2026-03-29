@@ -126,21 +126,70 @@ namespace Tests.PagmoSharp.Algorithms
         [Test]
         public void TestGetLog()
         {
-            using (var problem = new TwoDimensionalSingleObjectiveProblemWrapper())
-            using (var algorithm = CreateAlgorithm(problem))
+            if (!SingleObjective && !Constrained && !MultiObjectiveUnconstrainedValid && !MultiObjectiveConstrainedValid)
             {
-                var algorithmType = algorithm.GetType();
-                var logMethod = algorithmType.GetMethod("get_log_lines", BindingFlags.Public | BindingFlags.Instance)
-                    ?? algorithmType.GetMethod("get_log", BindingFlags.Public | BindingFlags.Instance);
+                Assert.Pass("Not applicable: no supported test problem shape for log validation.");
+                return;
+            }
 
-                if (logMethod is null)
-                {
-                    Assert.Pass("Not applicable: algorithm does not expose a log getter.");
-                    return;
-                }
+            if (SingleObjective && Unconstrained)
+            {
+                using var problem = new TwoDimensionalSingleObjectiveProblemWrapper();
+                using var algorithm = CreateAlgorithm(problem);
+                AssertLogSurface(algorithm, problem, 48u);
+                return;
+            }
 
-                var logResult = logMethod.Invoke(algorithm, null);
-                Assert.IsNotNull(logResult);
+            if (SingleObjective && Constrained)
+            {
+                using var problem = new TwoDimensionalConstrainedProblem();
+                using var algorithm = CreateAlgorithm(problem);
+                AssertLogSurface(algorithm, problem, 48u);
+                return;
+            }
+
+            if (MultiObjectiveUnconstrainedValid)
+            {
+                using var problem = new TwoDimensionalMultiObjectiveProblemWrapper();
+                using var algorithm = CreateAlgorithm(problem);
+                AssertLogSurface(algorithm, problem, 64u);
+                return;
+            }
+
+            if (MultiObjectiveConstrainedValid)
+            {
+                using var problem = new TwoDimensionalMultiObjectiveConstrainedProblemWrapper();
+                using var algorithm = CreateAlgorithm(problem);
+                AssertLogSurface(algorithm, problem, 64u);
+                return;
+            }
+
+            Assert.Pass("Not applicable: algorithm/problem combination unavailable for log validation.");
+        }
+
+        private static void AssertLogSurface(IAlgorithm algorithm, TestProblemWrapper managedProblem, uint populationSize)
+        {
+            var algorithmType = algorithm.GetType();
+            var setVerbosity = algorithmType.GetMethod("set_verbosity", BindingFlags.Public | BindingFlags.Instance);
+            setVerbosity?.Invoke(algorithm, new object[] { 1u });
+
+            using var problem = new problem(managedProblem);
+            using var population = new population(problem, populationSize, 2u);
+            using var _ = algorithm.evolve(population);
+
+            var logLines = algorithm.GetLogLines();
+            Assert.That(logLines, Is.Not.Null, "universal GetLogLines() should always return a list");
+
+            var hasNativeLogMethod =
+                algorithmType.GetMethod("get_log_entries", BindingFlags.Public | BindingFlags.Instance) != null ||
+                algorithmType.GetMethod("get_log_lines", BindingFlags.Public | BindingFlags.Instance) != null ||
+                algorithmType.GetMethod("get_log", BindingFlags.Public | BindingFlags.Instance) != null;
+
+            if (hasNativeLogMethod && setVerbosity != null)
+            {
+                Assert.That(logLines.Count, Is.GreaterThan(0), "verbosity-enabled logging should emit at least one line");
+                Assert.That(logLines[0].RawFields.Count, Is.GreaterThan(0), "projected log line should expose raw fields");
+                Assert.That(logLines[0].ToDisplayString(), Is.Not.Empty, "projected log line should expose display text");
             }
         }
 

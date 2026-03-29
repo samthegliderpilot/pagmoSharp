@@ -27,3 +27,15 @@ public:
     extern std::string get_extra_info() const;
     extern const log_type& get_log() const;
 };
+
+%extend nspso {
+    std::vector<pagmoWrap::MoVectorLogEntry> get_log_entries() const
+    {
+        return pagmoWrap::Nspso_GetLogEntries(*self);
+    }
+
+    pagmo::algorithm to_algorithm() const
+    {
+        return pagmo::algorithm(*self);
+    }
+}

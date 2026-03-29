@@ -28,6 +28,18 @@ public:
     extern const log_type& get_log() const;
 };
 
+%extend compass_search {
+    std::vector<pagmoWrap::CompassSearchLogEntry> get_log_entries() const
+    {
+        return pagmoWrap::CompassSearch_GetLogEntries(*self);
+    }
+
+    pagmo::algorithm to_algorithm() const
+    {
+        return pagmo::algorithm(*self);
+    }
+}
+
 
 %extend compass_search{
 void set_seed(unsigned) const

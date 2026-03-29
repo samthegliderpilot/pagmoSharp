@@ -136,6 +136,18 @@ public partial class compass_search : global::System.IDisposable {
     return ret;
   }
 
+  public CompassSearchLogEntryVector get_log_entries() {
+    CompassSearchLogEntryVector ret = new CompassSearchLogEntryVector(pagmoPINVOKE.compass_search_get_log_entries(swigCPtr), true);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  public algorithm to_algorithm() {
+    algorithm ret = new algorithm(pagmoPINVOKE.compass_search_to_algorithm(swigCPtr), true);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
   public void set_seed(uint arg0) {
     pagmoPINVOKE.compass_search_set_seed(swigCPtr, arg0);
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();

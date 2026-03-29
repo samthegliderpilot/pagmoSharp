@@ -121,6 +121,18 @@ public partial class gwo : global::System.IDisposable {
     return ret;
   }
 
+  public GwoLogEntryVector get_log_entries() {
+    GwoLogEntryVector ret = new GwoLogEntryVector(pagmoPINVOKE.gwo_get_log_entries(swigCPtr), true);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  public algorithm to_algorithm() {
+    algorithm ret = new algorithm(pagmoPINVOKE.gwo_to_algorithm(swigCPtr), true);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
 }
 
 }

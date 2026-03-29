@@ -157,6 +157,12 @@ public partial class moead : global::System.IDisposable {
     return ret;
   }
 
+  public MoeadLogEntryVector get_log_entries() {
+    MoeadLogEntryVector ret = new MoeadLogEntryVector(pagmoPINVOKE.moead_get_log_entries(swigCPtr), true);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
   public algorithm to_algorithm() {
     algorithm ret = new algorithm(pagmoPINVOKE.moead_to_algorithm(swigCPtr), true);
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();

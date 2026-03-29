@@ -1,4 +1,5 @@
 %{
+#include "pagmo/algorithm.hpp"
 #include "pagmo/algorithms/de1220.hpp"
 %}
 
@@ -25,3 +26,15 @@ public:
 	extern std::string get_extra_info() const;
 	extern const log_type& get_log() const;
 };
+
+%extend de1220 {
+    std::vector<pagmoWrap::De1220LogEntry> get_log_entries() const
+    {
+        return pagmoWrap::De1220_GetLogEntries(*self);
+    }
+
+    pagmo::algorithm to_algorithm() const
+    {
+        return pagmo::algorithm(*self);
+    }
+}

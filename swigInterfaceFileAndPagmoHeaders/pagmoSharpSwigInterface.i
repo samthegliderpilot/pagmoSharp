@@ -61,6 +61,7 @@ PAGMOSHARP_EXEC_EXCEPTION(pagmo::thread_island::run_evolve, "thread_island.run_e
 	    
 	#include "problem.h" // this is a manually created item.  We want to include it in the wrappers so the generated cxx code can use the handwritten code for the problem
 	#include "tuple_adapters.h"
+	#include "algorithm_log_projections_more.h"
 	#include "cmaes_log_projection.h"
 	#include "cstrs_log_projection.h"
 	#include "de_log_projection.h"
@@ -72,6 +73,7 @@ PAGMOSHARP_EXEC_EXCEPTION(pagmo::thread_island::run_evolve, "thread_island.run_e
 	//#include "multi_objective.h"
 %}
 %include "pagmoWrapper/tuple_adapters.h"
+%include "pagmoWrapper/algorithm_log_projections_more.h"
 %include "pagmoWrapper/cmaes_log_projection.h"
 %include "pagmoWrapper/cstrs_log_projection.h"
 %include "pagmoWrapper/de_log_projection.h"
@@ -159,6 +161,17 @@ namespace std {
   // Your tuple adapter structs:
   %template(IndividualsGroupVector)    std::vector<pagmoWrap::IndividualsGroup>;
   %template(MigrationEntryVector)      std::vector<pagmoWrap::MigrationEntry>;
+  %template(PsoLogEntryVector)         std::vector<pagmoWrap::PsoLogEntry>;
+  %template(XnesLogEntryVector)        std::vector<pagmoWrap::XnesLogEntry>;
+  %template(MoVectorLogEntryVector)    std::vector<pagmoWrap::MoVectorLogEntry>;
+  %template(MoeadLogEntryVector)       std::vector<pagmoWrap::MoeadLogEntry>;
+  %template(GwoLogEntryVector)         std::vector<pagmoWrap::GwoLogEntry>;
+  %template(De1220LogEntryVector)      std::vector<pagmoWrap::De1220LogEntry>;
+  %template(CompassSearchLogEntryVector) std::vector<pagmoWrap::CompassSearchLogEntry>;
+  %template(SimulatedAnnealingLogEntryVector) std::vector<pagmoWrap::SimulatedAnnealingLogEntry>;
+  %template(SgaLogEntryVector)         std::vector<pagmoWrap::SgaLogEntry>;
+  %template(SadeLogEntryVector)        std::vector<pagmoWrap::SadeLogEntry>;
+  %template(SeaLogEntryVector)         std::vector<pagmoWrap::SeaLogEntry>;
   %template(CmaesLogEntryVector)       std::vector<pagmoWrap::CmaesLogEntry>;
   %template(CstrsLogEntryVector)       std::vector<pagmoWrap::CstrsLogEntry>;
   %template(DeLogEntryVector)          std::vector<pagmoWrap::DeLogEntry>;

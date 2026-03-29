@@ -141,6 +141,18 @@ public partial class sade : global::System.IDisposable {
     return ret;
   }
 
+  public SadeLogEntryVector get_log_entries() {
+    SadeLogEntryVector ret = new SadeLogEntryVector(pagmoPINVOKE.sade_get_log_entries(swigCPtr), true);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  public algorithm to_algorithm() {
+    algorithm ret = new algorithm(pagmoPINVOKE.sade_to_algorithm(swigCPtr), true);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
 }
 
 }

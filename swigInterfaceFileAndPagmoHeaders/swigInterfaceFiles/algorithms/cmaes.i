@@ -30,4 +30,9 @@ public:
     {
         return pagmoWrap::Cmaes_GetLogEntries(*self);
     }
+
+    pagmo::algorithm to_algorithm() const
+    {
+        return pagmo::algorithm(*self);
+    }
 }

@@ -152,6 +152,18 @@ public partial class pso_gen : global::System.IDisposable {
     return ret;
   }
 
+  public PsoLogEntryVector get_log_entries() {
+    PsoLogEntryVector ret = new PsoLogEntryVector(pagmoPINVOKE.pso_gen_get_log_entries(swigCPtr), true);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  public algorithm to_algorithm() {
+    algorithm ret = new algorithm(pagmoPINVOKE.pso_gen_to_algorithm(swigCPtr), true);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
 }
 
 }

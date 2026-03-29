@@ -117,6 +117,7 @@
       <CompileAsManaged>false</CompileAsManaged>
       <AdditionalIncludeDirectories>C:\src\vcpkg\installed\x64-windows\include</AdditionalIncludeDirectories>
       <MultiProcessorCompilation>false</MultiProcessorCompilation>
+      <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -145,6 +146,7 @@ call "$(ProjectDir)..\createSwigWrappersAndPlaceThem.bat"
       <CompileAsManaged>false</CompileAsManaged>
       <AdditionalIncludeDirectories>C:\src\vcpkg\installed\x64-windows\include</AdditionalIncludeDirectories>
       <MultiProcessorCompilation>false</MultiProcessorCompilation>
+      <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -173,6 +175,7 @@ call "$(ProjectDir)..\createSwigWrappersAndPlaceThem.bat"
       <CompileAsManaged>false</CompileAsManaged>
       <AdditionalIncludeDirectories>C:\src\vcpkg\installed\x64-windows\include\eigen3;C:\src\vcpkg\installed\x64-windows\include</AdditionalIncludeDirectories>
       <MultiProcessorCompilation>false</MultiProcessorCompilation>
+      <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -199,6 +202,7 @@ call "$(ProjectDir)..\createSwigWrappersAndPlaceThem.bat"</Command>
       <CompileAsManaged>false</CompileAsManaged>
       <AdditionalIncludeDirectories>C:\src\vcpkg\installed\x64-windows\include</AdditionalIncludeDirectories>
       <MultiProcessorCompilation>false</MultiProcessorCompilation>
+      <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

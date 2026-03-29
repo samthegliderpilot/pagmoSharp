@@ -1,7 +1,43 @@
-﻿namespace pagmo
+using System.Collections.Generic;
+
+namespace pagmo;
+
+public partial class gwo : IAlgorithm
 {
-    public partial class gwo : IAlgorithm
+    public readonly record struct GwoLogLine(
+        uint Generation,
+        double Alpha,
+        double Beta,
+        double Delta) : IAlgorithmLogLine
     {
-        
+        public string AlgorithmName => "gwo";
+        public IReadOnlyDictionary<string, object> RawFields => new Dictionary<string, object>
+        {
+            ["generation"] = Generation,
+            ["alpha"] = Alpha,
+            ["beta"] = Beta,
+            ["delta"] = Delta
+        };
+        public string ToDisplayString() => $"gen={Generation}, alpha={Alpha}, beta={Beta}, delta={Delta}";
+    }
+
+    public IReadOnlyList<GwoLogLine> GetTypedLogLines()
+    {
+        using var rawEntries = get_log_entries();
+        var lines = new List<GwoLogLine>(rawEntries.Count);
+        for (var i = 0; i < rawEntries.Count; i++)
+        {
+            using var entry = rawEntries[i];
+            lines.Add(new GwoLogLine(entry.gen, entry.alpha, entry.beta, entry.delta));
+        }
+        return lines;
+    }
+
+    public IReadOnlyList<IAlgorithmLogLine> GetLogLines()
+    {
+        var typedLines = GetTypedLogLines();
+        var projected = new List<IAlgorithmLogLine>(typedLines.Count);
+        foreach (var line in typedLines) projected.Add(line);
+        return projected;
     }
 }

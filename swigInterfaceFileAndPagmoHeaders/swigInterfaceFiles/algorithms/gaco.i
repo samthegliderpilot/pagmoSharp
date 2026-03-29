@@ -1,4 +1,5 @@
 %{
+#include "pagmo/algorithm.hpp"
 #include "pagmo/algorithms/gaco.hpp"
 #include "pagmo/rng.hpp"
 %}
@@ -30,5 +31,10 @@ public:
     std::vector<pagmoWrap::GacoLogEntry> get_log_entries() const
     {
         return pagmoWrap::Gaco_GetLogEntries(*$self);
+    }
+
+    pagmo::algorithm to_algorithm() const
+    {
+        return pagmo::algorithm(*self);
     }
 }

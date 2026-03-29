@@ -158,6 +158,18 @@ public partial class nspso : global::System.IDisposable {
     return ret;
   }
 
+  public MoVectorLogEntryVector get_log_entries() {
+    MoVectorLogEntryVector ret = new MoVectorLogEntryVector(pagmoPINVOKE.nspso_get_log_entries(swigCPtr), true);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  public algorithm to_algorithm() {
+    algorithm ret = new algorithm(pagmoPINVOKE.nspso_to_algorithm(swigCPtr), true);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
 }
 
 }

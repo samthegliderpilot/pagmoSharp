@@ -11,6 +11,96 @@
 namespace pagmo {
 
 public partial class pagmo {
+  public static PsoLogEntryVector Pso_GetLogEntries(pso algo) {
+    PsoLogEntryVector ret = new PsoLogEntryVector(pagmoPINVOKE.Pso_GetLogEntries(pso.getCPtr(algo)), true);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  public static PsoLogEntryVector PsoGen_GetLogEntries(pso_gen algo) {
+    PsoLogEntryVector ret = new PsoLogEntryVector(pagmoPINVOKE.PsoGen_GetLogEntries(pso_gen.getCPtr(algo)), true);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  public static XnesLogEntryVector Xnes_GetLogEntries(xnes algo) {
+    XnesLogEntryVector ret = new XnesLogEntryVector(pagmoPINVOKE.Xnes_GetLogEntries(xnes.getCPtr(algo)), true);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  public static MoVectorLogEntryVector Maco_GetLogEntries(maco algo) {
+    MoVectorLogEntryVector ret = new MoVectorLogEntryVector(pagmoPINVOKE.Maco_GetLogEntries(maco.getCPtr(algo)), true);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  public static MoeadLogEntryVector Moead_GetLogEntries(moead algo) {
+    MoeadLogEntryVector ret = new MoeadLogEntryVector(pagmoPINVOKE.Moead_GetLogEntries(moead.getCPtr(algo)), true);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  public static MoeadLogEntryVector MoeadGen_GetLogEntries(moead_gen algo) {
+    MoeadLogEntryVector ret = new MoeadLogEntryVector(pagmoPINVOKE.MoeadGen_GetLogEntries(moead_gen.getCPtr(algo)), true);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  public static MoVectorLogEntryVector Nsga2_GetLogEntries(nsga2 algo) {
+    MoVectorLogEntryVector ret = new MoVectorLogEntryVector(pagmoPINVOKE.Nsga2_GetLogEntries(nsga2.getCPtr(algo)), true);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  public static MoVectorLogEntryVector Nspso_GetLogEntries(nspso algo) {
+    MoVectorLogEntryVector ret = new MoVectorLogEntryVector(pagmoPINVOKE.Nspso_GetLogEntries(nspso.getCPtr(algo)), true);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  public static GwoLogEntryVector Gwo_GetLogEntries(gwo algo) {
+    GwoLogEntryVector ret = new GwoLogEntryVector(pagmoPINVOKE.Gwo_GetLogEntries(gwo.getCPtr(algo)), true);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  public static De1220LogEntryVector De1220_GetLogEntries(de1220 algo) {
+    De1220LogEntryVector ret = new De1220LogEntryVector(pagmoPINVOKE.De1220_GetLogEntries(de1220.getCPtr(algo)), true);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  public static CompassSearchLogEntryVector CompassSearch_GetLogEntries(compass_search algo) {
+    CompassSearchLogEntryVector ret = new CompassSearchLogEntryVector(pagmoPINVOKE.CompassSearch_GetLogEntries(compass_search.getCPtr(algo)), true);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  public static SimulatedAnnealingLogEntryVector SimulatedAnnealing_GetLogEntries(simulated_annealing algo) {
+    SimulatedAnnealingLogEntryVector ret = new SimulatedAnnealingLogEntryVector(pagmoPINVOKE.SimulatedAnnealing_GetLogEntries(simulated_annealing.getCPtr(algo)), true);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  public static SgaLogEntryVector Sga_GetLogEntries(sga algo) {
+    SgaLogEntryVector ret = new SgaLogEntryVector(pagmoPINVOKE.Sga_GetLogEntries(sga.getCPtr(algo)), true);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  public static SadeLogEntryVector Sade_GetLogEntries(sade algo) {
+    SadeLogEntryVector ret = new SadeLogEntryVector(pagmoPINVOKE.Sade_GetLogEntries(sade.getCPtr(algo)), true);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  public static SeaLogEntryVector Sea_GetLogEntries(sea algo) {
+    SeaLogEntryVector ret = new SeaLogEntryVector(pagmoPINVOKE.Sea_GetLogEntries(sea.getCPtr(algo)), true);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
   public static CmaesLogEntryVector Cmaes_GetLogEntries(cmaes algo) {
     CmaesLogEntryVector ret = new CmaesLogEntryVector(pagmoPINVOKE.Cmaes_GetLogEntries(cmaes.getCPtr(algo)), true);
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();

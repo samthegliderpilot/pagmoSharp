@@ -1,4 +1,5 @@
 %{
+#include "pagmo/algorithm.hpp"
 #include "pagmo/algorithms/sade.hpp"
 %}
 
@@ -22,3 +23,15 @@ public:
 	extern std::string get_extra_info() const;
 	extern const log_type& get_log() const;
 };
+
+%extend sade {
+    std::vector<pagmoWrap::SadeLogEntry> get_log_entries() const
+    {
+        return pagmoWrap::Sade_GetLogEntries(*self);
+    }
+
+    pagmo::algorithm to_algorithm() const
+    {
+        return pagmo::algorithm(*self);
+    }
+}
