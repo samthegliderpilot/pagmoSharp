@@ -2,6 +2,7 @@
 #define SUPPORT_VARIDEC FALSE
 %include "exception.i"
 %{
+#include <string>
 #include <pagmo/exceptions.hpp>  
 %}
 
@@ -15,6 +16,31 @@
         SWIG_exception(SWIG_RuntimeError, "Unknown C++ exception");
     }
 }
+
+// Execute-path context for high-value runtime operations. This keeps failures
+// actionable when they bubble through type-erased algorithm/island orchestration.
+%define PAGMOSHARP_EXEC_EXCEPTION(METHOD, LABEL)
+%exception METHOD {
+    try {
+        $action
+    } catch (const std::exception &e) {
+        std::string pagmosharp_message = std::string(LABEL) + ": " + e.what();
+        SWIG_exception(SWIG_RuntimeError, pagmosharp_message.c_str());
+    } catch (...) {
+        std::string pagmosharp_message = std::string(LABEL) + ": Unknown C++ exception";
+        SWIG_exception(SWIG_RuntimeError, pagmosharp_message.c_str());
+    }
+}
+%enddef
+
+PAGMOSHARP_EXEC_EXCEPTION(pagmo::algorithm::evolve, "algorithm.evolve failed")
+PAGMOSHARP_EXEC_EXCEPTION(pagmo::island::evolve, "island.evolve failed")
+PAGMOSHARP_EXEC_EXCEPTION(pagmo::island::wait, "island.wait failed")
+PAGMOSHARP_EXEC_EXCEPTION(pagmo::island::wait_check, "island.wait_check failed")
+PAGMOSHARP_EXEC_EXCEPTION(pagmo::archipelago::evolve, "archipelago.evolve failed")
+PAGMOSHARP_EXEC_EXCEPTION(pagmo::archipelago::wait, "archipelago.wait failed")
+PAGMOSHARP_EXEC_EXCEPTION(pagmo::archipelago::wait_check, "archipelago.wait_check failed")
+PAGMOSHARP_EXEC_EXCEPTION(pagmo::thread_island::run_evolve, "thread_island.run_evolve failed")
 
 %module(naturalvar=1, directors="11") pagmo
 %{

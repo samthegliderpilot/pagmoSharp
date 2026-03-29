@@ -478,6 +478,7 @@ SWIGINTERN void SWIG_CSharpException(int code, const char *msg) {
 #include <stdexcept>
 
 
+#include <string>
 #include <pagmo/exceptions.hpp>  
 
 
@@ -13967,12 +13968,14 @@ SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_island_evolve__SWIG_0(void * jarg1, uns
     try {
       (arg1)->evolve(arg2);
     } catch (const std::exception &e) {
+      std::string pagmosharp_message = std::string("island.evolve failed") + ": " + e.what();
       {
-        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return ; 
+        SWIG_CSharpException(SWIG_RuntimeError, pagmosharp_message.c_str()); return ; 
       };
     } catch (...) {
+      std::string pagmosharp_message = std::string("island.evolve failed") + ": Unknown C++ exception";
       {
-        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return ; 
+        SWIG_CSharpException(SWIG_RuntimeError, pagmosharp_message.c_str()); return ; 
       };
     }
   }
@@ -13987,12 +13990,14 @@ SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_island_evolve__SWIG_1(void * jarg1) {
     try {
       (arg1)->evolve();
     } catch (const std::exception &e) {
+      std::string pagmosharp_message = std::string("island.evolve failed") + ": " + e.what();
       {
-        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return ; 
+        SWIG_CSharpException(SWIG_RuntimeError, pagmosharp_message.c_str()); return ; 
       };
     } catch (...) {
+      std::string pagmosharp_message = std::string("island.evolve failed") + ": Unknown C++ exception";
       {
-        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return ; 
+        SWIG_CSharpException(SWIG_RuntimeError, pagmosharp_message.c_str()); return ; 
       };
     }
   }
@@ -14007,12 +14012,14 @@ SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_island_wait_check(void * jarg1) {
     try {
       (arg1)->wait_check();
     } catch (const std::exception &e) {
+      std::string pagmosharp_message = std::string("island.wait_check failed") + ": " + e.what();
       {
-        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return ; 
+        SWIG_CSharpException(SWIG_RuntimeError, pagmosharp_message.c_str()); return ; 
       };
     } catch (...) {
+      std::string pagmosharp_message = std::string("island.wait_check failed") + ": Unknown C++ exception";
       {
-        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return ; 
+        SWIG_CSharpException(SWIG_RuntimeError, pagmosharp_message.c_str()); return ; 
       };
     }
   }
@@ -14027,12 +14034,14 @@ SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_island_wait(void * jarg1) {
     try {
       (arg1)->wait();
     } catch (const std::exception &e) {
+      std::string pagmosharp_message = std::string("island.wait failed") + ": " + e.what();
       {
-        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return ; 
+        SWIG_CSharpException(SWIG_RuntimeError, pagmosharp_message.c_str()); return ; 
       };
     } catch (...) {
+      std::string pagmosharp_message = std::string("island.wait failed") + ": Unknown C++ exception";
       {
-        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return ; 
+        SWIG_CSharpException(SWIG_RuntimeError, pagmosharp_message.c_str()); return ; 
       };
     }
   }
@@ -15069,12 +15078,14 @@ SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_thread_island_run_evolve(void * jarg1, 
     try {
       ((pagmo::thread_island const *)arg1)->run_evolve(*arg2);
     } catch (const std::exception &e) {
+      std::string pagmosharp_message = std::string("thread_island.run_evolve failed") + ": " + e.what();
       {
-        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return ; 
+        SWIG_CSharpException(SWIG_RuntimeError, pagmosharp_message.c_str()); return ; 
       };
     } catch (...) {
+      std::string pagmosharp_message = std::string("thread_island.run_evolve failed") + ": Unknown C++ exception";
       {
-        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return ; 
+        SWIG_CSharpException(SWIG_RuntimeError, pagmosharp_message.c_str()); return ; 
       };
     }
   }
@@ -39760,12 +39771,14 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_algorithm_evolve(void * jarg1, void *
     try {
       result = ((pagmo::algorithm const *)arg1)->evolve((pagmo::population const &)*arg2);
     } catch (const std::exception &e) {
+      std::string pagmosharp_message = std::string("algorithm.evolve failed") + ": " + e.what();
       {
-        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+        SWIG_CSharpException(SWIG_RuntimeError, pagmosharp_message.c_str()); return 0; 
       };
     } catch (...) {
+      std::string pagmosharp_message = std::string("algorithm.evolve failed") + ": Unknown C++ exception";
       {
-        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+        SWIG_CSharpException(SWIG_RuntimeError, pagmosharp_message.c_str()); return 0; 
       };
     }
   }
@@ -41309,12 +41322,14 @@ SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_archipelago_evolve__SWIG_0(void * jarg1
     try {
       (arg1)->evolve(arg2);
     } catch (const std::exception &e) {
+      std::string pagmosharp_message = std::string("archipelago.evolve failed") + ": " + e.what();
       {
-        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return ; 
+        SWIG_CSharpException(SWIG_RuntimeError, pagmosharp_message.c_str()); return ; 
       };
     } catch (...) {
+      std::string pagmosharp_message = std::string("archipelago.evolve failed") + ": Unknown C++ exception";
       {
-        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return ; 
+        SWIG_CSharpException(SWIG_RuntimeError, pagmosharp_message.c_str()); return ; 
       };
     }
   }
@@ -41329,12 +41344,14 @@ SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_archipelago_evolve__SWIG_1(void * jarg1
     try {
       (arg1)->evolve();
     } catch (const std::exception &e) {
+      std::string pagmosharp_message = std::string("archipelago.evolve failed") + ": " + e.what();
       {
-        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return ; 
+        SWIG_CSharpException(SWIG_RuntimeError, pagmosharp_message.c_str()); return ; 
       };
     } catch (...) {
+      std::string pagmosharp_message = std::string("archipelago.evolve failed") + ": Unknown C++ exception";
       {
-        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return ; 
+        SWIG_CSharpException(SWIG_RuntimeError, pagmosharp_message.c_str()); return ; 
       };
     }
   }
@@ -41349,12 +41366,14 @@ SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_archipelago_wait(void * jarg1) {
     try {
       (arg1)->wait();
     } catch (const std::exception &e) {
+      std::string pagmosharp_message = std::string("archipelago.wait failed") + ": " + e.what();
       {
-        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return ; 
+        SWIG_CSharpException(SWIG_RuntimeError, pagmosharp_message.c_str()); return ; 
       };
     } catch (...) {
+      std::string pagmosharp_message = std::string("archipelago.wait failed") + ": Unknown C++ exception";
       {
-        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return ; 
+        SWIG_CSharpException(SWIG_RuntimeError, pagmosharp_message.c_str()); return ; 
       };
     }
   }
@@ -41369,12 +41388,14 @@ SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_archipelago_wait_check(void * jarg1) {
     try {
       (arg1)->wait_check();
     } catch (const std::exception &e) {
+      std::string pagmosharp_message = std::string("archipelago.wait_check failed") + ": " + e.what();
       {
-        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return ; 
+        SWIG_CSharpException(SWIG_RuntimeError, pagmosharp_message.c_str()); return ; 
       };
     } catch (...) {
+      std::string pagmosharp_message = std::string("archipelago.wait_check failed") + ": Unknown C++ exception";
       {
-        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return ; 
+        SWIG_CSharpException(SWIG_RuntimeError, pagmosharp_message.c_str()); return ; 
       };
     }
   }

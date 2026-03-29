@@ -97,6 +97,7 @@ Last updated: 2026-03-28
 - [ ] Standardize C++?C# exception bubbling and mapping (constructor/evolve/wait paths, including async/runtime wrapper paths).
 - [ ] Replace null-return `catch (...)` patterns in native bridge with explicit error propagation so managed exceptions preserve actionable native context.
 - [x] Add thread-local native bridge error channel for managed_bridge exports (pagmosharp_get_last_error / pagmosharp_clear_last_error) and consume it in managed interop (problem creation, population creation, gradient/sparsity helpers, BFE operators) so null-return paths surface actionable failure messages.
+- [x] Add execute-path SWIG exception context for runtime orchestration methods (`algorithm.evolve`, `island.evolve`, `island.wait`, `island.wait_check`, `archipelago.evolve`, `archipelago.wait`, `archipelago.wait_check`, `thread_island.run_evolve`) and lock behavior with regression tests.
 - [ ] Correct built-in problem `thread_safety` metadata in wrappers (remove placeholder `none` defaults where inaccurate) and add threaded runtime verification coverage.
 - [x] Partial pass: corrected placeholder thread-safety metadata from `none` to `basic` for `ackley`, `cec2006`, `golomb_ruler`, `inventory`, `minlp_rastrigin`, and `zdt`, with explicit assertions added in corresponding problem tests.
 - [x] Investigate and eliminate full-suite post-run test-host crashes (all tests pass but host process aborts during teardown), with explicit native-lifetime root cause and regression guard (resolved by switching midpoint probe vector construction to array-based initialization in `TestProblemBase`).
@@ -143,6 +144,7 @@ Last updated: 2026-03-28
 - Breadth-first then depth-hardening is intentional for large catalog onboarding.
 - `Problem` remains core and already mature enough to build on.
 - v1.0 stays Windows-first; Linux is explicitly post-release.
+
 
 
 
