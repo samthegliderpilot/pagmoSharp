@@ -65,10 +65,6 @@ public partial class managed_problem : global::System.IDisposable {
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
-  public managed_problem(SWIGTYPE_p_std__shared_ptrT_pagmoWrap__problem_callback_t cb) : this(pagmoPINVOKE.new_managed_problem__SWIG_2(SWIGTYPE_p_std__shared_ptrT_pagmoWrap__problem_callback_t.getCPtr(cb)), true) {
-    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
-  }
-
   public DoubleVector fitness(DoubleVector x) {
     DoubleVector ret = new DoubleVector(pagmoPINVOKE.managed_problem_fitness(swigCPtr, DoubleVector.getCPtr(x)), true);
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();

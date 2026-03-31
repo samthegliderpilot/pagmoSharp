@@ -16,43 +16,42 @@
 %}
 
 
-#if SUPPORT_VARIDEC
-template <typename... Args>
-inline void stream(std::ostream&, const Args &...);
-#endif
+//#if SUPPORT_VARIDEC
+//template <typename... Args>
+//inline void stream(std::ostream&, const Args &...);
+//#endif
 
 
 
 namespace detail
 {
-    %ignore stream_impl;
-    %ignore operator<<;
+    // Ostream-based helpers are intentionally not exposed to C#.
+    // They only create opaque SWIGTYPE surfaces and are not used by managed code.
+    //template <typename T>
+    //extern inline void stream_impl(std::ostream& os, const T& x);
 
-    template <typename T>
-    extern inline void stream_impl(std::ostream& os, const T& x);
-
-    extern inline void stream_impl(std::ostream& os, const bool& b);
+    //extern inline void stream_impl(std::ostream& os, const bool& b);
 
     extern unsigned max_stream_output_length();
 
     // Helper to stream a [begin, end) range.
-    template <typename It>
-    extern inline void stream_range(std::ostream& os, It begin, It end);
+    //template <typename It>
+    //extern inline void stream_range(std::ostream& os, It begin, It end);
 
     // Implementation for vector.
-    template <typename T>
-    extern inline void stream_impl(std::ostream& os, const std::vector<T>& v);
+    //template <typename T>
+    //extern inline void stream_impl(std::ostream& os, const std::vector<T>& v);
 
-    template <typename T, typename U>
-    extern inline void stream_impl(std::ostream& os, const std::pair<T, U>& p);
+    //template <typename T, typename U>
+    //extern inline void stream_impl(std::ostream& os, const std::pair<T, U>& p);
 
-    template <typename T, typename U>
-    extern inline void stream_impl(std::ostream& os, const std::map<T, U>& m);
+    //template <typename T, typename U>
+    //extern inline void stream_impl(std::ostream& os, const std::map<T, U>& m);
 
-    #if SUPPORT_VARIDEC
-    template <typename T, typename... Args>
-    extern inline void stream_impl(std::ostream& os, const T& x, const Args &...args);
-	#endif
+    //#if SUPPORT_VARIDEC
+    //template <typename T, typename... Args>
+    //extern inline void stream_impl(std::ostream& os, const T& x, const Args &...args);
+	//#endif
 
     // A small helper function that transforms x to string, using internally pagmo::stream.
     template <typename T>
@@ -71,15 +70,15 @@ namespace detail
   //  };
 
     // Print the table to stream.
-    std::ostream& operator<<(std::ostream&, const table&);
+    //std::ostream& operator<<(std::ostream&, const table&);
 
 };
 
-#if SUPPORT_VARIDEC
-template <typename... Args>
-inline void stream(std::ostream& os, const Args &...args);
-
-template <typename... Args>
-inline void print(const Args &...args);
-#endif
+//#if SUPPORT_VARIDEC
+//template <typename... Args>
+//inline void stream(std::ostream& os, const Args &...args);
+//
+//template <typename... Args>
+//inline void print(const Args &...args);
+//#endif
 //};

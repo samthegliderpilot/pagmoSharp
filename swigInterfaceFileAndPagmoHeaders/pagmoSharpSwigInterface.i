@@ -97,13 +97,19 @@ PAGMOSHARP_EXEC_EXCEPTION(pagmo::thread_island::run_evolve, "thread_island.run_e
 
 %typemap(csclassmodifiers) std::vector <double> "public partial class"
 %feature("director") pagmoWrap::problem_callback;
+%ignore pagmoWrap::managed_problem::managed_problem(std::shared_ptr<pagmoWrap::problem_callback>);
+%ignore pagmoWrap::managed_problem::managed_problem(std::shared_ptr<problem_callback>);
+%ignore pagmoWrap::managed_problem::managed_problem(std::shared_ptr< problem_callback >);
+%ignore pagmoWrap::managed_problem::managed_problem(std::shared_ptr< pagmoWrap::problem_callback >);
 %include "pagmoWrapper/problem.h"
 %shared_ptr(pagmoWrap::problem_callback);
 
 %feature("director") pagmoWrap::r_policyBase;
+%ignore pagmoWrap::r_policyPagmoWrapper::replace;
 %include "pagmoWrapper/r_policy.h"
 
 %feature("director") pagmoWrap::s_policyBase;
+%ignore pagmoWrap::s_policyPagmoWrapper::select;
 %include "pagmoWrapper/s_policy.h"
 
 // need other languages?

@@ -4,6 +4,7 @@
 #include "pagmo/types.hpp"
 %}
 %typemap(csclassmodifiers) pagmo::hv_algorithm "public partial class"
+%ignore pagmo::hv_algorithm::volume_between(double*, double*, pagmo::vector_double::size_type);
 
 class pagmo::hv_algorithm
 {

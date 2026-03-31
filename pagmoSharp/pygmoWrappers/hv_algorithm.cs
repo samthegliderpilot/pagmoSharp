@@ -69,12 +69,6 @@ public partial class hv_algorithm : global::System.IDisposable {
     return ret;
   }
 
-  public static double volume_between(SWIGTYPE_p_double arg0, SWIGTYPE_p_double arg1, uint arg2) {
-    double ret = pagmoPINVOKE.hv_algorithm_volume_between__SWIG_2(SWIGTYPE_p_double.getCPtr(arg0), SWIGTYPE_p_double.getCPtr(arg1), arg2);
-    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
-    return ret;
-  }
-
   public virtual double compute(VectorOfVectorOfDoubles points, DoubleVector r_point) {
     double ret = pagmoPINVOKE.hv_algorithm_compute(swigCPtr, VectorOfVectorOfDoubles.getCPtr(points), DoubleVector.getCPtr(r_point));
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();

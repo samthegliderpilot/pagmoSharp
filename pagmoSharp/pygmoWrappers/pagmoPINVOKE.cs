@@ -1179,9 +1179,6 @@ class pagmoPINVOKE {
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_new_managed_problem__SWIG_1")]
   public static extern global::System.IntPtr new_managed_problem__SWIG_1(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_new_managed_problem__SWIG_2")]
-  public static extern global::System.IntPtr new_managed_problem__SWIG_2(global::System.Runtime.InteropServices.HandleRef jarg1);
-
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_managed_problem_fitness")]
   public static extern global::System.IntPtr managed_problem_fitness(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
 
@@ -1299,9 +1296,6 @@ class pagmoPINVOKE {
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_r_policyPagmoWrapper_getBasePolicy")]
   public static extern global::System.IntPtr r_policyPagmoWrapper_getBasePolicy(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_r_policyPagmoWrapper_replace")]
-  public static extern global::System.IntPtr r_policyPagmoWrapper_replace(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2, uint jarg3, uint jarg4, uint jarg5, uint jarg6, uint jarg7, global::System.Runtime.InteropServices.HandleRef jarg8, global::System.Runtime.InteropServices.HandleRef jarg9);
-
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_r_policyPagmoWrapper_get_name")]
   public static extern string r_policyPagmoWrapper_get_name(global::System.Runtime.InteropServices.HandleRef jarg1);
 
@@ -1355,9 +1349,6 @@ class pagmoPINVOKE {
 
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_s_policyPagmoWrapper_getBasePolicy")]
   public static extern global::System.IntPtr s_policyPagmoWrapper_getBasePolicy(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_s_policyPagmoWrapper_select")]
-  public static extern global::System.IntPtr s_policyPagmoWrapper_select(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2, uint jarg3, uint jarg4, uint jarg5, uint jarg6, uint jarg7, global::System.Runtime.InteropServices.HandleRef jarg8);
 
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_s_policyPagmoWrapper_get_name")]
   public static extern string s_policyPagmoWrapper_get_name(global::System.Runtime.InteropServices.HandleRef jarg1);
@@ -4328,9 +4319,6 @@ class pagmoPINVOKE {
 
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_hv_algorithm_volume_between__SWIG_1")]
   public static extern double hv_algorithm_volume_between__SWIG_1(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
-
-  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_hv_algorithm_volume_between__SWIG_2")]
-  public static extern double hv_algorithm_volume_between__SWIG_2(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2, uint jarg3);
 
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_hv_algorithm_compute")]
   public static extern double hv_algorithm_compute(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);

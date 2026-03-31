@@ -130,6 +130,11 @@ Last updated: 2026-03-29
 - [x] Assert and lock multi-objective population semantics in shared algorithm tests: champion_x/champion_f must throw on multi-objective populations while get_x/get_f remain the supported data path.
 - [x] Reduce wrapper layering for multi-objective helpers by removing intermediate MultiObjectiveUtils C++/C# helper classes and exposing direct pagmo.pagmo.* static bindings via SWIG namespace declarations.
 - [x] Remove hypervolume/hv_algorithm shared-pointer SWIGTYPE_* exposure by instantiating typed HvAlgorithmSharedPtr and add runtime selector coverage in Test_hypervolume.
+- [x] Remove `std::ostream` SWIGTYPE leakage from managed surface by pruning unused ostream-only declarations in `io.i` (no managed API usage, no runtime behavior change).
+- [x] Remove `double*` SWIGTYPE leakage from `hv_algorithm` by suppressing the raw-pointer `volume_between(double*, double*, size_t)` overload and keeping vector-based managed overloads.
+- [x] Remove policy/raw-pointer SWIGTYPE leakage from generated surface by suppressing low-level `r_policyPagmoWrapper::replace` / `s_policyPagmoWrapper::select` exports; managed policy APIs remain unchanged.
+- [x] Remove managed-problem shared_ptr-constructor SWIGTYPE leakage by suppressing the shared_ptr overload and retaining callback-based managed constructor paths.
+- [ ] Remaining SWIGTYPE leakage is now limited to sparsity-pattern pointer surfaces (`problem` / `managed_problem` / `problem_callback` / `minlp_rastrigin`) and is tracked as a focused follow-up slice.
 - [x] Remove MigrationEntry ID SWIGTYPE_* exposure by mapping adapter IDs (migration_id, immigrant_id) to ulong and add dedicated regression coverage in Test_migration_entry.
 - [ ] Anything from 3A is not considered production-ready until 3B gates pass.
 

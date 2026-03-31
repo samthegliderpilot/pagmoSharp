@@ -81,12 +81,6 @@ public class r_policyPagmoWrapper : global::System.IDisposable {
     return ret;
   }
 
-  public SWIGTYPE_p_pagmo__individuals_group_t replace(SWIGTYPE_p_pagmo__individuals_group_t a, uint b, uint c, uint d, uint e, uint f, DoubleVector g, SWIGTYPE_p_pagmo__individuals_group_t h) {
-    SWIGTYPE_p_pagmo__individuals_group_t ret = new SWIGTYPE_p_pagmo__individuals_group_t(pagmoPINVOKE.r_policyPagmoWrapper_replace(swigCPtr, SWIGTYPE_p_pagmo__individuals_group_t.getCPtr(a), b, c, d, e, f, DoubleVector.getCPtr(g), SWIGTYPE_p_pagmo__individuals_group_t.getCPtr(h)), true);
-    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
-    return ret;
-  }
-
   public string get_name() {
     string ret = pagmoPINVOKE.r_policyPagmoWrapper_get_name(swigCPtr);
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
