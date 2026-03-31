@@ -4,6 +4,7 @@
 %}
 
 %typemap(csclassmodifiers) pagmo::xnes "public partial class"
+%ignore xnes::get_log() const;
 class xnes
 {
 public:
@@ -36,3 +37,4 @@ public:
         return pagmo::algorithm(*self);
     }
 }
+

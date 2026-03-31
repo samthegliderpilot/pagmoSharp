@@ -109,12 +109,6 @@ public partial class sea : global::System.IDisposable {
     return ret;
   }
 
-  public SWIGTYPE_p_std__vectorT_std__tupleT_unsigned_int_unsigned_long_long_double_double_size_t_t_t get_log() {
-    SWIGTYPE_p_std__vectorT_std__tupleT_unsigned_int_unsigned_long_long_double_double_size_t_t_t ret = new SWIGTYPE_p_std__vectorT_std__tupleT_unsigned_int_unsigned_long_long_double_double_size_t_t_t(pagmoPINVOKE.sea_get_log(swigCPtr), false);
-    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
-    return ret;
-  }
-
   public SeaLogEntryVector get_log_entries() {
     SeaLogEntryVector ret = new SeaLogEntryVector(pagmoPINVOKE.sea_get_log_entries(swigCPtr), true);
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();

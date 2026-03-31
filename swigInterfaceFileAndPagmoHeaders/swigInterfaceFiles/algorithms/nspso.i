@@ -4,6 +4,7 @@
 %}
 
 %typemap(csclassmodifiers) pagmo::nspso "public partial class"
+%ignore nspso::get_log() const;
 class nspso
 {
 public:
@@ -39,3 +40,4 @@ public:
         return pagmo::algorithm(*self);
     }
 }
+

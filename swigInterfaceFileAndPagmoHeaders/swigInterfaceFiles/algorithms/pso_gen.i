@@ -4,6 +4,7 @@
 %}
 
 %typemap(csclassmodifiers) pagmo::pso_gen "public partial class"
+%ignore pso_gen::get_log() const;
 class pso_gen
 {
 public:
@@ -37,3 +38,4 @@ public:
         return pagmo::algorithm(*self);
     }
 }
+

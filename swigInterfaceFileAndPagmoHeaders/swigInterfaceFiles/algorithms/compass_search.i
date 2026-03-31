@@ -4,6 +4,7 @@
 %}
 
 %typemap(csclassmodifiers) pagmo::compass_search "public partial class"
+%ignore compass_search::get_log() const;
 
 class compass_search {
 public:
@@ -58,3 +59,4 @@ unsigned get_gen() const
 {
    return 0;
 } };
+

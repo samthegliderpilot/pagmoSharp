@@ -4,6 +4,7 @@
 %}
 
 %typemap(csclassmodifiers) pagmo::de "public partial class"
+%ignore de::get_log() const;
 
 class de {
 public:
@@ -33,3 +34,4 @@ public:
         return pagmo::algorithm(*self);
     }
 }
+

@@ -12,6 +12,7 @@ namespace detail
 
 }
 %typemap(csclassmodifiers) pagmo::sga "public partial class"
+%ignore sga::get_log() const;
 class sga
 {
 public:
@@ -45,3 +46,4 @@ public:
         return pagmo::algorithm(*self);
     }
 }
+

@@ -3973,15 +3973,6 @@ namespace pagmoWrap
             : gen(g), fevals(f), best(b), cur_best(cb) {}
     };
 
-    inline BeeColonyLogLine FromBeeColonyLogTuple(const std::tuple<unsigned, unsigned long long, double, double> &t)
-    {
-        return BeeColonyLogLine(
-            std::get<0>(t),
-            std::get<1>(t),
-            std::get<2>(t),
-            std::get<3>(t)
-        );
-    }
 }
 
 SWIGINTERN std::vector< pagmoWrap::BeeColonyLogLine > *new_std_vector_Sl_pagmoWrap_BeeColonyLogLine_Sg___SWIG_2(int capacity){
@@ -4082,7 +4073,12 @@ SWIGINTERN std::vector< pagmoWrap::BeeColonyLogLine > pagmo_bee_colony_get_log_l
         out.reserve(log.size());
 
         for (const auto &t : log) {
-            out.push_back(pagmoWrap::FromBeeColonyLogTuple(t));
+            out.emplace_back(
+                std::get<0>(t),
+                std::get<1>(t),
+                std::get<2>(t),
+                std::get<3>(t)
+            );
         }
 
         return out;
@@ -32837,34 +32833,6 @@ SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_delete_bfe(void * jarg1) {
 }
 
 
-SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_stream_impl(void * jarg1, unsigned int jarg2) {
-  std::ostream *arg1 = 0 ;
-  bool *arg2 = 0 ;
-  bool temp2 ;
-  
-  arg1 = (std::ostream *)jarg1;
-  if (!arg1) {
-    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "std::ostream & is null", 0);
-    return ;
-  } 
-  temp2 = jarg2 ? true : false; 
-  arg2 = &temp2; 
-  {
-    try {
-      pagmo::detail::stream_impl(*arg1,(bool const &)*arg2);
-    } catch (const std::exception &e) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return ; 
-      };
-    } catch (...) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return ; 
-      };
-    }
-  }
-}
-
-
 SWIGEXPORT unsigned int SWIGSTDCALL CSharp_pagmo_max_stream_output_length() {
   unsigned int jresult ;
   unsigned int result;
@@ -33515,30 +33483,6 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_cstrs_self_adaptive_get_inner_algorit
 }
 
 
-SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_cstrs_self_adaptive_get_log(void * jarg1) {
-  void * jresult ;
-  pagmo::cstrs_self_adaptive *arg1 = 0 ;
-  pagmo::cstrs_self_adaptive::log_type *result = 0 ;
-  
-  arg1 = (pagmo::cstrs_self_adaptive *)jarg1; 
-  {
-    try {
-      result = (pagmo::cstrs_self_adaptive::log_type *) &((pagmo::cstrs_self_adaptive const *)arg1)->get_log();
-    } catch (const std::exception &e) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
-      };
-    } catch (...) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
-      };
-    }
-  }
-  jresult = (void *)result; 
-  return jresult;
-}
-
-
 SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_cstrs_self_adaptive_get_log_entries(void * jarg1) {
   void * jresult ;
   pagmo::cstrs_self_adaptive *arg1 = 0 ;
@@ -34007,30 +33951,6 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_ihs_get_extra_info(void * jarg1
     }
   }
   jresult = SWIG_csharp_string_callback((&result)->c_str()); 
-  return jresult;
-}
-
-
-SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_ihs_get_log(void * jarg1) {
-  void * jresult ;
-  pagmo::ihs *arg1 = 0 ;
-  pagmo::ihs::log_type *result = 0 ;
-  
-  arg1 = (pagmo::ihs *)jarg1; 
-  {
-    try {
-      result = (pagmo::ihs::log_type *) &((pagmo::ihs const *)arg1)->get_log();
-    } catch (const std::exception &e) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
-      };
-    } catch (...) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
-      };
-    }
-  }
-  jresult = (void *)result; 
   return jresult;
 }
 
@@ -34635,30 +34555,6 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_maco_get_extra_info(void * jarg
 }
 
 
-SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_maco_get_log(void * jarg1) {
-  void * jresult ;
-  pagmo::maco *arg1 = 0 ;
-  pagmo::maco::log_type *result = 0 ;
-  
-  arg1 = (pagmo::maco *)jarg1; 
-  {
-    try {
-      result = (pagmo::maco::log_type *) &((pagmo::maco const *)arg1)->get_log();
-    } catch (const std::exception &e) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
-      };
-    } catch (...) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
-      };
-    }
-  }
-  jresult = (void *)result; 
-  return jresult;
-}
-
-
 SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_maco_get_log_entries(void * jarg1) {
   void * jresult ;
   pagmo::maco *arg1 = 0 ;
@@ -35100,30 +34996,6 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_mbh_get_inner_algorithm__SWIG_0(void 
   {
     try {
       result = (pagmo::algorithm *) &((pagmo::mbh const *)arg1)->get_inner_algorithm();
-    } catch (const std::exception &e) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
-      };
-    } catch (...) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
-      };
-    }
-  }
-  jresult = (void *)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_mbh_get_log(void * jarg1) {
-  void * jresult ;
-  pagmo::mbh *arg1 = 0 ;
-  pagmo::mbh::log_type *result = 0 ;
-  
-  arg1 = (pagmo::mbh *)jarg1; 
-  {
-    try {
-      result = (pagmo::mbh::log_type *) &((pagmo::mbh const *)arg1)->get_log();
     } catch (const std::exception &e) {
       {
         SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
@@ -35923,30 +35795,6 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_moead_get_extra_info(void * jar
 }
 
 
-SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_moead_get_log(void * jarg1) {
-  void * jresult ;
-  pagmo::moead *arg1 = 0 ;
-  pagmo::moead::log_type *result = 0 ;
-  
-  arg1 = (pagmo::moead *)jarg1; 
-  {
-    try {
-      result = (pagmo::moead::log_type *) &((pagmo::moead const *)arg1)->get_log();
-    } catch (const std::exception &e) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
-      };
-    } catch (...) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
-      };
-    }
-  }
-  jresult = (void *)result; 
-  return jresult;
-}
-
-
 SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_moead_get_log_entries(void * jarg1) {
   void * jresult ;
   pagmo::moead *arg1 = 0 ;
@@ -36709,30 +36557,6 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_moead_gen_get_extra_info(void *
 }
 
 
-SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_moead_gen_get_log(void * jarg1) {
-  void * jresult ;
-  pagmo::moead_gen *arg1 = 0 ;
-  pagmo::moead_gen::log_type *result = 0 ;
-  
-  arg1 = (pagmo::moead_gen *)jarg1; 
-  {
-    try {
-      result = (pagmo::moead_gen::log_type *) &((pagmo::moead_gen const *)arg1)->get_log();
-    } catch (const std::exception &e) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
-      };
-    } catch (...) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
-      };
-    }
-  }
-  jresult = (void *)result; 
-  return jresult;
-}
-
-
 SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_moead_gen_get_log_entries(void * jarg1) {
   void * jresult ;
   pagmo::moead_gen *arg1 = 0 ;
@@ -37191,30 +37015,6 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_nsga2_get_extra_info(void * jar
     }
   }
   jresult = SWIG_csharp_string_callback((&result)->c_str()); 
-  return jresult;
-}
-
-
-SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_nsga2_get_log(void * jarg1) {
-  void * jresult ;
-  pagmo::nsga2 *arg1 = 0 ;
-  pagmo::nsga2::log_type *result = 0 ;
-  
-  arg1 = (pagmo::nsga2 *)jarg1; 
-  {
-    try {
-      result = (pagmo::nsga2::log_type *) &((pagmo::nsga2 const *)arg1)->get_log();
-    } catch (const std::exception &e) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
-      };
-    } catch (...) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
-      };
-    }
-  }
-  jresult = (void *)result; 
   return jresult;
 }
 
@@ -40461,30 +40261,6 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_cmaes_get_extra_info(void * jar
 }
 
 
-SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_cmaes_get_log(void * jarg1) {
-  void * jresult ;
-  pagmo::cmaes *arg1 = 0 ;
-  pagmo::cmaes::log_type *result = 0 ;
-  
-  arg1 = (pagmo::cmaes *)jarg1; 
-  {
-    try {
-      result = (pagmo::cmaes::log_type *) &((pagmo::cmaes const *)arg1)->get_log();
-    } catch (const std::exception &e) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
-      };
-    } catch (...) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
-      };
-    }
-  }
-  jresult = (void *)result; 
-  return jresult;
-}
-
-
 SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_cmaes_get_log_entries(void * jarg1) {
   void * jresult ;
   pagmo::cmaes *arg1 = 0 ;
@@ -40901,30 +40677,6 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_compass_search_get_extra_info(v
     }
   }
   jresult = SWIG_csharp_string_callback((&result)->c_str()); 
-  return jresult;
-}
-
-
-SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_compass_search_get_log(void * jarg1) {
-  void * jresult ;
-  pagmo::compass_search *arg1 = 0 ;
-  pagmo::compass_search::log_type *result = 0 ;
-  
-  arg1 = (pagmo::compass_search *)jarg1; 
-  {
-    try {
-      result = (pagmo::compass_search::log_type *) &((pagmo::compass_search const *)arg1)->get_log();
-    } catch (const std::exception &e) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
-      };
-    } catch (...) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
-      };
-    }
-  }
-  jresult = (void *)result; 
   return jresult;
 }
 
@@ -41495,30 +41247,6 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_de_get_extra_info(void * jarg1)
 }
 
 
-SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_de_get_log(void * jarg1) {
-  void * jresult ;
-  pagmo::de *arg1 = 0 ;
-  pagmo::de::log_type *result = 0 ;
-  
-  arg1 = (pagmo::de *)jarg1; 
-  {
-    try {
-      result = (pagmo::de::log_type *) &((pagmo::de const *)arg1)->get_log();
-    } catch (const std::exception &e) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
-      };
-    } catch (...) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
-      };
-    }
-  }
-  jresult = (void *)result; 
-  return jresult;
-}
-
-
 SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_de_get_log_entries(void * jarg1) {
   void * jresult ;
   pagmo::de *arg1 = 0 ;
@@ -42047,30 +41775,6 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_de1220_get_extra_info(void * ja
     }
   }
   jresult = SWIG_csharp_string_callback((&result)->c_str()); 
-  return jresult;
-}
-
-
-SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_de1220_get_log(void * jarg1) {
-  void * jresult ;
-  pagmo::de1220 *arg1 = 0 ;
-  pagmo::de1220::log_type *result = 0 ;
-  
-  arg1 = (pagmo::de1220 *)jarg1; 
-  {
-    try {
-      result = (pagmo::de1220::log_type *) &((pagmo::de1220 const *)arg1)->get_log();
-    } catch (const std::exception &e) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
-      };
-    } catch (...) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
-      };
-    }
-  }
-  jresult = (void *)result; 
   return jresult;
 }
 
@@ -42807,30 +42511,6 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_gaco_get_extra_info(void * jarg
 }
 
 
-SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_gaco_get_log(void * jarg1) {
-  void * jresult ;
-  pagmo::gaco *arg1 = 0 ;
-  pagmo::gaco::log_type *result = 0 ;
-  
-  arg1 = (pagmo::gaco *)jarg1; 
-  {
-    try {
-      result = (pagmo::gaco::log_type *) &((pagmo::gaco const *)arg1)->get_log();
-    } catch (const std::exception &e) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
-      };
-    } catch (...) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
-      };
-    }
-  }
-  jresult = (void *)result; 
-  return jresult;
-}
-
-
 SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_gaco_get_log_entries(void * jarg1) {
   void * jresult ;
   pagmo::gaco *arg1 = 0 ;
@@ -43163,30 +42843,6 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_gwo_get_extra_info(void * jarg1
     }
   }
   jresult = SWIG_csharp_string_callback((&result)->c_str()); 
-  return jresult;
-}
-
-
-SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_gwo_get_log(void * jarg1) {
-  void * jresult ;
-  pagmo::gwo *arg1 = 0 ;
-  pagmo::gwo::log_type *result = 0 ;
-  
-  arg1 = (pagmo::gwo *)jarg1; 
-  {
-    try {
-      result = (pagmo::gwo::log_type *) &((pagmo::gwo const *)arg1)->get_log();
-    } catch (const std::exception &e) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
-      };
-    } catch (...) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
-      };
-    }
-  }
-  jresult = (void *)result; 
   return jresult;
 }
 
@@ -44151,30 +43807,6 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_nspso_get_extra_info(void * jar
 }
 
 
-SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_nspso_get_log(void * jarg1) {
-  void * jresult ;
-  pagmo::nspso *arg1 = 0 ;
-  pagmo::nspso::log_type *result = 0 ;
-  
-  arg1 = (pagmo::nspso *)jarg1; 
-  {
-    try {
-      result = (pagmo::nspso::log_type *) &((pagmo::nspso const *)arg1)->get_log();
-    } catch (const std::exception &e) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
-      };
-    } catch (...) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
-      };
-    }
-  }
-  jresult = (void *)result; 
-  return jresult;
-}
-
-
 SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_nspso_get_log_entries(void * jarg1) {
   void * jresult ;
   pagmo::nspso *arg1 = 0 ;
@@ -44887,30 +44519,6 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_pso_get_extra_info(void * jarg1
 }
 
 
-SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_pso_get_log(void * jarg1) {
-  void * jresult ;
-  pagmo::pso *arg1 = 0 ;
-  pagmo::pso::log_type *result = 0 ;
-  
-  arg1 = (pagmo::pso *)jarg1; 
-  {
-    try {
-      result = (pagmo::pso::log_type *) &((pagmo::pso const *)arg1)->get_log();
-    } catch (const std::exception &e) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
-      };
-    } catch (...) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
-      };
-    }
-  }
-  jresult = (void *)result; 
-  return jresult;
-}
-
-
 SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_pso_get_log_entries(void * jarg1) {
   void * jresult ;
   pagmo::pso *arg1 = 0 ;
@@ -45529,30 +45137,6 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_pso_gen_get_extra_info(void * j
 }
 
 
-SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_pso_gen_get_log(void * jarg1) {
-  void * jresult ;
-  pagmo::pso_gen *arg1 = 0 ;
-  pagmo::pso_gen::log_type *result = 0 ;
-  
-  arg1 = (pagmo::pso_gen *)jarg1; 
-  {
-    try {
-      result = (pagmo::pso_gen::log_type *) &((pagmo::pso_gen const *)arg1)->get_log();
-    } catch (const std::exception &e) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
-      };
-    } catch (...) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
-      };
-    }
-  }
-  jresult = (void *)result; 
-  return jresult;
-}
-
-
 SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_pso_gen_get_log_entries(void * jarg1) {
   void * jresult ;
   pagmo::pso_gen *arg1 = 0 ;
@@ -45861,30 +45445,6 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_sea_get_extra_info(void * jarg1
     }
   }
   jresult = SWIG_csharp_string_callback((&result)->c_str()); 
-  return jresult;
-}
-
-
-SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_sea_get_log(void * jarg1) {
-  void * jresult ;
-  pagmo::sea *arg1 = 0 ;
-  pagmo::sea::log_type *result = 0 ;
-  
-  arg1 = (pagmo::sea *)jarg1; 
-  {
-    try {
-      result = (pagmo::sea::log_type *) &((pagmo::sea const *)arg1)->get_log();
-    } catch (const std::exception &e) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
-      };
-    } catch (...) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
-      };
-    }
-  }
-  jresult = (void *)result; 
   return jresult;
 }
 
@@ -46357,30 +45917,6 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_simulated_annealing_get_extra_i
     }
   }
   jresult = SWIG_csharp_string_callback((&result)->c_str()); 
-  return jresult;
-}
-
-
-SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_simulated_annealing_get_log(void * jarg1) {
-  void * jresult ;
-  pagmo::simulated_annealing *arg1 = 0 ;
-  pagmo::simulated_annealing::log_type *result = 0 ;
-  
-  arg1 = (pagmo::simulated_annealing *)jarg1; 
-  {
-    try {
-      result = (pagmo::simulated_annealing::log_type *) &((pagmo::simulated_annealing const *)arg1)->get_log();
-    } catch (const std::exception &e) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
-      };
-    } catch (...) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
-      };
-    }
-  }
-  jresult = (void *)result; 
   return jresult;
 }
 
@@ -46877,30 +46413,6 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_sade_get_extra_info(void * jarg
     }
   }
   jresult = SWIG_csharp_string_callback((&result)->c_str()); 
-  return jresult;
-}
-
-
-SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_sade_get_log(void * jarg1) {
-  void * jresult ;
-  pagmo::sade *arg1 = 0 ;
-  pagmo::sade::log_type *result = 0 ;
-  
-  arg1 = (pagmo::sade *)jarg1; 
-  {
-    try {
-      result = (pagmo::sade::log_type *) &((pagmo::sade const *)arg1)->get_log();
-    } catch (const std::exception &e) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
-      };
-    } catch (...) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
-      };
-    }
-  }
-  jresult = (void *)result; 
   return jresult;
 }
 
@@ -47533,30 +47045,6 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_sga_get_extra_info(void * jarg1
 }
 
 
-SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_sga_get_log(void * jarg1) {
-  void * jresult ;
-  pagmo::sga *arg1 = 0 ;
-  pagmo::sga::log_type *result = 0 ;
-  
-  arg1 = (pagmo::sga *)jarg1; 
-  {
-    try {
-      result = (pagmo::sga::log_type *) &((pagmo::sga const *)arg1)->get_log();
-    } catch (const std::exception &e) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
-      };
-    } catch (...) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
-      };
-    }
-  }
-  jresult = (void *)result; 
-  return jresult;
-}
-
-
 SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_sga_get_log_entries(void * jarg1) {
   void * jresult ;
   pagmo::sga *arg1 = 0 ;
@@ -48169,30 +47657,6 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_xnes_get_extra_info(void * jarg
     }
   }
   jresult = SWIG_csharp_string_callback((&result)->c_str()); 
-  return jresult;
-}
-
-
-SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_xnes_get_log(void * jarg1) {
-  void * jresult ;
-  pagmo::xnes *arg1 = 0 ;
-  pagmo::xnes::log_type *result = 0 ;
-  
-  arg1 = (pagmo::xnes *)jarg1; 
-  {
-    try {
-      result = (pagmo::xnes::log_type *) &((pagmo::xnes const *)arg1)->get_log();
-    } catch (const std::exception &e) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
-      };
-    } catch (...) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
-      };
-    }
-  }
-  jresult = (void *)result; 
   return jresult;
 }
 
@@ -57147,34 +56611,6 @@ SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_delete_BeeColonyLogLine(void * jarg1) {
       };
     }
   }
-}
-
-
-SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_FromBeeColonyLogTuple(void * jarg1) {
-  void * jresult ;
-  std::tuple< unsigned int,unsigned long long,double,double > *arg1 = 0 ;
-  pagmoWrap::BeeColonyLogLine result;
-  
-  arg1 = (std::tuple< unsigned int,unsigned long long,double,double > *)jarg1;
-  if (!arg1) {
-    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "std::tuple< unsigned int,unsigned long long,double,double > const & is null", 0);
-    return 0;
-  } 
-  {
-    try {
-      result = pagmoWrap::FromBeeColonyLogTuple((std::tuple< unsigned int,unsigned long long,double,double > const &)*arg1);
-    } catch (const std::exception &e) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
-      };
-    } catch (...) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
-      };
-    }
-  }
-  jresult = new pagmoWrap::BeeColonyLogLine(result); 
-  return jresult;
 }
 
 

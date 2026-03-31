@@ -4,6 +4,7 @@
 %}
 
 %typemap(csclassmodifiers) pagmo::maco "public partial class"
+%ignore pagmo::maco::get_log() const;
 
 class pagmo::maco
 {
@@ -37,3 +38,4 @@ public:
         return pagmo::algorithm(*self);
     }
 }
+

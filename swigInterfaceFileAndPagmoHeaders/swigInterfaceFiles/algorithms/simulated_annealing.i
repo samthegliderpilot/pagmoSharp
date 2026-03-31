@@ -4,6 +4,7 @@
 %}
 
 %typemap(csclassmodifiers) pagmo::simulated_annealing "public partial class"
+%ignore simulated_annealing::get_log() const;
 
 class simulated_annealing {
 public:
@@ -35,3 +36,4 @@ public:
         return pagmo::algorithm(*self);
     }
 }
+

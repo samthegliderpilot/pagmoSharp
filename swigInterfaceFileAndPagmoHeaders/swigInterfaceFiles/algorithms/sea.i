@@ -4,6 +4,7 @@
 %}
 
 %typemap(csclassmodifiers) pagmo::sea "public partial class"
+%ignore sea::get_log() const;
 class sea
 {
 public:
@@ -32,3 +33,4 @@ public:
         return pagmo::algorithm(*self);
     }
 }
+

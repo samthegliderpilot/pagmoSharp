@@ -39,15 +39,6 @@ namespace pagmoWrap
             : gen(g), fevals(f), best(b), cur_best(cb) {}
     };
 
-    inline BeeColonyLogLine FromBeeColonyLogTuple(const std::tuple<unsigned, unsigned long long, double, double> &t)
-    {
-        return BeeColonyLogLine(
-            std::get<0>(t),
-            std::get<1>(t),
-            std::get<2>(t),
-            std::get<3>(t)
-        );
-    }
 }
 %}
 
@@ -106,7 +97,12 @@ public:
         out.reserve(log.size());
 
         for (const auto &t : log) {
-            out.push_back(pagmoWrap::FromBeeColonyLogTuple(t));
+            out.emplace_back(
+                std::get<0>(t),
+                std::get<1>(t),
+                std::get<2>(t),
+                std::get<3>(t)
+            );
         }
 
         return out;

@@ -25,6 +25,8 @@ inline void stream(std::ostream&, const Args &...);
 
 namespace detail
 {
+    %ignore stream_impl;
+    %ignore operator<<;
 
     template <typename T>
     extern inline void stream_impl(std::ostream& os, const T& x);

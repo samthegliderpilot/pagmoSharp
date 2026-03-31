@@ -4,6 +4,7 @@
 %}
 
 %typemap(csclassmodifiers) pagmo::sade "public partial class"
+%ignore sade::get_log() const;
 
 class sade {
 public:
@@ -35,3 +36,4 @@ public:
         return pagmo::algorithm(*self);
     }
 }
+

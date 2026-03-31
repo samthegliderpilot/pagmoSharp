@@ -129,12 +129,6 @@ public partial class ihs : global::System.IDisposable {
     return ret;
   }
 
-  public SWIGTYPE_p_std__vectorT_std__tupleT_unsigned_long_long_double_double_double_double_size_t_double_std__vectorT_double_t_t_t get_log() {
-    SWIGTYPE_p_std__vectorT_std__tupleT_unsigned_long_long_double_double_double_double_size_t_double_std__vectorT_double_t_t_t ret = new SWIGTYPE_p_std__vectorT_std__tupleT_unsigned_long_long_double_double_double_double_size_t_double_std__vectorT_double_t_t_t(pagmoPINVOKE.ihs_get_log(swigCPtr), false);
-    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
-    return ret;
-  }
-
   public IhsLogEntryVector get_log_entries() {
     IhsLogEntryVector ret = new IhsLogEntryVector(pagmoPINVOKE.ihs_get_log_entries(swigCPtr), true);
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();

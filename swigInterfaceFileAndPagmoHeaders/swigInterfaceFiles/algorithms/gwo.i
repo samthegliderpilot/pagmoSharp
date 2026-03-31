@@ -5,6 +5,7 @@
 %}
 
 %typemap(csclassmodifiers) pagmo::gwo "public partial class"
+%ignore gwo::get_log() const;
 
 class gwo {
 public:
@@ -34,3 +35,4 @@ public:
         return pagmo::algorithm(*self);
     }
 }
+

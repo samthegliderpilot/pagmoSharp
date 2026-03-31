@@ -151,12 +151,6 @@ public partial class moead : global::System.IDisposable {
     return ret;
   }
 
-  public SWIGTYPE_p_std__vectorT_std__tupleT_unsigned_int_unsigned_long_long_double_std__vectorT_double_t_t_t get_log() {
-    SWIGTYPE_p_std__vectorT_std__tupleT_unsigned_int_unsigned_long_long_double_std__vectorT_double_t_t_t ret = new SWIGTYPE_p_std__vectorT_std__tupleT_unsigned_int_unsigned_long_long_double_std__vectorT_double_t_t_t(pagmoPINVOKE.moead_get_log(swigCPtr), false);
-    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
-    return ret;
-  }
-
   public MoeadLogEntryVector get_log_entries() {
     MoeadLogEntryVector ret = new MoeadLogEntryVector(pagmoPINVOKE.moead_get_log_entries(swigCPtr), true);
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();

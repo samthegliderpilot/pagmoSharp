@@ -4,6 +4,7 @@
 %}
 
 %typemap(csclassmodifiers) pagmo::cstrs_self_adaptive "public partial class"
+%ignore pagmo::cstrs_self_adaptive::get_log() const;
 
 class pagmo::cstrs_self_adaptive
 {
@@ -41,3 +42,4 @@ public:
         return pagmo::algorithm(*self);
     }
 }
+

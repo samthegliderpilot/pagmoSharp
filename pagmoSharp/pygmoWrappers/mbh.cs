@@ -128,12 +128,6 @@ public partial class mbh : global::System.IDisposable {
     return ret;
   }
 
-  public SWIGTYPE_p_std__vectorT_std__tupleT_unsigned_long_long_double_size_t_double_unsigned_int_t_t get_log() {
-    SWIGTYPE_p_std__vectorT_std__tupleT_unsigned_long_long_double_size_t_double_unsigned_int_t_t ret = new SWIGTYPE_p_std__vectorT_std__tupleT_unsigned_long_long_double_size_t_double_unsigned_int_t_t(pagmoPINVOKE.mbh_get_log(swigCPtr), false);
-    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
-    return ret;
-  }
-
   public string get_name() {
     string ret = pagmoPINVOKE.mbh_get_name(swigCPtr);
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();

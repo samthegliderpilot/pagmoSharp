@@ -4,6 +4,7 @@
 %}
 
 %typemap(csclassmodifiers) pagmo::nsga2 "public partial class"
+%ignore pagmo::nsga2::get_log() const;
 
 class pagmo::nsga2
 {
@@ -36,3 +37,4 @@ public:
         return pagmo::algorithm(*self);
     }
 }
+

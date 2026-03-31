@@ -3702,9 +3702,6 @@ class pagmoPINVOKE {
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_delete_bfe")]
   public static extern void delete_bfe(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_stream_impl")]
-  public static extern void stream_impl(global::System.Runtime.InteropServices.HandleRef jarg1, bool jarg2);
-
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_max_stream_output_length")]
   public static extern uint max_stream_output_length();
 
@@ -3786,9 +3783,6 @@ class pagmoPINVOKE {
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_cstrs_self_adaptive_get_inner_algorithm__SWIG_0")]
   public static extern global::System.IntPtr cstrs_self_adaptive_get_inner_algorithm__SWIG_0(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_cstrs_self_adaptive_get_log")]
-  public static extern global::System.IntPtr cstrs_self_adaptive_get_log(global::System.Runtime.InteropServices.HandleRef jarg1);
-
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_cstrs_self_adaptive_get_log_entries")]
   public static extern global::System.IntPtr cstrs_self_adaptive_get_log_entries(global::System.Runtime.InteropServices.HandleRef jarg1);
 
@@ -3842,9 +3836,6 @@ class pagmoPINVOKE {
 
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_ihs_get_extra_info")]
   public static extern string ihs_get_extra_info(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_ihs_get_log")]
-  public static extern global::System.IntPtr ihs_get_log(global::System.Runtime.InteropServices.HandleRef jarg1);
 
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_ihs_get_log_entries")]
   public static extern global::System.IntPtr ihs_get_log_entries(global::System.Runtime.InteropServices.HandleRef jarg1);
@@ -3912,9 +3903,6 @@ class pagmoPINVOKE {
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_maco_get_extra_info")]
   public static extern string maco_get_extra_info(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_maco_get_log")]
-  public static extern global::System.IntPtr maco_get_log(global::System.Runtime.InteropServices.HandleRef jarg1);
-
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_maco_get_log_entries")]
   public static extern global::System.IntPtr maco_get_log_entries(global::System.Runtime.InteropServices.HandleRef jarg1);
 
@@ -3965,9 +3953,6 @@ class pagmoPINVOKE {
 
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_mbh_get_inner_algorithm__SWIG_0")]
   public static extern global::System.IntPtr mbh_get_inner_algorithm__SWIG_0(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_mbh_get_log")]
-  public static extern global::System.IntPtr mbh_get_log(global::System.Runtime.InteropServices.HandleRef jarg1);
 
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_mbh_get_name")]
   public static extern string mbh_get_name(global::System.Runtime.InteropServices.HandleRef jarg1);
@@ -4044,9 +4029,6 @@ class pagmoPINVOKE {
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_moead_get_extra_info")]
   public static extern string moead_get_extra_info(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_moead_get_log")]
-  public static extern global::System.IntPtr moead_get_log(global::System.Runtime.InteropServices.HandleRef jarg1);
-
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_moead_get_log_entries")]
   public static extern global::System.IntPtr moead_get_log_entries(global::System.Runtime.InteropServices.HandleRef jarg1);
 
@@ -4119,9 +4101,6 @@ class pagmoPINVOKE {
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_moead_gen_get_extra_info")]
   public static extern string moead_gen_get_extra_info(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_moead_gen_get_log")]
-  public static extern global::System.IntPtr moead_gen_get_log(global::System.Runtime.InteropServices.HandleRef jarg1);
-
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_moead_gen_get_log_entries")]
   public static extern global::System.IntPtr moead_gen_get_log_entries(global::System.Runtime.InteropServices.HandleRef jarg1);
 
@@ -4175,9 +4154,6 @@ class pagmoPINVOKE {
 
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_nsga2_get_extra_info")]
   public static extern string nsga2_get_extra_info(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_nsga2_get_log")]
-  public static extern global::System.IntPtr nsga2_get_log(global::System.Runtime.InteropServices.HandleRef jarg1);
 
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_nsga2_get_log_entries")]
   public static extern global::System.IntPtr nsga2_get_log_entries(global::System.Runtime.InteropServices.HandleRef jarg1);
@@ -4536,9 +4512,6 @@ class pagmoPINVOKE {
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_cmaes_get_extra_info")]
   public static extern string cmaes_get_extra_info(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_cmaes_get_log")]
-  public static extern global::System.IntPtr cmaes_get_log(global::System.Runtime.InteropServices.HandleRef jarg1);
-
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_cmaes_get_log_entries")]
   public static extern global::System.IntPtr cmaes_get_log_entries(global::System.Runtime.InteropServices.HandleRef jarg1);
 
@@ -4589,9 +4562,6 @@ class pagmoPINVOKE {
 
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_compass_search_get_extra_info")]
   public static extern string compass_search_get_extra_info(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_compass_search_get_log")]
-  public static extern global::System.IntPtr compass_search_get_log(global::System.Runtime.InteropServices.HandleRef jarg1);
 
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_compass_search_get_log_entries")]
   public static extern global::System.IntPtr compass_search_get_log_entries(global::System.Runtime.InteropServices.HandleRef jarg1);
@@ -4659,9 +4629,6 @@ class pagmoPINVOKE {
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_de_get_extra_info")]
   public static extern string de_get_extra_info(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_de_get_log")]
-  public static extern global::System.IntPtr de_get_log(global::System.Runtime.InteropServices.HandleRef jarg1);
-
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_de_get_log_entries")]
   public static extern global::System.IntPtr de_get_log_entries(global::System.Runtime.InteropServices.HandleRef jarg1);
 
@@ -4718,9 +4685,6 @@ class pagmoPINVOKE {
 
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_de1220_get_extra_info")]
   public static extern string de1220_get_extra_info(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_de1220_get_log")]
-  public static extern global::System.IntPtr de1220_get_log(global::System.Runtime.InteropServices.HandleRef jarg1);
 
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_de1220_get_log_entries")]
   public static extern global::System.IntPtr de1220_get_log_entries(global::System.Runtime.InteropServices.HandleRef jarg1);
@@ -4797,9 +4761,6 @@ class pagmoPINVOKE {
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_gaco_get_extra_info")]
   public static extern string gaco_get_extra_info(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_gaco_get_log")]
-  public static extern global::System.IntPtr gaco_get_log(global::System.Runtime.InteropServices.HandleRef jarg1);
-
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_gaco_get_log_entries")]
   public static extern global::System.IntPtr gaco_get_log_entries(global::System.Runtime.InteropServices.HandleRef jarg1);
 
@@ -4841,9 +4802,6 @@ class pagmoPINVOKE {
 
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_gwo_get_extra_info")]
   public static extern string gwo_get_extra_info(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_gwo_get_log")]
-  public static extern global::System.IntPtr gwo_get_log(global::System.Runtime.InteropServices.HandleRef jarg1);
 
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_gwo_get_log_entries")]
   public static extern global::System.IntPtr gwo_get_log_entries(global::System.Runtime.InteropServices.HandleRef jarg1);
@@ -4953,9 +4911,6 @@ class pagmoPINVOKE {
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_nspso_get_extra_info")]
   public static extern string nspso_get_extra_info(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_nspso_get_log")]
-  public static extern global::System.IntPtr nspso_get_log(global::System.Runtime.InteropServices.HandleRef jarg1);
-
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_nspso_get_log_entries")]
   public static extern global::System.IntPtr nspso_get_log_entries(global::System.Runtime.InteropServices.HandleRef jarg1);
 
@@ -5034,9 +4989,6 @@ class pagmoPINVOKE {
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_pso_get_extra_info")]
   public static extern string pso_get_extra_info(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_pso_get_log")]
-  public static extern global::System.IntPtr pso_get_log(global::System.Runtime.InteropServices.HandleRef jarg1);
-
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_pso_get_log_entries")]
   public static extern global::System.IntPtr pso_get_log_entries(global::System.Runtime.InteropServices.HandleRef jarg1);
 
@@ -5103,9 +5055,6 @@ class pagmoPINVOKE {
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_pso_gen_get_extra_info")]
   public static extern string pso_gen_get_extra_info(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_pso_gen_get_log")]
-  public static extern global::System.IntPtr pso_gen_get_log(global::System.Runtime.InteropServices.HandleRef jarg1);
-
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_pso_gen_get_log_entries")]
   public static extern global::System.IntPtr pso_gen_get_log_entries(global::System.Runtime.InteropServices.HandleRef jarg1);
 
@@ -5144,9 +5093,6 @@ class pagmoPINVOKE {
 
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_sea_get_extra_info")]
   public static extern string sea_get_extra_info(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_sea_get_log")]
-  public static extern global::System.IntPtr sea_get_log(global::System.Runtime.InteropServices.HandleRef jarg1);
 
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_sea_get_log_entries")]
   public static extern global::System.IntPtr sea_get_log_entries(global::System.Runtime.InteropServices.HandleRef jarg1);
@@ -5201,9 +5147,6 @@ class pagmoPINVOKE {
 
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_simulated_annealing_get_extra_info")]
   public static extern string simulated_annealing_get_extra_info(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_simulated_annealing_get_log")]
-  public static extern global::System.IntPtr simulated_annealing_get_log(global::System.Runtime.InteropServices.HandleRef jarg1);
 
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_simulated_annealing_get_log_entries")]
   public static extern global::System.IntPtr simulated_annealing_get_log_entries(global::System.Runtime.InteropServices.HandleRef jarg1);
@@ -5261,9 +5204,6 @@ class pagmoPINVOKE {
 
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_sade_get_extra_info")]
   public static extern string sade_get_extra_info(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_sade_get_log")]
-  public static extern global::System.IntPtr sade_get_log(global::System.Runtime.InteropServices.HandleRef jarg1);
 
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_sade_get_log_entries")]
   public static extern global::System.IntPtr sade_get_log_entries(global::System.Runtime.InteropServices.HandleRef jarg1);
@@ -5327,9 +5267,6 @@ class pagmoPINVOKE {
 
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_sga_get_extra_info")]
   public static extern string sga_get_extra_info(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_sga_get_log")]
-  public static extern global::System.IntPtr sga_get_log(global::System.Runtime.InteropServices.HandleRef jarg1);
 
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_sga_get_log_entries")]
   public static extern global::System.IntPtr sga_get_log_entries(global::System.Runtime.InteropServices.HandleRef jarg1);
@@ -5396,9 +5333,6 @@ class pagmoPINVOKE {
 
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_xnes_get_extra_info")]
   public static extern string xnes_get_extra_info(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_xnes_get_log")]
-  public static extern global::System.IntPtr xnes_get_log(global::System.Runtime.InteropServices.HandleRef jarg1);
 
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_xnes_get_log_entries")]
   public static extern global::System.IntPtr xnes_get_log_entries(global::System.Runtime.InteropServices.HandleRef jarg1);
@@ -6512,9 +6446,6 @@ class pagmoPINVOKE {
 
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_delete_BeeColonyLogLine")]
   public static extern void delete_BeeColonyLogLine(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_FromBeeColonyLogTuple")]
-  public static extern global::System.IntPtr FromBeeColonyLogTuple(global::System.Runtime.InteropServices.HandleRef jarg1);
 
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_new_BeeColonyLogLineVector__SWIG_0")]
   public static extern global::System.IntPtr new_BeeColonyLogLineVector__SWIG_0();

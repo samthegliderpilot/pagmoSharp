@@ -125,12 +125,6 @@ public partial class cstrs_self_adaptive : global::System.IDisposable {
     return ret;
   }
 
-  public SWIGTYPE_p_std__vectorT_std__tupleT_unsigned_int_unsigned_long_long_double_double_size_t_double_size_t_t_t get_log() {
-    SWIGTYPE_p_std__vectorT_std__tupleT_unsigned_int_unsigned_long_long_double_double_size_t_double_size_t_t_t ret = new SWIGTYPE_p_std__vectorT_std__tupleT_unsigned_int_unsigned_long_long_double_double_size_t_double_size_t_t_t(pagmoPINVOKE.cstrs_self_adaptive_get_log(swigCPtr), false);
-    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
-    return ret;
-  }
-
   public CstrsLogEntryVector get_log_entries() {
     CstrsLogEntryVector ret = new CstrsLogEntryVector(pagmoPINVOKE.cstrs_self_adaptive_get_log_entries(swigCPtr), true);
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();

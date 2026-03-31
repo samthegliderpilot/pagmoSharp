@@ -115,12 +115,6 @@ public partial class gwo : global::System.IDisposable {
     return ret;
   }
 
-  public SWIGTYPE_p_std__vectorT_std__tupleT_unsigned_int_double_double_double_t_t get_log() {
-    SWIGTYPE_p_std__vectorT_std__tupleT_unsigned_int_double_double_double_t_t ret = new SWIGTYPE_p_std__vectorT_std__tupleT_unsigned_int_double_double_double_t_t(pagmoPINVOKE.gwo_get_log(swigCPtr), false);
-    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
-    return ret;
-  }
-
   public GwoLogEntryVector get_log_entries() {
     GwoLogEntryVector ret = new GwoLogEntryVector(pagmoPINVOKE.gwo_get_log_entries(swigCPtr), true);
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();

@@ -160,12 +160,6 @@ public partial class gaco : global::System.IDisposable {
     return ret;
   }
 
-  public SWIGTYPE_p_std__vectorT_std__tupleT_unsigned_int_size_t_double_unsigned_int_double_double_double_t_t get_log() {
-    SWIGTYPE_p_std__vectorT_std__tupleT_unsigned_int_size_t_double_unsigned_int_double_double_double_t_t ret = new SWIGTYPE_p_std__vectorT_std__tupleT_unsigned_int_size_t_double_unsigned_int_double_double_double_t_t(pagmoPINVOKE.gaco_get_log(swigCPtr), false);
-    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
-    return ret;
-  }
-
   public GacoLogEntryVector get_log_entries() {
     GacoLogEntryVector ret = new GacoLogEntryVector(pagmoPINVOKE.gaco_get_log_entries(swigCPtr), true);
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();

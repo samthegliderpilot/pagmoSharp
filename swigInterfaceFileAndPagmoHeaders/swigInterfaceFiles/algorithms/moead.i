@@ -4,6 +4,7 @@
 %}
 
 %typemap(csclassmodifiers) pagmo::moead "public partial class"
+%ignore pagmo::moead::get_log() const;
 
 class pagmo::moead
 {
@@ -38,3 +39,4 @@ public:
         return pagmo::algorithm(*self);
     }
 }
+

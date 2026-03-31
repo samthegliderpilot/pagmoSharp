@@ -4,6 +4,7 @@
 %}
 
 %typemap(csclassmodifiers) pagmo::cmaes "public partial class"
+%ignore cmaes::get_log() const;
 class cmaes
 {
 public:
@@ -36,3 +37,4 @@ public:
         return pagmo::algorithm(*self);
     }
 }
+

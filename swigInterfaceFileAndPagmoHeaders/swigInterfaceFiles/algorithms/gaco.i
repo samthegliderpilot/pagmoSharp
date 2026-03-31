@@ -5,6 +5,7 @@
 %}
 
 %typemap(csclassmodifiers) pagmo::gaco "public partial class"
+%ignore gaco::get_log() const;
 
 class gaco {
 public:
@@ -38,3 +39,4 @@ public:
         return pagmo::algorithm(*self);
     }
 }
+
