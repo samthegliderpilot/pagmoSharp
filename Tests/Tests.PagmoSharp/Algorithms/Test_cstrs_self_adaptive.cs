@@ -18,7 +18,7 @@ public class Test_cstrs_self_adaptive
 
         algorithm.set_verbosity(2u);
         Assert.AreEqual(2u, algorithm.get_verbosity());
-        Assert.IsNotNull(algorithm.get_extra_info());
+        Assert.That(algorithm.get_extra_info(), Is.Not.Null);
     }
 
     [Test]

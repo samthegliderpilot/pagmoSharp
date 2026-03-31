@@ -105,9 +105,13 @@ namespace Tests.PagmoSharp
             AssertArchipelagoIslandConfiguration(archi, 0, 32);
 
             var db = archi.MigrantsDb;
-            Assert.IsNotNull(db);
+            Assert.That(db, Is.Not.Null);
+            var dbCount = db.Count;
+            Assert.That(archi.MigrantsDb.Count, Is.EqualTo(dbCount), "MigrantsDb should be queryable repeatedly without mutating size");
             var log = archi.MigrationLog;
-            Assert.IsNotNull(log);
+            Assert.That(log, Is.Not.Null);
+            var logCount = log.Count;
+            Assert.That(archi.MigrationLog.Count, Is.EqualTo(logCount), "MigrationLog should be queryable repeatedly without mutating size");
         }
 
         [Test]

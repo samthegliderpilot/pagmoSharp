@@ -23,7 +23,7 @@ public class Test_lennard_jones : TestProblemBase
         using var problem = (lennard_jones)CreateStandardProblem();
         using var bounds = problem.get_bounds();
 
-        Assert.IsNotNull(problem.get_name());
+        Assert.That(problem.get_name(), Is.Not.Empty);
         Assert.AreEqual(1u, problem.get_nobj());
         Assert.AreEqual(0u, problem.get_nec());
         Assert.AreEqual(0u, problem.get_nic());

@@ -40,8 +40,7 @@ public abstract class TestProblemBase
         using var problem = CreateStandardProblem();
         var name = problem.get_name();
 
-        Assert.IsNotNull(name, "name should not be null");
-        Assert.IsNotEmpty(name, "name should not be empty");
+        Assert.That(name, Is.Not.Empty, "name should not be empty");
         Assert.GreaterOrEqual(problem.get_nobj(), 1u, "objective count should be >= 1");
     }
 

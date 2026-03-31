@@ -58,8 +58,7 @@ namespace Tests.PagmoSharp.Problems
 
                 using var evolvedFitness = finalpop.get_f();
                 using var sorting = pagmo.pagmo.FastNonDominatedSorting(evolvedFitness);
-                Assert.IsNotNull(sorting);
-                Assert.IsNotNull(sorting.fronts);
+                Assert.That(sorting.fronts, Is.Not.Null);
                 Assert.GreaterOrEqual(sorting.fronts.Count, 1, "non-dominated sorting should return at least one front");
                 Assert.GreaterOrEqual(sorting.fronts[0].Count, 1, "first Pareto front should contain at least one point");
             }
@@ -70,9 +69,6 @@ namespace Tests.PagmoSharp.Problems
             return new List<ProblemTestData>()
             {
                 new ProblemTestData("zdt1", "simpleTest1", new double[] {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, }, new double[] {1, 60.22352732137657, }, 1)
-                //new ProblemTestData("cec2006", "simpleTest3",
-                //    new double[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, },
-                //    new double[] { -0.03410429993861006, -2.43290200817664E+18, 60, }, 3),
             };
         }
     }

@@ -31,7 +31,6 @@ namespace Tests.PagmoSharp.Problems
             Assert.AreEqual(0, problem.get_nix(), "integer count");
             Assert.AreEqual(thread_safety.basic, problem.get_thread_safety(), "thread safety");
             using var bounds = problem.get_bounds();
-            Assert.IsNotNull(bounds);
             Assert.AreEqual(4, bounds.first.Count, "first element is length 4");
             Assert.AreEqual(4, bounds.second.Count, "second element is length 4");
         }

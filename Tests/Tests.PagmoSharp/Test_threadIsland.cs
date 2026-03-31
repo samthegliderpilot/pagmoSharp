@@ -50,7 +50,7 @@ namespace Tests.PagmoSharp
         {
             using var islandImpl = new thread_island();
             Assert.AreEqual("Thread island", islandImpl.get_name());
-            Assert.IsNotNull(islandImpl.get_extra_info());
+            Assert.That(islandImpl.get_extra_info(), Is.Not.Null);
         }
 
         [Test]

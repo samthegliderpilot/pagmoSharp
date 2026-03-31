@@ -15,8 +15,8 @@ namespace Tests.PagmoSharp
             using var bfeSample = new default_bfe();
             using var problem = new TwoDimensionalSingleObjectiveProblemWrapper();
             using var pop = new population(problem, 4);
-            var batchX = new DoubleVector(new[] { 1.2, 1.3, 1.1, 1.4 });
-            var bfeResult = bfeSample.Operator(problem, batchX);
+            using var batchX = new DoubleVector(new[] { 1.2, 1.3, 1.1, 1.4 });
+            using var bfeResult = bfeSample.Operator(problem, batchX);
             Assert.AreEqual(2, bfeResult.Count);
             Assert.AreEqual(problem.fitness(1.2, 1.3)[0], bfeResult[0]);
             Assert.AreEqual(problem.fitness(1.1, 1.4)[0], bfeResult[1]);
@@ -26,30 +26,27 @@ namespace Tests.PagmoSharp
         [Test]
         public void TestThreadBfe()
         {
-            bool pass = false;
-            int timesToTry = 16;
-            int tryCount = 0;
-            while (!pass && tryCount++ < timesToTry) // can't guarantee threading actually runs on multiple threads, so run multiple times
+            var usedMultipleThreads = false;
+            const int maxAttempts = 16;
+            for (var attempt = 0; attempt < maxAttempts && !usedMultipleThreads; attempt++) // can't guarantee thread scheduling, so sample multiple runs
             {
                 using var bfeSample = new pagmo.thread_bfe();
                 using var problem = new TwoDimensionalSingleObjectiveProblemWrapper();
-                using (var pop = new population(problem, 64))
+                using var pop = new population(problem, 64);
+                using var batchX = new DoubleVector(new[]
                 {
-                    var batchX = new DoubleVector(new[]
-                    {
-                        1.2, 1.3, 1.1, 1.4, 1.2, 1.3, 1.1, 1.4, 1.2, 1.3, 1.1, 1.4, 1.2, 1.3, 1.1, 1.4, 1.2, 1.3, 1.1,
-                        1.4, 1.2, 1.3, 1.1, 1.4, 1.2, 1.3, 1.1, 1.4
-                    });
-                    var bfeResult = bfeSample.Operator(problem, batchX);
-                    Assert.AreEqual(14, bfeResult.Count);
-                    Assert.AreEqual(problem.fitness(1.2, 1.3)[0], bfeResult[0]);
-                    Assert.AreEqual(problem.fitness(1.1, 1.4)[0], bfeResult[1]);
-                    //Assert.AreEqual("Multi-threaded batch fitness evaluator", bfeSample.get_name());
-                    Assert.IsNotEmpty(problem.ThreadsExecuted);
-                    pass = problem.ThreadsExecuted.Distinct().Count() != 1;
-                }
+                    1.2, 1.3, 1.1, 1.4, 1.2, 1.3, 1.1, 1.4, 1.2, 1.3, 1.1, 1.4, 1.2, 1.3, 1.1, 1.4, 1.2, 1.3, 1.1,
+                    1.4, 1.2, 1.3, 1.1, 1.4, 1.2, 1.3, 1.1, 1.4
+                });
+                using var bfeResult = bfeSample.Operator(problem, batchX);
+                Assert.AreEqual(14, bfeResult.Count);
+                Assert.AreEqual(problem.fitness(1.2, 1.3)[0], bfeResult[0]);
+                Assert.AreEqual(problem.fitness(1.1, 1.4)[0], bfeResult[1]);
+                Assert.That(problem.ThreadsExecuted.Count, Is.GreaterThan(0), "managed problem should record at least one executing thread");
+                usedMultipleThreads = problem.ThreadsExecuted.Distinct().Count() > 1;
             }
-            Assert.True(pass);
+
+            Assert.That(usedMultipleThreads, Is.True, $"thread_bfe should eventually use multiple threads across {maxAttempts} attempts");
         }
 
         [Test]
@@ -57,29 +54,10 @@ namespace Tests.PagmoSharp
         {
             using var bfeSample = new pagmo.thread_bfe();
             using var problem = new OneDimensionalSimpleProblem();
-            var batchX = new DoubleVector(new[] { 1.2 });
+            using var batchX = new DoubleVector(new[] { 1.2 });
 
             var ex = Assert.Throws<InvalidOperationException>(() => bfeSample.Operator(problem, batchX));
             Assert.That(ex!.Message, Does.Contain("thread_safety.basic or thread_safety.constant"));
         }
-
-        //[Test]
-        //public void TestMemberBfe()
-        //{
-        //    using (var bfeSample = new pagmo.member_bfe())
-        //    using (var problem = new TwoDimensionalSingleObjectiveProblemWrapper())
-        //    using (var pop = new population(problem, 4))
-        //    {
-        //        var batchX = new DoubleVector(new[] { 1.2, 1.3, 1.1, 1.4 });
-        //        var bfeResult = bfeSample.Operator(problem, batchX);
-        //        Assert.AreEqual(2, bfeResult.Count);
-        //        Assert.AreEqual(problem.fitness(1.2, 1.3)[0], bfeResult[0]);
-        //        Assert.AreEqual(problem.fitness(1.1, 1.4)[0], bfeResult[1]);
-        //        Assert.AreEqual("Member batch fitness evaluator", bfeSample.get_name());
-        //        //Assert.AreEqual("", bfeSample.get_extra_info());
-        //        //Assert.AreEqual(thread_safety.basic, bfeSample.get_thread_safety());
-        //        //Assert.True(bfeSample.is_valid());
-        //    }
-        //}
     }
 }

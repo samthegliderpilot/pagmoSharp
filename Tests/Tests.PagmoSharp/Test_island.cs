@@ -11,8 +11,8 @@ namespace Tests.PagmoSharp
         private static void AssertIslandIsConfiguredForBeeColonyAndTwoDimensionalProblem(island isl, uint expectedPopulationSize)
         {
             Assert.IsTrue(isl.is_valid());
-            Assert.IsNotNull(isl.get_name());
-            Assert.IsNotNull(isl.get_extra_info());
+            Assert.That(isl.get_name(), Is.Not.Empty);
+            Assert.That(isl.get_extra_info(), Is.Not.Null);
 
             using var configuredAlgorithm = isl.get_algorithm();
             Assert.AreEqual("ABC: Artificial Bee Colony", configuredAlgorithm.get_name());
