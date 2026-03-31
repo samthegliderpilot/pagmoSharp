@@ -1,4 +1,4 @@
-﻿using NUnit.Framework;
+using NUnit.Framework;
 using pagmo;
 using Tests.PagmoSharp.TestProblems;
 
@@ -37,7 +37,7 @@ public class Test_sga : TestAlgorithmBase
     public override bool MultiObjective => false;
 
     /// <inheritdoc />
-    public override bool IntegerPrograming => true;
+    public override bool IntegerProgramming => true;
 
     /// <inheritdoc />
     public override bool Stochastic => true;

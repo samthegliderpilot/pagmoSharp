@@ -1,4 +1,4 @@
-﻿//using NUnit.Framework;
+//using NUnit.Framework;
 //using pagmo;
 //using Tests.PagmoSharp.TestProblems;
 
@@ -82,7 +82,7 @@
 //    {
 //        get { return false; }
 //    }
-//    public override bool IntegerPrograming
+//    public override bool IntegerProgramming
 //    {
 //        get { return false; }
 //    }

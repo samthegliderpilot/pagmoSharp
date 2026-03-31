@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Reflection;
 using NUnit.Framework;
 using pagmo;
@@ -20,7 +20,7 @@ namespace Tests.PagmoSharp.Algorithms
         public abstract bool Unconstrained { get; }
         public abstract bool SingleObjective { get; }
         public abstract bool MultiObjective { get; }
-        public abstract bool IntegerPrograming { get; }
+        public abstract bool IntegerProgramming { get; }
         public abstract bool Stochastic { get; }
         public virtual bool MultiObjectiveUnconstrainedValid => MultiObjective && Unconstrained;
         public virtual bool MultiObjectiveConstrainedValid => MultiObjective && Constrained;
@@ -60,9 +60,11 @@ namespace Tests.PagmoSharp.Algorithms
             using (var algorithm = CreateAlgorithm(problem))
             using (var pop = new population(problem, 64))
             {
-                var finalpop = EvolveAlgorithm(algorithm, pop);
-                Assert.AreEqual(problem.ExpectedOptimalFunctionValue, finalpop.champion_f()[0], 2);
-                Assert.AreEqual(problem.ExpectedOptimalX[0], finalpop.champion_x()[0], 2);
+                using var finalpop = EvolveAlgorithm(algorithm, pop);
+                using var championFitness = finalpop.champion_f();
+                using var championDecisionVector = finalpop.champion_x();
+                Assert.AreEqual(problem.ExpectedOptimalFunctionValue, championFitness[0], 2);
+                Assert.AreEqual(problem.ExpectedOptimalX[0], championDecisionVector[0], 2);
             }
         }
 
@@ -79,9 +81,11 @@ namespace Tests.PagmoSharp.Algorithms
             using (var algorithm = CreateAlgorithm(problem))
             using (var pop = new population(problem, 512))
             {
-                var finalpop = EvolveAlgorithm(algorithm, pop);
-                Assert.AreEqual(problem.ExpectedOptimalFunctionValue, finalpop.champion_f()[0], 2);
-                Assert.AreEqual(problem.ExpectedOptimalX[0], finalpop.champion_x()[0], 1);
+                using var finalpop = EvolveAlgorithm(algorithm, pop);
+                using var championFitness = finalpop.champion_f();
+                using var championDecisionVector = finalpop.champion_x();
+                Assert.AreEqual(problem.ExpectedOptimalFunctionValue, championFitness[0], 2);
+                Assert.AreEqual(problem.ExpectedOptimalX[0], championDecisionVector[0], 1);
             }
         }
 
@@ -99,11 +103,12 @@ namespace Tests.PagmoSharp.Algorithms
             using (var pop = new population(problem, 1024))
             {
                 algorithm.set_seed(2); // for consistent results
-                var finalpop = EvolveAlgorithm(algorithm, pop);
-                Assert.AreEqual(problem.ExpectedOptimalX[0], finalpop.champion_x()[0], 0.3, "x for opt");
-                Assert.AreEqual(problem.ExpectedOptimalX[1], finalpop.champion_x()[1], 0.3, "y for opt");
-
-                Assert.AreEqual(problem.ExpectedOptimalFunctionValue, finalpop.champion_f()[0], 0.5, "opt value");
+                using var finalpop = EvolveAlgorithm(algorithm, pop);
+                using var championDecisionVector = finalpop.champion_x();
+                using var championFitness = finalpop.champion_f();
+                Assert.AreEqual(problem.ExpectedOptimalX[0], championDecisionVector[0], 0.3, "x for opt");
+                Assert.AreEqual(problem.ExpectedOptimalX[1], championDecisionVector[1], 0.3, "y for opt");
+                Assert.AreEqual(problem.ExpectedOptimalFunctionValue, championFitness[0], 0.5, "opt value");
             }
         }
 
@@ -209,7 +214,7 @@ namespace Tests.PagmoSharp.Algorithms
         }
 
         [Test]
-        public void TestStocasticProblem()
+        public void TestStochasticProblem()
         {
             if (!Stochastic)
             {
@@ -221,9 +226,11 @@ namespace Tests.PagmoSharp.Algorithms
             using (var pop = new population(problem, 4096, 2u))
             {
                 //algorithm.set_seed(2); // for consistent results
-                var finalpop = EvolveAlgorithm(algorithm, pop);
-                Assert.AreEqual(problem.ExpectedOptimalX[0], finalpop.champion_x()[0], 10, "x for opt");
-                Assert.AreEqual(problem.ExpectedOptimalFunctionValue, finalpop.champion_f()[0], 10, "opt value");
+                using var finalpop = EvolveAlgorithm(algorithm, pop);
+                using var championDecisionVector = finalpop.champion_x();
+                using var championFitness = finalpop.champion_f();
+                Assert.AreEqual(problem.ExpectedOptimalX[0], championDecisionVector[0], 10, "x for opt");
+                Assert.AreEqual(problem.ExpectedOptimalFunctionValue, championFitness[0], 10, "opt value");
             }
         }
 
@@ -235,7 +242,7 @@ namespace Tests.PagmoSharp.Algorithms
         [Test]
         public virtual void TestIntegerProgrammingWithConstraints()
         {
-            if (!IntegerPrograming || !Constrained)
+            if (!IntegerProgramming || !Constrained)
             {
                 Assert.Pass("Not applicable: algorithm does not support constrained integer programming.");
                 return; // pass, unsupported
@@ -248,23 +255,23 @@ namespace Tests.PagmoSharp.Algorithms
             {
                 algorithm.set_seed(2); // for consistent results
 
-                var finalpop = algorithm.evolve(pop);
-                var champX = finalpop.champion_x();
-                var champF = finalpop.champion_f();
-                Assert.AreEqual(2, champX.Count, "2 in x");
-                Assert.IsTrue(champX.Contains(1.0), "1.0 for first x value");
-                Assert.IsTrue(champX.Contains(2.0), "2.0 for second x value");
+                using var finalpop = algorithm.evolve(pop);
+                using var championDecisionVector = finalpop.champion_x();
+                using var championFitness = finalpop.champion_f();
+                Assert.AreEqual(2, championDecisionVector.Count, "champion decision vector should contain 2 values");
+                Assert.IsTrue(championDecisionVector.Contains(1.0), "champion decision vector should include 1.0");
+                Assert.IsTrue(championDecisionVector.Contains(2.0), "champion decision vector should include 2.0");
 
-                Assert.AreEqual(2, champF.Count, "2 in f(x)");
-                Assert.IsTrue(champF.Contains(3.0), "3.0 for first f(x) value");
-                Assert.IsTrue(champF.Contains(0.0), "0.0 for second f(x) value");
+                Assert.AreEqual(2, championFitness.Count, "champion fitness should contain objective+constraint values");
+                Assert.IsTrue(championFitness.Contains(3.0), "champion fitness should include objective value 3.0");
+                Assert.IsTrue(championFitness.Contains(0.0), "champion fitness should include constraint value 0.0");
             }
         }
 
         [Test]
-        public virtual void TestIntegerProgrammingWithUnConstraints()
+        public virtual void TestIntegerProgrammingWithUnconstrained()
         {
-            if (!IntegerPrograming || !Unconstrained)
+            if (!IntegerProgramming || !Unconstrained)
             {
                 Assert.Pass("Not applicable: algorithm does not support unconstrained integer programming.");
                 return; // pass, unsupported
@@ -277,17 +284,17 @@ namespace Tests.PagmoSharp.Algorithms
             {
                 algorithm.set_seed(2); // for consistent results
 
-                var finalpop = algorithm.evolve(pop);
-                var champX = finalpop.champion_x();
-                var champF = finalpop.champion_f();
-                Assert.AreEqual(4, champX.Count, "3 in x");
-                Assert.AreEqual(0.018910061654866972 , champX[0], 0.03, "first champ x");
-                Assert.AreEqual(-0.00067151048252811485, champX[1], 0.03, "second champ x");
-                Assert.AreEqual(-5, champX[2], "third champ x");
-                Assert.AreEqual(-5, champX[3], "fourth champ x");
+                using var finalpop = algorithm.evolve(pop);
+                using var championDecisionVector = finalpop.champion_x();
+                using var championFitness = finalpop.champion_f();
+                Assert.AreEqual(4, championDecisionVector.Count, "champion decision vector should contain 4 values");
+                Assert.AreEqual(0.018910061654866972, championDecisionVector[0], 0.03, "first champion decision value");
+                Assert.AreEqual(-0.00067151048252811485, championDecisionVector[1], 0.03, "second champion decision value");
+                Assert.AreEqual(-5, championDecisionVector[2], "third champion decision value");
+                Assert.AreEqual(-5, championDecisionVector[3], "fourth champion decision value");
 
-                Assert.AreEqual(1, champF.Count, "2 in f(x)");
-                Assert.AreEqual(50.017521245106849, champF[0], 0.1, "first value of champ f");
+                Assert.AreEqual(1, championFitness.Count, "champion fitness should contain 1 objective value");
+                Assert.AreEqual(50.017521245106849, championFitness[0], 0.1, "champion objective value");
             }
         }
 
@@ -309,7 +316,7 @@ namespace Tests.PagmoSharp.Algorithms
                 var expectedFitnessVectorCount = (int)(problemBase.get_nobj() + problemBase.get_nec() + problemBase.get_nic());
                 var expectedPopulationSize = pop.size();
 
-                var finalpop = algorithm.evolve(pop);
+                using var finalpop = algorithm.evolve(pop);
                 Assert.AreEqual(expectedPopulationSize, finalpop.size(), "population size should be preserved");
 
                 using var finalProblem = finalpop.get_problem();
@@ -367,3 +374,4 @@ namespace Tests.PagmoSharp.Algorithms
         }
     }
 }
+

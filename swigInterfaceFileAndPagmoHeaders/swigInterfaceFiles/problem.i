@@ -3,8 +3,6 @@
 %}
 
 %typemap(csclassmodifiers) pagmo::problem "public partial class"
-%feature("csmethodmodifiers", "internal") pagmo::problem::gradient_sparsity;
-%feature("csmethodmodifiers", "internal") pagmo::problem::hessians_sparsity;
 
 %ignore pagmo::problem::problem(T &&);
 %ignore pagmo::problem::operator=;

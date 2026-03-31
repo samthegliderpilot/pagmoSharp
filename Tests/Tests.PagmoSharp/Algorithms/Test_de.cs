@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using NUnit.Framework;
 using pagmo;
 using Tests.PagmoSharp.TestProblems;
@@ -36,7 +36,7 @@ namespace Tests.PagmoSharp.Algorithms
         public override bool MultiObjective => false;
 
         /// <inheritdoc />
-        public override bool IntegerPrograming => false;
+        public override bool IntegerProgramming => false;
 
         /// <inheritdoc />
         public override bool Stochastic => false;
@@ -75,3 +75,4 @@ namespace Tests.PagmoSharp.Algorithms
         }
     }
 }
+

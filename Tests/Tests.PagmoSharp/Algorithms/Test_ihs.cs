@@ -26,7 +26,7 @@ public class Test_ihs : TestAlgorithmBase
     public override bool Unconstrained => true;
     public override bool SingleObjective => true;
     public override bool MultiObjective => false;
-    public override bool IntegerPrograming => false;
+    public override bool IntegerProgramming => false;
     public override bool Stochastic => true;
 
     [Test]
@@ -69,3 +69,4 @@ public class Test_ihs : TestAlgorithmBase
         Assert.That(rawIdealPoint.Count, Is.EqualTo(typedLines[0].IdealPoint.Count));
     }
 }
+

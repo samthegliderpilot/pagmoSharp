@@ -23,6 +23,7 @@ public class Test_nsga2 : TestAlgorithmBase
     public override bool Unconstrained => true;
     public override bool SingleObjective => false;
     public override bool MultiObjective => true;
-    public override bool IntegerPrograming => false;
+    public override bool IntegerProgramming => false;
     public override bool Stochastic => false;
 }
+

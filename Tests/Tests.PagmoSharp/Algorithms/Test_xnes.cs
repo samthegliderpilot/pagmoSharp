@@ -1,4 +1,4 @@
-﻿using NUnit.Framework;
+using NUnit.Framework;
 using pagmo;
 using Tests.PagmoSharp.TestProblems;
 
@@ -37,7 +37,7 @@ public class Test_xnes : TestAlgorithmBase
     public override bool MultiObjective => false;
 
     /// <inheritdoc />
-    public override bool IntegerPrograming => false;
+    public override bool IntegerProgramming => false;
 
     /// <inheritdoc />
     public override bool Stochastic => true;

@@ -4,7 +4,6 @@
 %}
 
 %typemap(csclassmodifiers) pagmo::minlp_rastrigin "public partial class"
-%feature("csmethodmodifiers", "internal") pagmo::minlp_rastrigin::hessians_sparsity;
 class pagmo::minlp_rastrigin {
 public:
     extern minlp_rastrigin(unsigned dim_c = 1u, unsigned dim_i = 1u);

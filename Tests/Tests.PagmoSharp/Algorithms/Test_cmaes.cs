@@ -1,4 +1,4 @@
-﻿using NUnit.Framework;
+using NUnit.Framework;
 using pagmo;
 using Tests.PagmoSharp.TestProblems;
 
@@ -37,7 +37,7 @@ public class Test_cmaes : TestAlgorithmBase
     public override bool MultiObjective => false;
 
     /// <inheritdoc />
-    public override bool IntegerPrograming => false;
+    public override bool IntegerProgramming => false;
 
     /// <inheritdoc />
     public override bool Stochastic => true;
@@ -76,3 +76,4 @@ public class Test_cmaes : TestAlgorithmBase
         Assert.That((double)raw["best_fitness"], Is.EqualTo(typedLines[0].BestFitness));
     }
 }
+
