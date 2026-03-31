@@ -122,10 +122,12 @@ namespace Tests.PagmoSharp.Algorithms
 
             algo.set_seed(2u);
             using var finalPop = algo.evolve(pop);
+            using var championFitness = finalPop.champion_f();
+            using var championDecisionVector = finalPop.champion_x();
 
-            Assert.Less(finalPop.champion_f()[0], 0.2);
-            Assert.Less(System.Math.Abs(finalPop.champion_x()[0]), 0.5);
-            Assert.Less(System.Math.Abs(finalPop.champion_x()[1] - 3.0), 0.5);
+            Assert.Less(championFitness[0], 0.2);
+            Assert.Less(System.Math.Abs(championDecisionVector[0]), 0.5);
+            Assert.Less(System.Math.Abs(championDecisionVector[1] - 3.0), 0.5);
         }
     }
 }

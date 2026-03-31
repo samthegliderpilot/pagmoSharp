@@ -34,7 +34,7 @@ namespace Tests.PagmoSharp.Problems
             Assert.AreEqual(2, problem.get_nobj(), "objective count");
             Assert.AreEqual(0, problem.get_nix(), "integer count");
             Assert.AreEqual(thread_safety.basic, problem.get_thread_safety(), "thread safety");
-            var bounds = problem.get_bounds();
+            using var bounds = problem.get_bounds();
             Assert.AreEqual(0.0, bounds.first[0]);
             Assert.IsTrue(problem.has_batch_fitness(), "has batch fitness");
         }
@@ -43,28 +43,25 @@ namespace Tests.PagmoSharp.Problems
         public override void TestOptimizing()
         {
             using var problemBase = CreateStandardProblem();
-            Assert.AreEqual(0, problemBase.get_bounds().first[0]);
+            using var bounds = problemBase.get_bounds();
+            Assert.AreEqual(0, bounds.first[0]);
             using var algorithm = new nspso(20, 1);
             algorithm.set_seed(2);
             using (var pop = new population(problemBase, 128))
             {
-                pop.set_x(0, new DoubleVector(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30));
+                using var injected = new DoubleVector(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30);
+                pop.set_x(0, injected);
                 algorithm.set_seed(2); // for consistent results
-                
-                var finalpop = algorithm.evolve(pop);
-                var thing = pagmo.pagmo.FastNonDominatedSorting(pop.get_f());
-                Assert.IsTrue(thing != null);
-                Assert.IsTrue(thing.fronts != null);
 
-              //  var anotherThing = pagmo.pagmo.select_best_N_mo(null, 2);
-                //var champF = finalpop.champion_f().ToArray();
-                //Assert.AreEqual(13, champX.Length, "2 in x");
-                //Assert.AreEqual(0.991d, champX[0], 1.0, "1.0 for first x value");
-                //Assert.AreEqual(0.99708444960275089, champX[1], 1.0, "1.0 for second x value");
-                //// this function is hard to optimize (that's the point), are we anywhere close?
-                //Assert.AreEqual(10, champF.Length, "1 in f(x)");
-                //Assert.AreEqual(-12.45437350584859d, champF[0], 2.0, "optimal function value");
+                using var finalpop = algorithm.evolve(pop);
+                Assert.AreEqual(pop.size(), finalpop.size(), "population size should be preserved by evolve()");
 
+                using var evolvedFitness = finalpop.get_f();
+                using var sorting = pagmo.pagmo.FastNonDominatedSorting(evolvedFitness);
+                Assert.IsNotNull(sorting);
+                Assert.IsNotNull(sorting.fronts);
+                Assert.GreaterOrEqual(sorting.fronts.Count, 1, "non-dominated sorting should return at least one front");
+                Assert.GreaterOrEqual(sorting.fronts[0].Count, 1, "first Pareto front should contain at least one point");
             }
         }
 

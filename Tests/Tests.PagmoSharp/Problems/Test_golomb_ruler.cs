@@ -30,7 +30,7 @@ namespace Tests.PagmoSharp.Problems
             Assert.AreEqual(1, problem.get_nobj(), "objective count");
             Assert.AreEqual(2, problem.get_nix(), "integer count");
             Assert.AreEqual(thread_safety.basic, problem.get_thread_safety(), "thread safety");
-            var bounds = problem.get_bounds();
+            using var bounds = problem.get_bounds();
             Assert.AreEqual(1.0, bounds.first[0]);
         }
         
@@ -39,22 +39,23 @@ namespace Tests.PagmoSharp.Problems
         public override void TestOptimizing()
         {
             using var problemBase = CreateStandardProblem();
-            Assert.AreEqual(1, problemBase.get_bounds().first[0]);
+            using var bounds = problemBase.get_bounds();
+            Assert.AreEqual(1, bounds.first[0]);
             using var algorithm = new gaco(20);
             using (var pop = new population(problemBase, 1024))
             {
                 algorithm.set_seed(2); // for consistent results
                 
-                var finalpop = algorithm.evolve(pop);
-                var champX = finalpop.champion_x();
-                var champF = finalpop.champion_f();
-                Assert.AreEqual(2, champX.Count, "2 in x");
-                Assert.IsTrue(champX.Contains(1.0), "1.0 for first x value");
-                Assert.IsTrue(champX.Contains(2.0), "2.0 for second x value");
+                using var finalpop = algorithm.evolve(pop);
+                using var championDecisionVector = finalpop.champion_x();
+                using var championFitness = finalpop.champion_f();
+                Assert.AreEqual(2, championDecisionVector.Count, "2 in x");
+                Assert.IsTrue(championDecisionVector.Contains(1.0), "1.0 for first x value");
+                Assert.IsTrue(championDecisionVector.Contains(2.0), "2.0 for second x value");
 
-                Assert.AreEqual(2, champF.Count, "2 in f(x)");
-                Assert.IsTrue(champF.Contains(3.0), "3.0 for first f(x) value");
-                Assert.IsTrue(champF.Contains(0.0), "0.0 for second f(x) value");
+                Assert.AreEqual(2, championFitness.Count, "2 in f(x)");
+                Assert.IsTrue(championFitness.Contains(3.0), "3.0 for first f(x) value");
+                Assert.IsTrue(championFitness.Contains(0.0), "0.0 for second f(x) value");
             }
         }
     }

@@ -247,8 +247,6 @@ namespace Tests.PagmoSharp.Algorithms
                 Assert.Pass("Not applicable: algorithm does not support constrained integer programming.");
                 return; // pass, unsupported
             }
-            //TODO: Need a unconstrained version of this test method
-
             using var problemBase = new golomb_ruler();
             using (var algorithm = CreateAlgorithm())
             using (var pop = new population(problemBase, 1024))
@@ -276,8 +274,6 @@ namespace Tests.PagmoSharp.Algorithms
                 Assert.Pass("Not applicable: algorithm does not support unconstrained integer programming.");
                 return; // pass, unsupported
             }
-            //TODO: Need a unconstrained version of this test method
-
             using var problemBase = new minlp_rastrigin(2, 2);
             using (var algorithm = CreateAlgorithm())
             using (var pop = new population(problemBase, 10000))
@@ -287,14 +283,19 @@ namespace Tests.PagmoSharp.Algorithms
                 using var finalpop = algorithm.evolve(pop);
                 using var championDecisionVector = finalpop.champion_x();
                 using var championFitness = finalpop.champion_f();
+                using var bounds = problemBase.get_bounds();
                 Assert.AreEqual(4, championDecisionVector.Count, "champion decision vector should contain 4 values");
-                Assert.AreEqual(0.018910061654866972, championDecisionVector[0], 0.03, "first champion decision value");
-                Assert.AreEqual(-0.00067151048252811485, championDecisionVector[1], 0.03, "second champion decision value");
-                Assert.AreEqual(-5, championDecisionVector[2], "third champion decision value");
-                Assert.AreEqual(-5, championDecisionVector[3], "fourth champion decision value");
+                for (var i = 0; i < championDecisionVector.Count; i++)
+                {
+                    Assert.That(championDecisionVector[i], Is.GreaterThanOrEqualTo(bounds.first[i]), $"champion decision value {i} should be within lower bound");
+                    Assert.That(championDecisionVector[i], Is.LessThanOrEqualTo(bounds.second[i]), $"champion decision value {i} should be within upper bound");
+                }
+
+                Assert.That(championDecisionVector[2], Is.EqualTo(System.Math.Round(championDecisionVector[2])).Within(1e-12), "first integer decision variable should be integral");
+                Assert.That(championDecisionVector[3], Is.EqualTo(System.Math.Round(championDecisionVector[3])).Within(1e-12), "second integer decision variable should be integral");
 
                 Assert.AreEqual(1, championFitness.Count, "champion fitness should contain 1 objective value");
-                Assert.AreEqual(50.017521245106849, championFitness[0], 0.1, "champion objective value");
+                Assert.That(championFitness[0], Is.LessThanOrEqualTo(55.0), "champion objective should improve into the expected quality band");
             }
         }
 

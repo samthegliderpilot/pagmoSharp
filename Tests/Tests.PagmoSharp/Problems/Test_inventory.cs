@@ -30,7 +30,7 @@ namespace Tests.PagmoSharp.Problems
             Assert.AreEqual(1, problem.get_nobj(), "objective count");
             Assert.AreEqual(0, problem.get_nix(), "integer count");
             Assert.AreEqual(thread_safety.basic, problem.get_thread_safety(), "thread safety");
-            var bounds = problem.get_bounds();
+            using var bounds = problem.get_bounds();
             Assert.IsNotNull(bounds);
             Assert.AreEqual(4, bounds.first.Count, "first element is length 4");
             Assert.AreEqual(4, bounds.second.Count, "second element is length 4");
@@ -45,14 +45,14 @@ namespace Tests.PagmoSharp.Problems
             {
                 algorithm.set_seed(2); // for consistent results
                 
-                var finalpop = algorithm.evolve(pop);
-                var champX = finalpop.champion_x();
-                var champF = finalpop.champion_f();
-                Assert.AreEqual(4, champX.Count, "4 in x");
-                Assert.AreEqual(57.839652700387155, champX[0], 1.0, "champX");
+                using var finalpop = algorithm.evolve(pop);
+                using var championDecisionVector = finalpop.champion_x();
+                using var championFitness = finalpop.champion_f();
+                Assert.AreEqual(4, championDecisionVector.Count, "4 in x");
+                Assert.AreEqual(57.839652700387155, championDecisionVector[0], 1.0, "champX");
 
-                Assert.AreEqual(1, champF.Count, "1 in f(x)");
-                Assert.AreEqual(240.85449403381608, champF[0], 1.0,"champF");
+                Assert.AreEqual(1, championFitness.Count, "1 in f(x)");
+                Assert.AreEqual(240.85449403381608, championFitness[0], 1.0, "champF");
             }
         }
     }

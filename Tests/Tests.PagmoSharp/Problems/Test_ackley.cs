@@ -22,7 +22,7 @@ public class Test_ackley : TestProblemBase
         Assert.AreEqual(1, problem.get_nobj(), "objective count");
         Assert.AreEqual(0, problem.get_nix(), "integer count");
         Assert.AreEqual(thread_safety.basic, problem.get_thread_safety(), "thread safety");
-        var bounds = problem.get_bounds();
+        using var bounds = problem.get_bounds();
         Assert.AreEqual(-15.0, bounds.first[0]);
     }
 
@@ -30,15 +30,18 @@ public class Test_ackley : TestProblemBase
     public override void TestOptimizing()
     {
         using var problemBase = CreateStandardProblem();
-        Assert.AreEqual(-15, problemBase.get_bounds().first[0]);
+        using var bounds = problemBase.get_bounds();
+        Assert.AreEqual(-15, bounds.first[0]);
         using var algorithm = new gaco(20);
         using (var pop = new population(problemBase, 1024))
         {
             algorithm.set_seed(2); // for consistent results
 
-            var finalpop = algorithm.evolve(pop);
-            var champX = finalpop.champion_x().ToArray();
-            var champF = finalpop.champion_f().ToArray();
+            using var finalpop = algorithm.evolve(pop);
+            using var championDecisionVector = finalpop.champion_x();
+            using var championFitness = finalpop.champion_f();
+            var champX = championDecisionVector.ToArray();
+            var champF = championFitness.ToArray();
             Assert.AreEqual(2, champX.Length, "2 in x");
             Assert.AreEqual(0, champX[0], 1e-3, "1.0 for first x value");
             Assert.AreEqual(0, champX[1], 1e-3, "2.0 for second x value");

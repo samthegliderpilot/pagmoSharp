@@ -29,7 +29,7 @@ public class Test_cstrs_self_adaptive
         using var pop = new population(problem, 64u, 2u);
 
         var originalSize = pop.size();
-        var evolved = algorithm.evolve(pop);
+        using var evolved = algorithm.evolve(pop);
 
         Assert.AreEqual(originalSize, evolved.size());
         using var evolvedProblem = evolved.get_problem();

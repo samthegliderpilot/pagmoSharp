@@ -34,7 +34,7 @@ namespace Tests.PagmoSharp.Problems
             Assert.AreEqual(1, problem.get_nobj(), "objective count");
             Assert.AreEqual(0, problem.get_nix(), "integer count");
             Assert.AreEqual(thread_safety.basic, problem.get_thread_safety(), "thread safety");
-            var bounds = problem.get_bounds();
+            using var bounds = problem.get_bounds();
             Assert.AreEqual(0.0, bounds.first[0]);
             Assert.IsFalse(problem.has_batch_fitness(), "has batch fitness");
         }
@@ -43,15 +43,18 @@ namespace Tests.PagmoSharp.Problems
         public override void TestOptimizing()
         {
             using var problemBase = CreateStandardProblem();
-            Assert.AreEqual(0, problemBase.get_bounds().first[0]);
+            using var bounds = problemBase.get_bounds();
+            Assert.AreEqual(0, bounds.first[0]);
             using var algorithm = new gaco(20);
             using (var pop = new population(problemBase, 1024))
             {
                 algorithm.set_seed(2); // for consistent results
                 
-                var finalpop = algorithm.evolve(pop);
-                var champX = finalpop.champion_x().ToArray();
-                var champF = finalpop.champion_f().ToArray();
+                using var finalpop = algorithm.evolve(pop);
+                using var championDecisionVector = finalpop.champion_x();
+                using var championFitness = finalpop.champion_f();
+                var champX = championDecisionVector.ToArray();
+                var champF = championFitness.ToArray();
                 Assert.AreEqual(13, champX.Length, "2 in x");
                 Assert.AreEqual(0.991d, champX[0], 1.0, "1.0 for first x value");
                 Assert.AreEqual(0.99708444960275089, champX[1], 1.0, "1.0 for second x value");
