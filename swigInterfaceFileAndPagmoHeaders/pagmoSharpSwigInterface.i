@@ -94,6 +94,10 @@ PAGMOSHARP_EXEC_EXCEPTION(pagmo::thread_island::run_evolve, "thread_island.run_e
 %pragma(csharp) moduleclassmodifiers = "public partial class"
 %typemap(csclassmodifiers) pagmoWrap::problem_callback "public partial class"
 %typemap(csclassmodifiers) pagmoWrap::managed_problem "public partial class"
+%feature("csmethodmodifiers", "internal") pagmoWrap::problem_callback::gradient_sparsity;
+%feature("csmethodmodifiers", "internal") pagmoWrap::problem_callback::hessians_sparsity;
+%feature("csmethodmodifiers", "internal") pagmoWrap::managed_problem::gradient_sparsity;
+%feature("csmethodmodifiers", "internal") pagmoWrap::managed_problem::hessians_sparsity;
 
 %typemap(csclassmodifiers) std::vector <double> "public partial class"
 %feature("director") pagmoWrap::problem_callback;
