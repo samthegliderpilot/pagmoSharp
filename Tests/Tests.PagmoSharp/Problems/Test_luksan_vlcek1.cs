@@ -28,7 +28,7 @@ public class Test_luksan_vlcek1 : TestProblemBase
         Assert.AreEqual(2u, problem.get_nec());
         Assert.AreEqual(0u, problem.get_nic());
         Assert.AreEqual(0u, problem.get_nix());
-        Assert.AreEqual(thread_safety.none, problem.get_thread_safety());
+        Assert.AreEqual(thread_safety.basic, problem.get_thread_safety());
         Assert.IsFalse(problem.has_batch_fitness());
 
         Assert.AreEqual(4, bounds.first.Count);
@@ -93,3 +93,4 @@ public class Test_luksan_vlcek1 : TestProblemBase
         };
     }
 }
+

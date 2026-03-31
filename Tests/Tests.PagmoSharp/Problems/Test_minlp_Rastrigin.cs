@@ -24,6 +24,16 @@ public class Test_minlp_Rastrigin : TestProblemBase
         Assert.AreEqual(thread_safety.basic, problem.get_thread_safety(), "thread safety");
         using var bounds = problem.get_bounds();
         Assert.AreEqual(-5.12, bounds.first[0]);
+
+        var hessianSparsity = ((minlp_rastrigin)problem).GetHessiansSparsityEntries();
+        Assert.AreEqual(problem.get_nobj() + problem.get_nec() + problem.get_nic(), (uint)hessianSparsity.Length);
+        Assert.Greater(hessianSparsity[0].Length, 0);
+        var decisionDimension = (uint)bounds.first.Count;
+        foreach (var entry in hessianSparsity[0])
+        {
+            Assert.Less(entry.Row, decisionDimension);
+            Assert.Less(entry.Column, decisionDimension);
+        }
     }
 
     [Test]

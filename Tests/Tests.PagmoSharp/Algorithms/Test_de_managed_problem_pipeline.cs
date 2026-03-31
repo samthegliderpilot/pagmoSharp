@@ -96,6 +96,14 @@ namespace Tests.PagmoSharp.Algorithms
             Assert.AreEqual(0u, gradientSparsity[1].first);
             Assert.AreEqual(1u, gradientSparsity[1].second);
 
+            var gradientEntries = prob.GetGradientSparsityEntries();
+            Assert.AreEqual(2, gradientEntries.Length);
+            Assert.AreEqual(new SparsityIndex(0u, 0u), gradientEntries[0]);
+            Assert.AreEqual(new SparsityIndex(0u, 1u), gradientEntries[1]);
+
+            var hessianEntries = prob.GetHessiansSparsityEntries();
+            Assert.AreEqual(0, hessianEntries.Length);
+
             using var batch = new DoubleVector(new[] { 1.0, 3.0, 2.0, 3.0 });
             using var batchF = prob.batch_fitness(batch);
             Assert.AreEqual(2, batchF.Count);

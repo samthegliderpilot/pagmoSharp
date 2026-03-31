@@ -101,8 +101,8 @@ Last updated: 2026-03-29
 - [x] Verified non-generated native bridge surface (`managed_bridge.cpp`) consistently records contextual thread-local errors for both `std::exception` and `catch (...)` paths before null returns, and managed interop consumes that channel.
 - [x] Add thread-local native bridge error channel for managed_bridge exports (pagmosharp_get_last_error / pagmosharp_clear_last_error) and consume it in managed interop (problem creation, population creation, gradient/sparsity helpers, BFE operators) so null-return paths surface actionable failure messages.
 - [x] Add execute-path SWIG exception context for runtime orchestration methods (`algorithm.evolve`, `island.evolve`, `island.wait`, `island.wait_check`, `archipelago.evolve`, `archipelago.wait`, `archipelago.wait_check`, `thread_island.run_evolve`) and lock behavior with regression tests.
-- [ ] Correct built-in problem `thread_safety` metadata in wrappers (remove placeholder `none` defaults where inaccurate) and add threaded runtime verification coverage.
-- [x] Partial pass: corrected placeholder thread-safety metadata from `none` to `basic` for `ackley`, `cec2006`, `golomb_ruler`, `inventory`, `minlp_rastrigin`, and `zdt`, with explicit assertions added in corresponding problem tests.
+- [x] Correct built-in problem `thread_safety` metadata in wrappers (remove placeholder `none` defaults where inaccurate) and add threaded runtime verification coverage.
+- [x] Completed pass: corrected placeholder thread-safety metadata from `none` to `basic` for `ackley`, `cec2006`, `cec2009`, `cec2013`, `cec2014`, `dtlz`, `golomb_ruler`, `griewank`, `hock_schittkowski_71`, `inventory`, `lennard_jones`, `luksan_vlcek1`, `minlp_rastrigin`, `null_problem`, `rastrigin`, `schwefel`, `wfg`, and `zdt`, with explicit assertions in corresponding problem tests.
 - [x] Investigate and eliminate full-suite post-run test-host crashes (all tests pass but host process aborts during teardown), with explicit native-lifetime root cause and regression guard (resolved by switching midpoint probe vector construction to array-based initialization in `TestProblemBase`).
 - [x] Deduplicate SWIG director/include declarations in root interface and keep one canonical registration path for `problem`, `r_policy`, and `s_policy` bridges.
 - [x] Normalize SWIG fragment hygiene by removing per-file `%module` directives from included `.i` fragments and keeping module definition at the root interface only.
@@ -118,6 +118,7 @@ Last updated: 2026-03-29
 - [x] Added fourth size_t projection slice: cstrs_self_adaptive log projection with typed/generic managed logs and field-parity assertions in Test_cstrs_self_adaptive.
 - [x] Added fifth size_t projection slice: de log projection (get_log_entries + typed/generic managed logs) with field-parity assertions in Test_de.
 - [x] Added sixth size_t projection slice: cmaes log projection (get_log_entries + typed/generic managed logs) with field-parity assertions in Test_cmaes.
+- [x] Added sparsity projection slice for size_t-heavy derivative metadata: typed managed `SparsityIndex` projections on `problem` / `managed_problem` / `minlp_rastrigin` (`GetGradientSparsityEntries`, `GetHessiansSparsityEntries`) with shape/index regression assertions in `Test_de_managed_problem_pipeline` and `Test_minlp_Rastrigin`.
 - [x] Completed algorithm-log projection sweep for all active wrapped algorithms that expose logs in v1 surface (`bee_colony`, `compass_search`, `cmaes`, `cstrs_self_adaptive`, `de`, `de1220`, `gaco`, `gwo`, `ihs`, `maco`, `mbh`, `moead`, `moead_gen`, `nsga2`, `nspso`, `pso`, `pso_gen`, `sade`, `sea`, `sga`, `simulated_annealing`, `xnes`), with universal `IAlgorithm.GetLogLines()` plus typed `GetTypedLogLines()` surfaces and shared evolve-path log assertions.
 - [x] Removed raw tuple-based algorithm log leakage from generated APIs by ignoring direct `get_log()` on active algorithm wrappers and retaining only typed log projection surfaces (`get_log_entries` / `GetTypedLogLines` / `GetLogLines`).
 - [x] Removed legacy bee-colony tuple bridge (`FromBeeColonyLogTuple`) so tuple `SWIGTYPE_*` artifacts no longer leak into generated managed surfaces.
@@ -134,7 +135,7 @@ Last updated: 2026-03-29
 - [x] Remove `double*` SWIGTYPE leakage from `hv_algorithm` by suppressing the raw-pointer `volume_between(double*, double*, size_t)` overload and keeping vector-based managed overloads.
 - [x] Remove policy/raw-pointer SWIGTYPE leakage from generated surface by suppressing low-level `r_policyPagmoWrapper::replace` / `s_policyPagmoWrapper::select` exports; managed policy APIs remain unchanged.
 - [x] Remove managed-problem shared_ptr-constructor SWIGTYPE leakage by suppressing the shared_ptr overload and retaining callback-based managed constructor paths.
-- [ ] Remaining SWIGTYPE leakage is now limited to sparsity-pattern pointer surfaces (`problem` / `managed_problem` / `problem_callback` / `minlp_rastrigin`) and is tracked as a focused follow-up slice.
+- [x] Contained remaining sparsity-pattern `SWIGTYPE_*` leakage by adding first-class typed projection APIs (`SparsityIndex`-based) for public managed usage while preserving low-level generated pointer surfaces only for SWIG/director plumbing.
 - [x] Remove MigrationEntry ID SWIGTYPE_* exposure by mapping adapter IDs (migration_id, immigrant_id) to ulong and add dedicated regression coverage in Test_migration_entry.
 - [ ] Anything from 3A is not considered production-ready until 3B gates pass.
 
@@ -173,6 +174,8 @@ Last updated: 2026-03-29
 - Breadth-first then depth-hardening is intentional for large catalog onboarding.
 - `Problem` remains core and already mature enough to build on.
 - v1.0 stays Windows-first; Linux is explicitly post-release.
+
+
 
 
 

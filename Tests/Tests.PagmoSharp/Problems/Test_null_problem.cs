@@ -21,7 +21,7 @@ public class Test_null_problem : TestProblemBase
         Assert.AreEqual(1u, problem.get_nec());
         Assert.AreEqual(3u, problem.get_nic());
         Assert.AreEqual(1u, problem.get_nix());
-        Assert.AreEqual(thread_safety.none, problem.get_thread_safety());
+        Assert.AreEqual(thread_safety.basic, problem.get_thread_safety());
         Assert.IsFalse(problem.has_batch_fitness());
     }
 
@@ -48,3 +48,4 @@ public class Test_null_problem : TestProblemBase
         }
     }
 }
+

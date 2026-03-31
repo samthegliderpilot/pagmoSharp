@@ -1,4 +1,5 @@
-﻿using System;
+using System;
+using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
 using pagmo;
@@ -9,6 +10,15 @@ namespace Tests.PagmoSharp
     [TestFixture]
     public class Test_bfe
     {
+        public static IEnumerable<TestCaseData> BuiltInBasicThreadSafeProblemFactories()
+        {
+            yield return new TestCaseData((Func<IProblem>)(() => new ackley(2u))).SetName("ThreadBfe_Ackley");
+            yield return new TestCaseData((Func<IProblem>)(() => new cec2009(1u, false, 2u))).SetName("ThreadBfe_Cec2009");
+            yield return new TestCaseData((Func<IProblem>)(() => new cec2013(1u, 2u))).SetName("ThreadBfe_Cec2013");
+            yield return new TestCaseData((Func<IProblem>)(() => new rastrigin(2u))).SetName("ThreadBfe_Rastrigin");
+            yield return new TestCaseData((Func<IProblem>)(() => new schwefel(2u))).SetName("ThreadBfe_Schwefel");
+        }
+
         [Test]
         public void TestDefaultBfe()
         {
@@ -58,6 +68,39 @@ namespace Tests.PagmoSharp
 
             var ex = Assert.Throws<InvalidOperationException>(() => bfeSample.Operator(problem, batchX));
             Assert.That(ex!.Message, Does.Contain("thread_safety.basic or thread_safety.constant"));
+        }
+
+        [Test]
+        [TestCaseSource(nameof(BuiltInBasicThreadSafeProblemFactories))]
+        public void ThreadBfeExecutesBuiltInProblemsMarkedThreadSafe(Func<IProblem> problemFactory)
+        {
+            using var problem = problemFactory();
+            Assert.That(problem.get_thread_safety(), Is.Not.EqualTo(thread_safety.none), "built-in problem should expose thread-safe metadata for thread_bfe path");
+
+            using var bounds = problem.get_bounds();
+            var dimension = bounds.first.Count;
+            Assert.That(dimension, Is.GreaterThan(0), "problem dimension should be positive");
+
+            var firstPoint = new double[dimension];
+            var secondPoint = new double[dimension];
+            for (var i = 0; i < dimension; i++)
+            {
+                var lo = bounds.first[i];
+                var hi = bounds.second[i];
+                firstPoint[i] = lo;
+                secondPoint[i] = lo + (hi - lo) * 0.5;
+            }
+
+            var flattened = new double[dimension * 2];
+            Array.Copy(firstPoint, 0, flattened, 0, dimension);
+            Array.Copy(secondPoint, 0, flattened, dimension, dimension);
+
+            using var batchX = new DoubleVector(flattened);
+            using var evaluator = new pagmo.thread_bfe();
+            using var fitness = evaluator.Operator(problem, batchX);
+            var outputsPerDecisionVector = (int)(problem.get_nobj() + problem.get_nec() + problem.get_nic());
+            Assert.That(outputsPerDecisionVector, Is.GreaterThan(0));
+            Assert.That(fitness.Count, Is.EqualTo(2 * outputsPerDecisionVector), "thread_bfe should return one full fitness vector per decision vector");
         }
     }
 }

@@ -24,7 +24,7 @@ public class Test_cec2009 : TestProblemBase
         Assert.AreEqual(0u, unconstrained.get_nec());
         Assert.AreEqual(0u, unconstrained.get_nic());
         Assert.AreEqual(0u, unconstrained.get_nix());
-        Assert.AreEqual(thread_safety.none, unconstrained.get_thread_safety());
+        Assert.AreEqual(thread_safety.basic, unconstrained.get_thread_safety());
         Assert.IsFalse(unconstrained.has_batch_fitness());
 
         Assert.AreEqual(2u, constrained.get_nobj());
@@ -91,3 +91,4 @@ public class Test_cec2009 : TestProblemBase
         };
     }
 }
+

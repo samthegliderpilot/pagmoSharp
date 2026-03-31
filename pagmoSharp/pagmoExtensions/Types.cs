@@ -1,1 +1,0 @@
-﻿//global using sparcity_pattern = pagmo.SWIGTYPE_p_std__vectorT_std__pairT_size_t_size_t_t_t;

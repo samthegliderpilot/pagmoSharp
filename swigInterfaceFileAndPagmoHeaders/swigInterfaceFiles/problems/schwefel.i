@@ -47,5 +47,6 @@ bool has_batch_fitness() const
 %extend pagmo::schwefel{
 thread_safety get_thread_safety() const
 {
-    return pagmo::thread_safety::none;
+    return pagmo::thread_safety::basic;
 } };
+

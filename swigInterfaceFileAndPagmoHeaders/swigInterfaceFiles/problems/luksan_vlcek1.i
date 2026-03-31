@@ -42,5 +42,6 @@ bool has_batch_fitness() const
 %extend pagmo::luksan_vlcek1{
 thread_safety get_thread_safety() const
 {
-    return pagmo::thread_safety::none;
+    return pagmo::thread_safety::basic;
 } };
+

@@ -3588,7 +3588,7 @@ SWIGINTERN bool pagmo_cec2009_has_batch_fitness(pagmo::cec2009 const *self){
     return false;
 }
 SWIGINTERN pagmo::thread_safety pagmo_cec2009_get_thread_safety(pagmo::cec2009 const *self){
-    return pagmo::thread_safety::none;
+    return pagmo::thread_safety::basic;
 }
 
 #include "pagmo/problems/cec2013.hpp"
@@ -3610,7 +3610,7 @@ SWIGINTERN bool pagmo_cec2013_has_batch_fitness(pagmo::cec2013 const *self){
     return false;
 }
 SWIGINTERN pagmo::thread_safety pagmo_cec2013_get_thread_safety(pagmo::cec2013 const *self){
-    return pagmo::thread_safety::none;
+    return pagmo::thread_safety::basic;
 }
 
 #include "pagmo/problems/cec2014.hpp"
@@ -3632,7 +3632,7 @@ SWIGINTERN bool pagmo_cec2014_has_batch_fitness(pagmo::cec2014 const *self){
     return false;
 }
 SWIGINTERN pagmo::thread_safety pagmo_cec2014_get_thread_safety(pagmo::cec2014 const *self){
-    return pagmo::thread_safety::none;
+    return pagmo::thread_safety::basic;
 }
 
 #include "pagmo/problems/decompose.hpp"
@@ -3664,7 +3664,7 @@ SWIGINTERN bool pagmo_dtlz_has_batch_fitness(pagmo::dtlz const *self){
     return false;
 }
 SWIGINTERN pagmo::thread_safety pagmo_dtlz_get_thread_safety(pagmo::dtlz const *self){
-    return pagmo::thread_safety::none;
+    return pagmo::thread_safety::basic;
 }
 
 #include "pagmo/problems/hock_schittkowski_71.hpp"
@@ -3680,7 +3680,7 @@ SWIGINTERN bool pagmo_hock_schittkowski_71_has_batch_fitness(pagmo::hock_schittk
     return false;
 }
 SWIGINTERN pagmo::thread_safety pagmo_hock_schittkowski_71_get_thread_safety(pagmo::hock_schittkowski_71 const *self){
-    return pagmo::thread_safety::none;
+    return pagmo::thread_safety::basic;
 }
 
 #include "pagmo/problems/golomb_ruler.hpp"
@@ -3718,7 +3718,7 @@ SWIGINTERN bool pagmo_griewank_has_batch_fitness(pagmo::griewank const *self){
     return false;
 }
 SWIGINTERN pagmo::thread_safety pagmo_griewank_get_thread_safety(pagmo::griewank const *self){
-    return pagmo::thread_safety::none;
+    return pagmo::thread_safety::basic;
 }
 
 #include "pagmo/problems/inventory.hpp"
@@ -3762,7 +3762,7 @@ SWIGINTERN bool pagmo_lennard_jones_has_batch_fitness(pagmo::lennard_jones const
     return false;
 }
 SWIGINTERN pagmo::thread_safety pagmo_lennard_jones_get_thread_safety(pagmo::lennard_jones const *self){
-    return pagmo::thread_safety::none;
+    return pagmo::thread_safety::basic;
 }
 
 #include "pagmo/problems/luksan_vlcek1.hpp"
@@ -3781,7 +3781,7 @@ SWIGINTERN bool pagmo_luksan_vlcek1_has_batch_fitness(pagmo::luksan_vlcek1 const
     return false;
 }
 SWIGINTERN pagmo::thread_safety pagmo_luksan_vlcek1_get_thread_safety(pagmo::luksan_vlcek1 const *self){
-    return pagmo::thread_safety::none;
+    return pagmo::thread_safety::basic;
 }
 
 #include "pagmo/problems/minlp_rastrigin.hpp"
@@ -3810,7 +3810,7 @@ SWIGINTERN bool pagmo_null_problem_has_batch_fitness(pagmo::null_problem const *
     return false;
 }
 SWIGINTERN pagmo::thread_safety pagmo_null_problem_get_thread_safety(pagmo::null_problem const *self){
-    return pagmo::thread_safety::none;
+    return pagmo::thread_safety::basic;
 }
 
 #include "pagmo/problems/rosenbrock.hpp"
@@ -3851,7 +3851,7 @@ SWIGINTERN bool pagmo_schwefel_has_batch_fitness(pagmo::schwefel const *self){
     return false;
 }
 SWIGINTERN pagmo::thread_safety pagmo_schwefel_get_thread_safety(pagmo::schwefel const *self){
-    return pagmo::thread_safety::none;
+    return pagmo::thread_safety::basic;
 }
 
 #include "pagmo/problems/rastrigin.hpp"
@@ -3873,7 +3873,7 @@ SWIGINTERN bool pagmo_rastrigin_has_batch_fitness(pagmo::rastrigin const *self){
     return false;
 }
 SWIGINTERN pagmo::thread_safety pagmo_rastrigin_get_thread_safety(pagmo::rastrigin const *self){
-    return pagmo::thread_safety::none;
+    return pagmo::thread_safety::basic;
 }
 
 #include "pagmo/problems/translate.hpp"
@@ -3906,7 +3906,7 @@ SWIGINTERN bool pagmo_wfg_has_batch_fitness(pagmo::wfg const *self){
     return false;
 }
 SWIGINTERN pagmo::thread_safety pagmo_wfg_get_thread_safety(pagmo::wfg const *self){
-    return pagmo::thread_safety::none;
+    return pagmo::thread_safety::basic;
 }
 
 #include "pagmo/problems/zdt.hpp"
