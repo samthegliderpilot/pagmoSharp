@@ -48,5 +48,21 @@ namespace Tests.PagmoSharp
             isl.wait_check();
             Assert.AreEqual(evolve_status.idle, isl.status());
         }
+
+        [Test]
+        public void IslandCanBeCreatedDirectlyFromManagedPolicyBases()
+        {
+            using var managed = new TwoDimensionalSingleObjectiveProblemWrapper();
+            using var algo = new bee_colony().to_algorithm();
+            using var rBase = new ManagedReplacementPolicy();
+            using var sBase = new ManagedSelectionPolicy();
+
+            using var isl = island.CreateWithPolicies(algo, managed, 24, rBase, sBase, 2);
+
+            Assert.IsTrue(isl.is_valid());
+            isl.evolve();
+            isl.wait_check();
+            Assert.AreEqual(evolve_status.idle, isl.status());
+        }
     }
 }

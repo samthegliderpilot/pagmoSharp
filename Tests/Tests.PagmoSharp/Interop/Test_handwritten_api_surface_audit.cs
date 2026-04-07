@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -61,6 +62,33 @@ public class Test_handwritten_api_surface_audit
             offenders,
             Is.Empty,
             "Handwritten extension code should dispose native snapshot containers (prefer `using var native = get_*()` for temporary wrappers).");
+    }
+
+    [Test]
+    public void DirectCreateProblemPointerUsageIsConstrainedToInteropBoundaryFiles()
+    {
+        var extensionsRoot = GetExtensionsRoot();
+        var allowedFiles = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
+        {
+            Path.Combine("problem.cs"),
+            Path.Combine("population.cs"),
+            Path.Combine("BatchEvaluators", "bfe.cs"),
+            Path.Combine("Utils", "GradientsAndHessians.cs")
+        };
+
+        var offenders = Directory
+            .EnumerateFiles(extensionsRoot, "*.cs", SearchOption.AllDirectories)
+            .Where(path => !path.Contains($"{Path.DirectorySeparatorChar}bin{Path.DirectorySeparatorChar}", StringComparison.OrdinalIgnoreCase))
+            .Where(path => !path.Contains($"{Path.DirectorySeparatorChar}obj{Path.DirectorySeparatorChar}", StringComparison.OrdinalIgnoreCase))
+            .Where(path => File.ReadAllText(path).Contains("NativeInterop.CreateProblemPointer(", StringComparison.Ordinal))
+            .Where(path => !allowedFiles.Contains(Path.GetRelativePath(extensionsRoot, path)))
+            .Select(path => Path.GetRelativePath(extensionsRoot, path))
+            .ToArray();
+
+        Assert.That(
+            offenders,
+            Is.Empty,
+            "Direct CreateProblemPointer usage should stay constrained to dedicated interop boundary files.");
     }
 
     private static string GetExtensionsRoot()

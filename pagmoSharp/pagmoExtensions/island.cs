@@ -69,6 +69,19 @@ namespace pagmo
             return CreateWithPolicies(normalized, p, popSize, r, s, seed);
         }
 
+        public static island CreateWithPolicies(algorithm a, IProblem p, ulong popSize, r_policyBase replacementPolicy, s_policyBase selectionPolicy, uint? seed = null)
+        {
+            using var wrappedReplacementPolicy = new r_policy(replacementPolicy);
+            using var wrappedSelectionPolicy = new s_policy(selectionPolicy);
+            return CreateWithPolicies(a, p, popSize, wrappedReplacementPolicy, wrappedSelectionPolicy, seed);
+        }
+
+        public static island CreateWithPolicies(IAlgorithm a, IProblem p, ulong popSize, r_policyBase replacementPolicy, s_policyBase selectionPolicy, uint? seed = null)
+        {
+            using var normalized = AlgorithmInterop.NormalizeToTypeErased(a);
+            return CreateWithPolicies(normalized, p, popSize, replacementPolicy, selectionPolicy, seed);
+        }
+
         public static island CreateWithThreadIslandAndPolicies(thread_island isl, algorithm a, IProblem p, ulong popSize, r_policy r, s_policy s, uint? seed = null)
         {
             using var prob = new problem(p);
@@ -79,6 +92,19 @@ namespace pagmo
         {
             using var normalized = AlgorithmInterop.NormalizeToTypeErased(a);
             return CreateWithThreadIslandAndPolicies(isl, normalized, p, popSize, r, s, seed);
+        }
+
+        public static island CreateWithThreadIslandAndPolicies(thread_island isl, algorithm a, IProblem p, ulong popSize, r_policyBase replacementPolicy, s_policyBase selectionPolicy, uint? seed = null)
+        {
+            using var wrappedReplacementPolicy = new r_policy(replacementPolicy);
+            using var wrappedSelectionPolicy = new s_policy(selectionPolicy);
+            return CreateWithThreadIslandAndPolicies(isl, a, p, popSize, wrappedReplacementPolicy, wrappedSelectionPolicy, seed);
+        }
+
+        public static island CreateWithThreadIslandAndPolicies(thread_island isl, IAlgorithm a, IProblem p, ulong popSize, r_policyBase replacementPolicy, s_policyBase selectionPolicy, uint? seed = null)
+        {
+            using var normalized = AlgorithmInterop.NormalizeToTypeErased(a);
+            return CreateWithThreadIslandAndPolicies(isl, normalized, p, popSize, replacementPolicy, selectionPolicy, seed);
         }
 
         public static island CreateWithBfe(algorithm a, IProblem p, bfe b, ulong popSize, uint? seed = null)

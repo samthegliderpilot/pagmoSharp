@@ -94,7 +94,10 @@ Last updated: 2026-04-02
 - [x] Remove/contain `SWIGTYPE_*` leakage on touched public APIs (handwritten extension surface now guarded by audit tests; remaining generated/director `SWIGTYPE_*` surfaces are intentionally internal plumbing).
 - [ ] Audit and eliminate shallow raw-pointer ownership semantics across wrapper facades (copy/assign/destructor ownership rules), replacing with robust lifetime-safe patterns.
 - [x] Hardened managed policy ownership transfer paths (`r_policy`/`s_policy`) to be exception-safe after ownership release, with regression coverage for null/disposed inputs and validity checks.
+- [x] Added direct managed-policy extensibility entrypoints: `island`/`archipelago` policy overloads now accept `r_policyBase` + `s_policyBase` directly (no manual wrapper ceremony), including PascalCase alias parity on `archipelago.PushBackIsland`, with runtime regression coverage (`Test_island_managed_policies`, `Test_archipelago_managed_policies`).
 - [x] Fixed native-vector ownership leak risk in `archipelago` snapshot properties (`MigrationLog`, `MigrantsDb`) by disposing temporary native containers via `using var`.
+- [x] Reduced raw-pointer plumbing in `archipelago` managed-problem path by replacing manual `CreateProblemPointer`/`problem_delete` handling with safe `new problem(IProblem)` ownership flow.
+- [x] Added ownership guardrail audit: direct `NativeInterop.CreateProblemPointer(...)` usage is constrained to dedicated interop boundary files (`problem`, `population`, `BatchEvaluators/bfe`, `Utils/GradientsAndHessians`).
 - [x] Fixed managed problem callback lifetime in native director flows by rooting `ProblemCallbackAdapter` instances via `ConditionalWeakTable`, preventing GC callback crashes during long-running native calls.
 - [x] Normalize naming/signatures and add deeper behavior/regression tests (PascalCase aliases + expanded execute-path and API-surface guard regressions).
 - [x] Standardize C++?C# exception bubbling and mapping across constructor/evolve/wait paths, including explicit `wait()` (non-throwing completion barrier) vs `wait_check()` (error-surfacing barrier) semantics in runtime regression tests.
@@ -152,6 +155,7 @@ Last updated: 2026-04-02
 - [ ] C#-first docs, quickstart, and canonical runnable examples.
 - [ ] Publish a supported-feature matrix by build/environment (for example optional algorithm availability such as IPOPT/NLopt).
 - [ ] Perform an exception-usage audit across managed/native wrapper layers to verify existing code is surfacing actionable exceptions consistently and not silently swallowing failure context.
+- [ ] Review high-overload managed API surfaces (especially `island`/`archipelago`) and remove or deprecate non-essential overloads while preserving a small canonical core plus compatibility shims where needed.
 
 7. **Sprint 5: Release Readiness**
 - [ ] Packaging/versioning/changelog/release checklist and ship gates.
@@ -183,6 +187,9 @@ Last updated: 2026-04-02
 - Breadth-first then depth-hardening is intentional for large catalog onboarding.
 - `Problem` remains core and already mature enough to build on.
 - v1.0 stays Windows-first; Linux is explicitly post-release.
+
+
+
 
 
 
