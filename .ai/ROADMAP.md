@@ -111,10 +111,10 @@ Last updated: 2026-04-02
 - [x] Deduplicate SWIG director/include declarations in root interface and keep one canonical registration path for `problem`, `r_policy`, and `s_policy` bridges.
 - [x] Normalize SWIG fragment hygiene by removing per-file `%module` directives from included `.i` fragments and keeping module definition at the root interface only.
 - [x] Complete multi-objective support end-to-end (problem/algorithm flows, champion and population semantics, and static helper functions in `utils/multi_objective`).
-- [ ] Define and implement a project-wide std::size_t managed mapping strategy (beyond current migration-entry adapter conversion) without breaking SWIG STL wrappers/ABI contracts.
+- [x] Define and implement a project-wide std::size_t managed boundary strategy for handwritten extension surfaces via centralized `SizeTInterop` conversions (`ulong` input with checked `uint` native mapping + actionable `ArgumentOutOfRangeException` context).
 - [x] Documented Sprint 3B size_t compatibility matrix and phased plan in `.ai/SIZE_T_STRATEGY.md`.
-- [ ] Implement managed projection wrappers for remaining size_t-heavy opaque log/sparsity surfaces so touched public APIs avoid `SWIGTYPE_*size_t*`.
-- [ ] Add regression tests for size_t projection wrappers (shape/count/index transfer assertions).
+- [x] Implement managed projection wrappers for remaining size_t-heavy opaque log/sparsity surfaces so touched public APIs avoid `SWIGTYPE_*size_t*` (residual generated director plumbing remains intentionally internal-facing).
+- [x] Add regression tests for size_t projection wrappers and boundary conversions (shape/count/index transfer assertions + overflow guards on population/island/archipelago managed entrypoints).
 - [x] First size_t projection slice completed: gaco log projection (get_log_entries + managed GetLogLines()) with behavior assertions in Test_gaco.
 - [x] Added shared C# log abstraction (IAlgorithmLogLine + universal IAlgorithm.GetLogLines() default-empty contract, no per-algorithm `IHas...` marker interface requirement) and implemented it for gaco with generic raw-field access assertions.
 - [x] Added second size_t projection slice: mbh log projection (get_log_entries + typed/generic managed logs) with field-parity assertions in Test_mbh.
@@ -133,7 +133,10 @@ Last updated: 2026-04-02
 - [x] Added end-to-end managed runtime interop coverage for all active bridged algorithms via `island.Create(IAlgorithm, IProblem, ...)` (single-objective, constrained, and multi-objective cases), including evolve/wait_check and population-shape assertions.
 - [x] Added matching `archipelago.push_back_island(IAlgorithm, IProblem, ...)` interop matrix coverage for all active bridged algorithms with evolve/wait_check and objective/champion-shape assertions.
 - [x] Add managed wrapper surface for core `utils/multi_objective` static helpers (`pareto_dominance`, `non_dominated_front_2d`, `crowding_distance`, `sort_population_mo`, `select_best_N_mo`, `ideal`, `nadir`, `decompose_objectives`) and assert concrete behavior in `Test_multi_objective`.
+- [x] Added C#-friendly multi-objective projection helpers (ParetoDominates, index-array selectors, ideal/nadir/decompose array projections) to reduce container-heavy call sites and improve naming clarity, with parity assertions in Test_multi_objective.
 - [x] Assert and lock multi-objective population semantics in shared algorithm tests: champion_x/champion_f must throw on multi-objective populations while get_x/get_f remain the supported data path.
+- [x] Added naming/signature polish aliases for `archipelago` managed entrypoints (`PushBackIsland`, `GetIsland`) while preserving existing pagmo-style APIs.
+- [x] Added handwritten API surface audit tests to prevent new public `SWIGTYPE_*` leakage and generated placeholder argument names (`arg0`, `arg1`) outside explicit director-plumbing exceptions.
 - [x] Reduce wrapper layering for multi-objective helpers by removing intermediate MultiObjectiveUtils C++/C# helper classes and exposing direct pagmo.pagmo.* static bindings via SWIG namespace declarations.
 - [x] Remove hypervolume/hv_algorithm shared-pointer SWIGTYPE_* exposure by instantiating typed HvAlgorithmSharedPtr and add runtime selector coverage in Test_hypervolume.
 - [x] Remove `std::ostream` SWIGTYPE leakage from managed surface by pruning unused ostream-only declarations in `io.i` (no managed API usage, no runtime behavior change).
@@ -179,6 +182,7 @@ Last updated: 2026-04-02
 - Breadth-first then depth-hardening is intentional for large catalog onboarding.
 - `Problem` remains core and already mature enough to build on.
 - v1.0 stays Windows-first; Linux is explicitly post-release.
+
 
 
 

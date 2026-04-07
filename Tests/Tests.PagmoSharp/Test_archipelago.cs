@@ -115,6 +115,24 @@ namespace Tests.PagmoSharp
         }
 
         [Test]
+        public void ManagedThreadSafeProblemCanEvolveUsingPascalCaseAliases()
+        {
+            using var archi = new archipelago();
+            using IAlgorithm algo = new bee_colony();
+            using var problem = new TwoDimensionalSingleObjectiveProblemWrapper();
+
+            archi.PushBackIsland(algo, problem, 24, 2);
+            Assert.AreEqual(1u, archi.size());
+            using var islandSnapshot = archi.GetIsland(0u);
+            using var population = islandSnapshot.get_population();
+            Assert.AreEqual(24u, population.size());
+
+            archi.evolve(1);
+            archi.wait_check();
+            Assert.AreEqual(evolve_status.idle, archi.status());
+        }
+
+        [Test]
         public void ManagedThreadSafeProblemCanEvolveInArchipelagoWithIhs()
         {
             using var archi = new archipelago();

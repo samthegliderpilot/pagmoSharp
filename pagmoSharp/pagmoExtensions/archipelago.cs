@@ -52,67 +52,67 @@ namespace pagmo
 
         public island GetIslandCopy(ulong index)
         {
-            return get_island_copy(checked((uint)index));
+            return get_island_copy(SizeTInterop.ToNativeUInt32(index, nameof(index)));
         }
 
         public ulong push_back_island(algorithm algo, IProblem prob, ulong popSize, uint seed)
         {
-            return WithManagedProblem(prob, wrappedProblem => push_back_island(algo, wrappedProblem, checked((uint)popSize), seed));
+            return WithManagedProblem(prob, wrappedProblem => push_back_island(algo, wrappedProblem, SizeTInterop.ToNativeUInt32(popSize, nameof(popSize)), seed));
         }
 
         public ulong push_back_island(algorithm algo, IProblem prob, ulong popSize, r_policy r, s_policy s, uint seed)
         {
-            return WithManagedProblem(prob, wrappedProblem => push_back_island(algo, wrappedProblem, checked((uint)popSize), r, s, seed));
+            return WithManagedProblem(prob, wrappedProblem => push_back_island(algo, wrappedProblem, SizeTInterop.ToNativeUInt32(popSize, nameof(popSize)), r, s, seed));
         }
 
         public ulong push_back_island(algorithm algo, IProblem prob, ulong popSize, fair_replace replacementPolicy, select_best selectionPolicy, uint seed)
         {
-            return WithManagedProblem(prob, wrappedProblem => push_back_island(algo, wrappedProblem, checked((uint)popSize), replacementPolicy, selectionPolicy, seed));
+            return WithManagedProblem(prob, wrappedProblem => push_back_island(algo, wrappedProblem, SizeTInterop.ToNativeUInt32(popSize, nameof(popSize)), replacementPolicy, selectionPolicy, seed));
         }
 
         public ulong push_back_island(algorithm algo, IProblem prob, bfe b, ulong popSize, uint seed)
         {
-            return WithManagedProblem(prob, wrappedProblem => push_back_island(algo, wrappedProblem, b, checked((uint)popSize), seed));
+            return WithManagedProblem(prob, wrappedProblem => push_back_island(algo, wrappedProblem, b, SizeTInterop.ToNativeUInt32(popSize, nameof(popSize)), seed));
         }
 
         public ulong push_back_island(algorithm algo, IProblem prob, bfe b, ulong popSize, r_policy r, s_policy s, uint seed)
         {
-            return WithManagedProblem(prob, wrappedProblem => push_back_island(algo, wrappedProblem, b, checked((uint)popSize), r, s, seed));
+            return WithManagedProblem(prob, wrappedProblem => push_back_island(algo, wrappedProblem, b, SizeTInterop.ToNativeUInt32(popSize, nameof(popSize)), r, s, seed));
         }
 
         public ulong push_back_island(algorithm algo, IProblem prob, bfe b, ulong popSize, fair_replace replacementPolicy, select_best selectionPolicy, uint seed)
         {
-            return WithManagedProblem(prob, wrappedProblem => push_back_island(algo, wrappedProblem, b, checked((uint)popSize), replacementPolicy, selectionPolicy, seed));
+            return WithManagedProblem(prob, wrappedProblem => push_back_island(algo, wrappedProblem, b, SizeTInterop.ToNativeUInt32(popSize, nameof(popSize)), replacementPolicy, selectionPolicy, seed));
         }
 
         public ulong push_back_island(thread_island isl, algorithm algo, IProblem prob, ulong popSize, uint seed)
         {
-            return WithManagedProblem(prob, wrappedProblem => push_back_island(isl, algo, wrappedProblem, checked((uint)popSize), seed));
+            return WithManagedProblem(prob, wrappedProblem => push_back_island(isl, algo, wrappedProblem, SizeTInterop.ToNativeUInt32(popSize, nameof(popSize)), seed));
         }
 
         public ulong push_back_island(thread_island isl, algorithm algo, IProblem prob, ulong popSize, r_policy r, s_policy s, uint seed)
         {
-            return WithManagedProblem(prob, wrappedProblem => push_back_island(isl, algo, wrappedProblem, checked((uint)popSize), r, s, seed));
+            return WithManagedProblem(prob, wrappedProblem => push_back_island(isl, algo, wrappedProblem, SizeTInterop.ToNativeUInt32(popSize, nameof(popSize)), r, s, seed));
         }
 
         public ulong push_back_island(thread_island isl, algorithm algo, IProblem prob, ulong popSize, fair_replace replacementPolicy, select_best selectionPolicy, uint seed)
         {
-            return WithManagedProblem(prob, wrappedProblem => push_back_island(isl, algo, wrappedProblem, checked((uint)popSize), replacementPolicy, selectionPolicy, seed));
+            return WithManagedProblem(prob, wrappedProblem => push_back_island(isl, algo, wrappedProblem, SizeTInterop.ToNativeUInt32(popSize, nameof(popSize)), replacementPolicy, selectionPolicy, seed));
         }
 
         public ulong push_back_island(thread_island isl, algorithm algo, IProblem prob, bfe b, ulong popSize, uint seed)
         {
-            return WithManagedProblem(prob, wrappedProblem => push_back_island(isl, algo, wrappedProblem, b, checked((uint)popSize), seed));
+            return WithManagedProblem(prob, wrappedProblem => push_back_island(isl, algo, wrappedProblem, b, SizeTInterop.ToNativeUInt32(popSize, nameof(popSize)), seed));
         }
 
         public ulong push_back_island(thread_island isl, algorithm algo, IProblem prob, bfe b, ulong popSize, r_policy r, s_policy s, uint seed)
         {
-            return WithManagedProblem(prob, wrappedProblem => push_back_island(isl, algo, wrappedProblem, b, checked((uint)popSize), r, s, seed));
+            return WithManagedProblem(prob, wrappedProblem => push_back_island(isl, algo, wrappedProblem, b, SizeTInterop.ToNativeUInt32(popSize, nameof(popSize)), r, s, seed));
         }
 
         public ulong push_back_island(thread_island isl, algorithm algo, IProblem prob, bfe b, ulong popSize, fair_replace replacementPolicy, select_best selectionPolicy, uint seed)
         {
-            return WithManagedProblem(prob, wrappedProblem => push_back_island(isl, algo, wrappedProblem, b, checked((uint)popSize), replacementPolicy, selectionPolicy, seed));
+            return WithManagedProblem(prob, wrappedProblem => push_back_island(isl, algo, wrappedProblem, b, SizeTInterop.ToNativeUInt32(popSize, nameof(popSize)), replacementPolicy, selectionPolicy, seed));
         }
 
         public ulong push_back_island(IAlgorithm algo, IProblem prob, ulong popSize, uint seed)
@@ -222,5 +222,41 @@ namespace pagmo
             using var typeErasedBfe = b.to_bfe();
             return push_back_island(isl, algo, prob, typeErasedBfe, popSize, r, s, seed);
         }
+
+        public island GetIsland(ulong index)
+        {
+            return GetIslandCopy(index);
+        }
+
+        public ulong PushBackIsland(algorithm algorithm, IProblem problem, ulong populationSize, uint seed)
+        {
+            return push_back_island(algorithm, problem, populationSize, seed);
+        }
+
+        public ulong PushBackIsland(IAlgorithm algorithm, IProblem problem, ulong populationSize, uint seed)
+        {
+            return push_back_island(algorithm, problem, populationSize, seed);
+        }
+
+        public ulong PushBackIsland(algorithm algorithm, IProblem problem, bfe evaluator, ulong populationSize, uint seed)
+        {
+            return push_back_island(algorithm, problem, evaluator, populationSize, seed);
+        }
+
+        public ulong PushBackIsland(IAlgorithm algorithm, IProblem problem, bfe evaluator, ulong populationSize, uint seed)
+        {
+            return push_back_island(algorithm, problem, evaluator, populationSize, seed);
+        }
+
+        public ulong PushBackIsland(thread_island islandType, algorithm algorithm, IProblem problem, ulong populationSize, uint seed)
+        {
+            return push_back_island(islandType, algorithm, problem, populationSize, seed);
+        }
+
+        public ulong PushBackIsland(thread_island islandType, IAlgorithm algorithm, IProblem problem, ulong populationSize, uint seed)
+        {
+            return push_back_island(islandType, algorithm, problem, populationSize, seed);
+        }
     }
 }
+

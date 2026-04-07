@@ -19,7 +19,8 @@ namespace pagmo
             var problemPtr = NativeInterop.CreateProblemPointer(problem, out var callbackAdapter);
             try
             {
-                var populationPtr = NativeInterop.population_new(problemPtr, (UIntPtr)popSize, seed);
+                var nativePopulationSize = SizeTInterop.ToNativeUIntPtr(popSize, nameof(popSize));
+                var populationPtr = NativeInterop.population_new(problemPtr, nativePopulationSize, seed);
                 NativeInterop.ThrowIfSwigPendingException();
                 NativeInterop.ThrowIfDeferredCallbackException(callbackAdapter, "native population construction");
 
