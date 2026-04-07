@@ -91,12 +91,13 @@ Last updated: 2026-04-02
 
 5. **Sprint 3B: Hardening + Extensibility Completion (Depth)**
 - [ ] Apply/complete C# extensibility surfaces where in v1 scope.
-- [ ] Remove/contain `SWIGTYPE_*` leakage on touched public APIs.
+- [x] Remove/contain `SWIGTYPE_*` leakage on touched public APIs (handwritten extension surface now guarded by audit tests; remaining generated/director `SWIGTYPE_*` surfaces are intentionally internal plumbing).
 - [ ] Audit and eliminate shallow raw-pointer ownership semantics across wrapper facades (copy/assign/destructor ownership rules), replacing with robust lifetime-safe patterns.
 - [x] Hardened managed policy ownership transfer paths (`r_policy`/`s_policy`) to be exception-safe after ownership release, with regression coverage for null/disposed inputs and validity checks.
+- [x] Fixed native-vector ownership leak risk in `archipelago` snapshot properties (`MigrationLog`, `MigrantsDb`) by disposing temporary native containers via `using var`.
 - [x] Fixed managed problem callback lifetime in native director flows by rooting `ProblemCallbackAdapter` instances via `ConditionalWeakTable`, preventing GC callback crashes during long-running native calls.
-- [ ] Normalize naming/signatures and add deeper behavior/regression tests.
-- [ ] Standardize C++?C# exception bubbling and mapping (constructor/evolve/wait paths, including async/runtime wrapper paths).
+- [x] Normalize naming/signatures and add deeper behavior/regression tests (PascalCase aliases + expanded execute-path and API-surface guard regressions).
+- [x] Standardize C++?C# exception bubbling and mapping across constructor/evolve/wait paths, including explicit `wait()` (non-throwing completion barrier) vs `wait_check()` (error-surfacing barrier) semantics in runtime regression tests.
 - [x] Replace null-return `catch (...)` patterns in native bridge with explicit error propagation so managed exceptions preserve actionable native context.
 - [x] Verified non-generated native bridge surface (`managed_bridge.cpp`) consistently records contextual thread-local errors for both `std::exception` and `catch (...)` paths before null returns, and managed interop consumes that channel.
 - [x] Add thread-local native bridge error channel for managed_bridge exports (pagmosharp_get_last_error / pagmosharp_clear_last_error) and consume it in managed interop (problem creation, population creation, gradient/sparsity helpers, BFE operators) so null-return paths surface actionable failure messages.
@@ -182,6 +183,7 @@ Last updated: 2026-04-02
 - Breadth-first then depth-hardening is intentional for large catalog onboarding.
 - `Problem` remains core and already mature enough to build on.
 - v1.0 stays Windows-first; Linux is explicitly post-release.
+
 
 
 

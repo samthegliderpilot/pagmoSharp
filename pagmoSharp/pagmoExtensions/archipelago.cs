@@ -24,7 +24,7 @@ namespace pagmo
         {
             get
             {
-                var native = get_migration_log_entries();
+                using var native = get_migration_log_entries();
                 var list = new List<MigrationEntry>(native.Count);
                 for (int i = 0; i < native.Count; ++i)
                 {
@@ -39,7 +39,7 @@ namespace pagmo
         {
             get
             {
-                var native = get_migrants_db();
+                using var native = get_migrants_db();
                 var list = new List<IndividualsGroup>(native.Count);
                 for (int i = 0; i < native.Count; ++i)
                 {

@@ -51,6 +51,38 @@ public class Test_execute_path_exception_bubbling
         AssertExecutePathException(ex, "archipelago.wait_check failed");
     }
 
+    [Test]
+    public void NativeRuntimeFailureDoesNotThrowOnIslandWaitButThrowsOnWaitCheck()
+    {
+        using var problem = new rosenbrock(2u);
+        using var constrainedMetaAlgorithm = new cstrs_self_adaptive(2u);
+        using var algorithm = constrainedMetaAlgorithm.to_algorithm();
+        using var island = pagmo.island.Create(algorithm, problem, 16u, 42u);
+
+        island.evolve(1u);
+        Assert.DoesNotThrow(() => island.wait(), "wait() should only block completion");
+
+        var ex = Assert.Throws<ApplicationException>(() => island.wait_check());
+        AssertExecutePathException(ex, "island.wait_check failed");
+    }
+
+    [Test]
+    public void NativeRuntimeFailureDoesNotThrowOnArchipelagoWaitButThrowsOnWaitCheck()
+    {
+        using var problem = new rosenbrock(2u);
+        using var constrainedMetaAlgorithm = new cstrs_self_adaptive(2u);
+        using var algorithm = constrainedMetaAlgorithm.to_algorithm();
+        using var archipelago = new archipelago();
+
+        _ = archipelago.push_back_island(algorithm, problem, 16u, 42u);
+
+        archipelago.evolve(1u);
+        Assert.DoesNotThrow(() => archipelago.wait(), "wait() should only block completion");
+
+        var ex = Assert.Throws<ApplicationException>(() => archipelago.wait_check());
+        AssertExecutePathException(ex, "archipelago.wait_check failed");
+    }
+
     private static void AssertExecutePathException(ApplicationException ex, string expectedContext)
     {
         Assert.That(ex, Is.Not.Null);
