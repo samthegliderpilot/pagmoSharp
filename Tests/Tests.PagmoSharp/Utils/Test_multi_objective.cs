@@ -130,5 +130,21 @@ public class Test_multi_objective
         Assert.That(decomposedProjected.Length, Is.EqualTo(1));
         Assert.That(decomposedProjected[0], Is.EqualTo(3.0).Within(1e-12));
     }
+
+    [Test]
+    public void ProjectionHelpersValidateNullArguments()
+    {
+        Assert.Throws<ArgumentNullException>(() => pagmo.pagmo.ParetoDominates(null, new DoubleVector(1.0, 2.0)));
+        Assert.Throws<ArgumentNullException>(() => pagmo.pagmo.ParetoDominates(new DoubleVector(1.0, 2.0), null));
+        Assert.Throws<ArgumentNullException>(() => pagmo.pagmo.NonDominatedFront2DIndices(null));
+        Assert.Throws<ArgumentNullException>(() => pagmo.pagmo.SortPopulationMoIndices(null));
+        Assert.Throws<ArgumentNullException>(() => pagmo.pagmo.SelectBestNMoIndices(null, 1UL));
+        Assert.Throws<ArgumentNullException>(() => pagmo.pagmo.IdealValues(null));
+        Assert.Throws<ArgumentNullException>(() => pagmo.pagmo.NadirValues(null));
+        Assert.Throws<ArgumentNullException>(() => pagmo.pagmo.DecomposeObjectiveValues(null, new DoubleVector(1.0), new DoubleVector(0.0), "weighted"));
+        Assert.Throws<ArgumentNullException>(() => pagmo.pagmo.DecomposeObjectiveValues(new DoubleVector(1.0), null, new DoubleVector(0.0), "weighted"));
+        Assert.Throws<ArgumentNullException>(() => pagmo.pagmo.DecomposeObjectiveValues(new DoubleVector(1.0), new DoubleVector(1.0), null, "weighted"));
+        Assert.Throws<ArgumentNullException>(() => pagmo.pagmo.DecomposeObjectiveValues(new DoubleVector(1.0), new DoubleVector(1.0), new DoubleVector(0.0), null));
+    }
 }
 

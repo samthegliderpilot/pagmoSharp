@@ -37,18 +37,9 @@ namespace pagmo
                 problem.ThrowIfNotThreadSafe();
             }
 
-            var problemPtr = NativeInterop.CreateProblemPointer(
-                problem,
-                out var callbackAdapter);
-            try
-            {
-                var resultPtr = op(bfePtr, problemPtr, DoubleVector.getCPtr(batchX).Handle);
-                return NativeInterop.GetVectorOrThrow(resultPtr, "Native batch evaluator returned null.", callbackAdapter);
-            }
-            finally
-            {
-                NativeInterop.problem_delete(problemPtr);
-            }
+            using var problemHandle = NativeInterop.CreateProblemHandle(problem, out var callbackAdapter);
+            var resultPtr = op(bfePtr, problemHandle.DangerousGetHandle(), DoubleVector.getCPtr(batchX).Handle);
+            return NativeInterop.GetVectorOrThrow(resultPtr, "Native batch evaluator returned null.", callbackAdapter);
         }
     }
 

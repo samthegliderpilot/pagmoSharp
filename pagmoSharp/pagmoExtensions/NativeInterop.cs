@@ -152,6 +152,12 @@ namespace pagmo
             return CreateProblemPointer(problem, out _);
         }
 
+        internal static ProblemHandle CreateProblemHandle(IProblem problem, out ProblemCallbackAdapter callbackAdapter)
+        {
+            var pointer = CreateProblemPointer(problem, out callbackAdapter);
+            return new ProblemHandle(pointer);
+        }
+
         internal static IntPtr CreateProblemPointer(
             IProblem problem,
             out ProblemCallbackAdapter callbackAdapter)

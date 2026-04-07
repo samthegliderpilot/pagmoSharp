@@ -1,5 +1,8 @@
-﻿using NUnit.Framework;
+using System;
+using System.Linq;
+using NUnit.Framework;
 using pagmo;
+
 namespace Tests.PagmoSharp
 {
     [TestFixture]
@@ -22,13 +25,26 @@ namespace Tests.PagmoSharp
             using var topology = new unconnected();
             Assert.AreEqual("Unconnected", topology.get_name());
 
-            AssertNoOutgoingConnections(topology, 0u);
-            AssertNoOutgoingConnections(topology, 1u);
+            topology.push_back();
+            topology.push_back();
 
-            topology.push_back();
-            topology.push_back();
-            AssertNoOutgoingConnections(topology, 2u);
-            AssertNoOutgoingConnections(topology, 3u);
+            var checkedVertices = new[] { 0u, 1u, 2u, 3u };
+            foreach (var vertexId in checkedVertices)
+            {
+                AssertNoOutgoingConnections(topology, vertexId);
+
+                using var rawConnections = topology.get_connections(vertexId);
+                var projectedConnections = topology.GetConnectionsData(vertexId);
+                CollectionAssert.AreEqual(rawConnections.first.ToArray(), projectedConnections.NeighborIds);
+                CollectionAssert.AreEqual(rawConnections.second.ToArray(), projectedConnections.Weights);
+            }
+        }
+
+        [Test]
+        public void GetConnectionsDataThrowsOnNullTopology()
+        {
+            unconnected nullTopology = null;
+            Assert.Throws<ArgumentNullException>(() => TopologyConnectionExtensions.GetConnectionsData(nullTopology, 0u));
         }
     }
 }

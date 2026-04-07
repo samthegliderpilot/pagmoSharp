@@ -70,10 +70,7 @@ public class Test_handwritten_api_surface_audit
         var extensionsRoot = GetExtensionsRoot();
         var allowedFiles = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
         {
-            Path.Combine("problem.cs"),
-            Path.Combine("population.cs"),
-            Path.Combine("BatchEvaluators", "bfe.cs"),
-            Path.Combine("Utils", "GradientsAndHessians.cs")
+            Path.Combine("problem.cs")
         };
 
         var offenders = Directory
@@ -89,6 +86,57 @@ public class Test_handwritten_api_surface_audit
             offenders,
             Is.Empty,
             "Direct CreateProblemPointer usage should stay constrained to dedicated interop boundary files.");
+    }
+
+    [Test]
+    public void DirectCreateProblemHandleUsageIsConstrainedToInteropBoundaryFiles()
+    {
+        var extensionsRoot = GetExtensionsRoot();
+        var allowedFiles = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
+        {
+            Path.Combine("population.cs"),
+            Path.Combine("BatchEvaluators", "bfe.cs"),
+            Path.Combine("Utils", "GradientsAndHessians.cs")
+        };
+
+        var offenders = Directory
+            .EnumerateFiles(extensionsRoot, "*.cs", SearchOption.AllDirectories)
+            .Where(path => !path.Contains($"{Path.DirectorySeparatorChar}bin{Path.DirectorySeparatorChar}", StringComparison.OrdinalIgnoreCase))
+            .Where(path => !path.Contains($"{Path.DirectorySeparatorChar}obj{Path.DirectorySeparatorChar}", StringComparison.OrdinalIgnoreCase))
+            .Where(path => File.ReadAllText(path).Contains("NativeInterop.CreateProblemHandle(", StringComparison.Ordinal))
+            .Where(path => !allowedFiles.Contains(Path.GetRelativePath(extensionsRoot, path)))
+            .Select(path => Path.GetRelativePath(extensionsRoot, path))
+            .ToArray();
+
+        Assert.That(
+            offenders,
+            Is.Empty,
+            "Direct CreateProblemHandle usage should stay constrained to dedicated interop boundary files.");
+    }
+
+    [Test]
+    public void DirectProblemDeleteCallsStayInsideInteropOwnershipLayer()
+    {
+        var extensionsRoot = GetExtensionsRoot();
+        var allowedFiles = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
+        {
+            Path.Combine("NativeInterop.cs"),
+            Path.Combine("Interop", "ProblemHandle.cs")
+        };
+
+        var offenders = Directory
+            .EnumerateFiles(extensionsRoot, "*.cs", SearchOption.AllDirectories)
+            .Where(path => !path.Contains($"{Path.DirectorySeparatorChar}bin{Path.DirectorySeparatorChar}", StringComparison.OrdinalIgnoreCase))
+            .Where(path => !path.Contains($"{Path.DirectorySeparatorChar}obj{Path.DirectorySeparatorChar}", StringComparison.OrdinalIgnoreCase))
+            .Where(path => File.ReadAllText(path).Contains("NativeInterop.problem_delete(", StringComparison.Ordinal))
+            .Where(path => !allowedFiles.Contains(Path.GetRelativePath(extensionsRoot, path)))
+            .Select(path => Path.GetRelativePath(extensionsRoot, path))
+            .ToArray();
+
+        Assert.That(
+            offenders,
+            Is.Empty,
+            "NativeInterop.problem_delete should only be called by centralized ownership primitives.");
     }
 
     private static string GetExtensionsRoot()

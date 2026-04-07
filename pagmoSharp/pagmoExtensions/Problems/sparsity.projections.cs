@@ -8,6 +8,11 @@ namespace pagmo
     {
         public static SparsityIndex[] ToEntries(SparsityPattern pattern)
         {
+            if (pattern == null)
+            {
+                throw new ArgumentNullException(nameof(pattern));
+            }
+
             var entries = new SparsityIndex[pattern.Count];
             for (var i = 0; i < pattern.Count; i++)
             {
@@ -20,6 +25,11 @@ namespace pagmo
 
         public static SparsityIndex[][] ToEntries(VectorOfSparsityPattern patterns)
         {
+            if (patterns == null)
+            {
+                throw new ArgumentNullException(nameof(patterns));
+            }
+
             var outer = new SparsityIndex[patterns.Count][];
             for (var i = 0; i < patterns.Count; i++)
             {

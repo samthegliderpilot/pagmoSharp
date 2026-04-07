@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 
 namespace pagmo
@@ -6,6 +7,11 @@ namespace pagmo
 
     public static class TopologyConnectionExtensions
     {
+        private static T RequireTopology<T>(T topologyInstance, string parameterName) where T : class
+        {
+            return topologyInstance ?? throw new ArgumentNullException(parameterName);
+        }
+
         private static TopologyConnectionData ToConnectionData(TopologyConnections rawConnections)
         {
             using (rawConnections)
@@ -18,22 +24,22 @@ namespace pagmo
 
         public static TopologyConnectionData GetConnectionsData(this topology topologyInstance, uint vertexId)
         {
-            return ToConnectionData(topologyInstance.get_connections(vertexId));
+            return ToConnectionData(RequireTopology(topologyInstance, nameof(topologyInstance)).get_connections(vertexId));
         }
 
         public static TopologyConnectionData GetConnectionsData(this fully_connected topologyInstance, uint vertexId)
         {
-            return ToConnectionData(topologyInstance.get_connections(vertexId));
+            return ToConnectionData(RequireTopology(topologyInstance, nameof(topologyInstance)).get_connections(vertexId));
         }
 
         public static TopologyConnectionData GetConnectionsData(this ring topologyInstance, uint vertexId)
         {
-            return ToConnectionData(topologyInstance.get_connections(vertexId));
+            return ToConnectionData(RequireTopology(topologyInstance, nameof(topologyInstance)).get_connections(vertexId));
         }
 
         public static TopologyConnectionData GetConnectionsData(this unconnected topologyInstance, uint vertexId)
         {
-            return ToConnectionData(topologyInstance.get_connections(vertexId));
+            return ToConnectionData(RequireTopology(topologyInstance, nameof(topologyInstance)).get_connections(vertexId));
         }
     }
 }

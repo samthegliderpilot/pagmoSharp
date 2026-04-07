@@ -1,3 +1,4 @@
+using System;
 using NUnit.Framework;
 using pagmo;
 using Tests.PagmoSharp.TestProblems;
@@ -39,6 +40,26 @@ namespace Tests.PagmoSharp.Algorithms
             Assert.AreEqual(3.0, championF[0], 1e-12, "Champion objective should match feasible sampled optimum.");
             Assert.AreEqual(0.0, championF[1], 1e-12, "Equality constraint y == 2 should be satisfied.");
             Assert.AreEqual(0.0, championF[2], 1e-12, "Equality constraint x == 1 should be satisfied.");
+        }
+
+        [Test]
+        public void GridSearchExposesEmptyUniversalLogSurface()
+        {
+            using IAlgorithm algorithm = new grid_search(new uint[] { 4, 4 });
+            var logLines = algorithm.GetLogLines();
+            Assert.That(logLines, Is.Not.Null);
+            Assert.That(logLines.Count, Is.EqualTo(0));
+        }
+
+        [Test]
+        public void GridSearchReportsManagedOnlyWhenUsedInTypeErasedIslandPath()
+        {
+            using IAlgorithm algorithm = new grid_search(new uint[] { 4, 4 });
+            using var managedProblem = new TwoDimensionalSingleObjectiveProblemWrapper();
+
+            var ex = Assert.Throws<NotSupportedException>(() => island.Create(algorithm, managedProblem, 8u, 2u));
+            Assert.That(ex!.Message, Does.Contain("grid_search"));
+            Assert.That(ex!.Message, Does.Contain("managed-only"));
         }
     }
 }

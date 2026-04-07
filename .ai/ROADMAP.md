@@ -1,6 +1,6 @@
 # PagmoSharp Roadmap
 
-Last updated: 2026-04-02
+Last updated: 2026-04-06
 
 ## PagmoSharp Roadmap Reset (v1.0 with Explicit Breadth Sprint)
 
@@ -93,8 +93,9 @@ Last updated: 2026-04-02
 - [ ] Apply/complete C# extensibility surfaces where in v1 scope.
 - [x] Remove/contain `SWIGTYPE_*` leakage on touched public APIs (handwritten extension surface now guarded by audit tests; remaining generated/director `SWIGTYPE_*` surfaces are intentionally internal plumbing).
 - [ ] Audit and eliminate shallow raw-pointer ownership semantics across wrapper facades (copy/assign/destructor ownership rules), replacing with robust lifetime-safe patterns.
+- [x] Centralized managed-callback pagmo::problem lifetime ownership via Interop/ProblemHandle (SafeHandle) and removed direct feature-layer problem_delete calls from population, default_bfe/thread_bfe/member_bfe, and GradientsAndHessians.
 - [x] Hardened managed policy ownership transfer paths (`r_policy`/`s_policy`) to be exception-safe after ownership release, with regression coverage for null/disposed inputs and validity checks.
-- [x] Added direct managed-policy extensibility entrypoints: `island`/`archipelago` policy overloads now accept `r_policyBase` + `s_policyBase` directly (no manual wrapper ceremony), including `bfe` + non-`bfe` paths and PascalCase alias parity on `archipelago.PushBackIsland`, with runtime regression coverage (`Test_island_managed_policies`, `Test_archipelago_managed_policies`).
+- [x] Added direct managed-policy extensibility entrypoints: `island`/`archipelago` policy overloads now accept `r_policyBase` + `s_policyBase` directly (no manual wrapper ceremony), including `bfe` + non-`bfe` paths with typed `default_bfe`/`thread_bfe`/`member_bfe` parity on `island` and typed `default_bfe`/`thread_bfe`/`member_bfe` parity on `archipelago`, plus PascalCase alias parity on `archipelago.PushBackIsland`, with runtime regression coverage (`Test_island_managed_policies`, `Test_archipelago_managed_policies`).
 - [x] Fixed native-vector ownership leak risk in `archipelago` snapshot properties (`MigrationLog`, `MigrantsDb`) by disposing temporary native containers via `using var`.
 - [x] Reduced raw-pointer plumbing in `archipelago` managed-problem path by replacing manual `CreateProblemPointer`/`problem_delete` handling with safe `new problem(IProblem)` ownership flow.
 - [x] Added ownership guardrail audit: direct `NativeInterop.CreateProblemPointer(...)` usage is constrained to dedicated interop boundary files (`problem`, `population`, `BatchEvaluators/bfe`, `Utils/GradientsAndHessians`).
@@ -128,7 +129,10 @@ Last updated: 2026-04-02
 - [x] Added sixth size_t projection slice: cmaes log projection (get_log_entries + typed/generic managed logs) with field-parity assertions in Test_cmaes.
 - [x] Added sparsity projection slice for size_t-heavy derivative metadata: typed managed `SparsityIndex` projections on `problem` / `managed_problem` / `minlp_rastrigin` (`GetGradientSparsityEntries`, `GetHessiansSparsityEntries`) with shape/index regression assertions in `Test_de_managed_problem_pipeline` and `Test_minlp_Rastrigin`.
 - [x] Added GradientsAndHessians size_t projection slice: EstimateSparsityEntries(problem/IProblem, ...) returning typed SparsityIndex[], with dedicated regression assertions in Test_gradients_and_hessians.
+- [x] Hardened gradient/sparsity helper contracts with explicit null-argument validation in GradientsAndHessians + sparsity projection paths, and expanded tests for high-order gradient behavior and null-argument coverage.
+- [x] Hardened threaded managed-problem contract guard (IProblemThreadingExtensions.ThrowIfNotThreadSafe) with explicit null-argument handling and problem-name context in failure messages; added BFE regressions for null/thread-safety-none behavior.
 - [x] Completed algorithm-log projection sweep for all active wrapped algorithms that expose logs in v1 surface (`bee_colony`, `compass_search`, `cmaes`, `cstrs_self_adaptive`, `de`, `de1220`, `gaco`, `gwo`, `ihs`, `maco`, `mbh`, `moead`, `moead_gen`, `nsga2`, `nspso`, `pso`, `pso_gen`, `sade`, `sea`, `sga`, `simulated_annealing`, `xnes`), with universal `IAlgorithm.GetLogLines()` plus typed `GetTypedLogLines()` surfaces and shared evolve-path log assertions.
+- [x] Hardened algorithm support contracts: refactored AlgorithmInterop.NormalizeToTypeErased to exhaustive switch-dispatch with explicit managed-only grid_search guidance, added regression for grid_search log-default + type-erased rejection path, and completed IAlgorithm contract documentation cleanup.
 - [x] Removed raw tuple-based algorithm log leakage from generated APIs by ignoring direct `get_log()` on active algorithm wrappers and retaining only typed log projection surfaces (`get_log_entries` / `GetTypedLogLines` / `GetLogLines`).
 - [x] Removed legacy bee-colony tuple bridge (`FromBeeColonyLogTuple`) so tuple `SWIGTYPE_*` artifacts no longer leak into generated managed surfaces.
 - [x] Added a concrete end-to-end constrained optimization regression using a simple managed two-parabola problem (`objective = parabola1 + parabola2`, one inequality constraint) and asserted real feasible-objective improvement after `cstrs_self_adaptive` evolve.
@@ -140,6 +144,7 @@ Last updated: 2026-04-02
 - [x] Added C#-friendly multi-objective projection helpers (ParetoDominates, index-array selectors, ideal/nadir/decompose array projections) to reduce container-heavy call sites and improve naming clarity, with parity assertions in Test_multi_objective.
 - [x] Assert and lock multi-objective population semantics in shared algorithm tests: champion_x/champion_f must throw on multi-objective populations while get_x/get_f remain the supported data path.
 - [x] Added naming/signature polish aliases for `archipelago` managed entrypoints (`PushBackIsland`, `GetIsland`) while preserving existing pagmo-style APIs.
+- [x] Completed topology extension overload review: retained per-type `GetConnectionsData` overloads (`topology`, `fully_connected`, `ring`, `unconnected`) because SWIG emits sibling wrapper classes rather than C# inheritance, and hardened each overload with explicit null-argument validation plus stronger topology projection tests.
 - [x] Added handwritten API surface audit tests to prevent new public `SWIGTYPE_*` leakage and generated placeholder argument names (`arg0`, `arg1`) outside explicit director-plumbing exceptions.
 - [x] Reduce wrapper layering for multi-objective helpers by removing intermediate MultiObjectiveUtils C++/C# helper classes and exposing direct pagmo.pagmo.* static bindings via SWIG namespace declarations.
 - [x] Remove hypervolume/hv_algorithm shared-pointer SWIGTYPE_* exposure by instantiating typed HvAlgorithmSharedPtr and add runtime selector coverage in Test_hypervolume.
@@ -150,6 +155,81 @@ Last updated: 2026-04-02
 - [x] Contained remaining sparsity-pattern `SWIGTYPE_*` leakage by adding first-class typed projection APIs (`SparsityIndex`-based) for public managed usage while preserving low-level generated pointer surfaces only for SWIG/director plumbing.
 - [x] Remove MigrationEntry ID SWIGTYPE_* exposure by mapping adapter IDs (migration_id, immigrant_id) to ulong and add dedicated regression coverage in Test_migration_entry.
 - [ ] Anything from 3A is not considered production-ready until 3B gates pass.
+### Sprint 3B Remaining Work Breakdown (Type-by-Type)
+- [ ] Core facade hardening: `algorithm`
+- [ ] Core facade hardening: `problem`
+- [ ] Core facade hardening: `population`
+- [ ] Core facade hardening: `island`
+- [ ] Core facade hardening: `archipelago`
+- [x] Core facade hardening: `topology`
+- [ ] Core facade hardening: `r_policy`
+- [ ] Core facade hardening: `s_policy`
+- [ ] Core facade hardening: `bfe`
+- [ ] Core facade hardening: `DoubleVector`
+- [ ] Core facade hardening: `NativeInterop`
+- [ ] Core facade hardening: `Interop/ProblemHandle`
+- [x] Utility hardening: `GradientsAndHessians`
+- [x] Utility hardening: `multi_objective.projections`
+- [x] Topology hardening: `unconnected`
+- [ ] Problem wrapper hardening: `ackley`
+- [ ] Problem wrapper hardening: `cec2006`
+- [ ] Problem wrapper hardening: `cec2009`
+- [ ] Problem wrapper hardening: `cec2013`
+- [ ] Problem wrapper hardening: `cec2014`
+- [ ] Problem wrapper hardening: `decompose`
+- [ ] Problem wrapper hardening: `dtlz`
+- [ ] Problem wrapper hardening: `golomb_ruler`
+- [ ] Problem wrapper hardening: `griewank`
+- [ ] Problem wrapper hardening: `hock_schittkowski_71`
+- [ ] Problem wrapper hardening: `inventory`
+- [ ] Problem wrapper hardening: `lennard_jones`
+- [ ] Problem wrapper hardening: `luksan_vlcek1`
+- [ ] Problem wrapper hardening: `minlp_rastrigin`
+- [ ] Problem wrapper hardening: `null_problem`
+- [ ] Problem wrapper hardening: `rastrigin`
+- [ ] Problem wrapper hardening: `rosenbrock`
+- [ ] Problem wrapper hardening: `schwefel`
+- [ ] Problem wrapper hardening: `translate`
+- [ ] Problem wrapper hardening: `unconstrain`
+- [ ] Problem wrapper hardening: `wfg`
+- [ ] Problem wrapper hardening: `zdt`
+- [ ] Problem support hardening: `ManagedProblemBase`
+- [ ] Problem support hardening: `ProblemCallbackAdapter`
+- [x] Problem support hardening: `problem.sparsity`
+- [x] Problem support hardening: `sparsity.projections`
+- [ ] Problem support hardening: `IProblem`
+- [x] Problem support hardening: `IProblemThreadingExtensions`
+- [ ] Algorithm wrapper hardening: `bee_colony`
+- [ ] Algorithm wrapper hardening: `cmaes`
+- [ ] Algorithm wrapper hardening: `compass_search`
+- [ ] Algorithm wrapper hardening: `cstrs_self_adaptive`
+- [ ] Algorithm wrapper hardening: `de`
+- [ ] Algorithm wrapper hardening: `de1220`
+- [ ] Algorithm wrapper hardening: `gaco`
+- [ ] Algorithm wrapper hardening: `grid_search`
+- [ ] Algorithm wrapper hardening: `gwo`
+- [ ] Algorithm wrapper hardening: `ihs`
+- [ ] Algorithm wrapper hardening: `maco`
+- [ ] Algorithm wrapper hardening: `mbh`
+- [ ] Algorithm wrapper hardening: `moead`
+- [ ] Algorithm wrapper hardening: `moead_gen`
+- [ ] Algorithm wrapper hardening: `not_population_based`
+- [ ] Algorithm wrapper hardening: `nsga2`
+- [ ] Algorithm wrapper hardening: `nspso`
+- [ ] Algorithm wrapper hardening: `null_algorithm`
+- [ ] Algorithm wrapper hardening: `pso`
+- [ ] Algorithm wrapper hardening: `pso_gen`
+- [ ] Algorithm wrapper hardening: `sade`
+- [ ] Algorithm wrapper hardening: `sea`
+- [ ] Algorithm wrapper hardening: `sga`
+- [ ] Algorithm wrapper hardening: `simulated_annealing`
+- [ ] Algorithm wrapper hardening: `xnes`
+- [x] Algorithm support hardening: `AlgorithmInterop`
+- [x] Algorithm support hardening: `AlgorithmLogging`
+- [x] Algorithm support hardening: `IAlgorithm`
+- [ ] Optional solver hardening (feature-gated): `ipopt`
+- [ ] Optional solver hardening (feature-gated): `nlopt`
+- [ ] Cross-cutting gate: for each type above enforce lifetime safety, actionable exceptions, naming/signature consistency, no new handwritten public `SWIGTYPE_*` leaks, and meaningful behavior assertions.
 
 6. **Sprint 4: Documentation + Samples**
 - [ ] C#-first docs, quickstart, and canonical runnable examples.
@@ -188,6 +268,19 @@ Last updated: 2026-04-02
 - Breadth-first then depth-hardening is intentional for large catalog onboarding.
 - `Problem` remains core and already mature enough to build on.
 - v1.0 stays Windows-first; Linux is explicitly post-release.
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

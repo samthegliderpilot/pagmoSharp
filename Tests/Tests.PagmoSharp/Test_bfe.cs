@@ -68,6 +68,17 @@ namespace Tests.PagmoSharp
 
             var ex = Assert.Throws<InvalidOperationException>(() => bfeSample.Operator(problem, batchX));
             Assert.That(ex!.Message, Does.Contain("thread_safety.basic or thread_safety.constant"));
+            Assert.That(ex!.Message, Does.Contain(problem.get_name()));
+        }
+
+        [Test]
+        public void TestThreadBfeRejectsNullManagedProblem()
+        {
+            using var bfeSample = new pagmo.thread_bfe();
+            using var batchX = new DoubleVector(new[] { 1.2 });
+
+            var ex = Assert.Throws<ArgumentNullException>(() => bfeSample.Operator((IProblem)null, batchX));
+            Assert.That(ex!.ParamName, Is.EqualTo("problem"));
         }
 
         [Test]

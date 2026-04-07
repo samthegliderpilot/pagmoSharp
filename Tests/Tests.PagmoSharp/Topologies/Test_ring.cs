@@ -1,5 +1,6 @@
 using NUnit.Framework;
 using pagmo;
+using System;
 using System.Linq;
 
 namespace Tests.PagmoSharp
@@ -19,6 +20,13 @@ namespace Tests.PagmoSharp
             Assert.Greater(connections.NeighborIds.Length, 0, "Ring nodes should have at least one outgoing connection.");
             Assert.IsFalse(connections.NeighborIds.Contains(0u), "A node should not be connected to itself.");
             Assert.IsTrue(connections.Weights.All(w => System.Math.Abs(w - 0.8) <= 1e-12), "All outgoing weights should match configured value.");
+        }
+
+        [Test]
+        public void GetConnectionsDataThrowsOnNullRing()
+        {
+            ring nullRing = null;
+            Assert.Throws<ArgumentNullException>(() => TopologyConnectionExtensions.GetConnectionsData(nullRing, 0u));
         }
     }
 }

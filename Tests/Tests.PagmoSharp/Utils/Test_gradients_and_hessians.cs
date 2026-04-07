@@ -1,3 +1,4 @@
+using System;
 using NUnit.Framework;
 using pagmo;
 using Tests.PagmoSharp.TestProblems;
@@ -71,6 +72,41 @@ namespace Tests.PagmoSharp.Utils
             Assert.AreEqual(2, entries.Length);
             Assert.AreEqual(new SparsityIndex(0u, 0u), entries[0]);
             Assert.AreEqual(new SparsityIndex(0u, 1u), entries[1]);
+        }
+
+        [Test]
+        public void EstimateGradientHighOrderFromManagedProblemMatchesExpectedShape()
+        {
+            using var managed = new TwoDimensionalSingleObjectiveProblemWrapper();
+            using var x = new DoubleVector(new[] { 1.0, 3.0 });
+            using var grad = GradientsAndHessians.EstimateGradientHighOrder((IProblem)managed, x, 1e-3);
+
+            Assert.AreEqual(2, grad.Count);
+            Assert.AreEqual(2.0, grad[0], 1e-2);
+            Assert.AreEqual(0.0, grad[1], 1e-2);
+        }
+
+        [Test]
+        public void PublicHelpersValidateNullArguments()
+        {
+            using var managed = new TwoDimensionalSingleObjectiveProblemWrapper();
+            using var wrapped = new problem(managed);
+            using var x = new DoubleVector(new[] { 1.0, 3.0 });
+
+            Assert.Throws<ArgumentNullException>(() => GradientsAndHessians.EstimateGradient((IProblem)null, x));
+            Assert.Throws<ArgumentNullException>(() => GradientsAndHessians.EstimateGradient((problem)null, x));
+            Assert.Throws<ArgumentNullException>(() => GradientsAndHessians.EstimateGradient((IProblem)managed, null));
+            Assert.Throws<ArgumentNullException>(() => GradientsAndHessians.EstimateGradient(wrapped, null));
+
+            Assert.Throws<ArgumentNullException>(() => GradientsAndHessians.EstimateGradientHighOrder((IProblem)null, x));
+            Assert.Throws<ArgumentNullException>(() => GradientsAndHessians.EstimateGradientHighOrder((problem)null, x));
+            Assert.Throws<ArgumentNullException>(() => GradientsAndHessians.EstimateGradientHighOrder((IProblem)managed, null));
+            Assert.Throws<ArgumentNullException>(() => GradientsAndHessians.EstimateGradientHighOrder(wrapped, null));
+
+            Assert.Throws<ArgumentNullException>(() => GradientsAndHessians.EstimateSparsity((IProblem)null, x));
+            Assert.Throws<ArgumentNullException>(() => GradientsAndHessians.EstimateSparsity((problem)null, x));
+            Assert.Throws<ArgumentNullException>(() => GradientsAndHessians.EstimateSparsity((IProblem)managed, null));
+            Assert.Throws<ArgumentNullException>(() => GradientsAndHessians.EstimateSparsity(wrapped, null));
         }
     }
 }

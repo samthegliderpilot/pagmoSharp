@@ -249,6 +249,12 @@ namespace pagmo
             return push_back_island(algo, prob, typeErasedBfe, popSize, r, s, seed);
         }
 
+        public ulong push_back_island(IAlgorithm algo, IProblem prob, default_bfe b, ulong popSize, r_policyBase replacementPolicy, s_policyBase selectionPolicy, uint seed)
+        {
+            using var typeErasedBfe = b.to_bfe();
+            return push_back_island(algo, prob, typeErasedBfe, popSize, replacementPolicy, selectionPolicy, seed);
+        }
+
         public ulong push_back_island(thread_island isl, IAlgorithm algo, IProblem prob, default_bfe b, ulong popSize, uint seed)
         {
             using var typeErasedBfe = b.to_bfe();
@@ -265,6 +271,108 @@ namespace pagmo
         {
             using var typeErasedBfe = b.to_bfe();
             return push_back_island(isl, algo, prob, typeErasedBfe, popSize, r, s, seed);
+        }
+
+        public ulong push_back_island(thread_island isl, IAlgorithm algo, IProblem prob, default_bfe b, ulong popSize, r_policyBase replacementPolicy, s_policyBase selectionPolicy, uint seed)
+        {
+            using var typeErasedBfe = b.to_bfe();
+            return push_back_island(isl, algo, prob, typeErasedBfe, popSize, replacementPolicy, selectionPolicy, seed);
+        }
+
+        public ulong push_back_island(IAlgorithm algo, IProblem prob, thread_bfe b, ulong popSize, uint seed)
+        {
+            using var typeErasedBfe = b.to_bfe();
+            return push_back_island(algo, prob, typeErasedBfe, popSize, seed);
+        }
+
+        public ulong push_back_island(IAlgorithm algo, IProblem prob, thread_bfe b, ulong popSize, fair_replace replacementPolicy, select_best selectionPolicy, uint seed)
+        {
+            using var typeErasedBfe = b.to_bfe();
+            return push_back_island(algo, prob, typeErasedBfe, popSize, replacementPolicy, selectionPolicy, seed);
+        }
+
+        public ulong push_back_island(IAlgorithm algo, IProblem prob, thread_bfe b, ulong popSize, r_policy r, s_policy s, uint seed)
+        {
+            using var typeErasedBfe = b.to_bfe();
+            return push_back_island(algo, prob, typeErasedBfe, popSize, r, s, seed);
+        }
+
+        public ulong push_back_island(IAlgorithm algo, IProblem prob, thread_bfe b, ulong popSize, r_policyBase replacementPolicy, s_policyBase selectionPolicy, uint seed)
+        {
+            using var typeErasedBfe = b.to_bfe();
+            return push_back_island(algo, prob, typeErasedBfe, popSize, replacementPolicy, selectionPolicy, seed);
+        }
+
+        public ulong push_back_island(thread_island isl, IAlgorithm algo, IProblem prob, thread_bfe b, ulong popSize, uint seed)
+        {
+            using var typeErasedBfe = b.to_bfe();
+            return push_back_island(isl, algo, prob, typeErasedBfe, popSize, seed);
+        }
+
+        public ulong push_back_island(thread_island isl, IAlgorithm algo, IProblem prob, thread_bfe b, ulong popSize, fair_replace replacementPolicy, select_best selectionPolicy, uint seed)
+        {
+            using var typeErasedBfe = b.to_bfe();
+            return push_back_island(isl, algo, prob, typeErasedBfe, popSize, replacementPolicy, selectionPolicy, seed);
+        }
+
+        public ulong push_back_island(thread_island isl, IAlgorithm algo, IProblem prob, thread_bfe b, ulong popSize, r_policy r, s_policy s, uint seed)
+        {
+            using var typeErasedBfe = b.to_bfe();
+            return push_back_island(isl, algo, prob, typeErasedBfe, popSize, r, s, seed);
+        }
+
+        public ulong push_back_island(thread_island isl, IAlgorithm algo, IProblem prob, thread_bfe b, ulong popSize, r_policyBase replacementPolicy, s_policyBase selectionPolicy, uint seed)
+        {
+            using var typeErasedBfe = b.to_bfe();
+            return push_back_island(isl, algo, prob, typeErasedBfe, popSize, replacementPolicy, selectionPolicy, seed);
+        }
+
+        public ulong push_back_island(IAlgorithm algo, IProblem prob, member_bfe b, ulong popSize, uint seed)
+        {
+            using var typeErasedBfe = b.to_bfe();
+            return push_back_island(algo, prob, typeErasedBfe, popSize, seed);
+        }
+
+        public ulong push_back_island(IAlgorithm algo, IProblem prob, member_bfe b, ulong popSize, fair_replace replacementPolicy, select_best selectionPolicy, uint seed)
+        {
+            using var typeErasedBfe = b.to_bfe();
+            return push_back_island(algo, prob, typeErasedBfe, popSize, replacementPolicy, selectionPolicy, seed);
+        }
+
+        public ulong push_back_island(IAlgorithm algo, IProblem prob, member_bfe b, ulong popSize, r_policy r, s_policy s, uint seed)
+        {
+            using var typeErasedBfe = b.to_bfe();
+            return push_back_island(algo, prob, typeErasedBfe, popSize, r, s, seed);
+        }
+
+        public ulong push_back_island(IAlgorithm algo, IProblem prob, member_bfe b, ulong popSize, r_policyBase replacementPolicy, s_policyBase selectionPolicy, uint seed)
+        {
+            using var typeErasedBfe = b.to_bfe();
+            return push_back_island(algo, prob, typeErasedBfe, popSize, replacementPolicy, selectionPolicy, seed);
+        }
+
+        public ulong push_back_island(thread_island isl, IAlgorithm algo, IProblem prob, member_bfe b, ulong popSize, uint seed)
+        {
+            using var typeErasedBfe = b.to_bfe();
+            return push_back_island(isl, algo, prob, typeErasedBfe, popSize, seed);
+        }
+
+        public ulong push_back_island(thread_island isl, IAlgorithm algo, IProblem prob, member_bfe b, ulong popSize, fair_replace replacementPolicy, select_best selectionPolicy, uint seed)
+        {
+            using var typeErasedBfe = b.to_bfe();
+            return push_back_island(isl, algo, prob, typeErasedBfe, popSize, replacementPolicy, selectionPolicy, seed);
+        }
+
+        public ulong push_back_island(thread_island isl, IAlgorithm algo, IProblem prob, member_bfe b, ulong popSize, r_policy r, s_policy s, uint seed)
+        {
+            using var typeErasedBfe = b.to_bfe();
+            return push_back_island(isl, algo, prob, typeErasedBfe, popSize, r, s, seed);
+        }
+
+        public ulong push_back_island(thread_island isl, IAlgorithm algo, IProblem prob, member_bfe b, ulong popSize, r_policyBase replacementPolicy, s_policyBase selectionPolicy, uint seed)
+        {
+            using var typeErasedBfe = b.to_bfe();
+            return push_back_island(isl, algo, prob, typeErasedBfe, popSize, replacementPolicy, selectionPolicy, seed);
         }
 
         public island GetIsland(ulong index)
