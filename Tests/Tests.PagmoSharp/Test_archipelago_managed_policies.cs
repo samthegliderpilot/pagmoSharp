@@ -81,4 +81,42 @@ public class Test_archipelago_managed_policies
         archipelago.wait_check();
         Assert.That(archipelago.status(), Is.EqualTo(evolve_status.idle));
     }
+
+    [Test]
+    public void ArchipelagoCanPushBackIslandWithBfeFromManagedPolicyBases()
+    {
+        using var archipelago = new archipelago();
+        using var algorithm = new bee_colony().to_algorithm();
+        using var evaluator = new default_bfe().to_bfe();
+        using var problem = new TwoDimensionalSingleObjectiveProblemWrapper();
+        using var replacementPolicy = new ManagedReplacementPolicy();
+        using var selectionPolicy = new ManagedSelectionPolicy();
+
+        var islandIndex = archipelago.push_back_island(algorithm, problem, evaluator, 16u, replacementPolicy, selectionPolicy, 2u);
+        Assert.That(islandIndex, Is.EqualTo(0u));
+        Assert.That(archipelago.size(), Is.EqualTo(1u));
+
+        archipelago.evolve(1u);
+        archipelago.wait_check();
+        Assert.That(archipelago.status(), Is.EqualTo(evolve_status.idle));
+    }
+
+    [Test]
+    public void ArchipelagoPascalCaseAliasAcceptsManagedPolicyBasesWithBfe()
+    {
+        using var archipelago = new archipelago();
+        using IAlgorithm algorithm = new bee_colony();
+        using var evaluator = new default_bfe().to_bfe();
+        using var problem = new TwoDimensionalSingleObjectiveProblemWrapper();
+        using var replacementPolicy = new ManagedReplacementPolicy();
+        using var selectionPolicy = new ManagedSelectionPolicy();
+
+        var islandIndex = archipelago.PushBackIsland(algorithm, problem, evaluator, 16u, replacementPolicy, selectionPolicy, 2u);
+        Assert.That(islandIndex, Is.EqualTo(0u));
+        Assert.That(archipelago.size(), Is.EqualTo(1u));
+
+        archipelago.evolve(1u);
+        archipelago.wait_check();
+        Assert.That(archipelago.status(), Is.EqualTo(evolve_status.idle));
+    }
 }
