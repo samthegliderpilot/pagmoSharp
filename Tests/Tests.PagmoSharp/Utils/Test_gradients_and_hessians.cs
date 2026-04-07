@@ -45,5 +45,32 @@ namespace Tests.PagmoSharp.Utils
             Assert.AreEqual((uint)0, sparsity[1].first);
             Assert.AreEqual((uint)1, sparsity[1].second);
         }
+
+        [Test]
+        public void EstimateSparsityEntriesFromManagedProblemReturnsProjectedIndices()
+        {
+            using var managed = new TwoDimensionalSingleObjectiveProblemWrapper();
+            using var x = new DoubleVector(new[] { 1.0, 3.0 });
+
+            var entries = GradientsAndHessians.EstimateSparsityEntries((IProblem)managed, x, 1e-8);
+
+            Assert.AreEqual(2, entries.Length);
+            Assert.AreEqual(new SparsityIndex(0u, 0u), entries[0]);
+            Assert.AreEqual(new SparsityIndex(0u, 1u), entries[1]);
+        }
+
+        [Test]
+        public void EstimateSparsityEntriesFromProblemWrapperReturnsProjectedIndices()
+        {
+            using var managed = new TwoDimensionalSingleObjectiveProblemWrapper();
+            using var prob = new problem(managed);
+            using var x = new DoubleVector(new[] { 1.0, 3.0 });
+
+            var entries = GradientsAndHessians.EstimateSparsityEntries(prob, x, 1e-8);
+
+            Assert.AreEqual(2, entries.Length);
+            Assert.AreEqual(new SparsityIndex(0u, 0u), entries[0]);
+            Assert.AreEqual(new SparsityIndex(0u, 1u), entries[1]);
+        }
     }
 }

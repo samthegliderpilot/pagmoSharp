@@ -1,6 +1,6 @@
 # PagmoSharp Roadmap
 
-Last updated: 2026-03-29
+Last updated: 2026-04-02
 
 ## PagmoSharp Roadmap Reset (v1.0 with Explicit Breadth Sprint)
 
@@ -104,6 +104,10 @@ Last updated: 2026-03-29
 - [x] Correct built-in problem `thread_safety` metadata in wrappers (remove placeholder `none` defaults where inaccurate) and add threaded runtime verification coverage.
 - [x] Completed pass: corrected placeholder thread-safety metadata from `none` to `basic` for `ackley`, `cec2006`, `cec2009`, `cec2013`, `cec2014`, `dtlz`, `golomb_ruler`, `griewank`, `hock_schittkowski_71`, `inventory`, `lennard_jones`, `luksan_vlcek1`, `minlp_rastrigin`, `null_problem`, `rastrigin`, `schwefel`, `wfg`, and `zdt`, with explicit assertions in corresponding problem tests.
 - [x] Investigate and eliminate full-suite post-run test-host crashes (all tests pass but host process aborts during teardown), with explicit native-lifetime root cause and regression guard (resolved by switching midpoint probe vector construction to array-based initialization in `TestProblemBase`).
+- [x] Implemented native-first `default_bfe` for all `IProblem` inputs and centralized callback-boundary exception policy in interop (`NativeInterop` + `ProblemCallbackAdapter`), removing feature-level managed/unmanaged branching from `default_bfe`.
+- [x] Closed default_bfe teardown-crash follow-up by handling managed callback exceptions at the interop boundary (defer in adapter, rethrow on managed return path) while preserving SWIG pending-exception flow as the primary channel for regular wrapper calls.
+- [x] Extended centralized callback-boundary exception handling to additional managed-callback native paths (`population(IProblem, ...)`, gradient/gradient_h/sparsity `IProblem` helpers), with explicit bubbling regressions and repeated full-suite stability passes.
+- [x] Hardened callback-boundary regression assertions: verify inner-exception chaining for managed callback failures, cover managed `batch_fitness` exception bubbling through `default_bfe`, and lock first-failure retention semantics for deferred callback exceptions.
 - [x] Deduplicate SWIG director/include declarations in root interface and keep one canonical registration path for `problem`, `r_policy`, and `s_policy` bridges.
 - [x] Normalize SWIG fragment hygiene by removing per-file `%module` directives from included `.i` fragments and keeping module definition at the root interface only.
 - [x] Complete multi-objective support end-to-end (problem/algorithm flows, champion and population semantics, and static helper functions in `utils/multi_objective`).
@@ -119,6 +123,7 @@ Last updated: 2026-03-29
 - [x] Added fifth size_t projection slice: de log projection (get_log_entries + typed/generic managed logs) with field-parity assertions in Test_de.
 - [x] Added sixth size_t projection slice: cmaes log projection (get_log_entries + typed/generic managed logs) with field-parity assertions in Test_cmaes.
 - [x] Added sparsity projection slice for size_t-heavy derivative metadata: typed managed `SparsityIndex` projections on `problem` / `managed_problem` / `minlp_rastrigin` (`GetGradientSparsityEntries`, `GetHessiansSparsityEntries`) with shape/index regression assertions in `Test_de_managed_problem_pipeline` and `Test_minlp_Rastrigin`.
+- [x] Added GradientsAndHessians size_t projection slice: EstimateSparsityEntries(problem/IProblem, ...) returning typed SparsityIndex[], with dedicated regression assertions in Test_gradients_and_hessians.
 - [x] Completed algorithm-log projection sweep for all active wrapped algorithms that expose logs in v1 surface (`bee_colony`, `compass_search`, `cmaes`, `cstrs_self_adaptive`, `de`, `de1220`, `gaco`, `gwo`, `ihs`, `maco`, `mbh`, `moead`, `moead_gen`, `nsga2`, `nspso`, `pso`, `pso_gen`, `sade`, `sea`, `sga`, `simulated_annealing`, `xnes`), with universal `IAlgorithm.GetLogLines()` plus typed `GetTypedLogLines()` surfaces and shared evolve-path log assertions.
 - [x] Removed raw tuple-based algorithm log leakage from generated APIs by ignoring direct `get_log()` on active algorithm wrappers and retaining only typed log projection surfaces (`get_log_entries` / `GetTypedLogLines` / `GetLogLines`).
 - [x] Removed legacy bee-colony tuple bridge (`FromBeeColonyLogTuple`) so tuple `SWIGTYPE_*` artifacts no longer leak into generated managed surfaces.
@@ -174,22 +179,6 @@ Last updated: 2026-03-29
 - Breadth-first then depth-hardening is intentional for large catalog onboarding.
 - `Problem` remains core and already mature enough to build on.
 - v1.0 stays Windows-first; Linux is explicitly post-release.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

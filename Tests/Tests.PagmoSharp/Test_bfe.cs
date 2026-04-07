@@ -71,6 +71,18 @@ namespace Tests.PagmoSharp
         }
 
         [Test]
+        public void DefaultBfeManagedFitnessExceptionBubblesWithoutTeardownCrash()
+        {
+            using var evaluator = new default_bfe();
+            using var problem = new ThrowingFitnessProblem();
+            using var batchX = new DoubleVector(new[] { 0.5 });
+
+            var ex = Assert.Throws<InvalidOperationException>(() => evaluator.Operator(problem, batchX));
+            Assert.That(ex, Is.Not.Null);
+            Assert.That(ex!.Message.ToLowerInvariant(), Does.Contain("managed fitness boom"));
+        }
+
+        [Test]
         [TestCaseSource(nameof(BuiltInBasicThreadSafeProblemFactories))]
         public void ThreadBfeExecutesBuiltInProblemsMarkedThreadSafe(Func<IProblem> problemFactory)
         {

@@ -93,13 +93,77 @@ namespace pagmo
             return string.IsNullOrWhiteSpace(message) ? fallbackMessage : message!;
         }
 
+        internal static void ThrowIfSwigPendingException()
+        {
+            if (pagmoPINVOKE.SWIGPendingException.Pending)
+            {
+                throw pagmoPINVOKE.SWIGPendingException.Retrieve();
+            }
+        }
+
+        internal static void ThrowIfDeferredCallbackException(ProblemCallbackAdapter callbackAdapter, string operationContext)
+        {
+            var deferredManagedException = callbackAdapter?.ConsumeDeferredManagedException();
+            if (deferredManagedException != null)
+            {
+                throw new InvalidOperationException(
+                    $"Managed problem callback threw during {operationContext}: {deferredManagedException.Message}",
+                    deferredManagedException);
+            }
+        }
+
+        internal static DoubleVector GetVectorOrThrow(IntPtr resultPtr, string fallbackMessage, ProblemCallbackAdapter callbackAdapter = null)
+        {
+            if (pagmoPINVOKE.SWIGPendingException.Pending)
+            {
+                // Native code may still have produced an output object before the
+                // callback exception was surfaced. Dispose to avoid leaking it.
+                if (resultPtr != IntPtr.Zero)
+                {
+                    using var _ = new DoubleVector(resultPtr, true);
+                }
+
+                throw pagmoPINVOKE.SWIGPendingException.Retrieve();
+            }
+
+            try
+            {
+                ThrowIfDeferredCallbackException(callbackAdapter, "native evaluation");
+            }
+            catch
+            {
+                if (resultPtr != IntPtr.Zero)
+                {
+                    using var _ = new DoubleVector(resultPtr, true);
+                }
+                throw;
+            }
+
+            if (resultPtr == IntPtr.Zero)
+            {
+                throw new InvalidOperationException(TakeLastErrorOrDefault(fallbackMessage));
+            }
+
+            return new DoubleVector(resultPtr, true);
+        }
+
         internal static IntPtr CreateProblemPointer(IProblem problem)
         {
-            var callback = new ProblemCallbackAdapter(problem);
+            return CreateProblemPointer(problem, out _);
+        }
+
+        internal static IntPtr CreateProblemPointer(
+            IProblem problem,
+            out ProblemCallbackAdapter callbackAdapter)
+        {
+            callbackAdapter = new ProblemCallbackAdapter(problem);
+            var callback = callbackAdapter;
             var callbackPtr = problem_callback.swigRelease(callback).Handle;
             var problemPtr = problem_from_callback(callbackPtr);
             if (problemPtr == IntPtr.Zero)
             {
+                // Prefer SWIG's canonical pending-exception channel when available.
+                ThrowIfSwigPendingException();
                 throw new InvalidOperationException(
                     TakeLastErrorOrDefault("Failed to build native pagmo::problem from IProblem callback."));
             }

@@ -37,17 +37,13 @@ namespace pagmo
                 problem.ThrowIfNotThreadSafe();
             }
 
-            var problemPtr = NativeInterop.CreateProblemPointer(problem);
+            var problemPtr = NativeInterop.CreateProblemPointer(
+                problem,
+                out var callbackAdapter);
             try
             {
                 var resultPtr = op(bfePtr, problemPtr, DoubleVector.getCPtr(batchX).Handle);
-                if (resultPtr == IntPtr.Zero)
-                {
-                    throw new InvalidOperationException(
-                        NativeInterop.TakeLastErrorOrDefault("Native batch evaluator returned null."));
-                }
-
-                return new DoubleVector(resultPtr, true);
+                return NativeInterop.GetVectorOrThrow(resultPtr, "Native batch evaluator returned null.", callbackAdapter);
             }
             finally
             {

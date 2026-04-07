@@ -16,10 +16,13 @@ namespace pagmo
 
         private static IntPtr CreateFromManagedProblem(IProblem problem, ulong popSize, uint seed)
         {
-            var problemPtr = NativeInterop.CreateProblemPointer(problem);
+            var problemPtr = NativeInterop.CreateProblemPointer(problem, out var callbackAdapter);
             try
             {
                 var populationPtr = NativeInterop.population_new(problemPtr, (UIntPtr)popSize, seed);
+                NativeInterop.ThrowIfSwigPendingException();
+                NativeInterop.ThrowIfDeferredCallbackException(callbackAdapter, "native population construction");
+
                 if (populationPtr == IntPtr.Zero)
                 {
                     throw new InvalidOperationException(

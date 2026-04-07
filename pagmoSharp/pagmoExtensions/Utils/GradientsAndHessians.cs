@@ -19,10 +19,38 @@ public static class GradientsAndHessians
         return new SparsityPattern(ptr, true);
     }
 
+    public static SparsityIndex[] EstimateSparsityEntries(problem prob, DoubleVector x, double dx = 1e-8)
+    {
+        using var sparsity = EstimateSparsity(prob, x, dx);
+        return SparsityProjection.ToEntries(sparsity);
+    }
+
     public static SparsityPattern EstimateSparsity(IProblem prob, DoubleVector x, double dx = 1e-8)
     {
-        using var wrapped = new problem(prob);
-        return EstimateSparsity(wrapped, x, dx);
+        var problemPtr = NativeInterop.CreateProblemPointer(prob, out var callbackAdapter);
+        try
+        {
+            var ptr = NativeInterop.estimate_sparsity_problem(problemPtr, DoubleVector.getCPtr(x).Handle, dx);
+            NativeInterop.ThrowIfSwigPendingException();
+            NativeInterop.ThrowIfDeferredCallbackException(callbackAdapter, "native sparsity estimation");
+            if (ptr == IntPtr.Zero)
+            {
+                throw new InvalidOperationException(
+                    NativeInterop.TakeLastErrorOrDefault("Native estimate_sparsity() failed."));
+            }
+
+            return new SparsityPattern(ptr, true);
+        }
+        finally
+        {
+            NativeInterop.problem_delete(problemPtr);
+        }
+    }
+
+    public static SparsityIndex[] EstimateSparsityEntries(IProblem prob, DoubleVector x, double dx = 1e-8)
+    {
+        using var sparsity = EstimateSparsity(prob, x, dx);
+        return SparsityProjection.ToEntries(sparsity);
     }
 
     public static DoubleVector EstimateGradient(problem prob, DoubleVector x, double dx = 1e-8)
@@ -39,8 +67,16 @@ public static class GradientsAndHessians
 
     public static DoubleVector EstimateGradient(IProblem prob, DoubleVector x, double dx = 1e-8)
     {
-        using var wrapped = new problem(prob);
-        return EstimateGradient(wrapped, x, dx);
+        var problemPtr = NativeInterop.CreateProblemPointer(prob, out var callbackAdapter);
+        try
+        {
+            var ptr = NativeInterop.estimate_gradient_problem(problemPtr, DoubleVector.getCPtr(x).Handle, dx);
+            return NativeInterop.GetVectorOrThrow(ptr, "Native estimate_gradient() failed.", callbackAdapter);
+        }
+        finally
+        {
+            NativeInterop.problem_delete(problemPtr);
+        }
     }
 
     public static DoubleVector EstimateGradientHighOrder(problem prob, DoubleVector x, double dx = 1e-2)
@@ -57,7 +93,15 @@ public static class GradientsAndHessians
 
     public static DoubleVector EstimateGradientHighOrder(IProblem prob, DoubleVector x, double dx = 1e-2)
     {
-        using var wrapped = new problem(prob);
-        return EstimateGradientHighOrder(wrapped, x, dx);
+        var problemPtr = NativeInterop.CreateProblemPointer(prob, out var callbackAdapter);
+        try
+        {
+            var ptr = NativeInterop.estimate_gradient_h_problem(problemPtr, DoubleVector.getCPtr(x).Handle, dx);
+            return NativeInterop.GetVectorOrThrow(ptr, "Native estimate_gradient_h() failed.", callbackAdapter);
+        }
+        finally
+        {
+            NativeInterop.problem_delete(problemPtr);
+        }
     }
 }

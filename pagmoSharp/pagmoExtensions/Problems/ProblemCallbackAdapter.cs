@@ -1,3 +1,5 @@
+using System;
+using System.Runtime.ExceptionServices;
 namespace pagmo
 {
     /// <summary>
@@ -6,14 +8,57 @@ namespace pagmo
     internal sealed class ProblemCallbackAdapter : problem_callback
     {
         private readonly IProblem _problem;
+        private ExceptionDispatchInfo _deferredManagedException;
 
         public ProblemCallbackAdapter(IProblem problem)
         {
             _problem = problem;
         }
 
-        public override DoubleVector fitness(DoubleVector x) => _problem.fitness(x);
-        public override DoubleVector batch_fitness(DoubleVector x) => _problem.batch_fitness(x);
+        internal Exception ConsumeDeferredManagedException()
+        {
+            var captured = _deferredManagedException;
+            _deferredManagedException = null;
+            return captured == null ? null : captured.SourceException;
+        }
+
+        private void CaptureDeferredManagedException(Exception ex)
+        {
+            // Keep first failure to preserve causal signal if callback is retried.
+            _deferredManagedException ??= ExceptionDispatchInfo.Capture(ex);
+        }
+
+        public override DoubleVector fitness(DoubleVector x)
+        {
+            try
+            {
+                return _problem.fitness(x);
+            }
+            catch (Exception ex)
+            {
+                // Boundary rule:
+                // Do not let managed exceptions cross the SWIG reverse-callback boundary.
+                // Some native teardown paths can become unstable if exceptions escape here.
+                // In this callback path we defer/rethrow through interop-owned state.
+                // SWIGPendingException remains the primary channel for regular wrapper calls.
+                CaptureDeferredManagedException(ex);
+                return new DoubleVector();
+            }
+        }
+
+        public override DoubleVector batch_fitness(DoubleVector x)
+        {
+            try
+            {
+                return _problem.batch_fitness(x);
+            }
+            catch (Exception ex)
+            {
+                CaptureDeferredManagedException(ex);
+                return new DoubleVector();
+            }
+        }
+
         public override PairOfDoubleVectors get_bounds() => _problem.get_bounds();
         public override string get_name() => _problem.get_name();
         public override string get_extra_info() => _problem.get_extra_info();
