@@ -6,6 +6,8 @@ using System.Linq;
 
 namespace Tests.PagmoSharp.Problems;
 
+// Shared contract tests for wrapped pagmo problem types.
+// Derived fixtures only provide factory/regression data; this base enforces common wrapper invariants.
 public abstract class TestProblemBase
 {
     public abstract IProblem CreateStandardProblem(uint problemIndex = 0);

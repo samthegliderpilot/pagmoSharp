@@ -4,6 +4,8 @@ using System.Runtime.InteropServices;
 namespace Tests.PagmoSharp.Problems;
 
 [Serializable]
+// Regression fixture payload used by TestProblemBase to keep known input/output probes
+// in a serializable form and print copyable updates when reference values change.
 public class ProblemTestData
 {
     public ProblemTestData()

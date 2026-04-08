@@ -4,6 +4,8 @@ using Tests.PagmoSharp.TestProblems;
 
 namespace Tests.PagmoSharp.Problems;
 
+// Shared MO managed-problem assertions so constrained/unconstrained variants
+// can reuse one validation suite and only swap fixture + constraint expectation.
 public abstract class Test_managed_multiobjective_base
 {
     protected abstract TestProblemWrapper CreateManagedProblem();

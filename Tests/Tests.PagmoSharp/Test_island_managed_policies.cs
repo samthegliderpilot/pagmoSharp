@@ -7,6 +7,8 @@ namespace Tests.PagmoSharp
     [TestFixture]
     public class Test_island_managed_policies
     {
+        // Managed problem fixture that supports batch_fitness so member_bfe and policy
+        // wrappers can be validated with island creation paths.
         private sealed class ManagedBatchProblem : ManagedProblemBase
         {
             public override thread_safety get_thread_safety() => thread_safety.basic;
@@ -39,6 +41,8 @@ namespace Tests.PagmoSharp
             }
         }
 
+        // Managed replacement policy stub used to validate direct r_policyBase support
+        // in island helper overloads and ownership transfer behavior.
         private sealed class ManagedReplacementPolicy : r_policyBase
         {
             public override IndividualsGroup replace(IndividualsGroup a, uint b, uint c, uint d, uint e, uint f, DoubleVector g, IndividualsGroup h)
@@ -51,6 +55,8 @@ namespace Tests.PagmoSharp
             public override bool is_valid() => true;
         }
 
+        // Managed selection policy stub paired with the replacement policy for island
+        // policy callback wiring and lifecycle coverage.
         private sealed class ManagedSelectionPolicy : s_policyBase
         {
             public override IndividualsGroup select(IndividualsGroup a, uint b, uint c, uint d, uint e, uint f, DoubleVector g)
@@ -137,7 +143,7 @@ namespace Tests.PagmoSharp
         {
             using var managed = new TwoDimensionalSingleObjectiveProblemWrapper();
             using var algo = new bee_colony().to_algorithm();
-            using var evaluator = new default_bfe();
+            using var evaluator = new default_bfe().to_bfe();
             using var rBase = new ManagedReplacementPolicy();
             using var sBase = new ManagedSelectionPolicy();
 
@@ -154,7 +160,7 @@ namespace Tests.PagmoSharp
         {
             using var managed = new TwoDimensionalSingleObjectiveProblemWrapper();
             using var algo = new bee_colony().to_algorithm();
-            using var evaluator = new thread_bfe();
+            using var evaluator = new thread_bfe().to_bfe();
             using var rBase = new ManagedReplacementPolicy();
             using var sBase = new ManagedSelectionPolicy();
 
@@ -171,7 +177,7 @@ namespace Tests.PagmoSharp
         {
             using var managed = new ManagedBatchProblem();
             using var algo = new bee_colony().to_algorithm();
-            using var evaluator = new member_bfe();
+            using var evaluator = new member_bfe().to_bfe();
             using var rBase = new ManagedReplacementPolicy();
             using var sBase = new ManagedSelectionPolicy();
 

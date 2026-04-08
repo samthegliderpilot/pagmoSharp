@@ -3,6 +3,8 @@ using pagmo;
 
 namespace Tests.PagmoSharp.TestProblems;
 
+// Adapter fixture that exposes pagmo's built-in inventory UDP through TestProblemWrapper
+// so stochastic algorithm base tests can run through one shared managed test harness.
 public class InventoryProblemWrapper : TestProblemWrapper
 {
     public InventoryProblemWrapper()

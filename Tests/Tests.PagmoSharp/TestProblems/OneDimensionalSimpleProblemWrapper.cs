@@ -2,6 +2,7 @@
 
 namespace Tests.PagmoSharp.TestProblems
 {
+    // Minimal 1D convex problem used by generic algorithm tests as a fast, deterministic baseline.
     public class OneDimensionalSimpleProblem : TestProblemWrapper
     {
         private readonly DoubleVector _lowerBounds = new DoubleVector(new[] { -10.0 });

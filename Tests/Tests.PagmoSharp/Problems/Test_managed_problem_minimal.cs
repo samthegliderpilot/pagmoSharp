@@ -1,3 +1,4 @@
+using System;
 using NUnit.Framework;
 using pagmo;
 
@@ -6,6 +7,8 @@ namespace Tests.PagmoSharp.Problems
     [TestFixture]
     public class Test_managed_problem_minimal
     {
+        // Minimal IProblem implementation used to assert default optional-member behavior
+        // (metadata and NotSupportedException defaults) for managed problem callbacks.
         private sealed class MinimalProblem : IProblem
         {
             private readonly DoubleVector _lb = new(new[] { -5.0, -5.0 });
@@ -44,6 +47,14 @@ namespace Tests.PagmoSharp.Problems
             Assert.IsFalse(prob.has_set_seed());
             Assert.AreEqual(thread_safety.none, prob.get_thread_safety());
             Assert.AreEqual(25.0, f[0], 1e-12);
+
+            var problemInterface = (IProblem)managed;
+            Assert.Throws<NotSupportedException>(() => problemInterface.batch_fitness(x));
+            Assert.Throws<NotSupportedException>(() => problemInterface.gradient(x));
+            Assert.Throws<NotSupportedException>(() => problemInterface.gradient_sparsity());
+            Assert.Throws<NotSupportedException>(() => problemInterface.hessians(x));
+            Assert.Throws<NotSupportedException>(() => problemInterface.hessians_sparsity());
+            Assert.Throws<NotSupportedException>(() => problemInterface.set_seed(2u));
         }
     }
 }

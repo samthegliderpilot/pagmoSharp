@@ -64,6 +64,7 @@ namespace Tests.PagmoSharp
             return (ideal[0], ideal[1]);
         }
 
+        // Negative-path helper used to verify type-erased managed algorithm rejection paths.
         private sealed class UnsupportedAlgorithm : IAlgorithm
         {
             public population evolve(population pop) => pop;
@@ -217,12 +218,12 @@ namespace Tests.PagmoSharp
             using var archi = new archipelago();
             using IAlgorithm algo = new bee_colony();
             using var problem = new TwoDimensionalSingleObjectiveProblemWrapper();
-            using var bfe = new default_bfe();
+            using var bfe = new default_bfe().to_bfe();
             using var threadIsland = new thread_island();
             using var replacementPolicy = new fair_replace();
             using var selectionPolicy = new select_best();
 
-            archi.push_back_island(threadIsland, algo, problem, bfe, 24, replacementPolicy, selectionPolicy, 2);
+            archi.push_back_island(algo, problem, bfe, 24, replacementPolicy, selectionPolicy, 2, threadIsland);
             Assert.AreEqual(1u, archi.size());
             AssertArchipelagoIslandConfiguration(archi, 0, 24);
 

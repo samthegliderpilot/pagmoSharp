@@ -2,6 +2,8 @@ using pagmo;
 
 namespace Tests.PagmoSharp.TestProblems
 {
+    // Managed unconstrained multi-objective fixture used to validate MO plumbing
+    // (fitness shape, champion unavailability, archipelago/island MO execution paths).
     public class TwoDimensionalMultiObjectiveProblemWrapper : TestProblemWrapper
     {
         private readonly DoubleVector _lowerBounds = new DoubleVector(new[] { -5.0, -5.0 });

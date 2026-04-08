@@ -4,6 +4,8 @@ using pagmo;
 
 namespace Tests.PagmoSharp.TestProblems
 {
+    // Canonical managed single-objective 2D fixture used for end-to-end runtime tests
+    // (algorithm evolution, island/archipelago setup, and thread-safety behavior).
     public class TwoDimensionalSingleObjectiveProblemWrapper : TestProblemWrapper
     {
         private readonly DoubleVector _lowerBounds = new DoubleVector(new[] { -10.0, -10.0 });

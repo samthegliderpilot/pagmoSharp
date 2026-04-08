@@ -26,6 +26,7 @@ namespace Tests.PagmoSharp
             Assert.AreEqual(1, championFitnessVector.Count, "Expected single-objective fitness.");
         }
 
+        // Negative-path helper used to verify type-erased managed algorithm rejection paths.
         private sealed class UnsupportedAlgorithm : IAlgorithm
         {
             public population evolve(population pop) => pop;
@@ -74,7 +75,7 @@ namespace Tests.PagmoSharp
         {
             using var managed = new TwoDimensionalSingleObjectiveProblemWrapper();
             using IAlgorithm algo = new bee_colony();
-            using var evaluator = new default_bfe();
+            using var evaluator = new default_bfe().to_bfe();
             using var isl = island.CreateWithBfe(algo, managed, evaluator, 24, 2);
 
             AssertIslandIsConfiguredForBeeColonyAndTwoDimensionalProblem(isl, 24);
@@ -89,7 +90,7 @@ namespace Tests.PagmoSharp
         {
             using var managed = new TwoDimensionalSingleObjectiveProblemWrapper();
             using IAlgorithm algo = new bee_colony();
-            using var evaluator = new default_bfe();
+            using var evaluator = new default_bfe().to_bfe();
             using var replacementPolicy = new fair_replace();
             using var selectionPolicy = new select_best();
             using var isl = island.CreateWithBfeAndPolicies(algo, managed, evaluator, 24, replacementPolicy, selectionPolicy, 2);

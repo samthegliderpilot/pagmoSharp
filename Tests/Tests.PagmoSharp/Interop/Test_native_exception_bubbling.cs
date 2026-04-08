@@ -8,6 +8,8 @@ namespace Tests.PagmoSharp.Interop;
 [TestFixture]
 public class Test_native_exception_bubbling
 {
+    // Throws inside batch_fitness to verify managed callback exceptions survive
+    // native transit and are rethrown without process-lifetime corruption.
     private sealed class ThrowingBatchFitnessProblem : ManagedProblemBase
     {
         public override PairOfDoubleVectors get_bounds()
@@ -28,6 +30,45 @@ public class Test_native_exception_bubbling
         }
     }
 
+    // Intentionally violates callback contract by returning null fitness so tests can
+    // verify wrapper-side contract enforcement and exception bubbling behavior.
+    private sealed class NullFitnessProblem : ManagedProblemBase
+    {
+        public override PairOfDoubleVectors get_bounds()
+        {
+            return new PairOfDoubleVectors(new DoubleVector(new[] { -1.0 }), new DoubleVector(new[] { 1.0 }));
+        }
+
+        public override DoubleVector fitness(DoubleVector x)
+        {
+            return null;
+        }
+    }
+
+    // Intentionally violates batch callback contract to validate null-return handling
+    // on default_bfe managed callback execution paths.
+    private sealed class NullBatchFitnessProblem : ManagedProblemBase
+    {
+        public override PairOfDoubleVectors get_bounds()
+        {
+            return new PairOfDoubleVectors(new DoubleVector(new[] { -1.0 }), new DoubleVector(new[] { 1.0 }));
+        }
+
+        public override bool has_batch_fitness() => true;
+
+        public override DoubleVector fitness(DoubleVector x)
+        {
+            return new DoubleVector(new[] { 0.0 });
+        }
+
+        public override DoubleVector batch_fitness(DoubleVector x)
+        {
+            return null;
+        }
+    }
+
+    // Emits distinct exception messages on repeated calls to ensure deferred-capture
+    // logic preserves the first failure that actually caused the operation to fail.
     private sealed class ThrowingFitnessProblemWithChangingMessage : ManagedProblemBase
     {
         private int _callCount;
@@ -168,6 +209,43 @@ public class Test_native_exception_bubbling
         Assert.That(ex.InnerException, Is.Not.Null);
         Assert.That(ex.InnerException, Is.TypeOf<InvalidOperationException>());
         Assert.That(ex.InnerException!.Message.ToLowerInvariant(), Does.Contain("managed fitness boom 1"));
+    }
+
+    [Test]
+    public void ManagedNullFitnessResultBubblesAsCallbackContractFailure()
+    {
+        using var managed = new NullFitnessProblem();
+        using var x = new DoubleVector(new[] { 0.1 });
+
+        var ex = Assert.Throws<InvalidOperationException>(() =>
+        {
+            using var _ = GradientsAndHessians.EstimateGradient((IProblem)managed, x, 1e-6);
+        });
+
+        Assert.That(ex, Is.Not.Null);
+        Assert.That(ex!.Message, Does.Contain("returned null"));
+        Assert.That(ex.Message, Does.Contain("fitness"));
+        Assert.That(ex.InnerException, Is.Not.Null);
+        Assert.That(ex.InnerException!.Message, Does.Contain("returned null"));
+    }
+
+    [Test]
+    public void ManagedNullBatchFitnessResultBubblesAsCallbackContractFailure()
+    {
+        using var evaluator = new default_bfe();
+        using var managed = new NullBatchFitnessProblem();
+        using var batchX = new DoubleVector(new[] { 0.25 });
+
+        var ex = Assert.Throws<InvalidOperationException>(() =>
+        {
+            using var _ = evaluator.Operator(managed, batchX);
+        });
+
+        Assert.That(ex, Is.Not.Null);
+        Assert.That(ex!.Message, Does.Contain("returned null"));
+        Assert.That(ex.Message, Does.Contain("batch_fitness"));
+        Assert.That(ex.InnerException, Is.Not.Null);
+        Assert.That(ex.InnerException!.Message, Does.Contain("returned null"));
     }
 
 }

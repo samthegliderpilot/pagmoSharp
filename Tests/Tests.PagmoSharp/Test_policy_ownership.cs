@@ -7,6 +7,8 @@ namespace Tests.PagmoSharp;
 [TestFixture]
 public class Test_policy_ownership
 {
+    // Minimal managed replacement policy used for ownership/lifetime assertions in
+    // r_policy constructor and transfer-ownership behavior.
     private sealed class ManagedReplacementPolicy : r_policyBase
     {
         public override IndividualsGroup replace(IndividualsGroup a, uint b, uint c, uint d, uint e, uint f, DoubleVector g, IndividualsGroup h)
@@ -19,6 +21,8 @@ public class Test_policy_ownership
         public override bool is_valid() => true;
     }
 
+    // Minimal managed selection policy used for ownership/lifetime assertions in
+    // s_policy constructor and transfer-ownership behavior.
     private sealed class ManagedSelectionPolicy : s_policyBase
     {
         public override IndividualsGroup select(IndividualsGroup a, uint b, uint c, uint d, uint e, uint f, DoubleVector g)

@@ -6,6 +6,8 @@ using Tests.PagmoSharp.TestProblems;
 
 namespace Tests.PagmoSharp.Algorithms
 {
+    // Base harness for all algorithm wrappers to enforce one consistent set of
+    // behavior checks (metadata, evolution shape, constraints, MO behavior, logs).
     public abstract class TestAlgorithmBase
     {
         public abstract IAlgorithm CreateAlgorithm();

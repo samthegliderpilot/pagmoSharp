@@ -132,6 +132,8 @@ Last updated: 2026-04-06
 - [x] Hardened gradient/sparsity helper contracts with explicit null-argument validation in GradientsAndHessians + sparsity projection paths, and expanded tests for high-order gradient behavior and null-argument coverage.
 - [x] Hardened threaded managed-problem contract guard (IProblemThreadingExtensions.ThrowIfNotThreadSafe) with explicit null-argument handling and problem-name context in failure messages; added BFE regressions for null/thread-safety-none behavior.
 - [x] Hardened core interop facades (`DoubleVector`, `r_policy`, `s_policy`, `bfe`, `NativeInterop`, `ProblemHandle`) with explicit null/disposed argument contracts, removed DoubleVector params-LINQ overhead path, and added regression coverage for policy ownership disposal, BFE null-input behavior, and DoubleVector constructor semantics.
+- [x] Hardened managed core orchestration facades (`problem`, `population`, `island`, `archipelago`) with explicit null-argument contracts across managed entrypoints (including archipelago managed-problem path), plus dedicated null-contract regression tests to lock behavior.
+- [x] Completed algorithm/problem support hardening pass: added universal default log surface on type-erased `algorithm`, hardened `ProblemCallbackAdapter` callback-result contracts against null returns for deferred-failure paths (`fitness`, `batch_fitness`), and expanded `IProblem`/minimal-managed-problem default-contract regressions.
 - [x] Completed algorithm-log projection sweep for all active wrapped algorithms that expose logs in v1 surface (`bee_colony`, `compass_search`, `cmaes`, `cstrs_self_adaptive`, `de`, `de1220`, `gaco`, `gwo`, `ihs`, `maco`, `mbh`, `moead`, `moead_gen`, `nsga2`, `nspso`, `pso`, `pso_gen`, `sade`, `sea`, `sga`, `simulated_annealing`, `xnes`), with universal `IAlgorithm.GetLogLines()` plus typed `GetTypedLogLines()` surfaces and shared evolve-path log assertions.
 - [x] Hardened algorithm support contracts: refactored AlgorithmInterop.NormalizeToTypeErased to exhaustive switch-dispatch with explicit managed-only grid_search guidance, added regression for grid_search log-default + type-erased rejection path, and completed IAlgorithm contract documentation cleanup.
 - [x] Removed raw tuple-based algorithm log leakage from generated APIs by ignoring direct `get_log()` on active algorithm wrappers and retaining only typed log projection surfaces (`get_log_entries` / `GetTypedLogLines` / `GetLogLines`).
@@ -145,6 +147,8 @@ Last updated: 2026-04-06
 - [x] Added C#-friendly multi-objective projection helpers (ParetoDominates, index-array selectors, ideal/nadir/decompose array projections) to reduce container-heavy call sites and improve naming clarity, with parity assertions in Test_multi_objective.
 - [x] Assert and lock multi-objective population semantics in shared algorithm tests: champion_x/champion_f must throw on multi-objective populations while get_x/get_f remain the supported data path.
 - [x] Added naming/signature polish aliases for `archipelago` managed entrypoints (`PushBackIsland`, `GetIsland`) while preserving existing pagmo-style APIs.
+- [x] Consolidated `archipelago` managed overload surface to a smaller canonical API: removed redundant typed-BFE and thread-island-first overload families, centralized dispatch/policy wrapping, and updated tests to use type-erased `bfe` + optional `thread_island` parameter.
+- [x] Consolidated island managed overload surface to a smaller canonical API: centralized creation dispatch, collapsed redundant overload families (including typed-BFE variants), and kept compatibility shims for explicit thread-island method names.
 - [x] Completed topology extension overload review: retained per-type `GetConnectionsData` overloads (`topology`, `fully_connected`, `ring`, `unconnected`) because SWIG emits sibling wrapper classes rather than C# inheritance, and hardened each overload with explicit null-argument validation plus stronger topology projection tests.
 - [x] Added handwritten API surface audit tests to prevent new public `SWIGTYPE_*` leakage and generated placeholder argument names (`arg0`, `arg1`) outside explicit director-plumbing exceptions.
 - [x] Reduce wrapper layering for multi-objective helpers by removing intermediate MultiObjectiveUtils C++/C# helper classes and exposing direct pagmo.pagmo.* static bindings via SWIG namespace declarations.
@@ -157,11 +161,11 @@ Last updated: 2026-04-06
 - [x] Remove MigrationEntry ID SWIGTYPE_* exposure by mapping adapter IDs (migration_id, immigrant_id) to ulong and add dedicated regression coverage in Test_migration_entry.
 - [ ] Anything from 3A is not considered production-ready until 3B gates pass.
 ### Sprint 3B Remaining Work Breakdown (Type-by-Type)
-- [ ] Core facade hardening: `algorithm`
-- [ ] Core facade hardening: `problem`
-- [ ] Core facade hardening: `population`
-- [ ] Core facade hardening: `island`
-- [ ] Core facade hardening: `archipelago`
+- [x] Core facade hardening: `algorithm`
+- [x] Core facade hardening: `problem`
+- [x] Core facade hardening: `population`
+- [x] Core facade hardening: `island`
+- [x] Core facade hardening: `archipelago`
 - [x] Core facade hardening: `topology`
 - [x] Core facade hardening: `r_policy`
 - [x] Core facade hardening: `s_policy`
@@ -194,11 +198,11 @@ Last updated: 2026-04-06
 - [ ] Problem wrapper hardening: `unconstrain`
 - [ ] Problem wrapper hardening: `wfg`
 - [ ] Problem wrapper hardening: `zdt`
-- [ ] Problem support hardening: `ManagedProblemBase`
-- [ ] Problem support hardening: `ProblemCallbackAdapter`
+- [x] Problem support hardening: `ManagedProblemBase`
+- [x] Problem support hardening: `ProblemCallbackAdapter`
 - [x] Problem support hardening: `problem.sparsity`
 - [x] Problem support hardening: `sparsity.projections`
-- [ ] Problem support hardening: `IProblem`
+- [x] Problem support hardening: `IProblem`
 - [x] Problem support hardening: `IProblemThreadingExtensions`
 - [ ] Algorithm wrapper hardening: `bee_colony`
 - [ ] Algorithm wrapper hardening: `cmaes`
@@ -236,7 +240,7 @@ Last updated: 2026-04-06
 - [ ] C#-first docs, quickstart, and canonical runnable examples.
 - [ ] Publish a supported-feature matrix by build/environment (for example optional algorithm availability such as IPOPT/NLopt).
 - [ ] Perform an exception-usage audit across managed/native wrapper layers to verify existing code is surfacing actionable exceptions consistently and not silently swallowing failure context.
-- [ ] Review high-overload managed API surfaces (especially `island`/`archipelago`) and remove or deprecate non-essential overloads while preserving a small canonical core plus compatibility shims where needed.
+- [x] Review high-overload managed API surfaces (`archipelago` + `island`) and remove non-essential overloads while preserving a small canonical core plus compatibility shims where needed.
 - [ ] Normalize managed API naming conventions across extension surfaces (for example snake_case vs PascalCase) and define a single public-style policy with compatibility aliases/deprecation plan.
 
 7. **Sprint 5: Release Readiness**
@@ -252,6 +256,10 @@ Last updated: 2026-04-06
 - [ ] Evaluate optional managed thread-clone strategy for non-thread-safe managed problems (for example `IThreadCloneableProblem` with per-thread clone context) and integrate only if it fits pagmo execution semantics cleanly.
 
 ### API and Quality Rules
+### Exception Policy (Project Preference)
+- Keep explicit pre-check exceptions to a high bar: add them only when they materially improve safety or provide clearly better diagnostic value than natural downstream exceptions.
+- For private helper methods, prefer centralized/shared boundary checks over local specialized exception branches unless there is a concrete safety or diagnostics gain.
+- Avoid exception-check noise: if a natural exception already communicates failure sufficiently, prefer the simpler path.
 - During 3A breadth, prioritize coverage velocity with smoke tests.
 - During 3A execution, do not add new `SWIGTYPE_*` leakage on touched public surfaces; either map to usable managed types now or keep the API out of scope until a later sprint.
 - During 3B depth, enforce public API quality:
@@ -269,6 +277,10 @@ Last updated: 2026-04-06
 - Breadth-first then depth-hardening is intentional for large catalog onboarding.
 - `Problem` remains core and already mature enough to build on.
 - v1.0 stays Windows-first; Linux is explicitly post-release.
+
+
+
+
 
 
 

@@ -7,6 +7,8 @@ namespace Tests.PagmoSharp;
 [TestFixture]
 public class Test_archipelago_managed_policies
 {
+    // Managed problem fixture that supports batch_fitness so member_bfe and policy wiring
+    // can be validated through the managed callback path.
     private sealed class ManagedBatchProblem : ManagedProblemBase
     {
         public override thread_safety get_thread_safety() => thread_safety.basic;
@@ -39,6 +41,8 @@ public class Test_archipelago_managed_policies
         }
     }
 
+    // Managed replacement policy stub used to validate direct r_policyBase ingestion
+    // by archipelago wrappers without requiring policy-specific optimization behavior.
     private sealed class ManagedReplacementPolicy : r_policyBase
     {
         public override IndividualsGroup replace(
@@ -59,6 +63,8 @@ public class Test_archipelago_managed_policies
         public override bool is_valid() => true;
     }
 
+    // Managed selection policy stub paired with ManagedReplacementPolicy for policy
+    // callback lifetime and ownership-path coverage in archipelago entry points.
     private sealed class ManagedSelectionPolicy : s_policyBase
     {
         public override IndividualsGroup select(
@@ -157,7 +163,7 @@ public class Test_archipelago_managed_policies
     {
         using var archipelago = new archipelago();
         using IAlgorithm algorithm = new bee_colony();
-        using var evaluator = new default_bfe();
+        using var evaluator = new default_bfe().to_bfe();
         using var problem = new TwoDimensionalSingleObjectiveProblemWrapper();
         using var replacementPolicy = new ManagedReplacementPolicy();
         using var selectionPolicy = new ManagedSelectionPolicy();
@@ -176,7 +182,7 @@ public class Test_archipelago_managed_policies
     {
         using var archipelago = new archipelago();
         using IAlgorithm algorithm = new bee_colony();
-        using var evaluator = new thread_bfe();
+        using var evaluator = new thread_bfe().to_bfe();
         using var problem = new TwoDimensionalSingleObjectiveProblemWrapper();
         using var replacementPolicy = new ManagedReplacementPolicy();
         using var selectionPolicy = new ManagedSelectionPolicy();
@@ -195,7 +201,7 @@ public class Test_archipelago_managed_policies
     {
         using var archipelago = new archipelago();
         using IAlgorithm algorithm = new bee_colony();
-        using var evaluator = new member_bfe();
+        using var evaluator = new member_bfe().to_bfe();
         using var problem = new ManagedBatchProblem();
         using var replacementPolicy = new ManagedReplacementPolicy();
         using var selectionPolicy = new ManagedSelectionPolicy();

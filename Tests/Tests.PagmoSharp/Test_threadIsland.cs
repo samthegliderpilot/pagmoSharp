@@ -23,6 +23,8 @@ namespace Tests.PagmoSharp
 
         private sealed class ManagedReplacementPolicy : r_policyBase
         {
+            // Stub replacement policy used only to exercise managed policy callbacks
+            // in thread_island overloads.
             public override IndividualsGroup replace(IndividualsGroup migrants, uint numReplace, uint numIncoming, uint numOutgoing, uint islandCount, uint migrationRound, DoubleVector migrationData, IndividualsGroup current)
             {
                 return migrants;
@@ -35,6 +37,8 @@ namespace Tests.PagmoSharp
 
         private sealed class ManagedSelectionPolicy : s_policyBase
         {
+            // Stub selection policy used only to exercise managed policy callbacks
+            // in thread_island overloads.
             public override IndividualsGroup select(IndividualsGroup populationGroup, uint requested, uint populationSize, uint islandIndex, uint islandCount, uint migrationRound, DoubleVector migrationData)
             {
                 return populationGroup;
@@ -93,7 +97,7 @@ namespace Tests.PagmoSharp
             using var islandImpl = new thread_island();
             using var managed = new TwoDimensionalSingleObjectiveProblemWrapper();
             using IAlgorithm algo = new bee_colony();
-            using var evaluator = new default_bfe();
+            using var evaluator = new default_bfe().to_bfe();
             using var isl = island.CreateWithThreadIslandAndBfe(islandImpl, algo, managed, evaluator, 24, 2);
 
             AssertThreadIslandConfiguration(isl, 24);
@@ -109,7 +113,7 @@ namespace Tests.PagmoSharp
             using var islandImpl = new thread_island();
             using var managed = new TwoDimensionalSingleObjectiveProblemWrapper();
             using IAlgorithm algo = new bee_colony();
-            using var evaluator = new default_bfe();
+            using var evaluator = new default_bfe().to_bfe();
             using var replacementPolicy = new fair_replace();
             using var selectionPolicy = new select_best();
             using var isl = island.CreateWithThreadIslandAndBfeAndPolicies(

@@ -2,6 +2,8 @@ using pagmo;
 
 namespace Tests.PagmoSharp.TestProblems
 {
+    // Educational constrained fixture used for simple end-to-end optimization tests:
+    // easy to reason about objective/constraint geometry while still exercising pagmo flow.
     public class TwoParabolaConstrainedProblemWrapper : TestProblemWrapper
     {
         private readonly DoubleVector _lowerBounds = new DoubleVector(new[] { -5.0, -5.0 });

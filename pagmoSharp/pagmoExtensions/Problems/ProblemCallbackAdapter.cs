@@ -12,7 +12,7 @@ namespace pagmo
 
         public ProblemCallbackAdapter(IProblem problem)
         {
-            _problem = problem;
+            _problem = problem ?? throw new ArgumentNullException(nameof(problem));
         }
 
         internal Exception ConsumeDeferredManagedException()
@@ -28,11 +28,17 @@ namespace pagmo
             _deferredManagedException ??= ExceptionDispatchInfo.Capture(ex);
         }
 
+        private static T RequireNonNullResult<T>(T value, string callbackName) where T : class
+        {
+            return value ?? throw new InvalidOperationException(
+                $"Managed problem callback '{callbackName}' returned null. Callbacks must return non-null values.");
+        }
+
         public override DoubleVector fitness(DoubleVector x)
         {
             try
             {
-                return _problem.fitness(x);
+                return RequireNonNullResult(_problem.fitness(x), nameof(fitness));
             }
             catch (Exception ex)
             {
@@ -50,7 +56,7 @@ namespace pagmo
         {
             try
             {
-                return _problem.batch_fitness(x);
+                return RequireNonNullResult(_problem.batch_fitness(x), nameof(batch_fitness));
             }
             catch (Exception ex)
             {

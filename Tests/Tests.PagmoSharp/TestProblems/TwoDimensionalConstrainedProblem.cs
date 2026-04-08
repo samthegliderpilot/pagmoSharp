@@ -4,6 +4,8 @@ using pagmo;
 
 namespace Tests.PagmoSharp.TestProblems
 {
+    // Deterministic constrained single-objective fixture used to verify constrained
+    // algorithm paths and wrapper behavior without relying on pagmo problem internals.
     public class TwoDimensionalConstrainedProblem : TestProblemWrapper
     {
         private readonly DoubleVector _lowerBounds = new DoubleVector(new[] { -1.0, -1.0 });

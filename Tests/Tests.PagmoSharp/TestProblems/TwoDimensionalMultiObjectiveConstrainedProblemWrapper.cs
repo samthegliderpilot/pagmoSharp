@@ -2,6 +2,8 @@ using pagmo;
 
 namespace Tests.PagmoSharp.TestProblems
 {
+    // Managed constrained multi-objective fixture used to validate MO+constraints
+    // wrapper behavior and fitness vector layout (objectives + constraints).
     public class TwoDimensionalMultiObjectiveConstrainedProblemWrapper : TestProblemWrapper
     {
         private readonly DoubleVector _lowerBounds = new DoubleVector(new[] { -5.0, -5.0 });

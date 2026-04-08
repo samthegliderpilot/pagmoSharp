@@ -6,6 +6,8 @@ namespace Tests.PagmoSharp.Algorithms
     [TestFixture]
     public class Test_de_managed_problem_pipeline
     {
+        // Deterministic managed UDP with batch+gradient support used to validate that
+        // the managed problem pipeline exposes the full pagmo problem surface end-to-end.
         private sealed class DeterministicBatchProblem : ManagedProblemBase
         {
             private readonly DoubleVector _lb = new(new[] { -10.0, -10.0 });
