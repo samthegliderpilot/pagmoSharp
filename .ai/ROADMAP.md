@@ -176,28 +176,28 @@ Last updated: 2026-04-06
 - [x] Utility hardening: `GradientsAndHessians`
 - [x] Utility hardening: `multi_objective.projections`
 - [x] Topology hardening: `unconnected`
-- [ ] Problem wrapper hardening: `ackley`
-- [ ] Problem wrapper hardening: `cec2006`
-- [ ] Problem wrapper hardening: `cec2009`
-- [ ] Problem wrapper hardening: `cec2013`
-- [ ] Problem wrapper hardening: `cec2014`
-- [ ] Problem wrapper hardening: `decompose`
-- [ ] Problem wrapper hardening: `dtlz`
-- [ ] Problem wrapper hardening: `golomb_ruler`
-- [ ] Problem wrapper hardening: `griewank`
-- [ ] Problem wrapper hardening: `hock_schittkowski_71`
-- [ ] Problem wrapper hardening: `inventory`
-- [ ] Problem wrapper hardening: `lennard_jones`
-- [ ] Problem wrapper hardening: `luksan_vlcek1`
-- [ ] Problem wrapper hardening: `minlp_rastrigin`
-- [ ] Problem wrapper hardening: `null_problem`
-- [ ] Problem wrapper hardening: `rastrigin`
-- [ ] Problem wrapper hardening: `rosenbrock`
-- [ ] Problem wrapper hardening: `schwefel`
-- [ ] Problem wrapper hardening: `translate`
-- [ ] Problem wrapper hardening: `unconstrain`
-- [ ] Problem wrapper hardening: `wfg`
-- [ ] Problem wrapper hardening: `zdt`
+- [x] Problem wrapper hardening: `ackley`
+- [x] Problem wrapper hardening: `cec2006`
+- [x] Problem wrapper hardening: `cec2009`
+- [x] Problem wrapper hardening: `cec2013`
+- [x] Problem wrapper hardening: `cec2014`
+- [x] Problem wrapper hardening: `decompose`
+- [x] Problem wrapper hardening: `dtlz`
+- [x] Problem wrapper hardening: `golomb_ruler`
+- [x] Problem wrapper hardening: `griewank`
+- [x] Problem wrapper hardening: `hock_schittkowski_71`
+- [x] Problem wrapper hardening: `inventory`
+- [x] Problem wrapper hardening: `lennard_jones`
+- [x] Problem wrapper hardening: `luksan_vlcek1`
+- [x] Problem wrapper hardening: `minlp_rastrigin`
+- [x] Problem wrapper hardening: `null_problem`
+- [x] Problem wrapper hardening: `rastrigin`
+- [x] Problem wrapper hardening: `rosenbrock`
+- [x] Problem wrapper hardening: `schwefel`
+- [x] Problem wrapper hardening: `translate`
+- [x] Problem wrapper hardening: `unconstrain`
+- [x] Problem wrapper hardening: `wfg`
+- [x] Problem wrapper hardening: `zdt`
 - [x] Problem support hardening: `ManagedProblemBase`
 - [x] Problem support hardening: `ProblemCallbackAdapter`
 - [x] Problem support hardening: `problem.sparsity`
@@ -277,6 +277,10 @@ Last updated: 2026-04-06
 - Breadth-first then depth-hardening is intentional for large catalog onboarding.
 - `Problem` remains core and already mature enough to build on.
 - v1.0 stays Windows-first; Linux is explicitly post-release.
+
+
+
+
 
 
 

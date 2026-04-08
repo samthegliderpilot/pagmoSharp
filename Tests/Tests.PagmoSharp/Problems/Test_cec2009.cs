@@ -7,6 +7,18 @@ namespace Tests.PagmoSharp.Problems;
 [TestFixture]
 public class Test_cec2009 : TestProblemBase
 {
+    private static VectorOfVectorOfDoubles SnapshotObjectives(population population)
+    {
+        var points = new VectorOfVectorOfDoubles();
+        using var allFitness = population.get_f();
+        for (var i = 0; i < allFitness.Count; i++)
+        {
+            points.Add(new DoubleVector(new[] { allFitness[i][0], allFitness[i][1] }));
+        }
+
+        return points;
+    }
+
     public override IProblem CreateStandardProblem(uint problemIndex = 0)
     {
         var id = problemIndex == 0 ? 1u : problemIndex;
@@ -48,13 +60,24 @@ public class Test_cec2009 : TestProblemBase
         algorithm.set_seed(41u);
 
         using var initialPopulation = new population(problem, 64u, 101u);
+        using var initialObjectivePoints = SnapshotObjectives(initialPopulation);
+        using var initialIdeal = pagmo.pagmo.ideal(initialObjectivePoints);
+
         using var evolvedPopulation = algorithm.evolve(initialPopulation);
         using var allFitness = evolvedPopulation.get_f();
         using var allDecisionVectors = evolvedPopulation.get_x();
+        using var evolvedObjectivePoints = SnapshotObjectives(evolvedPopulation);
+        using var evolvedIdeal = pagmo.pagmo.ideal(evolvedObjectivePoints);
 
         Assert.AreEqual(64, allFitness.Count);
         Assert.AreEqual(64, allDecisionVectors.Count);
         Assert.AreEqual(2, allFitness[0].Count);
+        Assert.That(evolvedIdeal[0], Is.LessThanOrEqualTo(initialIdeal[0] + 1e-12));
+        Assert.That(evolvedIdeal[1], Is.LessThanOrEqualTo(initialIdeal[1] + 1e-12));
+        Assert.That(
+            evolvedIdeal[0] < initialIdeal[0] - 1e-9 || evolvedIdeal[1] < initialIdeal[1] - 1e-9,
+            Is.True,
+            "evolution should improve at least one ideal-point objective");
 
         using var bounds = problem.get_bounds();
         for (var individualIdx = 0; individualIdx < allDecisionVectors.Count; individualIdx++)

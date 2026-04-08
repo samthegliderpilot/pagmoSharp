@@ -46,8 +46,11 @@ public class Test_minlp_Rastrigin : TestProblemBase
         using (var pop = new population(problemBase, 1024))
         {
             algorithm.set_seed(2); // for consistent results
+            using var initialProblem = pop.get_problem();
+            var initialFevals = initialProblem.get_fevals();
 
             using var finalpop = algorithm.evolve(pop);
+            using var evolvedProblem = finalpop.get_problem();
             using var championDecisionVector = finalpop.champion_x();
             using var championFitness = finalpop.champion_f();
             var champX = championDecisionVector.ToArray();
@@ -58,6 +61,7 @@ public class Test_minlp_Rastrigin : TestProblemBase
 
             Assert.AreEqual(1, champF.Length, "1 in f(x)");
             Assert.AreEqual(25.000003609857814, champF[0], 1e-3, "optimal function value");
+            Assert.Greater(evolvedProblem.get_fevals(), initialFevals, "evolution should trigger additional function evaluations");
             
         }
     }

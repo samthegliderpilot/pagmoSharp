@@ -60,6 +60,8 @@ public class Test_rastrigin : TestProblemBase
         algorithm.set_seed(7u);
 
         using var initialPopulation = new population(problem, 30u, 12u);
+        using var initialChampionFitness = initialPopulation.champion_f();
+        var initialBest = initialChampionFitness[0];
         using var evolvedPopulation = algorithm.evolve(initialPopulation);
         using var championX = evolvedPopulation.champion_x();
         using var championF = evolvedPopulation.champion_f();
@@ -73,6 +75,8 @@ public class Test_rastrigin : TestProblemBase
             Assert.GreaterOrEqual(championX[i], bounds.first[i]);
             Assert.LessOrEqual(championX[i], bounds.second[i]);
         }
+
+        Assert.LessOrEqual(championF[0], initialBest + 1e-12, "evolution should not worsen champion fitness");
     }
 }
 

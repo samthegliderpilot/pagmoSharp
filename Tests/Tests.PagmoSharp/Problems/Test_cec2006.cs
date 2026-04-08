@@ -49,8 +49,11 @@ namespace Tests.PagmoSharp.Problems
             using (var pop = new population(problemBase, 1024))
             {
                 algorithm.set_seed(2); // for consistent results
+                using var initialProblem = pop.get_problem();
+                var initialFevals = initialProblem.get_fevals();
                 
                 using var finalpop = algorithm.evolve(pop);
+                using var finalProblem = finalpop.get_problem();
                 using var championDecisionVector = finalpop.champion_x();
                 using var championFitness = finalpop.champion_f();
                 var champX = championDecisionVector.ToArray();
@@ -60,6 +63,7 @@ namespace Tests.PagmoSharp.Problems
                 Assert.AreEqual(0.99708444960275089, champX[1], 1.0, "1.0 for second x value");
                 // this function is hard to optimize (that's the point), are we anywhere close?
                 Assert.AreEqual(10, champF.Length, "1 in f(x)");
+                Assert.Greater(finalProblem.get_fevals(), initialFevals, "evolution should trigger additional function evaluations");
                 Assert.AreEqual(-12.45437350584859d, champF[0], 2.0, "optimal function value");
 
             }

@@ -28,6 +28,18 @@ public class Test_null_problem : TestProblemBase
     [Test]
     public override void TestOptimizing()
     {
+        using var optimizeProblem = new null_problem(1, 0, 0, 0);
+        using var algorithm = new de(8u);
+        algorithm.set_seed(11u);
+        using var population = new population(optimizeProblem, 16u, 19u);
+        using var initialProblem = population.get_problem();
+        var initialFevals = initialProblem.get_fevals();
+        using var evolvedPopulation = algorithm.evolve(population);
+        using var evolvedProblem = evolvedPopulation.get_problem();
+
+        Assert.AreEqual(population.size(), evolvedPopulation.size());
+        Assert.Greater(evolvedProblem.get_fevals(), initialFevals, "evolution should trigger additional function evaluations");
+
         using var problem = new null_problem(3, 2, 1, 0);
         using var bounds = problem.get_bounds();
         using var x = new DoubleVector(bounds.first.Count);

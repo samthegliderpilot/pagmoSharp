@@ -42,13 +42,17 @@ public class Test_dtlz : TestProblemBase
         algorithm.set_seed(211u);
 
         using var initialPopulation = new population(problem, 64u, 37u);
+        using var initialProblem = initialPopulation.get_problem();
+        var initialFevals = initialProblem.get_fevals();
         using var evolvedPopulation = algorithm.evolve(initialPopulation);
+        using var evolvedProblem = evolvedPopulation.get_problem();
         using var allFitness = evolvedPopulation.get_f();
         using var allDecisionVectors = evolvedPopulation.get_x();
 
         Assert.AreEqual(64, allFitness.Count);
         Assert.AreEqual(64, allDecisionVectors.Count);
         Assert.AreEqual(3, allFitness[0].Count);
+        Assert.Greater(evolvedProblem.get_fevals(), initialFevals, "evolution should trigger additional function evaluations");
 
         using var bounds = problem.get_bounds();
         for (var individualIdx = 0; individualIdx < allDecisionVectors.Count; individualIdx++)

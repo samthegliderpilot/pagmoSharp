@@ -56,6 +56,8 @@ public class Test_rosenbrock : TestProblemBase
         algorithm.set_seed(42u);
 
         using var initialPopulation = new population(problem, 24u, 99u);
+        using var initialChampionFitness = initialPopulation.champion_f();
+        var initialBest = initialChampionFitness[0];
         using var evolvedPopulation = algorithm.evolve(initialPopulation);
         using var championX = evolvedPopulation.champion_x();
         using var championF = evolvedPopulation.champion_f();
@@ -69,5 +71,7 @@ public class Test_rosenbrock : TestProblemBase
             Assert.GreaterOrEqual(championX[i], bounds.first[i]);
             Assert.LessOrEqual(championX[i], bounds.second[i]);
         }
+
+        Assert.LessOrEqual(championF[0], initialBest + 1e-12, "evolution should not worsen champion fitness");
     }
 }

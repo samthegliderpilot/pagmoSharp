@@ -49,14 +49,18 @@ namespace Tests.PagmoSharp.Problems
             algorithm.set_seed(2);
             using (var pop = new population(problemBase, 128))
             {
-                using var injected = new DoubleVector(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30);
-                pop.set_x(0, injected);
-                algorithm.set_seed(2); // for consistent results
+            using var injected = new DoubleVector(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30);
+            pop.set_x(0, injected);
+            algorithm.set_seed(2); // for consistent results
+            using var initialProblem = pop.get_problem();
+            var initialFevals = initialProblem.get_fevals();
 
-                using var finalpop = algorithm.evolve(pop);
-                Assert.AreEqual(pop.size(), finalpop.size(), "population size should be preserved by evolve()");
+            using var finalpop = algorithm.evolve(pop);
+            using var evolvedProblem = finalpop.get_problem();
+            Assert.AreEqual(pop.size(), finalpop.size(), "population size should be preserved by evolve()");
+            Assert.Greater(evolvedProblem.get_fevals(), initialFevals, "evolution should trigger additional function evaluations");
 
-                using var evolvedFitness = finalpop.get_f();
+            using var evolvedFitness = finalpop.get_f();
                 using var sorting = pagmo.pagmo.FastNonDominatedSorting(evolvedFitness);
                 Assert.That(sorting.fronts, Is.Not.Null);
                 Assert.GreaterOrEqual(sorting.fronts.Count, 1, "non-dominated sorting should return at least one front");

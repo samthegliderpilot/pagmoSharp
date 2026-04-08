@@ -47,12 +47,16 @@ public class Test_lennard_jones : TestProblemBase
         algorithm.set_seed(29u);
 
         using var initialPopulation = new population(problem, 30u, 333u);
+        using var initialProblem = initialPopulation.get_problem();
+        var initialFevals = initialProblem.get_fevals();
         using var evolvedPopulation = algorithm.evolve(initialPopulation);
+        using var evolvedProblem = evolvedPopulation.get_problem();
         using var championX = evolvedPopulation.champion_x();
         using var championF = evolvedPopulation.champion_f();
 
         Assert.AreEqual(3, championX.Count);
         Assert.AreEqual(1, championF.Count);
+        Assert.Greater(evolvedProblem.get_fevals(), initialFevals, "evolution should trigger additional function evaluations");
 
         using var bounds = problem.get_bounds();
         for (var i = 0; i < championX.Count; i++)

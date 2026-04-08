@@ -38,12 +38,16 @@ public class Test_decompose : TestProblemBase
         algorithm.set_seed(307u);
 
         using var initialPopulation = new population(problem, 64u, 59u);
+        using var initialProblem = initialPopulation.get_problem();
+        var initialFevals = initialProblem.get_fevals();
         using var evolvedPopulation = algorithm.evolve(initialPopulation);
+        using var evolvedProblem = evolvedPopulation.get_problem();
         using var championDecisionVector = evolvedPopulation.champion_x();
         using var championFitness = evolvedPopulation.champion_f();
 
         Assert.AreEqual(30, championDecisionVector.Count);
         Assert.AreEqual(1, championFitness.Count);
+        Assert.Greater(evolvedProblem.get_fevals(), initialFevals, "evolution should trigger additional function evaluations");
 
         using var concreteProblem = (decompose)problem;
         using var originalFitness = concreteProblem.original_fitness(championDecisionVector);

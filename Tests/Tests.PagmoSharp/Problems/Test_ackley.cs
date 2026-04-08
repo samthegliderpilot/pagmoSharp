@@ -36,6 +36,8 @@ public class Test_ackley : TestProblemBase
         using (var pop = new population(problemBase, 1024))
         {
             algorithm.set_seed(2); // for consistent results
+            using var initialChampionFitness = pop.champion_f();
+            var initialBest = initialChampionFitness[0];
 
             using var finalpop = algorithm.evolve(pop);
             using var championDecisionVector = finalpop.champion_x();
@@ -47,6 +49,7 @@ public class Test_ackley : TestProblemBase
             Assert.AreEqual(0, champX[1], 1e-3, "2.0 for second x value");
 
             Assert.AreEqual(1, champF.Length, "1 in f(x)");
+            Assert.LessOrEqual(champF[0], initialBest + 1e-12, "evolution should not worsen champion fitness");
             Assert.AreEqual(0.00010319491007537707, champF[0], 1e-3, "optimal function value");
 
         }
