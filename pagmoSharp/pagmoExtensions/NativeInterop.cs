@@ -162,6 +162,11 @@ namespace pagmo
             IProblem problem,
             out ProblemCallbackAdapter callbackAdapter)
         {
+            if (problem == null)
+            {
+                throw new ArgumentNullException(nameof(problem));
+            }
+
             callbackAdapter = new ProblemCallbackAdapter(problem);
             var callback = callbackAdapter;
             var callbackPtr = problem_callback.swigRelease(callback).Handle;

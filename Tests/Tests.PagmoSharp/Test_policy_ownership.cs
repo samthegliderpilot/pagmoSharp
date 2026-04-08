@@ -68,7 +68,8 @@ public class Test_policy_ownership
     {
         var basePolicy = new ManagedReplacementPolicy();
         basePolicy.Dispose();
-        Assert.Throws<ApplicationException>(() => new r_policy(basePolicy));
+        var ex = Assert.Throws<ObjectDisposedException>(() => new r_policy(basePolicy));
+        Assert.That(ex!.ObjectName, Is.EqualTo("basePolicy"));
     }
 
     [Test]
@@ -76,6 +77,7 @@ public class Test_policy_ownership
     {
         var basePolicy = new ManagedSelectionPolicy();
         basePolicy.Dispose();
-        Assert.Throws<ApplicationException>(() => new s_policy(basePolicy));
+        var ex = Assert.Throws<ObjectDisposedException>(() => new s_policy(basePolicy));
+        Assert.That(ex!.ObjectName, Is.EqualTo("basePolicy"));
     }
 }

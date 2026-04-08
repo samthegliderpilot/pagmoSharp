@@ -32,7 +32,18 @@ public sealed class r_policy : r_policyPagmoWrapper
             throw new ArgumentNullException(nameof(basePolicy));
         }
 
+        var currentPtr = r_policyBase.getCPtr(basePolicy);
+        if (currentPtr.Handle == IntPtr.Zero)
+        {
+            throw new ObjectDisposedException(nameof(basePolicy), "The provided replacement policy has already been disposed.");
+        }
+
         var released = r_policyBase.swigRelease(basePolicy);
+        if (released.Handle == IntPtr.Zero)
+        {
+            throw new ObjectDisposedException(nameof(basePolicy), "The provided replacement policy could not transfer ownership.");
+        }
+
         return new r_policyBase(released.Handle, false);
     }
 

@@ -131,6 +131,7 @@ Last updated: 2026-04-06
 - [x] Added GradientsAndHessians size_t projection slice: EstimateSparsityEntries(problem/IProblem, ...) returning typed SparsityIndex[], with dedicated regression assertions in Test_gradients_and_hessians.
 - [x] Hardened gradient/sparsity helper contracts with explicit null-argument validation in GradientsAndHessians + sparsity projection paths, and expanded tests for high-order gradient behavior and null-argument coverage.
 - [x] Hardened threaded managed-problem contract guard (IProblemThreadingExtensions.ThrowIfNotThreadSafe) with explicit null-argument handling and problem-name context in failure messages; added BFE regressions for null/thread-safety-none behavior.
+- [x] Hardened core interop facades (`DoubleVector`, `r_policy`, `s_policy`, `bfe`, `NativeInterop`, `ProblemHandle`) with explicit null/disposed argument contracts, removed DoubleVector params-LINQ overhead path, and added regression coverage for policy ownership disposal, BFE null-input behavior, and DoubleVector constructor semantics.
 - [x] Completed algorithm-log projection sweep for all active wrapped algorithms that expose logs in v1 surface (`bee_colony`, `compass_search`, `cmaes`, `cstrs_self_adaptive`, `de`, `de1220`, `gaco`, `gwo`, `ihs`, `maco`, `mbh`, `moead`, `moead_gen`, `nsga2`, `nspso`, `pso`, `pso_gen`, `sade`, `sea`, `sga`, `simulated_annealing`, `xnes`), with universal `IAlgorithm.GetLogLines()` plus typed `GetTypedLogLines()` surfaces and shared evolve-path log assertions.
 - [x] Hardened algorithm support contracts: refactored AlgorithmInterop.NormalizeToTypeErased to exhaustive switch-dispatch with explicit managed-only grid_search guidance, added regression for grid_search log-default + type-erased rejection path, and completed IAlgorithm contract documentation cleanup.
 - [x] Removed raw tuple-based algorithm log leakage from generated APIs by ignoring direct `get_log()` on active algorithm wrappers and retaining only typed log projection surfaces (`get_log_entries` / `GetTypedLogLines` / `GetLogLines`).
@@ -162,12 +163,12 @@ Last updated: 2026-04-06
 - [ ] Core facade hardening: `island`
 - [ ] Core facade hardening: `archipelago`
 - [x] Core facade hardening: `topology`
-- [ ] Core facade hardening: `r_policy`
-- [ ] Core facade hardening: `s_policy`
-- [ ] Core facade hardening: `bfe`
-- [ ] Core facade hardening: `DoubleVector`
-- [ ] Core facade hardening: `NativeInterop`
-- [ ] Core facade hardening: `Interop/ProblemHandle`
+- [x] Core facade hardening: `r_policy`
+- [x] Core facade hardening: `s_policy`
+- [x] Core facade hardening: `bfe`
+- [x] Core facade hardening: `DoubleVector`
+- [x] Core facade hardening: `NativeInterop`
+- [x] Core facade hardening: `Interop/ProblemHandle`
 - [x] Utility hardening: `GradientsAndHessians`
 - [x] Utility hardening: `multi_objective.projections`
 - [x] Topology hardening: `unconnected`
@@ -268,6 +269,7 @@ Last updated: 2026-04-06
 - Breadth-first then depth-hardening is intentional for large catalog onboarding.
 - `Problem` remains core and already mature enough to build on.
 - v1.0 stays Windows-first; Linux is explicitly post-release.
+
 
 
 

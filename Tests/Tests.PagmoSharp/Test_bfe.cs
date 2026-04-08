@@ -34,6 +34,20 @@ namespace Tests.PagmoSharp
         }
 
         [Test]
+        public void TestDefaultBfeRejectsNullInputs()
+        {
+            using var evaluator = new default_bfe();
+            using var problem = new TwoDimensionalSingleObjectiveProblemWrapper();
+            using var batch = new DoubleVector(new[] { 1.0, 2.0 });
+
+            var nullProblemEx = Assert.Throws<ArgumentNullException>(() => evaluator.Operator(null, batch));
+            Assert.That(nullProblemEx!.ParamName, Is.EqualTo("problem"));
+
+            var nullBatchEx = Assert.Throws<ArgumentNullException>(() => evaluator.Operator(problem, null));
+            Assert.That(nullBatchEx!.ParamName, Is.EqualTo("batchX"));
+        }
+
+        [Test]
         public void TestThreadBfe()
         {
             var usedMultipleThreads = false;

@@ -12,6 +12,11 @@ internal sealed class ProblemHandle : SafeHandle
     internal ProblemHandle(IntPtr handle)
         : base(IntPtr.Zero, ownsHandle: true)
     {
+        if (handle == IntPtr.Zero)
+        {
+            throw new ArgumentException("Problem handle cannot be zero.", nameof(handle));
+        }
+
         SetHandle(handle);
     }
 

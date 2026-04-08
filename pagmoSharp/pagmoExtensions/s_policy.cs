@@ -32,7 +32,18 @@ public sealed class s_policy : s_policyPagmoWrapper
             throw new ArgumentNullException(nameof(basePolicy));
         }
 
+        var currentPtr = s_policyBase.getCPtr(basePolicy);
+        if (currentPtr.Handle == IntPtr.Zero)
+        {
+            throw new ObjectDisposedException(nameof(basePolicy), "The provided selection policy has already been disposed.");
+        }
+
         var released = s_policyBase.swigRelease(basePolicy);
+        if (released.Handle == IntPtr.Zero)
+        {
+            throw new ObjectDisposedException(nameof(basePolicy), "The provided selection policy could not transfer ownership.");
+        }
+
         return new s_policyBase(released.Handle, false);
     }
 

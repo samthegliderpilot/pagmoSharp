@@ -1,13 +1,13 @@
-﻿using System.Linq;
+using System;
+using System.Collections.Generic;
 
 namespace pagmo
 {
     public partial class DoubleVector
     {
         public DoubleVector(params double[] values)
-        :this(values.AsEnumerable()) //TODO: Better performance somehow?
+            : this((IEnumerable<double>)(values ?? throw new ArgumentNullException(nameof(values))))
         {
-            
         }
     }
 }

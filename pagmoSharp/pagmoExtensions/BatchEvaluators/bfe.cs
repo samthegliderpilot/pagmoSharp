@@ -32,6 +32,21 @@ namespace pagmo
     {
         internal static DoubleVector BatchEvaluate(IProblem problem, DoubleVector batchX, BfeOperator op, IntPtr bfePtr, bool requiresParallelSafety)
         {
+            if (problem == null)
+            {
+                throw new ArgumentNullException(nameof(problem));
+            }
+
+            if (batchX == null)
+            {
+                throw new ArgumentNullException(nameof(batchX));
+            }
+
+            if (op == null)
+            {
+                throw new ArgumentNullException(nameof(op));
+            }
+
             if (requiresParallelSafety)
             {
                 problem.ThrowIfNotThreadSafe();
