@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net6.0</TargetFramework>
+    <PlatformTarget>x64</PlatformTarget>
+    <Platforms>x64</Platforms>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <PagmoWrapperBinDir>$([System.IO.Path]::GetFullPath('$(MSBuildProjectDirectory)\..\..\pagmoWrapper\pagmoWrapper\bin'))</PagmoWrapperBinDir>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\pagmoSharp\pagmoSharp.csproj" />
+  </ItemGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent" Condition="Exists('$(PagmoWrapperBinDir)')">
+    <Exec Command="xcopy /Y /I /E &quot;$(PagmoWrapperBinDir)\*&quot; &quot;$(TargetDir)&quot;" />
+  </Target>
+
+</Project>

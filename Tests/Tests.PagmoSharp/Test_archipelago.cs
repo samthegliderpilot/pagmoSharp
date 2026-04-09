@@ -258,5 +258,43 @@ namespace Tests.PagmoSharp
             Assert.AreEqual(migrant_handling.evict, archi.get_migrant_handling());
             Assert.AreEqual("Ring", archi.get_topology_name());
         }
+
+        [Test]
+        public void KnownIssue_PreconfiguredRingTopologyBreaksWaitCheckAfterIslandInsertion()
+        {
+            using var archi = new archipelago();
+            using var ringTopo = new ring(8, 0.7);
+            using var problem = new TwoDimensionalSingleObjectiveProblemWrapper();
+
+            archi.set_topology_ring(ringTopo);
+            for (var i = 0; i < 8; i++)
+            {
+                using IAlgorithm algorithm = new de(20u, 0.8, 0.9, 2u, 1e-6, 1e-6, (uint)(100 + i));
+                archi.push_back_island(algorithm, problem, 24u, (uint)(200 + i));
+            }
+
+            archi.evolve(1u);
+            var ex = Assert.Throws<ApplicationException>(() => archi.wait_check());
+            Assert.That(ex!.Message, Does.Contain("cannot access the migrants of the island"));
+        }
+
+        [Test]
+        public void SetTopologyUnconnectedAfterInsertionRemainsRuntimeSafe()
+        {
+            using var archi = new archipelago();
+            using var problem = new TwoDimensionalSingleObjectiveProblemWrapper();
+            using var topology = new unconnected();
+            for (var i = 0; i < 4; i++)
+            {
+                using IAlgorithm algorithm = new de(20u, 0.8, 0.9, 2u, 1e-6, 1e-6, (uint)(123 + i));
+                archi.push_back_island(algorithm, problem, 24u, (uint)(77 + i));
+            }
+            archi.set_topology_unconnected(topology);
+
+            archi.evolve(1u);
+            Assert.DoesNotThrow(() => archi.wait_check());
+            Assert.That(archi.status(), Is.EqualTo(evolve_status.idle));
+            Assert.That(archi.get_topology_name(), Is.EqualTo("Unconnected"));
+        }
     }
 }

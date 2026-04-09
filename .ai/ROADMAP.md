@@ -239,7 +239,9 @@ Last updated: 2026-04-08
 - [x] Sprint 3B closure: deferred all remaining IPOPT-specific work to Sprint 4.
 
 6. **Sprint 4: Documentation + Samples**
-- [x] C#-first docs, quickstart, and canonical runnable examples.
+- [x] C#-first docs with canonical runnable examples (dedicated example files/projects).
+- [x] Added runnable non-test teaching project: `Examples/Examples.PagmoSharp` (single-island baseline, archipelago topology comparison, policy comparison).
+- [x] README includes C# quickstart snippet and usage notes for core managed flows.
 - [x] Publish a supported-feature matrix by build/environment (for example optional algorithm availability such as IPOPT/NLopt).
 - [x] Perform an exception-usage audit across managed/native wrapper layers to verify existing code is surfacing actionable exceptions consistently and not silently swallowing failure context.
 - [x] Review high-overload managed API surfaces (`archipelago` + `island`) and remove non-essential overloads while preserving a small canonical core plus compatibility shims where needed.

@@ -133,13 +133,35 @@ Notes:
 - Use `island.Create(...)` for single-island runs and `archipelago.push_back_island(...)` for multi-island orchestration.
 - When using threaded paths (`thread_bfe`, `archipelago` with managed UDPs), managed problems must report `thread_safety.basic` or `thread_safety.constant`.
 
+## Runnable examples
+
+A dedicated non-test examples project is available at `Examples/Examples.PagmoSharp`.
+
+Run all scenarios:
+
+```powershell
+dotnet run --project Examples/Examples.PagmoSharp/Examples.PagmoSharp.csproj -- all
+```
+
+Run individual scenarios:
+
+```powershell
+dotnet run --project Examples/Examples.PagmoSharp/Examples.PagmoSharp.csproj -- single
+dotnet run --project Examples/Examples.PagmoSharp/Examples.PagmoSharp.csproj -- archipelago
+dotnet run --project Examples/Examples.PagmoSharp/Examples.PagmoSharp.csproj -- policies
+```
+
+These examples are intentionally half API walkthrough and half optimization-structure teaching:
+- `single`: one-island baseline.
+- `archipelago`: topology connectivity intuition (`ring` vs `unconnected`) and single-island vs archipelago multi-start comparison.
+- `policies`: default policy wiring vs explicit `fair_replace` + `select_best` wiring through archipelago APIs.
 ## Supported feature matrix (current state)
 
 | Area | Status | Notes |
 |---|---|---|
 | Managed C# UDP (`IProblem` / `ManagedProblemBase`) | Supported | Core path for v1.0; callback lifetime and exception bubbling are covered by tests. |
 | Type-erased `IAlgorithm` interop in island/archipelago paths | Supported | Bridged via `AlgorithmInterop` for wrapped algorithms in scope. |
-| Core runtime orchestration (`population`, `island`, `archipelago`) | Supported | Managed-problem + policy + topology runtime paths are covered. |
+| Core runtime orchestration (`population`, `island`, `archipelago`) | Supported (with known topology caveat) | Managed-problem and policy runtime paths are covered; archipelago `set_topology_*` runtime mutation has a tracked issue in Sprint 4. |
 | Managed policy extensibility (`r_policyBase`, `s_policyBase`) | Supported | Direct managed-policy entrypoints are available on island/archipelago helpers. |
 | Topology wrappers (`ring`, `fully_connected`, `unconnected`, `free_form`) | Supported | Managed projection helpers are provided and tested. |
 | Optional solver wrapper (`ipopt`) | Feature-gated | Build-dependent; availability is asserted by test, runtime hardening pending IPOPT-enabled environment. |
@@ -160,4 +182,6 @@ Notes:
 - Managed extension helpers prefer C#-style PascalCase where practical.
 - Existing snake_case runtime entrypoints are retained for pagmo parity/compatibility.
 - See .ai/API_NAMING_POLICY.md for the detailed policy and compatibility approach.
+
+
 
