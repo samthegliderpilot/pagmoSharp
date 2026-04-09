@@ -225,6 +225,18 @@ class pagmoPINVOKE {
   }
 
 
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_PAGMO_VERSION_get")]
+  public static extern string PAGMO_VERSION_get();
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_PAGMO_VERSION_MAJOR_get")]
+  public static extern int PAGMO_VERSION_MAJOR_get();
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_PAGMO_VERSION_MINOR_get")]
+  public static extern int PAGMO_VERSION_MINOR_get();
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_PAGMO_VERSION_PATCH_get")]
+  public static extern int PAGMO_VERSION_PATCH_get();
+
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_IndividualsGroup_ids_set")]
   public static extern void IndividualsGroup_ids_set(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
 
@@ -555,6 +567,78 @@ class pagmoPINVOKE {
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_delete_CompassSearchLogEntry")]
   public static extern void delete_CompassSearchLogEntry(global::System.Runtime.InteropServices.HandleRef jarg1);
 
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_NloptLogEntry_fevals_set")]
+  public static extern void NloptLogEntry_fevals_set(global::System.Runtime.InteropServices.HandleRef jarg1, ulong jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_NloptLogEntry_fevals_get")]
+  public static extern ulong NloptLogEntry_fevals_get(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_NloptLogEntry_objective_set")]
+  public static extern void NloptLogEntry_objective_set(global::System.Runtime.InteropServices.HandleRef jarg1, double jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_NloptLogEntry_objective_get")]
+  public static extern double NloptLogEntry_objective_get(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_NloptLogEntry_violated_set")]
+  public static extern void NloptLogEntry_violated_set(global::System.Runtime.InteropServices.HandleRef jarg1, ulong jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_NloptLogEntry_violated_get")]
+  public static extern ulong NloptLogEntry_violated_get(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_NloptLogEntry_violation_norm_set")]
+  public static extern void NloptLogEntry_violation_norm_set(global::System.Runtime.InteropServices.HandleRef jarg1, double jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_NloptLogEntry_violation_norm_get")]
+  public static extern double NloptLogEntry_violation_norm_get(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_NloptLogEntry_feasible_set")]
+  public static extern void NloptLogEntry_feasible_set(global::System.Runtime.InteropServices.HandleRef jarg1, bool jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_NloptLogEntry_feasible_get")]
+  public static extern bool NloptLogEntry_feasible_get(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_new_NloptLogEntry")]
+  public static extern global::System.IntPtr new_NloptLogEntry();
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_delete_NloptLogEntry")]
+  public static extern void delete_NloptLogEntry(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_IpoptLogEntry_objective_evaluations_set")]
+  public static extern void IpoptLogEntry_objective_evaluations_set(global::System.Runtime.InteropServices.HandleRef jarg1, ulong jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_IpoptLogEntry_objective_evaluations_get")]
+  public static extern ulong IpoptLogEntry_objective_evaluations_get(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_IpoptLogEntry_objective_set")]
+  public static extern void IpoptLogEntry_objective_set(global::System.Runtime.InteropServices.HandleRef jarg1, double jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_IpoptLogEntry_objective_get")]
+  public static extern double IpoptLogEntry_objective_get(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_IpoptLogEntry_violated_set")]
+  public static extern void IpoptLogEntry_violated_set(global::System.Runtime.InteropServices.HandleRef jarg1, ulong jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_IpoptLogEntry_violated_get")]
+  public static extern ulong IpoptLogEntry_violated_get(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_IpoptLogEntry_violation_norm_set")]
+  public static extern void IpoptLogEntry_violation_norm_set(global::System.Runtime.InteropServices.HandleRef jarg1, double jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_IpoptLogEntry_violation_norm_get")]
+  public static extern double IpoptLogEntry_violation_norm_get(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_IpoptLogEntry_feasible_set")]
+  public static extern void IpoptLogEntry_feasible_set(global::System.Runtime.InteropServices.HandleRef jarg1, bool jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_IpoptLogEntry_feasible_get")]
+  public static extern bool IpoptLogEntry_feasible_get(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_new_IpoptLogEntry")]
+  public static extern global::System.IntPtr new_IpoptLogEntry();
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_delete_IpoptLogEntry")]
+  public static extern void delete_IpoptLogEntry(global::System.Runtime.InteropServices.HandleRef jarg1);
+
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_SimulatedAnnealingLogEntry_fevals_set")]
   public static extern void SimulatedAnnealingLogEntry_fevals_set(global::System.Runtime.InteropServices.HandleRef jarg1, ulong jarg2);
 
@@ -737,6 +821,9 @@ class pagmoPINVOKE {
 
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_CompassSearch_GetLogEntries")]
   public static extern global::System.IntPtr CompassSearch_GetLogEntries(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_Nlopt_GetLogEntries")]
+  public static extern global::System.IntPtr Nlopt_GetLogEntries(global::System.Runtime.InteropServices.HandleRef jarg1);
 
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_SimulatedAnnealing_GetLogEntries")]
   public static extern global::System.IntPtr SimulatedAnnealing_GetLogEntries(global::System.Runtime.InteropServices.HandleRef jarg1);
@@ -2708,6 +2795,75 @@ class pagmoPINVOKE {
 
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_delete_CompassSearchLogEntryVector")]
   public static extern void delete_CompassSearchLogEntryVector(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_new_NloptLogEntryVector__SWIG_0")]
+  public static extern global::System.IntPtr new_NloptLogEntryVector__SWIG_0();
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_new_NloptLogEntryVector__SWIG_1")]
+  public static extern global::System.IntPtr new_NloptLogEntryVector__SWIG_1(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_NloptLogEntryVector_Clear")]
+  public static extern void NloptLogEntryVector_Clear(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_NloptLogEntryVector_Add")]
+  public static extern void NloptLogEntryVector_Add(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_NloptLogEntryVector_size")]
+  public static extern uint NloptLogEntryVector_size(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_NloptLogEntryVector_empty")]
+  public static extern bool NloptLogEntryVector_empty(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_NloptLogEntryVector_capacity")]
+  public static extern uint NloptLogEntryVector_capacity(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_NloptLogEntryVector_reserve")]
+  public static extern void NloptLogEntryVector_reserve(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_new_NloptLogEntryVector__SWIG_2")]
+  public static extern global::System.IntPtr new_NloptLogEntryVector__SWIG_2(int jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_NloptLogEntryVector_getitemcopy")]
+  public static extern global::System.IntPtr NloptLogEntryVector_getitemcopy(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_NloptLogEntryVector_getitem")]
+  public static extern global::System.IntPtr NloptLogEntryVector_getitem(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_NloptLogEntryVector_setitem")]
+  public static extern void NloptLogEntryVector_setitem(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_NloptLogEntryVector_AddRange")]
+  public static extern void NloptLogEntryVector_AddRange(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_NloptLogEntryVector_GetRange")]
+  public static extern global::System.IntPtr NloptLogEntryVector_GetRange(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, int jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_NloptLogEntryVector_Insert")]
+  public static extern void NloptLogEntryVector_Insert(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_NloptLogEntryVector_InsertRange")]
+  public static extern void NloptLogEntryVector_InsertRange(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_NloptLogEntryVector_RemoveAt")]
+  public static extern void NloptLogEntryVector_RemoveAt(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_NloptLogEntryVector_RemoveRange")]
+  public static extern void NloptLogEntryVector_RemoveRange(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, int jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_NloptLogEntryVector_Repeat")]
+  public static extern global::System.IntPtr NloptLogEntryVector_Repeat(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_NloptLogEntryVector_Reverse__SWIG_0")]
+  public static extern void NloptLogEntryVector_Reverse__SWIG_0(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_NloptLogEntryVector_Reverse__SWIG_1")]
+  public static extern void NloptLogEntryVector_Reverse__SWIG_1(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, int jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_NloptLogEntryVector_SetRange")]
+  public static extern void NloptLogEntryVector_SetRange(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_delete_NloptLogEntryVector")]
+  public static extern void delete_NloptLogEntryVector(global::System.Runtime.InteropServices.HandleRef jarg1);
 
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_new_SimulatedAnnealingLogEntryVector__SWIG_0")]
   public static extern global::System.IntPtr new_SimulatedAnnealingLogEntryVector__SWIG_0();
@@ -4799,6 +4955,90 @@ class pagmoPINVOKE {
 
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_delete_gwo")]
   public static extern void delete_gwo(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_new_nlopt__SWIG_0")]
+  public static extern global::System.IntPtr new_nlopt__SWIG_0();
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_new_nlopt__SWIG_1")]
+  public static extern global::System.IntPtr new_nlopt__SWIG_1(string jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_new_nlopt__SWIG_2")]
+  public static extern global::System.IntPtr new_nlopt__SWIG_2(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_nlopt_evolve")]
+  public static extern global::System.IntPtr nlopt_evolve(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_nlopt_get_name")]
+  public static extern string nlopt_get_name(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_nlopt_set_verbosity")]
+  public static extern void nlopt_set_verbosity(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_nlopt_get_extra_info")]
+  public static extern string nlopt_get_extra_info(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_nlopt_get_solver_name")]
+  public static extern string nlopt_get_solver_name(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_nlopt_get_last_opt_result")]
+  public static extern global::System.IntPtr nlopt_get_last_opt_result(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_nlopt_get_stopval")]
+  public static extern double nlopt_get_stopval(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_nlopt_set_stopval")]
+  public static extern void nlopt_set_stopval(global::System.Runtime.InteropServices.HandleRef jarg1, double jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_nlopt_get_ftol_rel")]
+  public static extern double nlopt_get_ftol_rel(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_nlopt_set_ftol_rel")]
+  public static extern void nlopt_set_ftol_rel(global::System.Runtime.InteropServices.HandleRef jarg1, double jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_nlopt_get_ftol_abs")]
+  public static extern double nlopt_get_ftol_abs(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_nlopt_set_ftol_abs")]
+  public static extern void nlopt_set_ftol_abs(global::System.Runtime.InteropServices.HandleRef jarg1, double jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_nlopt_get_xtol_rel")]
+  public static extern double nlopt_get_xtol_rel(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_nlopt_set_xtol_rel")]
+  public static extern void nlopt_set_xtol_rel(global::System.Runtime.InteropServices.HandleRef jarg1, double jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_nlopt_get_xtol_abs")]
+  public static extern double nlopt_get_xtol_abs(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_nlopt_set_xtol_abs")]
+  public static extern void nlopt_set_xtol_abs(global::System.Runtime.InteropServices.HandleRef jarg1, double jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_nlopt_get_maxeval")]
+  public static extern int nlopt_get_maxeval(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_nlopt_set_maxeval")]
+  public static extern void nlopt_set_maxeval(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_nlopt_get_maxtime")]
+  public static extern int nlopt_get_maxtime(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_nlopt_set_maxtime")]
+  public static extern void nlopt_set_maxtime(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_nlopt_get_local_optimizer__SWIG_0")]
+  public static extern global::System.IntPtr nlopt_get_local_optimizer__SWIG_0(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_nlopt_unset_local_optimizer")]
+  public static extern void nlopt_unset_local_optimizer(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_nlopt_get_log_entries")]
+  public static extern global::System.IntPtr nlopt_get_log_entries(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_nlopt_to_algorithm")]
+  public static extern global::System.IntPtr nlopt_to_algorithm(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_delete_nlopt")]
+  public static extern void delete_nlopt(global::System.Runtime.InteropServices.HandleRef jarg1);
 
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_new_not_population_based")]
   public static extern global::System.IntPtr new_not_population_based();

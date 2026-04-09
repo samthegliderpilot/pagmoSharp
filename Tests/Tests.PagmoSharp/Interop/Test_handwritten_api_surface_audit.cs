@@ -139,6 +139,82 @@ public class Test_handwritten_api_surface_audit
             "NativeInterop.problem_delete should only be called by centralized ownership primitives.");
     }
 
+    [Test]
+    public void SwigReleaseUsageIsConstrainedToInteropOwnershipFiles()
+    {
+        var extensionsRoot = GetExtensionsRoot();
+        var allowedFiles = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
+        {
+            Path.Combine("NativeInterop.cs"),
+            Path.Combine("r_policy.cs"),
+            Path.Combine("s_policy.cs"),
+            Path.Combine("Problems", "ProblemCallbackAdapter.cs")
+        };
+
+        var offenders = Directory
+            .EnumerateFiles(extensionsRoot, "*.cs", SearchOption.AllDirectories)
+            .Where(path => !path.Contains($"{Path.DirectorySeparatorChar}bin{Path.DirectorySeparatorChar}", StringComparison.OrdinalIgnoreCase))
+            .Where(path => !path.Contains($"{Path.DirectorySeparatorChar}obj{Path.DirectorySeparatorChar}", StringComparison.OrdinalIgnoreCase))
+            .Where(path => File.ReadAllText(path).Contains("swigRelease(", StringComparison.Ordinal))
+            .Where(path => !allowedFiles.Contains(Path.GetRelativePath(extensionsRoot, path)))
+            .Select(path => Path.GetRelativePath(extensionsRoot, path))
+            .ToArray();
+
+        Assert.That(
+            offenders,
+            Is.Empty,
+            "swigRelease ownership handoff should remain constrained to dedicated interop ownership files.");
+    }
+
+    [Test]
+    public void NonOwningRawPointerWrapperConstructionIsConstrained()
+    {
+        var extensionsRoot = GetExtensionsRoot();
+        var allowedFiles = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
+        {
+            Path.Combine("r_policy.cs"),
+            Path.Combine("s_policy.cs")
+        };
+
+        var offenders = Directory
+            .EnumerateFiles(extensionsRoot, "*.cs", SearchOption.AllDirectories)
+            .Where(path => !path.Contains($"{Path.DirectorySeparatorChar}bin{Path.DirectorySeparatorChar}", StringComparison.OrdinalIgnoreCase))
+            .Where(path => !path.Contains($"{Path.DirectorySeparatorChar}obj{Path.DirectorySeparatorChar}", StringComparison.OrdinalIgnoreCase))
+            .Where(path => Regex.IsMatch(File.ReadAllText(path), @"new\s+[A-Za-z0-9_<>]+\([^)]*false\)", RegexOptions.Multiline))
+            .Where(path => !allowedFiles.Contains(Path.GetRelativePath(extensionsRoot, path)))
+            .Select(path => Path.GetRelativePath(extensionsRoot, path))
+            .ToArray();
+
+        Assert.That(
+            offenders,
+            Is.Empty,
+            "Non-owning raw-pointer wrapper construction should stay constrained to explicit transfer-ownership wrappers.");
+    }
+
+    [Test]
+    public void CatchAllExceptionUsageIsConstrainedToCallbackBoundaryAdapter()
+    {
+        var extensionsRoot = GetExtensionsRoot();
+        var allowedFiles = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
+        {
+            Path.Combine("Problems", "ProblemCallbackAdapter.cs")
+        };
+
+        var offenders = Directory
+            .EnumerateFiles(extensionsRoot, "*.cs", SearchOption.AllDirectories)
+            .Where(path => !path.Contains($"{Path.DirectorySeparatorChar}bin{Path.DirectorySeparatorChar}", StringComparison.OrdinalIgnoreCase))
+            .Where(path => !path.Contains($"{Path.DirectorySeparatorChar}obj{Path.DirectorySeparatorChar}", StringComparison.OrdinalIgnoreCase))
+            .Where(path => Regex.IsMatch(File.ReadAllText(path), @"catch\s*\(\s*Exception\b", RegexOptions.Multiline))
+            .Where(path => !allowedFiles.Contains(Path.GetRelativePath(extensionsRoot, path)))
+            .Select(path => Path.GetRelativePath(extensionsRoot, path))
+            .ToArray();
+
+        Assert.That(
+            offenders,
+            Is.Empty,
+            "catch (Exception) should remain constrained to the managed callback boundary adapter where deferred bubbling is intentionally implemented.");
+    }
+
     private static string GetExtensionsRoot()
     {
         var current = new DirectoryInfo(AppContext.BaseDirectory);

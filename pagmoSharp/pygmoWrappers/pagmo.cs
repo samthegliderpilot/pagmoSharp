@@ -77,6 +77,12 @@ public partial class pagmo {
     return ret;
   }
 
+  public static NloptLogEntryVector Nlopt_GetLogEntries(nlopt algo) {
+    NloptLogEntryVector ret = new NloptLogEntryVector(pagmoPINVOKE.Nlopt_GetLogEntries(nlopt.getCPtr(algo)), true);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
   public static SimulatedAnnealingLogEntryVector SimulatedAnnealing_GetLogEntries(simulated_annealing algo) {
     SimulatedAnnealingLogEntryVector ret = new SimulatedAnnealingLogEntryVector(pagmoPINVOKE.SimulatedAnnealing_GetLogEntries(simulated_annealing.getCPtr(algo)), true);
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
@@ -185,6 +191,10 @@ public partial class pagmo {
     return ret;
   }
 
+  public static readonly string PAGMO_VERSION = pagmoPINVOKE.PAGMO_VERSION_get();
+  public static readonly int PAGMO_VERSION_MAJOR = pagmoPINVOKE.PAGMO_VERSION_MAJOR_get();
+  public static readonly int PAGMO_VERSION_MINOR = pagmoPINVOKE.PAGMO_VERSION_MINOR_get();
+  public static readonly int PAGMO_VERSION_PATCH = pagmoPINVOKE.PAGMO_VERSION_PATCH_get();
 }
 
 }

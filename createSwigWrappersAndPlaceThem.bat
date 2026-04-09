@@ -2,9 +2,22 @@
 setlocal EnableDelayedExpansion
 
 REM runs swig and copies files around automatically
-REM note that I hard code a path to swig.exe.  This will obviously fail if it isn't there...
 
-set "SWIG_EXE=C:\Programs\swigwin-4.4.0\swig.exe"
+if not defined SWIG_EXE (
+    for /f "delims=" %%I in ('where swig.exe 2^>nul') do (
+        set "SWIG_EXE=%%I"
+        goto :swig_found
+    )
+)
+
+if not defined SWIG_EXE if exist "C:\Programs\swigwin-4.4.0\swig.exe" set "SWIG_EXE=C:\Programs\swigwin-4.4.0\swig.exe"
+
+:swig_found
+if not defined SWIG_EXE (
+    echo Error: SWIG executable not found. Set SWIG_EXE or add swig.exe to PATH.
+    exit /b 1
+)
+
 set "SWIG_OUT=swigInterfaceFileAndPagmoHeaders"
 
 "%SWIG_EXE%" -c++ -csharp -namespace pagmo -dllimport pagmoWrapper -I..\..\pagmoWrapper -I.\swigInterfaceFileAndPagmoHeaders swigInterfaceFileAndPagmoHeaders\pagmoSharpSwigInterface.i

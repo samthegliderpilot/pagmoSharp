@@ -1,6 +1,6 @@
 # PagmoSharp Roadmap
 
-Last updated: 2026-04-06
+Last updated: 2026-04-08
 
 ## PagmoSharp Roadmap Reset (v1.0 with Explicit Breadth Sprint)
 
@@ -42,9 +42,9 @@ Last updated: 2026-04-06
   - [x] Harden managed `Policy` wrapper ownership semantics (`r_policyPagmoWrapper` / `s_policyPagmoWrapper`) to avoid raw-pointer shallow-copy lifetime risk.
 
 4. **Sprint 3A: Broad Coverage Pass (Breadth)**
-- [ ] Primary goal: add `.i` + wrapper coverage for targeted v1 algorithm/problem catalog (the "dozens" sprint).
-- [ ] For each newly wrapped type, complete pragmatic finish work in the same slice (meaningful assertions, API polish, and lifecycle sanity), not smoke-only.
-- [ ] Output: large usable surface with per-type baseline quality, while deeper cross-cutting hardening remains in 3B.
+- [x] Primary goal: add `.i` + wrapper coverage for targeted v1 algorithm/problem catalog (the "dozens" sprint).
+- [x] For each newly wrapped type, complete pragmatic finish work in the same slice (meaningful assertions, API polish, and lifecycle sanity), not smoke-only.
+- [x] Output: large usable surface with per-type baseline quality, while deeper cross-cutting hardening remains in 3B.
 - Active progress:
   - [x] Fully wrap `null_algorithm` with managed extension polish (`IAlgorithm` compatibility helpers) and dedicated regression tests.
   - [x] Fully wrap `null_problem` with managed extension polish and dedicated regression tests (metadata + fitness behavior assertions).
@@ -89,16 +89,17 @@ Last updated: 2026-04-06
   - [x] Remove topology connection `SWIGTYPE_*` exposure by instantiating typed SWIG templates (`SizeTVector`, `TopologyConnections`), add managed `GetConnectionsData` helpers, and strengthen topology tests to assert neighbor/weight wiring.
   - [x] Remove `de1220` constructor `SWIGTYPE_*` leakage by instantiating typed `UIntVector` and add dedicated constructor regression coverage for `allowed_variants`.
 
-5. **Sprint 3B: Hardening + Extensibility Completion (Depth)**
-- [ ] Apply/complete C# extensibility surfaces where in v1 scope.
+5. **Sprint 3B (Completed): Hardening + Extensibility Completion (Depth)**
+- [x] Apply/complete C# extensibility surfaces where in v1 scope.
 - [x] Remove/contain `SWIGTYPE_*` leakage on touched public APIs (handwritten extension surface now guarded by audit tests; remaining generated/director `SWIGTYPE_*` surfaces are intentionally internal plumbing).
-- [ ] Audit and eliminate shallow raw-pointer ownership semantics across wrapper facades (copy/assign/destructor ownership rules), replacing with robust lifetime-safe patterns.
+- [x] Audit and eliminate shallow raw-pointer ownership semantics across wrapper facades (copy/assign/destructor ownership rules), replacing with robust lifetime-safe patterns.
 - [x] Centralized managed-callback pagmo::problem lifetime ownership via Interop/ProblemHandle (SafeHandle) and removed direct feature-layer problem_delete calls from population, default_bfe/thread_bfe/member_bfe, and GradientsAndHessians.
 - [x] Hardened managed policy ownership transfer paths (`r_policy`/`s_policy`) to be exception-safe after ownership release, with regression coverage for null/disposed inputs and validity checks.
 - [x] Added direct managed-policy extensibility entrypoints: `island`/`archipelago` policy overloads now accept `r_policyBase` + `s_policyBase` directly (no manual wrapper ceremony), including `bfe` + non-`bfe` paths with typed `default_bfe`/`thread_bfe`/`member_bfe` parity on `island` and typed `default_bfe`/`thread_bfe`/`member_bfe` parity on `archipelago`, plus PascalCase alias parity on `archipelago.PushBackIsland`, with runtime regression coverage (`Test_island_managed_policies`, `Test_archipelago_managed_policies`).
 - [x] Fixed native-vector ownership leak risk in `archipelago` snapshot properties (`MigrationLog`, `MigrantsDb`) by disposing temporary native containers via `using var`.
 - [x] Reduced raw-pointer plumbing in `archipelago` managed-problem path by replacing manual `CreateProblemPointer`/`problem_delete` handling with safe `new problem(IProblem)` ownership flow.
 - [x] Added ownership guardrail audit: direct `NativeInterop.CreateProblemPointer(...)` usage is constrained to dedicated interop boundary files (`problem`, `population`, `BatchEvaluators/bfe`, `Utils/GradientsAndHessians`).
+- [x] Added ownership guardrail audit: swigRelease usage and non-owning raw-pointer wrapper construction are constrained to explicitly approved ownership-boundary files.
 - [x] Fixed managed problem callback lifetime in native director flows by rooting `ProblemCallbackAdapter` instances via `ConditionalWeakTable`, preventing GC callback crashes during long-running native calls.
 - [x] Normalize naming/signatures and add deeper behavior/regression tests (PascalCase aliases + expanded execute-path and API-surface guard regressions).
 - [x] Standardize C++?C# exception bubbling and mapping across constructor/evolve/wait paths, including explicit `wait()` (non-throwing completion barrier) vs `wait_check()` (error-surfacing barrier) semantics in runtime regression tests.
@@ -159,7 +160,7 @@ Last updated: 2026-04-06
 - [x] Remove managed-problem shared_ptr-constructor SWIGTYPE leakage by suppressing the shared_ptr overload and retaining callback-based managed constructor paths.
 - [x] Contained remaining sparsity-pattern `SWIGTYPE_*` leakage by adding first-class typed projection APIs (`SparsityIndex`-based) for public managed usage while preserving low-level generated pointer surfaces only for SWIG/director plumbing.
 - [x] Remove MigrationEntry ID SWIGTYPE_* exposure by mapping adapter IDs (migration_id, immigrant_id) to ulong and add dedicated regression coverage in Test_migration_entry.
-- [ ] Anything from 3A is not considered production-ready until 3B gates pass.
+- [x] Anything from 3A is not considered production-ready until 3B gates pass.
 ### Sprint 3B Remaining Work Breakdown (Type-by-Type)
 - [x] Core facade hardening: `algorithm`
 - [x] Core facade hardening: `problem`
@@ -204,48 +205,55 @@ Last updated: 2026-04-06
 - [x] Problem support hardening: `sparsity.projections`
 - [x] Problem support hardening: `IProblem`
 - [x] Problem support hardening: `IProblemThreadingExtensions`
-- [ ] Algorithm wrapper hardening: `bee_colony`
-- [ ] Algorithm wrapper hardening: `cmaes`
-- [ ] Algorithm wrapper hardening: `compass_search`
-- [ ] Algorithm wrapper hardening: `cstrs_self_adaptive`
-- [ ] Algorithm wrapper hardening: `de`
-- [ ] Algorithm wrapper hardening: `de1220`
-- [ ] Algorithm wrapper hardening: `gaco`
-- [ ] Algorithm wrapper hardening: `grid_search`
-- [ ] Algorithm wrapper hardening: `gwo`
-- [ ] Algorithm wrapper hardening: `ihs`
-- [ ] Algorithm wrapper hardening: `maco`
-- [ ] Algorithm wrapper hardening: `mbh`
-- [ ] Algorithm wrapper hardening: `moead`
-- [ ] Algorithm wrapper hardening: `moead_gen`
-- [ ] Algorithm wrapper hardening: `not_population_based`
-- [ ] Algorithm wrapper hardening: `nsga2`
-- [ ] Algorithm wrapper hardening: `nspso`
-- [ ] Algorithm wrapper hardening: `null_algorithm`
-- [ ] Algorithm wrapper hardening: `pso`
-- [ ] Algorithm wrapper hardening: `pso_gen`
-- [ ] Algorithm wrapper hardening: `sade`
-- [ ] Algorithm wrapper hardening: `sea`
-- [ ] Algorithm wrapper hardening: `sga`
-- [ ] Algorithm wrapper hardening: `simulated_annealing`
-- [ ] Algorithm wrapper hardening: `xnes`
+- [x] Algorithm wrapper hardening: `bee_colony`
+- [x] Algorithm wrapper hardening: `cmaes`
+- [x] Algorithm wrapper hardening: `compass_search`
+- [x] Algorithm wrapper hardening: `cstrs_self_adaptive`
+- [x] Algorithm wrapper hardening: `de`
+- [x] Algorithm wrapper hardening: `de1220`
+- [x] Algorithm wrapper hardening: `gaco`
+- [x] Algorithm wrapper hardening: `grid_search`
+- [x] Algorithm wrapper hardening: `gwo`
+- [x] Algorithm wrapper hardening: `ihs`
+- [x] Algorithm wrapper hardening: `maco`
+- [x] Algorithm wrapper hardening: `mbh`
+- [x] Algorithm wrapper hardening: `moead`
+- [x] Algorithm wrapper hardening: `moead_gen`
+- [x] Algorithm wrapper hardening: `not_population_based`
+- [x] Algorithm wrapper hardening: `nsga2`
+- [x] Algorithm wrapper hardening: `nspso`
+- [x] Algorithm wrapper hardening: `null_algorithm`
+- [x] Algorithm wrapper hardening: `pso`
+- [x] Algorithm wrapper hardening: `pso_gen`
+- [x] Algorithm wrapper hardening: `sade`
+- [x] Algorithm wrapper hardening: `sea`
+- [x] Algorithm wrapper hardening: `sga`
+- [x] Algorithm wrapper hardening: `simulated_annealing`
+- [x] Algorithm wrapper hardening: `xnes`
 - [x] Algorithm support hardening: `AlgorithmInterop`
 - [x] Algorithm support hardening: `AlgorithmLogging`
 - [x] Algorithm support hardening: `IAlgorithm`
-- [ ] Optional solver hardening (feature-gated): `ipopt`
-- [ ] Optional solver hardening (feature-gated): `nlopt`
-- [ ] Cross-cutting gate: for each type above enforce lifetime safety, actionable exceptions, naming/signature consistency, no new handwritten public `SWIGTYPE_*` leaks, and meaningful behavior assertions.
+- [x] Added feature-gated optional solver availability tests (`nlopt`) to make build-dependent support explicit and test-verified.
+- [x] Optional solver hardening (feature-gated): `nlopt`
+- [x] Cross-cutting gate: for each type above enforce lifetime safety, actionable exceptions, naming/signature consistency, no new handwritten public `SWIGTYPE_*` leaks, and meaningful behavior assertions.
+- [x] Sprint 3B closure: deferred all remaining IPOPT-specific work to Sprint 4.
 
 6. **Sprint 4: Documentation + Samples**
-- [ ] C#-first docs, quickstart, and canonical runnable examples.
-- [ ] Publish a supported-feature matrix by build/environment (for example optional algorithm availability such as IPOPT/NLopt).
-- [ ] Perform an exception-usage audit across managed/native wrapper layers to verify existing code is surfacing actionable exceptions consistently and not silently swallowing failure context.
+- [x] C#-first docs, quickstart, and canonical runnable examples.
+- [x] Publish a supported-feature matrix by build/environment (for example optional algorithm availability such as IPOPT/NLopt).
+- [x] Perform an exception-usage audit across managed/native wrapper layers to verify existing code is surfacing actionable exceptions consistently and not silently swallowing failure context.
 - [x] Review high-overload managed API surfaces (`archipelago` + `island`) and remove non-essential overloads while preserving a small canonical core plus compatibility shims where needed.
-- [ ] Normalize managed API naming conventions across extension surfaces (for example snake_case vs PascalCase) and define a single public-style policy with compatibility aliases/deprecation plan.
+- [x] Normalize managed API naming conventions across extension surfaces (for example snake_case vs PascalCase) and define a single public-style policy with compatibility aliases/deprecation plan.
+- [x] Added naming policy and guardrails (.ai/API_NAMING_POLICY.md + reflection tests) to preserve PascalCase extension helpers with intentional snake_case compatibility entrypoints.
+- [ ] Complete optional solver availability/hardening for `ipopt` in an IPOPT-enabled environment:
+- [x] Prepared compile-guarded `ipopt` wrapper modernization scaffolding (typed SWIG `ipopt.i` shape + `to_algorithm()` bridge + log-entry projection helpers).
+- [ ] Validate `ipopt` availability tests and runtime construct/evolve/type-erasure/log behavior where IPOPT is present.
+- [ ] Optional solver hardening (feature-gated): `ipopt`.
 
 7. **Sprint 5: Release Readiness**
-- [ ] Packaging/versioning/changelog/release checklist and ship gates.
-- [ ] Remove machine-local hardcoded tool/include paths from build scripts/projects (`swig.exe`, include/lib paths) and replace with configurable/CI-friendly inputs.
+- [x] Packaging/versioning/changelog/release checklist and ship gates.
+- [x] Added .ai/RELEASE_CHECKLIST.md with explicit versioning, build/test, artifact, documentation, changelog, and publish gates.
+- [ ] Remove machine-local hardcoded tool/include paths from build scripts/projects (`swig.exe`, include/lib paths) and replace with configurable/CI-friendly inputs.  _(Remaining: hardcoded SWIG fallback path in `createSwigWrappersAndPlaceThem.bat`.)_
 - [ ] Purge dead/orphan native files and stale placeholders from the solution (unused headers/cpps and abandoned stubs) before release freeze.
 
 8. **Sprint 6: v1.0 Release**
@@ -277,6 +285,20 @@ Last updated: 2026-04-06
 - Breadth-first then depth-hardening is intentional for large catalog onboarding.
 - `Problem` remains core and already mature enough to build on.
 - v1.0 stays Windows-first; Linux is explicitly post-release.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

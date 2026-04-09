@@ -1,6 +1,7 @@
 /* File pagmoSharpSwigInterface.i */
 #define SUPPORT_VARIDEC FALSE
 %include "exception.i"
+%include "pagmo/config.hpp"
 %{
 #include <string>
 #include <pagmo/exceptions.hpp>  
@@ -86,6 +87,7 @@ PAGMOSHARP_EXEC_EXCEPTION(pagmo::thread_island::run_evolve, "thread_island.run_e
 %include "std_string.i"
 %include "std_vector.i"
 %include "std_pair.i"
+%include "std_map.i"
 
 // Directors + handwritten base classes (include ONCE)
 // The whole problem vs. problemBase question is a little confusing.  To make it better (or wo// rs// e)
@@ -174,6 +176,7 @@ namespace std {
   %template(GwoLogEntryVector)         std::vector<pagmoWrap::GwoLogEntry>;
   %template(De1220LogEntryVector)      std::vector<pagmoWrap::De1220LogEntry>;
   %template(CompassSearchLogEntryVector) std::vector<pagmoWrap::CompassSearchLogEntry>;
+  %template(NloptLogEntryVector)        std::vector<pagmoWrap::NloptLogEntry>;
   %template(SimulatedAnnealingLogEntryVector) std::vector<pagmoWrap::SimulatedAnnealingLogEntry>;
   %template(SgaLogEntryVector)         std::vector<pagmoWrap::SgaLogEntry>;
   %template(SadeLogEntryVector)        std::vector<pagmoWrap::SadeLogEntry>;
@@ -286,8 +289,12 @@ namespace pagmo {
 		%include swigInterfaceFiles\algorithms\de1220.i
 		%include swigInterfaceFiles\algorithms\gaco.i
 		%include swigInterfaceFiles\algorithms\gwo.i
-		//%include swigInterfaceFiles\algorithms\ipopt.i // my build of pagmo doesn't include ipopt
-	//%include swigInterfaceFiles\algorithms\nlopt.i
+	#if defined(PAGMO_WITH_IPOPT)
+		%include swigInterfaceFiles\algorithms\ipopt.i
+	#endif
+	#if defined(PAGMO_WITH_NLOPT)
+		%include swigInterfaceFiles\algorithms\nlopt.i
+	#endif
 	%include swigInterfaceFiles\algorithms\not_population_based.i
 	%include swigInterfaceFiles\algorithms\nspso.i
 	%include swigInterfaceFiles\algorithms\null_algorithm.i

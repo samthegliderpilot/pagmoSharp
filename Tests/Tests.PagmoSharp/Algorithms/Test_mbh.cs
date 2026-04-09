@@ -42,11 +42,15 @@ public class Test_mbh
         using var algorithm = new mbh(innerAlgo, 3u, 0.05);
         using var problem = new rosenbrock(2u);
         using var population = new population(problem, 48u, 2u);
+        using var initialProblem = population.get_problem();
+        var initialFevals = initialProblem.get_fevals();
 
         algorithm.set_seed(2u);
         algorithm.set_verbosity(1u);
 
-        using var _ = algorithm.evolve(population);
+        using var evolvedPopulation = algorithm.evolve(population);
+        using var evolvedProblem = evolvedPopulation.get_problem();
+        Assert.Greater(evolvedProblem.get_fevals(), initialFevals, "evolution should trigger additional function evaluations");
 
         var typedLines = algorithm.GetTypedLogLines();
         Assert.That(typedLines.Count, Is.GreaterThan(0), "mbh verbosity should produce at least one log line");

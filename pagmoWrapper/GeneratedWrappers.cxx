@@ -525,6 +525,11 @@ SWIGINTERN void SWIG_CSharpException(int code, const char *msg) {
 
 #include <utility>
 
+
+#include <map>
+#include <algorithm>
+#include <stdexcept>
+
 SWIGINTERN std::vector< double > *new_std_vector_Sl_double_Sg___SWIG_2(int capacity){
         std::vector< double >* pv = 0;
         if (capacity >= 0) {
@@ -2147,6 +2152,97 @@ SWIGINTERN void std_vector_Sl_pagmoWrap_CompassSearchLogEntry_Sg__SetRange(std::
           throw std::out_of_range("index");
         std::copy(values.begin(), values.end(), self->begin()+index);
       }
+SWIGINTERN std::vector< pagmoWrap::NloptLogEntry > *new_std_vector_Sl_pagmoWrap_NloptLogEntry_Sg___SWIG_2(int capacity){
+        std::vector< pagmoWrap::NloptLogEntry >* pv = 0;
+        if (capacity >= 0) {
+          pv = new std::vector< pagmoWrap::NloptLogEntry >();
+          pv->reserve(capacity);
+       } else {
+          throw std::out_of_range("capacity");
+       }
+       return pv;
+      }
+SWIGINTERN pagmoWrap::NloptLogEntry std_vector_Sl_pagmoWrap_NloptLogEntry_Sg__getitemcopy(std::vector< pagmoWrap::NloptLogEntry > *self,int index){
+        if (index>=0 && index<(int)self->size())
+          return (*self)[index];
+        else
+          throw std::out_of_range("index");
+      }
+SWIGINTERN std::vector< pagmoWrap::NloptLogEntry >::value_type const &std_vector_Sl_pagmoWrap_NloptLogEntry_Sg__getitem(std::vector< pagmoWrap::NloptLogEntry > *self,int index){
+        if (index>=0 && index<(int)self->size())
+          return (*self)[index];
+        else
+          throw std::out_of_range("index");
+      }
+SWIGINTERN void std_vector_Sl_pagmoWrap_NloptLogEntry_Sg__setitem(std::vector< pagmoWrap::NloptLogEntry > *self,int index,pagmoWrap::NloptLogEntry const &val){
+        if (index>=0 && index<(int)self->size())
+          (*self)[index] = val;
+        else
+          throw std::out_of_range("index");
+      }
+SWIGINTERN void std_vector_Sl_pagmoWrap_NloptLogEntry_Sg__AddRange(std::vector< pagmoWrap::NloptLogEntry > *self,std::vector< pagmoWrap::NloptLogEntry > const &values){
+        self->insert(self->end(), values.begin(), values.end());
+      }
+SWIGINTERN std::vector< pagmoWrap::NloptLogEntry > *std_vector_Sl_pagmoWrap_NloptLogEntry_Sg__GetRange(std::vector< pagmoWrap::NloptLogEntry > *self,int index,int count){
+        if (index < 0)
+          throw std::out_of_range("index");
+        if (count < 0)
+          throw std::out_of_range("count");
+        if (index >= (int)self->size()+1 || index+count > (int)self->size())
+          throw std::invalid_argument("invalid range");
+        return new std::vector< pagmoWrap::NloptLogEntry >(self->begin()+index, self->begin()+index+count);
+      }
+SWIGINTERN void std_vector_Sl_pagmoWrap_NloptLogEntry_Sg__Insert(std::vector< pagmoWrap::NloptLogEntry > *self,int index,pagmoWrap::NloptLogEntry const &x){
+        if (index>=0 && index<(int)self->size()+1)
+          self->insert(self->begin()+index, x);
+        else
+          throw std::out_of_range("index");
+      }
+SWIGINTERN void std_vector_Sl_pagmoWrap_NloptLogEntry_Sg__InsertRange(std::vector< pagmoWrap::NloptLogEntry > *self,int index,std::vector< pagmoWrap::NloptLogEntry > const &values){
+        if (index>=0 && index<(int)self->size()+1)
+          self->insert(self->begin()+index, values.begin(), values.end());
+        else
+          throw std::out_of_range("index");
+      }
+SWIGINTERN void std_vector_Sl_pagmoWrap_NloptLogEntry_Sg__RemoveAt(std::vector< pagmoWrap::NloptLogEntry > *self,int index){
+        if (index>=0 && index<(int)self->size())
+          self->erase(self->begin() + index);
+        else
+          throw std::out_of_range("index");
+      }
+SWIGINTERN void std_vector_Sl_pagmoWrap_NloptLogEntry_Sg__RemoveRange(std::vector< pagmoWrap::NloptLogEntry > *self,int index,int count){
+        if (index < 0)
+          throw std::out_of_range("index");
+        if (count < 0)
+          throw std::out_of_range("count");
+        if (index >= (int)self->size()+1 || index+count > (int)self->size())
+          throw std::invalid_argument("invalid range");
+        self->erase(self->begin()+index, self->begin()+index+count);
+      }
+SWIGINTERN std::vector< pagmoWrap::NloptLogEntry > *std_vector_Sl_pagmoWrap_NloptLogEntry_Sg__Repeat(pagmoWrap::NloptLogEntry const &value,int count){
+        if (count < 0)
+          throw std::out_of_range("count");
+        return new std::vector< pagmoWrap::NloptLogEntry >(count, value);
+      }
+SWIGINTERN void std_vector_Sl_pagmoWrap_NloptLogEntry_Sg__Reverse__SWIG_0(std::vector< pagmoWrap::NloptLogEntry > *self){
+        std::reverse(self->begin(), self->end());
+      }
+SWIGINTERN void std_vector_Sl_pagmoWrap_NloptLogEntry_Sg__Reverse__SWIG_1(std::vector< pagmoWrap::NloptLogEntry > *self,int index,int count){
+        if (index < 0)
+          throw std::out_of_range("index");
+        if (count < 0)
+          throw std::out_of_range("count");
+        if (index >= (int)self->size()+1 || index+count > (int)self->size())
+          throw std::invalid_argument("invalid range");
+        std::reverse(self->begin()+index, self->begin()+index+count);
+      }
+SWIGINTERN void std_vector_Sl_pagmoWrap_NloptLogEntry_Sg__SetRange(std::vector< pagmoWrap::NloptLogEntry > *self,int index,std::vector< pagmoWrap::NloptLogEntry > const &values){
+        if (index < 0)
+          throw std::out_of_range("index");
+        if (index+values.size() > self->size())
+          throw std::out_of_range("index");
+        std::copy(values.begin(), values.end(), self->begin()+index);
+      }
 SWIGINTERN std::vector< pagmoWrap::SimulatedAnnealingLogEntry > *new_std_vector_Sl_pagmoWrap_SimulatedAnnealingLogEntry_Sg___SWIG_2(int capacity){
         std::vector< pagmoWrap::SimulatedAnnealingLogEntry >* pv = 0;
         if (capacity >= 0) {
@@ -3426,6 +3522,16 @@ SWIGINTERN std::vector< pagmoWrap::GwoLogEntry > pagmo_gwo_get_log_entries(pagmo
         return pagmoWrap::Gwo_GetLogEntries(*self);
     }
 SWIGINTERN pagmo::algorithm pagmo_gwo_to_algorithm(pagmo::gwo const *self){
+        return pagmo::algorithm(*self);
+    }
+
+#include "pagmo/algorithm.hpp"
+#include "pagmo/algorithms/nlopt.hpp"
+
+SWIGINTERN std::vector< pagmoWrap::NloptLogEntry > pagmo_nlopt_get_log_entries(pagmo::nlopt const *self){
+        return pagmoWrap::Nlopt_GetLogEntries(*self);
+    }
+SWIGINTERN pagmo::algorithm pagmo_nlopt_to_algorithm(pagmo::nlopt const *self){
         return pagmo::algorithm(*self);
     }
 
@@ -4799,6 +4905,46 @@ void SwigDirector_s_policyBase::swig_init_callbacks() {
 #ifdef __cplusplus
 extern "C" {
 #endif
+
+SWIGEXPORT char * SWIGSTDCALL CSharp_pagmo_PAGMO_VERSION_get() {
+  char * jresult ;
+  char *result = 0 ;
+  
+  result = (char *)(char *)("2.19.1");
+  jresult = SWIG_csharp_string_callback((const char *)result); 
+  return jresult;
+}
+
+
+SWIGEXPORT int SWIGSTDCALL CSharp_pagmo_PAGMO_VERSION_MAJOR_get() {
+  int jresult ;
+  int result;
+  
+  result = (int)(2);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT int SWIGSTDCALL CSharp_pagmo_PAGMO_VERSION_MINOR_get() {
+  int jresult ;
+  int result;
+  
+  result = (int)(19);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT int SWIGSTDCALL CSharp_pagmo_PAGMO_VERSION_PATCH_get() {
+  int jresult ;
+  int result;
+  
+  result = (int)(1);
+  jresult = result; 
+  return jresult;
+}
+
 
 SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_IndividualsGroup_ids_set(void * jarg1, void * jarg2) {
   pagmoWrap::IndividualsGroup *arg1 = 0 ;
@@ -6288,6 +6434,310 @@ SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_delete_CompassSearchLogEntry(void * jar
 }
 
 
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_NloptLogEntry_fevals_set(void * jarg1, unsigned long long jarg2) {
+  pagmoWrap::NloptLogEntry *arg1 = 0 ;
+  unsigned long long arg2 ;
+  
+  arg1 = (pagmoWrap::NloptLogEntry *)jarg1; 
+  arg2 = (unsigned long long)jarg2; 
+  if (arg1) (arg1)->fevals = arg2;
+}
+
+
+SWIGEXPORT unsigned long long SWIGSTDCALL CSharp_pagmo_NloptLogEntry_fevals_get(void * jarg1) {
+  unsigned long long jresult ;
+  pagmoWrap::NloptLogEntry *arg1 = 0 ;
+  unsigned long long result;
+  
+  arg1 = (pagmoWrap::NloptLogEntry *)jarg1; 
+  result = (unsigned long long) ((arg1)->fevals);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_NloptLogEntry_objective_set(void * jarg1, double jarg2) {
+  pagmoWrap::NloptLogEntry *arg1 = 0 ;
+  double arg2 ;
+  
+  arg1 = (pagmoWrap::NloptLogEntry *)jarg1; 
+  arg2 = (double)jarg2; 
+  if (arg1) (arg1)->objective = arg2;
+}
+
+
+SWIGEXPORT double SWIGSTDCALL CSharp_pagmo_NloptLogEntry_objective_get(void * jarg1) {
+  double jresult ;
+  pagmoWrap::NloptLogEntry *arg1 = 0 ;
+  double result;
+  
+  arg1 = (pagmoWrap::NloptLogEntry *)jarg1; 
+  result = (double) ((arg1)->objective);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_NloptLogEntry_violated_set(void * jarg1, unsigned long long jarg2) {
+  pagmoWrap::NloptLogEntry *arg1 = 0 ;
+  unsigned long long arg2 ;
+  
+  arg1 = (pagmoWrap::NloptLogEntry *)jarg1; 
+  arg2 = (unsigned long long)jarg2; 
+  if (arg1) (arg1)->violated = arg2;
+}
+
+
+SWIGEXPORT unsigned long long SWIGSTDCALL CSharp_pagmo_NloptLogEntry_violated_get(void * jarg1) {
+  unsigned long long jresult ;
+  pagmoWrap::NloptLogEntry *arg1 = 0 ;
+  unsigned long long result;
+  
+  arg1 = (pagmoWrap::NloptLogEntry *)jarg1; 
+  result = (unsigned long long) ((arg1)->violated);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_NloptLogEntry_violation_norm_set(void * jarg1, double jarg2) {
+  pagmoWrap::NloptLogEntry *arg1 = 0 ;
+  double arg2 ;
+  
+  arg1 = (pagmoWrap::NloptLogEntry *)jarg1; 
+  arg2 = (double)jarg2; 
+  if (arg1) (arg1)->violation_norm = arg2;
+}
+
+
+SWIGEXPORT double SWIGSTDCALL CSharp_pagmo_NloptLogEntry_violation_norm_get(void * jarg1) {
+  double jresult ;
+  pagmoWrap::NloptLogEntry *arg1 = 0 ;
+  double result;
+  
+  arg1 = (pagmoWrap::NloptLogEntry *)jarg1; 
+  result = (double) ((arg1)->violation_norm);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_NloptLogEntry_feasible_set(void * jarg1, unsigned int jarg2) {
+  pagmoWrap::NloptLogEntry *arg1 = 0 ;
+  bool arg2 ;
+  
+  arg1 = (pagmoWrap::NloptLogEntry *)jarg1; 
+  arg2 = jarg2 ? true : false; 
+  if (arg1) (arg1)->feasible = arg2;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_pagmo_NloptLogEntry_feasible_get(void * jarg1) {
+  unsigned int jresult ;
+  pagmoWrap::NloptLogEntry *arg1 = 0 ;
+  bool result;
+  
+  arg1 = (pagmoWrap::NloptLogEntry *)jarg1; 
+  result = (bool) ((arg1)->feasible);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_NloptLogEntry() {
+  void * jresult ;
+  pagmoWrap::NloptLogEntry *result = 0 ;
+  
+  {
+    try {
+      result = (pagmoWrap::NloptLogEntry *)new pagmoWrap::NloptLogEntry();
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_delete_NloptLogEntry(void * jarg1) {
+  pagmoWrap::NloptLogEntry *arg1 = 0 ;
+  
+  arg1 = (pagmoWrap::NloptLogEntry *)jarg1; 
+  {
+    try {
+      delete arg1;
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return ; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return ; 
+      };
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_IpoptLogEntry_objective_evaluations_set(void * jarg1, unsigned long long jarg2) {
+  pagmoWrap::IpoptLogEntry *arg1 = 0 ;
+  unsigned long long arg2 ;
+  
+  arg1 = (pagmoWrap::IpoptLogEntry *)jarg1; 
+  arg2 = (unsigned long long)jarg2; 
+  if (arg1) (arg1)->objective_evaluations = arg2;
+}
+
+
+SWIGEXPORT unsigned long long SWIGSTDCALL CSharp_pagmo_IpoptLogEntry_objective_evaluations_get(void * jarg1) {
+  unsigned long long jresult ;
+  pagmoWrap::IpoptLogEntry *arg1 = 0 ;
+  unsigned long long result;
+  
+  arg1 = (pagmoWrap::IpoptLogEntry *)jarg1; 
+  result = (unsigned long long) ((arg1)->objective_evaluations);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_IpoptLogEntry_objective_set(void * jarg1, double jarg2) {
+  pagmoWrap::IpoptLogEntry *arg1 = 0 ;
+  double arg2 ;
+  
+  arg1 = (pagmoWrap::IpoptLogEntry *)jarg1; 
+  arg2 = (double)jarg2; 
+  if (arg1) (arg1)->objective = arg2;
+}
+
+
+SWIGEXPORT double SWIGSTDCALL CSharp_pagmo_IpoptLogEntry_objective_get(void * jarg1) {
+  double jresult ;
+  pagmoWrap::IpoptLogEntry *arg1 = 0 ;
+  double result;
+  
+  arg1 = (pagmoWrap::IpoptLogEntry *)jarg1; 
+  result = (double) ((arg1)->objective);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_IpoptLogEntry_violated_set(void * jarg1, unsigned long long jarg2) {
+  pagmoWrap::IpoptLogEntry *arg1 = 0 ;
+  unsigned long long arg2 ;
+  
+  arg1 = (pagmoWrap::IpoptLogEntry *)jarg1; 
+  arg2 = (unsigned long long)jarg2; 
+  if (arg1) (arg1)->violated = arg2;
+}
+
+
+SWIGEXPORT unsigned long long SWIGSTDCALL CSharp_pagmo_IpoptLogEntry_violated_get(void * jarg1) {
+  unsigned long long jresult ;
+  pagmoWrap::IpoptLogEntry *arg1 = 0 ;
+  unsigned long long result;
+  
+  arg1 = (pagmoWrap::IpoptLogEntry *)jarg1; 
+  result = (unsigned long long) ((arg1)->violated);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_IpoptLogEntry_violation_norm_set(void * jarg1, double jarg2) {
+  pagmoWrap::IpoptLogEntry *arg1 = 0 ;
+  double arg2 ;
+  
+  arg1 = (pagmoWrap::IpoptLogEntry *)jarg1; 
+  arg2 = (double)jarg2; 
+  if (arg1) (arg1)->violation_norm = arg2;
+}
+
+
+SWIGEXPORT double SWIGSTDCALL CSharp_pagmo_IpoptLogEntry_violation_norm_get(void * jarg1) {
+  double jresult ;
+  pagmoWrap::IpoptLogEntry *arg1 = 0 ;
+  double result;
+  
+  arg1 = (pagmoWrap::IpoptLogEntry *)jarg1; 
+  result = (double) ((arg1)->violation_norm);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_IpoptLogEntry_feasible_set(void * jarg1, unsigned int jarg2) {
+  pagmoWrap::IpoptLogEntry *arg1 = 0 ;
+  bool arg2 ;
+  
+  arg1 = (pagmoWrap::IpoptLogEntry *)jarg1; 
+  arg2 = jarg2 ? true : false; 
+  if (arg1) (arg1)->feasible = arg2;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_pagmo_IpoptLogEntry_feasible_get(void * jarg1) {
+  unsigned int jresult ;
+  pagmoWrap::IpoptLogEntry *arg1 = 0 ;
+  bool result;
+  
+  arg1 = (pagmoWrap::IpoptLogEntry *)jarg1; 
+  result = (bool) ((arg1)->feasible);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_IpoptLogEntry() {
+  void * jresult ;
+  pagmoWrap::IpoptLogEntry *result = 0 ;
+  
+  {
+    try {
+      result = (pagmoWrap::IpoptLogEntry *)new pagmoWrap::IpoptLogEntry();
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_delete_IpoptLogEntry(void * jarg1) {
+  pagmoWrap::IpoptLogEntry *arg1 = 0 ;
+  
+  arg1 = (pagmoWrap::IpoptLogEntry *)jarg1; 
+  {
+    try {
+      delete arg1;
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return ; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return ; 
+      };
+    }
+  }
+}
+
+
 SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_SimulatedAnnealingLogEntry_fevals_set(void * jarg1, unsigned long long jarg2) {
   pagmoWrap::SimulatedAnnealingLogEntry *arg1 = 0 ;
   unsigned long long arg2 ;
@@ -7222,6 +7672,34 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_CompassSearch_GetLogEntries(void * ja
     }
   }
   jresult = new std::vector< pagmoWrap::CompassSearchLogEntry >(result); 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_Nlopt_GetLogEntries(void * jarg1) {
+  void * jresult ;
+  pagmo::nlopt *arg1 = 0 ;
+  std::vector< pagmoWrap::NloptLogEntry > result;
+  
+  arg1 = (pagmo::nlopt *)jarg1;
+  if (!arg1) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "pagmo::nlopt const & is null", 0);
+    return 0;
+  } 
+  {
+    try {
+      result = pagmoWrap::Nlopt_GetLogEntries((pagmo::nlopt const &)*arg1);
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = new std::vector< pagmoWrap::NloptLogEntry >(result); 
   return jresult;
 }
 
@@ -23433,6 +23911,647 @@ SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_delete_CompassSearchLogEntryVector(void
   std::vector< pagmoWrap::CompassSearchLogEntry > *arg1 = 0 ;
   
   arg1 = (std::vector< pagmoWrap::CompassSearchLogEntry > *)jarg1; 
+  {
+    try {
+      delete arg1;
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return ; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return ; 
+      };
+    }
+  }
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_NloptLogEntryVector__SWIG_0() {
+  void * jresult ;
+  std::vector< pagmoWrap::NloptLogEntry > *result = 0 ;
+  
+  {
+    try {
+      result = (std::vector< pagmoWrap::NloptLogEntry > *)new std::vector< pagmoWrap::NloptLogEntry >();
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_NloptLogEntryVector__SWIG_1(void * jarg1) {
+  void * jresult ;
+  std::vector< pagmoWrap::NloptLogEntry > *arg1 = 0 ;
+  std::vector< pagmoWrap::NloptLogEntry > *result = 0 ;
+  
+  arg1 = (std::vector< pagmoWrap::NloptLogEntry > *)jarg1;
+  if (!arg1) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "std::vector< pagmoWrap::NloptLogEntry > const & is null", 0);
+    return 0;
+  } 
+  {
+    try {
+      result = (std::vector< pagmoWrap::NloptLogEntry > *)new std::vector< pagmoWrap::NloptLogEntry >((std::vector< pagmoWrap::NloptLogEntry > const &)*arg1);
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_NloptLogEntryVector_Clear(void * jarg1) {
+  std::vector< pagmoWrap::NloptLogEntry > *arg1 = 0 ;
+  
+  arg1 = (std::vector< pagmoWrap::NloptLogEntry > *)jarg1; 
+  {
+    try {
+      (arg1)->clear();
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return ; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return ; 
+      };
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_NloptLogEntryVector_Add(void * jarg1, void * jarg2) {
+  std::vector< pagmoWrap::NloptLogEntry > *arg1 = 0 ;
+  pagmoWrap::NloptLogEntry *arg2 = 0 ;
+  
+  arg1 = (std::vector< pagmoWrap::NloptLogEntry > *)jarg1; 
+  arg2 = (pagmoWrap::NloptLogEntry *)jarg2;
+  if (!arg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "pagmoWrap::NloptLogEntry const & is null", 0);
+    return ;
+  } 
+  {
+    try {
+      (arg1)->push_back((pagmoWrap::NloptLogEntry const &)*arg2);
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return ; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return ; 
+      };
+    }
+  }
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_pagmo_NloptLogEntryVector_size(void * jarg1) {
+  unsigned int jresult ;
+  std::vector< pagmoWrap::NloptLogEntry > *arg1 = 0 ;
+  std::vector< pagmoWrap::NloptLogEntry >::size_type result;
+  
+  arg1 = (std::vector< pagmoWrap::NloptLogEntry > *)jarg1; 
+  {
+    try {
+      result = ((std::vector< pagmoWrap::NloptLogEntry > const *)arg1)->size();
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = (unsigned int)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_pagmo_NloptLogEntryVector_empty(void * jarg1) {
+  unsigned int jresult ;
+  std::vector< pagmoWrap::NloptLogEntry > *arg1 = 0 ;
+  bool result;
+  
+  arg1 = (std::vector< pagmoWrap::NloptLogEntry > *)jarg1; 
+  {
+    try {
+      result = (bool)((std::vector< pagmoWrap::NloptLogEntry > const *)arg1)->empty();
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_pagmo_NloptLogEntryVector_capacity(void * jarg1) {
+  unsigned int jresult ;
+  std::vector< pagmoWrap::NloptLogEntry > *arg1 = 0 ;
+  std::vector< pagmoWrap::NloptLogEntry >::size_type result;
+  
+  arg1 = (std::vector< pagmoWrap::NloptLogEntry > *)jarg1; 
+  {
+    try {
+      result = ((std::vector< pagmoWrap::NloptLogEntry > const *)arg1)->capacity();
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = (unsigned int)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_NloptLogEntryVector_reserve(void * jarg1, unsigned int jarg2) {
+  std::vector< pagmoWrap::NloptLogEntry > *arg1 = 0 ;
+  std::vector< pagmoWrap::NloptLogEntry >::size_type arg2 ;
+  
+  arg1 = (std::vector< pagmoWrap::NloptLogEntry > *)jarg1; 
+  arg2 = (std::vector< pagmoWrap::NloptLogEntry >::size_type)jarg2; 
+  {
+    try {
+      (arg1)->reserve(SWIG_STD_MOVE(arg2));
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return ; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return ; 
+      };
+    }
+  }
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_NloptLogEntryVector__SWIG_2(int jarg1) {
+  void * jresult ;
+  int arg1 ;
+  std::vector< pagmoWrap::NloptLogEntry > *result = 0 ;
+  
+  arg1 = (int)jarg1; 
+  {
+    try {
+      try {
+        result = (std::vector< pagmoWrap::NloptLogEntry > *)new_std_vector_Sl_pagmoWrap_NloptLogEntry_Sg___SWIG_2(arg1);
+      } catch(std::out_of_range &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+        return 0;
+      }
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_NloptLogEntryVector_getitemcopy(void * jarg1, int jarg2) {
+  void * jresult ;
+  std::vector< pagmoWrap::NloptLogEntry > *arg1 = 0 ;
+  int arg2 ;
+  pagmoWrap::NloptLogEntry result;
+  
+  arg1 = (std::vector< pagmoWrap::NloptLogEntry > *)jarg1; 
+  arg2 = (int)jarg2; 
+  {
+    try {
+      try {
+        result = std_vector_Sl_pagmoWrap_NloptLogEntry_Sg__getitemcopy(arg1,arg2);
+      } catch(std::out_of_range &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+        return 0;
+      }
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = new pagmoWrap::NloptLogEntry(result); 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_NloptLogEntryVector_getitem(void * jarg1, int jarg2) {
+  void * jresult ;
+  std::vector< pagmoWrap::NloptLogEntry > *arg1 = 0 ;
+  int arg2 ;
+  std::vector< pagmoWrap::NloptLogEntry >::value_type *result = 0 ;
+  
+  arg1 = (std::vector< pagmoWrap::NloptLogEntry > *)jarg1; 
+  arg2 = (int)jarg2; 
+  {
+    try {
+      try {
+        result = (std::vector< pagmoWrap::NloptLogEntry >::value_type *) &std_vector_Sl_pagmoWrap_NloptLogEntry_Sg__getitem(arg1,arg2);
+      } catch(std::out_of_range &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+        return 0;
+      }
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_NloptLogEntryVector_setitem(void * jarg1, int jarg2, void * jarg3) {
+  std::vector< pagmoWrap::NloptLogEntry > *arg1 = 0 ;
+  int arg2 ;
+  pagmoWrap::NloptLogEntry *arg3 = 0 ;
+  
+  arg1 = (std::vector< pagmoWrap::NloptLogEntry > *)jarg1; 
+  arg2 = (int)jarg2; 
+  arg3 = (pagmoWrap::NloptLogEntry *)jarg3;
+  if (!arg3) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "pagmoWrap::NloptLogEntry const & is null", 0);
+    return ;
+  } 
+  {
+    try {
+      try {
+        std_vector_Sl_pagmoWrap_NloptLogEntry_Sg__setitem(arg1,arg2,(pagmoWrap::NloptLogEntry const &)*arg3);
+      } catch(std::out_of_range &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+        return ;
+      }
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return ; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return ; 
+      };
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_NloptLogEntryVector_AddRange(void * jarg1, void * jarg2) {
+  std::vector< pagmoWrap::NloptLogEntry > *arg1 = 0 ;
+  std::vector< pagmoWrap::NloptLogEntry > *arg2 = 0 ;
+  
+  arg1 = (std::vector< pagmoWrap::NloptLogEntry > *)jarg1; 
+  arg2 = (std::vector< pagmoWrap::NloptLogEntry > *)jarg2;
+  if (!arg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "std::vector< pagmoWrap::NloptLogEntry > const & is null", 0);
+    return ;
+  } 
+  {
+    try {
+      std_vector_Sl_pagmoWrap_NloptLogEntry_Sg__AddRange(arg1,(std::vector< pagmoWrap::NloptLogEntry > const &)*arg2);
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return ; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return ; 
+      };
+    }
+  }
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_NloptLogEntryVector_GetRange(void * jarg1, int jarg2, int jarg3) {
+  void * jresult ;
+  std::vector< pagmoWrap::NloptLogEntry > *arg1 = 0 ;
+  int arg2 ;
+  int arg3 ;
+  std::vector< pagmoWrap::NloptLogEntry > *result = 0 ;
+  
+  arg1 = (std::vector< pagmoWrap::NloptLogEntry > *)jarg1; 
+  arg2 = (int)jarg2; 
+  arg3 = (int)jarg3; 
+  {
+    try {
+      try {
+        result = (std::vector< pagmoWrap::NloptLogEntry > *)std_vector_Sl_pagmoWrap_NloptLogEntry_Sg__GetRange(arg1,arg2,arg3);
+      } catch(std::out_of_range &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+        return 0;
+      } catch(std::invalid_argument &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, (&_e)->what(), "");
+        return 0;
+      }
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_NloptLogEntryVector_Insert(void * jarg1, int jarg2, void * jarg3) {
+  std::vector< pagmoWrap::NloptLogEntry > *arg1 = 0 ;
+  int arg2 ;
+  pagmoWrap::NloptLogEntry *arg3 = 0 ;
+  
+  arg1 = (std::vector< pagmoWrap::NloptLogEntry > *)jarg1; 
+  arg2 = (int)jarg2; 
+  arg3 = (pagmoWrap::NloptLogEntry *)jarg3;
+  if (!arg3) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "pagmoWrap::NloptLogEntry const & is null", 0);
+    return ;
+  } 
+  {
+    try {
+      try {
+        std_vector_Sl_pagmoWrap_NloptLogEntry_Sg__Insert(arg1,arg2,(pagmoWrap::NloptLogEntry const &)*arg3);
+      } catch(std::out_of_range &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+        return ;
+      }
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return ; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return ; 
+      };
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_NloptLogEntryVector_InsertRange(void * jarg1, int jarg2, void * jarg3) {
+  std::vector< pagmoWrap::NloptLogEntry > *arg1 = 0 ;
+  int arg2 ;
+  std::vector< pagmoWrap::NloptLogEntry > *arg3 = 0 ;
+  
+  arg1 = (std::vector< pagmoWrap::NloptLogEntry > *)jarg1; 
+  arg2 = (int)jarg2; 
+  arg3 = (std::vector< pagmoWrap::NloptLogEntry > *)jarg3;
+  if (!arg3) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "std::vector< pagmoWrap::NloptLogEntry > const & is null", 0);
+    return ;
+  } 
+  {
+    try {
+      try {
+        std_vector_Sl_pagmoWrap_NloptLogEntry_Sg__InsertRange(arg1,arg2,(std::vector< pagmoWrap::NloptLogEntry > const &)*arg3);
+      } catch(std::out_of_range &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+        return ;
+      }
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return ; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return ; 
+      };
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_NloptLogEntryVector_RemoveAt(void * jarg1, int jarg2) {
+  std::vector< pagmoWrap::NloptLogEntry > *arg1 = 0 ;
+  int arg2 ;
+  
+  arg1 = (std::vector< pagmoWrap::NloptLogEntry > *)jarg1; 
+  arg2 = (int)jarg2; 
+  {
+    try {
+      try {
+        std_vector_Sl_pagmoWrap_NloptLogEntry_Sg__RemoveAt(arg1,arg2);
+      } catch(std::out_of_range &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+        return ;
+      }
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return ; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return ; 
+      };
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_NloptLogEntryVector_RemoveRange(void * jarg1, int jarg2, int jarg3) {
+  std::vector< pagmoWrap::NloptLogEntry > *arg1 = 0 ;
+  int arg2 ;
+  int arg3 ;
+  
+  arg1 = (std::vector< pagmoWrap::NloptLogEntry > *)jarg1; 
+  arg2 = (int)jarg2; 
+  arg3 = (int)jarg3; 
+  {
+    try {
+      try {
+        std_vector_Sl_pagmoWrap_NloptLogEntry_Sg__RemoveRange(arg1,arg2,arg3);
+      } catch(std::out_of_range &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+        return ;
+      } catch(std::invalid_argument &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, (&_e)->what(), "");
+        return ;
+      }
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return ; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return ; 
+      };
+    }
+  }
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_NloptLogEntryVector_Repeat(void * jarg1, int jarg2) {
+  void * jresult ;
+  pagmoWrap::NloptLogEntry *arg1 = 0 ;
+  int arg2 ;
+  std::vector< pagmoWrap::NloptLogEntry > *result = 0 ;
+  
+  arg1 = (pagmoWrap::NloptLogEntry *)jarg1;
+  if (!arg1) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "pagmoWrap::NloptLogEntry const & is null", 0);
+    return 0;
+  } 
+  arg2 = (int)jarg2; 
+  {
+    try {
+      try {
+        result = (std::vector< pagmoWrap::NloptLogEntry > *)std_vector_Sl_pagmoWrap_NloptLogEntry_Sg__Repeat((pagmoWrap::NloptLogEntry const &)*arg1,arg2);
+      } catch(std::out_of_range &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+        return 0;
+      }
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_NloptLogEntryVector_Reverse__SWIG_0(void * jarg1) {
+  std::vector< pagmoWrap::NloptLogEntry > *arg1 = 0 ;
+  
+  arg1 = (std::vector< pagmoWrap::NloptLogEntry > *)jarg1; 
+  {
+    try {
+      std_vector_Sl_pagmoWrap_NloptLogEntry_Sg__Reverse__SWIG_0(arg1);
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return ; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return ; 
+      };
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_NloptLogEntryVector_Reverse__SWIG_1(void * jarg1, int jarg2, int jarg3) {
+  std::vector< pagmoWrap::NloptLogEntry > *arg1 = 0 ;
+  int arg2 ;
+  int arg3 ;
+  
+  arg1 = (std::vector< pagmoWrap::NloptLogEntry > *)jarg1; 
+  arg2 = (int)jarg2; 
+  arg3 = (int)jarg3; 
+  {
+    try {
+      try {
+        std_vector_Sl_pagmoWrap_NloptLogEntry_Sg__Reverse__SWIG_1(arg1,arg2,arg3);
+      } catch(std::out_of_range &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+        return ;
+      } catch(std::invalid_argument &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, (&_e)->what(), "");
+        return ;
+      }
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return ; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return ; 
+      };
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_NloptLogEntryVector_SetRange(void * jarg1, int jarg2, void * jarg3) {
+  std::vector< pagmoWrap::NloptLogEntry > *arg1 = 0 ;
+  int arg2 ;
+  std::vector< pagmoWrap::NloptLogEntry > *arg3 = 0 ;
+  
+  arg1 = (std::vector< pagmoWrap::NloptLogEntry > *)jarg1; 
+  arg2 = (int)jarg2; 
+  arg3 = (std::vector< pagmoWrap::NloptLogEntry > *)jarg3;
+  if (!arg3) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "std::vector< pagmoWrap::NloptLogEntry > const & is null", 0);
+    return ;
+  } 
+  {
+    try {
+      try {
+        std_vector_Sl_pagmoWrap_NloptLogEntry_Sg__SetRange(arg1,arg2,(std::vector< pagmoWrap::NloptLogEntry > const &)*arg3);
+      } catch(std::out_of_range &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+        return ;
+      }
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return ; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return ; 
+      };
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_delete_NloptLogEntryVector(void * jarg1) {
+  std::vector< pagmoWrap::NloptLogEntry > *arg1 = 0 ;
+  
+  arg1 = (std::vector< pagmoWrap::NloptLogEntry > *)jarg1; 
   {
     try {
       delete arg1;
@@ -42723,6 +43842,669 @@ SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_delete_gwo(void * jarg1) {
   pagmo::gwo *arg1 = 0 ;
   
   arg1 = (pagmo::gwo *)jarg1; 
+  {
+    try {
+      delete arg1;
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return ; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return ; 
+      };
+    }
+  }
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_nlopt__SWIG_0() {
+  void * jresult ;
+  pagmo::nlopt *result = 0 ;
+  
+  {
+    try {
+      result = (pagmo::nlopt *)new pagmo::nlopt();
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_nlopt__SWIG_1(const char * jarg1) {
+  void * jresult ;
+  std::string *arg1 = 0 ;
+  pagmo::nlopt *result = 0 ;
+  
+  if (!jarg1) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "null string", 0);
+    return 0;
+  }
+  std::string arg1_str(jarg1);
+  arg1 = &arg1_str; 
+  {
+    try {
+      result = (pagmo::nlopt *)new pagmo::nlopt((std::string const &)*arg1);
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_nlopt__SWIG_2(void * jarg1) {
+  void * jresult ;
+  pagmo::nlopt *arg1 = 0 ;
+  pagmo::nlopt *result = 0 ;
+  
+  arg1 = (pagmo::nlopt *)jarg1;
+  if (!arg1) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "pagmo::nlopt const & is null", 0);
+    return 0;
+  } 
+  {
+    try {
+      result = (pagmo::nlopt *)new pagmo::nlopt((pagmo::nlopt const &)*arg1);
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_nlopt_evolve(void * jarg1, void * jarg2) {
+  void * jresult ;
+  pagmo::nlopt *arg1 = 0 ;
+  SwigValueWrapper< pagmo::population > arg2 ;
+  pagmo::population *argp2 ;
+  SwigValueWrapper< pagmo::population > result;
+  
+  arg1 = (pagmo::nlopt *)jarg1; 
+  argp2 = (pagmo::population *)jarg2; 
+  if (!argp2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "Attempt to dereference null pagmo::population", 0);
+    return 0;
+  }
+  arg2 = *argp2; 
+  {
+    try {
+      result = ((pagmo::nlopt const *)arg1)->evolve(SWIG_STD_MOVE(arg2));
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = new pagmo::population(result); 
+  return jresult;
+}
+
+
+SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_nlopt_get_name(void * jarg1) {
+  const char * jresult ;
+  pagmo::nlopt *arg1 = 0 ;
+  std::string result;
+  
+  arg1 = (pagmo::nlopt *)jarg1; 
+  {
+    try {
+      result = ((pagmo::nlopt const *)arg1)->get_name();
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_nlopt_set_verbosity(void * jarg1, unsigned int jarg2) {
+  pagmo::nlopt *arg1 = 0 ;
+  unsigned int arg2 ;
+  
+  arg1 = (pagmo::nlopt *)jarg1; 
+  arg2 = (unsigned int)jarg2; 
+  {
+    try {
+      (arg1)->set_verbosity(arg2);
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return ; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return ; 
+      };
+    }
+  }
+}
+
+
+SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_nlopt_get_extra_info(void * jarg1) {
+  const char * jresult ;
+  pagmo::nlopt *arg1 = 0 ;
+  std::string result;
+  
+  arg1 = (pagmo::nlopt *)jarg1; 
+  {
+    try {
+      result = ((pagmo::nlopt const *)arg1)->get_extra_info();
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  return jresult;
+}
+
+
+SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_nlopt_get_solver_name(void * jarg1) {
+  const char * jresult ;
+  pagmo::nlopt *arg1 = 0 ;
+  std::string result;
+  
+  arg1 = (pagmo::nlopt *)jarg1; 
+  {
+    try {
+      result = ((pagmo::nlopt const *)arg1)->get_solver_name();
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_nlopt_get_last_opt_result(void * jarg1) {
+  void * jresult ;
+  pagmo::nlopt *arg1 = 0 ;
+  ::nlopt_result result;
+  
+  arg1 = (pagmo::nlopt *)jarg1; 
+  {
+    try {
+      result = ((pagmo::nlopt const *)arg1)->get_last_opt_result();
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = new ::nlopt_result(result); 
+  return jresult;
+}
+
+
+SWIGEXPORT double SWIGSTDCALL CSharp_pagmo_nlopt_get_stopval(void * jarg1) {
+  double jresult ;
+  pagmo::nlopt *arg1 = 0 ;
+  double result;
+  
+  arg1 = (pagmo::nlopt *)jarg1; 
+  {
+    try {
+      result = (double)((pagmo::nlopt const *)arg1)->get_stopval();
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_nlopt_set_stopval(void * jarg1, double jarg2) {
+  pagmo::nlopt *arg1 = 0 ;
+  double arg2 ;
+  
+  arg1 = (pagmo::nlopt *)jarg1; 
+  arg2 = (double)jarg2; 
+  {
+    try {
+      (arg1)->set_stopval(arg2);
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return ; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return ; 
+      };
+    }
+  }
+}
+
+
+SWIGEXPORT double SWIGSTDCALL CSharp_pagmo_nlopt_get_ftol_rel(void * jarg1) {
+  double jresult ;
+  pagmo::nlopt *arg1 = 0 ;
+  double result;
+  
+  arg1 = (pagmo::nlopt *)jarg1; 
+  {
+    try {
+      result = (double)((pagmo::nlopt const *)arg1)->get_ftol_rel();
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_nlopt_set_ftol_rel(void * jarg1, double jarg2) {
+  pagmo::nlopt *arg1 = 0 ;
+  double arg2 ;
+  
+  arg1 = (pagmo::nlopt *)jarg1; 
+  arg2 = (double)jarg2; 
+  {
+    try {
+      (arg1)->set_ftol_rel(arg2);
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return ; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return ; 
+      };
+    }
+  }
+}
+
+
+SWIGEXPORT double SWIGSTDCALL CSharp_pagmo_nlopt_get_ftol_abs(void * jarg1) {
+  double jresult ;
+  pagmo::nlopt *arg1 = 0 ;
+  double result;
+  
+  arg1 = (pagmo::nlopt *)jarg1; 
+  {
+    try {
+      result = (double)((pagmo::nlopt const *)arg1)->get_ftol_abs();
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_nlopt_set_ftol_abs(void * jarg1, double jarg2) {
+  pagmo::nlopt *arg1 = 0 ;
+  double arg2 ;
+  
+  arg1 = (pagmo::nlopt *)jarg1; 
+  arg2 = (double)jarg2; 
+  {
+    try {
+      (arg1)->set_ftol_abs(arg2);
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return ; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return ; 
+      };
+    }
+  }
+}
+
+
+SWIGEXPORT double SWIGSTDCALL CSharp_pagmo_nlopt_get_xtol_rel(void * jarg1) {
+  double jresult ;
+  pagmo::nlopt *arg1 = 0 ;
+  double result;
+  
+  arg1 = (pagmo::nlopt *)jarg1; 
+  {
+    try {
+      result = (double)((pagmo::nlopt const *)arg1)->get_xtol_rel();
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_nlopt_set_xtol_rel(void * jarg1, double jarg2) {
+  pagmo::nlopt *arg1 = 0 ;
+  double arg2 ;
+  
+  arg1 = (pagmo::nlopt *)jarg1; 
+  arg2 = (double)jarg2; 
+  {
+    try {
+      (arg1)->set_xtol_rel(arg2);
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return ; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return ; 
+      };
+    }
+  }
+}
+
+
+SWIGEXPORT double SWIGSTDCALL CSharp_pagmo_nlopt_get_xtol_abs(void * jarg1) {
+  double jresult ;
+  pagmo::nlopt *arg1 = 0 ;
+  double result;
+  
+  arg1 = (pagmo::nlopt *)jarg1; 
+  {
+    try {
+      result = (double)((pagmo::nlopt const *)arg1)->get_xtol_abs();
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_nlopt_set_xtol_abs(void * jarg1, double jarg2) {
+  pagmo::nlopt *arg1 = 0 ;
+  double arg2 ;
+  
+  arg1 = (pagmo::nlopt *)jarg1; 
+  arg2 = (double)jarg2; 
+  {
+    try {
+      (arg1)->set_xtol_abs(arg2);
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return ; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return ; 
+      };
+    }
+  }
+}
+
+
+SWIGEXPORT int SWIGSTDCALL CSharp_pagmo_nlopt_get_maxeval(void * jarg1) {
+  int jresult ;
+  pagmo::nlopt *arg1 = 0 ;
+  int result;
+  
+  arg1 = (pagmo::nlopt *)jarg1; 
+  {
+    try {
+      result = (int)((pagmo::nlopt const *)arg1)->get_maxeval();
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_nlopt_set_maxeval(void * jarg1, int jarg2) {
+  pagmo::nlopt *arg1 = 0 ;
+  int arg2 ;
+  
+  arg1 = (pagmo::nlopt *)jarg1; 
+  arg2 = (int)jarg2; 
+  {
+    try {
+      (arg1)->set_maxeval(arg2);
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return ; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return ; 
+      };
+    }
+  }
+}
+
+
+SWIGEXPORT int SWIGSTDCALL CSharp_pagmo_nlopt_get_maxtime(void * jarg1) {
+  int jresult ;
+  pagmo::nlopt *arg1 = 0 ;
+  int result;
+  
+  arg1 = (pagmo::nlopt *)jarg1; 
+  {
+    try {
+      result = (int)((pagmo::nlopt const *)arg1)->get_maxtime();
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_nlopt_set_maxtime(void * jarg1, int jarg2) {
+  pagmo::nlopt *arg1 = 0 ;
+  int arg2 ;
+  
+  arg1 = (pagmo::nlopt *)jarg1; 
+  arg2 = (int)jarg2; 
+  {
+    try {
+      (arg1)->set_maxtime(arg2);
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return ; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return ; 
+      };
+    }
+  }
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_nlopt_get_local_optimizer__SWIG_0(void * jarg1) {
+  void * jresult ;
+  pagmo::nlopt *arg1 = 0 ;
+  pagmo::nlopt *result = 0 ;
+  
+  arg1 = (pagmo::nlopt *)jarg1; 
+  {
+    try {
+      result = (pagmo::nlopt *)((pagmo::nlopt const *)arg1)->get_local_optimizer();
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_nlopt_unset_local_optimizer(void * jarg1) {
+  pagmo::nlopt *arg1 = 0 ;
+  
+  arg1 = (pagmo::nlopt *)jarg1; 
+  {
+    try {
+      (arg1)->unset_local_optimizer();
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return ; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return ; 
+      };
+    }
+  }
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_nlopt_get_log_entries(void * jarg1) {
+  void * jresult ;
+  pagmo::nlopt *arg1 = 0 ;
+  std::vector< pagmoWrap::NloptLogEntry > result;
+  
+  arg1 = (pagmo::nlopt *)jarg1; 
+  {
+    try {
+      result = pagmo_nlopt_get_log_entries((pagmo::nlopt const *)arg1);
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = new std::vector< pagmoWrap::NloptLogEntry >(result); 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_nlopt_to_algorithm(void * jarg1) {
+  void * jresult ;
+  pagmo::nlopt *arg1 = 0 ;
+  pagmo::algorithm result;
+  
+  arg1 = (pagmo::nlopt *)jarg1; 
+  {
+    try {
+      result = pagmo_nlopt_to_algorithm((pagmo::nlopt const *)arg1);
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = new pagmo::algorithm(result); 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_delete_nlopt(void * jarg1) {
+  pagmo::nlopt *arg1 = 0 ;
+  
+  arg1 = (pagmo::nlopt *)jarg1; 
   {
     try {
       delete arg1;

@@ -19,6 +19,7 @@ namespace pagmo
                 compass_search compassSearch => compassSearch.to_algorithm(),
                 ihs improvedHarmonySearch => improvedHarmonySearch.to_algorithm(),
                 nsga2 nsga2Algorithm => nsga2Algorithm.to_algorithm(),
+                nlopt nloptAlgorithm => nloptAlgorithm.to_algorithm(),
                 moead moeadAlgorithm => moeadAlgorithm.to_algorithm(),
                 moead_gen moeadGenerationalAlgorithm => moeadGenerationalAlgorithm.to_algorithm(),
                 maco multiObjectiveAntColonyOptimization => multiObjectiveAntColonyOptimization.to_algorithm(),

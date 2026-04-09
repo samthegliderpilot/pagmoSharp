@@ -26,10 +26,29 @@ namespace Tests.PagmoSharp.Algorithms
         public abstract bool Stochastic { get; }
         public virtual bool MultiObjectiveUnconstrainedValid => MultiObjective && Unconstrained;
         public virtual bool MultiObjectiveConstrainedValid => MultiObjective && Constrained;
+        public virtual bool ExpectEvolutionToIncreaseFevals => true;
 
         public population EvolveAlgorithm(IAlgorithm algorithm, population population)
         {
             return algorithm.evolve(population);
+        }
+
+        private static ulong SnapshotFevals(population population)
+        {
+            using var problem = population.get_problem();
+            return problem.get_fevals();
+        }
+
+        private void AssertEvolutionEffect(population initialPopulation, population evolvedPopulation, ulong initialFevals)
+        {
+            Assert.AreEqual(initialPopulation.size(), evolvedPopulation.size(), "evolve() should preserve population size");
+            if (!ExpectEvolutionToIncreaseFevals)
+            {
+                return;
+            }
+
+            using var evolvedProblem = evolvedPopulation.get_problem();
+            Assert.Greater(evolvedProblem.get_fevals(), initialFevals, "evolve() should trigger additional function evaluations");
         }
 
         private static void AssertChampionUnavailableForMultiObjectivePopulation(population finalPopulation)
@@ -62,7 +81,9 @@ namespace Tests.PagmoSharp.Algorithms
             using (var algorithm = CreateAlgorithm(problem))
             using (var pop = new population(problem, 64))
             {
+                var initialFevals = SnapshotFevals(pop);
                 using var finalpop = EvolveAlgorithm(algorithm, pop);
+                AssertEvolutionEffect(pop, finalpop, initialFevals);
                 using var championFitness = finalpop.champion_f();
                 using var championDecisionVector = finalpop.champion_x();
                 Assert.AreEqual(problem.ExpectedOptimalFunctionValue, championFitness[0], 2);
@@ -83,7 +104,9 @@ namespace Tests.PagmoSharp.Algorithms
             using (var algorithm = CreateAlgorithm(problem))
             using (var pop = new population(problem, 512))
             {
+                var initialFevals = SnapshotFevals(pop);
                 using var finalpop = EvolveAlgorithm(algorithm, pop);
+                AssertEvolutionEffect(pop, finalpop, initialFevals);
                 using var championFitness = finalpop.champion_f();
                 using var championDecisionVector = finalpop.champion_x();
                 Assert.AreEqual(problem.ExpectedOptimalFunctionValue, championFitness[0], 2);
@@ -105,7 +128,9 @@ namespace Tests.PagmoSharp.Algorithms
             using (var pop = new population(problem, 1024))
             {
                 algorithm.set_seed(2); // for consistent results
+                var initialFevals = SnapshotFevals(pop);
                 using var finalpop = EvolveAlgorithm(algorithm, pop);
+                AssertEvolutionEffect(pop, finalpop, initialFevals);
                 using var championDecisionVector = finalpop.champion_x();
                 using var championFitness = finalpop.champion_f();
                 Assert.AreEqual(problem.ExpectedOptimalX[0], championDecisionVector[0], 0.3, "x for opt");
@@ -228,7 +253,9 @@ namespace Tests.PagmoSharp.Algorithms
             using (var pop = new population(problem, 4096, 2u))
             {
                 //algorithm.set_seed(2); // for consistent results
+                var initialFevals = SnapshotFevals(pop);
                 using var finalpop = EvolveAlgorithm(algorithm, pop);
+                AssertEvolutionEffect(pop, finalpop, initialFevals);
                 using var championDecisionVector = finalpop.champion_x();
                 using var championFitness = finalpop.champion_f();
                 Assert.AreEqual(problem.ExpectedOptimalX[0], championDecisionVector[0], 10, "x for opt");
@@ -255,7 +282,9 @@ namespace Tests.PagmoSharp.Algorithms
             {
                 algorithm.set_seed(2); // for consistent results
 
+                var initialFevals = SnapshotFevals(pop);
                 using var finalpop = algorithm.evolve(pop);
+                AssertEvolutionEffect(pop, finalpop, initialFevals);
                 using var championDecisionVector = finalpop.champion_x();
                 using var championFitness = finalpop.champion_f();
                 Assert.AreEqual(2, championDecisionVector.Count, "champion decision vector should contain 2 values");
@@ -282,7 +311,9 @@ namespace Tests.PagmoSharp.Algorithms
             {
                 algorithm.set_seed(2); // for consistent results
 
+                var initialFevals = SnapshotFevals(pop);
                 using var finalpop = algorithm.evolve(pop);
+                AssertEvolutionEffect(pop, finalpop, initialFevals);
                 using var championDecisionVector = finalpop.champion_x();
                 using var championFitness = finalpop.champion_f();
                 using var bounds = problemBase.get_bounds();
@@ -319,7 +350,9 @@ namespace Tests.PagmoSharp.Algorithms
                 var expectedFitnessVectorCount = (int)(problemBase.get_nobj() + problemBase.get_nec() + problemBase.get_nic());
                 var expectedPopulationSize = pop.size();
 
+                var initialFevals = SnapshotFevals(pop);
                 using var finalpop = algorithm.evolve(pop);
+                AssertEvolutionEffect(pop, finalpop, initialFevals);
                 Assert.AreEqual(expectedPopulationSize, finalpop.size(), "population size should be preserved");
 
                 using var finalProblem = finalpop.get_problem();
@@ -358,7 +391,9 @@ namespace Tests.PagmoSharp.Algorithms
             var expectedFitnessVectorCount = (int)(problemBase.get_nobj() + problemBase.get_nec() + problemBase.get_nic());
             var expectedPopulationSize = pop.size();
 
+            var initialFevals = SnapshotFevals(pop);
             using var finalPopulation = algorithm.evolve(pop);
+            AssertEvolutionEffect(pop, finalPopulation, initialFevals);
             Assert.AreEqual(expectedPopulationSize, finalPopulation.size(), "population size should be preserved");
 
             using var finalProblem = finalPopulation.get_problem();

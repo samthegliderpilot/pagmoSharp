@@ -50,7 +50,7 @@ public class Test_ackley : TestProblemBase
 
             Assert.AreEqual(1, champF.Length, "1 in f(x)");
             Assert.LessOrEqual(champF[0], initialBest + 1e-12, "evolution should not worsen champion fitness");
-            Assert.AreEqual(0.00010319491007537707, champF[0], 1e-3, "optimal function value");
+            Assert.AreEqual(0.0, champF[0], 1e-3, "optimal function value");
 
         }
     }

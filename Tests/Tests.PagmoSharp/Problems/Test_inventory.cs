@@ -51,10 +51,10 @@ namespace Tests.PagmoSharp.Problems
                 using var championDecisionVector = finalpop.champion_x();
                 using var championFitness = finalpop.champion_f();
                 Assert.AreEqual(4, championDecisionVector.Count, "4 in x");
-                Assert.AreEqual(57.839652700387155, championDecisionVector[0], 1.0, "champX");
+                Assert.AreEqual(57.8, championDecisionVector[0], 1.0, "champX");
 
                 Assert.AreEqual(1, championFitness.Count, "1 in f(x)");
-                Assert.AreEqual(240.85449403381608, championFitness[0], 1.0, "champF");
+                Assert.AreEqual(240.9, championFitness[0], 1.0, "champF");
                 Assert.Greater(evolvedProblem.get_fevals(), initialFevals, "evolution should trigger additional function evaluations");
             }
         }

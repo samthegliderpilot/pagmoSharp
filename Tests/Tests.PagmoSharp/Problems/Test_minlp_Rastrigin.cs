@@ -60,7 +60,7 @@ public class Test_minlp_Rastrigin : TestProblemBase
             Assert.AreEqual(0, champX[1], 1e-3, "2.0 for second x value");
 
             Assert.AreEqual(1, champF.Length, "1 in f(x)");
-            Assert.AreEqual(25.000003609857814, champF[0], 1e-3, "optimal function value");
+            Assert.AreEqual(25.0, champF[0], 1e-3, "optimal function value");
             Assert.Greater(evolvedProblem.get_fevals(), initialFevals, "evolution should trigger additional function evaluations");
             
         }

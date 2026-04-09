@@ -71,6 +71,11 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <PagmoVcpkgInstalledDir Condition="'$(PagmoVcpkgInstalledDir)'=='' and '$(VCPKG_INSTALLED_DIR)'!=''">$(VCPKG_INSTALLED_DIR)</PagmoVcpkgInstalledDir>
+    <PagmoVcpkgInstalledDir Condition="'$(PagmoVcpkgInstalledDir)'=='' and '$(VCPKG_INSTALLED_DIR)'==''">$(SolutionDir)..\vcpkg\installed</PagmoVcpkgInstalledDir>
+    <PagmoVcpkgTriplet Condition="'$(PagmoVcpkgTriplet)'==''">x64-windows</PagmoVcpkgTriplet>
+  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
     <OutDir>$(SolutionDir)\$(ProjectName)\bin\</OutDir>
@@ -115,7 +120,7 @@
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <CompileAsManaged>false</CompileAsManaged>
-      <AdditionalIncludeDirectories>C:\src\vcpkg\installed\x64-windows\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(PagmoVcpkgInstalledDir)\$(PagmoVcpkgTriplet)\include</AdditionalIncludeDirectories>
       <MultiProcessorCompilation>false</MultiProcessorCompilation>
       <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
@@ -144,7 +149,7 @@ call "$(ProjectDir)..\createSwigWrappersAndPlaceThem.bat"
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <CompileAsManaged>false</CompileAsManaged>
-      <AdditionalIncludeDirectories>C:\src\vcpkg\installed\x64-windows\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(PagmoVcpkgInstalledDir)\$(PagmoVcpkgTriplet)\include</AdditionalIncludeDirectories>
       <MultiProcessorCompilation>false</MultiProcessorCompilation>
       <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
@@ -173,7 +178,7 @@ call "$(ProjectDir)..\createSwigWrappersAndPlaceThem.bat"
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <CompileAsManaged>false</CompileAsManaged>
-      <AdditionalIncludeDirectories>C:\src\vcpkg\installed\x64-windows\include\eigen3;C:\src\vcpkg\installed\x64-windows\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(PagmoVcpkgInstalledDir)\$(PagmoVcpkgTriplet)\include\eigen3;$(PagmoVcpkgInstalledDir)\$(PagmoVcpkgTriplet)\include</AdditionalIncludeDirectories>
       <MultiProcessorCompilation>false</MultiProcessorCompilation>
       <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
@@ -200,7 +205,7 @@ call "$(ProjectDir)..\createSwigWrappersAndPlaceThem.bat"</Command>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <CompileAsManaged>false</CompileAsManaged>
-      <AdditionalIncludeDirectories>C:\src\vcpkg\installed\x64-windows\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(PagmoVcpkgInstalledDir)\$(PagmoVcpkgTriplet)\include</AdditionalIncludeDirectories>
       <MultiProcessorCompilation>false</MultiProcessorCompilation>
       <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>

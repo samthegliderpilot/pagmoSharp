@@ -60,6 +60,17 @@ Test build/run tasks use `scripts/test.ps1` with staged execution (`build` then 
   - `ms-vscode.cpptools`
   - `ms-vscode.powershell`
 
+### Configurable tool/include paths
+
+- SWIG resolution for `createSwigWrappersAndPlaceThem.bat`:
+  - `SWIG_EXE` env var (preferred), otherwise `swig.exe` from `PATH`.
+- C++ include path resolution for `pagmoWrapper.vcxproj`:
+  - `PagmoVcpkgInstalledDir` MSBuild property (preferred),
+  - or `VCPKG_INSTALLED_DIR` environment variable,
+  - or default repo-relative fallback: `$(SolutionDir)..\\vcpkg\\installed`.
+- Triplet override:
+  - `PagmoVcpkgTriplet` MSBuild property (default: `x64-windows`).
+
 ## Managed problem architecture (C# UDP support)
 
 The core C# problem pipeline is:
@@ -88,6 +99,53 @@ This keeps ownership on the native side with `shared_ptr`, avoiding raw-pointer 
 - Managed UDPs declaring `thread_safety.none` are rejected on those threaded entrypoints.
 - Declare `thread_safety.basic` or `thread_safety.constant` when your managed UDP is safe for concurrent evaluation.
 
+## C# quickstart
+
+```csharp
+using pagmo;
+
+public sealed class SphereProblem : ManagedProblemBase
+{
+    public override PairOfDoubleVectors get_bounds() => Bounds(
+        new[] { -5.0, -5.0 },
+        new[] { 5.0, 5.0 });
+
+    public override DoubleVector fitness(DoubleVector x)
+    {
+        return Vec(x[0] * x[0] + x[1] * x[1]);
+    }
+
+    public override thread_safety get_thread_safety() => thread_safety.basic;
+}
+
+using IAlgorithm algo = new de(100u);
+using var udp = new SphereProblem();
+using var isl = island.Create(algo, udp, popSize: 64u, seed: 2u);
+isl.evolve(1u);
+isl.wait_check();
+
+using var result = isl.get_population();
+using var bestX = result.champion_x();
+using var bestF = result.champion_f();
+```
+
+Notes:
+- Use `island.Create(...)` for single-island runs and `archipelago.push_back_island(...)` for multi-island orchestration.
+- When using threaded paths (`thread_bfe`, `archipelago` with managed UDPs), managed problems must report `thread_safety.basic` or `thread_safety.constant`.
+
+## Supported feature matrix (current state)
+
+| Area | Status | Notes |
+|---|---|---|
+| Managed C# UDP (`IProblem` / `ManagedProblemBase`) | Supported | Core path for v1.0; callback lifetime and exception bubbling are covered by tests. |
+| Type-erased `IAlgorithm` interop in island/archipelago paths | Supported | Bridged via `AlgorithmInterop` for wrapped algorithms in scope. |
+| Core runtime orchestration (`population`, `island`, `archipelago`) | Supported | Managed-problem + policy + topology runtime paths are covered. |
+| Managed policy extensibility (`r_policyBase`, `s_policyBase`) | Supported | Direct managed-policy entrypoints are available on island/archipelago helpers. |
+| Topology wrappers (`ring`, `fully_connected`, `unconnected`, `free_form`) | Supported | Managed projection helpers are provided and tested. |
+| Optional solver wrapper (`ipopt`) | Feature-gated | Build-dependent; availability is asserted by test, runtime hardening pending IPOPT-enabled environment. |
+| Optional solver wrapper (`nlopt`) | Feature-gated | Build-dependent; availability is asserted by test and runtime wrapper behavior is validated when present. |
+| Linux/CMake build flow | Planned post-v1 | Windows-first v1 release track; Linux/CMake is a later sprint. |
+
 ## Code style preferences
 
 - Keep code lean and readable; avoid defensive scaffolding unless it provides clear operational value.
@@ -96,3 +154,10 @@ This keeps ownership on the native side with `shared_ptr`, avoiding raw-pointer 
   - the message adds useful, novel context beyond the default exception/debugger signal, or
   - there is a strong boundary contract that benefits from explicit validation.
 - Favor tight exception usage and concise error messages.
+
+### API naming
+
+- Managed extension helpers prefer C#-style PascalCase where practical.
+- Existing snake_case runtime entrypoints are retained for pagmo parity/compatibility.
+- See .ai/API_NAMING_POLICY.md for the detailed policy and compatibility approach.
+

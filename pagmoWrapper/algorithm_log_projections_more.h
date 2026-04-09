@@ -18,6 +18,12 @@
 #include "pagmo/algorithms/sga.hpp"
 #include "pagmo/algorithms/simulated_annealing.hpp"
 #include "pagmo/algorithms/xnes.hpp"
+#if defined(PAGMO_WITH_NLOPT)
+#include "pagmo/algorithms/nlopt.hpp"
+#endif
+#if defined(PAGMO_WITH_IPOPT)
+#include "pagmo/algorithms/ipopt.hpp"
+#endif
 
 namespace pagmoWrap {
 
@@ -76,6 +82,22 @@ struct CompassSearchLogEntry {
     unsigned long long violated{};
     double violation_norm{};
     double range{};
+};
+
+struct NloptLogEntry {
+    unsigned long long fevals{};
+    double objective{};
+    unsigned long long violated{};
+    double violation_norm{};
+    bool feasible{};
+};
+
+struct IpoptLogEntry {
+    unsigned long long objective_evaluations{};
+    double objective{};
+    unsigned long long violated{};
+    double violation_norm{};
+    bool feasible{};
 };
 
 struct SimulatedAnnealingLogEntry {
@@ -231,6 +253,32 @@ inline std::vector<CompassSearchLogEntry> CompassSearch_GetLogEntries(const pagm
     }
     return entries;
 }
+
+#if defined(PAGMO_WITH_NLOPT)
+inline std::vector<NloptLogEntry> Nlopt_GetLogEntries(const pagmo::nlopt &algo)
+{
+    std::vector<NloptLogEntry> entries;
+    const auto &log = algo.get_log();
+    entries.reserve(log.size());
+    for (const auto &line : log) {
+        entries.push_back({std::get<0>(line), std::get<1>(line), static_cast<unsigned long long>(std::get<2>(line)), std::get<3>(line), std::get<4>(line)});
+    }
+    return entries;
+}
+#endif
+
+#if defined(PAGMO_WITH_IPOPT)
+inline std::vector<IpoptLogEntry> Ipopt_GetLogEntries(const pagmo::ipopt &algo)
+{
+    std::vector<IpoptLogEntry> entries;
+    const auto &log = algo.get_log();
+    entries.reserve(log.size());
+    for (const auto &line : log) {
+        entries.push_back({std::get<0>(line), std::get<1>(line), static_cast<unsigned long long>(std::get<2>(line)), std::get<3>(line), std::get<4>(line)});
+    }
+    return entries;
+}
+#endif
 
 inline std::vector<SimulatedAnnealingLogEntry> SimulatedAnnealing_GetLogEntries(const pagmo::simulated_annealing &algo)
 {
