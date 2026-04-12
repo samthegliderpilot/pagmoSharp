@@ -61,6 +61,7 @@ PAGMOSHARP_EXEC_EXCEPTION(pagmo::thread_island::run_evolve, "thread_island.run_e
 		#include "pagmo/utils/hv_algos/hv_algorithm.hpp"
 	    
 	#include "problem.h" // this is a manually created item.  We want to include it in the wrappers so the generated cxx code can use the handwritten code for the problem
+	#include "algorithm_callback.h"
 	#include "tuple_adapters.h"
 	#include "algorithm_log_projections_more.h"
 	#include "cmaes_log_projection.h"
@@ -96,15 +97,24 @@ PAGMOSHARP_EXEC_EXCEPTION(pagmo::thread_island::run_evolve, "thread_island.run_e
 %pragma(csharp) moduleclassmodifiers = "public partial class"
 %typemap(csclassmodifiers) pagmoWrap::problem_callback "public partial class"
 %typemap(csclassmodifiers) pagmoWrap::managed_problem "public partial class"
+%typemap(csclassmodifiers) pagmoWrap::algorithm_callback "public partial class"
+%typemap(csclassmodifiers) pagmoWrap::managed_algorithm "public partial class"
 
 %typemap(csclassmodifiers) std::vector <double> "public partial class"
 %feature("director") pagmoWrap::problem_callback;
+%feature("director") pagmoWrap::algorithm_callback;
 %ignore pagmoWrap::managed_problem::managed_problem(std::shared_ptr<pagmoWrap::problem_callback>);
 %ignore pagmoWrap::managed_problem::managed_problem(std::shared_ptr<problem_callback>);
 %ignore pagmoWrap::managed_problem::managed_problem(std::shared_ptr< problem_callback >);
 %ignore pagmoWrap::managed_problem::managed_problem(std::shared_ptr< pagmoWrap::problem_callback >);
 %include "pagmoWrapper/problem.h"
+%ignore pagmoWrap::managed_algorithm::managed_algorithm(std::shared_ptr<pagmoWrap::algorithm_callback>);
+%ignore pagmoWrap::managed_algorithm::managed_algorithm(std::shared_ptr<algorithm_callback>);
+%ignore pagmoWrap::managed_algorithm::managed_algorithm(std::shared_ptr< algorithm_callback >);
+%ignore pagmoWrap::managed_algorithm::managed_algorithm(std::shared_ptr< pagmoWrap::algorithm_callback >);
+%include "pagmoWrapper/algorithm_callback.h"
 %shared_ptr(pagmoWrap::problem_callback);
+%shared_ptr(pagmoWrap::algorithm_callback);
 
 %feature("director") pagmoWrap::r_policyBase;
 %ignore pagmoWrap::r_policyPagmoWrapper::replace;

@@ -38,12 +38,7 @@ namespace pagmo
                 sga simpleGeneticAlgorithm => simpleGeneticAlgorithm.to_algorithm(),
                 simulated_annealing simulatedAnnealing => simulatedAnnealing.to_algorithm(),
                 xnes exponentialNaturalEvolutionStrategy => exponentialNaturalEvolutionStrategy.to_algorithm(),
-                grid_search => throw new NotSupportedException(
-                    "Algorithm type 'grid_search' is managed-only and cannot be normalized to native pagmo::algorithm yet. " +
-                    "Use grid_search.evolve(population) directly, or add a native callback bridge for managed algorithms."),
-                _ => throw new NotSupportedException(
-                    $"Algorithm type '{source.GetType().Name}' is not currently supported in type-erased contexts. " +
-                    "Pass pagmo.algorithm directly or add an explicit conversion bridge for this UDA.")
+                _ => new algorithm(source)
             };
         }
     }

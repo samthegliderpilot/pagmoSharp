@@ -6,6 +6,8 @@
 - [ ] Freeze API surface changes for release candidate.
 
 ## Build & Test Gates
+- [ ] Run consolidated release gates script: `powershell -ExecutionPolicy Bypass -File scripts/release-gates.ps1`.
+- [ ] Ensure release gate runs with repo-local cache environment (`NUGET_PACKAGES=./.nuget/packages`) to avoid machine-profile package drift.
 - [ ] Clean rebuild native wrapper (`Debug x64` and `Release x64`).
 - [ ] Run full managed test suite (`dotnet test`) and record pass count.
 - [ ] Validate SWIG regen reproducibility (no unexpected diffs after regeneration).

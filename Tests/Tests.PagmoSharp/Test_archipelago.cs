@@ -64,15 +64,15 @@ namespace Tests.PagmoSharp
             return (ideal[0], ideal[1]);
         }
 
-        // Negative-path helper used to verify type-erased managed algorithm rejection paths.
-        private sealed class UnsupportedAlgorithm : IAlgorithm
+        // Managed custom algorithm used to validate callback-bridge type-erased execution.
+        private sealed class ThrowingAlgorithm : IAlgorithm
         {
-            public population evolve(population pop) => pop;
+            public population evolve(population pop) => throw new InvalidOperationException("Managed algorithm failure from ThrowingAlgorithm.");
             public void set_seed(uint seed) { }
             public uint get_seed() => 0;
             public uint get_verbosity() => 0;
             public void set_verbosity(uint level) { }
-            public string get_name() => "UnsupportedAlgorithm";
+            public string get_name() => "ThrowingAlgorithm";
             public string get_extra_info() => string.Empty;
             public void Dispose() { }
         }
@@ -234,14 +234,18 @@ namespace Tests.PagmoSharp
         }
 
         [Test]
-        public void PushBackIslandRejectsUnsupportedManagedAlgorithmType()
+        public void PushBackIslandBubblesManagedAlgorithmCallbackExceptionOnWaitCheck()
         {
             using var archi = new archipelago();
-            using IAlgorithm algo = new UnsupportedAlgorithm();
+            using IAlgorithm algo = new ThrowingAlgorithm();
             using var problem = new TwoDimensionalSingleObjectiveProblemWrapper();
 
-            var ex = Assert.Throws<NotSupportedException>(() => archi.push_back_island(algo, problem, 8, 2));
-            Assert.That(ex!.Message, Does.Contain("UnsupportedAlgorithm"));
+            archi.push_back_island(algo, problem, 8, 2);
+            archi.evolve(1u);
+
+            var ex = Assert.Throws<ApplicationException>(() => archi.wait_check());
+            Assert.That(ex!.Message, Does.Contain("managed algorithm evolve"));
+            Assert.That(ex!.Message, Does.Contain("ThrowingAlgorithm"));
         }
 
         [Test]

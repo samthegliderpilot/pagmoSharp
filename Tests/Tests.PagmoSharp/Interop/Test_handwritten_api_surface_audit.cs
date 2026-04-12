@@ -197,7 +197,8 @@ public class Test_handwritten_api_surface_audit
         var extensionsRoot = GetExtensionsRoot();
         var allowedFiles = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
         {
-            Path.Combine("Problems", "ProblemCallbackAdapter.cs")
+            Path.Combine("Problems", "ProblemCallbackAdapter.cs"),
+            Path.Combine("Algorithms", "AlgorithmCallbackAdapter.cs")
         };
 
         var offenders = Directory

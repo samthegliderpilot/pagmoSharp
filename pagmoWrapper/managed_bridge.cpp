@@ -5,6 +5,7 @@
 #include <utility>
 
 #include <pagmo/problem.hpp>
+#include <pagmo/algorithm.hpp>
 #include <pagmo/population.hpp>
 #include <pagmo/batch_evaluators/default_bfe.hpp>
 #include <pagmo/batch_evaluators/thread_bfe.hpp>
@@ -13,6 +14,7 @@
 #include <pagmo/utils/gradients_and_hessians.hpp>
 
 #include "problem.h"
+#include "algorithm_callback.h"
 
 #ifndef PAGMOSHARP_EXPORT
 #define PAGMOSHARP_EXPORT __declspec(dllexport)
@@ -74,6 +76,28 @@ PAGMOSHARP_EXPORT void *pagmosharp_problem_from_callback(void *callback_ptr)
         return nullptr;
     } catch (...) {
         set_unknown_last_error("pagmosharp_problem_from_callback");
+        return nullptr;
+    }
+}
+
+PAGMOSHARP_EXPORT void *pagmosharp_algorithm_from_callback(void *callback_ptr)
+{
+    clear_last_error();
+    if (callback_ptr == nullptr) {
+        set_last_error("pagmosharp_algorithm_from_callback: callback_ptr is null");
+        return nullptr;
+    }
+
+    try {
+        auto *raw = static_cast<pagmoWrap::algorithm_callback *>(callback_ptr);
+        std::shared_ptr<pagmoWrap::algorithm_callback> callback_owner(raw);
+        auto *algorithm = new pagmo::algorithm(pagmoWrap::managed_algorithm(std::move(callback_owner)));
+        return static_cast<void *>(algorithm);
+    } catch (const std::exception &ex) {
+        set_last_error_from_exception("pagmosharp_algorithm_from_callback", ex);
+        return nullptr;
+    } catch (...) {
+        set_unknown_last_error("pagmosharp_algorithm_from_callback");
         return nullptr;
     }
 }

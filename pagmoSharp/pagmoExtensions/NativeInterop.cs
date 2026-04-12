@@ -12,6 +12,9 @@ namespace pagmo
         [DllImport(NativeLib, EntryPoint = "pagmosharp_problem_from_callback", CallingConvention = CallingConvention.Cdecl)]
         private static extern IntPtr problem_from_callback(IntPtr callbackPtr);
 
+        [DllImport(NativeLib, EntryPoint = "pagmosharp_algorithm_from_callback", CallingConvention = CallingConvention.Cdecl)]
+        private static extern IntPtr algorithm_from_callback(IntPtr callbackPtr);
+
         [DllImport(NativeLib, EntryPoint = "pagmosharp_problem_delete", CallingConvention = CallingConvention.Cdecl)]
         internal static extern void problem_delete(IntPtr problemPtr);
 
@@ -47,7 +50,7 @@ namespace pagmo
             private readonly List<GCHandle> _handles = new();
             private readonly object _gate = new();
 
-            public void Add(problem_callback callback)
+            public void Add(object callback)
             {
                 lock (_gate)
                 {
@@ -74,7 +77,7 @@ namespace pagmo
 
         private static readonly ConditionalWeakTable<object, CallbackRootBucket> ProblemCallbackRoots = new();
 
-        internal static void AttachProblemCallbackRoot(object owner, problem_callback callback)
+        private static void AttachCallbackRoot(object owner, object callback)
         {
             if (owner == null || callback == null)
             {
@@ -83,6 +86,16 @@ namespace pagmo
 
             var bucket = ProblemCallbackRoots.GetOrCreateValue(owner);
             bucket.Add(callback);
+        }
+
+        internal static void AttachProblemCallbackRoot(object owner, problem_callback callback)
+        {
+            AttachCallbackRoot(owner, callback);
+        }
+
+        internal static void AttachAlgorithmCallbackRoot(object owner, algorithm_callback callback)
+        {
+            AttachCallbackRoot(owner, callback);
         }
 
         internal static string TakeLastErrorOrDefault(string fallbackMessage)
@@ -182,6 +195,28 @@ namespace pagmo
             // Keep director delegates alive for the same managed owner lifetime to avoid callback GC crashes.
             AttachProblemCallbackRoot(problem, callback);
             return problemPtr;
+        }
+
+        internal static IntPtr CreateAlgorithmPointer(IAlgorithm algorithm)
+        {
+            if (algorithm == null)
+            {
+                throw new ArgumentNullException(nameof(algorithm));
+            }
+
+            var callbackAdapter = new AlgorithmCallbackAdapter(algorithm);
+            var callback = callbackAdapter;
+            var callbackPtr = algorithm_callback.swigRelease(callback).Handle;
+            var algorithmPtr = algorithm_from_callback(callbackPtr);
+            if (algorithmPtr == IntPtr.Zero)
+            {
+                ThrowIfSwigPendingException();
+                throw new InvalidOperationException(
+                    TakeLastErrorOrDefault("Failed to build native pagmo::algorithm from IAlgorithm callback."));
+            }
+
+            AttachAlgorithmCallbackRoot(algorithm, callback);
+            return algorithmPtr;
         }
 
     }

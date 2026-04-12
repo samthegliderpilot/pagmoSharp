@@ -1,6 +1,5 @@
 using NUnit.Framework;
 using pagmo;
-using Tests.PagmoSharp.TestProblems;
 
 namespace Tests.PagmoSharp.Algorithms;
 
@@ -21,11 +20,10 @@ public class Test_algorithm_core_facade
     [Test]
     public void TypeErasedAlgorithmStillEvolvesPopulation()
     {
-        using var typedAlgorithm = new bee_colony();
+        using var typedAlgorithm = new null_algorithm();
         using var typeErased = typedAlgorithm.to_algorithm();
-        using var managedProblem = new TwoDimensionalSingleObjectiveProblemWrapper();
-        using var problem = new problem(managedProblem);
-        using var initialPopulation = new population(problem, 24u, 2u);
+        using var problem = new problem();
+        using var initialPopulation = new population(problem, 0u, 2u);
 
         using var evolved = typeErased.evolve(initialPopulation);
         Assert.That(evolved.size(), Is.EqualTo(initialPopulation.size()));

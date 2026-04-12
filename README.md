@@ -1,6 +1,6 @@
 [Pagmo](https://esa.github.io/pagmo2/) is a powerful library providing many high quality optimization routines in C++.  In an effort to learn more about C++ and to bring this ability into the .Net world, I'm creating this wrapper around pagmo for C# and other .Net languages.
 
-There is a growing (aka. incomplete) [SWIG](https://www.swig.org/) interface file in the swigInterfaceFileAndPagmoHeaders folder.  When edits are made to that interface file, run the createSwigWrappersAndPlaceThem.bat file one directory up to regenerate the wrapers.  Note that the path of swig.exe is hard-coded in that bat file.  After that, build and run the Visual Studio solution normally.  The C++ project runs that bat file as a pre-build step.
+There is a growing (aka. incomplete) [SWIG](https://www.swig.org/) interface file in the swigInterfaceFileAndPagmoHeaders folder.  When edits are made to that interface file, run the `createSwigWrappersAndPlaceThem.bat` file one directory up to regenerate the wrappers.  SWIG resolution is configurable (`SWIG_EXE`, `SWIG_HOME`, or `PATH`).  After that, build and run the Visual Studio solution normally.  The C++ project runs that bat file as a pre-build step.
 
 Although pagmo has embraced a type-erasure style of coding for their problems, I'm embracing the OOP nature of C# and C++ to create a problem class that will have all the possible functions that a pagmo problem might implement.  This is going to be a hybrid of manually written code on both sides of the [un]managed line, but with SWIG director feature to assist with implementing UDP's in C#.  Right now, the problem class is the only one with custom C++ code, the rest of pagmo (so far) is working well with the swig .i file.
 
@@ -63,7 +63,9 @@ Test build/run tasks use `scripts/test.ps1` with staged execution (`build` then 
 ### Configurable tool/include paths
 
 - SWIG resolution for `createSwigWrappersAndPlaceThem.bat`:
-  - `SWIG_EXE` env var (preferred), otherwise `swig.exe` from `PATH`.
+  - `SWIG_EXE` env var (preferred),
+  - or `SWIG_HOME` (expects `%SWIG_HOME%\swig.exe`),
+  - or `swig.exe` from `PATH`.
 - C++ include path resolution for `pagmoWrapper.vcxproj`:
   - `PagmoVcpkgInstalledDir` MSBuild property (preferred),
   - or `VCPKG_INSTALLED_DIR` environment variable,
@@ -155,12 +157,40 @@ These examples are intentionally half API walkthrough and half optimization-stru
 - `single`: one-island baseline.
 - `archipelago`: topology connectivity intuition (`ring` vs `unconnected`) and single-island vs archipelago multi-start comparison.
 - `policies`: default policy wiring vs explicit `fair_replace` + `select_best` wiring through archipelago APIs.
+
+## Docs (Executable-First)
+
+Concept-first walkthroughs live in `docs/` and link directly to runnable source:
+- `docs/getting-started.md`
+- `docs/archipelago-topology-policies.md`
+
+Smoke-check all documented scenarios:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/docs-smoke.ps1
+```
+
+This verifies docs-backed scenarios (`single`, `archipelago`, `policies`) against `Examples/Examples.PagmoSharp`.
+
+## Release gates (Sprint 5)
+
+Run the consolidated release-readiness gate script:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/release-gates.ps1
+```
+
+This performs:
+- SWIG regen reproducibility check (two consecutive regens with hash comparison of generated outputs),
+- native rebuild (`Debug x64` + `Release x64`),
+- full managed test suite,
+- optional solver availability tests.
 ## Supported feature matrix (current state)
 
 | Area | Status | Notes |
 |---|---|---|
 | Managed C# UDP (`IProblem` / `ManagedProblemBase`) | Supported | Core path for v1.0; callback lifetime and exception bubbling are covered by tests. |
-| Type-erased `IAlgorithm` interop in island/archipelago paths | Supported | Bridged via `AlgorithmInterop` for wrapped algorithms in scope. |
+| Type-erased `IAlgorithm` interop in island/archipelago paths | Supported | Bridged via `AlgorithmInterop` for wrapped algorithms and managed `IAlgorithm` callback bridge (for example `grid_search`). |
 | Core runtime orchestration (`population`, `island`, `archipelago`) | Supported (with known topology caveat) | Managed-problem and policy runtime paths are covered; archipelago `set_topology_*` runtime mutation has a tracked issue in Sprint 4. |
 | Managed policy extensibility (`r_policyBase`, `s_policyBase`) | Supported | Direct managed-policy entrypoints are available on island/archipelago helpers. |
 | Topology wrappers (`ring`, `fully_connected`, `unconnected`, `free_form`) | Supported | Managed projection helpers are provided and tested. |

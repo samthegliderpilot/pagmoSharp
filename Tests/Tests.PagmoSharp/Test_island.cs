@@ -26,15 +26,15 @@ namespace Tests.PagmoSharp
             Assert.AreEqual(1, championFitnessVector.Count, "Expected single-objective fitness.");
         }
 
-        // Negative-path helper used to verify type-erased managed algorithm rejection paths.
-        private sealed class UnsupportedAlgorithm : IAlgorithm
+        // Managed custom algorithm used to validate callback-bridge type-erased execution.
+        private sealed class ThrowingAlgorithm : IAlgorithm
         {
-            public population evolve(population pop) => pop;
+            public population evolve(population pop) => throw new InvalidOperationException("Managed algorithm failure from ThrowingAlgorithm.");
             public void set_seed(uint seed) { }
             public uint get_seed() => 0;
             public uint get_verbosity() => 0;
             public void set_verbosity(uint level) { }
-            public string get_name() => "UnsupportedAlgorithm";
+            public string get_name() => "ThrowingAlgorithm";
             public string get_extra_info() => string.Empty;
             public void Dispose() { }
         }
@@ -103,13 +103,16 @@ namespace Tests.PagmoSharp
         }
 
         [Test]
-        public void IslandCreateRejectsUnsupportedManagedAlgorithmType()
+        public void IslandWaitCheckBubblesManagedAlgorithmCallbackException()
         {
             using var managed = new TwoDimensionalSingleObjectiveProblemWrapper();
-            using IAlgorithm algo = new UnsupportedAlgorithm();
+            using IAlgorithm algo = new ThrowingAlgorithm();
+            using var isl = island.Create(algo, managed, 24, 2);
 
-            var ex = Assert.Throws<NotSupportedException>(() => island.Create(algo, managed, 24, 2));
-            Assert.That(ex!.Message, Does.Contain("UnsupportedAlgorithm"));
+            isl.evolve(1u);
+            var ex = Assert.Throws<ApplicationException>(() => isl.wait_check());
+            Assert.That(ex!.Message, Does.Contain("managed algorithm evolve"));
+            Assert.That(ex!.Message, Does.Contain("ThrowingAlgorithm"));
         }
     }
 }

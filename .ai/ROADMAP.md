@@ -241,7 +241,9 @@ Last updated: 2026-04-08
 6. **Sprint 4: Documentation + Samples**
 - [x] C#-first docs with canonical runnable examples (dedicated example files/projects).
 - [x] Added runnable non-test teaching project: `Examples/Examples.PagmoSharp` (single-island baseline, archipelago topology comparison, policy comparison).
-- [ ] Convert docs to an "executable documentation" model: keep runnable examples as source-of-truth, add concept-first `docs/` walkthrough pages that link directly to example code paths, and add drift guards (smoke execution checks) for documented scenarios.
+- [x] Convert docs to an "executable documentation" model: keep runnable examples as source-of-truth, add concept-first `docs/` walkthrough pages that link directly to example code paths, and add drift guards (smoke execution checks) for documented scenarios.
+- [x] Added `docs/` walkthroughs (`getting-started`, `archipelago-topology-policies`) linked to runnable `Examples/Examples.PagmoSharp` code paths.
+- [x] Added docs drift guard script `scripts/docs-smoke.ps1` to execute documented scenarios (`single`, `archipelago`, `policies`).
 - [x] Added local (git-ignored) C++ learning playground scaffold mirroring core sample concepts (`scratch/CppPagmoPlayground`) for side-by-side pagmo semantics exploration without shipping it.
 - [x] README includes C# quickstart snippet and usage notes for core managed flows.
 - [x] Publish a supported-feature matrix by build/environment (for example optional algorithm availability such as IPOPT/NLopt).
@@ -258,9 +260,16 @@ Last updated: 2026-04-08
 7. **Sprint 5: Release Readiness**
 - [x] Packaging/versioning/changelog/release checklist and ship gates.
 - [x] Added .ai/RELEASE_CHECKLIST.md with explicit versioning, build/test, artifact, documentation, changelog, and publish gates.
-- [ ] Remove machine-local hardcoded tool/include paths from build scripts/projects (`swig.exe`, include/lib paths) and replace with configurable/CI-friendly inputs.  _(Remaining: hardcoded SWIG fallback path in `createSwigWrappersAndPlaceThem.bat`.)_
-- [ ] Purge dead/orphan native files and stale placeholders from the solution (unused headers/cpps and abandoned stubs) before release freeze.
-- [ ] Add managed algorithm callback bridge so C# algorithms can participate in native pagmo orchestration (`pagmo::algorithm` type-erasure + `island`/`archipelago` execution paths) with centralized interop-owned exception boundary handling and teardown-stability regression coverage.  _(If this threatens v1.0 release-readiness timing, defer intact to Sprint 7.)_
+- [x] Remove machine-local hardcoded tool/include paths from build scripts/projects (`swig.exe`, include/lib paths) and replace with configurable/CI-friendly inputs.
+- [x] Removed hardcoded SWIG fallback path from `createSwigWrappersAndPlaceThem.bat`; SWIG now resolves via `SWIG_EXE`, `SWIG_HOME`, or `PATH`.
+- [x] Purge dead/orphan native files and stale placeholders from the solution (unused headers/cpps and abandoned stubs) before release freeze.
+- [x] Removed clearly dead native placeholders/stubs (`AndH.cpp`, `multi_objective.cpp`, `r_policy.cpp`, `r_policyBase.cpp`, `s_policy.cpp`, `vec_of_vec.h`, `archipelago_bindings_access.h`, `r_policyBase.h`, `gradientsAndHessiansCallback.h`) and verified native rebuild success.
+- [x] Add managed algorithm callback bridge so C# algorithms can participate in native pagmo orchestration (`pagmo::algorithm` type-erasure + `island`/`archipelago` execution paths) with centralized interop-owned exception boundary handling and teardown-stability regression coverage.
+- [x] Implemented native `managed_algorithm` callback bridge (`pagmosharp_algorithm_from_callback`) + managed adapter path, enabling managed `IAlgorithm` (for example `grid_search`) in island/archipelago type-erased runtime flows.
+- [x] Added regression coverage for managed algorithm type-erased execution and callback-failure bubbling through `wait_check()` in island/archipelago paths.
+- [x] Added consolidated release-gate automation script (`scripts/release-gates.ps1`) to run SWIG regen reproducibility checks, native rebuilds (`Debug`/`Release`), full managed tests, and optional solver availability tests from one command.
+- [x] Hardened local CI/test scripts to use repo-local package cache (`NUGET_PACKAGES=./.nuget/packages`) for more deterministic restore/build behavior in constrained environments.
+- [ ] Investigate and harden `problem(IProblem)` normalization for wrapped-native `IProblem` inputs (avoid callback-wrapping native problem wrappers that can trigger native access-violation paths under some constructor/evaluation flows).
 
 8. **Sprint 6: v1.0 Release**
 - [ ] Publish artifacts and release notes.

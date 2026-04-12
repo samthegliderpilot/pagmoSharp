@@ -10,11 +10,11 @@ if not defined SWIG_EXE (
     )
 )
 
-if not defined SWIG_EXE if exist "C:\Programs\swigwin-4.4.0\swig.exe" set "SWIG_EXE=C:\Programs\swigwin-4.4.0\swig.exe"
+if not defined SWIG_EXE if defined SWIG_HOME if exist "%SWIG_HOME%\swig.exe" set "SWIG_EXE=%SWIG_HOME%\swig.exe"
 
 :swig_found
 if not defined SWIG_EXE (
-    echo Error: SWIG executable not found. Set SWIG_EXE or add swig.exe to PATH.
+    echo Error: SWIG executable not found. Set SWIG_EXE, set SWIG_HOME, or add swig.exe to PATH.
     exit /b 1
 )
 

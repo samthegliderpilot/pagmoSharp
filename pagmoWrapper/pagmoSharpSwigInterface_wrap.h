@@ -84,6 +84,45 @@ private:
     void swig_init_callbacks();
 };
 
+class SwigDirector_algorithm_callback : public pagmoWrap::algorithm_callback, public Swig::Director {
+
+public:
+    SwigDirector_algorithm_callback();
+    virtual ~SwigDirector_algorithm_callback();
+    virtual pagmo::population evolve(pagmo::population const &pop) const;
+    virtual void set_seed(unsigned int arg0);
+    virtual bool has_set_seed() const;
+    virtual void set_verbosity(unsigned int arg0);
+    virtual bool has_set_verbosity() const;
+    virtual std::string get_name() const;
+    virtual std::string get_extra_info() const;
+    virtual pagmo::thread_safety get_thread_safety() const;
+    virtual std::string consume_deferred_exception();
+
+    typedef void * (SWIGSTDCALL* SWIG_Callback0_t)(void *);
+    typedef void (SWIGSTDCALL* SWIG_Callback1_t)(unsigned int);
+    typedef unsigned int (SWIGSTDCALL* SWIG_Callback2_t)();
+    typedef void (SWIGSTDCALL* SWIG_Callback3_t)(unsigned int);
+    typedef unsigned int (SWIGSTDCALL* SWIG_Callback4_t)();
+    typedef const char * (SWIGSTDCALL* SWIG_Callback5_t)();
+    typedef const char * (SWIGSTDCALL* SWIG_Callback6_t)();
+    typedef int (SWIGSTDCALL* SWIG_Callback7_t)();
+    typedef const char * (SWIGSTDCALL* SWIG_Callback8_t)();
+    void swig_connect_director(SWIG_Callback0_t callbackevolve, SWIG_Callback1_t callbackset_seed, SWIG_Callback2_t callbackhas_set_seed, SWIG_Callback3_t callbackset_verbosity, SWIG_Callback4_t callbackhas_set_verbosity, SWIG_Callback5_t callbackget_name, SWIG_Callback6_t callbackget_extra_info, SWIG_Callback7_t callbackget_thread_safety, SWIG_Callback8_t callbackconsume_deferred_exception);
+
+private:
+    SWIG_Callback0_t swig_callbackevolve;
+    SWIG_Callback1_t swig_callbackset_seed;
+    SWIG_Callback2_t swig_callbackhas_set_seed;
+    SWIG_Callback3_t swig_callbackset_verbosity;
+    SWIG_Callback4_t swig_callbackhas_set_verbosity;
+    SWIG_Callback5_t swig_callbackget_name;
+    SWIG_Callback6_t swig_callbackget_extra_info;
+    SWIG_Callback7_t swig_callbackget_thread_safety;
+    SWIG_Callback8_t swig_callbackconsume_deferred_exception;
+    void swig_init_callbacks();
+};
+
 class SwigDirector_r_policyBase : public pagmoWrap::r_policyBase, public Swig::Director {
 
 public:

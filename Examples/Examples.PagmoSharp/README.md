@@ -4,6 +4,10 @@ Runnable, non-test examples that teach both:
 - how to use pagmoSharp APIs, and
 - why optimization structures like islands, archipelagos, topology, and policies matter.
 
+Concept-first walkthrough pages that reference these examples live in:
+- `docs/getting-started.md`
+- `docs/archipelago-topology-policies.md`
+
 ## Run
 
 From repo root:

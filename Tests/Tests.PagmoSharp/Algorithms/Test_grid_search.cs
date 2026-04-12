@@ -52,14 +52,19 @@ namespace Tests.PagmoSharp.Algorithms
         }
 
         [Test]
-        public void GridSearchReportsManagedOnlyWhenUsedInTypeErasedIslandPath()
+        public void GridSearchCanRunInTypeErasedIslandPath()
         {
             using IAlgorithm algorithm = new grid_search(new uint[] { 4, 4 });
             using var managedProblem = new TwoDimensionalSingleObjectiveProblemWrapper();
+            using var island = pagmo.island.Create(algorithm, managedProblem, 8u, 2u);
 
-            var ex = Assert.Throws<NotSupportedException>(() => island.Create(algorithm, managedProblem, 8u, 2u));
-            Assert.That(ex!.Message, Does.Contain("grid_search"));
-            Assert.That(ex!.Message, Does.Contain("managed-only"));
+            island.evolve(1u);
+            Assert.DoesNotThrow(() => island.wait_check());
+            Assert.That(island.status(), Is.EqualTo(evolve_status.idle));
+
+            using var evolvedPopulation = island.get_population();
+            using var champion = evolvedPopulation.champion_f();
+            Assert.That(champion[0], Is.LessThan(1.0), "Type-erased managed grid_search should produce a coarse optimum improvement.");
         }
     }
 }

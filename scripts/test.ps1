@@ -11,6 +11,7 @@ $env:DOTNET_CLI_TELEMETRY_OPTOUT = "1"
 $env:DOTNET_SKIP_FIRST_TIME_EXPERIENCE = "1"
 $env:DOTNET_ADD_GLOBAL_TOOLS_TO_PATH = "0"
 $env:DOTNET_CLI_HOME = Join-Path $PSScriptRoot "..\.dotnet"
+$env:NUGET_PACKAGES = Join-Path $PSScriptRoot "..\.nuget\packages"
 $baseOutputPath = (Resolve-Path (Join-Path $PSScriptRoot "..")).Path + "\artifacts\dotnet\"
 $baseIntermediatePath = (Resolve-Path (Join-Path $PSScriptRoot "..")).Path + "\artifacts\obj\"
 $dotnetProps = @("-p:Platform=x64", "-p:BaseOutputPath=$baseOutputPath", "-p:BaseIntermediateOutputPath=$baseIntermediatePath")
