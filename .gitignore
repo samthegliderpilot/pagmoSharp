@@ -18,4 +18,6 @@ pagmoWrapper/Intermediate/*
 artifacts/
 copyout.txt
 copyerr.txt
+scratch/
+.vcpkg-buildtrees/
 

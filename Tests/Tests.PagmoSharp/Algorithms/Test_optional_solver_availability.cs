@@ -8,6 +8,22 @@ namespace Tests.PagmoSharp.Algorithms;
 [TestFixture]
 public class Test_optional_solver_availability
 {
+    // Minimal differentiable UDP used to validate IPOPT execution path end-to-end.
+    private sealed class IpoptDifferentiableProblem : ManagedProblemBase
+    {
+        private readonly DoubleVector _lb = new(new[] { -10.0, -10.0 });
+        private readonly DoubleVector _ub = new(new[] { 10.0, 10.0 });
+
+        public override string get_name() => "IpoptDifferentiableProblem";
+        public override PairOfDoubleVectors get_bounds() => new(_lb, _ub);
+        public override thread_safety get_thread_safety() => thread_safety.constant;
+        public override DoubleVector fitness(DoubleVector x) => new(new[] { x[0] * x[0] + (x[1] - 3.0) * (x[1] - 3.0) });
+        public override bool has_gradient() => true;
+        public override DoubleVector gradient(DoubleVector x) => new(new[] { 2.0 * x[0], 2.0 * x[1] - 6.0 });
+        public override bool has_gradient_sparsity() => true;
+        public override SparsityPattern gradient_sparsity() => Sparsity((0u, 0u), (0u, 1u));
+    }
+
     [Test]
     public void IpoptAvailabilityIsExplicit()
     {
@@ -76,6 +92,71 @@ public class Test_optional_solver_availability
         using var erased = (algorithm)toAlgorithm!.Invoke(solver, Array.Empty<object>())!;
         Assert.That(erased, Is.Not.Null);
         Assert.That(erased!.get_name(), Is.Not.Empty);
+    }
+
+    [Test]
+    public void IpoptWhenPresentSupportsConstructAndEvolve()
+    {
+        var assembly = typeof(algorithm).Assembly;
+        var ipoptType = assembly.GetType("pagmo.ipopt", throwOnError: false, ignoreCase: false);
+        if (ipoptType == null)
+        {
+            Assert.Pass("ipopt is not available in this build.");
+            return;
+        }
+
+        using var managed = new IpoptDifferentiableProblem();
+        using var differentiableProblem = new problem(managed);
+        using var population = new population(differentiableProblem, 1u, 2u);
+
+        using var solver = (IDisposable)Activator.CreateInstance(ipoptType)!;
+        Assert.That(solver, Is.Not.Null, "ipopt should be constructible when available.");
+
+        var setVerbosity = ipoptType.GetMethod("set_verbosity", BindingFlags.Public | BindingFlags.Instance);
+        Assert.That(setVerbosity, Is.Not.Null);
+        setVerbosity!.Invoke(solver, new object[] { 1u });
+
+        var getName = ipoptType.GetMethod("get_name", BindingFlags.Public | BindingFlags.Instance);
+        Assert.That(getName, Is.Not.Null);
+        var solverName = (string)getName!.Invoke(solver, Array.Empty<object>())!;
+        Assert.That(solverName, Is.Not.Null.And.Not.Empty);
+
+        var evolve = ipoptType.GetMethod("evolve", BindingFlags.Public | BindingFlags.Instance);
+        Assert.That(evolve, Is.Not.Null, "ipopt should expose evolve(population).");
+
+        using var evolved = (population)evolve!.Invoke(solver, new object[] { population })!;
+        Assert.That(evolved, Is.Not.Null, "ipopt evolve should return an evolved population.");
+        Assert.That(evolved!.size(), Is.EqualTo(population.size()), "evolve() should preserve population size.");
+
+        var setSeed = ipoptType.GetMethod("set_seed", BindingFlags.Public | BindingFlags.Instance);
+        Assert.That(setSeed, Is.Not.Null, "ipopt should provide an explicit IAlgorithm set_seed contract.");
+        Assert.That(
+            () => setSeed!.Invoke(solver, new object[] { 2u }),
+            Throws.Exception.TypeOf<TargetInvocationException>().With.InnerException.TypeOf<NotSupportedException>());
+
+        var getSeed = ipoptType.GetMethod("get_seed", BindingFlags.Public | BindingFlags.Instance);
+        Assert.That(getSeed, Is.Not.Null, "ipopt should provide an explicit IAlgorithm get_seed contract.");
+        Assert.That(
+            () => getSeed!.Invoke(solver, Array.Empty<object>()),
+            Throws.Exception.TypeOf<TargetInvocationException>().With.InnerException.TypeOf<NotSupportedException>());
+
+        var getVerbosity = ipoptType.GetMethod("get_verbosity", BindingFlags.Public | BindingFlags.Instance);
+        Assert.That(getVerbosity, Is.Not.Null, "ipopt should provide an explicit IAlgorithm get_verbosity contract.");
+        Assert.That(
+            () => getVerbosity!.Invoke(solver, Array.Empty<object>()),
+            Throws.Exception.TypeOf<TargetInvocationException>().With.InnerException.TypeOf<NotSupportedException>());
+
+        var toAlgorithm = ipoptType.GetMethod("to_algorithm", BindingFlags.Public | BindingFlags.Instance);
+        Assert.That(toAlgorithm, Is.Not.Null, "ipopt should expose to_algorithm() for type-erased flows.");
+
+        using var erased = (algorithm)toAlgorithm!.Invoke(solver, Array.Empty<object>())!;
+        Assert.That(erased, Is.Not.Null);
+        Assert.That(erased!.get_name(), Is.Not.Empty);
+
+        var getLogLines = ipoptType.GetMethod("GetLogLines", BindingFlags.Public | BindingFlags.Instance);
+        Assert.That(getLogLines, Is.Not.Null, "ipopt should expose shared algorithm log projection.");
+        var lines = (System.Collections.IEnumerable)getLogLines!.Invoke(solver, Array.Empty<object>())!;
+        Assert.That(lines, Is.Not.Null);
     }
 
     private static void AssertOptionalSolverSurface(string fullTypeName, string solverName)

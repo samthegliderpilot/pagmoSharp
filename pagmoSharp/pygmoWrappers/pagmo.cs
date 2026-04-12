@@ -83,6 +83,12 @@ public partial class pagmo {
     return ret;
   }
 
+  public static IpoptLogEntryVector Ipopt_GetLogEntries(ipopt algo) {
+    IpoptLogEntryVector ret = new IpoptLogEntryVector(pagmoPINVOKE.Ipopt_GetLogEntries(ipopt.getCPtr(algo)), true);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
   public static SimulatedAnnealingLogEntryVector SimulatedAnnealing_GetLogEntries(simulated_annealing algo) {
     SimulatedAnnealingLogEntryVector ret = new SimulatedAnnealingLogEntryVector(pagmoPINVOKE.SimulatedAnnealing_GetLogEntries(simulated_annealing.getCPtr(algo)), true);
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();

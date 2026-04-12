@@ -241,22 +241,25 @@ Last updated: 2026-04-08
 6. **Sprint 4: Documentation + Samples**
 - [x] C#-first docs with canonical runnable examples (dedicated example files/projects).
 - [x] Added runnable non-test teaching project: `Examples/Examples.PagmoSharp` (single-island baseline, archipelago topology comparison, policy comparison).
+- [ ] Convert docs to an "executable documentation" model: keep runnable examples as source-of-truth, add concept-first `docs/` walkthrough pages that link directly to example code paths, and add drift guards (smoke execution checks) for documented scenarios.
+- [x] Added local (git-ignored) C++ learning playground scaffold mirroring core sample concepts (`scratch/CppPagmoPlayground`) for side-by-side pagmo semantics exploration without shipping it.
 - [x] README includes C# quickstart snippet and usage notes for core managed flows.
 - [x] Publish a supported-feature matrix by build/environment (for example optional algorithm availability such as IPOPT/NLopt).
 - [x] Perform an exception-usage audit across managed/native wrapper layers to verify existing code is surfacing actionable exceptions consistently and not silently swallowing failure context.
 - [x] Review high-overload managed API surfaces (`archipelago` + `island`) and remove non-essential overloads while preserving a small canonical core plus compatibility shims where needed.
 - [x] Normalize managed API naming conventions across extension surfaces (for example snake_case vs PascalCase) and define a single public-style policy with compatibility aliases/deprecation plan.
 - [x] Added naming policy and guardrails (.ai/API_NAMING_POLICY.md + reflection tests) to preserve PascalCase extension helpers with intentional snake_case compatibility entrypoints.
-- [ ] Complete optional solver availability/hardening for `ipopt` in an IPOPT-enabled environment:
+- [x] Complete optional solver availability/hardening for `ipopt` in an IPOPT-enabled environment:
 - [x] Prepared compile-guarded `ipopt` wrapper modernization scaffolding (typed SWIG `ipopt.i` shape + `to_algorithm()` bridge + log-entry projection helpers).
-- [ ] Validate `ipopt` availability tests and runtime construct/evolve/type-erasure/log behavior where IPOPT is present.
-- [ ] Optional solver hardening (feature-gated): `ipopt`.
+- [x] Validate `ipopt` availability tests and runtime construct/evolve/type-erasure/log behavior where IPOPT is present.
+- [x] Optional solver hardening (feature-gated): `ipopt`.
 
 7. **Sprint 5: Release Readiness**
 - [x] Packaging/versioning/changelog/release checklist and ship gates.
 - [x] Added .ai/RELEASE_CHECKLIST.md with explicit versioning, build/test, artifact, documentation, changelog, and publish gates.
 - [ ] Remove machine-local hardcoded tool/include paths from build scripts/projects (`swig.exe`, include/lib paths) and replace with configurable/CI-friendly inputs.  _(Remaining: hardcoded SWIG fallback path in `createSwigWrappersAndPlaceThem.bat`.)_
 - [ ] Purge dead/orphan native files and stale placeholders from the solution (unused headers/cpps and abandoned stubs) before release freeze.
+- [ ] Add managed algorithm callback bridge so C# algorithms can participate in native pagmo orchestration (`pagmo::algorithm` type-erasure + `island`/`archipelago` execution paths) with centralized interop-owned exception boundary handling and teardown-stability regression coverage.  _(If this threatens v1.0 release-readiness timing, defer intact to Sprint 7.)_
 
 8. **Sprint 6: v1.0 Release**
 - [ ] Publish artifacts and release notes.

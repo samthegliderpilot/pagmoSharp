@@ -177,6 +177,7 @@ namespace std {
   %template(De1220LogEntryVector)      std::vector<pagmoWrap::De1220LogEntry>;
   %template(CompassSearchLogEntryVector) std::vector<pagmoWrap::CompassSearchLogEntry>;
   %template(NloptLogEntryVector)        std::vector<pagmoWrap::NloptLogEntry>;
+  %template(IpoptLogEntryVector)        std::vector<pagmoWrap::IpoptLogEntry>;
   %template(SimulatedAnnealingLogEntryVector) std::vector<pagmoWrap::SimulatedAnnealingLogEntry>;
   %template(SgaLogEntryVector)         std::vector<pagmoWrap::SgaLogEntry>;
   %template(SadeLogEntryVector)        std::vector<pagmoWrap::SadeLogEntry>;

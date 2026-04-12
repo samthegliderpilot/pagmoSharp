@@ -41,6 +41,7 @@ see https://www.gnu.org/licenses/. */
 #define PAGMO_VERSION_PATCH 1
 #define PAGMO_WITH_EIGEN3
 #define PAGMO_WITH_NLOPT
+#define PAGMO_WITH_IPOPT
 
 
 

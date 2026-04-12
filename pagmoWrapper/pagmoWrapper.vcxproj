@@ -73,6 +73,8 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup>
     <PagmoVcpkgInstalledDir Condition="'$(PagmoVcpkgInstalledDir)'=='' and '$(VCPKG_INSTALLED_DIR)'!=''">$(VCPKG_INSTALLED_DIR)</PagmoVcpkgInstalledDir>
+    <PagmoVcpkgInstalledDir Condition="'$(PagmoVcpkgInstalledDir)'=='' and '$(VcpkgRoot)'!=''">$(VcpkgRoot)\installed</PagmoVcpkgInstalledDir>
+    <PagmoVcpkgInstalledDir Condition="'$(PagmoVcpkgInstalledDir)'=='' and '$(VCPKG_ROOT)'!=''">$(VCPKG_ROOT)\installed</PagmoVcpkgInstalledDir>
     <PagmoVcpkgInstalledDir Condition="'$(PagmoVcpkgInstalledDir)'=='' and '$(VCPKG_INSTALLED_DIR)'==''">$(SolutionDir)..\vcpkg\installed</PagmoVcpkgInstalledDir>
     <PagmoVcpkgTriplet Condition="'$(PagmoVcpkgTriplet)'==''">x64-windows</PagmoVcpkgTriplet>
   </PropertyGroup>
@@ -120,7 +122,7 @@
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <CompileAsManaged>false</CompileAsManaged>
-      <AdditionalIncludeDirectories>$(PagmoVcpkgInstalledDir)\$(PagmoVcpkgTriplet)\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(PagmoVcpkgInstalledDir)\$(PagmoVcpkgTriplet)\include;$(PagmoVcpkgInstalledDir)\$(PagmoVcpkgTriplet)\include\coin-or</AdditionalIncludeDirectories>
       <MultiProcessorCompilation>false</MultiProcessorCompilation>
       <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
@@ -149,7 +151,7 @@ call "$(ProjectDir)..\createSwigWrappersAndPlaceThem.bat"
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <CompileAsManaged>false</CompileAsManaged>
-      <AdditionalIncludeDirectories>$(PagmoVcpkgInstalledDir)\$(PagmoVcpkgTriplet)\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(PagmoVcpkgInstalledDir)\$(PagmoVcpkgTriplet)\include;$(PagmoVcpkgInstalledDir)\$(PagmoVcpkgTriplet)\include\coin-or</AdditionalIncludeDirectories>
       <MultiProcessorCompilation>false</MultiProcessorCompilation>
       <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
@@ -178,7 +180,7 @@ call "$(ProjectDir)..\createSwigWrappersAndPlaceThem.bat"
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <CompileAsManaged>false</CompileAsManaged>
-      <AdditionalIncludeDirectories>$(PagmoVcpkgInstalledDir)\$(PagmoVcpkgTriplet)\include\eigen3;$(PagmoVcpkgInstalledDir)\$(PagmoVcpkgTriplet)\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(PagmoVcpkgInstalledDir)\$(PagmoVcpkgTriplet)\include\eigen3;$(PagmoVcpkgInstalledDir)\$(PagmoVcpkgTriplet)\include;$(PagmoVcpkgInstalledDir)\$(PagmoVcpkgTriplet)\include\coin-or</AdditionalIncludeDirectories>
       <MultiProcessorCompilation>false</MultiProcessorCompilation>
       <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
@@ -205,7 +207,7 @@ call "$(ProjectDir)..\createSwigWrappersAndPlaceThem.bat"</Command>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <CompileAsManaged>false</CompileAsManaged>
-      <AdditionalIncludeDirectories>$(PagmoVcpkgInstalledDir)\$(PagmoVcpkgTriplet)\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(PagmoVcpkgInstalledDir)\$(PagmoVcpkgTriplet)\include;$(PagmoVcpkgInstalledDir)\$(PagmoVcpkgTriplet)\include\coin-or</AdditionalIncludeDirectories>
       <MultiProcessorCompilation>false</MultiProcessorCompilation>
       <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
