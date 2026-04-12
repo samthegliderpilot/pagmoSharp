@@ -63,12 +63,6 @@ public partial class ipopt : global::System.IDisposable {
     return ret;
   }
 
-  public SWIGTYPE_p_Ipopt__ApplicationReturnStatus get_last_opt_result() {
-    SWIGTYPE_p_Ipopt__ApplicationReturnStatus ret = new SWIGTYPE_p_Ipopt__ApplicationReturnStatus(pagmoPINVOKE.ipopt_get_last_opt_result(swigCPtr), true);
-    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
-    return ret;
-  }
-
   public string get_name() {
     string ret = pagmoPINVOKE.ipopt_get_name(swigCPtr);
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
@@ -91,47 +85,9 @@ public partial class ipopt : global::System.IDisposable {
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
-  public void set_integer_option(string arg0, SWIGTYPE_p_Ipopt__Index arg1) {
-    pagmoPINVOKE.ipopt_set_integer_option(swigCPtr, arg0, SWIGTYPE_p_Ipopt__Index.getCPtr(arg1));
-    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
-  }
-
   public void set_numeric_option(string arg0, double arg1) {
     pagmoPINVOKE.ipopt_set_numeric_option(swigCPtr, arg0, arg1);
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
-  }
-
-  public void set_string_options(SWIGTYPE_p_std__mapT_std__string_std__string_std__lessT_std__string_t_t arg0) {
-    pagmoPINVOKE.ipopt_set_string_options(swigCPtr, SWIGTYPE_p_std__mapT_std__string_std__string_std__lessT_std__string_t_t.getCPtr(arg0));
-    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
-  }
-
-  public void set_integer_options(SWIGTYPE_p_std__mapT_std__string_Ipopt__Index_std__lessT_std__string_t_t arg0) {
-    pagmoPINVOKE.ipopt_set_integer_options(swigCPtr, SWIGTYPE_p_std__mapT_std__string_Ipopt__Index_std__lessT_std__string_t_t.getCPtr(arg0));
-    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
-  }
-
-  public void set_numeric_options(SWIGTYPE_p_std__mapT_std__string_double_std__lessT_std__string_t_t arg0) {
-    pagmoPINVOKE.ipopt_set_numeric_options(swigCPtr, SWIGTYPE_p_std__mapT_std__string_double_std__lessT_std__string_t_t.getCPtr(arg0));
-    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
-  }
-
-  public SWIGTYPE_p_std__mapT_std__string_std__string_std__lessT_std__string_t_t get_string_options() {
-    SWIGTYPE_p_std__mapT_std__string_std__string_std__lessT_std__string_t_t ret = new SWIGTYPE_p_std__mapT_std__string_std__string_std__lessT_std__string_t_t(pagmoPINVOKE.ipopt_get_string_options(swigCPtr), true);
-    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
-    return ret;
-  }
-
-  public SWIGTYPE_p_std__mapT_std__string_Ipopt__Index_std__lessT_std__string_t_t get_integer_options() {
-    SWIGTYPE_p_std__mapT_std__string_Ipopt__Index_std__lessT_std__string_t_t ret = new SWIGTYPE_p_std__mapT_std__string_Ipopt__Index_std__lessT_std__string_t_t(pagmoPINVOKE.ipopt_get_integer_options(swigCPtr), true);
-    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
-    return ret;
-  }
-
-  public SWIGTYPE_p_std__mapT_std__string_double_std__lessT_std__string_t_t get_numeric_options() {
-    SWIGTYPE_p_std__mapT_std__string_double_std__lessT_std__string_t_t ret = new SWIGTYPE_p_std__mapT_std__string_double_std__lessT_std__string_t_t(pagmoPINVOKE.ipopt_get_numeric_options(swigCPtr), true);
-    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
-    return ret;
   }
 
   public void reset_string_options() {
@@ -153,6 +109,17 @@ public partial class ipopt : global::System.IDisposable {
     thread_safety ret = (thread_safety)pagmoPINVOKE.ipopt_get_thread_safety(swigCPtr);
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
+  }
+
+  public int get_last_opt_result_code() {
+    int ret = pagmoPINVOKE.ipopt_get_last_opt_result_code(swigCPtr);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  public void set_integer_option_u64(string name, ulong value) {
+    pagmoPINVOKE.ipopt_set_integer_option_u64(swigCPtr, name, value);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public IpoptLogEntryVector get_log_entries() {

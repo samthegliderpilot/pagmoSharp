@@ -5031,9 +5031,6 @@ class pagmoPINVOKE {
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_ipopt_evolve")]
   public static extern global::System.IntPtr ipopt_evolve(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_ipopt_get_last_opt_result")]
-  public static extern global::System.IntPtr ipopt_get_last_opt_result(global::System.Runtime.InteropServices.HandleRef jarg1);
-
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_ipopt_get_name")]
   public static extern string ipopt_get_name(global::System.Runtime.InteropServices.HandleRef jarg1);
 
@@ -5046,29 +5043,8 @@ class pagmoPINVOKE {
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_ipopt_set_string_option")]
   public static extern void ipopt_set_string_option(global::System.Runtime.InteropServices.HandleRef jarg1, string jarg2, string jarg3);
 
-  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_ipopt_set_integer_option")]
-  public static extern void ipopt_set_integer_option(global::System.Runtime.InteropServices.HandleRef jarg1, string jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
-
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_ipopt_set_numeric_option")]
   public static extern void ipopt_set_numeric_option(global::System.Runtime.InteropServices.HandleRef jarg1, string jarg2, double jarg3);
-
-  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_ipopt_set_string_options")]
-  public static extern void ipopt_set_string_options(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
-
-  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_ipopt_set_integer_options")]
-  public static extern void ipopt_set_integer_options(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
-
-  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_ipopt_set_numeric_options")]
-  public static extern void ipopt_set_numeric_options(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
-
-  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_ipopt_get_string_options")]
-  public static extern global::System.IntPtr ipopt_get_string_options(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_ipopt_get_integer_options")]
-  public static extern global::System.IntPtr ipopt_get_integer_options(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_ipopt_get_numeric_options")]
-  public static extern global::System.IntPtr ipopt_get_numeric_options(global::System.Runtime.InteropServices.HandleRef jarg1);
 
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_ipopt_reset_string_options")]
   public static extern void ipopt_reset_string_options(global::System.Runtime.InteropServices.HandleRef jarg1);
@@ -5081,6 +5057,12 @@ class pagmoPINVOKE {
 
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_ipopt_get_thread_safety")]
   public static extern int ipopt_get_thread_safety(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_ipopt_get_last_opt_result_code")]
+  public static extern int ipopt_get_last_opt_result_code(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_ipopt_set_integer_option_u64")]
+  public static extern void ipopt_set_integer_option_u64(global::System.Runtime.InteropServices.HandleRef jarg1, string jarg2, ulong jarg3);
 
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_ipopt_get_log_entries")]
   public static extern global::System.IntPtr ipopt_get_log_entries(global::System.Runtime.InteropServices.HandleRef jarg1);

@@ -5,6 +5,12 @@ namespace pagmo;
 
 public partial class ipopt : IAlgorithm
 {
+    // IPOPT's return status is exposed as a numeric code to avoid leaking native pointer-style enums.
+    public int GetLastOptimizationResultCode() => get_last_opt_result_code();
+
+    // Keep pagmo-style naming for option setters while exposing C#-friendly primitives.
+    public void set_integer_option(string name, ulong value) => set_integer_option_u64(name, value);
+
     public readonly record struct IpoptLogLine(
         ulong ObjectiveEvaluations,
         double Objective,

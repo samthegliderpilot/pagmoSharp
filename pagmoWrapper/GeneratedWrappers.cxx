@@ -3620,6 +3620,12 @@ SWIGINTERN pagmo::algorithm pagmo_gwo_to_algorithm(pagmo::gwo const *self){
 #include "pagmo/population.hpp"
 #include "pagmo/algorithms/ipopt.hpp"
 
+SWIGINTERN int pagmo_ipopt_get_last_opt_result_code(pagmo::ipopt const *self){
+        return static_cast<int>(self->get_last_opt_result());
+    }
+SWIGINTERN void pagmo_ipopt_set_integer_option_u64(pagmo::ipopt *self,std::string const &name,unsigned long long value){
+        self->set_integer_option(name, static_cast<Ipopt::Index>(value));
+    }
 SWIGINTERN std::vector< pagmoWrap::IpoptLogEntry > pagmo_ipopt_get_log_entries(pagmo::ipopt const *self){
         return pagmoWrap::Ipopt_GetLogEntries(*self);
     }
@@ -44661,30 +44667,6 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_ipopt_evolve(void * jarg1, void * jar
 }
 
 
-SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_ipopt_get_last_opt_result(void * jarg1) {
-  void * jresult ;
-  pagmo::ipopt *arg1 = 0 ;
-  Ipopt::ApplicationReturnStatus result;
-  
-  arg1 = (pagmo::ipopt *)jarg1; 
-  {
-    try {
-      result = ((pagmo::ipopt const *)arg1)->get_last_opt_result();
-    } catch (const std::exception &e) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
-      };
-    } catch (...) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
-      };
-    }
-  }
-  jresult = new Ipopt::ApplicationReturnStatus(result); 
-  return jresult;
-}
-
-
 SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_ipopt_get_name(void * jarg1) {
   const char * jresult ;
   pagmo::ipopt *arg1 = 0 ;
@@ -44789,41 +44771,6 @@ SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_ipopt_set_string_option(void * jarg1, c
 }
 
 
-SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_ipopt_set_integer_option(void * jarg1, const char * jarg2, void * jarg3) {
-  pagmo::ipopt *arg1 = 0 ;
-  std::string *arg2 = 0 ;
-  Ipopt::Index arg3 ;
-  Ipopt::Index *argp3 ;
-  
-  arg1 = (pagmo::ipopt *)jarg1; 
-  if (!jarg2) {
-    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "null string", 0);
-    return ;
-  }
-  std::string arg2_str(jarg2);
-  arg2 = &arg2_str; 
-  argp3 = (Ipopt::Index *)jarg3; 
-  if (!argp3) {
-    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "Attempt to dereference null Ipopt::Index", 0);
-    return ;
-  }
-  arg3 = *argp3; 
-  {
-    try {
-      (arg1)->set_integer_option((std::string const &)*arg2,SWIG_STD_MOVE(arg3));
-    } catch (const std::exception &e) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return ; 
-      };
-    } catch (...) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return ; 
-      };
-    }
-  }
-}
-
-
 SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_ipopt_set_numeric_option(void * jarg1, const char * jarg2, double jarg3) {
   pagmo::ipopt *arg1 = 0 ;
   std::string *arg2 = 0 ;
@@ -44850,156 +44797,6 @@ SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_ipopt_set_numeric_option(void * jarg1, 
       };
     }
   }
-}
-
-
-SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_ipopt_set_string_options(void * jarg1, void * jarg2) {
-  pagmo::ipopt *arg1 = 0 ;
-  std::map< std::string,std::string,std::less< std::string > > *arg2 = 0 ;
-  
-  arg1 = (pagmo::ipopt *)jarg1; 
-  arg2 = (std::map< std::string,std::string,std::less< std::string > > *)jarg2;
-  if (!arg2) {
-    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "std::map< std::string,std::string,std::less< std::string > > const & is null", 0);
-    return ;
-  } 
-  {
-    try {
-      (arg1)->set_string_options((std::map< std::string,std::string,std::less< std::string > > const &)*arg2);
-    } catch (const std::exception &e) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return ; 
-      };
-    } catch (...) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return ; 
-      };
-    }
-  }
-}
-
-
-SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_ipopt_set_integer_options(void * jarg1, void * jarg2) {
-  pagmo::ipopt *arg1 = 0 ;
-  std::map< std::string,Ipopt::Index,std::less< std::string > > *arg2 = 0 ;
-  
-  arg1 = (pagmo::ipopt *)jarg1; 
-  arg2 = (std::map< std::string,Ipopt::Index,std::less< std::string > > *)jarg2;
-  if (!arg2) {
-    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "std::map< std::string,Ipopt::Index,std::less< std::string > > const & is null", 0);
-    return ;
-  } 
-  {
-    try {
-      (arg1)->set_integer_options((std::map< std::string,Ipopt::Index,std::less< std::string > > const &)*arg2);
-    } catch (const std::exception &e) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return ; 
-      };
-    } catch (...) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return ; 
-      };
-    }
-  }
-}
-
-
-SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_ipopt_set_numeric_options(void * jarg1, void * jarg2) {
-  pagmo::ipopt *arg1 = 0 ;
-  std::map< std::string,double,std::less< std::string > > *arg2 = 0 ;
-  
-  arg1 = (pagmo::ipopt *)jarg1; 
-  arg2 = (std::map< std::string,double,std::less< std::string > > *)jarg2;
-  if (!arg2) {
-    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "std::map< std::string,double,std::less< std::string > > const & is null", 0);
-    return ;
-  } 
-  {
-    try {
-      (arg1)->set_numeric_options((std::map< std::string,double,std::less< std::string > > const &)*arg2);
-    } catch (const std::exception &e) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return ; 
-      };
-    } catch (...) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return ; 
-      };
-    }
-  }
-}
-
-
-SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_ipopt_get_string_options(void * jarg1) {
-  void * jresult ;
-  pagmo::ipopt *arg1 = 0 ;
-  SwigValueWrapper< std::map< std::string,std::string,std::less< std::string > > > result;
-  
-  arg1 = (pagmo::ipopt *)jarg1; 
-  {
-    try {
-      result = ((pagmo::ipopt const *)arg1)->get_string_options();
-    } catch (const std::exception &e) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
-      };
-    } catch (...) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
-      };
-    }
-  }
-  jresult = new std::map< std::string,std::string,std::less< std::string > >(result); 
-  return jresult;
-}
-
-
-SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_ipopt_get_integer_options(void * jarg1) {
-  void * jresult ;
-  pagmo::ipopt *arg1 = 0 ;
-  SwigValueWrapper< std::map< std::string,Ipopt::Index,std::less< std::string > > > result;
-  
-  arg1 = (pagmo::ipopt *)jarg1; 
-  {
-    try {
-      result = ((pagmo::ipopt const *)arg1)->get_integer_options();
-    } catch (const std::exception &e) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
-      };
-    } catch (...) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
-      };
-    }
-  }
-  jresult = new std::map< std::string,Ipopt::Index,std::less< std::string > >(result); 
-  return jresult;
-}
-
-
-SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_ipopt_get_numeric_options(void * jarg1) {
-  void * jresult ;
-  pagmo::ipopt *arg1 = 0 ;
-  SwigValueWrapper< std::map< std::string,double,std::less< std::string > > > result;
-  
-  arg1 = (pagmo::ipopt *)jarg1; 
-  {
-    try {
-      result = ((pagmo::ipopt const *)arg1)->get_numeric_options();
-    } catch (const std::exception &e) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
-      };
-    } catch (...) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
-      };
-    }
-  }
-  jresult = new std::map< std::string,double,std::less< std::string > >(result); 
-  return jresult;
 }
 
 
@@ -45084,6 +44881,61 @@ SWIGEXPORT int SWIGSTDCALL CSharp_pagmo_ipopt_get_thread_safety(void * jarg1) {
   }
   jresult = (int)result; 
   return jresult;
+}
+
+
+SWIGEXPORT int SWIGSTDCALL CSharp_pagmo_ipopt_get_last_opt_result_code(void * jarg1) {
+  int jresult ;
+  pagmo::ipopt *arg1 = 0 ;
+  int result;
+  
+  arg1 = (pagmo::ipopt *)jarg1; 
+  {
+    try {
+      result = (int)pagmo_ipopt_get_last_opt_result_code((pagmo::ipopt const *)arg1);
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_ipopt_set_integer_option_u64(void * jarg1, const char * jarg2, unsigned long long jarg3) {
+  pagmo::ipopt *arg1 = 0 ;
+  std::string *arg2 = 0 ;
+  unsigned long long arg3 ;
+  
+  arg1 = (pagmo::ipopt *)jarg1; 
+  if (!jarg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "null string", 0);
+    return ;
+  }
+  std::string arg2_str(jarg2);
+  arg2 = &arg2_str; 
+  {
+    arg3 = (unsigned long long)jarg3;
+  }
+  {
+    try {
+      pagmo_ipopt_set_integer_option_u64(arg1,(std::string const &)*arg2,arg3);
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return ; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return ; 
+      };
+    }
+  }
 }
 
 

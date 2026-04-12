@@ -6,6 +6,14 @@
 
 %typemap(csclassmodifiers) pagmo::ipopt "public partial class"
 %ignore ipopt::get_log() const;
+%ignore ipopt::get_last_opt_result() const;
+%ignore ipopt::set_integer_option(const std::string &, Ipopt::Index);
+%ignore ipopt::set_string_options(const std::map<std::string, std::string> &);
+%ignore ipopt::set_integer_options(const std::map<std::string, Ipopt::Index> &);
+%ignore ipopt::set_numeric_options(const std::map<std::string, double> &);
+%ignore ipopt::get_string_options() const;
+%ignore ipopt::get_integer_options() const;
+%ignore ipopt::get_numeric_options() const;
 
 class ipopt {
 public:
@@ -36,6 +44,16 @@ public:
 };
 
 %extend ipopt {
+    int get_last_opt_result_code() const
+    {
+        return static_cast<int>(self->get_last_opt_result());
+    }
+
+    void set_integer_option_u64(const std::string &name, unsigned long long value)
+    {
+        self->set_integer_option(name, static_cast<Ipopt::Index>(value));
+    }
+
     std::vector<pagmoWrap::IpoptLogEntry> get_log_entries() const
     {
         return pagmoWrap::Ipopt_GetLogEntries(*self);

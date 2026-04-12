@@ -253,6 +253,7 @@ Last updated: 2026-04-08
 - [x] Prepared compile-guarded `ipopt` wrapper modernization scaffolding (typed SWIG `ipopt.i` shape + `to_algorithm()` bridge + log-entry projection helpers).
 - [x] Validate `ipopt` availability tests and runtime construct/evolve/type-erasure/log behavior where IPOPT is present.
 - [x] Optional solver hardening (feature-gated): `ipopt`.
+- [x] Removed IPOPT `SWIGTYPE_*` leakage from the public managed surface (raw pointer/map APIs ignored in SWIG; replaced with primitive typed helpers).
 
 7. **Sprint 5: Release Readiness**
 - [x] Packaging/versioning/changelog/release checklist and ship gates.

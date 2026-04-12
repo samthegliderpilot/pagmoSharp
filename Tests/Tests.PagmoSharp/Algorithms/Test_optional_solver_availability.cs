@@ -115,6 +115,9 @@ public class Test_optional_solver_availability
         var setVerbosity = ipoptType.GetMethod("set_verbosity", BindingFlags.Public | BindingFlags.Instance);
         Assert.That(setVerbosity, Is.Not.Null);
         setVerbosity!.Invoke(solver, new object[] { 1u });
+        var setIntegerOption = ipoptType.GetMethod("set_integer_option", BindingFlags.Public | BindingFlags.Instance, null, new[] { typeof(string), typeof(ulong) }, null);
+        Assert.That(setIntegerOption, Is.Not.Null, "ipopt should expose primitive set_integer_option(name, ulong).");
+        setIntegerOption!.Invoke(solver, new object[] { "max_iter", 20ul });
 
         var getName = ipoptType.GetMethod("get_name", BindingFlags.Public | BindingFlags.Instance);
         Assert.That(getName, Is.Not.Null);
@@ -157,6 +160,13 @@ public class Test_optional_solver_availability
         Assert.That(getLogLines, Is.Not.Null, "ipopt should expose shared algorithm log projection.");
         var lines = (System.Collections.IEnumerable)getLogLines!.Invoke(solver, Array.Empty<object>())!;
         Assert.That(lines, Is.Not.Null);
+
+        var getLastOptimizationResultCode = ipoptType.GetMethod("GetLastOptimizationResultCode", BindingFlags.Public | BindingFlags.Instance);
+        Assert.That(getLastOptimizationResultCode, Is.Not.Null, "ipopt should expose primitive last-result status code.");
+        var statusCode = (int)getLastOptimizationResultCode!.Invoke(solver, Array.Empty<object>())!;
+        Assert.That(statusCode, Is.Not.EqualTo(0), "ipopt status code should reflect a real optimization result after evolve().");
+
+        AssertNoSwigTypeLeaksOnPublicSurface(ipoptType);
     }
 
     private static void AssertOptionalSolverSurface(string fullTypeName, string solverName)
@@ -174,5 +184,25 @@ public class Test_optional_solver_availability
 
         var publicConstructors = type.GetConstructors();
         Assert.That(publicConstructors.Length, Is.GreaterThan(0), $"{solverName} should expose at least one public constructor when present.");
+    }
+
+    private static void AssertNoSwigTypeLeaksOnPublicSurface(Type type)
+    {
+        var methods = type.GetMethods(BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static);
+        foreach (var method in methods)
+        {
+            Assert.That(
+                method.ReturnType.Name.StartsWith("SWIGTYPE_", StringComparison.Ordinal),
+                Is.False,
+                $"Public method {method.Name} should not return SWIGTYPE_*.");
+
+            foreach (var parameter in method.GetParameters())
+            {
+                Assert.That(
+                    parameter.ParameterType.Name.StartsWith("SWIGTYPE_", StringComparison.Ordinal),
+                    Is.False,
+                    $"Public method {method.Name} should not take SWIGTYPE_* parameters.");
+            }
+        }
     }
 }

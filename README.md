@@ -31,7 +31,7 @@ It's a work in progress.  Getting eyes on it sooner than later is worthwhile.
 True, but they don't have to.  These tests need to only test the wrappers; they do not need to test that the algorithms in pygmo work as well as they do.
 
 ### Where's IPOPT?
-I need to learn how to build pagmo2 completely locally first, I'm using vcpkg to get a nlopt binary and it doesn't include IPOPT.
+IPOPT is supported as an optional, feature-gated solver when pagmo is built with IPOPT enabled (for example via vcpkg feature configuration).
 
 Also, this is made completely independently of the base pagmo and the team that makes and maintains it.  This is independent of ESA and the original developers of pagmo.
 
@@ -164,7 +164,7 @@ These examples are intentionally half API walkthrough and half optimization-stru
 | Core runtime orchestration (`population`, `island`, `archipelago`) | Supported (with known topology caveat) | Managed-problem and policy runtime paths are covered; archipelago `set_topology_*` runtime mutation has a tracked issue in Sprint 4. |
 | Managed policy extensibility (`r_policyBase`, `s_policyBase`) | Supported | Direct managed-policy entrypoints are available on island/archipelago helpers. |
 | Topology wrappers (`ring`, `fully_connected`, `unconnected`, `free_form`) | Supported | Managed projection helpers are provided and tested. |
-| Optional solver wrapper (`ipopt`) | Feature-gated | Build-dependent; availability is asserted by test, runtime hardening pending IPOPT-enabled environment. |
+| Optional solver wrapper (`ipopt`) | Feature-gated | Build-dependent; availability/runtime behavior (construct/evolve/type-erasure/log projection) is validated when IPOPT is present. |
 | Optional solver wrapper (`nlopt`) | Feature-gated | Build-dependent; availability is asserted by test and runtime wrapper behavior is validated when present. |
 | Linux/CMake build flow | Planned post-v1 | Windows-first v1 release track; Linux/CMake is a later sprint. |
 
