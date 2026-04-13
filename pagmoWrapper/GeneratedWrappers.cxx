@@ -9697,7 +9697,11 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_problem_callback_get_name(void 
       };
     }
   }
-  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  {
+    static thread_local std::string pagmosharp_marshaled_string;
+    pagmosharp_marshaled_string = result;
+    jresult = pagmosharp_marshaled_string.c_str();
+  }
   return jresult;
 }
 
@@ -9721,7 +9725,11 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_problem_callback_get_nameSwigEx
       };
     }
   }
-  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  {
+    static thread_local std::string pagmosharp_marshaled_string;
+    pagmosharp_marshaled_string = result;
+    jresult = pagmosharp_marshaled_string.c_str();
+  }
   return jresult;
 }
 
@@ -9745,7 +9753,11 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_problem_callback_get_extra_info
       };
     }
   }
-  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  {
+    static thread_local std::string pagmosharp_marshaled_string;
+    pagmosharp_marshaled_string = result;
+    jresult = pagmosharp_marshaled_string.c_str();
+  }
   return jresult;
 }
 
@@ -9769,7 +9781,11 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_problem_callback_get_extra_info
       };
     }
   }
-  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  {
+    static thread_local std::string pagmosharp_marshaled_string;
+    pagmosharp_marshaled_string = result;
+    jresult = pagmosharp_marshaled_string.c_str();
+  }
   return jresult;
 }
 
@@ -10651,6 +10667,102 @@ SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_problem_callback_director_connect(void 
 }
 
 
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_null_problem_callback_fitness(void * jarg1, void * jarg2) {
+  void * jresult ;
+  pagmoWrap::null_problem_callback *arg1 = 0 ;
+  pagmoWrap::vector_double *arg2 = 0 ;
+  pagmoWrap::vector_double result;
+  
+  arg1 = (pagmoWrap::null_problem_callback *)jarg1; 
+  arg2 = (pagmoWrap::vector_double *)jarg2;
+  if (!arg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "pagmoWrap::vector_double const & is null", 0);
+    return 0;
+  } 
+  {
+    try {
+      result = ((pagmoWrap::null_problem_callback const *)arg1)->fitness((pagmoWrap::vector_double const &)*arg2);
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = new pagmoWrap::vector_double(result); 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_null_problem_callback_get_bounds(void * jarg1) {
+  void * jresult ;
+  pagmoWrap::null_problem_callback *arg1 = 0 ;
+  pagmoWrap::bounds_type result;
+  
+  arg1 = (pagmoWrap::null_problem_callback *)jarg1; 
+  {
+    try {
+      result = ((pagmoWrap::null_problem_callback const *)arg1)->get_bounds();
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = new pagmoWrap::bounds_type(result); 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_null_problem_callback() {
+  void * jresult ;
+  pagmoWrap::null_problem_callback *result = 0 ;
+  
+  {
+    try {
+      result = (pagmoWrap::null_problem_callback *)new pagmoWrap::null_problem_callback();
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_delete_null_problem_callback(void * jarg1) {
+  pagmoWrap::null_problem_callback *arg1 = 0 ;
+  
+  arg1 = (pagmoWrap::null_problem_callback *)jarg1; 
+  {
+    try {
+      delete arg1;
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return ; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return ; 
+      };
+    }
+  }
+}
+
+
 SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_managed_problem__SWIG_0() {
   void * jresult ;
   pagmoWrap::managed_problem *result = 0 ;
@@ -10770,7 +10882,11 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_managed_problem_get_name(void *
       };
     }
   }
-  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  {
+    static thread_local std::string pagmosharp_marshaled_string;
+    pagmosharp_marshaled_string = result;
+    jresult = pagmosharp_marshaled_string.c_str();
+  }
   return jresult;
 }
 
@@ -10794,7 +10910,11 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_managed_problem_get_extra_info(
       };
     }
   }
-  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  {
+    static thread_local std::string pagmosharp_marshaled_string;
+    pagmosharp_marshaled_string = result;
+    jresult = pagmosharp_marshaled_string.c_str();
+  }
   return jresult;
 }
 
@@ -11496,7 +11616,11 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_algorithm_callback_get_name(voi
       };
     }
   }
-  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  {
+    static thread_local std::string pagmosharp_marshaled_string;
+    pagmosharp_marshaled_string = result;
+    jresult = pagmosharp_marshaled_string.c_str();
+  }
   return jresult;
 }
 
@@ -11520,7 +11644,11 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_algorithm_callback_get_nameSwig
       };
     }
   }
-  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  {
+    static thread_local std::string pagmosharp_marshaled_string;
+    pagmosharp_marshaled_string = result;
+    jresult = pagmosharp_marshaled_string.c_str();
+  }
   return jresult;
 }
 
@@ -11544,7 +11672,11 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_algorithm_callback_get_extra_in
       };
     }
   }
-  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  {
+    static thread_local std::string pagmosharp_marshaled_string;
+    pagmosharp_marshaled_string = result;
+    jresult = pagmosharp_marshaled_string.c_str();
+  }
   return jresult;
 }
 
@@ -11568,7 +11700,11 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_algorithm_callback_get_extra_in
       };
     }
   }
-  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  {
+    static thread_local std::string pagmosharp_marshaled_string;
+    pagmosharp_marshaled_string = result;
+    jresult = pagmosharp_marshaled_string.c_str();
+  }
   return jresult;
 }
 
@@ -11640,7 +11776,11 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_algorithm_callback_consume_defe
       };
     }
   }
-  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  {
+    static thread_local std::string pagmosharp_marshaled_string;
+    pagmosharp_marshaled_string = result;
+    jresult = pagmosharp_marshaled_string.c_str();
+  }
   return jresult;
 }
 
@@ -11664,7 +11804,11 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_algorithm_callback_consume_defe
       };
     }
   }
-  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  {
+    static thread_local std::string pagmosharp_marshaled_string;
+    pagmosharp_marshaled_string = result;
+    jresult = pagmosharp_marshaled_string.c_str();
+  }
   return jresult;
 }
 
@@ -11957,7 +12101,11 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_managed_algorithm_get_name(void
       };
     }
   }
-  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  {
+    static thread_local std::string pagmosharp_marshaled_string;
+    pagmosharp_marshaled_string = result;
+    jresult = pagmosharp_marshaled_string.c_str();
+  }
   return jresult;
 }
 
@@ -11981,7 +12129,11 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_managed_algorithm_get_extra_inf
       };
     }
   }
-  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  {
+    static thread_local std::string pagmosharp_marshaled_string;
+    pagmosharp_marshaled_string = result;
+    jresult = pagmosharp_marshaled_string.c_str();
+  }
   return jresult;
 }
 
@@ -12193,7 +12345,11 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_r_policyBase_get_name(void * ja
       };
     }
   }
-  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  {
+    static thread_local std::string pagmosharp_marshaled_string;
+    pagmosharp_marshaled_string = result;
+    jresult = pagmosharp_marshaled_string.c_str();
+  }
   return jresult;
 }
 
@@ -12217,7 +12373,11 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_r_policyBase_get_nameSwigExplic
       };
     }
   }
-  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  {
+    static thread_local std::string pagmosharp_marshaled_string;
+    pagmosharp_marshaled_string = result;
+    jresult = pagmosharp_marshaled_string.c_str();
+  }
   return jresult;
 }
 
@@ -12241,7 +12401,11 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_r_policyBase_get_extra_info(voi
       };
     }
   }
-  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  {
+    static thread_local std::string pagmosharp_marshaled_string;
+    pagmosharp_marshaled_string = result;
+    jresult = pagmosharp_marshaled_string.c_str();
+  }
   return jresult;
 }
 
@@ -12265,7 +12429,11 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_r_policyBase_get_extra_infoSwig
       };
     }
   }
-  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  {
+    static thread_local std::string pagmosharp_marshaled_string;
+    pagmosharp_marshaled_string = result;
+    jresult = pagmosharp_marshaled_string.c_str();
+  }
   return jresult;
 }
 
@@ -12506,7 +12674,11 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_r_policyPagmoWrapper_get_name(v
       };
     }
   }
-  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  {
+    static thread_local std::string pagmosharp_marshaled_string;
+    pagmosharp_marshaled_string = result;
+    jresult = pagmosharp_marshaled_string.c_str();
+  }
   return jresult;
 }
 
@@ -12530,7 +12702,11 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_r_policyPagmoWrapper_get_extra_
       };
     }
   }
-  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  {
+    static thread_local std::string pagmosharp_marshaled_string;
+    pagmosharp_marshaled_string = result;
+    jresult = pagmosharp_marshaled_string.c_str();
+  }
   return jresult;
 }
 
@@ -12654,7 +12830,11 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_s_policyBase_get_name(void * ja
       };
     }
   }
-  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  {
+    static thread_local std::string pagmosharp_marshaled_string;
+    pagmosharp_marshaled_string = result;
+    jresult = pagmosharp_marshaled_string.c_str();
+  }
   return jresult;
 }
 
@@ -12678,7 +12858,11 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_s_policyBase_get_nameSwigExplic
       };
     }
   }
-  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  {
+    static thread_local std::string pagmosharp_marshaled_string;
+    pagmosharp_marshaled_string = result;
+    jresult = pagmosharp_marshaled_string.c_str();
+  }
   return jresult;
 }
 
@@ -12702,7 +12886,11 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_s_policyBase_get_extra_info(voi
       };
     }
   }
-  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  {
+    static thread_local std::string pagmosharp_marshaled_string;
+    pagmosharp_marshaled_string = result;
+    jresult = pagmosharp_marshaled_string.c_str();
+  }
   return jresult;
 }
 
@@ -12726,7 +12914,11 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_s_policyBase_get_extra_infoSwig
       };
     }
   }
-  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  {
+    static thread_local std::string pagmosharp_marshaled_string;
+    pagmosharp_marshaled_string = result;
+    jresult = pagmosharp_marshaled_string.c_str();
+  }
   return jresult;
 }
 
@@ -12947,7 +13139,11 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_s_policyPagmoWrapper_get_name(v
       };
     }
   }
-  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  {
+    static thread_local std::string pagmosharp_marshaled_string;
+    pagmosharp_marshaled_string = result;
+    jresult = pagmosharp_marshaled_string.c_str();
+  }
   return jresult;
 }
 
@@ -12971,7 +13167,11 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_s_policyPagmoWrapper_get_extra_
       };
     }
   }
-  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  {
+    static thread_local std::string pagmosharp_marshaled_string;
+    pagmosharp_marshaled_string = result;
+    jresult = pagmosharp_marshaled_string.c_str();
+  }
   return jresult;
 }
 
@@ -13312,7 +13512,11 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_DecompositionWeights_METHOD_GRI
   std::string *result = 0 ;
   
   result = (std::string *) &DecompositionWeights::METHOD_GRID;
-  jresult = SWIG_csharp_string_callback(result->c_str()); 
+  {
+    static thread_local std::string pagmosharp_marshaled_string;
+    pagmosharp_marshaled_string = *result;
+    jresult = pagmosharp_marshaled_string.c_str();
+  }
   return jresult;
 }
 
@@ -13322,7 +13526,11 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_DecompositionWeights_METHOD_RAN
   std::string *result = 0 ;
   
   result = (std::string *) &DecompositionWeights::METHOD_RANDOM;
-  jresult = SWIG_csharp_string_callback(result->c_str()); 
+  {
+    static thread_local std::string pagmosharp_marshaled_string;
+    pagmosharp_marshaled_string = *result;
+    jresult = pagmosharp_marshaled_string.c_str();
+  }
   return jresult;
 }
 
@@ -13332,7 +13540,11 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_DecompositionWeights_METHOD_LOW
   std::string *result = 0 ;
   
   result = (std::string *) &DecompositionWeights::METHOD_LOW_DISCREPANCY;
-  jresult = SWIG_csharp_string_callback(result->c_str()); 
+  {
+    static thread_local std::string pagmosharp_marshaled_string;
+    pagmosharp_marshaled_string = *result;
+    jresult = pagmosharp_marshaled_string.c_str();
+  }
   return jresult;
 }
 
@@ -33057,7 +33269,11 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_island_get_name(void * jarg1) {
       };
     }
   }
-  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  {
+    static thread_local std::string pagmosharp_marshaled_string;
+    pagmosharp_marshaled_string = result;
+    jresult = pagmosharp_marshaled_string.c_str();
+  }
   return jresult;
 }
 
@@ -33081,7 +33297,11 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_island_get_extra_info(void * ja
       };
     }
   }
-  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  {
+    static thread_local std::string pagmosharp_marshaled_string;
+    pagmosharp_marshaled_string = result;
+    jresult = pagmosharp_marshaled_string.c_str();
+  }
   return jresult;
 }
 
@@ -33901,7 +34121,11 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_thread_island_get_name(void * j
       };
     }
   }
-  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  {
+    static thread_local std::string pagmosharp_marshaled_string;
+    pagmosharp_marshaled_string = result;
+    jresult = pagmosharp_marshaled_string.c_str();
+  }
   return jresult;
 }
 
@@ -33925,7 +34149,11 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_thread_island_get_extra_info(vo
       };
     }
   }
-  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  {
+    static thread_local std::string pagmosharp_marshaled_string;
+    pagmosharp_marshaled_string = result;
+    jresult = pagmosharp_marshaled_string.c_str();
+  }
   return jresult;
 }
 
@@ -34879,7 +35107,11 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_problem_get_name(void * jarg1) 
       };
     }
   }
-  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  {
+    static thread_local std::string pagmosharp_marshaled_string;
+    pagmosharp_marshaled_string = result;
+    jresult = pagmosharp_marshaled_string.c_str();
+  }
   return jresult;
 }
 
@@ -34903,7 +35135,11 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_problem_get_extra_info(void * j
       };
     }
   }
-  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  {
+    static thread_local std::string pagmosharp_marshaled_string;
+    pagmosharp_marshaled_string = result;
+    jresult = pagmosharp_marshaled_string.c_str();
+  }
   return jresult;
 }
 
@@ -35759,7 +35995,11 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_topology_get_name(void * jarg1)
       };
     }
   }
-  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  {
+    static thread_local std::string pagmosharp_marshaled_string;
+    pagmosharp_marshaled_string = result;
+    jresult = pagmosharp_marshaled_string.c_str();
+  }
   return jresult;
 }
 
@@ -35783,7 +36023,11 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_topology_get_extra_info(void * 
       };
     }
   }
-  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  {
+    static thread_local std::string pagmosharp_marshaled_string;
+    pagmosharp_marshaled_string = result;
+    jresult = pagmosharp_marshaled_string.c_str();
+  }
   return jresult;
 }
 
@@ -36175,7 +36419,11 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_cstrs_self_adaptive_get_name(vo
       };
     }
   }
-  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  {
+    static thread_local std::string pagmosharp_marshaled_string;
+    pagmosharp_marshaled_string = result;
+    jresult = pagmosharp_marshaled_string.c_str();
+  }
   return jresult;
 }
 
@@ -36199,7 +36447,11 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_cstrs_self_adaptive_get_extra_i
       };
     }
   }
-  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  {
+    static thread_local std::string pagmosharp_marshaled_string;
+    pagmosharp_marshaled_string = result;
+    jresult = pagmosharp_marshaled_string.c_str();
+  }
   return jresult;
 }
 
@@ -36695,7 +36947,11 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_ihs_get_name(void * jarg1) {
       };
     }
   }
-  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  {
+    static thread_local std::string pagmosharp_marshaled_string;
+    pagmosharp_marshaled_string = result;
+    jresult = pagmosharp_marshaled_string.c_str();
+  }
   return jresult;
 }
 
@@ -36719,7 +36975,11 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_ihs_get_extra_info(void * jarg1
       };
     }
   }
-  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  {
+    static thread_local std::string pagmosharp_marshaled_string;
+    pagmosharp_marshaled_string = result;
+    jresult = pagmosharp_marshaled_string.c_str();
+  }
   return jresult;
 }
 
@@ -37295,7 +37555,11 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_maco_get_name(void * jarg1) {
       };
     }
   }
-  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  {
+    static thread_local std::string pagmosharp_marshaled_string;
+    pagmosharp_marshaled_string = result;
+    jresult = pagmosharp_marshaled_string.c_str();
+  }
   return jresult;
 }
 
@@ -37319,7 +37583,11 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_maco_get_extra_info(void * jarg
       };
     }
   }
-  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  {
+    static thread_local std::string pagmosharp_marshaled_string;
+    pagmosharp_marshaled_string = result;
+    jresult = pagmosharp_marshaled_string.c_str();
+  }
   return jresult;
 }
 
@@ -37799,7 +38067,11 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_mbh_get_name(void * jarg1) {
       };
     }
   }
-  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  {
+    static thread_local std::string pagmosharp_marshaled_string;
+    pagmosharp_marshaled_string = result;
+    jresult = pagmosharp_marshaled_string.c_str();
+  }
   return jresult;
 }
 
@@ -37823,7 +38095,11 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_mbh_get_extra_info(void * jarg1
       };
     }
   }
-  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  {
+    static thread_local std::string pagmosharp_marshaled_string;
+    pagmosharp_marshaled_string = result;
+    jresult = pagmosharp_marshaled_string.c_str();
+  }
   return jresult;
 }
 
@@ -38535,7 +38811,11 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_moead_get_name(void * jarg1) {
       };
     }
   }
-  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  {
+    static thread_local std::string pagmosharp_marshaled_string;
+    pagmosharp_marshaled_string = result;
+    jresult = pagmosharp_marshaled_string.c_str();
+  }
   return jresult;
 }
 
@@ -38559,7 +38839,11 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_moead_get_extra_info(void * jar
       };
     }
   }
-  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  {
+    static thread_local std::string pagmosharp_marshaled_string;
+    pagmosharp_marshaled_string = result;
+    jresult = pagmosharp_marshaled_string.c_str();
+  }
   return jresult;
 }
 
@@ -39297,7 +39581,11 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_moead_gen_get_name(void * jarg1
       };
     }
   }
-  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  {
+    static thread_local std::string pagmosharp_marshaled_string;
+    pagmosharp_marshaled_string = result;
+    jresult = pagmosharp_marshaled_string.c_str();
+  }
   return jresult;
 }
 
@@ -39321,7 +39609,11 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_moead_gen_get_extra_info(void *
       };
     }
   }
-  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  {
+    static thread_local std::string pagmosharp_marshaled_string;
+    pagmosharp_marshaled_string = result;
+    jresult = pagmosharp_marshaled_string.c_str();
+  }
   return jresult;
 }
 
@@ -39759,7 +40051,11 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_nsga2_get_name(void * jarg1) {
       };
     }
   }
-  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  {
+    static thread_local std::string pagmosharp_marshaled_string;
+    pagmosharp_marshaled_string = result;
+    jresult = pagmosharp_marshaled_string.c_str();
+  }
   return jresult;
 }
 
@@ -39783,7 +40079,11 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_nsga2_get_extra_info(void * jar
       };
     }
   }
-  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  {
+    static thread_local std::string pagmosharp_marshaled_string;
+    pagmosharp_marshaled_string = result;
+    jresult = pagmosharp_marshaled_string.c_str();
+  }
   return jresult;
 }
 
@@ -39925,7 +40225,11 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_default_bfe_get_name(void * jar
       };
     }
   }
-  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  {
+    static thread_local std::string pagmosharp_marshaled_string;
+    pagmosharp_marshaled_string = result;
+    jresult = pagmosharp_marshaled_string.c_str();
+  }
   return jresult;
 }
 
@@ -40043,7 +40347,11 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_member_bfe_get_name(void * jarg
       };
     }
   }
-  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  {
+    static thread_local std::string pagmosharp_marshaled_string;
+    pagmosharp_marshaled_string = result;
+    jresult = pagmosharp_marshaled_string.c_str();
+  }
   return jresult;
 }
 
@@ -40161,7 +40469,11 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_thread_bfe_get_name(void * jarg
       };
     }
   }
-  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  {
+    static thread_local std::string pagmosharp_marshaled_string;
+    pagmosharp_marshaled_string = result;
+    jresult = pagmosharp_marshaled_string.c_str();
+  }
   return jresult;
 }
 
@@ -40251,7 +40563,11 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_fair_replace_get_name(void * ja
       };
     }
   }
-  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  {
+    static thread_local std::string pagmosharp_marshaled_string;
+    pagmosharp_marshaled_string = result;
+    jresult = pagmosharp_marshaled_string.c_str();
+  }
   return jresult;
 }
 
@@ -40275,7 +40591,11 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_fair_replace_get_extra_info(voi
       };
     }
   }
-  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  {
+    static thread_local std::string pagmosharp_marshaled_string;
+    pagmosharp_marshaled_string = result;
+    jresult = pagmosharp_marshaled_string.c_str();
+  }
   return jresult;
 }
 
@@ -40403,7 +40723,11 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_select_best_get_name(void * jar
       };
     }
   }
-  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  {
+    static thread_local std::string pagmosharp_marshaled_string;
+    pagmosharp_marshaled_string = result;
+    jresult = pagmosharp_marshaled_string.c_str();
+  }
   return jresult;
 }
 
@@ -40427,7 +40751,11 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_select_best_get_extra_info(void
       };
     }
   }
-  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  {
+    static thread_local std::string pagmosharp_marshaled_string;
+    pagmosharp_marshaled_string = result;
+    jresult = pagmosharp_marshaled_string.c_str();
+  }
   return jresult;
 }
 
@@ -40573,7 +40901,11 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_unconnected_get_name(void * jar
       };
     }
   }
-  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  {
+    static thread_local std::string pagmosharp_marshaled_string;
+    pagmosharp_marshaled_string = result;
+    jresult = pagmosharp_marshaled_string.c_str();
+  }
   return jresult;
 }
 
@@ -40757,7 +41089,11 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_fully_connected_get_name(void *
       };
     }
   }
-  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  {
+    static thread_local std::string pagmosharp_marshaled_string;
+    pagmosharp_marshaled_string = result;
+    jresult = pagmosharp_marshaled_string.c_str();
+  }
   return jresult;
 }
 
@@ -40781,7 +41117,11 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_fully_connected_get_extra_info(
       };
     }
   }
-  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  {
+    static thread_local std::string pagmosharp_marshaled_string;
+    pagmosharp_marshaled_string = result;
+    jresult = pagmosharp_marshaled_string.c_str();
+  }
   return jresult;
 }
 
@@ -41015,7 +41355,11 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_ring_get_name(void * jarg1) {
       };
     }
   }
-  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  {
+    static thread_local std::string pagmosharp_marshaled_string;
+    pagmosharp_marshaled_string = result;
+    jresult = pagmosharp_marshaled_string.c_str();
+  }
   return jresult;
 }
 
@@ -41125,7 +41469,11 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_free_form_get_name(void * jarg1
       };
     }
   }
-  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  {
+    static thread_local std::string pagmosharp_marshaled_string;
+    pagmosharp_marshaled_string = result;
+    jresult = pagmosharp_marshaled_string.c_str();
+  }
   return jresult;
 }
 
@@ -41481,7 +41829,11 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_hv_algorithm_get_name(void * ja
       };
     }
   }
-  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  {
+    static thread_local std::string pagmosharp_marshaled_string;
+    pagmosharp_marshaled_string = result;
+    jresult = pagmosharp_marshaled_string.c_str();
+  }
   return jresult;
 }
 
@@ -42973,7 +43325,11 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_cmaes_get_name(void * jarg1) {
       };
     }
   }
-  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  {
+    static thread_local std::string pagmosharp_marshaled_string;
+    pagmosharp_marshaled_string = result;
+    jresult = pagmosharp_marshaled_string.c_str();
+  }
   return jresult;
 }
 
@@ -42997,7 +43353,11 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_cmaes_get_extra_info(void * jar
       };
     }
   }
-  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  {
+    static thread_local std::string pagmosharp_marshaled_string;
+    pagmosharp_marshaled_string = result;
+    jresult = pagmosharp_marshaled_string.c_str();
+  }
   return jresult;
 }
 
@@ -43393,7 +43753,11 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_compass_search_get_name(void * 
       };
     }
   }
-  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  {
+    static thread_local std::string pagmosharp_marshaled_string;
+    pagmosharp_marshaled_string = result;
+    jresult = pagmosharp_marshaled_string.c_str();
+  }
   return jresult;
 }
 
@@ -43417,7 +43781,11 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_compass_search_get_extra_info(v
       };
     }
   }
-  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  {
+    static thread_local std::string pagmosharp_marshaled_string;
+    pagmosharp_marshaled_string = result;
+    jresult = pagmosharp_marshaled_string.c_str();
+  }
   return jresult;
 }
 
@@ -43959,7 +44327,11 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_de_get_name(void * jarg1) {
       };
     }
   }
-  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  {
+    static thread_local std::string pagmosharp_marshaled_string;
+    pagmosharp_marshaled_string = result;
+    jresult = pagmosharp_marshaled_string.c_str();
+  }
   return jresult;
 }
 
@@ -43983,7 +44355,11 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_de_get_extra_info(void * jarg1)
       };
     }
   }
-  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  {
+    static thread_local std::string pagmosharp_marshaled_string;
+    pagmosharp_marshaled_string = result;
+    jresult = pagmosharp_marshaled_string.c_str();
+  }
   return jresult;
 }
 
@@ -44375,7 +44751,11 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_de1220_get_name(void * jarg1) {
       };
     }
   }
-  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  {
+    static thread_local std::string pagmosharp_marshaled_string;
+    pagmosharp_marshaled_string = result;
+    jresult = pagmosharp_marshaled_string.c_str();
+  }
   return jresult;
 }
 
@@ -44515,7 +44895,11 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_de1220_get_extra_info(void * ja
       };
     }
   }
-  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  {
+    static thread_local std::string pagmosharp_marshaled_string;
+    pagmosharp_marshaled_string = result;
+    jresult = pagmosharp_marshaled_string.c_str();
+  }
   return jresult;
 }
 
@@ -45105,7 +45489,11 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_gaco_get_name(void * jarg1) {
       };
     }
   }
-  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  {
+    static thread_local std::string pagmosharp_marshaled_string;
+    pagmosharp_marshaled_string = result;
+    jresult = pagmosharp_marshaled_string.c_str();
+  }
   return jresult;
 }
 
@@ -45247,7 +45635,11 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_gaco_get_extra_info(void * jarg
       };
     }
   }
-  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  {
+    static thread_local std::string pagmosharp_marshaled_string;
+    pagmosharp_marshaled_string = result;
+    jresult = pagmosharp_marshaled_string.c_str();
+  }
   return jresult;
 }
 
@@ -45559,7 +45951,11 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_gwo_get_name(void * jarg1) {
       };
     }
   }
-  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  {
+    static thread_local std::string pagmosharp_marshaled_string;
+    pagmosharp_marshaled_string = result;
+    jresult = pagmosharp_marshaled_string.c_str();
+  }
   return jresult;
 }
 
@@ -45583,7 +45979,11 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_gwo_get_extra_info(void * jarg1
       };
     }
   }
-  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  {
+    static thread_local std::string pagmosharp_marshaled_string;
+    pagmosharp_marshaled_string = result;
+    jresult = pagmosharp_marshaled_string.c_str();
+  }
   return jresult;
 }
 
@@ -45707,7 +46107,11 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_ipopt_get_name(void * jarg1) {
       };
     }
   }
-  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  {
+    static thread_local std::string pagmosharp_marshaled_string;
+    pagmosharp_marshaled_string = result;
+    jresult = pagmosharp_marshaled_string.c_str();
+  }
   return jresult;
 }
 
@@ -45731,7 +46135,11 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_ipopt_get_extra_info(void * jar
       };
     }
   }
-  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  {
+    static thread_local std::string pagmosharp_marshaled_string;
+    pagmosharp_marshaled_string = result;
+    jresult = pagmosharp_marshaled_string.c_str();
+  }
   return jresult;
 }
 
@@ -46180,7 +46588,11 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_nlopt_get_name(void * jarg1) {
       };
     }
   }
-  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  {
+    static thread_local std::string pagmosharp_marshaled_string;
+    pagmosharp_marshaled_string = result;
+    jresult = pagmosharp_marshaled_string.c_str();
+  }
   return jresult;
 }
 
@@ -46226,7 +46638,11 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_nlopt_get_extra_info(void * jar
       };
     }
   }
-  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  {
+    static thread_local std::string pagmosharp_marshaled_string;
+    pagmosharp_marshaled_string = result;
+    jresult = pagmosharp_marshaled_string.c_str();
+  }
   return jresult;
 }
 
@@ -46250,7 +46666,11 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_nlopt_get_solver_name(void * ja
       };
     }
   }
-  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  {
+    static thread_local std::string pagmosharp_marshaled_string;
+    pagmosharp_marshaled_string = result;
+    jresult = pagmosharp_marshaled_string.c_str();
+  }
   return jresult;
 }
 
@@ -46922,7 +47342,11 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_not_population_based_selection_
       };
     }
   }
-  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  {
+    static thread_local std::string pagmosharp_marshaled_string;
+    pagmosharp_marshaled_string = result;
+    jresult = pagmosharp_marshaled_string.c_str();
+  }
   return jresult;
 }
 
@@ -46994,7 +47418,11 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_not_population_based_replacemen
       };
     }
   }
-  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  {
+    static thread_local std::string pagmosharp_marshaled_string;
+    pagmosharp_marshaled_string = result;
+    jresult = pagmosharp_marshaled_string.c_str();
+  }
   return jresult;
 }
 
@@ -47576,7 +48004,11 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_nspso_get_name(void * jarg1) {
       };
     }
   }
-  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  {
+    static thread_local std::string pagmosharp_marshaled_string;
+    pagmosharp_marshaled_string = result;
+    jresult = pagmosharp_marshaled_string.c_str();
+  }
   return jresult;
 }
 
@@ -47600,7 +48032,11 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_nspso_get_extra_info(void * jar
       };
     }
   }
-  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  {
+    static thread_local std::string pagmosharp_marshaled_string;
+    pagmosharp_marshaled_string = result;
+    jresult = pagmosharp_marshaled_string.c_str();
+  }
   return jresult;
 }
 
@@ -47722,7 +48158,11 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_null_algorithm_get_name(void * 
       };
     }
   }
-  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  {
+    static thread_local std::string pagmosharp_marshaled_string;
+    pagmosharp_marshaled_string = result;
+    jresult = pagmosharp_marshaled_string.c_str();
+  }
   return jresult;
 }
 
@@ -48288,7 +48728,11 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_pso_get_name(void * jarg1) {
       };
     }
   }
-  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  {
+    static thread_local std::string pagmosharp_marshaled_string;
+    pagmosharp_marshaled_string = result;
+    jresult = pagmosharp_marshaled_string.c_str();
+  }
   return jresult;
 }
 
@@ -48312,7 +48756,11 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_pso_get_extra_info(void * jarg1
       };
     }
   }
-  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  {
+    static thread_local std::string pagmosharp_marshaled_string;
+    pagmosharp_marshaled_string = result;
+    jresult = pagmosharp_marshaled_string.c_str();
+  }
   return jresult;
 }
 
@@ -48906,7 +49354,11 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_pso_gen_get_name(void * jarg1) 
       };
     }
   }
-  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  {
+    static thread_local std::string pagmosharp_marshaled_string;
+    pagmosharp_marshaled_string = result;
+    jresult = pagmosharp_marshaled_string.c_str();
+  }
   return jresult;
 }
 
@@ -48930,7 +49382,11 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_pso_gen_get_extra_info(void * j
       };
     }
   }
-  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  {
+    static thread_local std::string pagmosharp_marshaled_string;
+    pagmosharp_marshaled_string = result;
+    jresult = pagmosharp_marshaled_string.c_str();
+  }
   return jresult;
 }
 
@@ -49218,7 +49674,11 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_sea_get_name(void * jarg1) {
       };
     }
   }
-  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  {
+    static thread_local std::string pagmosharp_marshaled_string;
+    pagmosharp_marshaled_string = result;
+    jresult = pagmosharp_marshaled_string.c_str();
+  }
   return jresult;
 }
 
@@ -49242,7 +49702,11 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_sea_get_extra_info(void * jarg1
       };
     }
   }
-  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  {
+    static thread_local std::string pagmosharp_marshaled_string;
+    pagmosharp_marshaled_string = result;
+    jresult = pagmosharp_marshaled_string.c_str();
+  }
   return jresult;
 }
 
@@ -49690,7 +50154,11 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_simulated_annealing_get_name(vo
       };
     }
   }
-  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  {
+    static thread_local std::string pagmosharp_marshaled_string;
+    pagmosharp_marshaled_string = result;
+    jresult = pagmosharp_marshaled_string.c_str();
+  }
   return jresult;
 }
 
@@ -49714,7 +50182,11 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_simulated_annealing_get_extra_i
       };
     }
   }
-  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  {
+    static thread_local std::string pagmosharp_marshaled_string;
+    pagmosharp_marshaled_string = result;
+    jresult = pagmosharp_marshaled_string.c_str();
+  }
   return jresult;
 }
 
@@ -50070,7 +50542,11 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_sade_get_name(void * jarg1) {
       };
     }
   }
-  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  {
+    static thread_local std::string pagmosharp_marshaled_string;
+    pagmosharp_marshaled_string = result;
+    jresult = pagmosharp_marshaled_string.c_str();
+  }
   return jresult;
 }
 
@@ -50210,7 +50686,11 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_sade_get_extra_info(void * jarg
       };
     }
   }
-  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  {
+    static thread_local std::string pagmosharp_marshaled_string;
+    pagmosharp_marshaled_string = result;
+    jresult = pagmosharp_marshaled_string.c_str();
+  }
   return jresult;
 }
 
@@ -50814,7 +51294,11 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_sga_get_name(void * jarg1) {
       };
     }
   }
-  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  {
+    static thread_local std::string pagmosharp_marshaled_string;
+    pagmosharp_marshaled_string = result;
+    jresult = pagmosharp_marshaled_string.c_str();
+  }
   return jresult;
 }
 
@@ -50838,7 +51322,11 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_sga_get_extra_info(void * jarg1
       };
     }
   }
-  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  {
+    static thread_local std::string pagmosharp_marshaled_string;
+    pagmosharp_marshaled_string = result;
+    jresult = pagmosharp_marshaled_string.c_str();
+  }
   return jresult;
 }
 
@@ -51430,7 +51918,11 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_xnes_get_name(void * jarg1) {
       };
     }
   }
-  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  {
+    static thread_local std::string pagmosharp_marshaled_string;
+    pagmosharp_marshaled_string = result;
+    jresult = pagmosharp_marshaled_string.c_str();
+  }
   return jresult;
 }
 
@@ -51454,7 +51946,11 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_xnes_get_extra_info(void * jarg
       };
     }
   }
-  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  {
+    static thread_local std::string pagmosharp_marshaled_string;
+    pagmosharp_marshaled_string = result;
+    jresult = pagmosharp_marshaled_string.c_str();
+  }
   return jresult;
 }
 
@@ -51646,7 +52142,11 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_ackley_get_name(void * jarg1) {
       };
     }
   }
-  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  {
+    static thread_local std::string pagmosharp_marshaled_string;
+    pagmosharp_marshaled_string = result;
+    jresult = pagmosharp_marshaled_string.c_str();
+  }
   return jresult;
 }
 
@@ -52076,7 +52576,11 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_cec2006_get_name(void * jarg1) 
       };
     }
   }
-  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  {
+    static thread_local std::string pagmosharp_marshaled_string;
+    pagmosharp_marshaled_string = result;
+    jresult = pagmosharp_marshaled_string.c_str();
+  }
   return jresult;
 }
 
@@ -52442,7 +52946,11 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_cec2009_get_name(void * jarg1) 
       };
     }
   }
-  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  {
+    static thread_local std::string pagmosharp_marshaled_string;
+    pagmosharp_marshaled_string = result;
+    jresult = pagmosharp_marshaled_string.c_str();
+  }
   return jresult;
 }
 
@@ -52732,7 +53240,11 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_cec2013_get_name(void * jarg1) 
       };
     }
   }
-  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  {
+    static thread_local std::string pagmosharp_marshaled_string;
+    pagmosharp_marshaled_string = result;
+    jresult = pagmosharp_marshaled_string.c_str();
+  }
   return jresult;
 }
 
@@ -53070,7 +53582,11 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_cec2014_get_name(void * jarg1) 
       };
     }
   }
-  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  {
+    static thread_local std::string pagmosharp_marshaled_string;
+    pagmosharp_marshaled_string = result;
+    jresult = pagmosharp_marshaled_string.c_str();
+  }
   return jresult;
 }
 
@@ -53596,7 +54112,11 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_decompose_get_name(void * jarg1
       };
     }
   }
-  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  {
+    static thread_local std::string pagmosharp_marshaled_string;
+    pagmosharp_marshaled_string = result;
+    jresult = pagmosharp_marshaled_string.c_str();
+  }
   return jresult;
 }
 
@@ -53620,7 +54140,11 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_decompose_get_extra_info(void *
       };
     }
   }
-  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  {
+    static thread_local std::string pagmosharp_marshaled_string;
+    pagmosharp_marshaled_string = result;
+    jresult = pagmosharp_marshaled_string.c_str();
+  }
   return jresult;
 }
 
@@ -54122,7 +54646,11 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_dtlz_get_name(void * jarg1) {
       };
     }
   }
-  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  {
+    static thread_local std::string pagmosharp_marshaled_string;
+    pagmosharp_marshaled_string = result;
+    jresult = pagmosharp_marshaled_string.c_str();
+  }
   return jresult;
 }
 
@@ -54472,7 +55000,11 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_hock_schittkowski_71_get_name(v
       };
     }
   }
-  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  {
+    static thread_local std::string pagmosharp_marshaled_string;
+    pagmosharp_marshaled_string = result;
+    jresult = pagmosharp_marshaled_string.c_str();
+  }
   return jresult;
 }
 
@@ -54496,7 +55028,11 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_hock_schittkowski_71_get_extra_
       };
     }
   }
-  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  {
+    static thread_local std::string pagmosharp_marshaled_string;
+    pagmosharp_marshaled_string = result;
+    jresult = pagmosharp_marshaled_string.c_str();
+  }
   return jresult;
 }
 
@@ -54880,7 +55416,11 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_golomb_ruler_get_name(void * ja
       };
     }
   }
-  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  {
+    static thread_local std::string pagmosharp_marshaled_string;
+    pagmosharp_marshaled_string = result;
+    jresult = pagmosharp_marshaled_string.c_str();
+  }
   return jresult;
 }
 
@@ -55168,7 +55708,11 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_griewank_get_name(void * jarg1)
       };
     }
   }
-  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  {
+    static thread_local std::string pagmosharp_marshaled_string;
+    pagmosharp_marshaled_string = result;
+    jresult = pagmosharp_marshaled_string.c_str();
+  }
   return jresult;
 }
 
@@ -55578,7 +56122,11 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_inventory_get_name(void * jarg1
       };
     }
   }
-  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  {
+    static thread_local std::string pagmosharp_marshaled_string;
+    pagmosharp_marshaled_string = result;
+    jresult = pagmosharp_marshaled_string.c_str();
+  }
   return jresult;
 }
 
@@ -55602,7 +56150,11 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_inventory_get_extra_info(void *
       };
     }
   }
-  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  {
+    static thread_local std::string pagmosharp_marshaled_string;
+    pagmosharp_marshaled_string = result;
+    jresult = pagmosharp_marshaled_string.c_str();
+  }
   return jresult;
 }
 
@@ -55914,7 +56466,11 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_lennard_jones_get_name(void * j
       };
     }
   }
-  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  {
+    static thread_local std::string pagmosharp_marshaled_string;
+    pagmosharp_marshaled_string = result;
+    jresult = pagmosharp_marshaled_string.c_str();
+  }
   return jresult;
 }
 
@@ -56280,7 +56836,11 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_luksan_vlcek1_get_name(void * j
       };
     }
   }
-  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  {
+    static thread_local std::string pagmosharp_marshaled_string;
+    pagmosharp_marshaled_string = result;
+    jresult = pagmosharp_marshaled_string.c_str();
+  }
   return jresult;
 }
 
@@ -56724,7 +57284,11 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_minlp_rastrigin_get_name(void *
       };
     }
   }
-  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  {
+    static thread_local std::string pagmosharp_marshaled_string;
+    pagmosharp_marshaled_string = result;
+    jresult = pagmosharp_marshaled_string.c_str();
+  }
   return jresult;
 }
 
@@ -56748,7 +57312,11 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_minlp_rastrigin_get_extra_info(
       };
     }
   }
-  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  {
+    static thread_local std::string pagmosharp_marshaled_string;
+    pagmosharp_marshaled_string = result;
+    jresult = pagmosharp_marshaled_string.c_str();
+  }
   return jresult;
 }
 
@@ -57216,7 +57784,11 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_null_problem_get_name(void * ja
       };
     }
   }
-  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  {
+    static thread_local std::string pagmosharp_marshaled_string;
+    pagmosharp_marshaled_string = result;
+    jresult = pagmosharp_marshaled_string.c_str();
+  }
   return jresult;
 }
 
@@ -57486,7 +58058,11 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_rosenbrock_get_name(void * jarg
       };
     }
   }
-  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  {
+    static thread_local std::string pagmosharp_marshaled_string;
+    pagmosharp_marshaled_string = result;
+    jresult = pagmosharp_marshaled_string.c_str();
+  }
   return jresult;
 }
 
@@ -57844,7 +58420,11 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_schwefel_get_name(void * jarg1)
       };
     }
   }
-  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  {
+    static thread_local std::string pagmosharp_marshaled_string;
+    pagmosharp_marshaled_string = result;
+    jresult = pagmosharp_marshaled_string.c_str();
+  }
   return jresult;
 }
 
@@ -58262,7 +58842,11 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_rastrigin_get_name(void * jarg1
       };
     }
   }
-  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  {
+    static thread_local std::string pagmosharp_marshaled_string;
+    pagmosharp_marshaled_string = result;
+    jresult = pagmosharp_marshaled_string.c_str();
+  }
   return jresult;
 }
 
@@ -58802,7 +59386,11 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_translate_get_name(void * jarg1
       };
     }
   }
-  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  {
+    static thread_local std::string pagmosharp_marshaled_string;
+    pagmosharp_marshaled_string = result;
+    jresult = pagmosharp_marshaled_string.c_str();
+  }
   return jresult;
 }
 
@@ -58826,7 +59414,11 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_translate_get_extra_info(void *
       };
     }
   }
-  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  {
+    static thread_local std::string pagmosharp_marshaled_string;
+    pagmosharp_marshaled_string = result;
+    jresult = pagmosharp_marshaled_string.c_str();
+  }
   return jresult;
 }
 
@@ -59342,7 +59934,11 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_unconstrain_get_name(void * jar
       };
     }
   }
-  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  {
+    static thread_local std::string pagmosharp_marshaled_string;
+    pagmosharp_marshaled_string = result;
+    jresult = pagmosharp_marshaled_string.c_str();
+  }
   return jresult;
 }
 
@@ -59366,7 +59962,11 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_unconstrain_get_extra_info(void
       };
     }
   }
-  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  {
+    static thread_local std::string pagmosharp_marshaled_string;
+    pagmosharp_marshaled_string = result;
+    jresult = pagmosharp_marshaled_string.c_str();
+  }
   return jresult;
 }
 
@@ -59690,7 +60290,11 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_wfg_get_name(void * jarg1) {
       };
     }
   }
-  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  {
+    static thread_local std::string pagmosharp_marshaled_string;
+    pagmosharp_marshaled_string = result;
+    jresult = pagmosharp_marshaled_string.c_str();
+  }
   return jresult;
 }
 
@@ -60052,7 +60656,11 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_zdt_get_name(void * jarg1) {
       };
     }
   }
-  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  {
+    static thread_local std::string pagmosharp_marshaled_string;
+    pagmosharp_marshaled_string = result;
+    jresult = pagmosharp_marshaled_string.c_str();
+  }
   return jresult;
 }
 
@@ -60677,7 +61285,11 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_algorithm_get_name(void * jarg1
       };
     }
   }
-  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  {
+    static thread_local std::string pagmosharp_marshaled_string;
+    pagmosharp_marshaled_string = result;
+    jresult = pagmosharp_marshaled_string.c_str();
+  }
   return jresult;
 }
 
@@ -60701,7 +61313,11 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_algorithm_get_extra_info(void *
       };
     }
   }
-  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  {
+    static thread_local std::string pagmosharp_marshaled_string;
+    pagmosharp_marshaled_string = result;
+    jresult = pagmosharp_marshaled_string.c_str();
+  }
   return jresult;
 }
 
@@ -61848,7 +62464,11 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_bee_colony_get_name(void * jarg
       };
     }
   }
-  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  {
+    static thread_local std::string pagmosharp_marshaled_string;
+    pagmosharp_marshaled_string = result;
+    jresult = pagmosharp_marshaled_string.c_str();
+  }
   return jresult;
 }
 
@@ -61872,7 +62492,11 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_bee_colony_get_extra_info(void 
       };
     }
   }
-  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  {
+    static thread_local std::string pagmosharp_marshaled_string;
+    pagmosharp_marshaled_string = result;
+    jresult = pagmosharp_marshaled_string.c_str();
+  }
   return jresult;
 }
 
@@ -62988,7 +63612,11 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_archipelago_get_topology_name(v
       };
     }
   }
-  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  {
+    static thread_local std::string pagmosharp_marshaled_string;
+    pagmosharp_marshaled_string = result;
+    jresult = pagmosharp_marshaled_string.c_str();
+  }
   return jresult;
 }
 
@@ -63120,6 +63748,10 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_archipelago_get_migration_log_entries
   return jresult;
 }
 
+
+SWIGEXPORT pagmoWrap::problem_callback * SWIGSTDCALL CSharp_pagmo_null_problem_callback_SWIGUpcast(pagmoWrap::null_problem_callback *jarg1) {
+    return (pagmoWrap::problem_callback *)jarg1;
+}
 
 SWIGEXPORT pagmoWrap::algorithm_callback * SWIGSTDCALL CSharp_pagmo_managed_algorithm_null_algorithm_callback_SWIGUpcast(pagmoWrap::managed_algorithm::null_algorithm_callback *jarg1) {
     return (pagmoWrap::algorithm_callback *)jarg1;

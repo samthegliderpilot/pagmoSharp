@@ -1,9 +1,42 @@
 using System;
+using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 
 namespace pagmo
 {
     public partial class island
     {
+        private sealed class ConstructionRootBucket
+        {
+            private readonly List<object> _roots = new();
+            private readonly object _gate = new();
+
+            public void Add(object value)
+            {
+                if (value == null)
+                {
+                    return;
+                }
+
+                lock (_gate)
+                {
+                    _roots.Add(value);
+                }
+            }
+        }
+
+        private static readonly ConditionalWeakTable<island, ConstructionRootBucket> ConstructionRoots = new();
+
+        private static void AttachConstructionRoot(island owner, object value)
+        {
+            if (owner == null || value == null)
+            {
+                return;
+            }
+
+            ConstructionRoots.GetOrCreateValue(owner).Add(value);
+        }
+
         private static uint ToNativePopulationSize(ulong popSize)
         {
             return SizeTInterop.ToNativeUInt32(popSize, "popSize");
@@ -46,48 +79,57 @@ namespace pagmo
                 throw new ArgumentException("Specify either fair/select policies or wrapped policies, but not both.");
             }
 
-            using var wrappedProblem = new problem(problem);
+            var wrappedProblem = new problem(problem);
             var nativePopSize = ToNativePopulationSize(popSize);
             var resolvedSeed = ResolveSeed(seed);
+            island createdIsland;
 
             if (replacementPolicy == null && wrappedReplacementPolicy == null)
             {
                 if (islandType == null)
                 {
-                    return evaluator == null
+                    createdIsland = evaluator == null
                         ? island.Create(algorithm, wrappedProblem, nativePopSize, resolvedSeed)
                         : island.CreateWithBfe(algorithm, wrappedProblem, evaluator, nativePopSize, resolvedSeed);
                 }
-
-                return evaluator == null
-                    ? island.CreateWithThreadIsland(islandType, algorithm, wrappedProblem, nativePopSize, resolvedSeed)
-                    : island.CreateWithThreadIslandAndBfe(islandType, algorithm, wrappedProblem, evaluator, nativePopSize, resolvedSeed);
+                else
+                {
+                    createdIsland = evaluator == null
+                        ? island.CreateWithThreadIsland(islandType, algorithm, wrappedProblem, nativePopSize, resolvedSeed)
+                        : island.CreateWithThreadIslandAndBfe(islandType, algorithm, wrappedProblem, evaluator, nativePopSize, resolvedSeed);
+                }
             }
-
-            if (replacementPolicy != null)
+            else if (replacementPolicy != null)
             {
                 if (islandType == null)
                 {
-                    return evaluator == null
+                    createdIsland = evaluator == null
                         ? island.CreateWithPolicies(algorithm, wrappedProblem, nativePopSize, replacementPolicy, selectionPolicy, resolvedSeed)
                         : island.CreateWithBfeAndPolicies(algorithm, wrappedProblem, evaluator, nativePopSize, replacementPolicy, selectionPolicy, resolvedSeed);
                 }
-
-                return evaluator == null
-                    ? island.CreateWithThreadIslandAndPolicies(islandType, algorithm, wrappedProblem, nativePopSize, replacementPolicy, selectionPolicy, resolvedSeed)
-                    : island.CreateWithThreadIslandAndBfeAndPolicies(islandType, algorithm, wrappedProblem, evaluator, nativePopSize, replacementPolicy, selectionPolicy, resolvedSeed);
+                else
+                {
+                    createdIsland = evaluator == null
+                        ? island.CreateWithThreadIslandAndPolicies(islandType, algorithm, wrappedProblem, nativePopSize, replacementPolicy, selectionPolicy, resolvedSeed)
+                        : island.CreateWithThreadIslandAndBfeAndPolicies(islandType, algorithm, wrappedProblem, evaluator, nativePopSize, replacementPolicy, selectionPolicy, resolvedSeed);
+                }
             }
-
-            if (islandType == null)
+            else if (islandType == null)
             {
-                return evaluator == null
+                createdIsland = evaluator == null
                     ? island.CreateWithPolicies(algorithm, wrappedProblem, nativePopSize, wrappedReplacementPolicy, wrappedSelectionPolicy, resolvedSeed)
                     : island.CreateWithBfeAndPolicies(algorithm, wrappedProblem, evaluator, nativePopSize, wrappedReplacementPolicy, wrappedSelectionPolicy, resolvedSeed);
             }
+            else
+            {
+                createdIsland = evaluator == null
+                    ? island.CreateWithThreadIslandAndPolicies(islandType, algorithm, wrappedProblem, nativePopSize, wrappedReplacementPolicy, wrappedSelectionPolicy, resolvedSeed)
+                    : island.CreateWithThreadIslandAndBfeAndPolicies(islandType, algorithm, wrappedProblem, evaluator, nativePopSize, wrappedReplacementPolicy, wrappedSelectionPolicy, resolvedSeed);
+            }
 
-            return evaluator == null
-                ? island.CreateWithThreadIslandAndPolicies(islandType, algorithm, wrappedProblem, nativePopSize, wrappedReplacementPolicy, wrappedSelectionPolicy, resolvedSeed)
-                : island.CreateWithThreadIslandAndBfeAndPolicies(islandType, algorithm, wrappedProblem, evaluator, nativePopSize, wrappedReplacementPolicy, wrappedSelectionPolicy, resolvedSeed);
+            // Keep wrapped managed-problem callback alive for the island lifetime.
+            AttachConstructionRoot(createdIsland, wrappedProblem);
+            return createdIsland;
         }
 
         private static island CreateCore(
@@ -102,8 +144,8 @@ namespace pagmo
             r_policy wrappedReplacementPolicy = null,
             s_policy wrappedSelectionPolicy = null)
         {
-            using var normalized = AlgorithmInterop.NormalizeToTypeErased(algorithm);
-            return CreateCore(
+            var normalized = AlgorithmInterop.NormalizeToTypeErased(algorithm);
+            var createdIsland = CreateCore(
                 normalized,
                 problem,
                 popSize,
@@ -114,6 +156,14 @@ namespace pagmo
                 selectionPolicy,
                 wrappedReplacementPolicy,
                 wrappedSelectionPolicy);
+
+            // If normalization created a temporary type-erased algorithm, keep it rooted.
+            if (!ReferenceEquals(normalized, algorithm))
+            {
+                AttachConstructionRoot(createdIsland, normalized);
+            }
+
+            return createdIsland;
         }
 
         public static island Create(algorithm algorithm, IProblem problem, ulong popSize, uint? seed = null, thread_island islandType = null)

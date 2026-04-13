@@ -1263,6 +1263,18 @@ class pagmoPINVOKE {
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_problem_callback_director_connect")]
   public static extern void problem_callback_director_connect(global::System.Runtime.InteropServices.HandleRef jarg1, problem_callback.SwigDelegateproblem_callback_0 delegate0, problem_callback.SwigDelegateproblem_callback_1 delegate1, problem_callback.SwigDelegateproblem_callback_2 delegate2, problem_callback.SwigDelegateproblem_callback_3 delegate3, problem_callback.SwigDelegateproblem_callback_4 delegate4, problem_callback.SwigDelegateproblem_callback_5 delegate5, problem_callback.SwigDelegateproblem_callback_6 delegate6, problem_callback.SwigDelegateproblem_callback_7 delegate7, problem_callback.SwigDelegateproblem_callback_8 delegate8, problem_callback.SwigDelegateproblem_callback_9 delegate9, problem_callback.SwigDelegateproblem_callback_10 delegate10, problem_callback.SwigDelegateproblem_callback_11 delegate11, problem_callback.SwigDelegateproblem_callback_12 delegate12, problem_callback.SwigDelegateproblem_callback_13 delegate13, problem_callback.SwigDelegateproblem_callback_14 delegate14, problem_callback.SwigDelegateproblem_callback_15 delegate15, problem_callback.SwigDelegateproblem_callback_16 delegate16, problem_callback.SwigDelegateproblem_callback_17 delegate17, problem_callback.SwigDelegateproblem_callback_18 delegate18, problem_callback.SwigDelegateproblem_callback_19 delegate19, problem_callback.SwigDelegateproblem_callback_20 delegate20);
 
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_null_problem_callback_fitness")]
+  public static extern global::System.IntPtr null_problem_callback_fitness(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_null_problem_callback_get_bounds")]
+  public static extern global::System.IntPtr null_problem_callback_get_bounds(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_new_null_problem_callback")]
+  public static extern global::System.IntPtr new_null_problem_callback();
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_delete_null_problem_callback")]
+  public static extern void delete_null_problem_callback(global::System.Runtime.InteropServices.HandleRef jarg1);
+
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_new_managed_problem__SWIG_0")]
   public static extern global::System.IntPtr new_managed_problem__SWIG_0();
 
@@ -7178,6 +7190,9 @@ class pagmoPINVOKE {
 
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_archipelago_get_migration_log_entries")]
   public static extern global::System.IntPtr archipelago_get_migration_log_entries(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_null_problem_callback_SWIGUpcast")]
+  public static extern global::System.IntPtr null_problem_callback_SWIGUpcast(global::System.IntPtr jarg1);
 
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_managed_algorithm_null_algorithm_callback_SWIGUpcast")]
   public static extern global::System.IntPtr managed_algorithm_null_algorithm_callback_SWIGUpcast(global::System.IntPtr jarg1);

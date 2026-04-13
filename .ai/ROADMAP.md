@@ -269,6 +269,9 @@ Last updated: 2026-04-08
 - [x] Added regression coverage for managed algorithm type-erased execution and callback-failure bubbling through `wait_check()` in island/archipelago paths.
 - [x] Added consolidated release-gate automation script (`scripts/release-gates.ps1`) to run SWIG regen reproducibility checks, native rebuilds (`Debug`/`Release`), full managed tests, and optional solver availability tests from one command.
 - [x] Hardened local CI/test scripts to use repo-local package cache (`NUGET_PACKAGES=./.nuget/packages`) for more deterministic restore/build behavior in constrained environments.
+- [x] Updated managed target frameworks to current LTS baseline (`net10.0`) across library/tests/examples and validated managed build pipeline on .NET SDK 10.x.
+- [x] Updated native language standard baseline from C++17 to C++20 in `pagmoWrapper.vcxproj` while keeping stable VS toolset (`v143`).
+- [ ] Rename default branch from `master` to `main` (blocked locally by `.git` reflog/index filesystem permission lock; requires local git metadata write access).
 - [ ] Investigate and harden `problem(IProblem)` normalization for wrapped-native `IProblem` inputs (avoid callback-wrapping native problem wrappers that can trigger native access-violation paths under some constructor/evaluation flows).
 
 8. **Sprint 6: v1.0 Release**
