@@ -52,7 +52,7 @@ namespace pagmo
                 problem.ThrowIfNotThreadSafe();
             }
 
-            using var problemHandle = NativeInterop.CreateProblemHandle(problem, out var callbackAdapter);
+            using var problemHandle = ProblemInterop.CreateProblemHandle(problem, out var callbackAdapter);
             var resultPtr = op(bfePtr, problemHandle.DangerousGetHandle(), DoubleVector.getCPtr(batchX).Handle);
             return NativeInterop.GetVectorOrThrow(resultPtr, "Native batch evaluator returned null.", callbackAdapter);
         }

@@ -89,20 +89,15 @@ try {
     $env:DOTNET_CLI_HOME = Join-Path $repoRoot ".dotnet"
     $env:NUGET_PACKAGES = Join-Path $repoRoot ".nuget\packages"
     $baseOutputPath = (Join-Path $repoRoot "artifacts\dotnet\")
-    $baseIntermediatePath = (Join-Path $repoRoot "artifacts\obj\")
     if (-not (Test-Path $env:DOTNET_CLI_HOME)) {
         New-Item -ItemType Directory -Path $env:DOTNET_CLI_HOME | Out-Null
     }
     if (-not (Test-Path $baseOutputPath)) {
         New-Item -ItemType Directory -Path $baseOutputPath | Out-Null
     }
-    if (-not (Test-Path $baseIntermediatePath)) {
-        New-Item -ItemType Directory -Path $baseIntermediatePath | Out-Null
-    }
     $dotnetProps = @(
         "-p:Platform=x64",
-        "-p:BaseOutputPath=$baseOutputPath",
-        "-p:BaseIntermediateOutputPath=$baseIntermediatePath"
+        "-p:BaseOutputPath=$baseOutputPath"
     )
 
     if (-not $SkipSwigReproCheck) {

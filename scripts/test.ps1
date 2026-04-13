@@ -13,17 +13,13 @@ $env:DOTNET_ADD_GLOBAL_TOOLS_TO_PATH = "0"
 $env:DOTNET_CLI_HOME = Join-Path $PSScriptRoot "..\.dotnet"
 $env:NUGET_PACKAGES = Join-Path $PSScriptRoot "..\.nuget\packages"
 $baseOutputPath = (Resolve-Path (Join-Path $PSScriptRoot "..")).Path + "\artifacts\dotnet\"
-$baseIntermediatePath = (Resolve-Path (Join-Path $PSScriptRoot "..")).Path + "\artifacts\obj\"
-$dotnetProps = @("-p:Platform=x64", "-p:BaseOutputPath=$baseOutputPath", "-p:BaseIntermediateOutputPath=$baseIntermediatePath")
+$dotnetProps = @("-p:Platform=x64", "-p:BaseOutputPath=$baseOutputPath")
 
 if (-not (Test-Path $env:DOTNET_CLI_HOME)) {
     New-Item -ItemType Directory -Path $env:DOTNET_CLI_HOME | Out-Null
 }
 if (-not (Test-Path $baseOutputPath)) {
     New-Item -ItemType Directory -Path $baseOutputPath | Out-Null
-}
-if (-not (Test-Path $baseIntermediatePath)) {
-    New-Item -ItemType Directory -Path $baseIntermediatePath | Out-Null
 }
 
 $testProject = "Tests\Tests.PagmoSharp\Tests.PagmoSharp.csproj"

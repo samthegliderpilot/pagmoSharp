@@ -346,6 +346,38 @@ namespace pagmo {
 	%include swigInterfaceFiles\problems\wfg.i
 	%include swigInterfaceFiles\problems\zdt.i
 
+%define PAGMOSHARP_PROBLEM_TO_PROBLEM(TYPE_NAME)
+%extend pagmo::TYPE_NAME {
+    pagmo::problem to_problem() const
+    {
+        return pagmo::problem(*self);
+    }
+}
+%enddef
+
+PAGMOSHARP_PROBLEM_TO_PROBLEM(ackley)
+PAGMOSHARP_PROBLEM_TO_PROBLEM(cec2006)
+PAGMOSHARP_PROBLEM_TO_PROBLEM(cec2009)
+PAGMOSHARP_PROBLEM_TO_PROBLEM(cec2013)
+PAGMOSHARP_PROBLEM_TO_PROBLEM(cec2014)
+PAGMOSHARP_PROBLEM_TO_PROBLEM(decompose)
+PAGMOSHARP_PROBLEM_TO_PROBLEM(dtlz)
+PAGMOSHARP_PROBLEM_TO_PROBLEM(hock_schittkowski_71)
+PAGMOSHARP_PROBLEM_TO_PROBLEM(golomb_ruler)
+PAGMOSHARP_PROBLEM_TO_PROBLEM(griewank)
+PAGMOSHARP_PROBLEM_TO_PROBLEM(inventory)
+PAGMOSHARP_PROBLEM_TO_PROBLEM(lennard_jones)
+PAGMOSHARP_PROBLEM_TO_PROBLEM(luksan_vlcek1)
+PAGMOSHARP_PROBLEM_TO_PROBLEM(minlp_rastrigin)
+PAGMOSHARP_PROBLEM_TO_PROBLEM(null_problem)
+PAGMOSHARP_PROBLEM_TO_PROBLEM(rosenbrock)
+PAGMOSHARP_PROBLEM_TO_PROBLEM(schwefel)
+PAGMOSHARP_PROBLEM_TO_PROBLEM(rastrigin)
+PAGMOSHARP_PROBLEM_TO_PROBLEM(translate)
+PAGMOSHARP_PROBLEM_TO_PROBLEM(unconstrain)
+PAGMOSHARP_PROBLEM_TO_PROBLEM(wfg)
+PAGMOSHARP_PROBLEM_TO_PROBLEM(zdt)
+
 	//%include swigInterfaceFiles\utils\gradients_and_hessians.i // I couldn't get this to translate through swig so I just recreated the functions in C#
 	%include swigInterfaceFiles\utils\multi_objective.i
 %include swigInterfaceFiles\algorithm.i

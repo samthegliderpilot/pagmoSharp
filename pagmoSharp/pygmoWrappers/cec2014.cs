@@ -123,6 +123,12 @@ public partial class cec2014 : global::System.IDisposable {
     return ret;
   }
 
+  public problem to_problem() {
+    problem ret = new problem(pagmoPINVOKE.cec2014_to_problem(swigCPtr), true);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
 }
 
 }

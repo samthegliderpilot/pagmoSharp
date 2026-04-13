@@ -147,6 +147,12 @@ public partial class minlp_rastrigin : global::System.IDisposable {
     return ret;
   }
 
+  public problem to_problem() {
+    problem ret = new problem(pagmoPINVOKE.minlp_rastrigin_to_problem(swigCPtr), true);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
 }
 
 }

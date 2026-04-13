@@ -5835,6 +5835,9 @@ class pagmoPINVOKE {
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_ackley_get_thread_safety")]
   public static extern int ackley_get_thread_safety(global::System.Runtime.InteropServices.HandleRef jarg1);
 
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_ackley_to_problem")]
+  public static extern global::System.IntPtr ackley_to_problem(global::System.Runtime.InteropServices.HandleRef jarg1);
+
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_delete_ackley")]
   public static extern void delete_ackley(global::System.Runtime.InteropServices.HandleRef jarg1);
 
@@ -5873,6 +5876,9 @@ class pagmoPINVOKE {
 
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_cec2006_has_batch_fitness")]
   public static extern bool cec2006_has_batch_fitness(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_cec2006_to_problem")]
+  public static extern global::System.IntPtr cec2006_to_problem(global::System.Runtime.InteropServices.HandleRef jarg1);
 
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_delete_cec2006")]
   public static extern void delete_cec2006(global::System.Runtime.InteropServices.HandleRef jarg1);
@@ -5916,6 +5922,9 @@ class pagmoPINVOKE {
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_cec2009_get_thread_safety")]
   public static extern int cec2009_get_thread_safety(global::System.Runtime.InteropServices.HandleRef jarg1);
 
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_cec2009_to_problem")]
+  public static extern global::System.IntPtr cec2009_to_problem(global::System.Runtime.InteropServices.HandleRef jarg1);
+
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_delete_cec2009")]
   public static extern void delete_cec2009(global::System.Runtime.InteropServices.HandleRef jarg1);
 
@@ -5955,6 +5964,9 @@ class pagmoPINVOKE {
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_cec2013_get_thread_safety")]
   public static extern int cec2013_get_thread_safety(global::System.Runtime.InteropServices.HandleRef jarg1);
 
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_cec2013_to_problem")]
+  public static extern global::System.IntPtr cec2013_to_problem(global::System.Runtime.InteropServices.HandleRef jarg1);
+
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_delete_cec2013")]
   public static extern void delete_cec2013(global::System.Runtime.InteropServices.HandleRef jarg1);
 
@@ -5993,6 +6005,9 @@ class pagmoPINVOKE {
 
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_cec2014_get_thread_safety")]
   public static extern int cec2014_get_thread_safety(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_cec2014_to_problem")]
+  public static extern global::System.IntPtr cec2014_to_problem(global::System.Runtime.InteropServices.HandleRef jarg1);
 
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_delete_cec2014")]
   public static extern void delete_cec2014(global::System.Runtime.InteropServices.HandleRef jarg1);
@@ -6054,6 +6069,9 @@ class pagmoPINVOKE {
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_decompose_has_batch_fitness")]
   public static extern bool decompose_has_batch_fitness(global::System.Runtime.InteropServices.HandleRef jarg1);
 
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_decompose_to_problem")]
+  public static extern global::System.IntPtr decompose_to_problem(global::System.Runtime.InteropServices.HandleRef jarg1);
+
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_delete_decompose")]
   public static extern void delete_decompose(global::System.Runtime.InteropServices.HandleRef jarg1);
 
@@ -6105,6 +6123,9 @@ class pagmoPINVOKE {
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_dtlz_get_thread_safety")]
   public static extern int dtlz_get_thread_safety(global::System.Runtime.InteropServices.HandleRef jarg1);
 
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_dtlz_to_problem")]
+  public static extern global::System.IntPtr dtlz_to_problem(global::System.Runtime.InteropServices.HandleRef jarg1);
+
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_delete_dtlz")]
   public static extern void delete_dtlz(global::System.Runtime.InteropServices.HandleRef jarg1);
 
@@ -6147,6 +6168,9 @@ class pagmoPINVOKE {
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_hock_schittkowski_71_get_thread_safety")]
   public static extern int hock_schittkowski_71_get_thread_safety(global::System.Runtime.InteropServices.HandleRef jarg1);
 
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_hock_schittkowski_71_to_problem")]
+  public static extern global::System.IntPtr hock_schittkowski_71_to_problem(global::System.Runtime.InteropServices.HandleRef jarg1);
+
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_new_hock_schittkowski_71")]
   public static extern global::System.IntPtr new_hock_schittkowski_71();
 
@@ -6188,6 +6212,9 @@ class pagmoPINVOKE {
 
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_golomb_ruler_get_thread_safety")]
   public static extern int golomb_ruler_get_thread_safety(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_golomb_ruler_to_problem")]
+  public static extern global::System.IntPtr golomb_ruler_to_problem(global::System.Runtime.InteropServices.HandleRef jarg1);
 
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_delete_golomb_ruler")]
   public static extern void delete_golomb_ruler(global::System.Runtime.InteropServices.HandleRef jarg1);
@@ -6233,6 +6260,9 @@ class pagmoPINVOKE {
 
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_griewank_get_thread_safety")]
   public static extern int griewank_get_thread_safety(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_griewank_to_problem")]
+  public static extern global::System.IntPtr griewank_to_problem(global::System.Runtime.InteropServices.HandleRef jarg1);
 
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_delete_griewank")]
   public static extern void delete_griewank(global::System.Runtime.InteropServices.HandleRef jarg1);
@@ -6282,6 +6312,9 @@ class pagmoPINVOKE {
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_inventory_get_thread_safety")]
   public static extern int inventory_get_thread_safety(global::System.Runtime.InteropServices.HandleRef jarg1);
 
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_inventory_to_problem")]
+  public static extern global::System.IntPtr inventory_to_problem(global::System.Runtime.InteropServices.HandleRef jarg1);
+
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_delete_inventory")]
   public static extern void delete_inventory(global::System.Runtime.InteropServices.HandleRef jarg1);
 
@@ -6317,6 +6350,9 @@ class pagmoPINVOKE {
 
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_lennard_jones_get_thread_safety")]
   public static extern int lennard_jones_get_thread_safety(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_lennard_jones_to_problem")]
+  public static extern global::System.IntPtr lennard_jones_to_problem(global::System.Runtime.InteropServices.HandleRef jarg1);
 
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_delete_lennard_jones")]
   public static extern void delete_lennard_jones(global::System.Runtime.InteropServices.HandleRef jarg1);
@@ -6362,6 +6398,9 @@ class pagmoPINVOKE {
 
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_luksan_vlcek1_get_thread_safety")]
   public static extern int luksan_vlcek1_get_thread_safety(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_luksan_vlcek1_to_problem")]
+  public static extern global::System.IntPtr luksan_vlcek1_to_problem(global::System.Runtime.InteropServices.HandleRef jarg1);
 
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_delete_luksan_vlcek1")]
   public static extern void delete_luksan_vlcek1(global::System.Runtime.InteropServices.HandleRef jarg1);
@@ -6414,6 +6453,9 @@ class pagmoPINVOKE {
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_minlp_rastrigin_get_thread_safety")]
   public static extern int minlp_rastrigin_get_thread_safety(global::System.Runtime.InteropServices.HandleRef jarg1);
 
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_minlp_rastrigin_to_problem")]
+  public static extern global::System.IntPtr minlp_rastrigin_to_problem(global::System.Runtime.InteropServices.HandleRef jarg1);
+
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_delete_minlp_rastrigin")]
   public static extern void delete_minlp_rastrigin(global::System.Runtime.InteropServices.HandleRef jarg1);
 
@@ -6458,6 +6500,9 @@ class pagmoPINVOKE {
 
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_null_problem_get_thread_safety")]
   public static extern int null_problem_get_thread_safety(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_null_problem_to_problem")]
+  public static extern global::System.IntPtr null_problem_to_problem(global::System.Runtime.InteropServices.HandleRef jarg1);
 
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_delete_null_problem")]
   public static extern void delete_null_problem(global::System.Runtime.InteropServices.HandleRef jarg1);
@@ -6507,6 +6552,9 @@ class pagmoPINVOKE {
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_rosenbrock_has_batch_fitness")]
   public static extern bool rosenbrock_has_batch_fitness(global::System.Runtime.InteropServices.HandleRef jarg1);
 
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_rosenbrock_to_problem")]
+  public static extern global::System.IntPtr rosenbrock_to_problem(global::System.Runtime.InteropServices.HandleRef jarg1);
+
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_delete_rosenbrock")]
   public static extern void delete_rosenbrock(global::System.Runtime.InteropServices.HandleRef jarg1);
 
@@ -6551,6 +6599,9 @@ class pagmoPINVOKE {
 
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_schwefel_get_thread_safety")]
   public static extern int schwefel_get_thread_safety(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_schwefel_to_problem")]
+  public static extern global::System.IntPtr schwefel_to_problem(global::System.Runtime.InteropServices.HandleRef jarg1);
 
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_delete_schwefel")]
   public static extern void delete_schwefel(global::System.Runtime.InteropServices.HandleRef jarg1);
@@ -6602,6 +6653,9 @@ class pagmoPINVOKE {
 
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_rastrigin_get_thread_safety")]
   public static extern int rastrigin_get_thread_safety(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_rastrigin_to_problem")]
+  public static extern global::System.IntPtr rastrigin_to_problem(global::System.Runtime.InteropServices.HandleRef jarg1);
 
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_delete_rastrigin")]
   public static extern void delete_rastrigin(global::System.Runtime.InteropServices.HandleRef jarg1);
@@ -6656,6 +6710,9 @@ class pagmoPINVOKE {
 
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_translate_get_inner_problem")]
   public static extern global::System.IntPtr translate_get_inner_problem(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_translate_to_problem")]
+  public static extern global::System.IntPtr translate_to_problem(global::System.Runtime.InteropServices.HandleRef jarg1);
 
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_delete_translate")]
   public static extern void delete_translate(global::System.Runtime.InteropServices.HandleRef jarg1);
@@ -6714,6 +6771,9 @@ class pagmoPINVOKE {
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_unconstrain_get_nic")]
   public static extern uint unconstrain_get_nic(global::System.Runtime.InteropServices.HandleRef jarg1);
 
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_unconstrain_to_problem")]
+  public static extern global::System.IntPtr unconstrain_to_problem(global::System.Runtime.InteropServices.HandleRef jarg1);
+
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_delete_unconstrain")]
   public static extern void delete_unconstrain(global::System.Runtime.InteropServices.HandleRef jarg1);
 
@@ -6759,6 +6819,9 @@ class pagmoPINVOKE {
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_wfg_get_thread_safety")]
   public static extern int wfg_get_thread_safety(global::System.Runtime.InteropServices.HandleRef jarg1);
 
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_wfg_to_problem")]
+  public static extern global::System.IntPtr wfg_to_problem(global::System.Runtime.InteropServices.HandleRef jarg1);
+
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_delete_wfg")]
   public static extern void delete_wfg(global::System.Runtime.InteropServices.HandleRef jarg1);
 
@@ -6803,6 +6866,9 @@ class pagmoPINVOKE {
 
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_zdt_get_thread_safety")]
   public static extern int zdt_get_thread_safety(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_zdt_to_problem")]
+  public static extern global::System.IntPtr zdt_to_problem(global::System.Runtime.InteropServices.HandleRef jarg1);
 
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_delete_zdt")]
   public static extern void delete_zdt(global::System.Runtime.InteropServices.HandleRef jarg1);

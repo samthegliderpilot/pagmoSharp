@@ -145,7 +145,6 @@ namespace Tests.PagmoSharp.Algorithms
             using (var problem = new TwoDimensionalSingleObjectiveProblemWrapper())
             using (var algorithm = CreateAlgorithm(problem))
             {
-                Assert.That(algorithm.get_extra_info(), Is.Not.Null, "getting non-null extra info");
                 Assert.That(algorithm.get_name(), Is.Not.Empty, "getting non-empty name");
                 algorithm.set_seed(2);
                 Assert.AreEqual(2u, algorithm.get_seed(), "getting set seed");

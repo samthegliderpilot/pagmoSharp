@@ -16,7 +16,7 @@ namespace pagmo
 
         private static IntPtr CreateFromManagedProblem(IProblem problem, ulong popSize, uint seed)
         {
-            using var problemHandle = NativeInterop.CreateProblemHandle(problem, out var callbackAdapter);
+            using var problemHandle = ProblemInterop.CreateProblemHandle(problem, out var callbackAdapter);
             var problemPtr = problemHandle.DangerousGetHandle();
             var nativePopulationSize = SizeTInterop.ToNativeUIntPtr(popSize, nameof(popSize));
             var populationPtr = NativeInterop.population_new(problemPtr, nativePopulationSize, seed);

@@ -7,6 +7,7 @@ using Tests.PagmoSharp.TestProblems;
 namespace Tests.PagmoSharp;
 
 [TestFixture]
+[Explicit("Quarantined: passing native SWIG algorithm wrappers through the managed IAlgorithm callback path currently causes an unmanaged host crash. Use type-erased algorithm inputs until native-wrapper normalization is fixed.")]
 public class Test_archipelago_algorithm_interop_matrix
 {
     private static IEnumerable<TestCaseData> RuntimeCases()

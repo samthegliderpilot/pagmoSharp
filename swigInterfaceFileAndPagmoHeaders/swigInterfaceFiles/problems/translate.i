@@ -24,3 +24,6 @@ public:
     extern thread_safety get_thread_safety() const;
     extern const problem &get_inner_problem() const;
 };
+
+
+

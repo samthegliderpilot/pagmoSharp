@@ -131,6 +131,12 @@ public partial class null_problem : global::System.IDisposable {
     return ret;
   }
 
+  public problem to_problem() {
+    problem ret = new problem(pagmoPINVOKE.null_problem_to_problem(swigCPtr), true);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
 }
 
 }

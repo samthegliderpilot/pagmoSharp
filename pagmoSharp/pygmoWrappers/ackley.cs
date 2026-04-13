@@ -137,6 +137,12 @@ public partial class ackley : global::System.IDisposable {
     return ret;
   }
 
+  public problem to_problem() {
+    problem ret = new problem(pagmoPINVOKE.ackley_to_problem(swigCPtr), true);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
 }
 
 }

@@ -33,3 +33,6 @@ vector_double::size_type get_nic() const
 {
    return 0;
 } };
+
+
+

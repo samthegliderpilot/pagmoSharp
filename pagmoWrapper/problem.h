@@ -84,6 +84,20 @@ namespace pagmoWrap {
         virtual pagmo::thread_safety get_thread_safety() const { return pagmo::thread_safety::none; }
     };
 
+    class null_problem_callback : public problem_callback
+    {
+    public:
+        vector_double fitness(const vector_double&) const override
+        {
+            return {0.0};
+        }
+
+        bounds_type get_bounds() const override
+        {
+            return bounds_type{vector_double{0.0}, vector_double{1.0}};
+        }
+    };
+
     // -------------------------------------------------------------------------
     // 2) Copy-safe UDT that pagmo can store by value.
     //
@@ -93,19 +107,6 @@ namespace pagmoWrap {
     // -------------------------------------------------------------------------
     class managed_problem
     {
-        class null_problem_callback final : public problem_callback
-        {
-        public:
-            vector_double fitness(const vector_double&) const override
-            {
-                return {0.0};
-            }
-
-            bounds_type get_bounds() const override
-            {
-                return bounds_type{vector_double{0.0}, vector_double{1.0}};
-            }
-        };
 
     public:
         managed_problem()

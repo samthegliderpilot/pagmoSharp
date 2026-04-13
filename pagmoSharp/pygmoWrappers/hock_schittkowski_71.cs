@@ -135,6 +135,12 @@ public partial class hock_schittkowski_71 : global::System.IDisposable {
     return ret;
   }
 
+  public problem to_problem() {
+    problem ret = new problem(pagmoPINVOKE.hock_schittkowski_71_to_problem(swigCPtr), true);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
   public hock_schittkowski_71() : this(pagmoPINVOKE.new_hock_schittkowski_71(), true) {
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
