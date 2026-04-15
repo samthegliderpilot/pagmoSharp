@@ -1,9 +1,11 @@
+using System;
+
 namespace pagmo
 {
     public partial class problem
     {
-        public problem(IProblem source)
-            : this(ProblemInterop.CreateProblemPointer(source), true)
+        public problem(IProblem managedProblem)
+            : this(ProblemInterop.CreateProblemPointer(managedProblem), true)
         {
         }
     }

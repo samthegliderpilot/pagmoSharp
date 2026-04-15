@@ -7,8 +7,6 @@ using Tests.PagmoSharp.TestProblems;
 namespace Tests.PagmoSharp;
 
 [TestFixture]
-[Category("QuarantinedCrash")]
-[Explicit("Quarantined: these runtime matrix cases still trigger unmanaged test-host crashes in current interop/native integration. Keep explicit until crash root cause is fixed.")]
 public class Test_archipelago_algorithm_interop_matrix
 {
     private static IEnumerable<TestCaseData> RuntimeCases()

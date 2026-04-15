@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+using System;
+using System.Collections.Generic;
 using NUnit.Framework;
 using pagmo;
 
@@ -39,24 +40,35 @@ namespace Tests.PagmoSharp.Problems
         public override void TestOptimizing()
         {
             using var problemBase = CreateStandardProblem();
-            using var algorithm = new gwo(20);
-            using (var pop = new population(problemBase, 1024))
-            {
-                algorithm.set_seed(2); // for consistent results
-                using var initialProblem = pop.get_problem();
-                var initialFevals = initialProblem.get_fevals();
-                
-                using var finalpop = algorithm.evolve(pop);
-                using var evolvedProblem = finalpop.get_problem();
-                using var championDecisionVector = finalpop.champion_x();
-                using var championFitness = finalpop.champion_f();
-                Assert.AreEqual(4, championDecisionVector.Count, "4 in x");
-                Assert.AreEqual(57.8, championDecisionVector[0], 1.0, "champX");
+            using var algorithm = new sga(20u);
+            using var pop = new population(problemBase, 1024);
+            algorithm.set_seed(2); // for consistent results
 
-                Assert.AreEqual(1, championFitness.Count, "1 in f(x)");
-                Assert.AreEqual(240.9, championFitness[0], 1.0, "champF");
-                Assert.Greater(evolvedProblem.get_fevals(), initialFevals, "evolution should trigger additional function evaluations");
-            }
+            using var initialProblem = pop.get_problem();
+            var initialFevals = initialProblem.get_fevals();
+            var initialSize = pop.size();
+
+            using var finalpop = algorithm.evolve(pop);
+            using var evolvedProblem = finalpop.get_problem();
+            Assert.Greater(evolvedProblem.get_fevals(), initialFevals, "evolution should trigger additional function evaluations");
+            Assert.AreEqual(initialSize, finalpop.size(), "evolution should preserve population size");
+
+            using var allDecisionVectors = finalpop.get_x();
+            using var allFitnessVectors = finalpop.get_f();
+            Assert.AreEqual((int)initialSize, allDecisionVectors.Count, "all individuals should expose decision vectors after evolution");
+            Assert.AreEqual((int)initialSize, allFitnessVectors.Count, "all individuals should expose fitness values after evolution");
+            Assert.AreEqual(4, allDecisionVectors[0].Count, "inventory decision vectors should keep 4 dimensions");
+            Assert.AreEqual(1, allFitnessVectors[0].Count, "inventory fitness vectors should contain one objective");
+
+            // Inventory is stochastic in pagmo, so champion extraction is intentionally unavailable.
+            Assert.Throws<ApplicationException>(() =>
+            {
+                using var _ = finalpop.champion_f();
+            });
+            Assert.Throws<ApplicationException>(() =>
+            {
+                using var _ = finalpop.champion_x();
+            });
         }
     }
 }

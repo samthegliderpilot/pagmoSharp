@@ -90,22 +90,6 @@ PAGMOSHARP_EXEC_EXCEPTION(pagmo::thread_island::run_evolve, "thread_island.run_e
 %include "std_pair.i"
 %include "std_map.i"
 
-// Avoid managed reverse-callback string marshalling for std::string returns.
-// On recent runtimes, SWIG's callback-based path has shown instability in our
-// host process. We return a stable thread-local C string view instead.
-namespace std {
-  %typemap(out) string {
-    static thread_local std::string pagmosharp_marshaled_string;
-    pagmosharp_marshaled_string = $1;
-    $result = pagmosharp_marshaled_string.c_str();
-  }
-  %typemap(out) const string & {
-    static thread_local std::string pagmosharp_marshaled_string;
-    pagmosharp_marshaled_string = *$1;
-    $result = pagmosharp_marshaled_string.c_str();
-  }
-}
-
 // Directors + handwritten base classes (include ONCE)
 // The whole problem vs. problemBase question is a little confusing.  To make it better (or wo// rs// e)
 // there is a C# implicit operator to convert from problem to problemBase by calling getBaseProblem on 

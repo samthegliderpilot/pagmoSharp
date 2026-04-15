@@ -264,7 +264,7 @@ namespace Tests.PagmoSharp
         }
 
         [Test]
-        public void KnownIssue_PreconfiguredRingTopologyBreaksWaitCheckAfterIslandInsertion()
+        public void PreconfiguredRingTopologyRemainsRuntimeSafeAfterIslandInsertion()
         {
             using var archi = new archipelago();
             using var ringTopo = new ring(8, 0.7);
@@ -278,8 +278,9 @@ namespace Tests.PagmoSharp
             }
 
             archi.evolve(1u);
-            var ex = Assert.Throws<ApplicationException>(() => archi.wait_check());
-            Assert.That(ex!.Message, Does.Contain("cannot access the migrants of the island"));
+            Assert.DoesNotThrow(() => archi.wait_check());
+            Assert.That(archi.status(), Is.EqualTo(evolve_status.idle));
+            Assert.That(archi.get_topology_name(), Is.EqualTo("Ring"));
         }
 
         [Test]
