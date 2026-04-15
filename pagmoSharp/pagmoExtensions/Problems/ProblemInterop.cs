@@ -1,10 +1,14 @@
 using System;
+using System.Collections.Concurrent;
+using System.Linq.Expressions;
 using System.Reflection;
 
 namespace pagmo
 {
     internal static class ProblemInterop
     {
+        private static readonly ConcurrentDictionary<Type, Func<IProblem, problem>> ToProblemFactories = new();
+
         internal static IntPtr CreateProblemPointer(IProblem source)
         {
             return CreateProblemPointer(source, out _);
@@ -52,13 +56,13 @@ namespace pagmo
         private static bool TryCreateViaToProblem(IProblem source, out IntPtr pointer)
         {
             pointer = IntPtr.Zero;
-            var method = source.GetType().GetMethod("to_problem", BindingFlags.Public | BindingFlags.Instance, null, Type.EmptyTypes, null);
-            if (method == null || !typeof(problem).IsAssignableFrom(method.ReturnType))
+            var factory = ToProblemFactories.GetOrAdd(source.GetType(), BuildToProblemFactory);
+            if (factory == null)
             {
                 return false;
             }
 
-            var converted = method.Invoke(source, null) as problem;
+            var converted = factory(source);
             if (converted == null)
             {
                 throw new InvalidOperationException(
@@ -68,6 +72,22 @@ namespace pagmo
             pointer = problem.swigRelease(converted).Handle;
             NativeInterop.ThrowIfSwigPendingException();
             return true;
+        }
+
+        private static Func<IProblem, problem> BuildToProblemFactory(Type sourceType)
+        {
+            var method = sourceType.GetMethod("to_problem", BindingFlags.Public | BindingFlags.Instance, null, Type.EmptyTypes, null);
+            if (method == null || !typeof(problem).IsAssignableFrom(method.ReturnType))
+            {
+                return null;
+            }
+
+            var sourceParameter = Expression.Parameter(typeof(IProblem), "source");
+            var typedSource = Expression.Convert(sourceParameter, sourceType);
+            var call = Expression.Call(typedSource, method);
+            var castResult = Expression.Convert(call, typeof(problem));
+            var lambda = Expression.Lambda<Func<IProblem, problem>>(castResult, sourceParameter);
+            return lambda.Compile();
         }
     }
 }

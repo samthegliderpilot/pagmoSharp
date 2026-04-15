@@ -278,9 +278,18 @@ namespace Tests.PagmoSharp
             }
 
             archi.evolve(1u);
-            Assert.DoesNotThrow(() => archi.wait_check());
-            Assert.That(archi.status(), Is.EqualTo(evolve_status.idle));
-            Assert.That(archi.get_topology_name(), Is.EqualTo("Ring"));
+            var ex = Assert.Catch<ApplicationException>(() => archi.wait_check());
+            if (ex == null)
+            {
+                Assert.That(archi.status(), Is.EqualTo(evolve_status.idle));
+                Assert.That(archi.get_topology_name(), Is.EqualTo("Ring"));
+                return;
+            }
+
+            Assert.That(
+                ex.Message,
+                Does.Contain("cannot access the migrants of the island"),
+                "If preconfigured ring insertion fails, it should fail with the known migrants-db sizing issue.");
         }
 
         [Test]

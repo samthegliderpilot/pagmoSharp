@@ -272,7 +272,7 @@ Last updated: 2026-04-08
 - [x] Updated managed target frameworks to current LTS baseline (`net10.0`) across library/tests/examples and validated managed build pipeline on .NET SDK 10.x.
 - [x] Updated native language standard baseline from C++17 to C++20 in `pagmoWrapper.vcxproj` while keeping stable VS toolset (`v143`).
 - [ ] Rename default branch from `master` to `main` (blocked locally by `.git` reflog/index filesystem permission lock; requires local git metadata write access).
-- [ ] Investigate and harden `problem(IProblem)` normalization for wrapped-native `IProblem` inputs (avoid callback-wrapping native problem wrappers that can trigger native access-violation paths under some constructor/evaluation flows).
+- [x] Investigate and harden `problem(IProblem)` normalization for wrapped-native `IProblem` inputs (avoid callback-wrapping native problem wrappers that can trigger native access-violation paths under some constructor/evaluation flows).
 
 8. **Sprint 6: v1.0 Release**
 - [ ] Publish artifacts and release notes.

@@ -12,14 +12,14 @@ public class Test_core_facade_null_contracts
     public void ProblemConstructorRejectsNullManagedProblem()
     {
         var ex = Assert.Throws<ArgumentNullException>(() => new problem((IProblem)null));
-        Assert.That(ex!.ParamName, Is.EqualTo("managedProblem"));
+        Assert.That(ex!.ParamName, Is.EqualTo("source"));
     }
 
     [Test]
     public void PopulationConstructorRejectsNullManagedProblem()
     {
         var ex = Assert.Throws<ArgumentNullException>(() => new population((IProblem)null, 8u, 2u));
-        Assert.That(ex!.ParamName, Is.EqualTo("problem"));
+        Assert.That(ex!.ParamName, Is.EqualTo("source"));
     }
 
     [Test]
@@ -27,7 +27,7 @@ public class Test_core_facade_null_contracts
     {
         using IAlgorithm algorithm = new bee_colony();
         var ex = Assert.Throws<ArgumentNullException>(() => island.Create(algorithm, (IProblem)null, 8u, 2u));
-        Assert.That(ex!.ParamName, Is.EqualTo("managedProblem"));
+        Assert.That(ex!.ParamName, Is.EqualTo("source"));
     }
 
     [Test]
