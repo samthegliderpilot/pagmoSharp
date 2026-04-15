@@ -2,6 +2,9 @@ using System.Collections.Generic;
 
 namespace pagmo;
 
+/// <summary>
+/// Represents cstrs_self_adaptive. Uses pagmo-native semantics. See docs/api-reference.md for upstream links.
+/// </summary>
 public partial class cstrs_self_adaptive : IAlgorithm
 {
     public readonly record struct CstrsLogLine(
@@ -13,6 +16,9 @@ public partial class cstrs_self_adaptive : IAlgorithm
         double ViolationNorm,
         ulong FeasibleCount) : IAlgorithmLogLine
     {
+        /// <summary>
+        /// Uses pagmo-native semantics. See docs/api-reference.md for upstream links.
+        /// </summary>
         public string AlgorithmName => "cstrs_self_adaptive";
 
         public IReadOnlyDictionary<string, object> RawFields => new Dictionary<string, object>
@@ -26,10 +32,16 @@ public partial class cstrs_self_adaptive : IAlgorithm
             ["feasible_count"] = FeasibleCount
         };
 
+        /// <summary>
+        /// Invokes the corresponding pagmo API. See docs/api-reference.md for upstream links.
+        /// </summary>
         public string ToDisplayString() =>
             $"iter={Iteration}, fevals={FunctionEvaluations}, best={BestFitness}, infeas={Infeasibility}, violated={ViolatedConstraints}, feasible={FeasibleCount}";
     }
 
+    /// <summary>
+    /// Invokes the corresponding pagmo API. See docs/api-reference.md for upstream links.
+    /// </summary>
     public IReadOnlyList<CstrsLogLine> GetTypedLogLines()
     {
         using var rawEntries = get_log_entries();
@@ -51,6 +63,9 @@ public partial class cstrs_self_adaptive : IAlgorithm
         return lines;
     }
 
+    /// <summary>
+    /// Invokes the corresponding pagmo API. See docs/api-reference.md for upstream links.
+    /// </summary>
     public IReadOnlyList<IAlgorithmLogLine> GetLogLines()
     {
         var typedLines = GetTypedLogLines();
@@ -63,3 +78,4 @@ public partial class cstrs_self_adaptive : IAlgorithm
         return projected;
     }
 }
+

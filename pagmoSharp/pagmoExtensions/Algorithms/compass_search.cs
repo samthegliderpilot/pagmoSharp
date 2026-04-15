@@ -2,6 +2,9 @@ using System.Collections.Generic;
 
 namespace pagmo;
 
+/// <summary>
+/// Represents compass_search. Uses pagmo-native semantics. See docs/api-reference.md for upstream links.
+/// </summary>
 public partial class compass_search : IAlgorithm
 {
     public readonly record struct CompassSearchLogLine(
@@ -11,6 +14,9 @@ public partial class compass_search : IAlgorithm
         double ViolationNorm,
         double Range) : IAlgorithmLogLine
     {
+        /// <summary>
+        /// Uses pagmo-native semantics. See docs/api-reference.md for upstream links.
+        /// </summary>
         public string AlgorithmName => "compass_search";
         public IReadOnlyDictionary<string, object> RawFields => new Dictionary<string, object>
         {
@@ -20,9 +26,15 @@ public partial class compass_search : IAlgorithm
             ["violation_norm"] = ViolationNorm,
             ["range"] = Range
         };
+        /// <summary>
+        /// Invokes the corresponding pagmo API. See docs/api-reference.md for upstream links.
+        /// </summary>
         public string ToDisplayString() => $"fevals={FunctionEvaluations}, best={BestFitness}, range={Range}";
     }
 
+    /// <summary>
+    /// Invokes the corresponding pagmo API. See docs/api-reference.md for upstream links.
+    /// </summary>
     public IReadOnlyList<CompassSearchLogLine> GetTypedLogLines()
     {
         using var rawEntries = get_log_entries();
@@ -35,6 +47,9 @@ public partial class compass_search : IAlgorithm
         return lines;
     }
 
+    /// <summary>
+    /// Invokes the corresponding pagmo API. See docs/api-reference.md for upstream links.
+    /// </summary>
     public IReadOnlyList<IAlgorithmLogLine> GetLogLines()
     {
         var typedLines = GetTypedLogLines();
@@ -43,3 +58,4 @@ public partial class compass_search : IAlgorithm
         return projected;
     }
 }
+

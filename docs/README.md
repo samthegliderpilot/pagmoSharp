@@ -9,6 +9,24 @@ This documentation is executable-first:
 
 - [Getting Started](getting-started.md)
 - [Islands, Archipelagos, Topology, Policies](archipelago-topology-policies.md)
+- [API Reference (Generated)](api-reference.md)
+
+## API Reference Generation
+
+The API reference is generated from the compiled `pagmoSharp` assembly so it covers
+all public symbols visible to consumers (including generated wrapper surfaces).
+
+From repo root:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/generate-api-reference.ps1
+```
+
+For handwritten wrapper APIs (`pagmoExtensions/*`) we also enforce XML-doc coverage:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/check-handwritten-api-docs.ps1
+```
 
 ## Drift Guard
 

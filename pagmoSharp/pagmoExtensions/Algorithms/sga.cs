@@ -2,6 +2,9 @@ using System.Collections.Generic;
 
 namespace pagmo;
 
+/// <summary>
+/// Represents sga. Uses pagmo-native semantics. See docs/api-reference.md for upstream links.
+/// </summary>
 public partial class sga : IAlgorithm
 {
     public readonly record struct SgaLogLine(
@@ -10,6 +13,9 @@ public partial class sga : IAlgorithm
         double BestFitness,
         double Improvement) : IAlgorithmLogLine
     {
+        /// <summary>
+        /// Uses pagmo-native semantics. See docs/api-reference.md for upstream links.
+        /// </summary>
         public string AlgorithmName => "sga";
         public IReadOnlyDictionary<string, object> RawFields => new Dictionary<string, object>
         {
@@ -18,9 +24,15 @@ public partial class sga : IAlgorithm
             ["best_fitness"] = BestFitness,
             ["improvement"] = Improvement
         };
+        /// <summary>
+        /// Invokes the corresponding pagmo API. See docs/api-reference.md for upstream links.
+        /// </summary>
         public string ToDisplayString() => $"gen={Generation}, fevals={FunctionEvaluations}, best={BestFitness}";
     }
 
+    /// <summary>
+    /// Invokes the corresponding pagmo API. See docs/api-reference.md for upstream links.
+    /// </summary>
     public IReadOnlyList<SgaLogLine> GetTypedLogLines()
     {
         using var rawEntries = get_log_entries();
@@ -33,6 +45,9 @@ public partial class sga : IAlgorithm
         return lines;
     }
 
+    /// <summary>
+    /// Invokes the corresponding pagmo API. See docs/api-reference.md for upstream links.
+    /// </summary>
     public IReadOnlyList<IAlgorithmLogLine> GetLogLines()
     {
         var typedLines = GetTypedLogLines();
@@ -41,3 +56,4 @@ public partial class sga : IAlgorithm
         return projected;
     }
 }
+

@@ -2,6 +2,9 @@ using System.Collections.Generic;
 
 namespace pagmo
 {
+    /// <summary>
+    /// Represents struct .
+    /// </summary>
     public readonly record struct GacoLogLine(
         uint Generation,
         ulong FunctionEvaluations,
@@ -11,6 +14,9 @@ namespace pagmo
         double Dx,
         double Dp) : IAlgorithmLogLine
     {
+        /// <summary>
+        /// Uses pagmo-native semantics. See docs/api-reference.md for upstream links.
+        /// </summary>
         public string AlgorithmName => "gaco";
 
         public IReadOnlyDictionary<string, object> RawFields => new Dictionary<string, object>
@@ -24,10 +30,16 @@ namespace pagmo
             ["dp"] = Dp
         };
 
+        /// <summary>
+        /// Invokes the corresponding pagmo API. See docs/api-reference.md for upstream links.
+        /// </summary>
         public string ToDisplayString() =>
             $"gen={Generation}, fevals={FunctionEvaluations}, best={BestFitness}, ker={KernelSize}, oracle={OracleValue}, dx={Dx}, dp={Dp}";
     }
 
+    /// <summary>
+    /// Represents gaco. Uses pagmo-native semantics. See docs/api-reference.md for upstream links.
+    /// </summary>
     public partial class gaco : IAlgorithm
     {
         public IReadOnlyList<GacoLogLine> GetTypedLogLines()
@@ -51,6 +63,9 @@ namespace pagmo
             return lines;
         }
 
+        /// <summary>
+        /// Invokes the corresponding pagmo API. See docs/api-reference.md for upstream links.
+        /// </summary>
         public IReadOnlyList<IAlgorithmLogLine> GetLogLines()
         {
             var typedLines = GetTypedLogLines();
@@ -63,3 +78,4 @@ namespace pagmo
         }
     }
 }
+

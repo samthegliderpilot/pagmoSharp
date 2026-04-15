@@ -2,6 +2,9 @@ using System.Collections.Generic;
 
 namespace pagmo;
 
+/// <summary>
+/// Represents pso_gen. Uses pagmo-native semantics. See docs/api-reference.md for upstream links.
+/// </summary>
 public partial class pso_gen : IAlgorithm
 {
     public readonly record struct PsoGenLogLine(
@@ -12,6 +15,9 @@ public partial class pso_gen : IAlgorithm
         double Cognitive,
         double Social) : IAlgorithmLogLine
     {
+        /// <summary>
+        /// Uses pagmo-native semantics. See docs/api-reference.md for upstream links.
+        /// </summary>
         public string AlgorithmName => "pso_gen";
         public IReadOnlyDictionary<string, object> RawFields => new Dictionary<string, object>
         {
@@ -22,9 +28,15 @@ public partial class pso_gen : IAlgorithm
             ["cognitive"] = Cognitive,
             ["social"] = Social
         };
+        /// <summary>
+        /// Invokes the corresponding pagmo API. See docs/api-reference.md for upstream links.
+        /// </summary>
         public string ToDisplayString() => $"gen={Generation}, fevals={FunctionEvaluations}, best={BestFitness}";
     }
 
+    /// <summary>
+    /// Invokes the corresponding pagmo API. See docs/api-reference.md for upstream links.
+    /// </summary>
     public IReadOnlyList<PsoGenLogLine> GetTypedLogLines()
     {
         using var rawEntries = get_log_entries();
@@ -37,6 +49,9 @@ public partial class pso_gen : IAlgorithm
         return lines;
     }
 
+    /// <summary>
+    /// Invokes the corresponding pagmo API. See docs/api-reference.md for upstream links.
+    /// </summary>
     public IReadOnlyList<IAlgorithmLogLine> GetLogLines()
     {
         var typedLines = GetTypedLogLines();
@@ -45,3 +60,4 @@ public partial class pso_gen : IAlgorithm
         return projected;
     }
 }
+

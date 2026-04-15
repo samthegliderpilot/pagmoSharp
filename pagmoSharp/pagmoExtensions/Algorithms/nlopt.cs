@@ -3,6 +3,9 @@ using System.Collections.Generic;
 
 namespace pagmo;
 
+/// <summary>
+/// Represents nlopt. Uses pagmo-native semantics. See docs/api-reference.md for upstream links.
+/// </summary>
 public partial class nlopt : IAlgorithm
 {
     public readonly record struct NloptLogLine(
@@ -12,6 +15,9 @@ public partial class nlopt : IAlgorithm
         double ViolationNorm,
         bool Feasible) : IAlgorithmLogLine
     {
+        /// <summary>
+        /// Uses pagmo-native semantics. See docs/api-reference.md for upstream links.
+        /// </summary>
         public string AlgorithmName => "nlopt";
 
         public IReadOnlyDictionary<string, object> RawFields => new Dictionary<string, object>
@@ -23,16 +29,28 @@ public partial class nlopt : IAlgorithm
             ["feasible"] = Feasible
         };
 
+        /// <summary>
+        /// Invokes the corresponding pagmo API. See docs/api-reference.md for upstream links.
+        /// </summary>
         public string ToDisplayString() => $"fevals={FunctionEvaluations}, objective={Objective}, feasible={Feasible}";
     }
 
     // pagmo::nlopt does not expose a seed API in its wrapped surface.
+    /// <summary>
+    /// Invokes the corresponding pagmo API. See docs/api-reference.md for upstream links.
+    /// </summary>
     public void set_seed(uint seed) => throw new NotSupportedException("nlopt does not expose set_seed in pagmo.");
 
     // pagmo::nlopt does not expose a seed API in its wrapped surface.
+    /// <summary>
+    /// Invokes the corresponding pagmo API. See docs/api-reference.md for upstream links.
+    /// </summary>
     public uint get_seed() => throw new NotSupportedException("nlopt does not expose get_seed in pagmo.");
 
     // pagmo::nlopt exposes set_verbosity() but no getter in pagmo's public API.
+    /// <summary>
+    /// Invokes the corresponding pagmo API. See docs/api-reference.md for upstream links.
+    /// </summary>
     public uint get_verbosity() => throw new NotSupportedException("nlopt does not expose get_verbosity in pagmo.");
 
     public IReadOnlyList<NloptLogLine> GetTypedLogLines()
@@ -48,6 +66,9 @@ public partial class nlopt : IAlgorithm
         return lines;
     }
 
+    /// <summary>
+    /// Invokes the corresponding pagmo API. See docs/api-reference.md for upstream links.
+    /// </summary>
     public IReadOnlyList<IAlgorithmLogLine> GetLogLines()
     {
         var typedLines = GetTypedLogLines();
@@ -60,3 +81,4 @@ public partial class nlopt : IAlgorithm
         return projected;
     }
 }
+

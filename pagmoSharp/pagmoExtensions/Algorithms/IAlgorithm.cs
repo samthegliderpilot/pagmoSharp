@@ -6,6 +6,10 @@ namespace pagmo
     /// <summary>
     /// Common managed algorithm contract across generated and handwritten algorithm wrappers.
     /// </summary>
+    /// <remarks>
+    /// This maps to pagmo UDA behavior. Implementations are expected to mutate/evolve the supplied
+    /// population according to algorithm-specific semantics and expose optional logging via <see cref="GetLogLines"/>.
+    /// </remarks>
     public interface IAlgorithm : IDisposable
     {
         /// <summary>

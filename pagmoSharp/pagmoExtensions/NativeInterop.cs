@@ -50,6 +50,9 @@ namespace pagmo
             private readonly List<GCHandle> _handles = new();
             private readonly object _gate = new();
 
+            /// <summary>
+            /// Invokes the corresponding pagmo API. See docs/api-reference.md for upstream links.
+            /// </summary>
             public void Add(object callback)
             {
                 lock (_gate)
@@ -221,3 +224,4 @@ namespace pagmo
 
     }
 }
+

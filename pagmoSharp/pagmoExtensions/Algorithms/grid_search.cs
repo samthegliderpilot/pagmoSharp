@@ -13,11 +13,17 @@ namespace pagmo
         private uint _seed;
         private uint _verbosity;
 
+        /// <summary>
+        /// Creates a grid-search algorithm with one uniform step count applied to each dimension.
+        /// </summary>
         public grid_search(uint uniformStepsPerDimension)
             : this(new[] { uniformStepsPerDimension })
         {
         }
 
+        /// <summary>
+        /// Creates a grid-search algorithm with per-dimension step counts.
+        /// </summary>
         public grid_search(uint[] stepsPerDimension)
         {
             if (stepsPerDimension == null || stepsPerDimension.Length == 0)
@@ -33,6 +39,9 @@ namespace pagmo
             _stepsPerDimension = (uint[])stepsPerDimension.Clone();
         }
 
+        /// <summary>
+        /// Evaluates a uniform grid and updates the population with the best feasible sampled point.
+        /// </summary>
         public population evolve(population pop)
         {
             if (pop == null)
@@ -132,36 +141,57 @@ namespace pagmo
             return pop;
         }
 
+        /// <summary>
+        /// Sets the stored algorithm seed value (not used by deterministic grid enumeration).
+        /// </summary>
         public void set_seed(uint seed)
         {
             _seed = seed;
         }
 
+        /// <summary>
+        /// Gets the stored algorithm seed value.
+        /// </summary>
         public uint get_seed()
         {
             return _seed;
         }
 
+        /// <summary>
+        /// Gets the current verbosity level.
+        /// </summary>
         public uint get_verbosity()
         {
             return _verbosity;
         }
 
+        /// <summary>
+        /// Sets the verbosity level.
+        /// </summary>
         public void set_verbosity(uint level)
         {
             _verbosity = level;
         }
 
+        /// <summary>
+        /// Returns the algorithm display name.
+        /// </summary>
         public string get_name()
         {
             return "C# Grid Search";
         }
 
+        /// <summary>
+        /// Returns grid configuration details.
+        /// </summary>
         public string get_extra_info()
         {
             return $"Grid steps per dimension: [{string.Join(", ", _stepsPerDimension)}]";
         }
 
+        /// <summary>
+        /// Disposes the managed algorithm instance.
+        /// </summary>
         public void Dispose()
         {
             // No unmanaged resources.

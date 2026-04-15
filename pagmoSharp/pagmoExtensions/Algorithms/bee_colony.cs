@@ -2,6 +2,9 @@ using System.Collections.Generic;
 
 namespace pagmo;
 
+/// <summary>
+/// Represents bee_colony. Uses pagmo-native semantics. See docs/api-reference.md for upstream links.
+/// </summary>
 public partial class bee_colony : IAlgorithm
 {
     public readonly record struct BeeColonyLogLine(
@@ -10,6 +13,9 @@ public partial class bee_colony : IAlgorithm
         double BestFitness,
         double CurrentBestFitness) : IAlgorithmLogLine
     {
+        /// <summary>
+        /// Uses pagmo-native semantics. See docs/api-reference.md for upstream links.
+        /// </summary>
         public string AlgorithmName => "bee_colony";
         public IReadOnlyDictionary<string, object> RawFields => new Dictionary<string, object>
         {
@@ -18,9 +24,15 @@ public partial class bee_colony : IAlgorithm
             ["best_fitness"] = BestFitness,
             ["current_best_fitness"] = CurrentBestFitness
         };
+        /// <summary>
+        /// Invokes the corresponding pagmo API. See docs/api-reference.md for upstream links.
+        /// </summary>
         public string ToDisplayString() => $"gen={Generation}, fevals={FunctionEvaluations}, best={BestFitness}, cur_best={CurrentBestFitness}";
     }
 
+    /// <summary>
+    /// Invokes the corresponding pagmo API. See docs/api-reference.md for upstream links.
+    /// </summary>
     public IReadOnlyList<BeeColonyLogLine> GetTypedLogLines()
     {
         using var rawEntries = get_log_lines();
@@ -33,6 +45,9 @@ public partial class bee_colony : IAlgorithm
         return lines;
     }
 
+    /// <summary>
+    /// Invokes the corresponding pagmo API. See docs/api-reference.md for upstream links.
+    /// </summary>
     public IReadOnlyList<IAlgorithmLogLine> GetLogLines()
     {
         var typedLines = GetTypedLogLines();
@@ -41,3 +56,4 @@ public partial class bee_colony : IAlgorithm
         return projected;
     }
 }
+

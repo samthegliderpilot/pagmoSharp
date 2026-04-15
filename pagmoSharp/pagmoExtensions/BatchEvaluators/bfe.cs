@@ -2,24 +2,42 @@ using System;
 
 namespace pagmo
 {
+    /// <summary>
+    /// Managed convenience overloads for default batch fitness evaluation.
+    /// </summary>
     public partial class default_bfe
     {
+        /// <summary>
+        /// Evaluates a flattened batch of decision vectors against the provided problem.
+        /// </summary>
         public DoubleVector Operator(IProblem problem, DoubleVector batchX)
         {
             return BfeBridge.BatchEvaluate(problem, batchX, NativeInterop.default_bfe_operator, getCPtr(this).Handle, requiresParallelSafety: false);
         }
     }
 
+    /// <summary>
+    /// Managed convenience overloads for threaded batch fitness evaluation.
+    /// </summary>
     public partial class thread_bfe
     {
+        /// <summary>
+        /// Evaluates a flattened batch of decision vectors against the provided problem using parallel execution.
+        /// </summary>
         public DoubleVector Operator(IProblem problem, DoubleVector batchX)
         {
             return BfeBridge.BatchEvaluate(problem, batchX, NativeInterop.thread_bfe_operator, getCPtr(this).Handle, requiresParallelSafety: true);
         }
     }
 
+    /// <summary>
+    /// Managed convenience overloads for member batch fitness evaluation.
+    /// </summary>
     public partial class member_bfe
     {
+        /// <summary>
+        /// Evaluates a flattened batch of decision vectors against the provided problem.
+        /// </summary>
         public DoubleVector Operator(IProblem problem, DoubleVector batchX)
         {
             return BfeBridge.BatchEvaluate(problem, batchX, NativeInterop.member_bfe_operator, getCPtr(this).Handle, requiresParallelSafety: false);

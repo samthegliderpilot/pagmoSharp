@@ -11,6 +11,9 @@ namespace pagmo
         private readonly IAlgorithm _algorithm;
         private ExceptionDispatchInfo _deferredManagedException;
 
+        /// <summary>
+        /// Invokes the corresponding pagmo API. See docs/api-reference.md for upstream links.
+        /// </summary>
         public AlgorithmCallbackAdapter(IAlgorithm algorithm)
         {
             _algorithm = algorithm ?? throw new ArgumentNullException(nameof(algorithm));
@@ -27,6 +30,9 @@ namespace pagmo
                 $"Managed algorithm callback '{callbackName}' returned null. Callbacks must return non-null values.");
         }
 
+        /// <summary>
+        /// Invokes the corresponding pagmo API. See docs/api-reference.md for upstream links.
+        /// </summary>
         public override population evolve(population pop)
         {
             try
@@ -41,6 +47,9 @@ namespace pagmo
             }
         }
 
+        /// <summary>
+        /// Invokes the corresponding pagmo API. See docs/api-reference.md for upstream links.
+        /// </summary>
         public override void set_seed(uint seed)
         {
             try
@@ -53,11 +62,17 @@ namespace pagmo
             }
         }
 
+        /// <summary>
+        /// Invokes the corresponding pagmo API. See docs/api-reference.md for upstream links.
+        /// </summary>
         public override bool has_set_seed()
         {
             return true;
         }
 
+        /// <summary>
+        /// Invokes the corresponding pagmo API. See docs/api-reference.md for upstream links.
+        /// </summary>
         public override void set_verbosity(uint level)
         {
             try
@@ -70,15 +85,24 @@ namespace pagmo
             }
         }
 
+        /// <summary>
+        /// Invokes the corresponding pagmo API. See docs/api-reference.md for upstream links.
+        /// </summary>
         public override bool has_set_verbosity()
         {
             return true;
         }
 
+        /// <summary>
+        /// Invokes the corresponding pagmo API. See docs/api-reference.md for upstream links.
+        /// </summary>
         public override string get_name() => _algorithm.get_name();
         public override string get_extra_info() => _algorithm.get_extra_info();
         public override thread_safety get_thread_safety() => thread_safety.basic;
 
+        /// <summary>
+        /// Invokes the corresponding pagmo API. See docs/api-reference.md for upstream links.
+        /// </summary>
         public override string consume_deferred_exception()
         {
             var captured = _deferredManagedException;
@@ -87,3 +111,4 @@ namespace pagmo
         }
     }
 }
+

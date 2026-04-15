@@ -2,6 +2,9 @@ using System.Collections.Generic;
 
 namespace pagmo;
 
+/// <summary>
+/// Represents moead. Uses pagmo-native semantics. See docs/api-reference.md for upstream links.
+/// </summary>
 public partial class moead : IAlgorithm
 {
     public readonly record struct MoeadLogLine(
@@ -10,6 +13,9 @@ public partial class moead : IAlgorithm
         double DecomposedFitness,
         IReadOnlyList<double> IdealPoint) : IAlgorithmLogLine
     {
+        /// <summary>
+        /// Uses pagmo-native semantics. See docs/api-reference.md for upstream links.
+        /// </summary>
         public string AlgorithmName => "moead";
         public IReadOnlyDictionary<string, object> RawFields => new Dictionary<string, object>
         {
@@ -18,9 +24,15 @@ public partial class moead : IAlgorithm
             ["decomposed_fitness"] = DecomposedFitness,
             ["ideal_point"] = IdealPoint
         };
+        /// <summary>
+        /// Invokes the corresponding pagmo API. See docs/api-reference.md for upstream links.
+        /// </summary>
         public string ToDisplayString() => $"gen={Generation}, fevals={FunctionEvaluations}, decomp_f={DecomposedFitness}";
     }
 
+    /// <summary>
+    /// Invokes the corresponding pagmo API. See docs/api-reference.md for upstream links.
+    /// </summary>
     public IReadOnlyList<MoeadLogLine> GetTypedLogLines()
     {
         using var rawEntries = get_log_entries();
@@ -36,6 +48,9 @@ public partial class moead : IAlgorithm
         return lines;
     }
 
+    /// <summary>
+    /// Invokes the corresponding pagmo API. See docs/api-reference.md for upstream links.
+    /// </summary>
     public IReadOnlyList<IAlgorithmLogLine> GetLogLines()
     {
         var typedLines = GetTypedLogLines();
@@ -44,3 +59,4 @@ public partial class moead : IAlgorithm
         return projected;
     }
 }
+

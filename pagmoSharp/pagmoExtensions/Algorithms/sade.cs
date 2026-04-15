@@ -2,6 +2,9 @@ using System.Collections.Generic;
 
 namespace pagmo;
 
+/// <summary>
+/// Represents sade. Uses pagmo-native semantics. See docs/api-reference.md for upstream links.
+/// </summary>
 public partial class sade : IAlgorithm
 {
     public readonly record struct SadeLogLine(
@@ -13,6 +16,9 @@ public partial class sade : IAlgorithm
         double Dx,
         double Df) : IAlgorithmLogLine
     {
+        /// <summary>
+        /// Uses pagmo-native semantics. See docs/api-reference.md for upstream links.
+        /// </summary>
         public string AlgorithmName => "sade";
         public IReadOnlyDictionary<string, object> RawFields => new Dictionary<string, object>
         {
@@ -24,9 +30,15 @@ public partial class sade : IAlgorithm
             ["dx"] = Dx,
             ["df"] = Df
         };
+        /// <summary>
+        /// Invokes the corresponding pagmo API. See docs/api-reference.md for upstream links.
+        /// </summary>
         public string ToDisplayString() => $"gen={Generation}, fevals={FunctionEvaluations}, best={BestFitness}";
     }
 
+    /// <summary>
+    /// Invokes the corresponding pagmo API. See docs/api-reference.md for upstream links.
+    /// </summary>
     public IReadOnlyList<SadeLogLine> GetTypedLogLines()
     {
         using var rawEntries = get_log_entries();
@@ -39,6 +51,9 @@ public partial class sade : IAlgorithm
         return lines;
     }
 
+    /// <summary>
+    /// Invokes the corresponding pagmo API. See docs/api-reference.md for upstream links.
+    /// </summary>
     public IReadOnlyList<IAlgorithmLogLine> GetLogLines()
     {
         var typedLines = GetTypedLogLines();
@@ -47,3 +62,4 @@ public partial class sade : IAlgorithm
         return projected;
     }
 }
+

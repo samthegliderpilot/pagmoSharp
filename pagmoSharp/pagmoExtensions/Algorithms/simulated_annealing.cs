@@ -2,6 +2,9 @@ using System.Collections.Generic;
 
 namespace pagmo;
 
+/// <summary>
+/// Represents simulated_annealing. Uses pagmo-native semantics. See docs/api-reference.md for upstream links.
+/// </summary>
 public partial class simulated_annealing : IAlgorithm
 {
     public readonly record struct SimulatedAnnealingLogLine(
@@ -11,6 +14,9 @@ public partial class simulated_annealing : IAlgorithm
         double Temperature,
         double MoveRange) : IAlgorithmLogLine
     {
+        /// <summary>
+        /// Uses pagmo-native semantics. See docs/api-reference.md for upstream links.
+        /// </summary>
         public string AlgorithmName => "simulated_annealing";
         public IReadOnlyDictionary<string, object> RawFields => new Dictionary<string, object>
         {
@@ -20,9 +26,15 @@ public partial class simulated_annealing : IAlgorithm
             ["temperature"] = Temperature,
             ["move_range"] = MoveRange
         };
+        /// <summary>
+        /// Invokes the corresponding pagmo API. See docs/api-reference.md for upstream links.
+        /// </summary>
         public string ToDisplayString() => $"fevals={FunctionEvaluations}, best={BestFitness}, temp={Temperature}";
     }
 
+    /// <summary>
+    /// Invokes the corresponding pagmo API. See docs/api-reference.md for upstream links.
+    /// </summary>
     public IReadOnlyList<SimulatedAnnealingLogLine> GetTypedLogLines()
     {
         using var rawEntries = get_log_entries();
@@ -35,6 +47,9 @@ public partial class simulated_annealing : IAlgorithm
         return lines;
     }
 
+    /// <summary>
+    /// Invokes the corresponding pagmo API. See docs/api-reference.md for upstream links.
+    /// </summary>
     public IReadOnlyList<IAlgorithmLogLine> GetLogLines()
     {
         var typedLines = GetTypedLogLines();
@@ -43,3 +58,4 @@ public partial class simulated_annealing : IAlgorithm
         return projected;
     }
 }
+

@@ -2,6 +2,9 @@ using System.Collections.Generic;
 
 namespace pagmo;
 
+/// <summary>
+/// Represents gwo. Uses pagmo-native semantics. See docs/api-reference.md for upstream links.
+/// </summary>
 public partial class gwo : IAlgorithm
 {
     public readonly record struct GwoLogLine(
@@ -10,6 +13,9 @@ public partial class gwo : IAlgorithm
         double Beta,
         double Delta) : IAlgorithmLogLine
     {
+        /// <summary>
+        /// Uses pagmo-native semantics. See docs/api-reference.md for upstream links.
+        /// </summary>
         public string AlgorithmName => "gwo";
         public IReadOnlyDictionary<string, object> RawFields => new Dictionary<string, object>
         {
@@ -18,9 +24,15 @@ public partial class gwo : IAlgorithm
             ["beta"] = Beta,
             ["delta"] = Delta
         };
+        /// <summary>
+        /// Invokes the corresponding pagmo API. See docs/api-reference.md for upstream links.
+        /// </summary>
         public string ToDisplayString() => $"gen={Generation}, alpha={Alpha}, beta={Beta}, delta={Delta}";
     }
 
+    /// <summary>
+    /// Invokes the corresponding pagmo API. See docs/api-reference.md for upstream links.
+    /// </summary>
     public IReadOnlyList<GwoLogLine> GetTypedLogLines()
     {
         using var rawEntries = get_log_entries();
@@ -33,6 +45,9 @@ public partial class gwo : IAlgorithm
         return lines;
     }
 
+    /// <summary>
+    /// Invokes the corresponding pagmo API. See docs/api-reference.md for upstream links.
+    /// </summary>
     public IReadOnlyList<IAlgorithmLogLine> GetLogLines()
     {
         var typedLines = GetTypedLogLines();
@@ -41,3 +56,4 @@ public partial class gwo : IAlgorithm
         return projected;
     }
 }
+

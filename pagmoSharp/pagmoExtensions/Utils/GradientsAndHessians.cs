@@ -12,6 +12,9 @@ public static class GradientsAndHessians
         return value ?? throw new ArgumentNullException(parameterName);
     }
 
+    /// <summary>
+    /// Estimates gradient sparsity for a type-erased problem.
+    /// </summary>
     public static SparsityPattern EstimateSparsity(problem prob, DoubleVector x, double dx = 1e-8)
     {
         var ptr = NativeInterop.estimate_sparsity_problem(
@@ -27,12 +30,18 @@ public static class GradientsAndHessians
         return new SparsityPattern(ptr, true);
     }
 
+    /// <summary>
+    /// Estimates gradient sparsity and projects it to managed index pairs for a type-erased problem.
+    /// </summary>
     public static SparsityIndex[] EstimateSparsityEntries(problem prob, DoubleVector x, double dx = 1e-8)
     {
         using var sparsity = EstimateSparsity(prob, x, dx);
         return SparsityProjection.ToEntries(sparsity);
     }
 
+    /// <summary>
+    /// Estimates gradient sparsity for a managed problem callback.
+    /// </summary>
     public static SparsityPattern EstimateSparsity(IProblem prob, DoubleVector x, double dx = 1e-8)
     {
         using var problemHandle = ProblemInterop.CreateProblemHandle(RequireNotNull(prob, nameof(prob)), out var callbackAdapter);
@@ -48,12 +57,18 @@ public static class GradientsAndHessians
         return new SparsityPattern(ptr, true);
     }
 
+    /// <summary>
+    /// Estimates gradient sparsity and projects it to managed index pairs for a managed problem callback.
+    /// </summary>
     public static SparsityIndex[] EstimateSparsityEntries(IProblem prob, DoubleVector x, double dx = 1e-8)
     {
         using var sparsity = EstimateSparsity(prob, x, dx);
         return SparsityProjection.ToEntries(sparsity);
     }
 
+    /// <summary>
+    /// Estimates first-order gradient values for a type-erased problem.
+    /// </summary>
     public static DoubleVector EstimateGradient(problem prob, DoubleVector x, double dx = 1e-8)
     {
         var ptr = NativeInterop.estimate_gradient_problem(
@@ -69,6 +84,9 @@ public static class GradientsAndHessians
         return new DoubleVector(ptr, true);
     }
 
+    /// <summary>
+    /// Estimates first-order gradient values for a managed problem callback.
+    /// </summary>
     public static DoubleVector EstimateGradient(IProblem prob, DoubleVector x, double dx = 1e-8)
     {
         using var problemHandle = ProblemInterop.CreateProblemHandle(RequireNotNull(prob, nameof(prob)), out var callbackAdapter);
@@ -76,6 +94,9 @@ public static class GradientsAndHessians
         return NativeInterop.GetVectorOrThrow(ptr, "Native estimate_gradient() failed.", callbackAdapter);
     }
 
+    /// <summary>
+    /// Estimates higher-order gradient values for a type-erased problem.
+    /// </summary>
     public static DoubleVector EstimateGradientHighOrder(problem prob, DoubleVector x, double dx = 1e-2)
     {
         var ptr = NativeInterop.estimate_gradient_h_problem(
@@ -91,6 +112,9 @@ public static class GradientsAndHessians
         return new DoubleVector(ptr, true);
     }
 
+    /// <summary>
+    /// Estimates higher-order gradient values for a managed problem callback.
+    /// </summary>
     public static DoubleVector EstimateGradientHighOrder(IProblem prob, DoubleVector x, double dx = 1e-2)
     {
         using var problemHandle = ProblemInterop.CreateProblemHandle(RequireNotNull(prob, nameof(prob)), out var callbackAdapter);

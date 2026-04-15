@@ -3,12 +3,18 @@ using System.Runtime.InteropServices;
 
 namespace pagmo;
 
+/// <summary>
+/// Represents r_policy. Uses pagmo-native semantics. See docs/api-reference.md for upstream links.
+/// </summary>
 public sealed class r_policy : r_policyPagmoWrapper
 {
     public r_policy()
     {
     }
 
+    /// <summary>
+    /// Invokes the corresponding pagmo API. See docs/api-reference.md for upstream links.
+    /// </summary>
     public r_policy(r_policyBase basePolicy)
         : base()
     {
@@ -56,3 +62,4 @@ public sealed class r_policy : r_policyPagmoWrapper
         }
     }
 }
+

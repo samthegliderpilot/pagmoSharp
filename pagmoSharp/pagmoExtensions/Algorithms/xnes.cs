@@ -2,6 +2,9 @@ using System.Collections.Generic;
 
 namespace pagmo;
 
+/// <summary>
+/// Represents xnes. Uses pagmo-native semantics. See docs/api-reference.md for upstream links.
+/// </summary>
 public partial class xnes : IAlgorithm
 {
     public readonly record struct XnesLogLine(
@@ -12,6 +15,9 @@ public partial class xnes : IAlgorithm
         double Df,
         double Sigma) : IAlgorithmLogLine
     {
+        /// <summary>
+        /// Uses pagmo-native semantics. See docs/api-reference.md for upstream links.
+        /// </summary>
         public string AlgorithmName => "xnes";
         public IReadOnlyDictionary<string, object> RawFields => new Dictionary<string, object>
         {
@@ -22,9 +28,15 @@ public partial class xnes : IAlgorithm
             ["df"] = Df,
             ["sigma"] = Sigma
         };
+        /// <summary>
+        /// Invokes the corresponding pagmo API. See docs/api-reference.md for upstream links.
+        /// </summary>
         public string ToDisplayString() => $"gen={Generation}, fevals={FunctionEvaluations}, best={BestFitness}";
     }
 
+    /// <summary>
+    /// Invokes the corresponding pagmo API. See docs/api-reference.md for upstream links.
+    /// </summary>
     public IReadOnlyList<XnesLogLine> GetTypedLogLines()
     {
         using var rawEntries = get_log_entries();
@@ -37,6 +49,9 @@ public partial class xnes : IAlgorithm
         return lines;
     }
 
+    /// <summary>
+    /// Invokes the corresponding pagmo API. See docs/api-reference.md for upstream links.
+    /// </summary>
     public IReadOnlyList<IAlgorithmLogLine> GetLogLines()
     {
         var typedLines = GetTypedLogLines();
@@ -45,3 +60,4 @@ public partial class xnes : IAlgorithm
         return projected;
     }
 }
+

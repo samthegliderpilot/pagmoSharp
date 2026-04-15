@@ -2,6 +2,9 @@ using System.Collections.Generic;
 
 namespace pagmo;
 
+/// <summary>
+/// Represents ihs. Uses pagmo-native semantics. See docs/api-reference.md for upstream links.
+/// </summary>
 public partial class ihs : IAlgorithm
 {
     public readonly record struct IhsLogLine(
@@ -14,6 +17,9 @@ public partial class ihs : IAlgorithm
         double ViolationNorm,
         IReadOnlyList<double> IdealPoint) : IAlgorithmLogLine
     {
+        /// <summary>
+        /// Uses pagmo-native semantics. See docs/api-reference.md for upstream links.
+        /// </summary>
         public string AlgorithmName => "ihs";
 
         public IReadOnlyDictionary<string, object> RawFields => new Dictionary<string, object>
@@ -28,10 +34,16 @@ public partial class ihs : IAlgorithm
             ["ideal_point"] = IdealPoint
         };
 
+        /// <summary>
+        /// Invokes the corresponding pagmo API. See docs/api-reference.md for upstream links.
+        /// </summary>
         public string ToDisplayString() =>
             $"fevals={FunctionEvaluations}, ppar={PitchAdjustmentRate}, bw={Bandwidth}, violated={ViolatedConstraints}, viol_norm={ViolationNorm}";
     }
 
+    /// <summary>
+    /// Invokes the corresponding pagmo API. See docs/api-reference.md for upstream links.
+    /// </summary>
     public IReadOnlyList<IhsLogLine> GetTypedLogLines()
     {
         using var rawEntries = get_log_entries();
@@ -61,6 +73,9 @@ public partial class ihs : IAlgorithm
         return lines;
     }
 
+    /// <summary>
+    /// Invokes the corresponding pagmo API. See docs/api-reference.md for upstream links.
+    /// </summary>
     public IReadOnlyList<IAlgorithmLogLine> GetLogLines()
     {
         var typedLines = GetTypedLogLines();
@@ -73,3 +88,4 @@ public partial class ihs : IAlgorithm
         return projected;
     }
 }
+

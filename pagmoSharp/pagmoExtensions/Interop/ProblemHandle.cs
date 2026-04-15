@@ -20,6 +20,9 @@ internal sealed class ProblemHandle : SafeHandle
         SetHandle(handle);
     }
 
+    /// <summary>
+    /// Uses pagmo-native semantics. See docs/api-reference.md for upstream links.
+    /// </summary>
     public override bool IsInvalid => handle == IntPtr.Zero;
 
     protected override bool ReleaseHandle()
@@ -28,3 +31,4 @@ internal sealed class ProblemHandle : SafeHandle
         return true;
     }
 }
+

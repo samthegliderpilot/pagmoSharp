@@ -2,10 +2,16 @@ using System;
 
 namespace pagmo
 {
+    /// <summary>
+    /// Represents struct .
+    /// </summary>
     public readonly record struct SparsityIndex(uint Row, uint Column);
 
     internal static class SparsityProjection
     {
+        /// <summary>
+        /// Invokes the corresponding pagmo API. See docs/api-reference.md for upstream links.
+        /// </summary>
         public static SparsityIndex[] ToEntries(SparsityPattern pattern)
         {
             if (pattern == null)
@@ -23,6 +29,9 @@ namespace pagmo
             return entries;
         }
 
+        /// <summary>
+        /// Invokes the corresponding pagmo API. See docs/api-reference.md for upstream links.
+        /// </summary>
         public static SparsityIndex[][] ToEntries(VectorOfSparsityPattern patterns)
         {
             if (patterns == null)
@@ -41,6 +50,9 @@ namespace pagmo
         }
     }
 
+    /// <summary>
+    /// Represents problem. Uses pagmo-native semantics. See docs/api-reference.md for upstream links.
+    /// </summary>
     public partial class problem
     {
         public SparsityIndex[] GetGradientSparsityEntries()
@@ -54,6 +66,9 @@ namespace pagmo
             return SparsityProjection.ToEntries(pattern);
         }
 
+        /// <summary>
+        /// Invokes the corresponding pagmo API. See docs/api-reference.md for upstream links.
+        /// </summary>
         public SparsityIndex[][] GetHessiansSparsityEntries()
         {
             if (!has_hessians_sparsity())
@@ -66,6 +81,9 @@ namespace pagmo
         }
     }
 
+    /// <summary>
+    /// Represents managed_problem. Uses pagmo-native semantics. See docs/api-reference.md for upstream links.
+    /// </summary>
     public partial class managed_problem
     {
         public SparsityIndex[] GetGradientSparsityEntries()
@@ -83,6 +101,9 @@ namespace pagmo
             return SparsityProjection.ToEntries(pattern);
         }
 
+        /// <summary>
+        /// Invokes the corresponding pagmo API. See docs/api-reference.md for upstream links.
+        /// </summary>
         public SparsityIndex[][] GetHessiansSparsityEntries()
         {
             if (!has_hessians_sparsity())
@@ -99,6 +120,9 @@ namespace pagmo
         }
     }
 
+    /// <summary>
+    /// Represents minlp_rastrigin. Uses pagmo-native semantics. See docs/api-reference.md for upstream links.
+    /// </summary>
     public partial class minlp_rastrigin
     {
         public SparsityIndex[][] GetHessiansSparsityEntries()
@@ -112,3 +136,4 @@ namespace pagmo
         }
     }
 }
+

@@ -2,6 +2,9 @@ using System.Collections.Generic;
 
 namespace pagmo;
 
+/// <summary>
+/// Represents mbh. Uses pagmo-native semantics. See docs/api-reference.md for upstream links.
+/// </summary>
 public partial class mbh : IAlgorithm
 {
     public readonly record struct MbhLogLine(
@@ -11,6 +14,9 @@ public partial class mbh : IAlgorithm
         double ViolationNorm,
         uint Trial) : IAlgorithmLogLine
     {
+        /// <summary>
+        /// Uses pagmo-native semantics. See docs/api-reference.md for upstream links.
+        /// </summary>
         public string AlgorithmName => "mbh";
 
         public IReadOnlyDictionary<string, object> RawFields => new Dictionary<string, object>
@@ -22,10 +28,16 @@ public partial class mbh : IAlgorithm
             ["trial"] = Trial
         };
 
+        /// <summary>
+        /// Invokes the corresponding pagmo API. See docs/api-reference.md for upstream links.
+        /// </summary>
         public string ToDisplayString() =>
             $"fevals={FunctionEvaluations}, best={BestFitness}, violated={ViolatedConstraints}, viol_norm={ViolationNorm}, trial={Trial}";
     }
 
+    /// <summary>
+    /// Invokes the corresponding pagmo API. See docs/api-reference.md for upstream links.
+    /// </summary>
     public IReadOnlyList<MbhLogLine> GetTypedLogLines()
     {
         using var rawEntries = get_log_entries();
@@ -45,6 +57,9 @@ public partial class mbh : IAlgorithm
         return lines;
     }
 
+    /// <summary>
+    /// Invokes the corresponding pagmo API. See docs/api-reference.md for upstream links.
+    /// </summary>
     public IReadOnlyList<IAlgorithmLogLine> GetLogLines()
     {
         var typedLines = GetTypedLogLines();
@@ -57,3 +72,4 @@ public partial class mbh : IAlgorithm
         return projected;
     }
 }
+

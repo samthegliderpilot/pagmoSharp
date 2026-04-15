@@ -2,6 +2,9 @@ using System.Collections.Generic;
 
 namespace pagmo;
 
+/// <summary>
+/// Represents de. Uses pagmo-native semantics. See docs/api-reference.md for upstream links.
+/// </summary>
 public partial class de : IAlgorithm
 {
     public readonly record struct DeLogLine(
@@ -11,6 +14,9 @@ public partial class de : IAlgorithm
         double FunctionEvaluationDifference,
         double Dx) : IAlgorithmLogLine
     {
+        /// <summary>
+        /// Uses pagmo-native semantics. See docs/api-reference.md for upstream links.
+        /// </summary>
         public string AlgorithmName => "de";
 
         public IReadOnlyDictionary<string, object> RawFields => new Dictionary<string, object>
@@ -22,10 +28,16 @@ public partial class de : IAlgorithm
             ["dx"] = Dx
         };
 
+        /// <summary>
+        /// Invokes the corresponding pagmo API. See docs/api-reference.md for upstream links.
+        /// </summary>
         public string ToDisplayString() =>
             $"gen={Generation}, fevals={FunctionEvaluations}, best={BestFitness}, df={FunctionEvaluationDifference}, dx={Dx}";
     }
 
+    /// <summary>
+    /// Invokes the corresponding pagmo API. See docs/api-reference.md for upstream links.
+    /// </summary>
     public IReadOnlyList<DeLogLine> GetTypedLogLines()
     {
         using var rawEntries = get_log_entries();
@@ -45,6 +57,9 @@ public partial class de : IAlgorithm
         return lines;
     }
 
+    /// <summary>
+    /// Invokes the corresponding pagmo API. See docs/api-reference.md for upstream links.
+    /// </summary>
     public IReadOnlyList<IAlgorithmLogLine> GetLogLines()
     {
         var typedLines = GetTypedLogLines();
@@ -57,3 +72,4 @@ public partial class de : IAlgorithm
         return projected;
     }
 }
+

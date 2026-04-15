@@ -2,6 +2,9 @@ using System.Collections.Generic;
 
 namespace pagmo;
 
+/// <summary>
+/// Represents cmaes. Uses pagmo-native semantics. See docs/api-reference.md for upstream links.
+/// </summary>
 public partial class cmaes : IAlgorithm
 {
     public readonly record struct CmaesLogLine(
@@ -12,6 +15,9 @@ public partial class cmaes : IAlgorithm
         double MinVariance,
         double MaxVariance) : IAlgorithmLogLine
     {
+        /// <summary>
+        /// Uses pagmo-native semantics. See docs/api-reference.md for upstream links.
+        /// </summary>
         public string AlgorithmName => "cmaes";
 
         public IReadOnlyDictionary<string, object> RawFields => new Dictionary<string, object>
@@ -24,10 +30,16 @@ public partial class cmaes : IAlgorithm
             ["max_variance"] = MaxVariance
         };
 
+        /// <summary>
+        /// Invokes the corresponding pagmo API. See docs/api-reference.md for upstream links.
+        /// </summary>
         public string ToDisplayString() =>
             $"gen={Generation}, fevals={FunctionEvaluations}, best={BestFitness}, sigma={Sigma}, min_var={MinVariance}, max_var={MaxVariance}";
     }
 
+    /// <summary>
+    /// Invokes the corresponding pagmo API. See docs/api-reference.md for upstream links.
+    /// </summary>
     public IReadOnlyList<CmaesLogLine> GetTypedLogLines()
     {
         using var rawEntries = get_log_entries();
@@ -48,6 +60,9 @@ public partial class cmaes : IAlgorithm
         return lines;
     }
 
+    /// <summary>
+    /// Invokes the corresponding pagmo API. See docs/api-reference.md for upstream links.
+    /// </summary>
     public IReadOnlyList<IAlgorithmLogLine> GetLogLines()
     {
         var typedLines = GetTypedLogLines();
@@ -60,3 +75,4 @@ public partial class cmaes : IAlgorithm
         return projected;
     }
 }
+

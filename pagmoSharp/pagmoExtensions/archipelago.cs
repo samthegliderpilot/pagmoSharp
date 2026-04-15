@@ -3,6 +3,9 @@ using System.Collections.Generic;
 
 namespace pagmo
 {
+    /// <summary>
+    /// Managed convenience surface for archipelago construction and island insertion from managed types.
+    /// </summary>
     public partial class archipelago
     {
         private static ulong WithManagedProblem(IProblem problem, Func<problem, ulong> action)
@@ -126,6 +129,9 @@ namespace pagmo
             return PushBackCore(normalized, problem, populationSize, seed, evaluator, islandType, replacementPolicy, selectionPolicy);
         }
 
+        /// <summary>
+        /// Returns a snapshot of migration log entries.
+        /// </summary>
         public IReadOnlyList<MigrationEntry> MigrationLog
         {
             get
@@ -141,6 +147,9 @@ namespace pagmo
             }
         }
 
+        /// <summary>
+        /// Returns a snapshot of the migrants database.
+        /// </summary>
         public IReadOnlyList<IndividualsGroup> MigrantsDb
         {
             get
@@ -156,50 +165,77 @@ namespace pagmo
             }
         }
 
+        /// <summary>
+        /// Returns a copy of an island by index.
+        /// </summary>
         public island GetIslandCopy(ulong index)
         {
             return get_island_copy(SizeTInterop.ToNativeUInt32(index, nameof(index)));
         }
 
+        /// <summary>
+        /// Adds an island from a type-erased algorithm and managed problem.
+        /// </summary>
         public ulong push_back_island(algorithm algorithm, IProblem problem, ulong populationSize, uint seed = 0u, thread_island islandType = null)
         {
             return PushBackCore(algorithm, problem, populationSize, seed, islandType: islandType);
         }
 
+        /// <summary>
+        /// Adds an island with managed replacement/selection policies.
+        /// </summary>
         public ulong push_back_island(algorithm algorithm, IProblem problem, ulong populationSize, r_policyBase replacementPolicy, s_policyBase selectionPolicy, uint seed = 0u, thread_island islandType = null)
         {
             ValidatePolicyPair(replacementPolicy, selectionPolicy, nameof(replacementPolicy), nameof(selectionPolicy));
             return PushBackWithManagedPolicies(algorithm, problem, populationSize, seed, replacementPolicy, selectionPolicy, islandType: islandType);
         }
 
+        /// <summary>
+        /// Adds an island with built-in replacement/selection policies.
+        /// </summary>
         public ulong push_back_island(algorithm algorithm, IProblem problem, ulong populationSize, fair_replace replacementPolicy, select_best selectionPolicy, uint seed = 0u, thread_island islandType = null)
         {
             ValidatePolicyPair(replacementPolicy, selectionPolicy, nameof(replacementPolicy), nameof(selectionPolicy));
             return PushBackCore(algorithm, problem, populationSize, seed, islandType: islandType, replacementPolicy: replacementPolicy, selectionPolicy: selectionPolicy);
         }
 
+        /// <summary>
+        /// Adds an island with an explicit batch fitness evaluator.
+        /// </summary>
         public ulong push_back_island(algorithm algorithm, IProblem problem, bfe evaluator, ulong populationSize, uint seed = 0u, thread_island islandType = null)
         {
             return PushBackCore(algorithm, problem, populationSize, seed, evaluator, islandType);
         }
 
+        /// <summary>
+        /// Adds an island with explicit evaluator and managed policies.
+        /// </summary>
         public ulong push_back_island(algorithm algorithm, IProblem problem, bfe evaluator, ulong populationSize, r_policyBase replacementPolicy, s_policyBase selectionPolicy, uint seed = 0u, thread_island islandType = null)
         {
             ValidatePolicyPair(replacementPolicy, selectionPolicy, nameof(replacementPolicy), nameof(selectionPolicy));
             return PushBackWithManagedPolicies(algorithm, problem, populationSize, seed, replacementPolicy, selectionPolicy, evaluator, islandType);
         }
 
+        /// <summary>
+        /// Adds an island with explicit evaluator and built-in policies.
+        /// </summary>
         public ulong push_back_island(algorithm algorithm, IProblem problem, bfe evaluator, ulong populationSize, fair_replace replacementPolicy, select_best selectionPolicy, uint seed = 0u, thread_island islandType = null)
         {
             ValidatePolicyPair(replacementPolicy, selectionPolicy, nameof(replacementPolicy), nameof(selectionPolicy));
             return PushBackCore(algorithm, problem, populationSize, seed, evaluator, islandType, replacementPolicy, selectionPolicy);
         }
 
+        /// <summary>
+        /// Adds an island from a managed algorithm and managed problem.
+        /// </summary>
         public ulong push_back_island(IAlgorithm algorithm, IProblem problem, ulong populationSize, uint seed = 0u, thread_island islandType = null)
         {
             return PushBackNormalizedAlgorithm(algorithm, problem, populationSize, seed, islandType: islandType);
         }
 
+        /// <summary>
+        /// Adds an island with managed policies.
+        /// </summary>
         public ulong push_back_island(IAlgorithm algorithm, IProblem problem, ulong populationSize, r_policyBase replacementPolicy, s_policyBase selectionPolicy, uint seed = 0u, thread_island islandType = null)
         {
             ValidatePolicyPair(replacementPolicy, selectionPolicy, nameof(replacementPolicy), nameof(selectionPolicy));
@@ -207,17 +243,26 @@ namespace pagmo
             return PushBackWithManagedPolicies(normalized, problem, populationSize, seed, replacementPolicy, selectionPolicy, islandType: islandType);
         }
 
+        /// <summary>
+        /// Adds an island with built-in policies.
+        /// </summary>
         public ulong push_back_island(IAlgorithm algorithm, IProblem problem, ulong populationSize, fair_replace replacementPolicy, select_best selectionPolicy, uint seed = 0u, thread_island islandType = null)
         {
             ValidatePolicyPair(replacementPolicy, selectionPolicy, nameof(replacementPolicy), nameof(selectionPolicy));
             return PushBackNormalizedAlgorithm(algorithm, problem, populationSize, seed, islandType: islandType, replacementPolicy: replacementPolicy, selectionPolicy: selectionPolicy);
         }
 
+        /// <summary>
+        /// Adds an island with explicit evaluator.
+        /// </summary>
         public ulong push_back_island(IAlgorithm algorithm, IProblem problem, bfe evaluator, ulong populationSize, uint seed = 0u, thread_island islandType = null)
         {
             return PushBackNormalizedAlgorithm(algorithm, problem, populationSize, seed, evaluator, islandType);
         }
 
+        /// <summary>
+        /// Adds an island with explicit evaluator and managed policies.
+        /// </summary>
         public ulong push_back_island(IAlgorithm algorithm, IProblem problem, bfe evaluator, ulong populationSize, r_policyBase replacementPolicy, s_policyBase selectionPolicy, uint seed = 0u, thread_island islandType = null)
         {
             ValidatePolicyPair(replacementPolicy, selectionPolicy, nameof(replacementPolicy), nameof(selectionPolicy));
@@ -225,32 +270,50 @@ namespace pagmo
             return PushBackWithManagedPolicies(normalized, problem, populationSize, seed, replacementPolicy, selectionPolicy, evaluator, islandType);
         }
 
+        /// <summary>
+        /// Adds an island with explicit evaluator and built-in policies.
+        /// </summary>
         public ulong push_back_island(IAlgorithm algorithm, IProblem problem, bfe evaluator, ulong populationSize, fair_replace replacementPolicy, select_best selectionPolicy, uint seed = 0u, thread_island islandType = null)
         {
             ValidatePolicyPair(replacementPolicy, selectionPolicy, nameof(replacementPolicy), nameof(selectionPolicy));
             return PushBackNormalizedAlgorithm(algorithm, problem, populationSize, seed, evaluator, islandType, replacementPolicy, selectionPolicy);
         }
 
+        /// <summary>
+        /// PascalCase alias for <see cref="GetIslandCopy"/>.
+        /// </summary>
         public island GetIsland(ulong index)
         {
             return GetIslandCopy(index);
         }
 
+        /// <summary>
+        /// PascalCase alias for <see cref="push_back_island(IAlgorithm,IProblem,ulong,uint,thread_island)"/>.
+        /// </summary>
         public ulong PushBackIsland(IAlgorithm algorithm, IProblem problem, ulong populationSize, uint seed = 0u, thread_island islandType = null)
         {
             return push_back_island(algorithm, problem, populationSize, seed, islandType);
         }
 
+        /// <summary>
+        /// PascalCase alias for <see cref="push_back_island(IAlgorithm,IProblem,bfe,ulong,uint,thread_island)"/>.
+        /// </summary>
         public ulong PushBackIsland(IAlgorithm algorithm, IProblem problem, bfe evaluator, ulong populationSize, uint seed = 0u, thread_island islandType = null)
         {
             return push_back_island(algorithm, problem, evaluator, populationSize, seed, islandType);
         }
 
+        /// <summary>
+        /// PascalCase alias for <see cref="push_back_island(IAlgorithm,IProblem,ulong,r_policyBase,s_policyBase,uint,thread_island)"/>.
+        /// </summary>
         public ulong PushBackIsland(IAlgorithm algorithm, IProblem problem, ulong populationSize, r_policyBase replacementPolicy, s_policyBase selectionPolicy, uint seed = 0u, thread_island islandType = null)
         {
             return push_back_island(algorithm, problem, populationSize, replacementPolicy, selectionPolicy, seed, islandType);
         }
 
+        /// <summary>
+        /// PascalCase alias for <see cref="push_back_island(IAlgorithm,IProblem,bfe,ulong,r_policyBase,s_policyBase,uint,thread_island)"/>.
+        /// </summary>
         public ulong PushBackIsland(IAlgorithm algorithm, IProblem problem, bfe evaluator, ulong populationSize, r_policyBase replacementPolicy, s_policyBase selectionPolicy, uint seed = 0u, thread_island islandType = null)
         {
             return push_back_island(algorithm, problem, evaluator, populationSize, replacementPolicy, selectionPolicy, seed, islandType);
