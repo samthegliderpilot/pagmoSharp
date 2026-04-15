@@ -7,6 +7,9 @@ namespace pagmo;
 /// </summary>
 public partial class ihs : IAlgorithm
 {
+    /// <summary>
+    /// Represents a typed algorithm log entry projected from pagmo runtime data.
+    /// </summary>
     public readonly record struct IhsLogLine(
         ulong FunctionEvaluations,
         double PitchAdjustmentRate,
@@ -22,6 +25,9 @@ public partial class ihs : IAlgorithm
         /// </summary>
         public string AlgorithmName => "ihs";
 
+        /// <summary>
+        /// Gets a generic field map for algorithm-agnostic log processing.
+        /// </summary>
         public IReadOnlyDictionary<string, object> RawFields => new Dictionary<string, object>
         {
             ["function_evaluations"] = FunctionEvaluations,

@@ -7,6 +7,9 @@ namespace pagmo;
 /// </summary>
 public partial class xnes : IAlgorithm
 {
+    /// <summary>
+    /// Represents a typed algorithm log entry projected from pagmo runtime data.
+    /// </summary>
     public readonly record struct XnesLogLine(
         uint Generation,
         ulong FunctionEvaluations,
@@ -19,6 +22,9 @@ public partial class xnes : IAlgorithm
         /// Uses pagmo-native semantics. See docs/api-reference.md for upstream links.
         /// </summary>
         public string AlgorithmName => "xnes";
+        /// <summary>
+        /// Gets a generic field map for algorithm-agnostic log processing.
+        /// </summary>
         public IReadOnlyDictionary<string, object> RawFields => new Dictionary<string, object>
         {
             ["generation"] = Generation,

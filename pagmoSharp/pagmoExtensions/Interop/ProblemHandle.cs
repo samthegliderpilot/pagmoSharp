@@ -25,6 +25,9 @@ internal sealed class ProblemHandle : SafeHandle
     /// </summary>
     public override bool IsInvalid => handle == IntPtr.Zero;
 
+    /// <summary>
+    /// Releases the owned native `pagmo::problem` pointer.
+    /// </summary>
     protected override bool ReleaseHandle()
     {
         NativeInterop.problem_delete(handle);

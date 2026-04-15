@@ -8,6 +8,9 @@ namespace pagmo;
 /// </summary>
 public sealed class s_policy : s_policyPagmoWrapper
 {
+    /// <summary>
+    /// Creates an empty selection-policy wrapper.
+    /// </summary>
     public s_policy()
     {
     }

@@ -20,6 +20,9 @@ public partial class ipopt : IAlgorithm
     /// </summary>
     public void set_integer_option(string name, ulong value) => set_integer_option_u64(name, value);
 
+    /// <summary>
+    /// Represents a typed algorithm log entry projected from pagmo runtime data.
+    /// </summary>
     public readonly record struct IpoptLogLine(
         ulong ObjectiveEvaluations,
         double Objective,
@@ -32,6 +35,9 @@ public partial class ipopt : IAlgorithm
         /// </summary>
         public string AlgorithmName => "ipopt";
 
+        /// <summary>
+        /// Gets a generic field map for algorithm-agnostic log processing.
+        /// </summary>
         public IReadOnlyDictionary<string, object> RawFields => new Dictionary<string, object>
         {
             ["objective_evaluations"] = ObjectiveEvaluations,
@@ -66,6 +72,9 @@ public partial class ipopt : IAlgorithm
     /// </summary>
     public uint get_verbosity() => throw new NotSupportedException("ipopt does not expose get_verbosity in pagmo.");
 
+    /// <summary>
+    /// Returns typed log entries for this algorithm.
+    /// </summary>
     public IReadOnlyList<IpoptLogLine> GetTypedLogLines()
     {
         using var rawEntries = get_log_entries();

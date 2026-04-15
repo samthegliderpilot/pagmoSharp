@@ -7,6 +7,9 @@ namespace pagmo;
 /// </summary>
 public partial class simulated_annealing : IAlgorithm
 {
+    /// <summary>
+    /// Represents a typed algorithm log entry projected from pagmo runtime data.
+    /// </summary>
     public readonly record struct SimulatedAnnealingLogLine(
         ulong FunctionEvaluations,
         double BestFitness,
@@ -18,6 +21,9 @@ public partial class simulated_annealing : IAlgorithm
         /// Uses pagmo-native semantics. See docs/api-reference.md for upstream links.
         /// </summary>
         public string AlgorithmName => "simulated_annealing";
+        /// <summary>
+        /// Gets a generic field map for algorithm-agnostic log processing.
+        /// </summary>
         public IReadOnlyDictionary<string, object> RawFields => new Dictionary<string, object>
         {
             ["function_evaluations"] = FunctionEvaluations,

@@ -8,6 +8,9 @@ namespace pagmo;
 /// </summary>
 public partial class nlopt : IAlgorithm
 {
+    /// <summary>
+    /// Represents a typed algorithm log entry projected from pagmo runtime data.
+    /// </summary>
     public readonly record struct NloptLogLine(
         ulong FunctionEvaluations,
         double Objective,
@@ -20,6 +23,9 @@ public partial class nlopt : IAlgorithm
         /// </summary>
         public string AlgorithmName => "nlopt";
 
+        /// <summary>
+        /// Gets a generic field map for algorithm-agnostic log processing.
+        /// </summary>
         public IReadOnlyDictionary<string, object> RawFields => new Dictionary<string, object>
         {
             ["function_evaluations"] = FunctionEvaluations,
@@ -53,6 +59,9 @@ public partial class nlopt : IAlgorithm
     /// </summary>
     public uint get_verbosity() => throw new NotSupportedException("nlopt does not expose get_verbosity in pagmo.");
 
+    /// <summary>
+    /// Returns typed log entries for this algorithm.
+    /// </summary>
     public IReadOnlyList<NloptLogLine> GetTypedLogLines()
     {
         using var rawEntries = get_log_entries();

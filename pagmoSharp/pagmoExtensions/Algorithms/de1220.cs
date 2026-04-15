@@ -7,6 +7,9 @@ namespace pagmo;
 /// </summary>
 public partial class de1220 : IAlgorithm
 {
+    /// <summary>
+    /// Represents a typed algorithm log entry projected from pagmo runtime data.
+    /// </summary>
     public readonly record struct De1220LogLine(
         uint Generation,
         ulong FunctionEvaluations,
@@ -21,6 +24,9 @@ public partial class de1220 : IAlgorithm
         /// Uses pagmo-native semantics. See docs/api-reference.md for upstream links.
         /// </summary>
         public string AlgorithmName => "de1220";
+        /// <summary>
+        /// Gets a generic field map for algorithm-agnostic log processing.
+        /// </summary>
         public IReadOnlyDictionary<string, object> RawFields => new Dictionary<string, object>
         {
             ["generation"] = Generation,

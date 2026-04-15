@@ -7,6 +7,9 @@ namespace pagmo;
 /// </summary>
 public partial class sade : IAlgorithm
 {
+    /// <summary>
+    /// Represents a typed algorithm log entry projected from pagmo runtime data.
+    /// </summary>
     public readonly record struct SadeLogLine(
         uint Generation,
         ulong FunctionEvaluations,
@@ -20,6 +23,9 @@ public partial class sade : IAlgorithm
         /// Uses pagmo-native semantics. See docs/api-reference.md for upstream links.
         /// </summary>
         public string AlgorithmName => "sade";
+        /// <summary>
+        /// Gets a generic field map for algorithm-agnostic log processing.
+        /// </summary>
         public IReadOnlyDictionary<string, object> RawFields => new Dictionary<string, object>
         {
             ["generation"] = Generation,

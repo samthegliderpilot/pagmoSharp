@@ -3,7 +3,7 @@ using System;
 namespace pagmo
 {
     /// <summary>
-    /// Represents struct .
+    /// Represents struct for SparsityIndex.
     /// </summary>
     public readonly record struct SparsityIndex(uint Row, uint Column);
 
@@ -55,6 +55,9 @@ namespace pagmo
     /// </summary>
     public partial class problem
     {
+        /// <summary>
+        /// Returns gradient sparsity entries projected to managed row/column pairs.
+        /// </summary>
         public SparsityIndex[] GetGradientSparsityEntries()
         {
             if (!has_gradient_sparsity())
@@ -86,6 +89,9 @@ namespace pagmo
     /// </summary>
     public partial class managed_problem
     {
+        /// <summary>
+        /// Returns gradient sparsity entries projected to managed row/column pairs.
+        /// </summary>
         public SparsityIndex[] GetGradientSparsityEntries()
         {
             if (!has_gradient_sparsity())
@@ -125,6 +131,9 @@ namespace pagmo
     /// </summary>
     public partial class minlp_rastrigin
     {
+        /// <summary>
+        /// Returns Hessian sparsity entries projected to managed row/column pairs.
+        /// </summary>
         public SparsityIndex[][] GetHessiansSparsityEntries()
         {
             var raw = hessians_sparsity();

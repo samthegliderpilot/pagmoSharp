@@ -97,7 +97,13 @@ namespace pagmo
         /// Invokes the corresponding pagmo API. See docs/api-reference.md for upstream links.
         /// </summary>
         public override string get_name() => _algorithm.get_name();
+        /// <summary>
+        /// Invokes the corresponding pagmo API. See docs/api-reference.md for upstream links.
+        /// </summary>
         public override string get_extra_info() => _algorithm.get_extra_info();
+        /// <summary>
+        /// Invokes the corresponding pagmo API. See docs/api-reference.md for upstream links.
+        /// </summary>
         public override thread_safety get_thread_safety() => thread_safety.basic;
 
         /// <summary>

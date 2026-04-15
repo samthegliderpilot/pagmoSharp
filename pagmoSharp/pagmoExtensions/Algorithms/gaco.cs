@@ -19,6 +19,9 @@ namespace pagmo
         /// </summary>
         public string AlgorithmName => "gaco";
 
+        /// <summary>
+        /// Gets a generic field map for algorithm-agnostic log processing.
+        /// </summary>
         public IReadOnlyDictionary<string, object> RawFields => new Dictionary<string, object>
         {
             ["generation"] = Generation,
@@ -42,6 +45,9 @@ namespace pagmo
     /// </summary>
     public partial class gaco : IAlgorithm
     {
+        /// <summary>
+        /// Returns typed log entries for this algorithm.
+        /// </summary>
         public IReadOnlyList<GacoLogLine> GetTypedLogLines()
         {
             using var rawEntries = get_log_entries();

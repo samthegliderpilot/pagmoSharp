@@ -7,6 +7,9 @@ namespace pagmo;
 /// </summary>
 public partial class translate : IProblem
 {
+    /// <summary>
+    /// Creates a translate wrapper from a managed problem and translation vector.
+    /// </summary>
     public static translate Create(IProblem innerProblem, DoubleVector translationVector)
     {
         if (innerProblem == null)

@@ -137,6 +137,20 @@ try {
     }
 
     if (-not $SkipManagedTests) {
+        Invoke-CheckedCommand -Name "Handwritten API docs gate ($DotnetConfiguration)" -Command {
+            & (Join-Path $repoRoot "scripts\check-handwritten-api-docs.ps1")
+            if ($LASTEXITCODE -ne 0) {
+                throw "check-handwritten-api-docs.ps1 failed ($LASTEXITCODE)."
+            }
+        }
+
+        Invoke-CheckedCommand -Name "Generated API docs gate ($DotnetConfiguration)" -Command {
+            & (Join-Path $repoRoot "scripts\check-generated-api-docs.ps1") -Configuration $DotnetConfiguration -Framework "net10.0"
+            if ($LASTEXITCODE -ne 0) {
+                throw "check-generated-api-docs.ps1 failed ($LASTEXITCODE)."
+            }
+        }
+
         $testArgs = @(
             "test",
             "Tests\Tests.PagmoSharp\Tests.PagmoSharp.csproj",

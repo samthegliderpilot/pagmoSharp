@@ -8,6 +8,9 @@ namespace pagmo
     /// </summary>
     public partial class DoubleVector
     {
+        /// <summary>
+        /// Creates a vector from managed `double` values.
+        /// </summary>
         public DoubleVector(params double[] values)
             : this((IEnumerable<double>)(values ?? throw new ArgumentNullException(nameof(values))))
         {

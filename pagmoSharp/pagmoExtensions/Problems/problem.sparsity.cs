@@ -5,6 +5,9 @@ namespace pagmo
     /// </summary>
     public partial class problem
     {
+        /// <summary>
+        /// Returns gradient sparsity in a managed wrapper container.
+        /// </summary>
         public SparsityPattern GradientSparsity()
         {
             var raw = gradient_sparsity();

@@ -8,6 +8,9 @@ namespace pagmo;
 /// </summary>
 public sealed class r_policy : r_policyPagmoWrapper
 {
+    /// <summary>
+    /// Creates an empty replacement-policy wrapper.
+    /// </summary>
     public r_policy()
     {
     }

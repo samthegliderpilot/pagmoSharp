@@ -28,6 +28,13 @@ For handwritten wrapper APIs (`pagmoExtensions/*`) we also enforce XML-doc cover
 powershell -ExecutionPolicy Bypass -File scripts/check-handwritten-api-docs.ps1
 ```
 
+For full consumer-visible coverage (all public types and all public/protected members),
+run the generated API docs coverage gate:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/check-generated-api-docs.ps1
+```
+
 ## Drift Guard
 
 Run the documented scenario smoke checks from repo root:

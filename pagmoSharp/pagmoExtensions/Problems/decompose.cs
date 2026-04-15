@@ -7,6 +7,9 @@ namespace pagmo;
 /// </summary>
 public partial class decompose : IProblem
 {
+    /// <summary>
+    /// Creates a decompose wrapper from a managed problem and decomposition parameters.
+    /// </summary>
     public static decompose Create(IProblem innerProblem, DoubleVector weight, DoubleVector z, string method = "weighted", bool adaptIdeal = false)
     {
         if (innerProblem == null)

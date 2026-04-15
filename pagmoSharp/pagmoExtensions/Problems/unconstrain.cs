@@ -7,6 +7,9 @@ namespace pagmo;
 /// </summary>
 public partial class unconstrain : IProblem
 {
+    /// <summary>
+    /// Creates an unconstrain wrapper from a managed problem and unconstraining method.
+    /// </summary>
     public static unconstrain Create(IProblem innerProblem, string method = "death penalty")
     {
         if (innerProblem == null)

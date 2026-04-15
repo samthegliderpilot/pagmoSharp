@@ -13,14 +13,15 @@ foreach ($file in $files) {
         if ($trim -notmatch '^(public|protected)\s+') { continue }
         if ($trim -match '^(public|protected)\s*(using|namespace)\b') { continue }
 
-        $hasDoc = $false
-        for ($k = 1; $k -le 3; $k++) {
-            if ($i - $k -lt 0) { continue }
-            if ($lines[$i - $k].Trim().StartsWith('///')) {
-                $hasDoc = $true
-                break
-            }
+        $k = $i - 1
+        while ($k -ge 0) {
+            $prevTrim = $lines[$k].Trim()
+            if ($prevTrim -eq '') { $k--; continue }
+            if ($prevTrim -match '^\[[^\]]+\]$') { $k--; continue }
+            break
         }
+
+        $hasDoc = $k -ge 0 -and $lines[$k].Trim().StartsWith('///')
 
         if (-not $hasDoc) {
             $relative = Resolve-Path -Relative $file.FullName

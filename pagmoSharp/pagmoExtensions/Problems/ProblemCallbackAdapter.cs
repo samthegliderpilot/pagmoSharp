@@ -78,25 +78,49 @@ namespace pagmo
         /// Invokes the corresponding pagmo API. See docs/api-reference.md for upstream links.
         /// </summary>
         public override PairOfDoubleVectors get_bounds() => _problem.get_bounds();
+        /// <summary>
+        /// Invokes the corresponding pagmo API. See docs/api-reference.md for upstream links.
+        /// </summary>
         public override string get_name() => _problem.get_name();
+        /// <summary>
+        /// Invokes the corresponding pagmo API. See docs/api-reference.md for upstream links.
+        /// </summary>
         public override string get_extra_info() => _problem.get_extra_info();
         /// <summary>
         /// Invokes the corresponding pagmo API. See docs/api-reference.md for upstream links.
         /// </summary>
         public override uint get_nobj() => _problem.get_nobj();
+        /// <summary>
+        /// Invokes the corresponding pagmo API. See docs/api-reference.md for upstream links.
+        /// </summary>
         public override uint get_nec() => _problem.get_nec();
+        /// <summary>
+        /// Invokes the corresponding pagmo API. See docs/api-reference.md for upstream links.
+        /// </summary>
         public override uint get_nic() => _problem.get_nic();
         /// <summary>
         /// Invokes the corresponding pagmo API. See docs/api-reference.md for upstream links.
         /// </summary>
         public override uint get_nix() => _problem.get_nix();
+        /// <summary>
+        /// Invokes the corresponding pagmo API. See docs/api-reference.md for upstream links.
+        /// </summary>
         public override bool has_batch_fitness() => _problem.has_batch_fitness();
+        /// <summary>
+        /// Invokes the corresponding pagmo API. See docs/api-reference.md for upstream links.
+        /// </summary>
         public override bool has_gradient() => _problem.has_gradient();
         /// <summary>
         /// Invokes the corresponding pagmo API. See docs/api-reference.md for upstream links.
         /// </summary>
         public override DoubleVector gradient(DoubleVector x) => _problem.gradient(x);
+        /// <summary>
+        /// Invokes the corresponding pagmo API. See docs/api-reference.md for upstream links.
+        /// </summary>
         public override bool has_gradient_sparsity() => _problem.has_gradient_sparsity();
+        /// <summary>
+        /// Invokes the corresponding pagmo API. See docs/api-reference.md for upstream links.
+        /// </summary>
         public override SWIGTYPE_p_std__vectorT_std__pairT_size_t_size_t_t_t gradient_sparsity()
         {
             var sparsity = _problem.gradient_sparsity();
@@ -107,7 +131,13 @@ namespace pagmo
         /// Invokes the corresponding pagmo API. See docs/api-reference.md for upstream links.
         /// </summary>
         public override bool has_hessians() => _problem.has_hessians();
+        /// <summary>
+        /// Invokes the corresponding pagmo API. See docs/api-reference.md for upstream links.
+        /// </summary>
         public override VectorOfVectorOfDoubles hessians(DoubleVector x) => _problem.hessians(x);
+        /// <summary>
+        /// Invokes the corresponding pagmo API. See docs/api-reference.md for upstream links.
+        /// </summary>
         public override bool has_hessians_sparsity() => _problem.has_hessians_sparsity();
         /// <summary>
         /// Invokes the corresponding pagmo API. See docs/api-reference.md for upstream links.
@@ -122,7 +152,13 @@ namespace pagmo
         /// Invokes the corresponding pagmo API. See docs/api-reference.md for upstream links.
         /// </summary>
         public override void set_seed(uint seed) => _problem.set_seed(seed);
+        /// <summary>
+        /// Invokes the corresponding pagmo API. See docs/api-reference.md for upstream links.
+        /// </summary>
         public override bool has_set_seed() => _problem.has_set_seed();
+        /// <summary>
+        /// Invokes the corresponding pagmo API. See docs/api-reference.md for upstream links.
+        /// </summary>
         public override thread_safety get_thread_safety() => _problem.get_thread_safety();
     }
 }
