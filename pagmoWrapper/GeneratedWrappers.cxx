@@ -4478,17 +4478,6 @@ SWIGINTERN std::vector< pagmoWrap::MigrationEntry > pagmo_archipelago_get_migrat
         return out;
     }
 
-#include <exception>
-struct wrapped_exception : std::exception {
-  wrapped_exception(const std::string& msg) : msg(msg) {}
-private:
-  virtual const char * what () const noexcept {
-    return msg.c_str();
-  }
-  std::string msg;
-};
-
-
 
 /* ---------------------------------------------------
  * C++ director class methods
@@ -5047,30 +5036,30 @@ SwigDirector_r_policyBase::~SwigDirector_r_policyBase() {
 }
 
 
-pagmoWrap::IndividualsGroup SwigDirector_r_policyBase::replace(pagmoWrap::IndividualsGroup const &a,pagmo::vector_double::size_type const &b,pagmo::vector_double::size_type const &c,pagmo::vector_double::size_type const &d,pagmo::vector_double::size_type const &e,pagmo::vector_double::size_type const &f,pagmo::vector_double const &g,pagmoWrap::IndividualsGroup const &h) const {
+pagmoWrap::IndividualsGroup SwigDirector_r_policyBase::replace(pagmoWrap::IndividualsGroup const &incoming,pagmo::vector_double::size_type const &n_f,pagmo::vector_double::size_type const &n_ec,pagmo::vector_double::size_type const &n_ic,pagmo::vector_double::size_type const &n_obj,pagmo::vector_double::size_type const &pop_size,pagmo::vector_double const &tol,pagmoWrap::IndividualsGroup const &current) const {
   pagmoWrap::IndividualsGroup c_result ;
   void * jresult = 0 ;
-  void * ja = 0 ;
-  unsigned int jb = 0 ;
-  unsigned int jc = 0 ;
-  unsigned int jd = 0 ;
-  unsigned int je = 0 ;
-  unsigned int jf = 0 ;
-  void * jg = 0 ;
-  void * jh = 0 ;
+  void * jincoming = 0 ;
+  unsigned int jn_f = 0 ;
+  unsigned int jn_ec = 0 ;
+  unsigned int jn_ic = 0 ;
+  unsigned int jn_obj = 0 ;
+  unsigned int jpop_size = 0 ;
+  void * jtol = 0 ;
+  void * jcurrent = 0 ;
   
   if (!swig_callbackreplace) {
-    return pagmoWrap::r_policyBase::replace(a,b,c,d,e,f,g,h);
+    return pagmoWrap::r_policyBase::replace(incoming,n_f,n_ec,n_ic,n_obj,pop_size,tol,current);
   } else {
-    ja = (pagmoWrap::IndividualsGroup *) &a; 
-    jb = (unsigned int)b;
-    jc = (unsigned int)c;
-    jd = (unsigned int)d;
-    je = (unsigned int)e;
-    jf = (unsigned int)f;
-    jg = (pagmo::vector_double *) &g; 
-    jh = (pagmoWrap::IndividualsGroup *) &h; 
-    jresult = (void *) swig_callbackreplace(ja, jb, jc, jd, je, jf, jg, jh);
+    jincoming = (pagmoWrap::IndividualsGroup *) &incoming; 
+    jn_f = (unsigned int)n_f;
+    jn_ec = (unsigned int)n_ec;
+    jn_ic = (unsigned int)n_ic;
+    jn_obj = (unsigned int)n_obj;
+    jpop_size = (unsigned int)pop_size;
+    jtol = (pagmo::vector_double *) &tol; 
+    jcurrent = (pagmoWrap::IndividualsGroup *) &current; 
+    jresult = (void *) swig_callbackreplace(jincoming, jn_f, jn_ec, jn_ic, jn_obj, jpop_size, jtol, jcurrent);
     if (!jresult) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "Unexpected null return for type pagmoWrap::IndividualsGroup", 0);
       return c_result;
@@ -5150,29 +5139,29 @@ SwigDirector_s_policyBase::~SwigDirector_s_policyBase() {
 }
 
 
-pagmoWrap::IndividualsGroup SwigDirector_s_policyBase::select(pagmoWrap::IndividualsGroup const &a,pagmo::vector_double::size_type const &b,pagmo::vector_double::size_type const &c,pagmo::vector_double::size_type const &d,pagmo::vector_double::size_type const &e,pagmo::vector_double::size_type const &f,pagmo::vector_double const &g) const {
+pagmoWrap::IndividualsGroup SwigDirector_s_policyBase::select(pagmoWrap::IndividualsGroup const &population,pagmo::vector_double::size_type const &n_f,pagmo::vector_double::size_type const &n_ec,pagmo::vector_double::size_type const &n_ic,pagmo::vector_double::size_type const &n_obj,pagmo::vector_double::size_type const &pop_size,pagmo::vector_double const &tol) const {
   pagmoWrap::IndividualsGroup c_result ;
   void * jresult = 0 ;
-  void * ja = 0 ;
-  unsigned int jb = 0 ;
-  unsigned int jc = 0 ;
-  unsigned int jd = 0 ;
-  unsigned int je = 0 ;
-  unsigned int jf = 0 ;
-  void * jg = 0 ;
+  void * jpopulation = 0 ;
+  unsigned int jn_f = 0 ;
+  unsigned int jn_ec = 0 ;
+  unsigned int jn_ic = 0 ;
+  unsigned int jn_obj = 0 ;
+  unsigned int jpop_size = 0 ;
+  void * jtol = 0 ;
   
   if (!swig_callbackselect) {
     Swig::DirectorPureVirtualException::raise("pagmoWrap::s_policyBase::select");
     return c_result;
   } else {
-    ja = (pagmoWrap::IndividualsGroup *) &a; 
-    jb = (unsigned int)b;
-    jc = (unsigned int)c;
-    jd = (unsigned int)d;
-    je = (unsigned int)e;
-    jf = (unsigned int)f;
-    jg = (pagmo::vector_double *) &g; 
-    jresult = (void *) swig_callbackselect(ja, jb, jc, jd, je, jf, jg);
+    jpopulation = (pagmoWrap::IndividualsGroup *) &population; 
+    jn_f = (unsigned int)n_f;
+    jn_ec = (unsigned int)n_ec;
+    jn_ic = (unsigned int)n_ic;
+    jn_obj = (unsigned int)n_obj;
+    jpop_size = (unsigned int)pop_size;
+    jtol = (pagmo::vector_double *) &tol; 
+    jresult = (void *) swig_callbackselect(jpopulation, jn_f, jn_ec, jn_ic, jn_obj, jpop_size, jtol);
     if (!jresult) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "Unexpected null return for type pagmoWrap::IndividualsGroup", 0);
       return c_result;
@@ -12567,7 +12556,7 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_r_policyPagmoWrapper_getBasePolicy(vo
   arg1 = (pagmoWrap::r_policyPagmoWrapper *)jarg1; 
   {
     try {
-      result = (pagmoWrap::r_policyBase *)(arg1)->getBasePolicy();
+      result = (pagmoWrap::r_policyBase *)((pagmoWrap::r_policyPagmoWrapper const *)arg1)->getBasePolicy();
     } catch (const std::exception &e) {
       {
         SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
@@ -12978,6 +12967,26 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_s_policyPagmoWrapper__SWIG_2(void
 }
 
 
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_delete_s_policyPagmoWrapper(void * jarg1) {
+  pagmoWrap::s_policyPagmoWrapper *arg1 = 0 ;
+  
+  arg1 = (pagmoWrap::s_policyPagmoWrapper *)jarg1; 
+  {
+    try {
+      delete arg1;
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return ; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return ; 
+      };
+    }
+  }
+}
+
+
 SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_s_policyPagmoWrapper_setBasePolicy(void * jarg1, void * jarg2) {
   pagmoWrap::s_policyPagmoWrapper *arg1 = 0 ;
   pagmoWrap::s_policyBase *arg2 = 0 ;
@@ -13008,7 +13017,7 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_s_policyPagmoWrapper_getBasePolicy(vo
   arg1 = (pagmoWrap::s_policyPagmoWrapper *)jarg1; 
   {
     try {
-      result = (pagmoWrap::s_policyBase *)(arg1)->getBasePolicy();
+      result = (pagmoWrap::s_policyBase *)((pagmoWrap::s_policyPagmoWrapper const *)arg1)->getBasePolicy();
     } catch (const std::exception &e) {
       {
         SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
@@ -13093,26 +13102,6 @@ SWIGEXPORT unsigned int SWIGSTDCALL CSharp_pagmo_s_policyPagmoWrapper_is_valid(v
   }
   jresult = result; 
   return jresult;
-}
-
-
-SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_delete_s_policyPagmoWrapper(void * jarg1) {
-  pagmoWrap::s_policyPagmoWrapper *arg1 = 0 ;
-  
-  arg1 = (pagmoWrap::s_policyPagmoWrapper *)jarg1; 
-  {
-    try {
-      delete arg1;
-    } catch (const std::exception &e) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return ; 
-      };
-    } catch (...) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return ; 
-      };
-    }
-  }
 }
 
 
@@ -17927,7 +17916,7 @@ SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_delete_ULongLongVector(void * jarg1) {
 }
 
 
-SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_VectorOfVectorIndexes__SWIG_0() {
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_VectorOfVectorOfIndices__SWIG_0() {
   void * jresult ;
   std::vector< std::vector< unsigned long long > > *result = 0 ;
   
@@ -17949,7 +17938,7 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_VectorOfVectorIndexes__SWIG_0() {
 }
 
 
-SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_VectorOfVectorIndexes__SWIG_1(void * jarg1) {
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_VectorOfVectorOfIndices__SWIG_1(void * jarg1) {
   void * jresult ;
   std::vector< std::vector< unsigned long long > > *arg1 = 0 ;
   std::vector< std::vector< unsigned long long > > *result = 0 ;
@@ -17977,7 +17966,7 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_VectorOfVectorIndexes__SWIG_1(voi
 }
 
 
-SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_VectorOfVectorIndexes_Clear(void * jarg1) {
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_VectorOfVectorOfIndices_Clear(void * jarg1) {
   std::vector< std::vector< unsigned long long > > *arg1 = 0 ;
   
   arg1 = (std::vector< std::vector< unsigned long long > > *)jarg1; 
@@ -17997,7 +17986,7 @@ SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_VectorOfVectorIndexes_Clear(void * jarg
 }
 
 
-SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_VectorOfVectorIndexes_Add(void * jarg1, void * jarg2) {
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_VectorOfVectorOfIndices_Add(void * jarg1, void * jarg2) {
   std::vector< std::vector< unsigned long long > > *arg1 = 0 ;
   std::vector< unsigned long long > *arg2 = 0 ;
   
@@ -18023,7 +18012,7 @@ SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_VectorOfVectorIndexes_Add(void * jarg1,
 }
 
 
-SWIGEXPORT unsigned int SWIGSTDCALL CSharp_pagmo_VectorOfVectorIndexes_size(void * jarg1) {
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_pagmo_VectorOfVectorOfIndices_size(void * jarg1) {
   unsigned int jresult ;
   std::vector< std::vector< unsigned long long > > *arg1 = 0 ;
   std::vector< std::vector< unsigned long long > >::size_type result;
@@ -18047,7 +18036,7 @@ SWIGEXPORT unsigned int SWIGSTDCALL CSharp_pagmo_VectorOfVectorIndexes_size(void
 }
 
 
-SWIGEXPORT unsigned int SWIGSTDCALL CSharp_pagmo_VectorOfVectorIndexes_empty(void * jarg1) {
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_pagmo_VectorOfVectorOfIndices_empty(void * jarg1) {
   unsigned int jresult ;
   std::vector< std::vector< unsigned long long > > *arg1 = 0 ;
   bool result;
@@ -18071,7 +18060,7 @@ SWIGEXPORT unsigned int SWIGSTDCALL CSharp_pagmo_VectorOfVectorIndexes_empty(voi
 }
 
 
-SWIGEXPORT unsigned int SWIGSTDCALL CSharp_pagmo_VectorOfVectorIndexes_capacity(void * jarg1) {
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_pagmo_VectorOfVectorOfIndices_capacity(void * jarg1) {
   unsigned int jresult ;
   std::vector< std::vector< unsigned long long > > *arg1 = 0 ;
   std::vector< std::vector< unsigned long long > >::size_type result;
@@ -18095,7 +18084,7 @@ SWIGEXPORT unsigned int SWIGSTDCALL CSharp_pagmo_VectorOfVectorIndexes_capacity(
 }
 
 
-SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_VectorOfVectorIndexes_reserve(void * jarg1, unsigned int jarg2) {
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_VectorOfVectorOfIndices_reserve(void * jarg1, unsigned int jarg2) {
   std::vector< std::vector< unsigned long long > > *arg1 = 0 ;
   std::vector< std::vector< unsigned long long > >::size_type arg2 ;
   
@@ -18117,7 +18106,7 @@ SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_VectorOfVectorIndexes_reserve(void * ja
 }
 
 
-SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_VectorOfVectorIndexes__SWIG_2(int jarg1) {
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_VectorOfVectorOfIndices__SWIG_2(int jarg1) {
   void * jresult ;
   int arg1 ;
   std::vector< std::vector< unsigned long long > > *result = 0 ;
@@ -18146,7 +18135,7 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_VectorOfVectorIndexes__SWIG_2(int
 }
 
 
-SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_VectorOfVectorIndexes_getitemcopy(void * jarg1, int jarg2) {
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_VectorOfVectorOfIndices_getitemcopy(void * jarg1, int jarg2) {
   void * jresult ;
   std::vector< std::vector< unsigned long long > > *arg1 = 0 ;
   int arg2 ;
@@ -18177,7 +18166,7 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_VectorOfVectorIndexes_getitemcopy(voi
 }
 
 
-SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_VectorOfVectorIndexes_getitem(void * jarg1, int jarg2) {
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_VectorOfVectorOfIndices_getitem(void * jarg1, int jarg2) {
   void * jresult ;
   std::vector< std::vector< unsigned long long > > *arg1 = 0 ;
   int arg2 ;
@@ -18208,7 +18197,7 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_VectorOfVectorIndexes_getitem(void * 
 }
 
 
-SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_VectorOfVectorIndexes_setitem(void * jarg1, int jarg2, void * jarg3) {
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_VectorOfVectorOfIndices_setitem(void * jarg1, int jarg2, void * jarg3) {
   std::vector< std::vector< unsigned long long > > *arg1 = 0 ;
   int arg2 ;
   std::vector< unsigned long long > *arg3 = 0 ;
@@ -18241,7 +18230,7 @@ SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_VectorOfVectorIndexes_setitem(void * ja
 }
 
 
-SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_VectorOfVectorIndexes_AddRange(void * jarg1, void * jarg2) {
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_VectorOfVectorOfIndices_AddRange(void * jarg1, void * jarg2) {
   std::vector< std::vector< unsigned long long > > *arg1 = 0 ;
   std::vector< std::vector< unsigned long long > > *arg2 = 0 ;
   
@@ -18267,7 +18256,7 @@ SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_VectorOfVectorIndexes_AddRange(void * j
 }
 
 
-SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_VectorOfVectorIndexes_GetRange(void * jarg1, int jarg2, int jarg3) {
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_VectorOfVectorOfIndices_GetRange(void * jarg1, int jarg2, int jarg3) {
   void * jresult ;
   std::vector< std::vector< unsigned long long > > *arg1 = 0 ;
   int arg2 ;
@@ -18303,7 +18292,7 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_VectorOfVectorIndexes_GetRange(void *
 }
 
 
-SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_VectorOfVectorIndexes_Insert(void * jarg1, int jarg2, void * jarg3) {
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_VectorOfVectorOfIndices_Insert(void * jarg1, int jarg2, void * jarg3) {
   std::vector< std::vector< unsigned long long > > *arg1 = 0 ;
   int arg2 ;
   std::vector< unsigned long long > *arg3 = 0 ;
@@ -18336,7 +18325,7 @@ SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_VectorOfVectorIndexes_Insert(void * jar
 }
 
 
-SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_VectorOfVectorIndexes_InsertRange(void * jarg1, int jarg2, void * jarg3) {
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_VectorOfVectorOfIndices_InsertRange(void * jarg1, int jarg2, void * jarg3) {
   std::vector< std::vector< unsigned long long > > *arg1 = 0 ;
   int arg2 ;
   std::vector< std::vector< unsigned long long > > *arg3 = 0 ;
@@ -18369,7 +18358,7 @@ SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_VectorOfVectorIndexes_InsertRange(void 
 }
 
 
-SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_VectorOfVectorIndexes_RemoveAt(void * jarg1, int jarg2) {
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_VectorOfVectorOfIndices_RemoveAt(void * jarg1, int jarg2) {
   std::vector< std::vector< unsigned long long > > *arg1 = 0 ;
   int arg2 ;
   
@@ -18396,7 +18385,7 @@ SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_VectorOfVectorIndexes_RemoveAt(void * j
 }
 
 
-SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_VectorOfVectorIndexes_RemoveRange(void * jarg1, int jarg2, int jarg3) {
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_VectorOfVectorOfIndices_RemoveRange(void * jarg1, int jarg2, int jarg3) {
   std::vector< std::vector< unsigned long long > > *arg1 = 0 ;
   int arg2 ;
   int arg3 ;
@@ -18428,7 +18417,7 @@ SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_VectorOfVectorIndexes_RemoveRange(void 
 }
 
 
-SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_VectorOfVectorIndexes_Repeat(void * jarg1, int jarg2) {
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_VectorOfVectorOfIndices_Repeat(void * jarg1, int jarg2) {
   void * jresult ;
   std::vector< unsigned long long > *arg1 = 0 ;
   int arg2 ;
@@ -18463,7 +18452,7 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_VectorOfVectorIndexes_Repeat(void * j
 }
 
 
-SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_VectorOfVectorIndexes_Reverse__SWIG_0(void * jarg1) {
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_VectorOfVectorOfIndices_Reverse__SWIG_0(void * jarg1) {
   std::vector< std::vector< unsigned long long > > *arg1 = 0 ;
   
   arg1 = (std::vector< std::vector< unsigned long long > > *)jarg1; 
@@ -18483,7 +18472,7 @@ SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_VectorOfVectorIndexes_Reverse__SWIG_0(v
 }
 
 
-SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_VectorOfVectorIndexes_Reverse__SWIG_1(void * jarg1, int jarg2, int jarg3) {
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_VectorOfVectorOfIndices_Reverse__SWIG_1(void * jarg1, int jarg2, int jarg3) {
   std::vector< std::vector< unsigned long long > > *arg1 = 0 ;
   int arg2 ;
   int arg3 ;
@@ -18515,7 +18504,7 @@ SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_VectorOfVectorIndexes_Reverse__SWIG_1(v
 }
 
 
-SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_VectorOfVectorIndexes_SetRange(void * jarg1, int jarg2, void * jarg3) {
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_VectorOfVectorOfIndices_SetRange(void * jarg1, int jarg2, void * jarg3) {
   std::vector< std::vector< unsigned long long > > *arg1 = 0 ;
   int arg2 ;
   std::vector< std::vector< unsigned long long > > *arg3 = 0 ;
@@ -18548,7 +18537,7 @@ SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_VectorOfVectorIndexes_SetRange(void * j
 }
 
 
-SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_delete_VectorOfVectorIndexes(void * jarg1) {
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_delete_VectorOfVectorOfIndices(void * jarg1) {
   std::vector< std::vector< unsigned long long > > *arg1 = 0 ;
   
   arg1 = (std::vector< std::vector< unsigned long long > > *)jarg1; 

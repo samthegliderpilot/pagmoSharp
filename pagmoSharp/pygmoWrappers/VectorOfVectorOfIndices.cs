@@ -10,21 +10,21 @@
 
 namespace pagmo {
 
-public class VectorOfVectorIndexes : global::System.IDisposable, global::System.Collections.IEnumerable, global::System.Collections.Generic.IEnumerable<ULongLongVector>
+public class VectorOfVectorOfIndices : global::System.IDisposable, global::System.Collections.IEnumerable, global::System.Collections.Generic.IEnumerable<ULongLongVector>
  {
   private global::System.Runtime.InteropServices.HandleRef swigCPtr;
   protected bool swigCMemOwn;
 
-  internal VectorOfVectorIndexes(global::System.IntPtr cPtr, bool cMemoryOwn) {
+  internal VectorOfVectorOfIndices(global::System.IntPtr cPtr, bool cMemoryOwn) {
     swigCMemOwn = cMemoryOwn;
     swigCPtr = new global::System.Runtime.InteropServices.HandleRef(this, cPtr);
   }
 
-  internal static global::System.Runtime.InteropServices.HandleRef getCPtr(VectorOfVectorIndexes obj) {
+  internal static global::System.Runtime.InteropServices.HandleRef getCPtr(VectorOfVectorOfIndices obj) {
     return (obj == null) ? new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero) : obj.swigCPtr;
   }
 
-  internal static global::System.Runtime.InteropServices.HandleRef swigRelease(VectorOfVectorIndexes obj) {
+  internal static global::System.Runtime.InteropServices.HandleRef swigRelease(VectorOfVectorOfIndices obj) {
     if (obj != null) {
       if (!obj.swigCMemOwn)
         throw new global::System.ApplicationException("Cannot release ownership as memory is not owned");
@@ -37,7 +37,7 @@ public class VectorOfVectorIndexes : global::System.IDisposable, global::System.
     }
   }
 
-  ~VectorOfVectorIndexes() {
+  ~VectorOfVectorOfIndices() {
     Dispose(false);
   }
 
@@ -51,14 +51,14 @@ public class VectorOfVectorIndexes : global::System.IDisposable, global::System.
       if (swigCPtr.Handle != global::System.IntPtr.Zero) {
         if (swigCMemOwn) {
           swigCMemOwn = false;
-          pagmoPINVOKE.delete_VectorOfVectorIndexes(swigCPtr);
+          pagmoPINVOKE.delete_VectorOfVectorOfIndices(swigCPtr);
         }
         swigCPtr = new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero);
       }
     }
   }
 
-  public VectorOfVectorIndexes(global::System.Collections.IEnumerable c) : this() {
+  public VectorOfVectorOfIndices(global::System.Collections.IEnumerable c) : this() {
     if (c == null)
       throw new global::System.ArgumentNullException("c");
     foreach (ULongLongVector element in c) {
@@ -66,7 +66,7 @@ public class VectorOfVectorIndexes : global::System.IDisposable, global::System.
     }
   }
 
-  public VectorOfVectorIndexes(global::System.Collections.Generic.IEnumerable<ULongLongVector> c) : this() {
+  public VectorOfVectorOfIndices(global::System.Collections.Generic.IEnumerable<ULongLongVector> c) : this() {
     if (c == null)
       throw new global::System.ArgumentNullException("c");
     foreach (ULongLongVector element in c) {
@@ -159,15 +159,15 @@ public class VectorOfVectorIndexes : global::System.IDisposable, global::System.
   }
 
   global::System.Collections.Generic.IEnumerator<ULongLongVector> global::System.Collections.Generic.IEnumerable<ULongLongVector>.GetEnumerator() {
-    return new VectorOfVectorIndexesEnumerator(this);
+    return new VectorOfVectorOfIndicesEnumerator(this);
   }
 
   global::System.Collections.IEnumerator global::System.Collections.IEnumerable.GetEnumerator() {
-    return new VectorOfVectorIndexesEnumerator(this);
+    return new VectorOfVectorOfIndicesEnumerator(this);
   }
 
-  public VectorOfVectorIndexesEnumerator GetEnumerator() {
-    return new VectorOfVectorIndexesEnumerator(this);
+  public VectorOfVectorOfIndicesEnumerator GetEnumerator() {
+    return new VectorOfVectorOfIndicesEnumerator(this);
   }
 
   // Type-safe enumerator
@@ -175,15 +175,15 @@ public class VectorOfVectorIndexes : global::System.IDisposable, global::System.
   /// whenever the collection is modified. This has been done for changes in the size of the
   /// collection but not when one of the elements of the collection is modified as it is a bit
   /// tricky to detect unmanaged code that modifies the collection under our feet.
-  public sealed class VectorOfVectorIndexesEnumerator : global::System.Collections.IEnumerator
+  public sealed class VectorOfVectorOfIndicesEnumerator : global::System.Collections.IEnumerator
     , global::System.Collections.Generic.IEnumerator<ULongLongVector>
   {
-    private VectorOfVectorIndexes collectionRef;
+    private VectorOfVectorOfIndices collectionRef;
     private int currentIndex;
     private object currentObject;
     private int currentSize;
 
-    public VectorOfVectorIndexesEnumerator(VectorOfVectorIndexes collection) {
+    public VectorOfVectorOfIndicesEnumerator(VectorOfVectorOfIndices collection) {
       collectionRef = collection;
       currentIndex = -1;
       currentObject = null;
@@ -236,119 +236,119 @@ public class VectorOfVectorIndexes : global::System.IDisposable, global::System.
     }
   }
 
-  public VectorOfVectorIndexes() : this(pagmoPINVOKE.new_VectorOfVectorIndexes__SWIG_0(), true) {
+  public VectorOfVectorOfIndices() : this(pagmoPINVOKE.new_VectorOfVectorOfIndices__SWIG_0(), true) {
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
-  public VectorOfVectorIndexes(VectorOfVectorIndexes other) : this(pagmoPINVOKE.new_VectorOfVectorIndexes__SWIG_1(VectorOfVectorIndexes.getCPtr(other)), true) {
+  public VectorOfVectorOfIndices(VectorOfVectorOfIndices other) : this(pagmoPINVOKE.new_VectorOfVectorOfIndices__SWIG_1(VectorOfVectorOfIndices.getCPtr(other)), true) {
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public void Clear() {
-    pagmoPINVOKE.VectorOfVectorIndexes_Clear(swigCPtr);
+    pagmoPINVOKE.VectorOfVectorOfIndices_Clear(swigCPtr);
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public void Add(ULongLongVector x) {
-    pagmoPINVOKE.VectorOfVectorIndexes_Add(swigCPtr, ULongLongVector.getCPtr(x));
+    pagmoPINVOKE.VectorOfVectorOfIndices_Add(swigCPtr, ULongLongVector.getCPtr(x));
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   private uint size() {
-    uint ret = pagmoPINVOKE.VectorOfVectorIndexes_size(swigCPtr);
+    uint ret = pagmoPINVOKE.VectorOfVectorOfIndices_size(swigCPtr);
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   private bool empty() {
-    bool ret = pagmoPINVOKE.VectorOfVectorIndexes_empty(swigCPtr);
+    bool ret = pagmoPINVOKE.VectorOfVectorOfIndices_empty(swigCPtr);
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   private uint capacity() {
-    uint ret = pagmoPINVOKE.VectorOfVectorIndexes_capacity(swigCPtr);
+    uint ret = pagmoPINVOKE.VectorOfVectorOfIndices_capacity(swigCPtr);
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   private void reserve(uint n) {
-    pagmoPINVOKE.VectorOfVectorIndexes_reserve(swigCPtr, n);
+    pagmoPINVOKE.VectorOfVectorOfIndices_reserve(swigCPtr, n);
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
-  public VectorOfVectorIndexes(int capacity) : this(pagmoPINVOKE.new_VectorOfVectorIndexes__SWIG_2(capacity), true) {
+  public VectorOfVectorOfIndices(int capacity) : this(pagmoPINVOKE.new_VectorOfVectorOfIndices__SWIG_2(capacity), true) {
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   private ULongLongVector getitemcopy(int index) {
-    ULongLongVector ret = new ULongLongVector(pagmoPINVOKE.VectorOfVectorIndexes_getitemcopy(swigCPtr, index), true);
+    ULongLongVector ret = new ULongLongVector(pagmoPINVOKE.VectorOfVectorOfIndices_getitemcopy(swigCPtr, index), true);
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   private ULongLongVector getitem(int index) {
-    ULongLongVector ret = new ULongLongVector(pagmoPINVOKE.VectorOfVectorIndexes_getitem(swigCPtr, index), false);
+    ULongLongVector ret = new ULongLongVector(pagmoPINVOKE.VectorOfVectorOfIndices_getitem(swigCPtr, index), false);
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   private void setitem(int index, ULongLongVector val) {
-    pagmoPINVOKE.VectorOfVectorIndexes_setitem(swigCPtr, index, ULongLongVector.getCPtr(val));
+    pagmoPINVOKE.VectorOfVectorOfIndices_setitem(swigCPtr, index, ULongLongVector.getCPtr(val));
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
-  public void AddRange(VectorOfVectorIndexes values) {
-    pagmoPINVOKE.VectorOfVectorIndexes_AddRange(swigCPtr, VectorOfVectorIndexes.getCPtr(values));
+  public void AddRange(VectorOfVectorOfIndices values) {
+    pagmoPINVOKE.VectorOfVectorOfIndices_AddRange(swigCPtr, VectorOfVectorOfIndices.getCPtr(values));
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
-  public VectorOfVectorIndexes GetRange(int index, int count) {
-    global::System.IntPtr cPtr = pagmoPINVOKE.VectorOfVectorIndexes_GetRange(swigCPtr, index, count);
-    VectorOfVectorIndexes ret = (cPtr == global::System.IntPtr.Zero) ? null : new VectorOfVectorIndexes(cPtr, true);
+  public VectorOfVectorOfIndices GetRange(int index, int count) {
+    global::System.IntPtr cPtr = pagmoPINVOKE.VectorOfVectorOfIndices_GetRange(swigCPtr, index, count);
+    VectorOfVectorOfIndices ret = (cPtr == global::System.IntPtr.Zero) ? null : new VectorOfVectorOfIndices(cPtr, true);
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public void Insert(int index, ULongLongVector x) {
-    pagmoPINVOKE.VectorOfVectorIndexes_Insert(swigCPtr, index, ULongLongVector.getCPtr(x));
+    pagmoPINVOKE.VectorOfVectorOfIndices_Insert(swigCPtr, index, ULongLongVector.getCPtr(x));
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
-  public void InsertRange(int index, VectorOfVectorIndexes values) {
-    pagmoPINVOKE.VectorOfVectorIndexes_InsertRange(swigCPtr, index, VectorOfVectorIndexes.getCPtr(values));
+  public void InsertRange(int index, VectorOfVectorOfIndices values) {
+    pagmoPINVOKE.VectorOfVectorOfIndices_InsertRange(swigCPtr, index, VectorOfVectorOfIndices.getCPtr(values));
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public void RemoveAt(int index) {
-    pagmoPINVOKE.VectorOfVectorIndexes_RemoveAt(swigCPtr, index);
+    pagmoPINVOKE.VectorOfVectorOfIndices_RemoveAt(swigCPtr, index);
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public void RemoveRange(int index, int count) {
-    pagmoPINVOKE.VectorOfVectorIndexes_RemoveRange(swigCPtr, index, count);
+    pagmoPINVOKE.VectorOfVectorOfIndices_RemoveRange(swigCPtr, index, count);
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
-  public static VectorOfVectorIndexes Repeat(ULongLongVector value, int count) {
-    global::System.IntPtr cPtr = pagmoPINVOKE.VectorOfVectorIndexes_Repeat(ULongLongVector.getCPtr(value), count);
-    VectorOfVectorIndexes ret = (cPtr == global::System.IntPtr.Zero) ? null : new VectorOfVectorIndexes(cPtr, true);
+  public static VectorOfVectorOfIndices Repeat(ULongLongVector value, int count) {
+    global::System.IntPtr cPtr = pagmoPINVOKE.VectorOfVectorOfIndices_Repeat(ULongLongVector.getCPtr(value), count);
+    VectorOfVectorOfIndices ret = (cPtr == global::System.IntPtr.Zero) ? null : new VectorOfVectorOfIndices(cPtr, true);
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public void Reverse() {
-    pagmoPINVOKE.VectorOfVectorIndexes_Reverse__SWIG_0(swigCPtr);
+    pagmoPINVOKE.VectorOfVectorOfIndices_Reverse__SWIG_0(swigCPtr);
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public void Reverse(int index, int count) {
-    pagmoPINVOKE.VectorOfVectorIndexes_Reverse__SWIG_1(swigCPtr, index, count);
+    pagmoPINVOKE.VectorOfVectorOfIndices_Reverse__SWIG_1(swigCPtr, index, count);
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
-  public void SetRange(int index, VectorOfVectorIndexes values) {
-    pagmoPINVOKE.VectorOfVectorIndexes_SetRange(swigCPtr, index, VectorOfVectorIndexes.getCPtr(values));
+  public void SetRange(int index, VectorOfVectorOfIndices values) {
+    pagmoPINVOKE.VectorOfVectorOfIndices_SetRange(swigCPtr, index, VectorOfVectorOfIndices.getCPtr(values));
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 

@@ -20,4 +20,4 @@ copyout.txt
 copyerr.txt
 scratch/
 .vcpkg-buildtrees/
-
+.claude

@@ -128,7 +128,7 @@ class SwigDirector_r_policyBase : public pagmoWrap::r_policyBase, public Swig::D
 public:
     SwigDirector_r_policyBase();
     virtual ~SwigDirector_r_policyBase();
-    virtual pagmoWrap::IndividualsGroup replace(pagmoWrap::IndividualsGroup const &a,pagmo::vector_double::size_type const &b,pagmo::vector_double::size_type const &c,pagmo::vector_double::size_type const &d,pagmo::vector_double::size_type const &e,pagmo::vector_double::size_type const &f,pagmo::vector_double const &g,pagmoWrap::IndividualsGroup const &h) const;
+    virtual pagmoWrap::IndividualsGroup replace(pagmoWrap::IndividualsGroup const &incoming,pagmo::vector_double::size_type const &n_f,pagmo::vector_double::size_type const &n_ec,pagmo::vector_double::size_type const &n_ic,pagmo::vector_double::size_type const &n_obj,pagmo::vector_double::size_type const &pop_size,pagmo::vector_double const &tol,pagmoWrap::IndividualsGroup const &current) const;
     virtual std::string get_name() const;
     virtual std::string get_extra_info() const;
     virtual bool is_valid() const;
@@ -152,7 +152,7 @@ class SwigDirector_s_policyBase : public pagmoWrap::s_policyBase, public Swig::D
 public:
     SwigDirector_s_policyBase();
     virtual ~SwigDirector_s_policyBase();
-    virtual pagmoWrap::IndividualsGroup select(pagmoWrap::IndividualsGroup const &a,pagmo::vector_double::size_type const &b,pagmo::vector_double::size_type const &c,pagmo::vector_double::size_type const &d,pagmo::vector_double::size_type const &e,pagmo::vector_double::size_type const &f,pagmo::vector_double const &g) const;
+    virtual pagmoWrap::IndividualsGroup select(pagmoWrap::IndividualsGroup const &population,pagmo::vector_double::size_type const &n_f,pagmo::vector_double::size_type const &n_ec,pagmo::vector_double::size_type const &n_ic,pagmo::vector_double::size_type const &n_obj,pagmo::vector_double::size_type const &pop_size,pagmo::vector_double const &tol) const;
     virtual std::string get_name() const;
     virtual std::string get_extra_info() const;
     virtual bool is_valid() const;

@@ -57,8 +57,8 @@ public class s_policyBase : global::System.IDisposable {
     }
   }
 
-  public virtual IndividualsGroup select(IndividualsGroup a, uint b, uint c, uint d, uint e, uint f, DoubleVector g) {
-    IndividualsGroup ret = new IndividualsGroup(pagmoPINVOKE.s_policyBase_select(swigCPtr, IndividualsGroup.getCPtr(a), b, c, d, e, f, DoubleVector.getCPtr(g)), true);
+  public virtual IndividualsGroup select(IndividualsGroup population, uint n_f, uint n_ec, uint n_ic, uint n_obj, uint pop_size, DoubleVector tol) {
+    IndividualsGroup ret = new IndividualsGroup(pagmoPINVOKE.s_policyBase_select(swigCPtr, IndividualsGroup.getCPtr(population), n_f, n_ec, n_ic, n_obj, pop_size, DoubleVector.getCPtr(tol)), true);
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
@@ -132,8 +132,8 @@ public class s_policyBase : global::System.IDisposable {
     return false;
   }
 
-  private global::System.IntPtr SwigDirectorMethodselect(global::System.IntPtr a, uint b, uint c, uint d, uint e, uint f, global::System.IntPtr g) {
-    return IndividualsGroup.getCPtr(select(new IndividualsGroup(a, false), b, c, d, e, f, new DoubleVector(g, false))).Handle;
+  private global::System.IntPtr SwigDirectorMethodselect(global::System.IntPtr population, uint n_f, uint n_ec, uint n_ic, uint n_obj, uint pop_size, global::System.IntPtr tol) {
+    return IndividualsGroup.getCPtr(select(new IndividualsGroup(population, false), n_f, n_ec, n_ic, n_obj, pop_size, new DoubleVector(tol, false))).Handle;
   }
 
   private string SwigDirectorMethodget_name() {
@@ -148,7 +148,7 @@ public class s_policyBase : global::System.IDisposable {
     return is_valid();
   }
 
-  public delegate global::System.IntPtr SwigDelegates_policyBase_0(global::System.IntPtr a, uint b, uint c, uint d, uint e, uint f, global::System.IntPtr g);
+  public delegate global::System.IntPtr SwigDelegates_policyBase_0(global::System.IntPtr population, uint n_f, uint n_ec, uint n_ic, uint n_obj, uint pop_size, global::System.IntPtr tol);
   public delegate string SwigDelegates_policyBase_1();
   public delegate string SwigDelegates_policyBase_2();
   public delegate bool SwigDelegates_policyBase_3();

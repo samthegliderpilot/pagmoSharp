@@ -1,196 +1,111 @@
-﻿#pragma once
+#pragma once
 
-#include <cassert>
-#include <iostream>
 #include <memory>
+#include <stdexcept>
 #include <string>
-#include <type_traits>
-#include <typeindex>
-#include <typeinfo>
-#include <utility>
 
-#include <boost/type_traits/integral_constant.hpp>
-
-#include <pagmo/config.hpp>
 #include <pagmo/r_policy.hpp>
-#include <pagmo/detail/support_xeus_cling.hpp>
-#include <pagmo/detail/type_name.hpp>
-#include <pagmo/detail/typeid_name_extract.hpp>
-#include <pagmo/detail/visibility.hpp>
-#include <pagmo/type_traits.hpp>
 #include <pagmo/types.hpp>
-#include <tuple>
+
 #include "tuple_adapters.h"
 
 namespace pagmoWrap
 {
+    /// <summary>
+    /// Director interface for managed C# replacement-policy implementations.
+    /// C# subclasses override replace() and optionally get_name()/get_extra_info().
+    /// </summary>
     class r_policyBase
     {
-        //template <typename T>
-        //using generic_ctor_enabler = pagmo::enable_if_t<
-        //    detail::conjunction<detail::negation<std::is_same<pagmo::r_policy, pagmo::uncvref_t<T>>>, pagmo::is_udrp<pagmo::uncvref_t<T>>>::value, int>;
-        //// Implementation of the generic ctor.
-        //void generic_ctor_impl();
-
     public:
-        virtual ~r_policyBase() {}
+        virtual ~r_policyBase() = default;
 
-        //// Copy constructor.
-        //r_policy(const r_policy&);
-        //// Move constructor.
-        //r_policy(r_policy&&) noexcept;
-        //// Move assignment operator
-        //r_policy& operator=(r_policy&&) noexcept;
-        //// Copy assignment operator
-        //r_policy& operator=(const r_policy&);
-        //// Assignment from a UDRP.
-        //template <typename T, generic_ctor_enabler<T> = 0>
-        //r_policy& operator=(T&& x)
-        //{
-        //    return (*this) = r_policy(std::forward<T>(x));
-        //}
-
-        // Extraction and related.
-        //template <typename T>
-        //virtual const T* extract() const noexcept
-        //{
-        //    return (T*)null;
-
-        //}
-        /*template <typename T>
-        T* extract() noexcept
-        {
-
-        }*/
-        //template <typename T>
-        //bool is() const noexcept
-        //{
-        //    return extract<T>() != nullptr;
-        //}
-
-        // Replace.
+        /// <summary>
+        /// Selects individuals from the incoming group to replace into the island population.
+        /// The default pass-through returns the incoming group unchanged.
+        /// </summary>
         virtual pagmoWrap::IndividualsGroup replace(
-            const pagmoWrap::IndividualsGroup& a,
-            const pagmo::vector_double::size_type& b,
-            const pagmo::vector_double::size_type& c,
-            const pagmo::vector_double::size_type& d,
-            const pagmo::vector_double::size_type& e,
-            const pagmo::vector_double::size_type& f,
-            const pagmo::vector_double& g,
-            const pagmoWrap::IndividualsGroup& h
+            const pagmoWrap::IndividualsGroup& incoming,
+            const pagmo::vector_double::size_type& n_f,
+            const pagmo::vector_double::size_type& n_ec,
+            const pagmo::vector_double::size_type& n_ic,
+            const pagmo::vector_double::size_type& n_obj,
+            const pagmo::vector_double::size_type& pop_size,
+            const pagmo::vector_double& tol,
+            const pagmoWrap::IndividualsGroup& current
         ) const
         {
-            return a;
+            return incoming;
         }
 
+        /// <summary>Returns a human-readable policy name.</summary>
+        virtual std::string get_name() const { return "C# r_policy"; }
 
-        // Name.
-        virtual std::string get_name() const
-        {
-            return "";
-        }
+        /// <summary>Returns additional diagnostic information.</summary>
+        virtual std::string get_extra_info() const { return ""; }
 
-        // Extra info.
-        virtual std::string get_extra_info() const
-        {
-            return "";
-        }
-
-        // Check if the r_policy is valid.
-        virtual bool is_valid() const
-        {
-            return false;
-        }
-
-        // Get the type at runtime.
-        //virtual std::type_index get_type_index() const
-        //{
-        //    return -1;
-        //}
-
-        //// Get a const pointer to the UDRP.
-        //const void* get_ptr() const;
-
-        //// Get a mutable pointer to the UDRP.
-        //virtual void* get_ptr()
-        //{
-        //    return null;
-        //}
-
+        /// <summary>
+        /// Returns true when this policy is properly constructed and safe for pagmo to use.
+        /// </summary>
+        virtual bool is_valid() const { return true; }
     };
 
+    /// <summary>
+    /// Copy-safe UDT that pagmo can store by value. Holds a shared_ptr to the director
+    /// callback so copies are safe across pagmo's internal type-erasure.
+    /// </summary>
     class r_policyPagmoWrapper
     {
     private:
         std::shared_ptr<r_policyBase> _base;
+
     public:
         r_policyPagmoWrapper() = default;
 
-        explicit r_policyPagmoWrapper(r_policyBase* base) : _base(base) { }
+        explicit r_policyPagmoWrapper(r_policyBase* base)
+            : _base(base)
+        {
+        }
 
         r_policyPagmoWrapper(const r_policyPagmoWrapper&) = default;
         r_policyPagmoWrapper& operator=(const r_policyPagmoWrapper&) = default;
         ~r_policyPagmoWrapper() = default;
 
-        void setBasePolicy(r_policyBase* b) {
+        void setBasePolicy(r_policyBase* b)
+        {
+            if (!b) {
+                throw std::invalid_argument("r_policyPagmoWrapper: base policy must not be null");
+            }
             _base.reset(b);
         }
 
-        r_policyBase* getBasePolicy() {
-            return _base.get();
-        }
+        r_policyBase* getBasePolicy() const { return _base.get(); }
 
         pagmo::individuals_group_t replace(
-            const pagmo::individuals_group_t& a,
-            const pagmo::vector_double::size_type& b,
-            const pagmo::vector_double::size_type& c,
-            const pagmo::vector_double::size_type& d,
-            const pagmo::vector_double::size_type& e,
-            const pagmo::vector_double::size_type& f,
-            const pagmo::vector_double& g,
-            const pagmo::individuals_group_t& h
+            const pagmo::individuals_group_t& incoming,
+            const pagmo::vector_double::size_type& n_f,
+            const pagmo::vector_double::size_type& n_ec,
+            const pagmo::vector_double::size_type& n_ic,
+            const pagmo::vector_double::size_type& n_obj,
+            const pagmo::vector_double::size_type& pop_size,
+            const pagmo::vector_double& tol,
+            const pagmo::individuals_group_t& current
         ) const
         {
-            // Convert tuple -> struct for managed override
-            pagmoWrap::IndividualsGroup aa = pagmoWrap::FromIndividualsGroupTuple(a);
-            pagmoWrap::IndividualsGroup hh = pagmoWrap::FromIndividualsGroupTuple(h);
-
-            // Call the C#/director override
             if (!_base) {
-                return a;
+                return incoming;
             }
-            pagmoWrap::IndividualsGroup rr = _base->replace(aa, b, c, d, e, f, g, hh);
 
-            // Convert struct -> tuple for pagmo
-            return pagmoWrap::ToIndividualsGroupTuple(rr);
+            pagmoWrap::IndividualsGroup incomingWrapped = pagmoWrap::FromIndividualsGroupTuple(incoming);
+            pagmoWrap::IndividualsGroup currentWrapped  = pagmoWrap::FromIndividualsGroupTuple(current);
+            pagmoWrap::IndividualsGroup result = _base->replace(
+                incomingWrapped, n_f, n_ec, n_ic, n_obj, pop_size, tol, currentWrapped);
+            return pagmoWrap::ToIndividualsGroupTuple(result);
         }
 
-
-        // Name.
-        std::string get_name() const
-        {
-            if (!_base) {
-                return "";
-            }
-            return _base->get_name();
-        }
-
-        // Extra info.
-        std::string get_extra_info() const
-        {
-            if (!_base) {
-                return "";
-            }
-            return _base->get_extra_info();
-        }
-
-        // Check if the r_policy is valid.
-        bool is_valid() const
-        {
-            if (!_base) {
-                return false;
-            }
-            return _base->is_valid();
-        }
+        std::string get_name()      const { return _base ? _base->get_name()       : "C# r_policy"; }
+        std::string get_extra_info() const { return _base ? _base->get_extra_info() : "";            }
+        bool        is_valid()       const { return _base ? _base->is_valid()       : false;         }
     };
-};
+
+} // namespace pagmoWrap

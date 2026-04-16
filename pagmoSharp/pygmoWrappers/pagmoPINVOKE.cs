@@ -1548,6 +1548,9 @@ class pagmoPINVOKE {
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_new_s_policyPagmoWrapper__SWIG_2")]
   public static extern global::System.IntPtr new_s_policyPagmoWrapper__SWIG_2(global::System.Runtime.InteropServices.HandleRef jarg1);
 
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_delete_s_policyPagmoWrapper")]
+  public static extern void delete_s_policyPagmoWrapper(global::System.Runtime.InteropServices.HandleRef jarg1);
+
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_s_policyPagmoWrapper_setBasePolicy")]
   public static extern void s_policyPagmoWrapper_setBasePolicy(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
 
@@ -1562,9 +1565,6 @@ class pagmoPINVOKE {
 
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_s_policyPagmoWrapper_is_valid")]
   public static extern bool s_policyPagmoWrapper_is_valid(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_delete_s_policyPagmoWrapper")]
-  public static extern void delete_s_policyPagmoWrapper(global::System.Runtime.InteropServices.HandleRef jarg1);
 
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_FNDSResult_fronts_set")]
   public static extern void FNDSResult_fronts_set(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
@@ -2124,74 +2124,74 @@ class pagmoPINVOKE {
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_delete_ULongLongVector")]
   public static extern void delete_ULongLongVector(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_new_VectorOfVectorIndexes__SWIG_0")]
-  public static extern global::System.IntPtr new_VectorOfVectorIndexes__SWIG_0();
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_new_VectorOfVectorOfIndices__SWIG_0")]
+  public static extern global::System.IntPtr new_VectorOfVectorOfIndices__SWIG_0();
 
-  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_new_VectorOfVectorIndexes__SWIG_1")]
-  public static extern global::System.IntPtr new_VectorOfVectorIndexes__SWIG_1(global::System.Runtime.InteropServices.HandleRef jarg1);
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_new_VectorOfVectorOfIndices__SWIG_1")]
+  public static extern global::System.IntPtr new_VectorOfVectorOfIndices__SWIG_1(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_VectorOfVectorIndexes_Clear")]
-  public static extern void VectorOfVectorIndexes_Clear(global::System.Runtime.InteropServices.HandleRef jarg1);
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_VectorOfVectorOfIndices_Clear")]
+  public static extern void VectorOfVectorOfIndices_Clear(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_VectorOfVectorIndexes_Add")]
-  public static extern void VectorOfVectorIndexes_Add(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_VectorOfVectorOfIndices_Add")]
+  public static extern void VectorOfVectorOfIndices_Add(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_VectorOfVectorIndexes_size")]
-  public static extern uint VectorOfVectorIndexes_size(global::System.Runtime.InteropServices.HandleRef jarg1);
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_VectorOfVectorOfIndices_size")]
+  public static extern uint VectorOfVectorOfIndices_size(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_VectorOfVectorIndexes_empty")]
-  public static extern bool VectorOfVectorIndexes_empty(global::System.Runtime.InteropServices.HandleRef jarg1);
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_VectorOfVectorOfIndices_empty")]
+  public static extern bool VectorOfVectorOfIndices_empty(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_VectorOfVectorIndexes_capacity")]
-  public static extern uint VectorOfVectorIndexes_capacity(global::System.Runtime.InteropServices.HandleRef jarg1);
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_VectorOfVectorOfIndices_capacity")]
+  public static extern uint VectorOfVectorOfIndices_capacity(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_VectorOfVectorIndexes_reserve")]
-  public static extern void VectorOfVectorIndexes_reserve(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2);
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_VectorOfVectorOfIndices_reserve")]
+  public static extern void VectorOfVectorOfIndices_reserve(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_new_VectorOfVectorIndexes__SWIG_2")]
-  public static extern global::System.IntPtr new_VectorOfVectorIndexes__SWIG_2(int jarg1);
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_new_VectorOfVectorOfIndices__SWIG_2")]
+  public static extern global::System.IntPtr new_VectorOfVectorOfIndices__SWIG_2(int jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_VectorOfVectorIndexes_getitemcopy")]
-  public static extern global::System.IntPtr VectorOfVectorIndexes_getitemcopy(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_VectorOfVectorOfIndices_getitemcopy")]
+  public static extern global::System.IntPtr VectorOfVectorOfIndices_getitemcopy(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_VectorOfVectorIndexes_getitem")]
-  public static extern global::System.IntPtr VectorOfVectorIndexes_getitem(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_VectorOfVectorOfIndices_getitem")]
+  public static extern global::System.IntPtr VectorOfVectorOfIndices_getitem(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_VectorOfVectorIndexes_setitem")]
-  public static extern void VectorOfVectorIndexes_setitem(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_VectorOfVectorOfIndices_setitem")]
+  public static extern void VectorOfVectorOfIndices_setitem(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
 
-  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_VectorOfVectorIndexes_AddRange")]
-  public static extern void VectorOfVectorIndexes_AddRange(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_VectorOfVectorOfIndices_AddRange")]
+  public static extern void VectorOfVectorOfIndices_AddRange(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_VectorOfVectorIndexes_GetRange")]
-  public static extern global::System.IntPtr VectorOfVectorIndexes_GetRange(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, int jarg3);
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_VectorOfVectorOfIndices_GetRange")]
+  public static extern global::System.IntPtr VectorOfVectorOfIndices_GetRange(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, int jarg3);
 
-  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_VectorOfVectorIndexes_Insert")]
-  public static extern void VectorOfVectorIndexes_Insert(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_VectorOfVectorOfIndices_Insert")]
+  public static extern void VectorOfVectorOfIndices_Insert(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
 
-  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_VectorOfVectorIndexes_InsertRange")]
-  public static extern void VectorOfVectorIndexes_InsertRange(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_VectorOfVectorOfIndices_InsertRange")]
+  public static extern void VectorOfVectorOfIndices_InsertRange(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
 
-  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_VectorOfVectorIndexes_RemoveAt")]
-  public static extern void VectorOfVectorIndexes_RemoveAt(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_VectorOfVectorOfIndices_RemoveAt")]
+  public static extern void VectorOfVectorOfIndices_RemoveAt(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_VectorOfVectorIndexes_RemoveRange")]
-  public static extern void VectorOfVectorIndexes_RemoveRange(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, int jarg3);
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_VectorOfVectorOfIndices_RemoveRange")]
+  public static extern void VectorOfVectorOfIndices_RemoveRange(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, int jarg3);
 
-  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_VectorOfVectorIndexes_Repeat")]
-  public static extern global::System.IntPtr VectorOfVectorIndexes_Repeat(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_VectorOfVectorOfIndices_Repeat")]
+  public static extern global::System.IntPtr VectorOfVectorOfIndices_Repeat(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_VectorOfVectorIndexes_Reverse__SWIG_0")]
-  public static extern void VectorOfVectorIndexes_Reverse__SWIG_0(global::System.Runtime.InteropServices.HandleRef jarg1);
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_VectorOfVectorOfIndices_Reverse__SWIG_0")]
+  public static extern void VectorOfVectorOfIndices_Reverse__SWIG_0(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_VectorOfVectorIndexes_Reverse__SWIG_1")]
-  public static extern void VectorOfVectorIndexes_Reverse__SWIG_1(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, int jarg3);
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_VectorOfVectorOfIndices_Reverse__SWIG_1")]
+  public static extern void VectorOfVectorOfIndices_Reverse__SWIG_1(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, int jarg3);
 
-  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_VectorOfVectorIndexes_SetRange")]
-  public static extern void VectorOfVectorIndexes_SetRange(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_VectorOfVectorOfIndices_SetRange")]
+  public static extern void VectorOfVectorOfIndices_SetRange(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
 
-  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_delete_VectorOfVectorIndexes")]
-  public static extern void delete_VectorOfVectorIndexes(global::System.Runtime.InteropServices.HandleRef jarg1);
+  [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_delete_VectorOfVectorOfIndices")]
+  public static extern void delete_VectorOfVectorOfIndices(global::System.Runtime.InteropServices.HandleRef jarg1);
 
   [global::System.Runtime.InteropServices.DllImport("pagmoWrapper", EntryPoint="CSharp_pagmo_new_VectorOfVectorOfDoubles__SWIG_0")]
   public static extern global::System.IntPtr new_VectorOfVectorOfDoubles__SWIG_0();

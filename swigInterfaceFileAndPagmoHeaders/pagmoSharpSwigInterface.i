@@ -91,9 +91,9 @@ PAGMOSHARP_EXEC_EXCEPTION(pagmo::thread_island::run_evolve, "thread_island.run_e
 %include "std_map.i"
 
 // Directors + handwritten base classes (include ONCE)
-// The whole problem vs. problemBase question is a little confusing.  To make it better (or wo// rs// e)
-// there is a C# implicit operator to convert from problem to problemBase by calling getBaseProblem on 
-// the wrapper (problem).  Hence the partial class here
+// problem_callback is the director-enabled virtual base C# subclasses override.
+// managed_problem is the copy-safe UDT pagmo actually stores by value (holds shared_ptr to callback).
+// The partial class modifier allows hand-written C# to extend the SWIG-generated classes.
 %pragma(csharp) moduleclassmodifiers = "public partial class"
 %typemap(csclassmodifiers) pagmoWrap::problem_callback "public partial class"
 %typemap(csclassmodifiers) pagmoWrap::managed_problem "public partial class"
@@ -103,6 +103,12 @@ PAGMOSHARP_EXEC_EXCEPTION(pagmo::thread_island::run_evolve, "thread_island.run_e
 %typemap(csclassmodifiers) std::vector <double> "public partial class"
 %feature("director") pagmoWrap::problem_callback;
 %feature("director") pagmoWrap::algorithm_callback;
+
+// Hide the shared_ptr<> constructors from SWIG — C# never constructs managed_problem/managed_algorithm
+// directly from a shared_ptr; ownership is transferred via the extern-C bridge functions in
+// managed_bridge.cpp. All four spelling variants are listed because SWIG matches by the exact string
+// it sees after resolving includes; different include-path orderings produce different forms
+// (with/without namespace prefix, with/without spaces around the template argument).
 %ignore pagmoWrap::managed_problem::managed_problem(std::shared_ptr<pagmoWrap::problem_callback>);
 %ignore pagmoWrap::managed_problem::managed_problem(std::shared_ptr<problem_callback>);
 %ignore pagmoWrap::managed_problem::managed_problem(std::shared_ptr< problem_callback >);
@@ -117,15 +123,16 @@ PAGMOSHARP_EXEC_EXCEPTION(pagmo::thread_island::run_evolve, "thread_island.run_e
 %shared_ptr(pagmoWrap::algorithm_callback);
 
 %feature("director") pagmoWrap::r_policyBase;
+// Suppress the replace() method on r_policyPagmoWrapper (the copy-safe UDT pagmo stores).
+// That overload takes pagmo::individuals_group_t (a std::tuple<...>), which SWIG cannot wrap.
+// C# code calls through r_policyBase::replace(), which takes the SWIG-friendly IndividualsGroup struct.
 %ignore pagmoWrap::r_policyPagmoWrapper::replace;
 %include "pagmoWrapper/r_policy.h"
 
 %feature("director") pagmoWrap::s_policyBase;
+// Same rationale as r_policyPagmoWrapper::replace above.
 %ignore pagmoWrap::s_policyPagmoWrapper::select;
 %include "pagmoWrapper/s_policy.h"
-
-// need other languages?
-
 
 // ------------------------------------------------------------
 // C#-correct typemaps for uint64 / unsigned long long
@@ -148,15 +155,15 @@ PAGMOSHARP_EXEC_EXCEPTION(pagmo::thread_island::run_evolve, "thread_island.run_e
 }
 
 
-
-
-
-
-%feature("director") pagmoWrap::multi_objective;
+// pagmoWrapper/multi_objective.h exposes FNDSResult, RekSum, and DecompositionWeights.
+// There is no pagmoWrap::multi_objective class — only free functions and helpers in global / pagmo namespaces.
 %include "pagmoWrapper/multi_objective.h"
-//#include <tuple> // tuple is not supported by swig yet...
+
+// Map void* → IntPtr in generated C# P/Invoke signatures.
+// This is required for the extern-C bridge functions (managed_bridge.cpp) that return
+// heap-allocated native objects as void* — without this they would become SWIGTYPE_p_void
+// (an unusable opaque type) rather than a marshallable IntPtr.
 %apply void *VOID_INT_PTR { void * }
-%include "pagmoWrapper/tuple_adapters.h"
 
 // ------------------------------------------------------------
 // STL templates used across the bindings
@@ -171,7 +178,7 @@ namespace std {
   %template(SparsityPattern)           std::vector<std::pair<std::size_t, std::size_t>>;
   %template(VectorOfSparsityPattern)   std::vector<std::vector<std::pair<std::size_t, std::size_t>>>;
   %template(ULongLongVector)           std::vector<unsigned long long>;
-  %template(VectorOfVectorIndexes)     std::vector<std::vector<unsigned long long>>;
+  %template(VectorOfVectorOfIndices)    std::vector<std::vector<unsigned long long>>;
   %template(VectorOfVectorOfDoubles)   std::vector<std::vector<double>>;
 	  %template(PairOfDoubleVectors)       std::pair<std::vector<double>, std::vector<double>>;
 	  %template(HvAlgorithmSharedPtr)      std::shared_ptr<pagmo::hv_algorithm>;
@@ -217,29 +224,6 @@ namespace std {
 
 	enum class thread_safety { none, basic, constant };
 
-	//%extend default_bfe{
-	//vector_double Operator(const pagmoWrap::problemPagomWrapper& theProblem, const vector_double & values) const
-	//{
-	//   return self->operator()(static_cast<pagmo::problem>(theProblem), values);
-	//}
-	//};
-
-	//%extend member_bfe{
-	//vector_double Operator(const pagmoWrap::problemPagomWrapper& theProblem, const vector_double & values) const
-	//{
-	//   return self->operator()(static_cast<pagmo::problem>(theProblem), values);
-	//}
-	//};
-
-	//%extend thread_bfe{
-	//vector_double Operator(const pagmoWrap::problemPagomWrapper& theProblem, const vector_double & values) const
-	//{
-	//   return self->operator()(static_cast<pagmo::problem>(theProblem), values);
-	//}
-	//};
-
-
-
 	enum class evolve_status {
 		idle = 0,       ///< No asynchronous operations are ongoing, and no error was generated
 		/// by an asynchronous operation in the past
@@ -265,7 +249,6 @@ namespace std {
 		%include swigInterfaceFiles\population.i
 	
 	%include swigInterfaceFiles\bfe.i
-	//%include swigInterfaceFiles\exceptions.i // causing errors, not sure why, and not really implimented anyway
 	//NOTE: pagmo.hpp, threading.hpp and types.hpp are not really needed
 	%include swigInterfaceFiles\io.i
 	%include swigInterfaceFiles\rng.i
@@ -383,29 +366,6 @@ PAGMOSHARP_PROBLEM_TO_PROBLEM(zdt)
 %include swigInterfaceFiles\algorithm.i
 %include swigInterfaceFiles\algorithms\bee_colony.i
 %include swigInterfaceFiles\archipelago.i
-
-// this exception logic might not be necessary after adding the global exception handling at the top of the file
-%{
-#include <exception>
-struct wrapped_exception : std::exception {
-  wrapped_exception(const std::string& msg) : msg(msg) {}
-private:
-  virtual const char * what () const noexcept {
-    return msg.c_str();
-  }
-  std::string msg;
-};
-%}
-
-%typemap(csdirectorout) void %{
-  try {
-    $cscall;
-  }
-  catch(System.Exception e) {
-    test.throw_native(e.ToString());
-  }
-%};
-
 
 // Remaining wrapper backlog and prioritization are tracked in .ai/ROADMAP.md.
 // Keep this interface focused on active binding definitions to reduce stale drift.

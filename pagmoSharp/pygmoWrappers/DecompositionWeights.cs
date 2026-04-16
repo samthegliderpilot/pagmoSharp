@@ -63,34 +63,13 @@ public class DecompositionWeights : global::System.IDisposable {
     return ret;
   }
 
-  public static string METHOD_GRID {
-    get {
-      string ret = pagmoPINVOKE.DecompositionWeights_METHOD_GRID_get();
-      if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
-      return ret;
-    } 
-  }
-
-  public static string METHOD_RANDOM {
-    get {
-      string ret = pagmoPINVOKE.DecompositionWeights_METHOD_RANDOM_get();
-      if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
-      return ret;
-    } 
-  }
-
-  public static string METHOD_LOW_DISCREPANCY {
-    get {
-      string ret = pagmoPINVOKE.DecompositionWeights_METHOD_LOW_DISCREPANCY_get();
-      if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
-      return ret;
-    } 
-  }
-
   public DecompositionWeights() : this(pagmoPINVOKE.new_DecompositionWeights(), true) {
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
+  public static readonly string METHOD_GRID = pagmoPINVOKE.DecompositionWeights_METHOD_GRID_get();
+  public static readonly string METHOD_RANDOM = pagmoPINVOKE.DecompositionWeights_METHOD_RANDOM_get();
+  public static readonly string METHOD_LOW_DISCREPANCY = pagmoPINVOKE.DecompositionWeights_METHOD_LOW_DISCREPANCY_get();
 }
 
 }

@@ -10,7 +10,6 @@
 #include "pagmo/threading.hpp"
 #include "pagmo/types.hpp"
 
-// NOTE: Keep everything in your existing namespace to minimize changes elsewhere.
 namespace pagmoWrap {
 
     using vector_double = std::vector<double>;
@@ -117,9 +116,6 @@ namespace pagmoWrap {
         explicit managed_problem(problem_callback* cb)
             : managed_problem(std::shared_ptr<problem_callback>(cb))
         {
-            if (!cb) {
-                throw std::invalid_argument("managed_problem: callback must not be null");
-            }
         }
 
         explicit managed_problem(std::shared_ptr<problem_callback> cb)

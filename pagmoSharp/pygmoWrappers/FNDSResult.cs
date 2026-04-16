@@ -57,25 +57,25 @@ public class FNDSResult : global::System.IDisposable {
     }
   }
 
-  public VectorOfVectorIndexes fronts {
+  public VectorOfVectorOfIndices fronts {
     set {
-      pagmoPINVOKE.FNDSResult_fronts_set(swigCPtr, VectorOfVectorIndexes.getCPtr(value));
+      pagmoPINVOKE.FNDSResult_fronts_set(swigCPtr, VectorOfVectorOfIndices.getCPtr(value));
       if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     } 
     get {
-      VectorOfVectorIndexes ret = new VectorOfVectorIndexes(pagmoPINVOKE.FNDSResult_fronts_get(swigCPtr), false);
+      VectorOfVectorOfIndices ret = new VectorOfVectorOfIndices(pagmoPINVOKE.FNDSResult_fronts_get(swigCPtr), false);
       if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
       return ret;
     } 
   }
 
-  public VectorOfVectorIndexes ranks {
+  public VectorOfVectorOfIndices ranks {
     set {
-      pagmoPINVOKE.FNDSResult_ranks_set(swigCPtr, VectorOfVectorIndexes.getCPtr(value));
+      pagmoPINVOKE.FNDSResult_ranks_set(swigCPtr, VectorOfVectorOfIndices.getCPtr(value));
       if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     } 
     get {
-      VectorOfVectorIndexes ret = new VectorOfVectorIndexes(pagmoPINVOKE.FNDSResult_ranks_get(swigCPtr), false);
+      VectorOfVectorOfIndices ret = new VectorOfVectorOfIndices(pagmoPINVOKE.FNDSResult_ranks_get(swigCPtr), false);
       if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
       return ret;
     } 
