@@ -1,8 +1,8 @@
 # Release Readiness Checklist (v1.0)
 
 ## Versioning
-- [ ] Decide release version (SemVer) and tag name.
-- [ ] Update package version in all publish targets.
+- [x] Decide release version (SemVer) and tag name. (`1.0.0-beta.1`)
+- [x] Update package version in all publish targets.
 - [ ] Freeze API surface changes for release candidate.
 
 ## Build & Test Gates

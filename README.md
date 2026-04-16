@@ -33,6 +33,18 @@ True, but they don't have to.  These tests need to only test the wrappers; they 
 ### Where's IPOPT?
 IPOPT is supported as an optional, feature-gated solver when pagmo is built with IPOPT enabled (for example via vcpkg feature configuration).
 
+Install IPOPT with vcpkg (Windows x64):
+
+```powershell
+& 'C:\src\vcpkg\vcpkg.exe' install coin-or-ipopt:x64-windows
+```
+
+If your `vcpkg.exe` is on `PATH`, you can use:
+
+```powershell
+vcpkg install coin-or-ipopt:x64-windows
+```
+
 Also, this is made completely independently of the base pagmo and the team that makes and maintains it.  This is independent of ESA and the original developers of pagmo.
 
 ## VS Code workflow
@@ -185,6 +197,12 @@ This performs:
 - native rebuild (`Debug x64` + `Release x64`),
 - full managed test suite,
 - optional solver availability tests.
+
+Build beta/release artifacts (NuGet + native runtime bundle + source archive + checksums):
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/build-release-artifacts.ps1 -Version 1.0.0-beta.1
+```
 ## Supported feature matrix (current state)
 
 | Area | Status | Notes |

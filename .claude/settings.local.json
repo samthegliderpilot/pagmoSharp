@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git -C /c/src/pagmoSharp log --oneline -20)",
+      "Bash(git -C /c/src/pagmoSharp status)",
+      "Bash(wc -l /c/src/pagmoSharp/pagmoWrapper/*.cpp /c/src/pagmoSharp/pagmoWrapper/*.h)",
+      "Bash(ls -la /c/src/pagmoSharp/pagmoWrapper/*.cpp /c/src/pagmoSharp/pagmoWrapper/*.h)"
+    ]
+  }
+}
