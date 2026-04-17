@@ -7,6 +7,21 @@ parallel evolution support.
 The wrapper is built with [SWIG 4.4](https://www.swig.org/) and targets Windows x64 (v1.0).
 Linux/CMake support is planned post-v1.
 
+## Installation
+
+Binary releases are distributed via:
+
+- **NuGet** — `dotnet add package pagmoSharp --version 1.0.0-beta.1`
+- **GitHub Releases** — tagged release bundles at
+  `https://github.com/samthegliderpilot/pagmoSharp/releases` include the managed NuGet package,
+  the native Windows x64 runtime bundle (`pagmoWrapper.dll` + dependencies), and a source archive.
+
+The NuGet package contains only the managed assembly. The native runtime DLLs
+(`pagmoWrapper.dll` and its dependencies) must be placed alongside your application at runtime.
+Download the native bundle from the corresponding GitHub release.
+
+## Build requirements (contributors / from source)
+
 **Requirements:**
 - Windows x64
 - .NET 8 SDK or later
@@ -119,8 +134,8 @@ This keeps ownership on the native side with `shared_ptr`, avoiding raw-pointer 
 ### Threading policy for managed UDPs
 
 - `thread_bfe.Operator(IProblem, ...)` and `archipelago.push_back_island(..., IProblem, ...)` require explicit parallel-safety opt-in.
-- Managed UDPs declaring `thread_safety.none` are rejected on those threaded entrypoints.
-- Declare `thread_safety.basic` or `thread_safety.constant` when your managed UDP is safe for concurrent evaluation.
+- Managed UDPs declaring `ThreadSafety.None` are rejected on those threaded entrypoints.
+- Declare `ThreadSafety.Basic` or `ThreadSafety.Constant` when your managed UDP is safe for concurrent evaluation.
 
 ## C# quickstart
 
@@ -138,7 +153,7 @@ public sealed class SphereProblem : ManagedProblemBase
         return Vec(x[0] * x[0] + x[1] * x[1]);
     }
 
-    public override thread_safety get_thread_safety() => thread_safety.basic;
+    public override ThreadSafety get_thread_safety() => ThreadSafety.Basic;
 }
 
 using IAlgorithm algo = new de(100u);
@@ -154,7 +169,7 @@ using var bestF = result.champion_f();
 
 Notes:
 - Use `island.Create(...)` for single-island runs and `archipelago.push_back_island(...)` for multi-island orchestration.
-- When using threaded paths (`thread_bfe`, `archipelago` with managed UDPs), managed problems must report `thread_safety.basic` or `thread_safety.constant`.
+- When using threaded paths (`thread_bfe`, `archipelago` with managed UDPs), managed problems must report `ThreadSafety.Basic` or `ThreadSafety.Constant`.
 
 ## Runnable examples
 
@@ -219,7 +234,7 @@ powershell -ExecutionPolicy Bypass -File scripts/build-release-artifacts.ps1 -Ve
 | Managed C# UDP (`IProblem` / `ManagedProblemBase`) | Supported | Core path for v1.0; callback lifetime and exception bubbling are covered by tests. |
 | Type-erased `IAlgorithm` interop in island/archipelago paths | Supported | Bridged via `AlgorithmInterop` for wrapped algorithms and managed `IAlgorithm` callback bridge (for example `grid_search`). |
 | Core runtime orchestration (`population`, `island`, `archipelago`) | Supported (with known topology caveat) | Managed-problem and policy runtime paths are covered; archipelago `set_topology_*` runtime mutation has a tracked issue in Sprint 4. |
-| Managed policy extensibility (`r_policyBase`, `s_policyBase`) | Supported | Direct managed-policy entrypoints are available on island/archipelago helpers. |
+| Managed policy extensibility (`RPolicyCallback`, `SPolicyCallback`) | Supported | Direct managed-policy entrypoints are available on island/archipelago helpers. |
 | Topology wrappers (`ring`, `fully_connected`, `unconnected`, `free_form`) | Supported | Managed projection helpers are provided and tested. |
 | Optional solver wrapper (`ipopt`) | Feature-gated | Build-dependent; availability/runtime behavior (construct/evolve/type-erasure/log projection) is validated when IPOPT is present. |
 | Optional solver wrapper (`nlopt`) | Feature-gated | Build-dependent; availability is asserted by test and runtime wrapper behavior is validated when present. |

@@ -8,6 +8,10 @@
     <PackageId>pagmoSharp</PackageId>
     <Authors>pagmoSharp contributors</Authors>
     <Description>C# bindings and ergonomic wrappers for pagmo.</Description>
+    <PackageLicenseExpression>GPL-3.0-only</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/samthegliderpilot/pagmoSharp</PackageProjectUrl>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageTags>pagmo;optimization;evolutionary;metaheuristic;SWIG</PackageTags>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
@@ -34,6 +38,12 @@
     <Compile Remove="artifacts\**" />
     <EmbeddedResource Remove="artifacts\**" />
     <None Remove="artifacts\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\README.md" Pack="true" PackagePath="\" />
+    <None Include="..\LICENSE" Pack="true" PackagePath="\" />
+    <None Include="..\THIRD_PARTY_LICENSES.md" Pack="true" PackagePath="\" />
   </ItemGroup>
 
   <ItemGroup>

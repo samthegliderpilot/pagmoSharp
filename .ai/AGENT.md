@@ -12,7 +12,7 @@
 - `pagmoWrapper/`
   - Generated SWIG C++ wrapper: `GeneratedWrappers.cxx`
   - Native bridge/shim code (interop glue)
-- `swigInterfaceFileAndPagmoHeaders/`
+- `swig/`
   - SWIG `.i` interface files + vendored headers used for wrapper generation
 - `Tests/Tests.PagmoSharp/`
   - NUnit tests for wrapper behavior and runtime wiring

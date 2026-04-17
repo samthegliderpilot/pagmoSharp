@@ -106,7 +106,7 @@ C++ templates through the C bridge. **Deferred.**
 
 ### [x] P3.1 — Namespace ordering inconsistency `[SWIG]`
 
-**File:** `swigInterfaceFileAndPagmoHeaders/pagmoSharpSwigInterface.i`  
+**File:** `swig/pagmoSharpSwigInterface.i`  
 Several algorithm `.i` files are included outside any `namespace pagmo {}` block in the root `.i` file.
 Investigation shows this is actually valid SWIG — the individual `.i` files use fully-qualified class
 names (`class pagmo::nsga2`, `class pagmo::cstrs_self_adaptive`, etc.) which SWIG resolves correctly
@@ -116,14 +116,14 @@ using qualified names. **No change required; finding downgraded to style note.**
 
 ### [x] P3.2 — Stale `%feature("director") pagmoWrap::multi_objective` `[STALE]`
 
-**File:** `swigInterfaceFileAndPagmoHeaders/pagmoSharpSwigInterface.i`  
+**File:** `swig/pagmoSharpSwigInterface.i`  
 `pagmoWrap::multi_objective` class does not exist — `multi_objective.h` defines free functions and
 helper classes in `pagmo` and global namespaces.  
 **Fix:** Removed the stale director directive.
 
 ### [x] P3.3 — `wrapped_exception` struct and `test.throw_native` typemap `[LEGACY][BUG]`
 
-**File:** `swigInterfaceFileAndPagmoHeaders/pagmoSharpSwigInterface.i`  
+**File:** `swig/pagmoSharpSwigInterface.i`  
 Bottom of file contained an unused `wrapped_exception` struct and a `%typemap(csdirectorout) void`
 block calling `test.throw_native(e.ToString())`. The `test` class is test-only and does not exist in
 the production assembly — this typemap would generate non-compiling code.  
@@ -131,7 +131,7 @@ the production assembly — this typemap would generate non-compiling code.
 
 ### [x] P3.4 — `%apply void *VOID_INT_PTR { void * }` placement and purpose undocumented `[SWIG]`
 
-**File:** `swigInterfaceFileAndPagmoHeaders/pagmoSharpSwigInterface.i`  
+**File:** `swig/pagmoSharpSwigInterface.i`  
 This typemap is load-bearing: it maps all `void*` to `IntPtr` in generated C# P/Invoke signatures,
 which is required for the extern-C bridge functions in `managed_bridge.cpp` that return
 heap-allocated native objects. Without it they would become `SWIGTYPE_p_void` (unusable opaque type).
@@ -141,35 +141,35 @@ included at line 77).
 
 ### [x] P3.5 — Commented-out BFE `%extend` blocks `[LEGACY]`
 
-**File:** `swigInterfaceFileAndPagmoHeaders/pagmoSharpSwigInterface.i`  
+**File:** `swig/pagmoSharpSwigInterface.i`  
 Three large commented-out `%extend default_bfe/member_bfe/thread_bfe` blocks from the old approach
 before the managed bridge was built.  
 **Fix:** Removed.
 
 ### [x] P3.6 — Commented-out `%include swigInterfaceFiles\exceptions.i` `[STALE]`
 
-**File:** `swigInterfaceFileAndPagmoHeaders/pagmoSharpSwigInterface.i`  
+**File:** `swig/pagmoSharpSwigInterface.i`  
 The comment read: "causing errors, not sure why, and not really implemented anyway." The file is a stub
 covered by the global exception handler already in place.  
 **Fix:** Removed the commented line.
 
 ### [x] P3.7 — Narrative "journal entry" developer comments `[LEGACY]`
 
-**File:** `swigInterfaceFileAndPagmoHeaders/pagmoSharpSwigInterface.i`  
+**File:** `swig/pagmoSharpSwigInterface.i`  
 "The whole problem vs. problemBase question is a little confusing. To make it better (or worse)..."
 and stray `// need other languages?` removed. Replaced with factual comments explaining what each
 section does.
 
 ### [~] P3.8 — Redundant `%ignore` directives for `shared_ptr` constructors `[STYLE]`
 
-**File:** `swigInterfaceFileAndPagmoHeaders/pagmoSharpSwigInterface.i`  
+**File:** `swig/pagmoSharpSwigInterface.i`  
 Four `%ignore` directives for `shared_ptr<problem_callback>` constructor variants (with/without
 namespace prefix, with/without spaces). SWIG is very literal about name matching and different SWIG
 versions may generate slightly different forms. Keeping all four is the safe choice. **Deferred.**
 
 ### [x] P8.3 — `VectorOfVectorIndexes` rename `[STYLE]`
 
-**File:** `swigInterfaceFileAndPagmoHeaders/pagmoSharpSwigInterface.i`, generated wrappers, `docs/api-reference.md`  
+**File:** `swig/pagmoSharpSwigInterface.i`, generated wrappers, `docs/api-reference.md`  
 `VectorOfVectorIndexes` → `VectorOfVectorOfULongs` for consistency with `VectorOfVectorOfDoubles`.
 No hand-written C# used the old name; only SWIG-generated files and docs were affected.  
 **Fix:** Renamed in `.i` file; regenerated SWIG; updated `docs/api-reference.md`.
@@ -216,7 +216,7 @@ The following items need clarifying comments added for anyone reading the code c
 
 ### [x] NC.1 — `%ignore` on `managed_r_policy::replace` / `managed_s_policy::select`
 
-**File:** `swigInterfaceFileAndPagmoHeaders/pagmoSharpSwigInterface.i`  
+**File:** `swig/pagmoSharpSwigInterface.i`  
 These ignore the `replace`/`select` methods on the *wrapper* class (not the director class).
 The reason: those methods take `pagmo::individuals_group_t` (a `std::tuple<...>`), which SWIG cannot
 wrap. C# code only ever calls through `r_policy_callback::replace` / `s_policy_callback::select`, which
@@ -230,12 +230,12 @@ becomes an opaque `SWIGTYPE_p_pagmo__pop_size_t` in generated C# instead of `ulo
 
 ### [x] NC.3 — `%apply void *VOID_INT_PTR { void * }` in the SWIG file
 
-**File:** `swigInterfaceFileAndPagmoHeaders/pagmoSharpSwigInterface.i`  
+**File:** `swig/pagmoSharpSwigInterface.i`  
 Addressed in P3.4 — comment added.
 
 ### [x] NC.4 — `%pragma(csharp) moduleclassmodifiers = "public partial class"`
 
-**File:** `swigInterfaceFileAndPagmoHeaders/pagmoSharpSwigInterface.i`  
+**File:** `swig/pagmoSharpSwigInterface.i`  
 Comment added explaining the `partial` modifier allows hand-written C# to extend the SWIG-generated
 class. Covered by the comment block above the `%pragma` line.
 
@@ -247,7 +247,7 @@ Comment added explaining why `ConditionalWeakTable` is used instead of a plain d
 
 ### [x] NC.5 — Four-variant `%ignore` for `shared_ptr` constructors
 
-**File:** `swigInterfaceFileAndPagmoHeaders/pagmoSharpSwigInterface.i`  
+**File:** `swig/pagmoSharpSwigInterface.i`  
 Comment added explaining all four spelling variants are needed because SWIG matches by the exact
 string it sees after resolving includes (with/without namespace prefix, with/without spaces).
 
@@ -278,7 +278,7 @@ without a SWIG interface change.
 
 ### [x] P4.3 — r_policy/s_policy director chain has no exception deferral `[SAFETY]`
 
-**File:** `swigInterfaceFileAndPagmoHeaders/pagmoSharpSwigInterface.i`  
+**File:** `swig/pagmoSharpSwigInterface.i`  
 Added `%typemap(csdirectorout)` blocks for `void`, `std::string`, `bool`, `unsigned int`, and
 `pagmoWrap::IndividualsGroup` return types. These are the standard SWIG mechanism for wrapping
 the generated `SwigDirectorMethod*` stubs with try/catch; any managed exception is captured via
@@ -329,7 +329,7 @@ Complete coverage confirmed.
 
 ### [x] P5.3 — Problem `to_problem()` coverage check
 
-**File:** `swigInterfaceFileAndPagmoHeaders/pagmoSharpSwigInterface.i`  
+**File:** `swig/pagmoSharpSwigInterface.i`  
 All 22 wrapped native problem types have `PAGMOSHARP_PROBLEM_TO_PROBLEM(TYPE_NAME)` macros.
 CS extension files match exactly. Complete coverage confirmed.
 
@@ -515,7 +515,7 @@ Addressed in Phase 2 (P2.4).
 | Phase | Files staged | Status |
 |-------|-------------|--------|
 | 2 | `pagmoWrapper/managed_bridge.cpp`, `pagmoWrapper/problem.h`, `pagmoWrapper/multi_objective.h`, `pagmoWrapper/r_policy.h`, `pagmoWrapper/s_policy.h`, generated SWIG outputs | Committed |
-| 3 | `swigInterfaceFileAndPagmoHeaders/pagmoSharpSwigInterface.i`, regenerated SWIG outputs, `docs/api-reference.md` | Committed |
+| 3 | `swig/pagmoSharpSwigInterface.i`, regenerated SWIG outputs, `docs/api-reference.md` | Committed |
 | 4–7 | Director safety, docs, exception policy, algorithm/problem coverage | Committed |
 | 8–9 | Naming (P8.1 all phases), structure (P9.1, P9.3), NC comments, SWIG regen | **Ready to commit** |
 | 10 | No new files — all legacy cleanup done in earlier phases | **Ready to commit** |

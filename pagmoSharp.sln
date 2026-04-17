@@ -20,99 +20,99 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{5AEB5DAB-1DED-43AF-B4B0-7356C8DB7073}"
 	ProjectSection(SolutionItems) = preProject
 		createSwigWrappersAndPlaceThem.bat = createSwigWrappersAndPlaceThem.bat
-		swigInterfaceFileAndPagmoHeaders\pagmoSharpSwigInterface.i = swigInterfaceFileAndPagmoHeaders\pagmoSharpSwigInterface.i
+		swig\pagmoSharpSwigInterface.i = swig\pagmoSharpSwigInterface.i
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "swigInterfaceFiles", "swigInterfaceFiles", "{A7AC40B5-9B9B-4479-8803-8FD7E4DAF3CF}"
 	ProjectSection(SolutionItems) = preProject
-		swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\algorithm.i = swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\algorithm.i
-		swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\archipelago.i = swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\archipelago.i
-		swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\bfe.i = swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\bfe.i
-		swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\exceptions.i = swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\exceptions.i
-		swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\io.i = swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\io.i
-		swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\island.i = swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\island.i
-		swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\population.i = swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\population.i
-		swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\rng.i = swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\rng.i
-		swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\r_policy.i = swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\r_policy.i
-		swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\topology.i = swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\topology.i
+		swig\swigInterfaceFiles\algorithm.i = swig\swigInterfaceFiles\algorithm.i
+		swig\swigInterfaceFiles\archipelago.i = swig\swigInterfaceFiles\archipelago.i
+		swig\swigInterfaceFiles\bfe.i = swig\swigInterfaceFiles\bfe.i
+		swig\swigInterfaceFiles\exceptions.i = swig\swigInterfaceFiles\exceptions.i
+		swig\swigInterfaceFiles\io.i = swig\swigInterfaceFiles\io.i
+		swig\swigInterfaceFiles\island.i = swig\swigInterfaceFiles\island.i
+		swig\swigInterfaceFiles\population.i = swig\swigInterfaceFiles\population.i
+		swig\swigInterfaceFiles\rng.i = swig\swigInterfaceFiles\rng.i
+		swig\swigInterfaceFiles\r_policy.i = swig\swigInterfaceFiles\r_policy.i
+		swig\swigInterfaceFiles\topology.i = swig\swigInterfaceFiles\topology.i
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "problems", "problems", "{690793CC-5507-4215-BCF6-1658345CC72B}"
 	ProjectSection(SolutionItems) = preProject
-		swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\problems\ackley.i = swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\problems\ackley.i
-		swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\problems\cec2006.i = swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\problems\cec2006.i
-		swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\problems\golomb_ruler.i = swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\problems\golomb_ruler.i
-		swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\problems\inventory.i = swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\problems\inventory.i
-		swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\problems\minlp_rastrigin.i = swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\problems\minlp_rastrigin.i
-		swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\problems\zdt.i = swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\problems\zdt.i
+		swig\swigInterfaceFiles\problems\ackley.i = swig\swigInterfaceFiles\problems\ackley.i
+		swig\swigInterfaceFiles\problems\cec2006.i = swig\swigInterfaceFiles\problems\cec2006.i
+		swig\swigInterfaceFiles\problems\golomb_ruler.i = swig\swigInterfaceFiles\problems\golomb_ruler.i
+		swig\swigInterfaceFiles\problems\inventory.i = swig\swigInterfaceFiles\problems\inventory.i
+		swig\swigInterfaceFiles\problems\minlp_rastrigin.i = swig\swigInterfaceFiles\problems\minlp_rastrigin.i
+		swig\swigInterfaceFiles\problems\zdt.i = swig\swigInterfaceFiles\problems\zdt.i
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "algorithms", "algorithms", "{0E707295-FF3A-4ABF-8077-DFF552602EAD}"
 	ProjectSection(SolutionItems) = preProject
-		swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\algorithms\bee_colony.i = swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\algorithms\bee_colony.i
-		swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\algorithms\cmaes.i = swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\algorithms\cmaes.i
-		swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\algorithms\compass_search.i = swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\algorithms\compass_search.i
-		swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\algorithms\de.i = swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\algorithms\de.i
-		swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\algorithms\de1220.i = swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\algorithms\de1220.i
-		swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\algorithms\gaco.i = swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\algorithms\gaco.i
-		swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\algorithms\gwo.i = swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\algorithms\gwo.i
-		swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\algorithms\ipopt.i = swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\algorithms\ipopt.i
-		swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\algorithms\nlopt.i = swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\algorithms\nlopt.i
-		swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\algorithms\nspso.i = swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\algorithms\nspso.i
-		swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\algorithms\pso.i = swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\algorithms\pso.i
-		swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\algorithms\pso_gen.i = swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\algorithms\pso_gen.i
-		swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\algorithms\sade.i = swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\algorithms\sade.i
-		swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\algorithms\sea.i = swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\algorithms\sea.i
-		swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\algorithms\sga.i = swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\algorithms\sga.i
-		swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\algorithms\simulated_annealing.i = swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\algorithms\simulated_annealing.i
-		swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\algorithms\xnes.i = swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\algorithms\xnes.i
+		swig\swigInterfaceFiles\algorithms\bee_colony.i = swig\swigInterfaceFiles\algorithms\bee_colony.i
+		swig\swigInterfaceFiles\algorithms\cmaes.i = swig\swigInterfaceFiles\algorithms\cmaes.i
+		swig\swigInterfaceFiles\algorithms\compass_search.i = swig\swigInterfaceFiles\algorithms\compass_search.i
+		swig\swigInterfaceFiles\algorithms\de.i = swig\swigInterfaceFiles\algorithms\de.i
+		swig\swigInterfaceFiles\algorithms\de1220.i = swig\swigInterfaceFiles\algorithms\de1220.i
+		swig\swigInterfaceFiles\algorithms\gaco.i = swig\swigInterfaceFiles\algorithms\gaco.i
+		swig\swigInterfaceFiles\algorithms\gwo.i = swig\swigInterfaceFiles\algorithms\gwo.i
+		swig\swigInterfaceFiles\algorithms\ipopt.i = swig\swigInterfaceFiles\algorithms\ipopt.i
+		swig\swigInterfaceFiles\algorithms\nlopt.i = swig\swigInterfaceFiles\algorithms\nlopt.i
+		swig\swigInterfaceFiles\algorithms\nspso.i = swig\swigInterfaceFiles\algorithms\nspso.i
+		swig\swigInterfaceFiles\algorithms\pso.i = swig\swigInterfaceFiles\algorithms\pso.i
+		swig\swigInterfaceFiles\algorithms\pso_gen.i = swig\swigInterfaceFiles\algorithms\pso_gen.i
+		swig\swigInterfaceFiles\algorithms\sade.i = swig\swigInterfaceFiles\algorithms\sade.i
+		swig\swigInterfaceFiles\algorithms\sea.i = swig\swigInterfaceFiles\algorithms\sea.i
+		swig\swigInterfaceFiles\algorithms\sga.i = swig\swigInterfaceFiles\algorithms\sga.i
+		swig\swigInterfaceFiles\algorithms\simulated_annealing.i = swig\swigInterfaceFiles\algorithms\simulated_annealing.i
+		swig\swigInterfaceFiles\algorithms\xnes.i = swig\swigInterfaceFiles\algorithms\xnes.i
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "utils", "utils", "{A789B01C-7696-42B9-B8F4-9129FDAB4294}"
 	ProjectSection(SolutionItems) = preProject
-		swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\utils\gradients_and_hessians.i = swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\utils\gradients_and_hessians.i
-		swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\utils\hypervolume.i = swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\utils\hypervolume.i
-		swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\utils\multi_objective.i = swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\utils\multi_objective.i
-		swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\utils\std_tuple.i = swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\utils\std_tuple.i
+		swig\swigInterfaceFiles\utils\gradients_and_hessians.i = swig\swigInterfaceFiles\utils\gradients_and_hessians.i
+		swig\swigInterfaceFiles\utils\hypervolume.i = swig\swigInterfaceFiles\utils\hypervolume.i
+		swig\swigInterfaceFiles\utils\multi_objective.i = swig\swigInterfaceFiles\utils\multi_objective.i
+		swig\swigInterfaceFiles\utils\std_tuple.i = swig\swigInterfaceFiles\utils\std_tuple.i
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "hv_algos", "hv_algos", "{55CC7DC4-992C-4E06-A474-E96C683765EE}"
 	ProjectSection(SolutionItems) = preProject
-		swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\utils\hv_algos\hv_algorithm.i = swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\utils\hv_algos\hv_algorithm.i
+		swig\swigInterfaceFiles\utils\hv_algos\hv_algorithm.i = swig\swigInterfaceFiles\utils\hv_algos\hv_algorithm.i
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "batch_evaluators", "batch_evaluators", "{1EDCDCC7-892B-4D84-A9A8-75DE71DC8EB1}"
 	ProjectSection(SolutionItems) = preProject
-		swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\batch_evaluators\default_bfe.i = swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\batch_evaluators\default_bfe.i
-		swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\batch_evaluators\member_bfe.i = swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\batch_evaluators\member_bfe.i
-		swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\batch_evaluators\thread_bfe.i = swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\batch_evaluators\thread_bfe.i
+		swig\swigInterfaceFiles\batch_evaluators\default_bfe.i = swig\swigInterfaceFiles\batch_evaluators\default_bfe.i
+		swig\swigInterfaceFiles\batch_evaluators\member_bfe.i = swig\swigInterfaceFiles\batch_evaluators\member_bfe.i
+		swig\swigInterfaceFiles\batch_evaluators\thread_bfe.i = swig\swigInterfaceFiles\batch_evaluators\thread_bfe.i
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "islands", "islands", "{50CC2211-849B-4FB5-8A87-448B94EDC722}"
 	ProjectSection(SolutionItems) = preProject
-		swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\islands\fork_island.i = swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\islands\fork_island.i
-		swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\islands\thread_island.i = swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\islands\thread_island.i
+		swig\swigInterfaceFiles\islands\fork_island.i = swig\swigInterfaceFiles\islands\fork_island.i
+		swig\swigInterfaceFiles\islands\thread_island.i = swig\swigInterfaceFiles\islands\thread_island.i
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "r_policies", "r_policies", "{19619306-8F50-41C9-BCBD-1A4D45995DAF}"
 	ProjectSection(SolutionItems) = preProject
-		swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\r_policies\fair_replace.i = swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\r_policies\fair_replace.i
+		swig\swigInterfaceFiles\r_policies\fair_replace.i = swig\swigInterfaceFiles\r_policies\fair_replace.i
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "s_policies", "s_policies", "{668E298E-FE7D-4BC8-8187-30AE2CE23F83}"
 	ProjectSection(SolutionItems) = preProject
-		swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\s_policies\select_best.i = swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\s_policies\select_best.i
+		swig\swigInterfaceFiles\s_policies\select_best.i = swig\swigInterfaceFiles\s_policies\select_best.i
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "detail", "detail", "{720EB227-97B9-4311-9FFF-D7AE5716BE4A}"
 	ProjectSection(SolutionItems) = preProject
-		swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\detail\base_sr_policy.i = swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\detail\base_sr_policy.i
-		swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\detail\bfe_impl.i = swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\detail\bfe_impl.i
+		swig\swigInterfaceFiles\detail\base_sr_policy.i = swig\swigInterfaceFiles\detail\base_sr_policy.i
+		swig\swigInterfaceFiles\detail\bfe_impl.i = swig\swigInterfaceFiles\detail\bfe_impl.i
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "topologies", "topologies", "{BD28DC9B-1D64-4278-9276-092EDBC86C51}"
 	ProjectSection(SolutionItems) = preProject
-		swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\topologies\unconnected.i = swigInterfaceFileAndPagmoHeaders\swigInterfaceFiles\topologies\unconnected.i
+		swig\swigInterfaceFiles\topologies\unconnected.i = swig\swigInterfaceFiles\topologies\unconnected.i
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Examples", "Examples", "{B36A84DF-456D-A817-6EDD-3EC3E7F6E11F}"

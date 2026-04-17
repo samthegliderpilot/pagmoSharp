@@ -18,9 +18,9 @@ if not defined SWIG_EXE (
     exit /b 1
 )
 
-set "SWIG_OUT=swigInterfaceFileAndPagmoHeaders"
+set "SWIG_OUT=swig"
 
-"%SWIG_EXE%" -c++ -csharp -namespace pagmo -dllimport pagmoWrapper -I..\..\pagmoWrapper -I.\swigInterfaceFileAndPagmoHeaders swigInterfaceFileAndPagmoHeaders\pagmoSharpSwigInterface.i
+"%SWIG_EXE%" -c++ -csharp -namespace pagmo -dllimport pagmoWrapper -I..\..\pagmoWrapper -I.\swig swig\pagmoSharpSwigInterface.i
 if errorlevel 1 exit /b 1
 
 copy /Y "%SWIG_OUT%\pagmoSharpSwigInterface_wrap.cxx" "pagmoWrapper\GeneratedWrappers.cxx" >nul
