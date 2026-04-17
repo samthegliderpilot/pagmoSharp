@@ -16,6 +16,7 @@ namespace pagmo
         private readonly IProblem _problem;
         private ExceptionDispatchInfo _deferredManagedException;
 
+        /// <summary>Wraps the given managed problem for use as a native pagmo callback.</summary>
         public ProblemCallbackAdapter(IProblem problem)
         {
             _problem = problem ?? throw new ArgumentNullException(nameof(problem));
@@ -46,6 +47,7 @@ namespace pagmo
         // Required callbacks
         // -------------------------------------------------------------------------
 
+        /// <inheritdoc/>
         public override DoubleVector fitness(DoubleVector x)
         {
             try
@@ -59,6 +61,7 @@ namespace pagmo
             }
         }
 
+        /// <inheritdoc/>
         public override PairOfDoubleVectors get_bounds()
         {
             try
@@ -79,12 +82,14 @@ namespace pagmo
         // Optional metadata
         // -------------------------------------------------------------------------
 
+        /// <inheritdoc/>
         public override string get_name()
         {
             try   { return _problem.get_name(); }
             catch (Exception ex) { Defer(ex); return "C# problem"; }
         }
 
+        /// <inheritdoc/>
         public override string get_extra_info()
         {
             try   { return _problem.get_extra_info(); }
@@ -95,24 +100,28 @@ namespace pagmo
         // Dimension accessors — safe default is 1 objective, 0 constraints
         // -------------------------------------------------------------------------
 
+        /// <inheritdoc/>
         public override uint get_nobj()
         {
             try   { return _problem.get_nobj(); }
             catch (Exception ex) { Defer(ex); return 1u; }
         }
 
+        /// <inheritdoc/>
         public override uint get_nec()
         {
             try   { return _problem.get_nec(); }
             catch (Exception ex) { Defer(ex); return 0u; }
         }
 
+        /// <inheritdoc/>
         public override uint get_nic()
         {
             try   { return _problem.get_nic(); }
             catch (Exception ex) { Defer(ex); return 0u; }
         }
 
+        /// <inheritdoc/>
         public override uint get_nix()
         {
             try   { return _problem.get_nix(); }
@@ -123,12 +132,14 @@ namespace pagmo
         // Optional batch evaluation
         // -------------------------------------------------------------------------
 
+        /// <inheritdoc/>
         public override bool has_batch_fitness()
         {
             try   { return _problem.has_batch_fitness(); }
             catch (Exception ex) { Defer(ex); return false; }
         }
 
+        /// <inheritdoc/>
         public override DoubleVector batch_fitness(DoubleVector x)
         {
             try
@@ -146,12 +157,14 @@ namespace pagmo
         // Optional gradient
         // -------------------------------------------------------------------------
 
+        /// <inheritdoc/>
         public override bool has_gradient()
         {
             try   { return _problem.has_gradient(); }
             catch (Exception ex) { Defer(ex); return false; }
         }
 
+        /// <inheritdoc/>
         public override DoubleVector gradient(DoubleVector x)
         {
             try
@@ -165,6 +178,7 @@ namespace pagmo
             }
         }
 
+        /// <inheritdoc/>
         public override bool has_gradient_sparsity()
         {
             try   { return _problem.has_gradient_sparsity(); }
@@ -174,6 +188,7 @@ namespace pagmo
         // Return type is SWIGTYPE because this overrides a SWIG-generated virtual
         // whose C++ signature returns pagmo::sparsity_pattern by value. SWIG cannot
         // produce a cleaner return type here; the conversion via swigRelease is correct.
+        /// <inheritdoc/>
         public override SWIGTYPE_p_std__vectorT_std__pairT_size_t_size_t_t_t gradient_sparsity()
         {
             try
@@ -194,12 +209,14 @@ namespace pagmo
         // Optional hessians
         // -------------------------------------------------------------------------
 
+        /// <inheritdoc/>
         public override bool has_hessians()
         {
             try   { return _problem.has_hessians(); }
             catch (Exception ex) { Defer(ex); return false; }
         }
 
+        /// <inheritdoc/>
         public override VectorOfVectorOfDoubles hessians(DoubleVector x)
         {
             try
@@ -213,6 +230,7 @@ namespace pagmo
             }
         }
 
+        /// <inheritdoc/>
         public override bool has_hessians_sparsity()
         {
             try   { return _problem.has_hessians_sparsity(); }
@@ -220,6 +238,7 @@ namespace pagmo
         }
 
         // Same rationale as gradient_sparsity — SWIGTYPE is required by the override signature.
+        /// <inheritdoc/>
         public override SWIGTYPE_p_std__vectorT_std__vectorT_std__pairT_size_t_size_t_t_t_t hessians_sparsity()
         {
             try
@@ -240,12 +259,14 @@ namespace pagmo
         // Optional stochastic seed
         // -------------------------------------------------------------------------
 
+        /// <inheritdoc/>
         public override void set_seed(uint seed)
         {
             try   { _problem.set_seed(seed); }
             catch (Exception ex) { Defer(ex); }
         }
 
+        /// <inheritdoc/>
         public override bool has_set_seed()
         {
             try   { return _problem.has_set_seed(); }
@@ -256,6 +277,7 @@ namespace pagmo
         // Thread safety
         // -------------------------------------------------------------------------
 
+        /// <inheritdoc/>
         public override ThreadSafety get_thread_safety()
         {
             try   { return _problem.get_thread_safety(); }

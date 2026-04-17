@@ -13,9 +13,13 @@ try {
     }
 
     $repoRoot = Resolve-Path (Join-Path $PSScriptRoot "..")
+    $batPath = Join-Path $repoRoot "createSwigWrappersAndPlaceThem.bat"
     Push-Location $repoRoot
     try {
-        cmd /c createSwigWrappersAndPlaceThem.bat
+        # Use the full Windows path to the bat so cmd.exe can find it when
+        # invoked from a POSIX shell (e.g. Git Bash) where relative paths
+        # may not resolve correctly through cmd /c.
+        cmd /c "$batPath"
         if ($LASTEXITCODE -ne 0) {
             throw "createSwigWrappersAndPlaceThem.bat failed ($LASTEXITCODE)."
         }
