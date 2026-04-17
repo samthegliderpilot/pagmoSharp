@@ -10,20 +10,20 @@
 
 namespace pagmo {
 
-public class r_policyPagmoWrapper : global::System.IDisposable {
+public class ManagedSPolicy : global::System.IDisposable {
   private global::System.Runtime.InteropServices.HandleRef swigCPtr;
   protected bool swigCMemOwn;
 
-  internal r_policyPagmoWrapper(global::System.IntPtr cPtr, bool cMemoryOwn) {
+  internal ManagedSPolicy(global::System.IntPtr cPtr, bool cMemoryOwn) {
     swigCMemOwn = cMemoryOwn;
     swigCPtr = new global::System.Runtime.InteropServices.HandleRef(this, cPtr);
   }
 
-  internal static global::System.Runtime.InteropServices.HandleRef getCPtr(r_policyPagmoWrapper obj) {
+  internal static global::System.Runtime.InteropServices.HandleRef getCPtr(ManagedSPolicy obj) {
     return (obj == null) ? new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero) : obj.swigCPtr;
   }
 
-  internal static global::System.Runtime.InteropServices.HandleRef swigRelease(r_policyPagmoWrapper obj) {
+  internal static global::System.Runtime.InteropServices.HandleRef swigRelease(ManagedSPolicy obj) {
     if (obj != null) {
       if (!obj.swigCMemOwn)
         throw new global::System.ApplicationException("Cannot release ownership as memory is not owned");
@@ -36,7 +36,7 @@ public class r_policyPagmoWrapper : global::System.IDisposable {
     }
   }
 
-  ~r_policyPagmoWrapper() {
+  ~ManagedSPolicy() {
     Dispose(false);
   }
 
@@ -50,51 +50,51 @@ public class r_policyPagmoWrapper : global::System.IDisposable {
       if (swigCPtr.Handle != global::System.IntPtr.Zero) {
         if (swigCMemOwn) {
           swigCMemOwn = false;
-          pagmoPINVOKE.delete_r_policyPagmoWrapper(swigCPtr);
+          pagmoPINVOKE.delete_ManagedSPolicy(swigCPtr);
         }
         swigCPtr = new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero);
       }
     }
   }
 
-  public r_policyPagmoWrapper() : this(pagmoPINVOKE.new_r_policyPagmoWrapper__SWIG_0(), true) {
+  public ManagedSPolicy() : this(pagmoPINVOKE.new_ManagedSPolicy__SWIG_0(), true) {
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
-  public r_policyPagmoWrapper(r_policyBase base_) : this(pagmoPINVOKE.new_r_policyPagmoWrapper__SWIG_1(r_policyBase.getCPtr(base_)), true) {
+  public ManagedSPolicy(SPolicyCallback base_) : this(pagmoPINVOKE.new_ManagedSPolicy__SWIG_1(SPolicyCallback.getCPtr(base_)), true) {
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
-  public r_policyPagmoWrapper(r_policyPagmoWrapper arg0) : this(pagmoPINVOKE.new_r_policyPagmoWrapper__SWIG_2(r_policyPagmoWrapper.getCPtr(arg0)), true) {
+  public ManagedSPolicy(ManagedSPolicy arg0) : this(pagmoPINVOKE.new_ManagedSPolicy__SWIG_2(ManagedSPolicy.getCPtr(arg0)), true) {
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
-  public void setBasePolicy(r_policyBase b) {
-    pagmoPINVOKE.r_policyPagmoWrapper_setBasePolicy(swigCPtr, r_policyBase.getCPtr(b));
+  public void setBasePolicy(SPolicyCallback b) {
+    pagmoPINVOKE.ManagedSPolicy_setBasePolicy(swigCPtr, SPolicyCallback.getCPtr(b));
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
-  public r_policyBase getBasePolicy() {
-    global::System.IntPtr cPtr = pagmoPINVOKE.r_policyPagmoWrapper_getBasePolicy(swigCPtr);
-    r_policyBase ret = (cPtr == global::System.IntPtr.Zero) ? null : new r_policyBase(cPtr, false);
+  public SPolicyCallback getBasePolicy() {
+    global::System.IntPtr cPtr = pagmoPINVOKE.ManagedSPolicy_getBasePolicy(swigCPtr);
+    SPolicyCallback ret = (cPtr == global::System.IntPtr.Zero) ? null : new SPolicyCallback(cPtr, false);
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public string get_name() {
-    string ret = pagmoPINVOKE.r_policyPagmoWrapper_get_name(swigCPtr);
+    string ret = pagmoPINVOKE.ManagedSPolicy_get_name(swigCPtr);
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public string get_extra_info() {
-    string ret = pagmoPINVOKE.r_policyPagmoWrapper_get_extra_info(swigCPtr);
+    string ret = pagmoPINVOKE.ManagedSPolicy_get_extra_info(swigCPtr);
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public bool is_valid() {
-    bool ret = pagmoPINVOKE.r_policyPagmoWrapper_is_valid(swigCPtr);
+    bool ret = pagmoPINVOKE.ManagedSPolicy_is_valid(swigCPtr);
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }

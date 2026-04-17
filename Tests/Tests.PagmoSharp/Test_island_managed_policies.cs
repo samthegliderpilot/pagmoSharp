@@ -11,7 +11,7 @@ namespace Tests.PagmoSharp
         // wrappers can be validated with island creation paths.
         private sealed class ManagedBatchProblem : ManagedProblemBase
         {
-            public override thread_safety get_thread_safety() => thread_safety.basic;
+            public override ThreadSafety get_thread_safety() => ThreadSafety.Basic;
 
             public override PairOfDoubleVectors get_bounds()
             {
@@ -41,9 +41,9 @@ namespace Tests.PagmoSharp
             }
         }
 
-        // Managed replacement policy stub used to validate direct r_policyBase support
+        // Managed replacement policy stub used to validate direct RPolicyCallback support
         // in island helper overloads and ownership transfer behavior.
-        private sealed class ManagedReplacementPolicy : r_policyBase
+        private sealed class ManagedReplacementPolicy : RPolicyCallback
         {
             public override IndividualsGroup replace(IndividualsGroup a, uint b, uint c, uint d, uint e, uint f, DoubleVector g, IndividualsGroup h)
             {
@@ -51,13 +51,13 @@ namespace Tests.PagmoSharp
             }
 
             public override string get_name() => "ManagedReplacementPolicy";
-            public override string get_extra_info() => "managed r_policyBase test";
+            public override string get_extra_info() => "managed RPolicyCallback test";
             public override bool is_valid() => true;
         }
 
         // Managed selection policy stub paired with the replacement policy for island
         // policy callback wiring and lifecycle coverage.
-        private sealed class ManagedSelectionPolicy : s_policyBase
+        private sealed class ManagedSelectionPolicy : SPolicyCallback
         {
             public override IndividualsGroup select(IndividualsGroup a, uint b, uint c, uint d, uint e, uint f, DoubleVector g)
             {
@@ -65,7 +65,7 @@ namespace Tests.PagmoSharp
             }
 
             public override string get_name() => "ManagedSelectionPolicy";
-            public override string get_extra_info() => "managed s_policyBase test";
+            public override string get_extra_info() => "managed SPolicyCallback test";
             public override bool is_valid() => true;
         }
 
@@ -84,7 +84,7 @@ namespace Tests.PagmoSharp
             Assert.IsTrue(isl.is_valid());
             isl.evolve();
             isl.wait_check();
-            Assert.AreEqual(evolve_status.idle, isl.status());
+            Assert.AreEqual(EvolveStatus.Idle, isl.status());
         }
 
         [Test]
@@ -100,7 +100,7 @@ namespace Tests.PagmoSharp
             Assert.IsTrue(isl.is_valid());
             isl.evolve();
             isl.wait_check();
-            Assert.AreEqual(evolve_status.idle, isl.status());
+            Assert.AreEqual(EvolveStatus.Idle, isl.status());
         }
 
         [Test]
@@ -117,7 +117,7 @@ namespace Tests.PagmoSharp
             Assert.IsTrue(isl.is_valid());
             isl.evolve();
             isl.wait_check();
-            Assert.AreEqual(evolve_status.idle, isl.status());
+            Assert.AreEqual(EvolveStatus.Idle, isl.status());
         }
 
         [Test]
@@ -135,7 +135,7 @@ namespace Tests.PagmoSharp
             Assert.IsTrue(isl.is_valid());
             isl.evolve();
             isl.wait_check();
-            Assert.AreEqual(evolve_status.idle, isl.status());
+            Assert.AreEqual(EvolveStatus.Idle, isl.status());
         }
 
         [Test]
@@ -152,7 +152,7 @@ namespace Tests.PagmoSharp
             Assert.IsTrue(isl.is_valid());
             isl.evolve();
             isl.wait_check();
-            Assert.AreEqual(evolve_status.idle, isl.status());
+            Assert.AreEqual(EvolveStatus.Idle, isl.status());
         }
 
         [Test]
@@ -169,7 +169,7 @@ namespace Tests.PagmoSharp
             Assert.IsTrue(isl.is_valid());
             isl.evolve();
             isl.wait_check();
-            Assert.AreEqual(evolve_status.idle, isl.status());
+            Assert.AreEqual(EvolveStatus.Idle, isl.status());
         }
 
         [Test]
@@ -186,7 +186,7 @@ namespace Tests.PagmoSharp
             Assert.IsTrue(isl.is_valid());
             isl.evolve();
             isl.wait_check();
-            Assert.AreEqual(evolve_status.idle, isl.status());
+            Assert.AreEqual(EvolveStatus.Idle, isl.status());
         }
     }
 }

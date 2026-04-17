@@ -97,8 +97,8 @@ namespace pagmo
             IProblem problem,
             ulong populationSize,
             uint seed,
-            r_policyBase replacementPolicy,
-            s_policyBase selectionPolicy,
+            RPolicyCallback replacementPolicy,
+            SPolicyCallback selectionPolicy,
             bfe evaluator = null,
             thread_island islandType = null)
         {
@@ -184,7 +184,7 @@ namespace pagmo
         /// <summary>
         /// Adds an island with managed replacement/selection policies.
         /// </summary>
-        public ulong push_back_island(algorithm algorithm, IProblem problem, ulong populationSize, r_policyBase replacementPolicy, s_policyBase selectionPolicy, uint seed = 0u, thread_island islandType = null)
+        public ulong push_back_island(algorithm algorithm, IProblem problem, ulong populationSize, RPolicyCallback replacementPolicy, SPolicyCallback selectionPolicy, uint seed = 0u, thread_island islandType = null)
         {
             ValidatePolicyPair(replacementPolicy, selectionPolicy, nameof(replacementPolicy), nameof(selectionPolicy));
             return PushBackWithManagedPolicies(algorithm, problem, populationSize, seed, replacementPolicy, selectionPolicy, islandType: islandType);
@@ -210,7 +210,7 @@ namespace pagmo
         /// <summary>
         /// Adds an island with explicit evaluator and managed policies.
         /// </summary>
-        public ulong push_back_island(algorithm algorithm, IProblem problem, bfe evaluator, ulong populationSize, r_policyBase replacementPolicy, s_policyBase selectionPolicy, uint seed = 0u, thread_island islandType = null)
+        public ulong push_back_island(algorithm algorithm, IProblem problem, bfe evaluator, ulong populationSize, RPolicyCallback replacementPolicy, SPolicyCallback selectionPolicy, uint seed = 0u, thread_island islandType = null)
         {
             ValidatePolicyPair(replacementPolicy, selectionPolicy, nameof(replacementPolicy), nameof(selectionPolicy));
             return PushBackWithManagedPolicies(algorithm, problem, populationSize, seed, replacementPolicy, selectionPolicy, evaluator, islandType);
@@ -236,7 +236,7 @@ namespace pagmo
         /// <summary>
         /// Adds an island with managed policies.
         /// </summary>
-        public ulong push_back_island(IAlgorithm algorithm, IProblem problem, ulong populationSize, r_policyBase replacementPolicy, s_policyBase selectionPolicy, uint seed = 0u, thread_island islandType = null)
+        public ulong push_back_island(IAlgorithm algorithm, IProblem problem, ulong populationSize, RPolicyCallback replacementPolicy, SPolicyCallback selectionPolicy, uint seed = 0u, thread_island islandType = null)
         {
             ValidatePolicyPair(replacementPolicy, selectionPolicy, nameof(replacementPolicy), nameof(selectionPolicy));
             using var normalized = AlgorithmInterop.NormalizeToTypeErased(algorithm);
@@ -263,7 +263,7 @@ namespace pagmo
         /// <summary>
         /// Adds an island with explicit evaluator and managed policies.
         /// </summary>
-        public ulong push_back_island(IAlgorithm algorithm, IProblem problem, bfe evaluator, ulong populationSize, r_policyBase replacementPolicy, s_policyBase selectionPolicy, uint seed = 0u, thread_island islandType = null)
+        public ulong push_back_island(IAlgorithm algorithm, IProblem problem, bfe evaluator, ulong populationSize, RPolicyCallback replacementPolicy, SPolicyCallback selectionPolicy, uint seed = 0u, thread_island islandType = null)
         {
             ValidatePolicyPair(replacementPolicy, selectionPolicy, nameof(replacementPolicy), nameof(selectionPolicy));
             using var normalized = AlgorithmInterop.NormalizeToTypeErased(algorithm);
@@ -304,17 +304,17 @@ namespace pagmo
         }
 
         /// <summary>
-        /// PascalCase alias for <see cref="push_back_island(IAlgorithm,IProblem,ulong,r_policyBase,s_policyBase,uint,thread_island)"/>.
+        /// PascalCase alias for <see cref="push_back_island(IAlgorithm,IProblem,ulong,RPolicyCallback,SPolicyCallback,uint,thread_island)"/>.
         /// </summary>
-        public ulong PushBackIsland(IAlgorithm algorithm, IProblem problem, ulong populationSize, r_policyBase replacementPolicy, s_policyBase selectionPolicy, uint seed = 0u, thread_island islandType = null)
+        public ulong PushBackIsland(IAlgorithm algorithm, IProblem problem, ulong populationSize, RPolicyCallback replacementPolicy, SPolicyCallback selectionPolicy, uint seed = 0u, thread_island islandType = null)
         {
             return push_back_island(algorithm, problem, populationSize, replacementPolicy, selectionPolicy, seed, islandType);
         }
 
         /// <summary>
-        /// PascalCase alias for <see cref="push_back_island(IAlgorithm,IProblem,bfe,ulong,r_policyBase,s_policyBase,uint,thread_island)"/>.
+        /// PascalCase alias for <see cref="push_back_island(IAlgorithm,IProblem,bfe,ulong,RPolicyCallback,SPolicyCallback,uint,thread_island)"/>.
         /// </summary>
-        public ulong PushBackIsland(IAlgorithm algorithm, IProblem problem, bfe evaluator, ulong populationSize, r_policyBase replacementPolicy, s_policyBase selectionPolicy, uint seed = 0u, thread_island islandType = null)
+        public ulong PushBackIsland(IAlgorithm algorithm, IProblem problem, bfe evaluator, ulong populationSize, RPolicyCallback replacementPolicy, SPolicyCallback selectionPolicy, uint seed = 0u, thread_island islandType = null)
         {
             return push_back_island(algorithm, problem, evaluator, populationSize, replacementPolicy, selectionPolicy, seed, islandType);
         }

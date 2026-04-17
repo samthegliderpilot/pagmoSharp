@@ -21,7 +21,7 @@ public class Test_minlp_Rastrigin : TestProblemBase
         Assert.AreEqual(0, problem.get_nec(), "equality constraint count");
         Assert.AreEqual(1, problem.get_nobj(), "objective count");
         Assert.AreEqual(1, problem.get_nix(), "integer count");
-        Assert.AreEqual(thread_safety.basic, problem.get_thread_safety(), "thread safety");
+        Assert.AreEqual(ThreadSafety.Basic, problem.get_thread_safety(), "thread safety");
         using var bounds = problem.get_bounds();
         Assert.AreEqual(-5.12, bounds.first[0]);
 

@@ -5,7 +5,7 @@ using pagmo;
 namespace Tests.PagmoSharp.Problems
 {
     [TestFixture]
-    public class Test_managed_problem_minimal
+    public class Test_ManagedProblem_minimal
     {
         // Minimal IProblem implementation used to assert default optional-member behavior
         // (metadata and NotSupportedException defaults) for managed problem callbacks.
@@ -45,7 +45,7 @@ namespace Tests.PagmoSharp.Problems
             Assert.AreEqual(0u, prob.get_nix());
             Assert.IsFalse(prob.has_batch_fitness());
             Assert.IsFalse(prob.has_set_seed());
-            Assert.AreEqual(thread_safety.none, prob.get_thread_safety());
+            Assert.AreEqual(ThreadSafety.None, prob.get_thread_safety());
             Assert.AreEqual(25.0, f[0], 1e-12);
 
             var problemInterface = (IProblem)managed;

@@ -21,3 +21,5 @@ copyerr.txt
 scratch/
 .vcpkg-buildtrees/
 .claude
+.idea/
+.nuget/

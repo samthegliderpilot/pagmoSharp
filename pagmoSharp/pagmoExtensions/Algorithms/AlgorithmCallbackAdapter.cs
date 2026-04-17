@@ -6,7 +6,7 @@ namespace pagmo
     /// <summary>
     /// SWIG director adapter that forwards native algorithm callbacks to managed IAlgorithm.
     /// </summary>
-    internal sealed class AlgorithmCallbackAdapter : algorithm_callback
+    internal sealed class AlgorithmCallbackAdapter : AlgorithmCallback
     {
         private readonly IAlgorithm _algorithm;
         private ExceptionDispatchInfo _deferredManagedException;
@@ -104,7 +104,7 @@ namespace pagmo
         /// <summary>
         /// Invokes the corresponding pagmo API. See docs/api-reference.md for upstream links.
         /// </summary>
-        public override thread_safety get_thread_safety() => thread_safety.basic;
+        public override ThreadSafety get_thread_safety() => ThreadSafety.Basic;
 
         /// <summary>
         /// Invokes the corresponding pagmo API. See docs/api-reference.md for upstream links.

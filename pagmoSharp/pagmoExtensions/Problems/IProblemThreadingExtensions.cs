@@ -12,10 +12,10 @@ namespace pagmo
             }
 
             var declaredThreadSafety = problem.get_thread_safety();
-            if (declaredThreadSafety == thread_safety.none)
+            if (declaredThreadSafety == ThreadSafety.None)
             {
                 throw new InvalidOperationException(
-                    $"Managed problem '{problem.get_name()}' must declare thread_safety.basic or thread_safety.constant for this threaded path.");
+                    $"Managed problem '{problem.get_name()}' must declare ThreadSafety.Basic or ThreadSafety.Constant for this threaded path.");
             }
         }
     }

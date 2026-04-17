@@ -81,7 +81,7 @@ namespace Tests.PagmoSharp
             using var batchX = new DoubleVector(new[] { 1.2 });
 
             var ex = Assert.Throws<InvalidOperationException>(() => bfeSample.Operator(problem, batchX));
-            Assert.That(ex!.Message, Does.Contain("thread_safety.basic or thread_safety.constant"));
+            Assert.That(ex!.Message, Does.Contain("ThreadSafety.Basic or ThreadSafety.Constant"));
             Assert.That(ex!.Message, Does.Contain(problem.get_name()));
         }
 
@@ -112,7 +112,7 @@ namespace Tests.PagmoSharp
         public void ThreadBfeExecutesBuiltInProblemsMarkedThreadSafe(Func<IProblem> problemFactory)
         {
             using var problem = problemFactory();
-            Assert.That(problem.get_thread_safety(), Is.Not.EqualTo(thread_safety.none), "built-in problem should expose thread-safe metadata for thread_bfe path");
+            Assert.That(problem.get_thread_safety(), Is.Not.EqualTo(ThreadSafety.None), "built-in problem should expose thread-safe metadata for thread_bfe path");
 
             using var bounds = problem.get_bounds();
             var dimension = bounds.first.Count;

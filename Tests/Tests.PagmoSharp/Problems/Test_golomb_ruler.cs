@@ -29,7 +29,7 @@ namespace Tests.PagmoSharp.Problems
             Assert.AreEqual(1, problem.get_nec(), "equality constraint count");
             Assert.AreEqual(1, problem.get_nobj(), "objective count");
             Assert.AreEqual(2, problem.get_nix(), "integer count");
-            Assert.AreEqual(thread_safety.basic, problem.get_thread_safety(), "thread safety");
+            Assert.AreEqual(ThreadSafety.Basic, problem.get_thread_safety(), "thread safety");
             using var bounds = problem.get_bounds();
             Assert.AreEqual(1.0, bounds.first[0]);
         }

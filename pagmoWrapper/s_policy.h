@@ -13,11 +13,14 @@ namespace pagmoWrap
     /// <summary>
     /// Director interface for managed C# selection-policy implementations.
     /// C# subclasses must override select(); get_name()/get_extra_info() are optional.
+    /// Named *_callback to match the problem_callback / algorithm_callback convention:
+    /// *_callback = SWIG director interface that C# subclasses;
+    /// managed_* = copy-safe UDT that pagmo stores by value.
     /// </summary>
-    class s_policyBase
+    class s_policy_callback
     {
     public:
-        virtual ~s_policyBase() = default;
+        virtual ~s_policy_callback() = default;
 
         /// <summary>
         /// Selects individuals from the population to migrate out.
@@ -48,32 +51,32 @@ namespace pagmoWrap
     /// Copy-safe UDT that pagmo can store by value. Holds a shared_ptr to the director
     /// callback so copies are safe across pagmo's internal type-erasure.
     /// </summary>
-    class s_policyPagmoWrapper
+    class managed_s_policy
     {
     private:
-        std::shared_ptr<s_policyBase> _base;
+        std::shared_ptr<s_policy_callback> _base;
 
     public:
-        s_policyPagmoWrapper() = default;
+        managed_s_policy() = default;
 
-        explicit s_policyPagmoWrapper(s_policyBase* base)
+        explicit managed_s_policy(s_policy_callback* base)
             : _base(base)
         {
         }
 
-        s_policyPagmoWrapper(const s_policyPagmoWrapper&) = default;
-        s_policyPagmoWrapper& operator=(const s_policyPagmoWrapper&) = default;
-        ~s_policyPagmoWrapper() = default;
+        managed_s_policy(const managed_s_policy&) = default;
+        managed_s_policy& operator=(const managed_s_policy&) = default;
+        ~managed_s_policy() = default;
 
-        void setBasePolicy(s_policyBase* b)
+        void setBasePolicy(s_policy_callback* b)
         {
             if (!b) {
-                throw std::invalid_argument("s_policyPagmoWrapper: base policy must not be null");
+                throw std::invalid_argument("managed_s_policy: base policy must not be null");
             }
             _base.reset(b);
         }
 
-        s_policyBase* getBasePolicy() const { return _base.get(); }
+        s_policy_callback* getBasePolicy() const { return _base.get(); }
 
         pagmo::individuals_group_t select(
             const pagmo::individuals_group_t& population,

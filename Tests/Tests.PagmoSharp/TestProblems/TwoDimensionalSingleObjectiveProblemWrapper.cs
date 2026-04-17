@@ -46,9 +46,9 @@ namespace Tests.PagmoSharp.TestProblems
             return false;
         }
 
-        public override thread_safety get_thread_safety()
+        public override ThreadSafety get_thread_safety()
         {
-            return thread_safety.constant;
+            return ThreadSafety.Constant;
         }
         
         public static ConcurrentBag<int> ThreadIds = new ConcurrentBag<int>();

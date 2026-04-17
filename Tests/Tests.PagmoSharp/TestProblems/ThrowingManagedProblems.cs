@@ -29,5 +29,5 @@ public sealed class ThrowingFitnessProblem : ManagedProblemBase
         return new PairOfDoubleVectors(new DoubleVector(new[] { -1.0 }), new DoubleVector(new[] { 1.0 }));
     }
 
-    public override thread_safety get_thread_safety() => thread_safety.basic;
+    public override ThreadSafety get_thread_safety() => ThreadSafety.Basic;
 }

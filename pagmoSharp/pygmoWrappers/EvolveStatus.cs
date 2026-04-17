@@ -10,9 +10,11 @@
 
 namespace pagmo {
 
-public enum migrant_handling {
-  preserve,
-  evict
+public enum EvolveStatus {
+  Idle = 0,
+  Busy = 1,
+  IdleError = 2,
+  BusyError = 3
 }
 
 }

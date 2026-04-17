@@ -22,7 +22,7 @@ public class Test_rosenbrock : TestProblemBase
         Assert.AreEqual(0u, problem.get_nec());
         Assert.AreEqual(0u, problem.get_nic());
         Assert.AreEqual(0u, problem.get_nix());
-        Assert.AreEqual(thread_safety.constant, problem.get_thread_safety());
+        Assert.AreEqual(ThreadSafety.Constant, problem.get_thread_safety());
         Assert.IsFalse(problem.has_batch_fitness());
 
         Assert.AreEqual(3, bounds.first.Count);

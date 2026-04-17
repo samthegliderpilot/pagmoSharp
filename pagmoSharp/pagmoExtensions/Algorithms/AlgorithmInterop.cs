@@ -18,6 +18,7 @@ namespace pagmo
                 cmaes covarianceMatrixAdaptationEvolutionStrategy => covarianceMatrixAdaptationEvolutionStrategy.to_algorithm(),
                 compass_search compassSearch => compassSearch.to_algorithm(),
                 ihs improvedHarmonySearch => improvedHarmonySearch.to_algorithm(),
+                ipopt ipoptAlgorithm => ipoptAlgorithm.to_algorithm(),
                 nsga2 nsga2Algorithm => nsga2Algorithm.to_algorithm(),
                 nlopt nloptAlgorithm => nloptAlgorithm.to_algorithm(),
                 moead moeadAlgorithm => moeadAlgorithm.to_algorithm(),

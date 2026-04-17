@@ -6,7 +6,7 @@ using Tests.PagmoSharp.TestProblems;
 namespace Tests.PagmoSharp;
 
 [TestFixture]
-public class Test_managed_problem_callback_lifetime
+public class Test_ManagedProblem_callback_lifetime
 {
     [Test]
     public void PopulationFromManagedProblemSurvivesForcedGcBeforeEvolve()
@@ -33,7 +33,7 @@ public class Test_managed_problem_callback_lifetime
 
         archipelago.evolve(1u);
         archipelago.wait_check();
-        Assert.That(archipelago.status(), Is.EqualTo(evolve_status.idle));
+        Assert.That(archipelago.status(), Is.EqualTo(EvolveStatus.Idle));
     }
 
     private static void ForceFullCollection()

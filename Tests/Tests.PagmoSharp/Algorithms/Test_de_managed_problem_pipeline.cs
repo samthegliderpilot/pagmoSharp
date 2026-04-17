@@ -4,7 +4,7 @@ using pagmo;
 namespace Tests.PagmoSharp.Algorithms
 {
     [TestFixture]
-    public class Test_de_managed_problem_pipeline
+    public class Test_de_ManagedProblem_pipeline
     {
         // Deterministic managed UDP with batch+gradient support used to validate that
         // the managed problem pipeline exposes the full pagmo problem surface end-to-end.
@@ -16,7 +16,7 @@ namespace Tests.PagmoSharp.Algorithms
             public override string get_name() => "DeterministicBatchProblem";
             public override string get_extra_info() => "Managed pipeline test UDP";
             public override PairOfDoubleVectors get_bounds() => new(_lb, _ub);
-            public override thread_safety get_thread_safety() => thread_safety.constant;
+            public override ThreadSafety get_thread_safety() => ThreadSafety.Constant;
 
             public override DoubleVector fitness(DoubleVector x)
             {
@@ -66,7 +66,7 @@ namespace Tests.PagmoSharp.Algorithms
             Assert.IsTrue(prob.is_valid());
             Assert.AreEqual("DeterministicBatchProblem", prob.get_name());
             Assert.AreEqual("Managed pipeline test UDP", prob.get_extra_info());
-            Assert.AreEqual(thread_safety.constant, prob.get_thread_safety());
+            Assert.AreEqual(ThreadSafety.Constant, prob.get_thread_safety());
 
             Assert.AreEqual(1u, prob.get_nobj());
             Assert.AreEqual(2u, prob.get_nx());

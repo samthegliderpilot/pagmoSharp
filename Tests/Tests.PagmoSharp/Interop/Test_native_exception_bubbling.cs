@@ -84,7 +84,7 @@ public class Test_native_exception_bubbling
             throw new InvalidOperationException($"managed fitness boom {_callCount}");
         }
 
-        public override thread_safety get_thread_safety() => thread_safety.basic;
+        public override ThreadSafety get_thread_safety() => ThreadSafety.Basic;
     }
 
     [Test]

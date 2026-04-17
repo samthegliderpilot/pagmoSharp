@@ -10,20 +10,20 @@
 
 namespace pagmo {
 
-public partial class managed_algorithm : global::System.IDisposable {
+public partial class ManagedAlgorithm : global::System.IDisposable {
   private global::System.Runtime.InteropServices.HandleRef swigCPtr;
   protected bool swigCMemOwn;
 
-  internal managed_algorithm(global::System.IntPtr cPtr, bool cMemoryOwn) {
+  internal ManagedAlgorithm(global::System.IntPtr cPtr, bool cMemoryOwn) {
     swigCMemOwn = cMemoryOwn;
     swigCPtr = new global::System.Runtime.InteropServices.HandleRef(this, cPtr);
   }
 
-  internal static global::System.Runtime.InteropServices.HandleRef getCPtr(managed_algorithm obj) {
+  internal static global::System.Runtime.InteropServices.HandleRef getCPtr(ManagedAlgorithm obj) {
     return (obj == null) ? new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero) : obj.swigCPtr;
   }
 
-  internal static global::System.Runtime.InteropServices.HandleRef swigRelease(managed_algorithm obj) {
+  internal static global::System.Runtime.InteropServices.HandleRef swigRelease(ManagedAlgorithm obj) {
     if (obj != null) {
       if (!obj.swigCMemOwn)
         throw new global::System.ApplicationException("Cannot release ownership as memory is not owned");
@@ -36,7 +36,7 @@ public partial class managed_algorithm : global::System.IDisposable {
     }
   }
 
-  ~managed_algorithm() {
+  ~ManagedAlgorithm() {
     Dispose(false);
   }
 
@@ -50,17 +50,17 @@ public partial class managed_algorithm : global::System.IDisposable {
       if (swigCPtr.Handle != global::System.IntPtr.Zero) {
         if (swigCMemOwn) {
           swigCMemOwn = false;
-          pagmoPINVOKE.delete_managed_algorithm(swigCPtr);
+          pagmoPINVOKE.delete_ManagedAlgorithm(swigCPtr);
         }
         swigCPtr = new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero);
       }
     }
   }
 
-  public class null_algorithm_callback : algorithm_callback {
+  public class null_algorithm_callback : AlgorithmCallback {
     private global::System.Runtime.InteropServices.HandleRef swigCPtr;
   
-    internal null_algorithm_callback(global::System.IntPtr cPtr, bool cMemoryOwn) : base(pagmoPINVOKE.managed_algorithm_null_algorithm_callback_SWIGUpcast(cPtr), cMemoryOwn) {
+    internal null_algorithm_callback(global::System.IntPtr cPtr, bool cMemoryOwn) : base(pagmoPINVOKE.ManagedAlgorithm_null_algorithm_callback_SWIGUpcast(cPtr), cMemoryOwn) {
       swigCPtr = new global::System.Runtime.InteropServices.HandleRef(this, cPtr);
     }
   
@@ -86,7 +86,7 @@ public partial class managed_algorithm : global::System.IDisposable {
         if (swigCPtr.Handle != global::System.IntPtr.Zero) {
           if (swigCMemOwn) {
             swigCMemOwn = false;
-            pagmoPINVOKE.delete_managed_algorithm_null_algorithm_callback(swigCPtr);
+            pagmoPINVOKE.delete_ManagedAlgorithm_null_algorithm_callback(swigCPtr);
           }
           swigCPtr = new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero);
         }
@@ -95,67 +95,67 @@ public partial class managed_algorithm : global::System.IDisposable {
     }
   
     public override population evolve(population pop) {
-      population ret = new population(pagmoPINVOKE.managed_algorithm_null_algorithm_callback_evolve(swigCPtr, population.getCPtr(pop)), true);
+      population ret = new population(pagmoPINVOKE.ManagedAlgorithm_null_algorithm_callback_evolve(swigCPtr, population.getCPtr(pop)), true);
       if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
       return ret;
     }
   
-    public null_algorithm_callback() : this(pagmoPINVOKE.new_managed_algorithm_null_algorithm_callback(), true) {
+    public null_algorithm_callback() : this(pagmoPINVOKE.new_ManagedAlgorithm_null_algorithm_callback(), true) {
       if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     }
   
   }
 
-  public managed_algorithm() : this(pagmoPINVOKE.new_managed_algorithm__SWIG_0(), true) {
+  public ManagedAlgorithm() : this(pagmoPINVOKE.new_ManagedAlgorithm__SWIG_0(), true) {
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
-  public managed_algorithm(algorithm_callback cb) : this(pagmoPINVOKE.new_managed_algorithm__SWIG_1(algorithm_callback.getCPtr(cb)), true) {
+  public ManagedAlgorithm(AlgorithmCallback cb) : this(pagmoPINVOKE.new_ManagedAlgorithm__SWIG_1(AlgorithmCallback.getCPtr(cb)), true) {
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public population evolve(population pop) {
-    population ret = new population(pagmoPINVOKE.managed_algorithm_evolve(swigCPtr, population.getCPtr(pop)), true);
+    population ret = new population(pagmoPINVOKE.ManagedAlgorithm_evolve(swigCPtr, population.getCPtr(pop)), true);
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public void set_seed(uint seed) {
-    pagmoPINVOKE.managed_algorithm_set_seed(swigCPtr, seed);
+    pagmoPINVOKE.ManagedAlgorithm_set_seed(swigCPtr, seed);
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public bool has_set_seed() {
-    bool ret = pagmoPINVOKE.managed_algorithm_has_set_seed(swigCPtr);
+    bool ret = pagmoPINVOKE.ManagedAlgorithm_has_set_seed(swigCPtr);
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public void set_verbosity(uint level) {
-    pagmoPINVOKE.managed_algorithm_set_verbosity(swigCPtr, level);
+    pagmoPINVOKE.ManagedAlgorithm_set_verbosity(swigCPtr, level);
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public bool has_set_verbosity() {
-    bool ret = pagmoPINVOKE.managed_algorithm_has_set_verbosity(swigCPtr);
+    bool ret = pagmoPINVOKE.ManagedAlgorithm_has_set_verbosity(swigCPtr);
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public string get_name() {
-    string ret = pagmoPINVOKE.managed_algorithm_get_name(swigCPtr);
+    string ret = pagmoPINVOKE.ManagedAlgorithm_get_name(swigCPtr);
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public string get_extra_info() {
-    string ret = pagmoPINVOKE.managed_algorithm_get_extra_info(swigCPtr);
+    string ret = pagmoPINVOKE.ManagedAlgorithm_get_extra_info(swigCPtr);
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
-  public thread_safety get_thread_safety() {
-    thread_safety ret = (thread_safety)pagmoPINVOKE.managed_algorithm_get_thread_safety(swigCPtr);
+  public ThreadSafety get_thread_safety() {
+    ThreadSafety ret = (ThreadSafety)pagmoPINVOKE.ManagedAlgorithm_get_thread_safety(swigCPtr);
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }

@@ -113,8 +113,8 @@ public partial class cec2006 : global::System.IDisposable {
     return ret;
   }
 
-  public thread_safety get_thread_safety() {
-    thread_safety ret = (thread_safety)pagmoPINVOKE.cec2006_get_thread_safety(swigCPtr);
+  public ThreadSafety get_thread_safety() {
+    ThreadSafety ret = (ThreadSafety)pagmoPINVOKE.cec2006_get_thread_safety(swigCPtr);
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }

@@ -7,7 +7,7 @@ namespace pagmo
     /// </summary>
     /// <remarks>
     /// This mirrors pagmo's UDP concept. Implementers should return consistent fitness/bounds dimensions and
-    /// accurately report capability flags (<c>has_*</c>) and <see cref="thread_safety"/> for runtime safety.
+    /// accurately report capability flags (<c>has_*</c>) and <see cref="ThreadSafety"/> for runtime safety.
     /// </remarks>
     public interface IProblem : IDisposable
     {
@@ -118,6 +118,6 @@ namespace pagmo
         /// <summary>
         /// Returns thread-safety capability used by threaded pagmo execution paths.
         /// </summary>
-        thread_safety get_thread_safety() => thread_safety.none;
+        ThreadSafety get_thread_safety() => ThreadSafety.None;
     }
 }

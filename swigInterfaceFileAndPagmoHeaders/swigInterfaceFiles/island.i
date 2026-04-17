@@ -61,8 +61,8 @@
     static pagmo::island CreateFromPopulationWithPolicies(
         const pagmo::algorithm &a,
         const pagmo::population &p,
-        const pagmoWrap::r_policyPagmoWrapper &r,
-        const pagmoWrap::s_policyPagmoWrapper &s
+        const pagmoWrap::managed_r_policy &r,
+        const pagmoWrap::managed_s_policy &s
     ) {
         return pagmoWrap::Island_FromAlgoPopManagedPolicies(a, p, r, s);
     }
@@ -113,8 +113,8 @@
         const pagmo::algorithm &a,
         const pagmo::problem &prob,
         std::size_t pop_size,
-        const pagmoWrap::r_policyPagmoWrapper &r,
-        const pagmoWrap::s_policyPagmoWrapper &s,
+        const pagmoWrap::managed_r_policy &r,
+        const pagmoWrap::managed_s_policy &s,
         unsigned seed
     ) {
         return pagmoWrap::Island_FromAlgoProbManagedPolicies(a, prob, pop_size, r, s, seed);
@@ -125,8 +125,8 @@
         const pagmo::algorithm &a,
         const pagmo::problem &prob,
         std::size_t pop_size,
-        const pagmoWrap::r_policyPagmoWrapper &r,
-        const pagmoWrap::s_policyPagmoWrapper &s,
+        const pagmoWrap::managed_r_policy &r,
+        const pagmoWrap::managed_s_policy &s,
         unsigned seed
     ) {
         return pagmoWrap::Island_FromThreadIslAlgoProbManagedPolicies(isl, a, prob, pop_size, r, s, seed);
@@ -183,8 +183,8 @@
         const pagmo::problem &prob,
         const pagmo::bfe &b,
         std::size_t pop_size,
-        const pagmoWrap::r_policyPagmoWrapper &r,
-        const pagmoWrap::s_policyPagmoWrapper &s,
+        const pagmoWrap::managed_r_policy &r,
+        const pagmoWrap::managed_s_policy &s,
         unsigned seed
     ) {
         return pagmoWrap::Island_FromAlgoProbBfeManagedPolicies(a, prob, b, pop_size, r, s, seed);
@@ -196,8 +196,8 @@
         const pagmo::problem &prob,
         const pagmo::bfe &b,
         std::size_t pop_size,
-        const pagmoWrap::r_policyPagmoWrapper &r,
-        const pagmoWrap::s_policyPagmoWrapper &s,
+        const pagmoWrap::managed_r_policy &r,
+        const pagmoWrap::managed_s_policy &s,
         unsigned seed
     ) {
         return pagmoWrap::Island_FromThreadIslAlgoProbBfeManagedPolicies(isl, a, prob, b, pop_size, r, s, seed);

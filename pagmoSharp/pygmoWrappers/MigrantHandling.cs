@@ -10,9 +10,9 @@
 
 namespace pagmo {
 
-public enum migration_type {
-  p2p,
-  broadcast
+public enum MigrantHandling {
+  Preserve,
+  Evict
 }
 
 }

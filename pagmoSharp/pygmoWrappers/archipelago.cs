@@ -91,8 +91,8 @@ public partial class archipelago : global::System.IDisposable {
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
-  public evolve_status status() {
-    evolve_status ret = (evolve_status)pagmoPINVOKE.archipelago_status(swigCPtr);
+  public EvolveStatus status() {
+    EvolveStatus ret = (EvolveStatus)pagmoPINVOKE.archipelago_status(swigCPtr);
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
@@ -115,8 +115,8 @@ public partial class archipelago : global::System.IDisposable {
     return ret;
   }
 
-  public uint push_back_island(algorithm algo, problem prob, uint pop_size, r_policyPagmoWrapper r, s_policyPagmoWrapper s, uint seed) {
-    uint ret = pagmoPINVOKE.archipelago_push_back_island__SWIG_2(swigCPtr, algorithm.getCPtr(algo), problem.getCPtr(prob), pop_size, r_policyPagmoWrapper.getCPtr(r), s_policyPagmoWrapper.getCPtr(s), seed);
+  public uint push_back_island(algorithm algo, problem prob, uint pop_size, ManagedRPolicy r, ManagedSPolicy s, uint seed) {
+    uint ret = pagmoPINVOKE.archipelago_push_back_island__SWIG_2(swigCPtr, algorithm.getCPtr(algo), problem.getCPtr(prob), pop_size, ManagedRPolicy.getCPtr(r), ManagedSPolicy.getCPtr(s), seed);
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
@@ -133,8 +133,8 @@ public partial class archipelago : global::System.IDisposable {
     return ret;
   }
 
-  public uint push_back_island(algorithm algo, problem prob, bfe b, uint pop_size, r_policyPagmoWrapper r, s_policyPagmoWrapper s, uint seed) {
-    uint ret = pagmoPINVOKE.archipelago_push_back_island__SWIG_5(swigCPtr, algorithm.getCPtr(algo), problem.getCPtr(prob), bfe.getCPtr(b), pop_size, r_policyPagmoWrapper.getCPtr(r), s_policyPagmoWrapper.getCPtr(s), seed);
+  public uint push_back_island(algorithm algo, problem prob, bfe b, uint pop_size, ManagedRPolicy r, ManagedSPolicy s, uint seed) {
+    uint ret = pagmoPINVOKE.archipelago_push_back_island__SWIG_5(swigCPtr, algorithm.getCPtr(algo), problem.getCPtr(prob), bfe.getCPtr(b), pop_size, ManagedRPolicy.getCPtr(r), ManagedSPolicy.getCPtr(s), seed);
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
@@ -151,8 +151,8 @@ public partial class archipelago : global::System.IDisposable {
     return ret;
   }
 
-  public uint push_back_island(thread_island isl, algorithm algo, problem prob, uint pop_size, r_policyPagmoWrapper r, s_policyPagmoWrapper s, uint seed) {
-    uint ret = pagmoPINVOKE.archipelago_push_back_island__SWIG_8(swigCPtr, thread_island.getCPtr(isl), algorithm.getCPtr(algo), problem.getCPtr(prob), pop_size, r_policyPagmoWrapper.getCPtr(r), s_policyPagmoWrapper.getCPtr(s), seed);
+  public uint push_back_island(thread_island isl, algorithm algo, problem prob, uint pop_size, ManagedRPolicy r, ManagedSPolicy s, uint seed) {
+    uint ret = pagmoPINVOKE.archipelago_push_back_island__SWIG_8(swigCPtr, thread_island.getCPtr(isl), algorithm.getCPtr(algo), problem.getCPtr(prob), pop_size, ManagedRPolicy.getCPtr(r), ManagedSPolicy.getCPtr(s), seed);
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
@@ -169,8 +169,8 @@ public partial class archipelago : global::System.IDisposable {
     return ret;
   }
 
-  public uint push_back_island(thread_island isl, algorithm algo, problem prob, bfe b, uint pop_size, r_policyPagmoWrapper r, s_policyPagmoWrapper s, uint seed) {
-    uint ret = pagmoPINVOKE.archipelago_push_back_island__SWIG_11(swigCPtr, thread_island.getCPtr(isl), algorithm.getCPtr(algo), problem.getCPtr(prob), bfe.getCPtr(b), pop_size, r_policyPagmoWrapper.getCPtr(r), s_policyPagmoWrapper.getCPtr(s), seed);
+  public uint push_back_island(thread_island isl, algorithm algo, problem prob, bfe b, uint pop_size, ManagedRPolicy r, ManagedSPolicy s, uint seed) {
+    uint ret = pagmoPINVOKE.archipelago_push_back_island__SWIG_11(swigCPtr, thread_island.getCPtr(isl), algorithm.getCPtr(algo), problem.getCPtr(prob), bfe.getCPtr(b), pop_size, ManagedRPolicy.getCPtr(r), ManagedSPolicy.getCPtr(s), seed);
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
@@ -186,24 +186,24 @@ public partial class archipelago : global::System.IDisposable {
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
-  public migration_type get_migration_type() {
-    migration_type ret = (migration_type)pagmoPINVOKE.archipelago_get_migration_type(swigCPtr);
+  public MigrationType get_migration_type() {
+    MigrationType ret = (MigrationType)pagmoPINVOKE.archipelago_get_migration_type(swigCPtr);
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
-  public void set_migration_type(migration_type t) {
+  public void set_migration_type(MigrationType t) {
     pagmoPINVOKE.archipelago_set_migration_type(swigCPtr, (int)t);
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
-  public migrant_handling get_migrant_handling() {
-    migrant_handling ret = (migrant_handling)pagmoPINVOKE.archipelago_get_migrant_handling(swigCPtr);
+  public MigrantHandling get_migrant_handling() {
+    MigrantHandling ret = (MigrantHandling)pagmoPINVOKE.archipelago_get_migrant_handling(swigCPtr);
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
-  public void set_migrant_handling(migrant_handling m) {
+  public void set_migrant_handling(MigrantHandling m) {
     pagmoPINVOKE.archipelago_set_migrant_handling(swigCPtr, (int)m);
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }

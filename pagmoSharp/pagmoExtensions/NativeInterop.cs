@@ -51,7 +51,8 @@ namespace pagmo
             private readonly object _gate = new();
 
             /// <summary>
-            /// Invokes the corresponding pagmo API. See docs/api-reference.md for upstream links.
+            /// Roots <paramref name="callback"/> with a strong GC handle so it cannot be collected
+            /// while the owning object is alive.
             /// </summary>
             public void Add(object callback)
             {
@@ -78,6 +79,9 @@ namespace pagmo
             }
         }
 
+        // ConditionalWeakTable ties each CallbackRootBucket's lifetime to its owner key: when the
+        // owner is GC'd the entry is automatically removed, so this table never leaks owner references.
+        // A plain Dictionary<object, …> would pin the owner forever (strong key reference).
         private static readonly ConditionalWeakTable<object, CallbackRootBucket> ProblemCallbackRoots = new();
 
         private static void AttachCallbackRoot(object owner, object callback)
@@ -91,12 +95,12 @@ namespace pagmo
             bucket.Add(callback);
         }
 
-        internal static void AttachProblemCallbackRoot(object owner, problem_callback callback)
+        internal static void AttachProblemCallbackRoot(object owner, ProblemCallback callback)
         {
             AttachCallbackRoot(owner, callback);
         }
 
-        internal static void AttachAlgorithmCallbackRoot(object owner, algorithm_callback callback)
+        internal static void AttachAlgorithmCallbackRoot(object owner, AlgorithmCallback callback)
         {
             AttachCallbackRoot(owner, callback);
         }
@@ -185,8 +189,23 @@ namespace pagmo
 
             callbackAdapter = new ProblemCallbackAdapter(problem);
             var callback = callbackAdapter;
-            var callbackPtr = problem_callback.swigRelease(callback).Handle;
+            var callbackPtr = ProblemCallback.swigRelease(callback).Handle;
             var problemPtr = problem_from_callback(callbackPtr);
+
+            // ProblemCallbackAdapter catches managed exceptions in callbacks and defers them so
+            // they don't escape through the P/Invoke boundary.  Check here so a get_bounds()
+            // failure during problem construction is surfaced as the original managed exception
+            // rather than being lost.  If problem construction somehow succeeded despite the
+            // deferred exception (because the adapter returned dummy bounds), free the native
+            // object before rethrowing.
+            var deferredEx = callbackAdapter.ConsumeDeferredManagedException();
+            if (deferredEx != null)
+            {
+                if (problemPtr != IntPtr.Zero)
+                    problem_delete(problemPtr);
+                System.Runtime.ExceptionServices.ExceptionDispatchInfo.Capture(deferredEx).Throw();
+            }
+
             if (problemPtr == IntPtr.Zero)
             {
                 // Prefer SWIG's canonical pending-exception channel when available.
@@ -209,7 +228,7 @@ namespace pagmo
 
             var callbackAdapter = new AlgorithmCallbackAdapter(algorithm);
             var callback = callbackAdapter;
-            var callbackPtr = algorithm_callback.swigRelease(callback).Handle;
+            var callbackPtr = AlgorithmCallback.swigRelease(callback).Handle;
             var algorithmPtr = algorithm_from_callback(callbackPtr);
             if (algorithmPtr == IntPtr.Zero)
             {

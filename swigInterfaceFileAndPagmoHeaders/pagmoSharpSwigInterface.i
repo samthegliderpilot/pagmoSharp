@@ -1,4 +1,4 @@
-/* File pagmoSharpSwigInterface.i */
+﻿/* File pagmoSharpSwigInterface.i */
 #define SUPPORT_VARIDEC FALSE
 %include "exception.i"
 %include "pagmo/config.hpp"
@@ -101,10 +101,128 @@ PAGMOSHARP_EXEC_EXCEPTION(pagmo::thread_island::run_evolve, "thread_island.run_e
 %typemap(csclassmodifiers) pagmoWrap::managed_algorithm "public partial class"
 
 %typemap(csclassmodifiers) std::vector <double> "public partial class"
+
+// ------------------------------------------------------------
+// Director exception safety typemaps
+//
+// %typemap(csdirectorout) is the standard SWIG mechanism for controlling what
+// goes inside the generated SwigDirectorMethod* stubs (the C# functions that
+// P/Invoke calls back into). By default those stubs have no try/catch; if a
+// managed override throws, the exception propagates through the P/Invoke
+// boundary and aborts the process in .NET Core.
+//
+// These typemaps wrap every director callback with a try/catch that stores the
+// exception via SWIGPendingException; the C++ director stub then re-throws it
+// as a C++ exception, which pagmo's normal %exception handler can catch and
+// convert to a managed exception on the forward path.
+//
+// PLACEMENT NOTE: these typemaps MUST appear before all %feature("director")
+// declarations and %include directives that define director classes. SWIG
+// applies csdirectorout typemaps when it processes the %include; placing them
+// after the include has no effect.
+//
+// For problem_callback and algorithm_callback, the C# adapter classes
+// (ProblemCallbackAdapter, AlgorithmCallbackAdapter) already catch exceptions
+// internally, so the SWIGPendingException path is a second line of defence.
+// For r_policy_callback and s_policy_callback there is no adapter layer, so these
+// typemaps are the primary safety net.
+// ------------------------------------------------------------
+
+// void-returning director callbacks (e.g. set_seed, set_verbosity)
+%typemap(csdirectorout) void %{
+  try {
+    $cscall;
+  } catch (global::System.Exception _exSwigDirector) {
+    pagmoPINVOKE.SWIGPendingException.Set(_exSwigDirector);
+  }
+%}
+
+// For non-void director callbacks, SWIG wraps the typemap body as `return <body>;` where
+// <body> is the typemap content with $cscall substituted. Because try/catch is a statement
+// (not an expression) in C#, we use an immediately-invoked lambda so the whole thing is
+// an expression: `return ((Func<T>)(() => { try {...} catch {...} }))();`
+
+// std::string-returning director callbacks (get_name, get_extra_info)
+%typemap(csdirectorout) std::string %{
+  ((global::System.Func<string>)(() => {
+    try { return $cscall; }
+    catch (global::System.Exception _exSwigDirector) {
+      pagmoPINVOKE.SWIGPendingException.Set(_exSwigDirector);
+      return null;
+    }
+  }))()
+%}
+
+// bool-returning director callbacks (is_valid, has_gradient, has_set_seed, …)
+%typemap(csdirectorout) bool %{
+  ((global::System.Func<bool>)(() => {
+    try { return $cscall; }
+    catch (global::System.Exception _exSwigDirector) {
+      pagmoPINVOKE.SWIGPendingException.Set(_exSwigDirector);
+      return false;
+    }
+  }))()
+%}
+
+// unsigned int-returning director callbacks (get_nobj, get_nec, get_nic, get_nix)
+%typemap(csdirectorout) unsigned int %{
+  ((global::System.Func<uint>)(() => {
+    try { return $cscall; }
+    catch (global::System.Exception _exSwigDirector) {
+      pagmoPINVOKE.SWIGPendingException.Set(_exSwigDirector);
+      return 0u;
+    }
+  }))()
+%}
+
+// IndividualsGroup-returning director callbacks (r_policy_callback::replace, s_policy_callback::select).
+// The underlying P/Invoke delegate returns IntPtr; $cscall invokes the virtual method that
+// returns IndividualsGroup, which getCPtr() converts back to an IntPtr handle.
+%typemap(csdirectorout) pagmoWrap::IndividualsGroup %{
+  ((global::System.Func<global::System.IntPtr>)(() => {
+    try { return IndividualsGroup.getCPtr($cscall).Handle; }
+    catch (global::System.Exception _exSwigDirector) {
+      pagmoPINVOKE.SWIGPendingException.Set(_exSwigDirector);
+      return global::System.IntPtr.Zero;
+    }
+  }))()
+%}
+
+// C# uses PascalCase for public types. These %rename directives map the snake_case C++ bridge
+// class names to their PascalCase C# equivalents. The C++ names are unchanged; only the
+// generated C# class names are affected.
+%rename(ProblemCallback)   pagmoWrap::problem_callback;
+%rename(ManagedProblem)    pagmoWrap::managed_problem;
+%rename(AlgorithmCallback) pagmoWrap::algorithm_callback;
+%rename(ManagedAlgorithm)  pagmoWrap::managed_algorithm;
+%rename(RPolicyCallback)   pagmoWrap::r_policy_callback;
+%rename(ManagedRPolicy)    pagmoWrap::managed_r_policy;
+%rename(SPolicyCallback)   pagmoWrap::s_policy_callback;
+%rename(ManagedSPolicy)    pagmoWrap::managed_s_policy;
+%rename(NullProblemCallback) pagmoWrap::null_problem_callback;
+
+// Pagmo enum types — PascalCase names for C# (R1 compliance).
+// Enum values are also renamed so user-facing C# code reads e.g. ThreadSafety.Basic.
+%rename(ThreadSafety)    pagmo::thread_safety;
+%rename(None)            pagmo::thread_safety::none;
+%rename(Basic)           pagmo::thread_safety::basic;
+%rename(Constant)        pagmo::thread_safety::constant;
+%rename(EvolveStatus)    pagmo::evolve_status;
+%rename(Idle)            pagmo::evolve_status::idle;
+%rename(Busy)            pagmo::evolve_status::busy;
+%rename(IdleError)       pagmo::evolve_status::idle_error;
+%rename(BusyError)       pagmo::evolve_status::busy_error;
+%rename(MigrationType)   pagmo::migration_type;
+%rename(P2P)             pagmo::migration_type::p2p;
+%rename(Broadcast)       pagmo::migration_type::broadcast;
+%rename(MigrantHandling) pagmo::migrant_handling;
+%rename(Preserve)        pagmo::migrant_handling::preserve;
+%rename(Evict)           pagmo::migrant_handling::evict;
+
 %feature("director") pagmoWrap::problem_callback;
 %feature("director") pagmoWrap::algorithm_callback;
 
-// Hide the shared_ptr<> constructors from SWIG — C# never constructs managed_problem/managed_algorithm
+// Hide the shared_ptr<> constructors from SWIG — C# never constructs ManagedProblem/ManagedAlgorithm
 // directly from a shared_ptr; ownership is transferred via the extern-C bridge functions in
 // managed_bridge.cpp. All four spelling variants are listed because SWIG matches by the exact string
 // it sees after resolving includes; different include-path orderings produce different forms
@@ -122,16 +240,16 @@ PAGMOSHARP_EXEC_EXCEPTION(pagmo::thread_island::run_evolve, "thread_island.run_e
 %shared_ptr(pagmoWrap::problem_callback);
 %shared_ptr(pagmoWrap::algorithm_callback);
 
-%feature("director") pagmoWrap::r_policyBase;
-// Suppress the replace() method on r_policyPagmoWrapper (the copy-safe UDT pagmo stores).
+%feature("director") pagmoWrap::r_policy_callback;
+// Suppress the replace() method on ManagedRPolicy (the copy-safe UDT pagmo stores).
 // That overload takes pagmo::individuals_group_t (a std::tuple<...>), which SWIG cannot wrap.
-// C# code calls through r_policyBase::replace(), which takes the SWIG-friendly IndividualsGroup struct.
-%ignore pagmoWrap::r_policyPagmoWrapper::replace;
+// C# code calls through RPolicyCallback::replace(), which takes the SWIG-friendly IndividualsGroup struct.
+%ignore pagmoWrap::managed_r_policy::replace;
 %include "pagmoWrapper/r_policy.h"
 
-%feature("director") pagmoWrap::s_policyBase;
-// Same rationale as r_policyPagmoWrapper::replace above.
-%ignore pagmoWrap::s_policyPagmoWrapper::select;
+%feature("director") pagmoWrap::s_policy_callback;
+// Same rationale as ManagedRPolicy::replace above.
+%ignore pagmoWrap::managed_s_policy::select;
 %include "pagmoWrapper/s_policy.h"
 
 // ------------------------------------------------------------

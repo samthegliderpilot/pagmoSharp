@@ -28,7 +28,7 @@ public class Test_hock_schittkowski_71 : TestProblemBase
         Assert.AreEqual(1u, problem.get_nec());
         Assert.AreEqual(1u, problem.get_nic());
         Assert.AreEqual(0u, problem.get_nix());
-        Assert.AreEqual(thread_safety.basic, problem.get_thread_safety());
+        Assert.AreEqual(ThreadSafety.Basic, problem.get_thread_safety());
         Assert.IsFalse(problem.has_batch_fitness());
 
         Assert.AreEqual(4, bounds.first.Count);

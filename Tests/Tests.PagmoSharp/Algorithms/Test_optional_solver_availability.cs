@@ -16,7 +16,7 @@ public class Test_optional_solver_availability
 
         public override string get_name() => "IpoptDifferentiableProblem";
         public override PairOfDoubleVectors get_bounds() => new(_lb, _ub);
-        public override thread_safety get_thread_safety() => thread_safety.constant;
+        public override ThreadSafety get_thread_safety() => ThreadSafety.Constant;
         public override DoubleVector fitness(DoubleVector x) => new(new[] { x[0] * x[0] + (x[1] - 3.0) * (x[1] - 3.0) });
         public override bool has_gradient() => true;
         public override DoubleVector gradient(DoubleVector x) => new(new[] { 2.0 * x[0], 2.0 * x[1] - 6.0 });

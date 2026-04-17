@@ -10,20 +10,20 @@
 
 namespace pagmo {
 
-public class r_policyBase : global::System.IDisposable {
+public class RPolicyCallback : global::System.IDisposable {
   private global::System.Runtime.InteropServices.HandleRef swigCPtr;
   protected bool swigCMemOwn;
 
-  internal r_policyBase(global::System.IntPtr cPtr, bool cMemoryOwn) {
+  internal RPolicyCallback(global::System.IntPtr cPtr, bool cMemoryOwn) {
     swigCMemOwn = cMemoryOwn;
     swigCPtr = new global::System.Runtime.InteropServices.HandleRef(this, cPtr);
   }
 
-  internal static global::System.Runtime.InteropServices.HandleRef getCPtr(r_policyBase obj) {
+  internal static global::System.Runtime.InteropServices.HandleRef getCPtr(RPolicyCallback obj) {
     return (obj == null) ? new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero) : obj.swigCPtr;
   }
 
-  internal static global::System.Runtime.InteropServices.HandleRef swigRelease(r_policyBase obj) {
+  internal static global::System.Runtime.InteropServices.HandleRef swigRelease(RPolicyCallback obj) {
     if (obj != null) {
       if (!obj.swigCMemOwn)
         throw new global::System.ApplicationException("Cannot release ownership as memory is not owned");
@@ -36,7 +36,7 @@ public class r_policyBase : global::System.IDisposable {
     }
   }
 
-  ~r_policyBase() {
+  ~RPolicyCallback() {
     Dispose(false);
   }
 
@@ -50,7 +50,7 @@ public class r_policyBase : global::System.IDisposable {
       if (swigCPtr.Handle != global::System.IntPtr.Zero) {
         if (swigCMemOwn) {
           swigCMemOwn = false;
-          pagmoPINVOKE.delete_r_policyBase(swigCPtr);
+          pagmoPINVOKE.delete_RPolicyCallback(swigCPtr);
         }
         swigCPtr = new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero);
       }
@@ -58,44 +58,44 @@ public class r_policyBase : global::System.IDisposable {
   }
 
   public virtual IndividualsGroup replace(IndividualsGroup incoming, uint n_f, uint n_ec, uint n_ic, uint n_obj, uint pop_size, DoubleVector tol, IndividualsGroup current) {
-    IndividualsGroup ret = new IndividualsGroup((SwigDerivedClassHasMethod("replace", swigMethodTypes0) ? pagmoPINVOKE.r_policyBase_replaceSwigExplicitr_policyBase(swigCPtr, IndividualsGroup.getCPtr(incoming), n_f, n_ec, n_ic, n_obj, pop_size, DoubleVector.getCPtr(tol), IndividualsGroup.getCPtr(current)) : pagmoPINVOKE.r_policyBase_replace(swigCPtr, IndividualsGroup.getCPtr(incoming), n_f, n_ec, n_ic, n_obj, pop_size, DoubleVector.getCPtr(tol), IndividualsGroup.getCPtr(current))), true);
+    IndividualsGroup ret = new IndividualsGroup((SwigDerivedClassHasMethod("replace", swigMethodTypes0) ? pagmoPINVOKE.RPolicyCallback_replaceSwigExplicitRPolicyCallback(swigCPtr, IndividualsGroup.getCPtr(incoming), n_f, n_ec, n_ic, n_obj, pop_size, DoubleVector.getCPtr(tol), IndividualsGroup.getCPtr(current)) : pagmoPINVOKE.RPolicyCallback_replace(swigCPtr, IndividualsGroup.getCPtr(incoming), n_f, n_ec, n_ic, n_obj, pop_size, DoubleVector.getCPtr(tol), IndividualsGroup.getCPtr(current))), true);
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public virtual string get_name() {
-    string ret = (SwigDerivedClassHasMethod("get_name", swigMethodTypes1) ? pagmoPINVOKE.r_policyBase_get_nameSwigExplicitr_policyBase(swigCPtr) : pagmoPINVOKE.r_policyBase_get_name(swigCPtr));
+    string ret = (SwigDerivedClassHasMethod("get_name", swigMethodTypes1) ? pagmoPINVOKE.RPolicyCallback_get_nameSwigExplicitRPolicyCallback(swigCPtr) : pagmoPINVOKE.RPolicyCallback_get_name(swigCPtr));
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public virtual string get_extra_info() {
-    string ret = (SwigDerivedClassHasMethod("get_extra_info", swigMethodTypes2) ? pagmoPINVOKE.r_policyBase_get_extra_infoSwigExplicitr_policyBase(swigCPtr) : pagmoPINVOKE.r_policyBase_get_extra_info(swigCPtr));
+    string ret = (SwigDerivedClassHasMethod("get_extra_info", swigMethodTypes2) ? pagmoPINVOKE.RPolicyCallback_get_extra_infoSwigExplicitRPolicyCallback(swigCPtr) : pagmoPINVOKE.RPolicyCallback_get_extra_info(swigCPtr));
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public virtual bool is_valid() {
-    bool ret = (SwigDerivedClassHasMethod("is_valid", swigMethodTypes3) ? pagmoPINVOKE.r_policyBase_is_validSwigExplicitr_policyBase(swigCPtr) : pagmoPINVOKE.r_policyBase_is_valid(swigCPtr));
+    bool ret = (SwigDerivedClassHasMethod("is_valid", swigMethodTypes3) ? pagmoPINVOKE.RPolicyCallback_is_validSwigExplicitRPolicyCallback(swigCPtr) : pagmoPINVOKE.RPolicyCallback_is_valid(swigCPtr));
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
-  public r_policyBase() : this(pagmoPINVOKE.new_r_policyBase(), true) {
+  public RPolicyCallback() : this(pagmoPINVOKE.new_RPolicyCallback(), true) {
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     SwigDirectorConnect();
   }
 
   private void SwigDirectorConnect() {
     if (SwigDerivedClassHasMethod("replace", swigMethodTypes0))
-      swigDelegate0 = new SwigDelegater_policyBase_0(SwigDirectorMethodreplace);
+      swigDelegate0 = new SwigDelegateRPolicyCallback_0(SwigDirectorMethodreplace);
     if (SwigDerivedClassHasMethod("get_name", swigMethodTypes1))
-      swigDelegate1 = new SwigDelegater_policyBase_1(SwigDirectorMethodget_name);
+      swigDelegate1 = new SwigDelegateRPolicyCallback_1(SwigDirectorMethodget_name);
     if (SwigDerivedClassHasMethod("get_extra_info", swigMethodTypes2))
-      swigDelegate2 = new SwigDelegater_policyBase_2(SwigDirectorMethodget_extra_info);
+      swigDelegate2 = new SwigDelegateRPolicyCallback_2(SwigDirectorMethodget_extra_info);
     if (SwigDerivedClassHasMethod("is_valid", swigMethodTypes3))
-      swigDelegate3 = new SwigDelegater_policyBase_3(SwigDirectorMethodis_valid);
-    pagmoPINVOKE.r_policyBase_director_connect(swigCPtr, swigDelegate0, swigDelegate1, swigDelegate2, swigDelegate3);
+      swigDelegate3 = new SwigDelegateRPolicyCallback_3(SwigDirectorMethodis_valid);
+    pagmoPINVOKE.RPolicyCallback_director_connect(swigCPtr, swigDelegate0, swigDelegate1, swigDelegate2, swigDelegate3);
   }
 
   private bool SwigDerivedClassHasMethod(string methodName, global::System.Type[] methodTypes) {
@@ -123,7 +123,7 @@ public class r_policyBase : global::System.IDisposable {
       if (!parametersMatch)
         continue;
 
-      if (methodInfo.IsVirtual && (methodInfo.DeclaringType.IsSubclassOf(typeof(r_policyBase))) &&
+      if (methodInfo.IsVirtual && (methodInfo.DeclaringType.IsSubclassOf(typeof(RPolicyCallback))) &&
         methodInfo.DeclaringType != methodInfo.GetBaseDefinition().DeclaringType) {
         return true;
       }
@@ -133,30 +133,62 @@ public class r_policyBase : global::System.IDisposable {
   }
 
   private global::System.IntPtr SwigDirectorMethodreplace(global::System.IntPtr incoming, uint n_f, uint n_ec, uint n_ic, uint n_obj, uint pop_size, global::System.IntPtr tol, global::System.IntPtr current) {
-    return IndividualsGroup.getCPtr(replace(new IndividualsGroup(incoming, false), n_f, n_ec, n_ic, n_obj, pop_size, new DoubleVector(tol, false), new IndividualsGroup(current, false))).Handle;
+    return 
+    ((global::System.Func<global::System.IntPtr>)(() => {
+      try { return IndividualsGroup.getCPtr(replace(new IndividualsGroup(incoming, false), n_f, n_ec, n_ic, n_obj, pop_size, new DoubleVector(tol, false), new IndividualsGroup(current, false))).Handle; }
+      catch (global::System.Exception _exSwigDirector) {
+        pagmoPINVOKE.SWIGPendingException.Set(_exSwigDirector);
+        return global::System.IntPtr.Zero;
+      }
+    }))()
+;
   }
 
   private string SwigDirectorMethodget_name() {
-    return get_name();
+    return 
+    ((global::System.Func<string>)(() => {
+      try { return get_name(); }
+      catch (global::System.Exception _exSwigDirector) {
+        pagmoPINVOKE.SWIGPendingException.Set(_exSwigDirector);
+        return null;
+      }
+    }))()
+;
   }
 
   private string SwigDirectorMethodget_extra_info() {
-    return get_extra_info();
+    return 
+    ((global::System.Func<string>)(() => {
+      try { return get_extra_info(); }
+      catch (global::System.Exception _exSwigDirector) {
+        pagmoPINVOKE.SWIGPendingException.Set(_exSwigDirector);
+        return null;
+      }
+    }))()
+;
   }
 
   private bool SwigDirectorMethodis_valid() {
-    return is_valid();
+    return 
+    ((global::System.Func<bool>)(() => {
+      try { return is_valid(); }
+      catch (global::System.Exception _exSwigDirector) {
+        pagmoPINVOKE.SWIGPendingException.Set(_exSwigDirector);
+        return false;
+      }
+    }))()
+;
   }
 
-  public delegate global::System.IntPtr SwigDelegater_policyBase_0(global::System.IntPtr incoming, uint n_f, uint n_ec, uint n_ic, uint n_obj, uint pop_size, global::System.IntPtr tol, global::System.IntPtr current);
-  public delegate string SwigDelegater_policyBase_1();
-  public delegate string SwigDelegater_policyBase_2();
-  public delegate bool SwigDelegater_policyBase_3();
+  public delegate global::System.IntPtr SwigDelegateRPolicyCallback_0(global::System.IntPtr incoming, uint n_f, uint n_ec, uint n_ic, uint n_obj, uint pop_size, global::System.IntPtr tol, global::System.IntPtr current);
+  public delegate string SwigDelegateRPolicyCallback_1();
+  public delegate string SwigDelegateRPolicyCallback_2();
+  public delegate bool SwigDelegateRPolicyCallback_3();
 
-  private SwigDelegater_policyBase_0 swigDelegate0;
-  private SwigDelegater_policyBase_1 swigDelegate1;
-  private SwigDelegater_policyBase_2 swigDelegate2;
-  private SwigDelegater_policyBase_3 swigDelegate3;
+  private SwigDelegateRPolicyCallback_0 swigDelegate0;
+  private SwigDelegateRPolicyCallback_1 swigDelegate1;
+  private SwigDelegateRPolicyCallback_2 swigDelegate2;
+  private SwigDelegateRPolicyCallback_3 swigDelegate3;
 
   private static global::System.Type[] swigMethodTypes0 = new global::System.Type[] { typeof(IndividualsGroup), typeof(uint), typeof(uint), typeof(uint), typeof(uint), typeof(uint), typeof(DoubleVector), typeof(IndividualsGroup) };
   private static global::System.Type[] swigMethodTypes1 = new global::System.Type[] {  };

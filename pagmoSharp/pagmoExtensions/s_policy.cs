@@ -4,9 +4,10 @@ using System.Runtime.InteropServices;
 namespace pagmo;
 
 /// <summary>
-/// Represents s_policy. Uses pagmo-native semantics. See docs/api-reference.md for upstream links.
+/// Managed wrapper that registers a C# <see cref="SPolicyCallback"/> subclass as a pagmo
+/// selection policy. Transfers ownership of the callback to the native side.
 /// </summary>
-public sealed class s_policy : s_policyPagmoWrapper
+public sealed class s_policy : ManagedSPolicy
 {
     /// <summary>
     /// Creates an empty selection-policy wrapper.
@@ -16,9 +17,10 @@ public sealed class s_policy : s_policyPagmoWrapper
     }
 
     /// <summary>
-    /// Invokes the corresponding pagmo API. See docs/api-reference.md for upstream links.
+    /// Creates an <see cref="s_policy"/> backed by the given <paramref name="basePolicy"/> callback.
+    /// Ownership of <paramref name="basePolicy"/> is transferred to the native side.
     /// </summary>
-    public s_policy(s_policyBase basePolicy)
+    public s_policy(SPolicyCallback basePolicy)
         : base()
     {
         var transferred = TransferOwnership(basePolicy);
@@ -34,35 +36,34 @@ public sealed class s_policy : s_policyPagmoWrapper
         }
     }
 
-    private static s_policyBase TransferOwnership(s_policyBase basePolicy)
+    private static SPolicyCallback TransferOwnership(SPolicyCallback basePolicy)
     {
         if (basePolicy == null)
         {
             throw new ArgumentNullException(nameof(basePolicy));
         }
 
-        var currentPtr = s_policyBase.getCPtr(basePolicy);
+        var currentPtr = SPolicyCallback.getCPtr(basePolicy);
         if (currentPtr.Handle == IntPtr.Zero)
         {
             throw new ObjectDisposedException(nameof(basePolicy), "The provided selection policy has already been disposed.");
         }
 
-        var released = s_policyBase.swigRelease(basePolicy);
+        var released = SPolicyCallback.swigRelease(basePolicy);
         if (released.Handle == IntPtr.Zero)
         {
             throw new ObjectDisposedException(nameof(basePolicy), "The provided selection policy could not transfer ownership.");
         }
 
-        return new s_policyBase(released.Handle, false);
+        return new SPolicyCallback(released.Handle, false);
     }
 
-    private static void DeleteTransferredPolicy(s_policyBase transferredPolicy)
+    private static void DeleteTransferredPolicy(SPolicyCallback transferredPolicy)
     {
-        var ptr = s_policyBase.getCPtr(transferredPolicy);
+        var ptr = SPolicyCallback.getCPtr(transferredPolicy);
         if (ptr.Handle != IntPtr.Zero)
         {
-            pagmoPINVOKE.delete_s_policyBase(new HandleRef(null, ptr.Handle));
+            pagmoPINVOKE.delete_SPolicyCallback(new HandleRef(null, ptr.Handle));
         }
     }
 }
-

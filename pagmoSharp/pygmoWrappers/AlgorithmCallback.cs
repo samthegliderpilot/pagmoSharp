@@ -10,20 +10,20 @@
 
 namespace pagmo {
 
-public partial class algorithm_callback : global::System.IDisposable {
+public partial class AlgorithmCallback : global::System.IDisposable {
   private global::System.Runtime.InteropServices.HandleRef swigCPtr;
   protected bool swigCMemOwn;
 
-  internal algorithm_callback(global::System.IntPtr cPtr, bool cMemoryOwn) {
+  internal AlgorithmCallback(global::System.IntPtr cPtr, bool cMemoryOwn) {
     swigCMemOwn = cMemoryOwn;
     swigCPtr = new global::System.Runtime.InteropServices.HandleRef(this, cPtr);
   }
 
-  internal static global::System.Runtime.InteropServices.HandleRef getCPtr(algorithm_callback obj) {
+  internal static global::System.Runtime.InteropServices.HandleRef getCPtr(AlgorithmCallback obj) {
     return (obj == null) ? new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero) : obj.swigCPtr;
   }
 
-  internal static global::System.Runtime.InteropServices.HandleRef swigRelease(algorithm_callback obj) {
+  internal static global::System.Runtime.InteropServices.HandleRef swigRelease(AlgorithmCallback obj) {
     if (obj != null) {
       if (!obj.swigCMemOwn)
         throw new global::System.ApplicationException("Cannot release ownership as memory is not owned");
@@ -36,7 +36,7 @@ public partial class algorithm_callback : global::System.IDisposable {
     }
   }
 
-  ~algorithm_callback() {
+  ~AlgorithmCallback() {
     Dispose(false);
   }
 
@@ -50,7 +50,7 @@ public partial class algorithm_callback : global::System.IDisposable {
       if (swigCPtr.Handle != global::System.IntPtr.Zero) {
         if (swigCMemOwn) {
           swigCMemOwn = false;
-          pagmoPINVOKE.delete_algorithm_callback(swigCPtr);
+          pagmoPINVOKE.delete_AlgorithmCallback(swigCPtr);
         }
         swigCPtr = new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero);
       }
@@ -58,82 +58,82 @@ public partial class algorithm_callback : global::System.IDisposable {
   }
 
   public virtual population evolve(population pop) {
-    population ret = new population(pagmoPINVOKE.algorithm_callback_evolve(swigCPtr, population.getCPtr(pop)), true);
+    population ret = new population(pagmoPINVOKE.AlgorithmCallback_evolve(swigCPtr, population.getCPtr(pop)), true);
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public virtual void set_seed(uint arg0) {
-    if (SwigDerivedClassHasMethod("set_seed", swigMethodTypes1)) pagmoPINVOKE.algorithm_callback_set_seedSwigExplicitalgorithm_callback(swigCPtr, arg0); else pagmoPINVOKE.algorithm_callback_set_seed(swigCPtr, arg0);
+    if (SwigDerivedClassHasMethod("set_seed", swigMethodTypes1)) pagmoPINVOKE.AlgorithmCallback_set_seedSwigExplicitAlgorithmCallback(swigCPtr, arg0); else pagmoPINVOKE.AlgorithmCallback_set_seed(swigCPtr, arg0);
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public virtual bool has_set_seed() {
-    bool ret = (SwigDerivedClassHasMethod("has_set_seed", swigMethodTypes2) ? pagmoPINVOKE.algorithm_callback_has_set_seedSwigExplicitalgorithm_callback(swigCPtr) : pagmoPINVOKE.algorithm_callback_has_set_seed(swigCPtr));
+    bool ret = (SwigDerivedClassHasMethod("has_set_seed", swigMethodTypes2) ? pagmoPINVOKE.AlgorithmCallback_has_set_seedSwigExplicitAlgorithmCallback(swigCPtr) : pagmoPINVOKE.AlgorithmCallback_has_set_seed(swigCPtr));
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public virtual void set_verbosity(uint arg0) {
-    if (SwigDerivedClassHasMethod("set_verbosity", swigMethodTypes3)) pagmoPINVOKE.algorithm_callback_set_verbositySwigExplicitalgorithm_callback(swigCPtr, arg0); else pagmoPINVOKE.algorithm_callback_set_verbosity(swigCPtr, arg0);
+    if (SwigDerivedClassHasMethod("set_verbosity", swigMethodTypes3)) pagmoPINVOKE.AlgorithmCallback_set_verbositySwigExplicitAlgorithmCallback(swigCPtr, arg0); else pagmoPINVOKE.AlgorithmCallback_set_verbosity(swigCPtr, arg0);
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public virtual bool has_set_verbosity() {
-    bool ret = (SwigDerivedClassHasMethod("has_set_verbosity", swigMethodTypes4) ? pagmoPINVOKE.algorithm_callback_has_set_verbositySwigExplicitalgorithm_callback(swigCPtr) : pagmoPINVOKE.algorithm_callback_has_set_verbosity(swigCPtr));
+    bool ret = (SwigDerivedClassHasMethod("has_set_verbosity", swigMethodTypes4) ? pagmoPINVOKE.AlgorithmCallback_has_set_verbositySwigExplicitAlgorithmCallback(swigCPtr) : pagmoPINVOKE.AlgorithmCallback_has_set_verbosity(swigCPtr));
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public virtual string get_name() {
-    string ret = (SwigDerivedClassHasMethod("get_name", swigMethodTypes5) ? pagmoPINVOKE.algorithm_callback_get_nameSwigExplicitalgorithm_callback(swigCPtr) : pagmoPINVOKE.algorithm_callback_get_name(swigCPtr));
+    string ret = (SwigDerivedClassHasMethod("get_name", swigMethodTypes5) ? pagmoPINVOKE.AlgorithmCallback_get_nameSwigExplicitAlgorithmCallback(swigCPtr) : pagmoPINVOKE.AlgorithmCallback_get_name(swigCPtr));
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public virtual string get_extra_info() {
-    string ret = (SwigDerivedClassHasMethod("get_extra_info", swigMethodTypes6) ? pagmoPINVOKE.algorithm_callback_get_extra_infoSwigExplicitalgorithm_callback(swigCPtr) : pagmoPINVOKE.algorithm_callback_get_extra_info(swigCPtr));
+    string ret = (SwigDerivedClassHasMethod("get_extra_info", swigMethodTypes6) ? pagmoPINVOKE.AlgorithmCallback_get_extra_infoSwigExplicitAlgorithmCallback(swigCPtr) : pagmoPINVOKE.AlgorithmCallback_get_extra_info(swigCPtr));
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
-  public virtual thread_safety get_thread_safety() {
-    thread_safety ret = (thread_safety)(SwigDerivedClassHasMethod("get_thread_safety", swigMethodTypes7) ? pagmoPINVOKE.algorithm_callback_get_thread_safetySwigExplicitalgorithm_callback(swigCPtr) : pagmoPINVOKE.algorithm_callback_get_thread_safety(swigCPtr));
+  public virtual ThreadSafety get_thread_safety() {
+    ThreadSafety ret = (ThreadSafety)(SwigDerivedClassHasMethod("get_thread_safety", swigMethodTypes7) ? pagmoPINVOKE.AlgorithmCallback_get_thread_safetySwigExplicitAlgorithmCallback(swigCPtr) : pagmoPINVOKE.AlgorithmCallback_get_thread_safety(swigCPtr));
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public virtual string consume_deferred_exception() {
-    string ret = (SwigDerivedClassHasMethod("consume_deferred_exception", swigMethodTypes8) ? pagmoPINVOKE.algorithm_callback_consume_deferred_exceptionSwigExplicitalgorithm_callback(swigCPtr) : pagmoPINVOKE.algorithm_callback_consume_deferred_exception(swigCPtr));
+    string ret = (SwigDerivedClassHasMethod("consume_deferred_exception", swigMethodTypes8) ? pagmoPINVOKE.AlgorithmCallback_consume_deferred_exceptionSwigExplicitAlgorithmCallback(swigCPtr) : pagmoPINVOKE.AlgorithmCallback_consume_deferred_exception(swigCPtr));
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
-  public algorithm_callback() : this(pagmoPINVOKE.new_algorithm_callback(), true) {
+  public AlgorithmCallback() : this(pagmoPINVOKE.new_AlgorithmCallback(), true) {
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     SwigDirectorConnect();
   }
 
   private void SwigDirectorConnect() {
     if (SwigDerivedClassHasMethod("evolve", swigMethodTypes0))
-      swigDelegate0 = new SwigDelegatealgorithm_callback_0(SwigDirectorMethodevolve);
+      swigDelegate0 = new SwigDelegateAlgorithmCallback_0(SwigDirectorMethodevolve);
     if (SwigDerivedClassHasMethod("set_seed", swigMethodTypes1))
-      swigDelegate1 = new SwigDelegatealgorithm_callback_1(SwigDirectorMethodset_seed);
+      swigDelegate1 = new SwigDelegateAlgorithmCallback_1(SwigDirectorMethodset_seed);
     if (SwigDerivedClassHasMethod("has_set_seed", swigMethodTypes2))
-      swigDelegate2 = new SwigDelegatealgorithm_callback_2(SwigDirectorMethodhas_set_seed);
+      swigDelegate2 = new SwigDelegateAlgorithmCallback_2(SwigDirectorMethodhas_set_seed);
     if (SwigDerivedClassHasMethod("set_verbosity", swigMethodTypes3))
-      swigDelegate3 = new SwigDelegatealgorithm_callback_3(SwigDirectorMethodset_verbosity);
+      swigDelegate3 = new SwigDelegateAlgorithmCallback_3(SwigDirectorMethodset_verbosity);
     if (SwigDerivedClassHasMethod("has_set_verbosity", swigMethodTypes4))
-      swigDelegate4 = new SwigDelegatealgorithm_callback_4(SwigDirectorMethodhas_set_verbosity);
+      swigDelegate4 = new SwigDelegateAlgorithmCallback_4(SwigDirectorMethodhas_set_verbosity);
     if (SwigDerivedClassHasMethod("get_name", swigMethodTypes5))
-      swigDelegate5 = new SwigDelegatealgorithm_callback_5(SwigDirectorMethodget_name);
+      swigDelegate5 = new SwigDelegateAlgorithmCallback_5(SwigDirectorMethodget_name);
     if (SwigDerivedClassHasMethod("get_extra_info", swigMethodTypes6))
-      swigDelegate6 = new SwigDelegatealgorithm_callback_6(SwigDirectorMethodget_extra_info);
+      swigDelegate6 = new SwigDelegateAlgorithmCallback_6(SwigDirectorMethodget_extra_info);
     if (SwigDerivedClassHasMethod("get_thread_safety", swigMethodTypes7))
-      swigDelegate7 = new SwigDelegatealgorithm_callback_7(SwigDirectorMethodget_thread_safety);
+      swigDelegate7 = new SwigDelegateAlgorithmCallback_7(SwigDirectorMethodget_thread_safety);
     if (SwigDerivedClassHasMethod("consume_deferred_exception", swigMethodTypes8))
-      swigDelegate8 = new SwigDelegatealgorithm_callback_8(SwigDirectorMethodconsume_deferred_exception);
-    pagmoPINVOKE.algorithm_callback_director_connect(swigCPtr, swigDelegate0, swigDelegate1, swigDelegate2, swigDelegate3, swigDelegate4, swigDelegate5, swigDelegate6, swigDelegate7, swigDelegate8);
+      swigDelegate8 = new SwigDelegateAlgorithmCallback_8(SwigDirectorMethodconsume_deferred_exception);
+    pagmoPINVOKE.AlgorithmCallback_director_connect(swigCPtr, swigDelegate0, swigDelegate1, swigDelegate2, swigDelegate3, swigDelegate4, swigDelegate5, swigDelegate6, swigDelegate7, swigDelegate8);
   }
 
   private bool SwigDerivedClassHasMethod(string methodName, global::System.Type[] methodTypes) {
@@ -161,7 +161,7 @@ public partial class algorithm_callback : global::System.IDisposable {
       if (!parametersMatch)
         continue;
 
-      if (methodInfo.IsVirtual && (methodInfo.DeclaringType.IsSubclassOf(typeof(algorithm_callback))) &&
+      if (methodInfo.IsVirtual && (methodInfo.DeclaringType.IsSubclassOf(typeof(AlgorithmCallback))) &&
         methodInfo.DeclaringType != methodInfo.GetBaseDefinition().DeclaringType) {
         return true;
       }
@@ -175,27 +175,71 @@ public partial class algorithm_callback : global::System.IDisposable {
   }
 
   private void SwigDirectorMethodset_seed(uint arg0) {
-    set_seed(arg0);
+    
+    try {
+      set_seed(arg0);
+    } catch (global::System.Exception _exSwigDirector) {
+      pagmoPINVOKE.SWIGPendingException.Set(_exSwigDirector);
+    }
+;
   }
 
   private bool SwigDirectorMethodhas_set_seed() {
-    return has_set_seed();
+    return 
+    ((global::System.Func<bool>)(() => {
+      try { return has_set_seed(); }
+      catch (global::System.Exception _exSwigDirector) {
+        pagmoPINVOKE.SWIGPendingException.Set(_exSwigDirector);
+        return false;
+      }
+    }))()
+;
   }
 
   private void SwigDirectorMethodset_verbosity(uint arg0) {
-    set_verbosity(arg0);
+    
+    try {
+      set_verbosity(arg0);
+    } catch (global::System.Exception _exSwigDirector) {
+      pagmoPINVOKE.SWIGPendingException.Set(_exSwigDirector);
+    }
+;
   }
 
   private bool SwigDirectorMethodhas_set_verbosity() {
-    return has_set_verbosity();
+    return 
+    ((global::System.Func<bool>)(() => {
+      try { return has_set_verbosity(); }
+      catch (global::System.Exception _exSwigDirector) {
+        pagmoPINVOKE.SWIGPendingException.Set(_exSwigDirector);
+        return false;
+      }
+    }))()
+;
   }
 
   private string SwigDirectorMethodget_name() {
-    return get_name();
+    return 
+    ((global::System.Func<string>)(() => {
+      try { return get_name(); }
+      catch (global::System.Exception _exSwigDirector) {
+        pagmoPINVOKE.SWIGPendingException.Set(_exSwigDirector);
+        return null;
+      }
+    }))()
+;
   }
 
   private string SwigDirectorMethodget_extra_info() {
-    return get_extra_info();
+    return 
+    ((global::System.Func<string>)(() => {
+      try { return get_extra_info(); }
+      catch (global::System.Exception _exSwigDirector) {
+        pagmoPINVOKE.SWIGPendingException.Set(_exSwigDirector);
+        return null;
+      }
+    }))()
+;
   }
 
   private int SwigDirectorMethodget_thread_safety() {
@@ -203,28 +247,36 @@ public partial class algorithm_callback : global::System.IDisposable {
   }
 
   private string SwigDirectorMethodconsume_deferred_exception() {
-    return consume_deferred_exception();
+    return 
+    ((global::System.Func<string>)(() => {
+      try { return consume_deferred_exception(); }
+      catch (global::System.Exception _exSwigDirector) {
+        pagmoPINVOKE.SWIGPendingException.Set(_exSwigDirector);
+        return null;
+      }
+    }))()
+;
   }
 
-  public delegate global::System.IntPtr SwigDelegatealgorithm_callback_0(global::System.IntPtr pop);
-  public delegate void SwigDelegatealgorithm_callback_1(uint arg0);
-  public delegate bool SwigDelegatealgorithm_callback_2();
-  public delegate void SwigDelegatealgorithm_callback_3(uint arg0);
-  public delegate bool SwigDelegatealgorithm_callback_4();
-  public delegate string SwigDelegatealgorithm_callback_5();
-  public delegate string SwigDelegatealgorithm_callback_6();
-  public delegate int SwigDelegatealgorithm_callback_7();
-  public delegate string SwigDelegatealgorithm_callback_8();
+  public delegate global::System.IntPtr SwigDelegateAlgorithmCallback_0(global::System.IntPtr pop);
+  public delegate void SwigDelegateAlgorithmCallback_1(uint arg0);
+  public delegate bool SwigDelegateAlgorithmCallback_2();
+  public delegate void SwigDelegateAlgorithmCallback_3(uint arg0);
+  public delegate bool SwigDelegateAlgorithmCallback_4();
+  public delegate string SwigDelegateAlgorithmCallback_5();
+  public delegate string SwigDelegateAlgorithmCallback_6();
+  public delegate int SwigDelegateAlgorithmCallback_7();
+  public delegate string SwigDelegateAlgorithmCallback_8();
 
-  private SwigDelegatealgorithm_callback_0 swigDelegate0;
-  private SwigDelegatealgorithm_callback_1 swigDelegate1;
-  private SwigDelegatealgorithm_callback_2 swigDelegate2;
-  private SwigDelegatealgorithm_callback_3 swigDelegate3;
-  private SwigDelegatealgorithm_callback_4 swigDelegate4;
-  private SwigDelegatealgorithm_callback_5 swigDelegate5;
-  private SwigDelegatealgorithm_callback_6 swigDelegate6;
-  private SwigDelegatealgorithm_callback_7 swigDelegate7;
-  private SwigDelegatealgorithm_callback_8 swigDelegate8;
+  private SwigDelegateAlgorithmCallback_0 swigDelegate0;
+  private SwigDelegateAlgorithmCallback_1 swigDelegate1;
+  private SwigDelegateAlgorithmCallback_2 swigDelegate2;
+  private SwigDelegateAlgorithmCallback_3 swigDelegate3;
+  private SwigDelegateAlgorithmCallback_4 swigDelegate4;
+  private SwigDelegateAlgorithmCallback_5 swigDelegate5;
+  private SwigDelegateAlgorithmCallback_6 swigDelegate6;
+  private SwigDelegateAlgorithmCallback_7 swigDelegate7;
+  private SwigDelegateAlgorithmCallback_8 swigDelegate8;
 
   private static global::System.Type[] swigMethodTypes0 = new global::System.Type[] { typeof(population) };
   private static global::System.Type[] swigMethodTypes1 = new global::System.Type[] { typeof(uint) };

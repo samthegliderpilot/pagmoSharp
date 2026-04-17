@@ -4,9 +4,10 @@ using System.Runtime.InteropServices;
 namespace pagmo;
 
 /// <summary>
-/// Represents r_policy. Uses pagmo-native semantics. See docs/api-reference.md for upstream links.
+/// Managed wrapper that registers a C# <see cref="RPolicyCallback"/> subclass as a pagmo
+/// replacement policy. Transfers ownership of the callback to the native side.
 /// </summary>
-public sealed class r_policy : r_policyPagmoWrapper
+public sealed class r_policy : ManagedRPolicy
 {
     /// <summary>
     /// Creates an empty replacement-policy wrapper.
@@ -16,9 +17,10 @@ public sealed class r_policy : r_policyPagmoWrapper
     }
 
     /// <summary>
-    /// Invokes the corresponding pagmo API. See docs/api-reference.md for upstream links.
+    /// Creates an <see cref="r_policy"/> backed by the given <paramref name="basePolicy"/> callback.
+    /// Ownership of <paramref name="basePolicy"/> is transferred to the native side.
     /// </summary>
-    public r_policy(r_policyBase basePolicy)
+    public r_policy(RPolicyCallback basePolicy)
         : base()
     {
         var transferred = TransferOwnership(basePolicy);
@@ -34,35 +36,34 @@ public sealed class r_policy : r_policyPagmoWrapper
         }
     }
 
-    private static r_policyBase TransferOwnership(r_policyBase basePolicy)
+    private static RPolicyCallback TransferOwnership(RPolicyCallback basePolicy)
     {
         if (basePolicy == null)
         {
             throw new ArgumentNullException(nameof(basePolicy));
         }
 
-        var currentPtr = r_policyBase.getCPtr(basePolicy);
+        var currentPtr = RPolicyCallback.getCPtr(basePolicy);
         if (currentPtr.Handle == IntPtr.Zero)
         {
             throw new ObjectDisposedException(nameof(basePolicy), "The provided replacement policy has already been disposed.");
         }
 
-        var released = r_policyBase.swigRelease(basePolicy);
+        var released = RPolicyCallback.swigRelease(basePolicy);
         if (released.Handle == IntPtr.Zero)
         {
             throw new ObjectDisposedException(nameof(basePolicy), "The provided replacement policy could not transfer ownership.");
         }
 
-        return new r_policyBase(released.Handle, false);
+        return new RPolicyCallback(released.Handle, false);
     }
 
-    private static void DeleteTransferredPolicy(r_policyBase transferredPolicy)
+    private static void DeleteTransferredPolicy(RPolicyCallback transferredPolicy)
     {
-        var ptr = r_policyBase.getCPtr(transferredPolicy);
+        var ptr = RPolicyCallback.getCPtr(transferredPolicy);
         if (ptr.Handle != IntPtr.Zero)
         {
-            pagmoPINVOKE.delete_r_policyBase(new HandleRef(null, ptr.Handle));
+            pagmoPINVOKE.delete_RPolicyCallback(new HandleRef(null, ptr.Handle));
         }
     }
 }
-

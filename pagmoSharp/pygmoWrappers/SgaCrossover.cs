@@ -10,11 +10,11 @@
 
 namespace pagmo {
 
-public enum evolve_status {
-  idle = 0,
-  busy = 1,
-  idle_error = 2,
-  busy_error = 3
+public enum SgaCrossover {
+  Exponential,
+  Binomial,
+  Single,
+  Sbx
 }
 
 }

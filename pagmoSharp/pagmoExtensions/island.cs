@@ -223,7 +223,7 @@ namespace pagmo
         /// <summary>
         /// Creates an island with managed policy implementations.
         /// </summary>
-        public static island CreateWithPolicies(algorithm algorithm, IProblem problem, ulong popSize, r_policyBase replacementPolicy, s_policyBase selectionPolicy, uint? seed = null, thread_island islandType = null)
+        public static island CreateWithPolicies(algorithm algorithm, IProblem problem, ulong popSize, RPolicyCallback replacementPolicy, SPolicyCallback selectionPolicy, uint? seed = null, thread_island islandType = null)
         {
             using var wrappedReplacementPolicy = new r_policy(replacementPolicy);
             using var wrappedSelectionPolicy = new s_policy(selectionPolicy);
@@ -233,7 +233,7 @@ namespace pagmo
         /// <summary>
         /// Creates an island with managed policy implementations.
         /// </summary>
-        public static island CreateWithPolicies(IAlgorithm algorithm, IProblem problem, ulong popSize, r_policyBase replacementPolicy, s_policyBase selectionPolicy, uint? seed = null, thread_island islandType = null)
+        public static island CreateWithPolicies(IAlgorithm algorithm, IProblem problem, ulong popSize, RPolicyCallback replacementPolicy, SPolicyCallback selectionPolicy, uint? seed = null, thread_island islandType = null)
         {
             using var wrappedReplacementPolicy = new r_policy(replacementPolicy);
             using var wrappedSelectionPolicy = new s_policy(selectionPolicy);
@@ -291,7 +291,7 @@ namespace pagmo
         /// <summary>
         /// Creates an island with explicit evaluator and managed policies.
         /// </summary>
-        public static island CreateWithBfeAndPolicies(algorithm algorithm, IProblem problem, bfe evaluator, ulong popSize, r_policyBase replacementPolicy, s_policyBase selectionPolicy, uint? seed = null, thread_island islandType = null)
+        public static island CreateWithBfeAndPolicies(algorithm algorithm, IProblem problem, bfe evaluator, ulong popSize, RPolicyCallback replacementPolicy, SPolicyCallback selectionPolicy, uint? seed = null, thread_island islandType = null)
         {
             using var wrappedReplacementPolicy = new r_policy(replacementPolicy);
             using var wrappedSelectionPolicy = new s_policy(selectionPolicy);
@@ -301,7 +301,7 @@ namespace pagmo
         /// <summary>
         /// Creates an island with explicit evaluator and managed policies.
         /// </summary>
-        public static island CreateWithBfeAndPolicies(IAlgorithm algorithm, IProblem problem, bfe evaluator, ulong popSize, r_policyBase replacementPolicy, s_policyBase selectionPolicy, uint? seed = null, thread_island islandType = null)
+        public static island CreateWithBfeAndPolicies(IAlgorithm algorithm, IProblem problem, bfe evaluator, ulong popSize, RPolicyCallback replacementPolicy, SPolicyCallback selectionPolicy, uint? seed = null, thread_island islandType = null)
         {
             using var wrappedReplacementPolicy = new r_policy(replacementPolicy);
             using var wrappedSelectionPolicy = new s_policy(selectionPolicy);
@@ -358,17 +358,17 @@ namespace pagmo
         }
 
         /// <summary>
-        /// Compatibility helper equivalent to <see cref="CreateWithPolicies(algorithm,IProblem,ulong,r_policyBase,s_policyBase,uint?,thread_island)"/>.
+        /// Compatibility helper equivalent to <see cref="CreateWithPolicies(algorithm,IProblem,ulong,RPolicyCallback,SPolicyCallback,uint?,thread_island)"/>.
         /// </summary>
-        public static island CreateWithThreadIslandAndPolicies(thread_island islandType, algorithm algorithm, IProblem problem, ulong popSize, r_policyBase replacementPolicy, s_policyBase selectionPolicy, uint? seed = null)
+        public static island CreateWithThreadIslandAndPolicies(thread_island islandType, algorithm algorithm, IProblem problem, ulong popSize, RPolicyCallback replacementPolicy, SPolicyCallback selectionPolicy, uint? seed = null)
         {
             return CreateWithPolicies(algorithm, problem, popSize, replacementPolicy, selectionPolicy, seed, islandType);
         }
 
         /// <summary>
-        /// Compatibility helper equivalent to <see cref="CreateWithPolicies(IAlgorithm,IProblem,ulong,r_policyBase,s_policyBase,uint?,thread_island)"/>.
+        /// Compatibility helper equivalent to <see cref="CreateWithPolicies(IAlgorithm,IProblem,ulong,RPolicyCallback,SPolicyCallback,uint?,thread_island)"/>.
         /// </summary>
-        public static island CreateWithThreadIslandAndPolicies(thread_island islandType, IAlgorithm algorithm, IProblem problem, ulong popSize, r_policyBase replacementPolicy, s_policyBase selectionPolicy, uint? seed = null)
+        public static island CreateWithThreadIslandAndPolicies(thread_island islandType, IAlgorithm algorithm, IProblem problem, ulong popSize, RPolicyCallback replacementPolicy, SPolicyCallback selectionPolicy, uint? seed = null)
         {
             return CreateWithPolicies(algorithm, problem, popSize, replacementPolicy, selectionPolicy, seed, islandType);
         }
@@ -422,17 +422,17 @@ namespace pagmo
         }
 
         /// <summary>
-        /// Compatibility helper equivalent to <see cref="CreateWithBfeAndPolicies(algorithm,IProblem,bfe,ulong,r_policyBase,s_policyBase,uint?,thread_island)"/>.
+        /// Compatibility helper equivalent to <see cref="CreateWithBfeAndPolicies(algorithm,IProblem,bfe,ulong,RPolicyCallback,SPolicyCallback,uint?,thread_island)"/>.
         /// </summary>
-        public static island CreateWithThreadIslandAndBfeAndPolicies(thread_island islandType, algorithm algorithm, IProblem problem, bfe evaluator, ulong popSize, r_policyBase replacementPolicy, s_policyBase selectionPolicy, uint? seed = null)
+        public static island CreateWithThreadIslandAndBfeAndPolicies(thread_island islandType, algorithm algorithm, IProblem problem, bfe evaluator, ulong popSize, RPolicyCallback replacementPolicy, SPolicyCallback selectionPolicy, uint? seed = null)
         {
             return CreateWithBfeAndPolicies(algorithm, problem, evaluator, popSize, replacementPolicy, selectionPolicy, seed, islandType);
         }
 
         /// <summary>
-        /// Compatibility helper equivalent to <see cref="CreateWithBfeAndPolicies(IAlgorithm,IProblem,bfe,ulong,r_policyBase,s_policyBase,uint?,thread_island)"/>.
+        /// Compatibility helper equivalent to <see cref="CreateWithBfeAndPolicies(IAlgorithm,IProblem,bfe,ulong,RPolicyCallback,SPolicyCallback,uint?,thread_island)"/>.
         /// </summary>
-        public static island CreateWithThreadIslandAndBfeAndPolicies(thread_island islandType, IAlgorithm algorithm, IProblem problem, bfe evaluator, ulong popSize, r_policyBase replacementPolicy, s_policyBase selectionPolicy, uint? seed = null)
+        public static island CreateWithThreadIslandAndBfeAndPolicies(thread_island islandType, IAlgorithm algorithm, IProblem problem, bfe evaluator, ulong popSize, RPolicyCallback replacementPolicy, SPolicyCallback selectionPolicy, uint? seed = null)
         {
             return CreateWithBfeAndPolicies(algorithm, problem, evaluator, popSize, replacementPolicy, selectionPolicy, seed, islandType);
         }

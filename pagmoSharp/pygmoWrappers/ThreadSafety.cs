@@ -10,11 +10,10 @@
 
 namespace pagmo {
 
-public enum sga_crossover {
-  EXPONENTIAL,
-  BINOMIAL,
-  SINGLE,
-  SBX
+public enum ThreadSafety {
+  None,
+  Basic,
+  Constant
 }
 
 }

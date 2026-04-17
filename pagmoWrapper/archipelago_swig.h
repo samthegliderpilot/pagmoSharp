@@ -155,8 +155,8 @@ namespace pagmoWrap {
         const pagmo::algorithm& algo,
         const pagmo::problem& prob,
         std::size_t pop_size,
-        const pagmoWrap::r_policyPagmoWrapper& r,
-        const pagmoWrap::s_policyPagmoWrapper& s,
+        const pagmoWrap::managed_r_policy& r,
+        const pagmoWrap::managed_s_policy& s,
         unsigned seed)
     {
         const auto idx = static_cast<std::size_t>(a.size());
@@ -206,8 +206,8 @@ namespace pagmoWrap {
         const pagmo::problem& prob,
         const pagmo::bfe& b,
         std::size_t pop_size,
-        const pagmoWrap::r_policyPagmoWrapper& r,
-        const pagmoWrap::s_policyPagmoWrapper& s,
+        const pagmoWrap::managed_r_policy& r,
+        const pagmoWrap::managed_s_policy& s,
         unsigned seed)
     {
         const auto idx = static_cast<std::size_t>(a.size());
@@ -271,8 +271,8 @@ namespace pagmoWrap {
         const pagmo::algorithm& algo,
         const pagmo::problem& prob,
         std::size_t pop_size,
-        const pagmoWrap::r_policyPagmoWrapper& r,
-        const pagmoWrap::s_policyPagmoWrapper& s,
+        const pagmoWrap::managed_r_policy& r,
+        const pagmoWrap::managed_s_policy& s,
         unsigned seed)
     {
         const auto idx = static_cast<std::size_t>(a.size());
@@ -322,8 +322,8 @@ namespace pagmoWrap {
         const pagmo::problem& prob,
         const pagmo::bfe& b,
         std::size_t pop_size,
-        const pagmoWrap::r_policyPagmoWrapper& r,
-        const pagmoWrap::s_policyPagmoWrapper& s,
+        const pagmoWrap::managed_r_policy& r,
+        const pagmoWrap::managed_s_policy& s,
         unsigned seed)
     {
         const auto idx = static_cast<std::size_t>(a.size());

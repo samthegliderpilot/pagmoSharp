@@ -85,8 +85,8 @@
     std::size_t push_back_island(const pagmo::algorithm &algo,
                                  const pagmo::problem &prob,
                                  std::size_t pop_size,
-                                 const pagmoWrap::r_policyPagmoWrapper &r,
-                                 const pagmoWrap::s_policyPagmoWrapper &s,
+                                 const pagmoWrap::managed_r_policy &r,
+                                 const pagmoWrap::managed_s_policy &s,
                                  unsigned seed) {
         return pagmoWrap::Archipelago_PushBack_AlgoProbSizeManagedPoliciesSeed(*self, algo, prob, pop_size, r, s, seed);
     }
@@ -113,8 +113,8 @@
                                  const pagmo::problem &prob,
                                  const pagmo::bfe &b,
                                  std::size_t pop_size,
-                                 const pagmoWrap::r_policyPagmoWrapper &r,
-                                 const pagmoWrap::s_policyPagmoWrapper &s,
+                                 const pagmoWrap::managed_r_policy &r,
+                                 const pagmoWrap::managed_s_policy &s,
                                  unsigned seed) {
         return pagmoWrap::Archipelago_PushBack_AlgoProbBfeSizeManagedPoliciesSeed(*self, algo, prob, b, pop_size, r, s, seed);
     }
@@ -141,8 +141,8 @@
                                  const pagmo::algorithm &algo,
                                  const pagmo::problem &prob,
                                  std::size_t pop_size,
-                                 const pagmoWrap::r_policyPagmoWrapper &r,
-                                 const pagmoWrap::s_policyPagmoWrapper &s,
+                                 const pagmoWrap::managed_r_policy &r,
+                                 const pagmoWrap::managed_s_policy &s,
                                  unsigned seed) {
         return pagmoWrap::Archipelago_PushBack_ThreadIslAlgoProbSizeManagedPoliciesSeed(*self, isl, algo, prob, pop_size, r, s, seed);
     }
@@ -172,8 +172,8 @@
                                  const pagmo::problem &prob,
                                  const pagmo::bfe &b,
                                  std::size_t pop_size,
-                                 const pagmoWrap::r_policyPagmoWrapper &r,
-                                 const pagmoWrap::s_policyPagmoWrapper &s,
+                                 const pagmoWrap::managed_r_policy &r,
+                                 const pagmoWrap::managed_s_policy &s,
                                  unsigned seed) {
         return pagmoWrap::Archipelago_PushBack_ThreadIslAlgoProbBfeSizeManagedPoliciesSeed(*self, isl, algo, prob, b, pop_size, r, s, seed);
     }

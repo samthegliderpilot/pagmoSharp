@@ -9,11 +9,11 @@
 #ifndef SWIG_pagmo_WRAP_H_
 #define SWIG_pagmo_WRAP_H_
 
-class SwigDirector_problem_callback : public pagmoWrap::problem_callback, public Swig::Director {
+class SwigDirector_ProblemCallback : public pagmoWrap::problem_callback, public Swig::Director {
 
 public:
-    SwigDirector_problem_callback();
-    virtual ~SwigDirector_problem_callback();
+    SwigDirector_ProblemCallback();
+    virtual ~SwigDirector_ProblemCallback();
     virtual pagmoWrap::vector_double fitness(pagmoWrap::vector_double const &x) const;
     virtual pagmoWrap::bounds_type get_bounds() const;
     virtual std::string get_name() const;
@@ -84,11 +84,11 @@ private:
     void swig_init_callbacks();
 };
 
-class SwigDirector_algorithm_callback : public pagmoWrap::algorithm_callback, public Swig::Director {
+class SwigDirector_AlgorithmCallback : public pagmoWrap::algorithm_callback, public Swig::Director {
 
 public:
-    SwigDirector_algorithm_callback();
-    virtual ~SwigDirector_algorithm_callback();
+    SwigDirector_AlgorithmCallback();
+    virtual ~SwigDirector_AlgorithmCallback();
     virtual pagmo::population evolve(pagmo::population const &pop) const;
     virtual void set_seed(unsigned int arg0);
     virtual bool has_set_seed() const;
@@ -123,11 +123,11 @@ private:
     void swig_init_callbacks();
 };
 
-class SwigDirector_r_policyBase : public pagmoWrap::r_policyBase, public Swig::Director {
+class SwigDirector_RPolicyCallback : public pagmoWrap::r_policy_callback, public Swig::Director {
 
 public:
-    SwigDirector_r_policyBase();
-    virtual ~SwigDirector_r_policyBase();
+    SwigDirector_RPolicyCallback();
+    virtual ~SwigDirector_RPolicyCallback();
     virtual pagmoWrap::IndividualsGroup replace(pagmoWrap::IndividualsGroup const &incoming,pagmo::vector_double::size_type const &n_f,pagmo::vector_double::size_type const &n_ec,pagmo::vector_double::size_type const &n_ic,pagmo::vector_double::size_type const &n_obj,pagmo::vector_double::size_type const &pop_size,pagmo::vector_double const &tol,pagmoWrap::IndividualsGroup const &current) const;
     virtual std::string get_name() const;
     virtual std::string get_extra_info() const;
@@ -147,11 +147,11 @@ private:
     void swig_init_callbacks();
 };
 
-class SwigDirector_s_policyBase : public pagmoWrap::s_policyBase, public Swig::Director {
+class SwigDirector_SPolicyCallback : public pagmoWrap::s_policy_callback, public Swig::Director {
 
 public:
-    SwigDirector_s_policyBase();
-    virtual ~SwigDirector_s_policyBase();
+    SwigDirector_SPolicyCallback();
+    virtual ~SwigDirector_SPolicyCallback();
     virtual pagmoWrap::IndividualsGroup select(pagmoWrap::IndividualsGroup const &population,pagmo::vector_double::size_type const &n_f,pagmo::vector_double::size_type const &n_ec,pagmo::vector_double::size_type const &n_ic,pagmo::vector_double::size_type const &n_obj,pagmo::vector_double::size_type const &pop_size,pagmo::vector_double const &tol) const;
     virtual std::string get_name() const;
     virtual std::string get_extra_info() const;

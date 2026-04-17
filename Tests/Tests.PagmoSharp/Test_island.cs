@@ -43,7 +43,7 @@ namespace Tests.PagmoSharp
         {
             public override PairOfDoubleVectors get_bounds() => Bounds(new[] { -1.0, -1.0 }, new[] { 1.0, 1.0 });
             public override DoubleVector fitness(DoubleVector decisionVector) => new(new[] { decisionVector[0] * decisionVector[0] + decisionVector[1] * decisionVector[1] });
-            public override thread_safety get_thread_safety() => thread_safety.constant;
+            public override ThreadSafety get_thread_safety() => ThreadSafety.Constant;
             public override string get_name() => "MinimalManagedProblem";
         }
 
@@ -72,7 +72,7 @@ namespace Tests.PagmoSharp
 
             isl.evolve(1);
             isl.wait_check();
-            Assert.AreEqual(evolve_status.idle, isl.status());
+            Assert.AreEqual(EvolveStatus.Idle, isl.status());
             AssertIslandIsConfiguredForBeeColonyAndTwoDimensionalProblem(isl, 32);
         }
 
@@ -88,7 +88,7 @@ namespace Tests.PagmoSharp
             AssertIslandIsConfiguredForBeeColonyAndTwoDimensionalProblem(isl, 24);
             isl.evolve();
             isl.wait_check();
-            Assert.AreEqual(evolve_status.idle, isl.status());
+            Assert.AreEqual(EvolveStatus.Idle, isl.status());
             AssertIslandIsConfiguredForBeeColonyAndTwoDimensionalProblem(isl, 24);
         }
 
@@ -103,7 +103,7 @@ namespace Tests.PagmoSharp
             AssertIslandIsConfiguredForBeeColonyAndTwoDimensionalProblem(isl, 24);
             isl.evolve();
             isl.wait_check();
-            Assert.AreEqual(evolve_status.idle, isl.status());
+            Assert.AreEqual(EvolveStatus.Idle, isl.status());
             AssertIslandIsConfiguredForBeeColonyAndTwoDimensionalProblem(isl, 24);
         }
 
@@ -120,7 +120,7 @@ namespace Tests.PagmoSharp
             AssertIslandIsConfiguredForBeeColonyAndTwoDimensionalProblem(isl, 24);
             isl.evolve();
             isl.wait_check();
-            Assert.AreEqual(evolve_status.idle, isl.status());
+            Assert.AreEqual(EvolveStatus.Idle, isl.status());
             AssertIslandIsConfiguredForBeeColonyAndTwoDimensionalProblem(isl, 24);
         }
 

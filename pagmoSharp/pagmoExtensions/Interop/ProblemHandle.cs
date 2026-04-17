@@ -21,7 +21,7 @@ internal sealed class ProblemHandle : SafeHandle
     }
 
     /// <summary>
-    /// Uses pagmo-native semantics. See docs/api-reference.md for upstream links.
+    /// Returns <see langword="true"/> when the underlying handle is the zero sentinel value.
     /// </summary>
     public override bool IsInvalid => handle == IntPtr.Zero;
 

@@ -10,10 +10,9 @@
 
 namespace pagmo {
 
-public enum sga_mutation {
-  GAUSSIAN,
-  UNIFORM,
-  POLYNOMIAL
+public enum SgaSelection {
+  Tournament,
+  Truncated
 }
 
 }

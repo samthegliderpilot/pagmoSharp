@@ -21,7 +21,7 @@ namespace Tests.PagmoSharp
             Assert.AreEqual(1, championFitnessVector.Count);
         }
 
-        private sealed class ManagedReplacementPolicy : r_policyBase
+        private sealed class ManagedReplacementPolicy : RPolicyCallback
         {
             // Stub replacement policy used only to exercise managed policy callbacks
             // in thread_island overloads.
@@ -31,11 +31,11 @@ namespace Tests.PagmoSharp
             }
 
             public override string get_name() => "ManagedReplacementPolicy";
-            public override string get_extra_info() => "managed r_policyBase test";
+            public override string get_extra_info() => "managed RPolicyCallback test";
             public override bool is_valid() => true;
         }
 
-        private sealed class ManagedSelectionPolicy : s_policyBase
+        private sealed class ManagedSelectionPolicy : SPolicyCallback
         {
             // Stub selection policy used only to exercise managed policy callbacks
             // in thread_island overloads.
@@ -45,7 +45,7 @@ namespace Tests.PagmoSharp
             }
 
             public override string get_name() => "ManagedSelectionPolicy";
-            public override string get_extra_info() => "managed s_policyBase test";
+            public override string get_extra_info() => "managed SPolicyCallback test";
             public override bool is_valid() => true;
         }
 
@@ -68,7 +68,7 @@ namespace Tests.PagmoSharp
             AssertThreadIslandConfiguration(isl, 24);
             isl.evolve();
             isl.wait_check();
-            Assert.AreEqual(evolve_status.idle, isl.status());
+            Assert.AreEqual(EvolveStatus.Idle, isl.status());
             AssertThreadIslandConfiguration(isl, 24);
         }
 
@@ -87,7 +87,7 @@ namespace Tests.PagmoSharp
             AssertThreadIslandConfiguration(isl, 24);
             isl.evolve();
             isl.wait_check();
-            Assert.AreEqual(evolve_status.idle, isl.status());
+            Assert.AreEqual(EvolveStatus.Idle, isl.status());
             AssertThreadIslandConfiguration(isl, 24);
         }
 
@@ -103,7 +103,7 @@ namespace Tests.PagmoSharp
             AssertThreadIslandConfiguration(isl, 24);
             isl.evolve();
             isl.wait_check();
-            Assert.AreEqual(evolve_status.idle, isl.status());
+            Assert.AreEqual(EvolveStatus.Idle, isl.status());
             AssertThreadIslandConfiguration(isl, 24);
         }
 
@@ -122,7 +122,7 @@ namespace Tests.PagmoSharp
             AssertThreadIslandConfiguration(isl, 24);
             isl.evolve();
             isl.wait_check();
-            Assert.AreEqual(evolve_status.idle, isl.status());
+            Assert.AreEqual(EvolveStatus.Idle, isl.status());
             AssertThreadIslandConfiguration(isl, 24);
         }
 

@@ -94,8 +94,8 @@ namespace pagmoWrap {
     // algorithm + population + managed-policy wrappers
     inline pagmo::island Island_FromAlgoPopManagedPolicies(const pagmo::algorithm& a,
         const pagmo::population& p,
-        const pagmoWrap::r_policyPagmoWrapper& r,
-        const pagmoWrap::s_policyPagmoWrapper& s)
+        const pagmoWrap::managed_r_policy& r,
+        const pagmoWrap::managed_s_policy& s)
     {
         return pagmo::island(a, p, pagmo::r_policy(r), pagmo::s_policy(s));
     }
@@ -177,8 +177,8 @@ namespace pagmoWrap {
     inline pagmo::island Island_FromAlgoProbManagedPolicies(const pagmo::algorithm& a,
         const pagmo::problem& prob,
         std::size_t pop_size,
-        const pagmoWrap::r_policyPagmoWrapper& r,
-        const pagmoWrap::s_policyPagmoWrapper& s,
+        const pagmoWrap::managed_r_policy& r,
+        const pagmoWrap::managed_s_policy& s,
         unsigned seed)
     {
         return pagmo::island(a,
@@ -193,8 +193,8 @@ namespace pagmoWrap {
         const pagmo::algorithm& a,
         const pagmo::problem& prob,
         std::size_t pop_size,
-        const pagmoWrap::r_policyPagmoWrapper& r,
-        const pagmoWrap::s_policyPagmoWrapper& s,
+        const pagmoWrap::managed_r_policy& r,
+        const pagmoWrap::managed_s_policy& s,
         unsigned seed)
     {
         return pagmo::island(isl, a, prob, static_cast<pagmo::population::size_type>(pop_size), pagmo::r_policy(r),
@@ -248,8 +248,8 @@ namespace pagmoWrap {
         const pagmo::problem& prob,
         const pagmo::bfe& b,
         std::size_t pop_size,
-        const pagmoWrap::r_policyPagmoWrapper& r,
-        const pagmoWrap::s_policyPagmoWrapper& s,
+        const pagmoWrap::managed_r_policy& r,
+        const pagmoWrap::managed_s_policy& s,
         unsigned seed)
     {
         return pagmo::island(a,
@@ -266,8 +266,8 @@ namespace pagmoWrap {
         const pagmo::problem& prob,
         const pagmo::bfe& b,
         std::size_t pop_size,
-        const pagmoWrap::r_policyPagmoWrapper& r,
-        const pagmoWrap::s_policyPagmoWrapper& s,
+        const pagmoWrap::managed_r_policy& r,
+        const pagmoWrap::managed_s_policy& s,
         unsigned seed)
     {
         return pagmo::island(isl, a, prob, b, static_cast<pagmo::population::size_type>(pop_size), pagmo::r_policy(r),

@@ -10,10 +10,9 @@
 
 namespace pagmo {
 
-public enum thread_safety {
-  none,
-  basic,
-  constant
+public enum MigrationType {
+  P2P,
+  Broadcast
 }
 
 }

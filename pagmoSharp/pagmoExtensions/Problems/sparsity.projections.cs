@@ -85,9 +85,9 @@ namespace pagmo
     }
 
     /// <summary>
-    /// Represents managed_problem. Uses pagmo-native semantics. See docs/api-reference.md for upstream links.
+    /// Represents ManagedProblem. Uses pagmo-native semantics. See docs/api-reference.md for upstream links.
     /// </summary>
-    public partial class managed_problem
+    public partial class ManagedProblem
     {
         /// <summary>
         /// Returns gradient sparsity entries projected to managed row/column pairs.

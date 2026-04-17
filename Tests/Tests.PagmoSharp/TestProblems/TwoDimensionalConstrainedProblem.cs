@@ -45,9 +45,9 @@ namespace Tests.PagmoSharp.TestProblems
             return "Simple 2-D x^2+y test problem with constraint y==2.0, x == 1";
         }
 
-        public override thread_safety get_thread_safety()
+        public override ThreadSafety get_thread_safety()
         {
-            return thread_safety.constant;
+            return ThreadSafety.Constant;
         }
 
         /// <inheritdoc />

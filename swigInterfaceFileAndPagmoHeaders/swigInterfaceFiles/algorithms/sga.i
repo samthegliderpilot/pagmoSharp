@@ -2,6 +2,21 @@
 #include "pagmo/algorithm.hpp"
 #include "pagmo/algorithms/sga.hpp"
 %}
+
+// SGA enum types — PascalCase names for C# (R1 compliance).
+%rename(SgaSelection)  detail::sga_selection;
+%rename(Tournament)    detail::sga_selection::TOURNAMENT;
+%rename(Truncated)     detail::sga_selection::TRUNCATED;
+%rename(SgaCrossover)  detail::sga_crossover;
+%rename(Exponential)   detail::sga_crossover::EXPONENTIAL;
+%rename(Binomial)      detail::sga_crossover::BINOMIAL;
+%rename(Single)        detail::sga_crossover::SINGLE;
+%rename(Sbx)           detail::sga_crossover::SBX;
+%rename(SgaMutation)   detail::sga_mutation;
+%rename(Gaussian)      detail::sga_mutation::GAUSSIAN;
+%rename(Uniform)       detail::sga_mutation::UNIFORM;
+%rename(Polynomial)    detail::sga_mutation::POLYNOMIAL;
+
 namespace detail
 {
     enum class sga_selection { TOURNAMENT, TRUNCATED };

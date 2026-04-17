@@ -113,8 +113,8 @@ public partial class lennard_jones : global::System.IDisposable {
     return ret;
   }
 
-  public thread_safety get_thread_safety() {
-    thread_safety ret = (thread_safety)pagmoPINVOKE.lennard_jones_get_thread_safety(swigCPtr);
+  public ThreadSafety get_thread_safety() {
+    ThreadSafety ret = (ThreadSafety)pagmoPINVOKE.lennard_jones_get_thread_safety(swigCPtr);
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }

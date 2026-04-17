@@ -9,7 +9,7 @@ public class Test_policy_ownership
 {
     // Minimal managed replacement policy used for ownership/lifetime assertions in
     // r_policy constructor and transfer-ownership behavior.
-    private sealed class ManagedReplacementPolicy : r_policyBase
+    private sealed class ManagedReplacementPolicy : RPolicyCallback
     {
         public override IndividualsGroup replace(IndividualsGroup a, uint b, uint c, uint d, uint e, uint f, DoubleVector g, IndividualsGroup h)
         {
@@ -17,13 +17,13 @@ public class Test_policy_ownership
         }
 
         public override string get_name() => "ManagedReplacementPolicy";
-        public override string get_extra_info() => "managed r_policyBase test";
+        public override string get_extra_info() => "managed RPolicyCallback test";
         public override bool is_valid() => true;
     }
 
     // Minimal managed selection policy used for ownership/lifetime assertions in
     // s_policy constructor and transfer-ownership behavior.
-    private sealed class ManagedSelectionPolicy : s_policyBase
+    private sealed class ManagedSelectionPolicy : SPolicyCallback
     {
         public override IndividualsGroup select(IndividualsGroup a, uint b, uint c, uint d, uint e, uint f, DoubleVector g)
         {
@@ -31,7 +31,7 @@ public class Test_policy_ownership
         }
 
         public override string get_name() => "ManagedSelectionPolicy";
-        public override string get_extra_info() => "managed s_policyBase test";
+        public override string get_extra_info() => "managed SPolicyCallback test";
         public override bool is_valid() => true;
     }
 

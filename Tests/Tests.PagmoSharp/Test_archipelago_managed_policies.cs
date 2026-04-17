@@ -11,7 +11,7 @@ public class Test_archipelago_managed_policies
     // can be validated through the managed callback path.
     private sealed class ManagedBatchProblem : ManagedProblemBase
     {
-        public override thread_safety get_thread_safety() => thread_safety.basic;
+        public override ThreadSafety get_thread_safety() => ThreadSafety.Basic;
 
         public override PairOfDoubleVectors get_bounds()
         {
@@ -41,9 +41,9 @@ public class Test_archipelago_managed_policies
         }
     }
 
-    // Managed replacement policy stub used to validate direct r_policyBase ingestion
+    // Managed replacement policy stub used to validate direct RPolicyCallback ingestion
     // by archipelago wrappers without requiring policy-specific optimization behavior.
-    private sealed class ManagedReplacementPolicy : r_policyBase
+    private sealed class ManagedReplacementPolicy : RPolicyCallback
     {
         public override IndividualsGroup replace(
             IndividualsGroup incoming,
@@ -65,7 +65,7 @@ public class Test_archipelago_managed_policies
 
     // Managed selection policy stub paired with ManagedReplacementPolicy for policy
     // callback lifetime and ownership-path coverage in archipelago entry points.
-    private sealed class ManagedSelectionPolicy : s_policyBase
+    private sealed class ManagedSelectionPolicy : SPolicyCallback
     {
         public override IndividualsGroup select(
             IndividualsGroup populationGroup,
@@ -99,7 +99,7 @@ public class Test_archipelago_managed_policies
 
         archipelago.evolve(1u);
         archipelago.wait_check();
-        Assert.That(archipelago.status(), Is.EqualTo(evolve_status.idle));
+        Assert.That(archipelago.status(), Is.EqualTo(EvolveStatus.Idle));
     }
 
     [Test]
@@ -117,7 +117,7 @@ public class Test_archipelago_managed_policies
 
         archipelago.evolve(1u);
         archipelago.wait_check();
-        Assert.That(archipelago.status(), Is.EqualTo(evolve_status.idle));
+        Assert.That(archipelago.status(), Is.EqualTo(EvolveStatus.Idle));
     }
 
     [Test]
@@ -136,7 +136,7 @@ public class Test_archipelago_managed_policies
 
         archipelago.evolve(1u);
         archipelago.wait_check();
-        Assert.That(archipelago.status(), Is.EqualTo(evolve_status.idle));
+        Assert.That(archipelago.status(), Is.EqualTo(EvolveStatus.Idle));
     }
 
     [Test]
@@ -155,7 +155,7 @@ public class Test_archipelago_managed_policies
 
         archipelago.evolve(1u);
         archipelago.wait_check();
-        Assert.That(archipelago.status(), Is.EqualTo(evolve_status.idle));
+        Assert.That(archipelago.status(), Is.EqualTo(EvolveStatus.Idle));
     }
 
     [Test]
@@ -174,7 +174,7 @@ public class Test_archipelago_managed_policies
 
         archipelago.evolve(1u);
         archipelago.wait_check();
-        Assert.That(archipelago.status(), Is.EqualTo(evolve_status.idle));
+        Assert.That(archipelago.status(), Is.EqualTo(EvolveStatus.Idle));
     }
 
     [Test]
@@ -193,7 +193,7 @@ public class Test_archipelago_managed_policies
 
         archipelago.evolve(1u);
         archipelago.wait_check();
-        Assert.That(archipelago.status(), Is.EqualTo(evolve_status.idle));
+        Assert.That(archipelago.status(), Is.EqualTo(EvolveStatus.Idle));
     }
 
     [Test]
@@ -212,6 +212,6 @@ public class Test_archipelago_managed_policies
 
         archipelago.evolve(1u);
         archipelago.wait_check();
-        Assert.That(archipelago.status(), Is.EqualTo(evolve_status.idle));
+        Assert.That(archipelago.status(), Is.EqualTo(EvolveStatus.Idle));
     }
 }

@@ -116,8 +116,8 @@ public partial class mbh : global::System.IDisposable {
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
-  public thread_safety get_thread_safety() {
-    thread_safety ret = (thread_safety)pagmoPINVOKE.mbh_get_thread_safety(swigCPtr);
+  public ThreadSafety get_thread_safety() {
+    ThreadSafety ret = (ThreadSafety)pagmoPINVOKE.mbh_get_thread_safety(swigCPtr);
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }

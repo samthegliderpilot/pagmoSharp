@@ -10,18 +10,18 @@
 
 namespace pagmo {
 
-public class null_problem_callback : problem_callback {
+public class NullProblemCallback : ProblemCallback {
   private global::System.Runtime.InteropServices.HandleRef swigCPtr;
 
-  internal null_problem_callback(global::System.IntPtr cPtr, bool cMemoryOwn) : base(pagmoPINVOKE.null_problem_callback_SWIGUpcast(cPtr), cMemoryOwn) {
+  internal NullProblemCallback(global::System.IntPtr cPtr, bool cMemoryOwn) : base(pagmoPINVOKE.NullProblemCallback_SWIGUpcast(cPtr), cMemoryOwn) {
     swigCPtr = new global::System.Runtime.InteropServices.HandleRef(this, cPtr);
   }
 
-  internal static global::System.Runtime.InteropServices.HandleRef getCPtr(null_problem_callback obj) {
+  internal static global::System.Runtime.InteropServices.HandleRef getCPtr(NullProblemCallback obj) {
     return (obj == null) ? new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero) : obj.swigCPtr;
   }
 
-  internal static global::System.Runtime.InteropServices.HandleRef swigRelease(null_problem_callback obj) {
+  internal static global::System.Runtime.InteropServices.HandleRef swigRelease(NullProblemCallback obj) {
     if (obj != null) {
       if (!obj.swigCMemOwn)
         throw new global::System.ApplicationException("Cannot release ownership as memory is not owned");
@@ -39,7 +39,7 @@ public class null_problem_callback : problem_callback {
       if (swigCPtr.Handle != global::System.IntPtr.Zero) {
         if (swigCMemOwn) {
           swigCMemOwn = false;
-          pagmoPINVOKE.delete_null_problem_callback(swigCPtr);
+          pagmoPINVOKE.delete_NullProblemCallback(swigCPtr);
         }
         swigCPtr = new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero);
       }
@@ -48,18 +48,18 @@ public class null_problem_callback : problem_callback {
   }
 
   public override DoubleVector fitness(DoubleVector arg0) {
-    DoubleVector ret = new DoubleVector(pagmoPINVOKE.null_problem_callback_fitness(swigCPtr, DoubleVector.getCPtr(arg0)), true);
+    DoubleVector ret = new DoubleVector(pagmoPINVOKE.NullProblemCallback_fitness(swigCPtr, DoubleVector.getCPtr(arg0)), true);
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public override PairOfDoubleVectors get_bounds() {
-    PairOfDoubleVectors ret = new PairOfDoubleVectors(pagmoPINVOKE.null_problem_callback_get_bounds(swigCPtr), true);
+    PairOfDoubleVectors ret = new PairOfDoubleVectors(pagmoPINVOKE.NullProblemCallback_get_bounds(swigCPtr), true);
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
-  public null_problem_callback() : this(pagmoPINVOKE.new_null_problem_callback(), true) {
+  public NullProblemCallback() : this(pagmoPINVOKE.new_NullProblemCallback(), true) {
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 

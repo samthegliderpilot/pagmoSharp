@@ -57,7 +57,7 @@ public class Test_algorithm_interop_runtime_paths
 
         island.evolve(1);
         island.wait_check();
-        Assert.That(island.status(), Is.EqualTo(evolve_status.idle));
+        Assert.That(island.status(), Is.EqualTo(EvolveStatus.Idle));
 
         using var population = island.get_population();
         Assert.That(population.size(), Is.EqualTo(24u));

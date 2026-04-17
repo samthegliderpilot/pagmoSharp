@@ -42,7 +42,7 @@ public class Test_problem_interop_normalization
 
         island.evolve(1u);
         Assert.DoesNotThrow(() => island.wait_check());
-        Assert.That(island.status(), Is.EqualTo(evolve_status.idle));
+        Assert.That(island.status(), Is.EqualTo(EvolveStatus.Idle));
     }
 }
 

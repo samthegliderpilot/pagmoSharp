@@ -81,8 +81,8 @@ public partial class island : global::System.IDisposable {
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
-  public evolve_status status() {
-    evolve_status ret = (evolve_status)pagmoPINVOKE.island_status(swigCPtr);
+  public EvolveStatus status() {
+    EvolveStatus ret = (EvolveStatus)pagmoPINVOKE.island_status(swigCPtr);
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
@@ -139,8 +139,8 @@ public partial class island : global::System.IDisposable {
     return ret;
   }
 
-  public static island CreateFromPopulationWithPolicies(algorithm a, population p, r_policyPagmoWrapper r, s_policyPagmoWrapper s) {
-    island ret = new island(pagmoPINVOKE.island_CreateFromPopulationWithPolicies__SWIG_1(algorithm.getCPtr(a), population.getCPtr(p), r_policyPagmoWrapper.getCPtr(r), s_policyPagmoWrapper.getCPtr(s)), true);
+  public static island CreateFromPopulationWithPolicies(algorithm a, population p, ManagedRPolicy r, ManagedSPolicy s) {
+    island ret = new island(pagmoPINVOKE.island_CreateFromPopulationWithPolicies__SWIG_1(algorithm.getCPtr(a), population.getCPtr(p), ManagedRPolicy.getCPtr(r), ManagedSPolicy.getCPtr(s)), true);
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
@@ -169,14 +169,14 @@ public partial class island : global::System.IDisposable {
     return ret;
   }
 
-  public static island CreateWithPolicies(algorithm a, problem prob, uint pop_size, r_policyPagmoWrapper r, s_policyPagmoWrapper s, uint seed) {
-    island ret = new island(pagmoPINVOKE.island_CreateWithPolicies__SWIG_1(algorithm.getCPtr(a), problem.getCPtr(prob), pop_size, r_policyPagmoWrapper.getCPtr(r), s_policyPagmoWrapper.getCPtr(s), seed), true);
+  public static island CreateWithPolicies(algorithm a, problem prob, uint pop_size, ManagedRPolicy r, ManagedSPolicy s, uint seed) {
+    island ret = new island(pagmoPINVOKE.island_CreateWithPolicies__SWIG_1(algorithm.getCPtr(a), problem.getCPtr(prob), pop_size, ManagedRPolicy.getCPtr(r), ManagedSPolicy.getCPtr(s), seed), true);
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
-  public static island CreateWithThreadIslandAndPolicies(thread_island isl, algorithm a, problem prob, uint pop_size, r_policyPagmoWrapper r, s_policyPagmoWrapper s, uint seed) {
-    island ret = new island(pagmoPINVOKE.island_CreateWithThreadIslandAndPolicies__SWIG_1(thread_island.getCPtr(isl), algorithm.getCPtr(a), problem.getCPtr(prob), pop_size, r_policyPagmoWrapper.getCPtr(r), s_policyPagmoWrapper.getCPtr(s), seed), true);
+  public static island CreateWithThreadIslandAndPolicies(thread_island isl, algorithm a, problem prob, uint pop_size, ManagedRPolicy r, ManagedSPolicy s, uint seed) {
+    island ret = new island(pagmoPINVOKE.island_CreateWithThreadIslandAndPolicies__SWIG_1(thread_island.getCPtr(isl), algorithm.getCPtr(a), problem.getCPtr(prob), pop_size, ManagedRPolicy.getCPtr(r), ManagedSPolicy.getCPtr(s), seed), true);
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
@@ -205,14 +205,14 @@ public partial class island : global::System.IDisposable {
     return ret;
   }
 
-  public static island CreateWithBfeAndPolicies(algorithm a, problem prob, bfe b, uint pop_size, r_policyPagmoWrapper r, s_policyPagmoWrapper s, uint seed) {
-    island ret = new island(pagmoPINVOKE.island_CreateWithBfeAndPolicies__SWIG_1(algorithm.getCPtr(a), problem.getCPtr(prob), bfe.getCPtr(b), pop_size, r_policyPagmoWrapper.getCPtr(r), s_policyPagmoWrapper.getCPtr(s), seed), true);
+  public static island CreateWithBfeAndPolicies(algorithm a, problem prob, bfe b, uint pop_size, ManagedRPolicy r, ManagedSPolicy s, uint seed) {
+    island ret = new island(pagmoPINVOKE.island_CreateWithBfeAndPolicies__SWIG_1(algorithm.getCPtr(a), problem.getCPtr(prob), bfe.getCPtr(b), pop_size, ManagedRPolicy.getCPtr(r), ManagedSPolicy.getCPtr(s), seed), true);
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
-  public static island CreateWithThreadIslandAndBfeAndPolicies(thread_island isl, algorithm a, problem prob, bfe b, uint pop_size, r_policyPagmoWrapper r, s_policyPagmoWrapper s, uint seed) {
-    island ret = new island(pagmoPINVOKE.island_CreateWithThreadIslandAndBfeAndPolicies__SWIG_1(thread_island.getCPtr(isl), algorithm.getCPtr(a), problem.getCPtr(prob), bfe.getCPtr(b), pop_size, r_policyPagmoWrapper.getCPtr(r), s_policyPagmoWrapper.getCPtr(s), seed), true);
+  public static island CreateWithThreadIslandAndBfeAndPolicies(thread_island isl, algorithm a, problem prob, bfe b, uint pop_size, ManagedRPolicy r, ManagedSPolicy s, uint seed) {
+    island ret = new island(pagmoPINVOKE.island_CreateWithThreadIslandAndBfeAndPolicies__SWIG_1(thread_island.getCPtr(isl), algorithm.getCPtr(a), problem.getCPtr(prob), bfe.getCPtr(b), pop_size, ManagedRPolicy.getCPtr(r), ManagedSPolicy.getCPtr(s), seed), true);
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }

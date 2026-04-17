@@ -33,7 +33,7 @@ namespace Tests.PagmoSharp.Problems
             Assert.AreEqual(0, problem.get_nec(), "equality constraint count");
             Assert.AreEqual(2, problem.get_nobj(), "objective count");
             Assert.AreEqual(0, problem.get_nix(), "integer count");
-            Assert.AreEqual(thread_safety.basic, problem.get_thread_safety(), "thread safety");
+            Assert.AreEqual(ThreadSafety.Basic, problem.get_thread_safety(), "thread safety");
             using var bounds = problem.get_bounds();
             Assert.AreEqual(0.0, bounds.first[0]);
             Assert.IsTrue(problem.has_batch_fitness(), "has batch fitness");

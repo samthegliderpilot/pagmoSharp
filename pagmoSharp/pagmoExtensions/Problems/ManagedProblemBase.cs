@@ -55,7 +55,7 @@ namespace pagmo
         /// <summary>
         /// Returns thread-safety capability for threaded execution paths.
         /// </summary>
-        public virtual thread_safety get_thread_safety() => thread_safety.none;
+        public virtual ThreadSafety get_thread_safety() => ThreadSafety.None;
 
         /// <summary>
         /// Evaluates flattened batch inputs when supported.

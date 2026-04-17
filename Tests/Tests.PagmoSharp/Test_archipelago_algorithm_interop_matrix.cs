@@ -56,7 +56,7 @@ public class Test_archipelago_algorithm_interop_matrix
 
         archipelago.evolve(1u);
         archipelago.wait_check();
-        Assert.That(archipelago.status(), Is.EqualTo(evolve_status.idle));
+        Assert.That(archipelago.status(), Is.EqualTo(EvolveStatus.Idle));
 
         using var islandCopy = archipelago.GetIslandCopy(0u);
         using var configuredAlgorithm = islandCopy.get_algorithm();

@@ -2,7 +2,7 @@
 
 **Reviewer:** Claude (Sonnet 4.6)  
 **Started:** 2026-04-15  
-**Status:** In Progress — Phases 2 and 3 complete; Phases 4–10 pending  
+**Status:** Complete — Phases 2–10 finished + R1 compliance; 589/589 tests passing  
 **Scope:** Full audit before v1.0-beta.1 release
 
 ---
@@ -28,6 +28,33 @@ Severity tags:
 - `[DOCS]` = missing or wrong documentation
 - `[COMPAT]` = build / runtime compatibility concern
 - `[LEGACY]` = pre-AI era artifact that should be cleaned up
+
+---
+
+## Standing Rules
+
+These rules apply to all phases of the review. Any violation found should be flagged and fixed.
+
+### R1 — C# types use PascalCase
+
+All C# type names (classes, structs, interfaces, enums) must use PascalCase — including
+SWIG-generated bridge and director types. Use `%rename` directives in the SWIG interface file
+to map C++ snake_case class names to their PascalCase C# equivalents. Pagmo-compatible
+snake_case is acceptable only for *method* names that intentionally mirror the pagmo C++ API
+(e.g. `get_bounds()`, `fitness()`, `push_back_island()`).
+
+### R2 — No exceptions escaping P/Invoke boundaries
+
+Managed exceptions must not propagate through C++/P/Invoke callback boundaries. Director
+callbacks (`SwigDirectorMethod*` stubs) must catch all exceptions and route them through
+`pagmoPINVOKE.SWIGPendingException.Set()`. The `%typemap(csdirectorout)` blocks in the SWIG
+interface file implement this for all return types; any new director class added must be covered.
+
+### R3 — No unreachable null guards at internal call sites
+
+`ArgumentNullException` and similar guards are appropriate only at real system boundaries
+(user-visible API entry points, external callbacks). Internal wiring that is always non-null
+by construction must not be guarded — the guard is dead code and adds noise.
 
 ---
 
@@ -187,218 +214,286 @@ bridging pagmo's duck-typed C++ concepts with SWIG's class-based binding model.
 
 The following items need clarifying comments added for anyone reading the code cold:
 
-### [ ] NC.1 — `%ignore` on `r_policyPagmoWrapper::replace` / `s_policyPagmoWrapper::select`
+### [x] NC.1 — `%ignore` on `managed_r_policy::replace` / `managed_s_policy::select`
 
-**File:** `swigInterfaceFileAndPagmoHeaders/pagmoSharpSwigInterface.i` lines 120, 124  
-These ignore the `replace`/`select` methods on the *wrapper* class (not the base/director class).
+**File:** `swigInterfaceFileAndPagmoHeaders/pagmoSharpSwigInterface.i`  
+These ignore the `replace`/`select` methods on the *wrapper* class (not the director class).
 The reason: those methods take `pagmo::individuals_group_t` (a `std::tuple<...>`), which SWIG cannot
-wrap. C# code only ever calls through `r_policyBase::replace` / `s_policyBase::select`, which take
-the `pagmoWrap::IndividualsGroup` struct adapter. Needs a comment explaining why.
+wrap. C# code only ever calls through `r_policy_callback::replace` / `s_policy_callback::select`, which
+take the `pagmoWrap::IndividualsGroup` struct adapter. Comments added explaining why during P8.1.
 
-### [ ] NC.2 — `typedef unsigned long long pop_size_t` inside `namespace pagmo {}`
+### [x] NC.2 — `typedef unsigned long long pop_size_t` inside `namespace pagmo {}`
 
 **File:** `pagmoWrapper/multi_objective.h`  
-This typedef is **load-bearing for SWIG type mapping** — not just a convenience alias. When SWIG
-sees `typedef unsigned long long pop_size_t` inside `namespace pagmo {}`, it resolves
-`pagmo::pop_size_t` as `unsigned long long` and applies the `%typemap(cstype) unsigned long long "ulong"`
-typemap. Without this, `pagmo::pop_size_t` appears as an opaque `SWIGTYPE_p_pagmo__pop_size_t` in
-generated C#, breaking ~20 API types. Needs a comment.
+Comment added explaining this is load-bearing for SWIG type mapping: without it `pagmo::pop_size_t`
+becomes an opaque `SWIGTYPE_p_pagmo__pop_size_t` in generated C# instead of `ulong`.
 
-### [ ] NC.3 — `%apply void *VOID_INT_PTR { void * }` in the SWIG file
+### [x] NC.3 — `%apply void *VOID_INT_PTR { void * }` in the SWIG file
 
 **File:** `swigInterfaceFileAndPagmoHeaders/pagmoSharpSwigInterface.i`  
-Already addressed in P3.4 fix — comment added.
+Addressed in P3.4 — comment added.
 
-### [ ] NC.4 — `%pragma(csharp) moduleclassmodifiers = "public partial class"`
+### [x] NC.4 — `%pragma(csharp) moduleclassmodifiers = "public partial class"`
 
 **File:** `swigInterfaceFileAndPagmoHeaders/pagmoSharpSwigInterface.i`  
-Makes the SWIG-generated module class (`pagmo`) a `partial class` so hand-written C# in
-`pagmo.manual.cs` (if any) can extend it. The reason for the `partial` modifier is not obvious.
-Needs a comment.
+Comment added explaining the `partial` modifier allows hand-written C# to extend the SWIG-generated
+class. Covered by the comment block above the `%pragma` line.
 
-### [ ] NC.4 — GCHandle pinning pattern in `NativeInterop.cs`
+### [x] NC.4b — GCHandle pinning pattern in `NativeInterop.cs`
 
 **File:** `pagmoSharp/pagmoExtensions/NativeInterop.cs`  
-The `ConditionalWeakTable<object, CallbackRootBucket>` + `GCHandle.Alloc` pattern is the standard
-way to root a managed object to the lifetime of another without creating a strong reference cycle.
-Not obvious why `ConditionalWeakTable` is used instead of a plain dictionary. Needs a comment.
+Comment added explaining why `ConditionalWeakTable` is used instead of a plain dictionary
+(plain dictionary would pin the owner forever via strong key reference).
 
-### [ ] NC.5 — Four-variant `%ignore` for `shared_ptr` constructors
+### [x] NC.5 — Four-variant `%ignore` for `shared_ptr` constructors
 
 **File:** `swigInterfaceFileAndPagmoHeaders/pagmoSharpSwigInterface.i`  
-Why are there four `%ignore` directives for what looks like the same constructor? SWIG matches
-by the exact string form it generates internally. Different SWIG versions or include-path orderings
-may generate `shared_ptr<problem_callback>`, `shared_ptr<pagmoWrap::problem_callback>`,
-`shared_ptr< problem_callback >`, or `shared_ptr< pagmoWrap::problem_callback >` (with/without
-spaces, with/without namespace prefix). All four must be ignored or SWIG emits an unusable
-constructor for the `shared_ptr` overload. Needs a comment.
+Comment added explaining all four spelling variants are needed because SWIG matches by the exact
+string it sees after resolving includes (with/without namespace prefix, with/without spaces).
 
 ---
 
-## Phase 4 — Director Pattern Health
+## Phase 4 — Director Pattern Health ✓
 
-### [ ] P4.1 — `ProblemCallbackAdapter` unprotected callbacks `[SAFETY]`
-
-**File:** `pagmoSharp/pagmoExtensions/Problems/ProblemCallbackAdapter.cs`  
-Only `fitness()` and `batch_fitness()` are wrapped in try/catch with deferred exception capture. All
-other callbacks — `get_bounds()`, `get_name()`, dimension accessors, `has_*`, `gradient()`,
-`gradient_sparsity()`, `hessians()`, `hessians_sparsity()`, `set_seed()`, `get_thread_safety()` —
-let managed exceptions propagate through the SWIG reverse-callback boundary (undefined behavior).
-`get_bounds()` is called during population construction; a throw there crashes without a useful error.  
-**Action:** Wrap all non-trivial callbacks in the deferred-exception pattern.
-
-### [ ] P4.2 — `gradient_sparsity()` / `hessians_sparsity()` return raw `SWIGTYPE_*` `[SWIG]`
+### [x] P4.1 — `ProblemCallbackAdapter` unprotected callbacks `[SAFETY]`
 
 **File:** `pagmoSharp/pagmoExtensions/Problems/ProblemCallbackAdapter.cs`  
-Violates SIZE_T_STRATEGY — no public surface should return `SWIGTYPE_*size_t*` types.  
-**Action:** Use `SparsityPattern`/`VectorOfSparsityPattern` with `swigRelease()` ownership transfer.
+Complete rewrite: all callbacks now have try/catch with deferred exception capture via
+`ExceptionDispatchInfo`. Safe fallback values returned on exception path (`[0,1]` bounds,
+`""` string, `false` bool, `0` uint, empty collections).
 
-### [ ] P4.3 — r_policy/s_policy director chain has no exception deferral `[SAFETY]`
+Also fixed a related bug: `NativeInterop.CreateProblemPointer` never checked
+`ConsumeDeferredManagedException()` after `problem_from_callback` returned, so exceptions
+deferred during problem construction were silently lost. Added check immediately after the call;
+deferred exceptions now rethrow with the original stack trace preserved via
+`ExceptionDispatchInfo.Capture(...).Throw()`. Passes 589/589 tests.
 
-**Files:** `pagmoWrapper/r_policy.h`, `pagmoWrapper/s_policy.h`  
-`r_policyPagmoWrapper::replace()` and `s_policyPagmoWrapper::select()` invoke managed code with no
-exception boundary. A managed exception propagates through the pagmo policy vtable: UB.  
-**Action:** Add try/catch; propagate errors through the thread-local error channel from `managed_bridge.cpp`.
+### [~] P4.2 — `gradient_sparsity()` / `hessians_sparsity()` return raw `SWIGTYPE_*` `[SWIG]`
 
-### [x] P4.4 — `r_policyBase::is_valid()` default returns `false` `[BUG]`
+**File:** `pagmoSharp/pagmoExtensions/Problems/ProblemCallbackAdapter.cs`  
+These methods are `override`s whose return type is dictated by the SWIG-generated base class
+(`problem_callback`). They cannot return a cleaner type without SWIG changes. The methods already
+correctly use `swigRelease()` for ownership transfer. Finding downgraded to note — not actionable
+without a SWIG interface change.
+
+### [x] P4.3 — r_policy/s_policy director chain has no exception deferral `[SAFETY]`
+
+**File:** `swigInterfaceFileAndPagmoHeaders/pagmoSharpSwigInterface.i`  
+Added `%typemap(csdirectorout)` blocks for `void`, `std::string`, `bool`, `unsigned int`, and
+`pagmoWrap::IndividualsGroup` return types. These are the standard SWIG mechanism for wrapping
+the generated `SwigDirectorMethod*` stubs with try/catch; any managed exception is captured via
+`pagmoPINVOKE.SWIGPendingException.Set()` so the C++ director can re-throw it as a C++
+exception rather than letting it escape through P/Invoke (which aborts in .NET Core).
+
+Key subtlety: `csdirectorout` typemaps must appear BEFORE the first `%feature("director")`
+declaration. A previous placement after the director includes had no effect. SWIG wraps
+non-void typemap content with `return ...;` so `try/catch` blocks (statements, not expressions)
+must be packaged as immediately-invoked lambda expressions: `((Func<T>)(() => { ... }))()`.
+
+For `problem_callback` and `algorithm_callback`, `ProblemCallbackAdapter` /
+`AlgorithmCallbackAdapter` are the primary safety net; these typemaps are a second line of
+defence. For `r_policy_callback` and `s_policy_callback` (which have no adapter layer), they are the
+primary safety net.
+
+### [x] P4.4 — `r_policy_callback::is_valid()` default returns `false` `[BUG]`
 
 **Files:** `pagmoWrapper/r_policy.h`, `pagmoWrapper/s_policy.h`  
 pagmo uses `is_valid()` to check a policy is properly constructed. Default `false` would cause pagmo
 to reject any managed policy even when fully implemented.  
-**Fix:** Changed default to `true` in both `r_policyBase` and `s_policyBase` (done in Phase 2).
+**Fix:** Changed default to `true` in both `r_policy_callback` and `s_policy_callback` (done in Phase 2).
 
-### [x] P4.5 — `r_policyBase`/`s_policyBase` `get_name()` returns empty string `[STYLE]`
+### [x] P4.5 — `r_policy_callback`/`s_policy_callback` `get_name()` returns empty string `[STYLE]`
 
 **Fix:** Changed defaults to `"C# r_policy"` / `"C# s_policy"` (done in Phase 2).
 
 ---
 
-## Phase 5 — ROADMAP Completeness Audit
+## Phase 5 — ROADMAP Completeness Audit ✓
 
-### [ ] P5.1 — AlgorithmInterop coverage check
+### [x] P5.1 — AlgorithmInterop coverage check
 
 **File:** `pagmoSharp/pagmoExtensions/Algorithms/AlgorithmInterop.cs`  
-Verify every wrapped algorithm has a `to_algorithm()` extension and an arm in `NormalizeToTypeErased`.
+Found one gap: `ipopt` implements `IAlgorithm` and has `to_algorithm()` in its `.i` file but was
+missing from the switch in `NormalizeToTypeErased`. Without this arm, `ipopt` fell through to the
+managed-callback fallback path (`new algorithm(source)`), which is functionally correct but incurs
+unnecessary overhead.  
+**Fix:** Added `ipopt` arm to the switch.  
+`grid_search` and `not_population_based` are correctly handled by the `_ =>` fallback and mixin base
+respectively — no switch arm needed.
 
-### [ ] P5.2 — Log projection coverage check
+### [x] P5.2 — Log projection coverage check
 
-**Files:** `pagmoWrapper/algorithm_log_projections_more.h`, `cmaes_log_projection.h`, etc.  
-Verify every algorithm that has a pagmo log has a typed C# projection.
+**Files:** `pagmoWrapper/*_log_projection.h`, `pagmoSharp/pagmoExtensions/Algorithms/*.cs`  
+All 27 algorithm `.cs` files that wrap pagmo algorithms with logs have `GetTypedLogLines()`.
+Complete coverage confirmed.
 
-### [ ] P5.3 — Problem `to_problem()` coverage check
+### [x] P5.3 — Problem `to_problem()` coverage check
 
 **File:** `swigInterfaceFileAndPagmoHeaders/pagmoSharpSwigInterface.i`  
-Verify every wrapped problem appears in the `PAGMOSHARP_PROBLEM_TO_PROBLEM` macro list.
+All 22 wrapped native problem types have `PAGMOSHARP_PROBLEM_TO_PROBLEM(TYPE_NAME)` macros.
+CS extension files match exactly. Complete coverage confirmed.
 
-### [ ] P5.4 — RELEASE_CHECKLIST code items
+### [~] P5.4 — RELEASE_CHECKLIST code items
 
 **File:** `.ai/RELEASE_CHECKLIST.md`  
-Review unchecked items; separate code work from process work.
+Most items are release-process work (build gates, artifacts, changelog, publish). Code items:
+- "Freeze API surface" — deferred until code review phases complete
+- "SWIG regen reproducibility" — confirmed working via this review
+- "README quickstart accuracy" — addressed in Phase 6 (P6.5)
 
 ---
 
-## Phase 6 — Managed C# Documentation
+## Phase 6 — Managed C# Documentation ✓
 
-### [ ] P6.1 — Copy-paste `docs/api-reference.md` doc comments
+### [x] P6.1 — Copy-paste `docs/api-reference.md` doc comments
 
-**Files:** `ProblemCallbackAdapter.cs`, `ProblemHandle.cs`, `NativeInterop.cs`  
-Nearly every method in `ProblemCallbackAdapter.cs` has the identical summary comment
-`"Invokes the corresponding pagmo API. See docs/api-reference.md for upstream links."` — provides
-no per-method information and references a file that already exists but is auto-generated (not
-a hand-written reference). Same boilerplate appears in `ProblemHandle.cs` and `NativeInterop.cs`.
+**Files:** `ProblemHandle.cs`, `NativeInterop.cs`  
+`docs/api-reference.md` is auto-generated from XML docs and does exist. The boilerplate is
+harmless on thin forwarding methods where the method name is self-describing. Fixed the two
+genuinely misleading instances:
+- `ProblemHandle.IsInvalid`: replaced with accurate description
+- `NativeInterop.CallbackRootBucket.Add`: replaced with description of GC-rooting purpose
+The volume of boilerplate in algorithm/problem extension files (~55 files) was reviewed and
+left as-is; those files are thin wrappers where the class-level summary is sufficient.
 
-### [ ] P6.2 — Algorithm extension files doc audit
+### [~] P6.2 — Algorithm extension files doc audit
 
-**Files:** `pagmoSharp/pagmoExtensions/Algorithms/*.cs`
+All algorithm files have class-level summaries and method-level docs on non-trivial adaptations
+(`GetTypedLogLines`, `GetLastOptimizationResultCode`, etc.). Thin forwarding methods have the
+boilerplate comment (harmless). **No action required.**
 
-### [ ] P6.3 — Problem extension files doc audit
+### [~] P6.3 — Problem extension files doc audit
 
-**Files:** `pagmoSharp/pagmoExtensions/Problems/*.cs`
+Same as P6.2. **No action required.**
 
-### [ ] P6.4 — `ProblemManualFunctions` rename and doc
+### [x] P6.4 — `ProblemManualFunctions` rename and doc
 
-**File:** `pagmoSharp/problemManualFunctions.cs`  
-Vestigial class name from early development; no XML docs.  
-**Action:** Rename to `ProblemExtensions`; add docs.
+**File:** `pagmoSharp/problemManualFunctions.cs` → `pagmoSharp/ProblemExtensions.cs`  
+Class renamed to `ProblemExtensions`; XML summary added to the class and both overloads.
+Old file deleted. No external references to the old class name.
 
-### [ ] P6.5 — README review and update
+### [x] P6.5 — README review and update
 
-**File:** `README.md`
+**File:** `README.md`  
+- Replaced the "learning project" intro with a production-grade description
+- Updated requirements (SWIG 4.4, .NET 8+, removed stale versions)
+- Updated FAQ to remove "only a handful of types" and fix the pygmo question
+- Kept the detailed architecture, quickstart, examples, and feature matrix sections
 
 ---
 
-## Phase 7 — Exception Policy Audit
+## Phase 7 — Exception Policy Audit ✓
 
-### [ ] P7.1 — `BfeBridge` null check on `op` delegate
+### [x] P7.1 — `BfeBridge` null check on `op` delegate
 
 **File:** `pagmoSharp/pagmoExtensions/BatchEvaluators/bfe.cs`  
-`op` is always a private static function reference — the null check is unreachable.
+`op` is always a static P/Invoke method reference passed as a method group — it can never be
+null. **Fix:** Removed the unreachable `if (op == null)` guard.
 
-### [ ] P7.2 — Internal null guards audit
+### [x] P7.2 — Internal null guards audit
 
-**Files:** Various managed C# files  
-Audit all `ArgumentNullException` throws for truly reachable paths.
+**Files:** `NativeInterop.cs`, `ProblemInterop.cs`, `archipelago.cs`, `island.cs`  
+All remaining `ArgumentNullException` throws guard user-facing parameters that flow into native
+code. These are at real system boundaries and are appropriate. No changes needed.
 
 ---
 
-## Phase 8 — Naming & Idioms
+## Phase 8 — Naming & Idioms ✓
 
-### [ ] P8.1 — C++ r_policy/s_policy naming
+### [x] P8.1 — C++ r_policy/s_policy naming + full PascalCase rename `[STYLE]`
 
-**Files:** `pagmoWrapper/r_policy.h`, `pagmoWrapper/s_policy.h`  
-Rename: `r_policyBase` → `r_policy_callback`, `r_policyPagmoWrapper` → `managed_r_policy`
-(and same for s_policy) to match the consistent `*_callback` / `managed_*` naming scheme.
-Also requires updating the SWIG interface file director declarations.
+**Phase 1 (C++ rename):**  
+C++ class names unified with `*_callback` / `managed_*` convention:
+- `r_policyBase` → `r_policy_callback`, `r_policyPagmoWrapper` → `managed_r_policy`
+- `s_policyBase` → `s_policy_callback`, `s_policyPagmoWrapper` → `managed_s_policy`
+
+Updated: `r_policy.h`, `s_policy.h`, `archipelago_swig.h`, `island_swig.h`, `archipelago.i`, `island.i`,
+`pagmoSharpSwigInterface.i`, `r_policy.cs`, `s_policy.cs`, `archipelago.cs`, `island.cs`, test files.
+
+**Phase 2 (PascalCase C# surface — per user preference):**  
+All SWIG bridge class names exposed to C# now use PascalCase via `%rename` directives:
+- `problem_callback` → `ProblemCallback`
+- `managed_problem` → `ManagedProblem`
+- `algorithm_callback` → `AlgorithmCallback`
+- `managed_algorithm` → `ManagedAlgorithm`
+- `r_policy_callback` → `RPolicyCallback`
+- `managed_r_policy` → `ManagedRPolicy`
+- `s_policy_callback` → `SPolicyCallback`
+- `managed_s_policy` → `ManagedSPolicy`
+- `null_problem_callback` → `NullProblemCallback`
+
+**Phase 3 (R1 — pagmo enum types):**  
+All SWIG-generated enum types and their values now use PascalCase:
+- `thread_safety` → `ThreadSafety` (values: `None`, `Basic`, `Constant`)
+- `evolve_status` → `EvolveStatus` (values: `Idle`, `Busy`, `IdleError`, `BusyError`)
+- `migration_type` → `MigrationType` (values: `P2P`, `Broadcast`)
+- `migrant_handling` → `MigrantHandling` (values: `Preserve`, `Evict`)
+- `sga_selection` → `SgaSelection` (values: `Tournament`, `Truncated`)
+- `sga_crossover` → `SgaCrossover` (values: `Exponential`, `Binomial`, `Single`, `Sbx`)
+- `sga_mutation` → `SgaMutation` (values: `Gaussian`, `Uniform`, `Polynomial`)
+
+`%rename` directives added to `pagmoSharpSwigInterface.i` (pagmo enums) and `sga.i` (sga enums).
+All handwritten C# extension, test, and example files updated. Method names (e.g. `get_thread_safety()`)
+are pagmo API-mirror names and correctly remain snake_case.  
+SWIG regenerated; 589/589 tests pass.
 
 ### [x] P8.2 — `VectorOfVectorIndexes` rename
 
 See P8.3 above — done in Phase 3.
 
-### [ ] P8.3 — `ProblemManualFunctions` → `ProblemExtensions`
+### [x] P8.3 — `ProblemManualFunctions` → `ProblemExtensions`
 
 See P6.4.
 
 ---
 
-## Phase 9 — Project Structure & Configuration
+## Phase 9 — Project Structure & Configuration ✓
 
-### [ ] P9.1 — `.gitignore` gaps
+### [x] P9.1 — `.gitignore` gaps `[STYLE]`
 
 **File:** `.gitignore`  
-`.idea/` (JetBrains Rider) and `.nuget/` (local package cache) are not ignored.
+**Fix:** Added `.idea/` (JetBrains Rider) and `.nuget/` (local package cache).
 
-### [ ] P9.2 — `createSwigWrappersAndPlaceThem.bat` vs. `scripts/regen-swig.ps1`
+### [~] P9.2 — `createSwigWrappersAndPlaceThem.bat` vs. `scripts/regen-swig.ps1` `[LEGACY]`
 
 **Files:** root `createSwigWrappersAndPlaceThem.bat`, `pagmoWrapper/pagmoWrapper.vcxproj`  
-The `.bat` file is the original manual script. `scripts/regen-swig.ps1` is the current wrapper.
-The vcxproj Pre-Build event still calls the `.bat` directly. Clarify which is canonical; the
-other should be removed or the vcxproj updated.
+Investigation: the bat is NOT superseded — it is the actual SWIG runner. `regen-swig.ps1` is a
+mutex-locking wrapper around the bat (called by VS Code tasks). The vcxproj calls the bat directly
+from the Pre-Build event, which is correct. No change needed. **Deferred.**
 
-### [ ] P9.3 — Target framework downgrade to `net8.0`
+### [x] P9.3 — Target framework downgrade to `net8.0` `[COMPAT]`
 
 **File:** `pagmoSharp/pagmoSharp.csproj`  
-Currently targets `net10.0` — too aggressive for a library. Downgrade to `net8.0` (current LTS).
-**Confirmed by user.** Pending.
+Changed `net10.0` → `net8.0` (current LTS). Test project and Examples project intentionally remain
+at `net10.0` — they are not shipped library binaries. 589/589 tests pass.
 
-### [ ] P9.4 — Root-level debris
+### [~] P9.4 — Root-level debris `[STYLE]`
 
-**Files:** `scratch/`, `artifacts/`, `.nuget/`  
-These directories exist locally but are gitignored; confirm they are empty on a clean checkout.
+`scratch/`, `artifacts/`, `.nuget/` are all gitignored and will be absent on a clean checkout.
+`artifacts/` is populated by `build-release-artifacts.ps1`. **No action required.**
 
-### [ ] P9.6 — Solution file review
+### [~] P9.5 — `Platforms` property is `x64` only `[COMPAT]`
+
+Intentional for v1.0 (Windows x64 only). Noted. **No action required.**
+
+### [~] P9.6 — Solution file `[STYLE]`
 
 **File:** `pagmoSharp.sln`  
-Check for stale project references or missing build configurations.
+All projects present and correctly referenced: `pagmoSharp`, `pagmoWrapper`, `Tests.PagmoSharp`,
+`Examples.PagmoSharp`. Solution item folders cover SWIG interface files, problems, algorithms,
+utils, policies, topologies. No stale references. **No action required.**
 
-### [ ] P9.7 — vcxproj Pre-Build event runs SWIG on every build
+### [~] P9.7 — vcxproj Pre-Build event runs SWIG on every build `[STYLE]`
 
 **File:** `pagmoWrapper/pagmoWrapper.vcxproj`  
-Running SWIG on every native build is slow and risks regenerating with a different SWIG version.
-Consider making regen opt-in (manual script only).
+SWIG runs on every native build. This ensures generated wrappers are always in sync with the SWIG
+interface file, at the cost of ~2s per build. Acceptable for active development; the generated
+wrappers are checked in so CI/CD can skip SWIG by patching the pre-build step if needed.
+**Deferred — not worth changing pre-beta.**
 
 ---
 
-## Phase 10 — Legacy / Pivot Artifact Cleanup
+## Phase 10 — Legacy / Pivot Artifact Cleanup ✓
 
 ### [x] P10.1 — SWIG interface narrative comments
 
@@ -419,6 +514,8 @@ Addressed in Phase 2 (P2.4).
 
 | Phase | Files staged | Status |
 |-------|-------------|--------|
-| 2 | `pagmoWrapper/managed_bridge.cpp`, `pagmoWrapper/problem.h`, `pagmoWrapper/multi_objective.h`, `pagmoWrapper/r_policy.h`, `pagmoWrapper/s_policy.h`, generated SWIG outputs | Staged — ready to commit |
-| 3 | `swigInterfaceFileAndPagmoHeaders/pagmoSharpSwigInterface.i`, regenerated SWIG outputs, `docs/api-reference.md` | Staged — ready to commit |
-| 4–10 | TBD | Pending |
+| 2 | `pagmoWrapper/managed_bridge.cpp`, `pagmoWrapper/problem.h`, `pagmoWrapper/multi_objective.h`, `pagmoWrapper/r_policy.h`, `pagmoWrapper/s_policy.h`, generated SWIG outputs | Committed |
+| 3 | `swigInterfaceFileAndPagmoHeaders/pagmoSharpSwigInterface.i`, regenerated SWIG outputs, `docs/api-reference.md` | Committed |
+| 4–7 | Director safety, docs, exception policy, algorithm/problem coverage | Committed |
+| 8–9 | Naming (P8.1 all phases), structure (P9.1, P9.3), NC comments, SWIG regen | **Ready to commit** |
+| 10 | No new files — all legacy cleanup done in earlier phases | **Ready to commit** |

@@ -60,7 +60,7 @@ namespace Tests.PagmoSharp.Algorithms
 
             island.evolve(1u);
             Assert.DoesNotThrow(() => island.wait_check());
-            Assert.That(island.status(), Is.EqualTo(evolve_status.idle));
+            Assert.That(island.status(), Is.EqualTo(EvolveStatus.Idle));
 
             using var evolvedPopulation = island.get_population();
             using var champion = evolvedPopulation.champion_f();

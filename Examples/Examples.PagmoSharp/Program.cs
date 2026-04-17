@@ -105,8 +105,8 @@ internal static class Program
         using var problem = new RastriginLikeProblem();
         using var archi = new archipelago();
 
-        archi.set_migration_type(migration_type.p2p);
-        archi.set_migrant_handling(migrant_handling.preserve);
+        archi.set_migration_type(MigrationType.P2P);
+        archi.set_migrant_handling(MigrantHandling.Preserve);
 
         using var replacementPolicy = usePolicies ? new fair_replace() : null;
         using var selectionPolicy = usePolicies ? new select_best() : null;
@@ -198,5 +198,5 @@ internal sealed class RastriginLikeProblem : ManagedProblemBase
 
     public override string get_name() => "RastriginLikeProblem";
 
-    public override thread_safety get_thread_safety() => thread_safety.basic;
+    public override ThreadSafety get_thread_safety() => ThreadSafety.Basic;
 }

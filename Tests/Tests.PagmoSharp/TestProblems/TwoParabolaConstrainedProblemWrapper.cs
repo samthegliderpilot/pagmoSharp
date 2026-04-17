@@ -32,9 +32,9 @@ namespace Tests.PagmoSharp.TestProblems
             return 1u;
         }
 
-        public override thread_safety get_thread_safety()
+        public override ThreadSafety get_thread_safety()
         {
-            return thread_safety.constant;
+            return ThreadSafety.Constant;
         }
 
         public override string get_name()

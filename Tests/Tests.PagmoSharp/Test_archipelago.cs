@@ -86,7 +86,7 @@ namespace Tests.PagmoSharp
 
             var ex = Assert.Throws<InvalidOperationException>(
                 () => archi.push_back_island(algo, problem, 8, 2));
-            Assert.That(ex!.Message, Does.Contain("thread_safety.basic or thread_safety.constant"));
+            Assert.That(ex!.Message, Does.Contain("ThreadSafety.Basic or ThreadSafety.Constant"));
         }
 
         [Test]
@@ -102,7 +102,7 @@ namespace Tests.PagmoSharp
 
             archi.evolve(1);
             archi.wait_check();
-            Assert.AreEqual(evolve_status.idle, archi.status());
+            Assert.AreEqual(EvolveStatus.Idle, archi.status());
             AssertArchipelagoIslandConfiguration(archi, 0, 32);
 
             var db = archi.MigrantsDb;
@@ -130,7 +130,7 @@ namespace Tests.PagmoSharp
 
             archi.evolve(1);
             archi.wait_check();
-            Assert.AreEqual(evolve_status.idle, archi.status());
+            Assert.AreEqual(EvolveStatus.Idle, archi.status());
         }
 
         [Test]
@@ -148,7 +148,7 @@ namespace Tests.PagmoSharp
 
             archi.evolve(1);
             archi.wait_check();
-            Assert.AreEqual(evolve_status.idle, archi.status());
+            Assert.AreEqual(EvolveStatus.Idle, archi.status());
             AssertArchipelagoIslandConfiguration(archi, 0, 32, expectedName, expectedObjectiveCount, false);
         }
 
@@ -173,7 +173,7 @@ namespace Tests.PagmoSharp
 
             archi.evolve(4);
             archi.wait_check();
-            Assert.AreEqual(evolve_status.idle, archi.status());
+            Assert.AreEqual(EvolveStatus.Idle, archi.status());
             AssertArchipelagoIslandConfiguration(archi, 0, 32, expectedName, expectedObjectiveCount, false);
 
             using var evolvedIsland = archi.GetIslandCopy(0u);
@@ -208,7 +208,7 @@ namespace Tests.PagmoSharp
 
             archi.evolve(1);
             archi.wait_check();
-            Assert.AreEqual(evolve_status.idle, archi.status());
+            Assert.AreEqual(EvolveStatus.Idle, archi.status());
             AssertArchipelagoIslandConfiguration(archi, 0, 32, expectedName, null, false);
         }
 
@@ -229,7 +229,7 @@ namespace Tests.PagmoSharp
 
             archi.evolve(1);
             archi.wait_check();
-            Assert.AreEqual(evolve_status.idle, archi.status());
+            Assert.AreEqual(EvolveStatus.Idle, archi.status());
             AssertArchipelagoIslandConfiguration(archi, 0, 24);
         }
 
@@ -254,12 +254,12 @@ namespace Tests.PagmoSharp
             using var archi = new archipelago();
             using var ringTopo = new ring(4, 0.7);
 
-            archi.set_migration_type(migration_type.broadcast);
-            archi.set_migrant_handling(migrant_handling.evict);
+            archi.set_migration_type(MigrationType.Broadcast);
+            archi.set_migrant_handling(MigrantHandling.Evict);
             archi.set_topology_ring(ringTopo);
 
-            Assert.AreEqual(migration_type.broadcast, archi.get_migration_type());
-            Assert.AreEqual(migrant_handling.evict, archi.get_migrant_handling());
+            Assert.AreEqual(MigrationType.Broadcast, archi.get_migration_type());
+            Assert.AreEqual(MigrantHandling.Evict, archi.get_migrant_handling());
             Assert.AreEqual("Ring", archi.get_topology_name());
         }
 
@@ -294,7 +294,7 @@ namespace Tests.PagmoSharp
 
             if (ex == null)
             {
-                Assert.That(archi.status(), Is.EqualTo(evolve_status.idle));
+                Assert.That(archi.status(), Is.EqualTo(EvolveStatus.Idle));
                 Assert.That(archi.get_topology_name(), Is.EqualTo("Ring"));
                 return;
             }
@@ -320,7 +320,7 @@ namespace Tests.PagmoSharp
 
             archi.evolve(1u);
             Assert.DoesNotThrow(() => archi.wait_check());
-            Assert.That(archi.status(), Is.EqualTo(evolve_status.idle));
+            Assert.That(archi.status(), Is.EqualTo(EvolveStatus.Idle));
             Assert.That(archi.get_topology_name(), Is.EqualTo("Unconnected"));
         }
     }

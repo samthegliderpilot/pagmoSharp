@@ -60,11 +60,6 @@ namespace pagmo
                 throw new ArgumentNullException(nameof(batchX));
             }
 
-            if (op == null)
-            {
-                throw new ArgumentNullException(nameof(op));
-            }
-
             if (requiresParallelSafety)
             {
                 problem.ThrowIfNotThreadSafe();
