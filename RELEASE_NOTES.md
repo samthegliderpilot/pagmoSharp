@@ -4,7 +4,7 @@
 
 ### Overview
 
-First public beta of pagmoSharp - a .NET 8 C# wrapper for [pagmo2](https://esa.github.io/pagmo2/).
+First public beta of Pagmo.NET - a .NET 8 C# wrapper for [pagmo2](https://esa.github.io/pagmo2/).
 Targets Windows x64. Linux/CMake support is planned for a later release.
 
 ### Highlights

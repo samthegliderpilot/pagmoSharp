@@ -1,5 +1,5 @@
 {
-  "dotnet.defaultSolution": "pagmoSharp.sln",
+  "dotnet.defaultSolution": "Pagmo.NET.sln",
   "files.exclude": {
     "**/bin": true,
     "**/obj": true,

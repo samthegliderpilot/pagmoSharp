@@ -5,8 +5,8 @@
     <TargetFramework>net8.0</TargetFramework>
     <Version>1.0.0-beta.1</Version>
     <PackageVersion>1.0.0-beta.1</PackageVersion>
-    <PackageId>pagmoSharp</PackageId>
-    <Authors>pagmoSharp contributors</Authors>
+    <PackageId>Pagmo.NET</PackageId>
+    <Authors>Pagmo.NET contributors</Authors>
     <Description>C# bindings and ergonomic wrappers for pagmo.</Description>
     <PackageLicenseExpression>GPL-3.0-only</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/samthegliderpilot/pagmoSharp</PackageProjectUrl>

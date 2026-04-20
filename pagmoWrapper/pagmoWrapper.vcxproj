@@ -25,6 +25,7 @@
     <RootNamespace>pagmo</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
     <ProjectName>pagmoWrapper</ProjectName>
+    <TargetName>PagmoWrapper</TargetName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -250,7 +251,7 @@ call "$(ProjectDir)..\createSwigWrappersAndPlaceThem.bat"</Command>
     <ClInclude Include="archipelago_swig.h" />
     <ClInclude Include="island_swig.h" />
     <ClInclude Include="multi_objective.h" />
-    <ClInclude Include="pagmoSharpSwigInterface_wrap.h" />
+    <ClInclude Include="PagmoNETSwigInterface_wrap.h" />
     <ClInclude Include="problem.h" />
     <ClInclude Include="r_policy.h" />
     <ClInclude Include="s_policy.h" />

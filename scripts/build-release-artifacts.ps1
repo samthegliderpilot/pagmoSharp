@@ -15,7 +15,7 @@ $env:DOTNET_SKIP_FIRST_TIME_EXPERIENCE = "1"
 $env:DOTNET_ADD_GLOBAL_TOOLS_TO_PATH = "0"
 $env:DOTNET_CLI_HOME = Join-Path $repoRoot ".dotnet"
 $env:NUGET_PACKAGES = Join-Path $repoRoot ".nuget\packages"
-$dotnetMutexName = "Global\pagmoSharp_dotnet_library_build"
+$dotnetMutexName = "Global\pagmoNet_dotnet_library_build"
 $dotnetMutex = New-Object System.Threading.Mutex($false, $dotnetMutexName)
 $hasDotnetLock = $false
 
@@ -58,7 +58,7 @@ try {
     }
 
     Write-Host "==> Packing NuGet package"
-    dotnet pack (Join-Path $repoRoot "pagmoSharp\pagmoSharp.csproj") `
+    dotnet pack (Join-Path $repoRoot "Pagmo.NET\Pagmo.NET.csproj") `
         -c $Configuration `
         -o $nugetOut `
         -p:Platform=$Platform `
@@ -89,14 +89,14 @@ try {
         }
     }
 
-    $nativeZip = Join-Path $artifactRoot "pagmoSharp-native-win-x64-$Version.zip"
+    $nativeZip = Join-Path $artifactRoot "Pagmo.NET-native-win-x64-$Version.zip"
     if (Test-Path $nativeZip) {
         Remove-Item -Force $nativeZip
     }
     Compress-Archive -Path (Join-Path $nativeOut "*") -DestinationPath $nativeZip
 
     Write-Host "==> Creating source archive"
-    $sourceZip = Join-Path $sourceOut "pagmoSharp-$Version-source.zip"
+    $sourceZip = Join-Path $sourceOut "Pagmo.NET-$Version-source.zip"
     git archive --format=zip --output="$sourceZip" HEAD
     if ($LASTEXITCODE -ne 0) {
         throw "git archive failed ($LASTEXITCODE)."

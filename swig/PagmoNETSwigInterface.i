@@ -1,4 +1,4 @@
-﻿/* File pagmoSharpSwigInterface.i */
+﻿/* File PagmoNETSwigInterface.i */
 #define SUPPORT_VARIDEC FALSE
 %include "exception.i"
 %include "pagmo/config.hpp"
@@ -20,28 +20,28 @@
 
 // Execute-path context for high-value runtime operations. This keeps failures
 // actionable when they bubble through type-erased algorithm/island orchestration.
-%define PAGMOSHARP_EXEC_EXCEPTION(METHOD, LABEL)
+%define PAGMONET_EXEC_EXCEPTION(METHOD, LABEL)
 %exception METHOD {
     try {
         $action
     } catch (const std::exception &e) {
-        std::string pagmosharp_message = std::string(LABEL) + ": " + e.what();
-        SWIG_exception(SWIG_RuntimeError, pagmosharp_message.c_str());
+        std::string pagmonet_message = std::string(LABEL) + ": " + e.what();
+        SWIG_exception(SWIG_RuntimeError, pagmonet_message.c_str());
     } catch (...) {
-        std::string pagmosharp_message = std::string(LABEL) + ": Unknown C++ exception";
-        SWIG_exception(SWIG_RuntimeError, pagmosharp_message.c_str());
+        std::string pagmonet_message = std::string(LABEL) + ": Unknown C++ exception";
+        SWIG_exception(SWIG_RuntimeError, pagmonet_message.c_str());
     }
 }
 %enddef
 
-PAGMOSHARP_EXEC_EXCEPTION(pagmo::algorithm::evolve, "algorithm.evolve failed")
-PAGMOSHARP_EXEC_EXCEPTION(pagmo::island::evolve, "island.evolve failed")
-PAGMOSHARP_EXEC_EXCEPTION(pagmo::island::wait, "island.wait failed")
-PAGMOSHARP_EXEC_EXCEPTION(pagmo::island::wait_check, "island.wait_check failed")
-PAGMOSHARP_EXEC_EXCEPTION(pagmo::archipelago::evolve, "archipelago.evolve failed")
-PAGMOSHARP_EXEC_EXCEPTION(pagmo::archipelago::wait, "archipelago.wait failed")
-PAGMOSHARP_EXEC_EXCEPTION(pagmo::archipelago::wait_check, "archipelago.wait_check failed")
-PAGMOSHARP_EXEC_EXCEPTION(pagmo::thread_island::run_evolve, "thread_island.run_evolve failed")
+PAGMONET_EXEC_EXCEPTION(pagmo::algorithm::evolve, "algorithm.evolve failed")
+PAGMONET_EXEC_EXCEPTION(pagmo::island::evolve, "island.evolve failed")
+PAGMONET_EXEC_EXCEPTION(pagmo::island::wait, "island.wait failed")
+PAGMONET_EXEC_EXCEPTION(pagmo::island::wait_check, "island.wait_check failed")
+PAGMONET_EXEC_EXCEPTION(pagmo::archipelago::evolve, "archipelago.evolve failed")
+PAGMONET_EXEC_EXCEPTION(pagmo::archipelago::wait, "archipelago.wait failed")
+PAGMONET_EXEC_EXCEPTION(pagmo::archipelago::wait_check, "archipelago.wait_check failed")
+PAGMONET_EXEC_EXCEPTION(pagmo::thread_island::run_evolve, "thread_island.run_evolve failed")
 
 %module(naturalvar=1, directors="11") pagmo
 %{
@@ -449,7 +449,7 @@ namespace pagmo {
 	%include swigInterfaceFiles\problems\wfg.i
 	%include swigInterfaceFiles\problems\zdt.i
 
-%define PAGMOSHARP_PROBLEM_TO_PROBLEM(TYPE_NAME)
+%define PAGMONET_PROBLEM_TO_PROBLEM(TYPE_NAME)
 %extend pagmo::TYPE_NAME {
     pagmo::problem to_problem() const
     {
@@ -458,28 +458,28 @@ namespace pagmo {
 }
 %enddef
 
-PAGMOSHARP_PROBLEM_TO_PROBLEM(ackley)
-PAGMOSHARP_PROBLEM_TO_PROBLEM(cec2006)
-PAGMOSHARP_PROBLEM_TO_PROBLEM(cec2009)
-PAGMOSHARP_PROBLEM_TO_PROBLEM(cec2013)
-PAGMOSHARP_PROBLEM_TO_PROBLEM(cec2014)
-PAGMOSHARP_PROBLEM_TO_PROBLEM(decompose)
-PAGMOSHARP_PROBLEM_TO_PROBLEM(dtlz)
-PAGMOSHARP_PROBLEM_TO_PROBLEM(hock_schittkowski_71)
-PAGMOSHARP_PROBLEM_TO_PROBLEM(golomb_ruler)
-PAGMOSHARP_PROBLEM_TO_PROBLEM(griewank)
-PAGMOSHARP_PROBLEM_TO_PROBLEM(inventory)
-PAGMOSHARP_PROBLEM_TO_PROBLEM(lennard_jones)
-PAGMOSHARP_PROBLEM_TO_PROBLEM(luksan_vlcek1)
-PAGMOSHARP_PROBLEM_TO_PROBLEM(minlp_rastrigin)
-PAGMOSHARP_PROBLEM_TO_PROBLEM(null_problem)
-PAGMOSHARP_PROBLEM_TO_PROBLEM(rosenbrock)
-PAGMOSHARP_PROBLEM_TO_PROBLEM(schwefel)
-PAGMOSHARP_PROBLEM_TO_PROBLEM(rastrigin)
-PAGMOSHARP_PROBLEM_TO_PROBLEM(translate)
-PAGMOSHARP_PROBLEM_TO_PROBLEM(unconstrain)
-PAGMOSHARP_PROBLEM_TO_PROBLEM(wfg)
-PAGMOSHARP_PROBLEM_TO_PROBLEM(zdt)
+PAGMONET_PROBLEM_TO_PROBLEM(ackley)
+PAGMONET_PROBLEM_TO_PROBLEM(cec2006)
+PAGMONET_PROBLEM_TO_PROBLEM(cec2009)
+PAGMONET_PROBLEM_TO_PROBLEM(cec2013)
+PAGMONET_PROBLEM_TO_PROBLEM(cec2014)
+PAGMONET_PROBLEM_TO_PROBLEM(decompose)
+PAGMONET_PROBLEM_TO_PROBLEM(dtlz)
+PAGMONET_PROBLEM_TO_PROBLEM(hock_schittkowski_71)
+PAGMONET_PROBLEM_TO_PROBLEM(golomb_ruler)
+PAGMONET_PROBLEM_TO_PROBLEM(griewank)
+PAGMONET_PROBLEM_TO_PROBLEM(inventory)
+PAGMONET_PROBLEM_TO_PROBLEM(lennard_jones)
+PAGMONET_PROBLEM_TO_PROBLEM(luksan_vlcek1)
+PAGMONET_PROBLEM_TO_PROBLEM(minlp_rastrigin)
+PAGMONET_PROBLEM_TO_PROBLEM(null_problem)
+PAGMONET_PROBLEM_TO_PROBLEM(rosenbrock)
+PAGMONET_PROBLEM_TO_PROBLEM(schwefel)
+PAGMONET_PROBLEM_TO_PROBLEM(rastrigin)
+PAGMONET_PROBLEM_TO_PROBLEM(translate)
+PAGMONET_PROBLEM_TO_PROBLEM(unconstrain)
+PAGMONET_PROBLEM_TO_PROBLEM(wfg)
+PAGMONET_PROBLEM_TO_PROBLEM(zdt)
 
 	//%include swigInterfaceFiles\utils\gradients_and_hessians.i // I couldn't get this to translate through swig so I just recreated the functions in C#
 	%include swigInterfaceFiles\utils\multi_objective.i

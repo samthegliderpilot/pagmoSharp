@@ -19,7 +19,7 @@
         "-NoRestore"
       ],
       "cwd": "${workspaceFolder}",
-      "preLaunchTask": "pagmoSharp: build tests (Debug x64)",
+      "preLaunchTask": "Pagmo.NET: build tests (Debug x64)",
       "console": "integratedTerminal"
     }
   ]

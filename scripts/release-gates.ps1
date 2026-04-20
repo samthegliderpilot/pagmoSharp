@@ -28,8 +28,8 @@ function Get-SwigGeneratedFileHashes {
 
     $knownFiles = @(
         "pagmoWrapper\GeneratedWrappers.cxx",
-        "pagmoWrapper\pagmoSharpSwigInterface_wrap.h",
-        "pagmoSharp\pygmoWrappers\pagmoPINVOKE.cs"
+        "pagmoWrapper\PagmoNETSwigInterface_wrap.h",
+        "Pagmo.NET\pygmoWrappers\pagmoPINVOKE.cs"
     )
 
     foreach ($relativePath in $knownFiles) {
@@ -39,7 +39,7 @@ function Get-SwigGeneratedFileHashes {
         }
     }
 
-    $wrapperDir = Join-Path $repoRoot "pagmoSharp\pygmoWrappers"
+    $wrapperDir = Join-Path $repoRoot "Pagmo.NET\pygmoWrappers"
     if (Test-Path $wrapperDir) {
         Get-ChildItem -Path $wrapperDir -Filter "*.cs" -File | ForEach-Object {
             $files.Add($_.FullName)

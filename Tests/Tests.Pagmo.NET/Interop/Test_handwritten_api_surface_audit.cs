@@ -223,7 +223,7 @@ public class Test_handwritten_api_surface_audit
         var current = new DirectoryInfo(AppContext.BaseDirectory);
         while (current != null)
         {
-            var candidate = Path.Combine(current.FullName, "pagmoSharp", "pagmoExtensions");
+            var candidate = Path.Combine(current.FullName, "Pagmo.NET", "pagmoExtensions");
             if (Directory.Exists(candidate))
             {
                 return candidate;
@@ -232,6 +232,6 @@ public class Test_handwritten_api_surface_audit
             current = current.Parent;
         }
 
-        throw new DirectoryNotFoundException("Could not locate pagmoSharp/pagmoExtensions from test runtime directory.");
+        throw new DirectoryNotFoundException("Could not locate Pagmo.NET/pagmoExtensions from test runtime directory.");
     }
 }

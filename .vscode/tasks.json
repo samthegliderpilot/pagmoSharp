@@ -2,7 +2,7 @@
   "version": "2.0.0",
   "tasks": [
     {
-      "label": "pagmoSharp: regenerate SWIG wrappers",
+      "label": "Pagmo.NET: regenerate SWIG wrappers",
       "type": "shell",
       "command": "powershell",
       "args": [
@@ -18,7 +18,7 @@
       "problemMatcher": []
     },
     {
-      "label": "pagmoSharp: build native (Debug x64)",
+      "label": "Pagmo.NET: build native (Debug x64)",
       "type": "shell",
       "command": "powershell",
       "args": [
@@ -33,7 +33,7 @@
         "x64"
       ],
       "dependsOn": [
-        "pagmoSharp: regenerate SWIG wrappers"
+        "Pagmo.NET: regenerate SWIG wrappers"
       ],
       "dependsOrder": "sequence",
       "options": {
@@ -43,7 +43,7 @@
       "problemMatcher": "$msCompile"
     },
     {
-      "label": "pagmoSharp: build tests (Debug x64)",
+      "label": "Pagmo.NET: build tests (Debug x64)",
       "type": "shell",
       "command": "powershell",
       "args": [
@@ -58,7 +58,7 @@
         "build"
       ],
       "dependsOn": [
-        "pagmoSharp: build native (Debug x64)"
+        "Pagmo.NET: build native (Debug x64)"
       ],
       "dependsOrder": "sequence",
       "options": {
@@ -68,7 +68,7 @@
       "problemMatcher": "$msCompile"
     },
     {
-      "label": "pagmoSharp: test (Debug x64)",
+      "label": "Pagmo.NET: test (Debug x64)",
       "type": "shell",
       "command": "powershell",
       "args": [
@@ -84,7 +84,7 @@
         "-NoRestore"
       ],
       "dependsOn": [
-        "pagmoSharp: build tests (Debug x64)"
+        "Pagmo.NET: build tests (Debug x64)"
       ],
       "dependsOrder": "sequence",
       "options": {

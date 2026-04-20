@@ -7,42 +7,42 @@ namespace pagmo
 {
     internal static class NativeInterop
     {
-        private const string NativeLib = "pagmoWrapper";
+        private const string NativeLib = "PagmoWrapper";
 
-        [DllImport(NativeLib, EntryPoint = "pagmosharp_problem_from_callback", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(NativeLib, EntryPoint = "pagmonet_problem_from_callback", CallingConvention = CallingConvention.Cdecl)]
         private static extern IntPtr problem_from_callback(IntPtr callbackPtr);
 
-        [DllImport(NativeLib, EntryPoint = "pagmosharp_algorithm_from_callback", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(NativeLib, EntryPoint = "pagmonet_algorithm_from_callback", CallingConvention = CallingConvention.Cdecl)]
         private static extern IntPtr algorithm_from_callback(IntPtr callbackPtr);
 
-        [DllImport(NativeLib, EntryPoint = "pagmosharp_problem_delete", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(NativeLib, EntryPoint = "pagmonet_problem_delete", CallingConvention = CallingConvention.Cdecl)]
         internal static extern void problem_delete(IntPtr problemPtr);
 
-        [DllImport(NativeLib, EntryPoint = "pagmosharp_population_new", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(NativeLib, EntryPoint = "pagmonet_population_new", CallingConvention = CallingConvention.Cdecl)]
         internal static extern IntPtr population_new(IntPtr problemPtr, UIntPtr popSize, uint seed);
 
-        [DllImport(NativeLib, EntryPoint = "pagmosharp_default_bfe_operator", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(NativeLib, EntryPoint = "pagmonet_default_bfe_operator", CallingConvention = CallingConvention.Cdecl)]
         internal static extern IntPtr default_bfe_operator(IntPtr bfePtr, IntPtr problemPtr, IntPtr batchXPtr);
 
-        [DllImport(NativeLib, EntryPoint = "pagmosharp_thread_bfe_operator", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(NativeLib, EntryPoint = "pagmonet_thread_bfe_operator", CallingConvention = CallingConvention.Cdecl)]
         internal static extern IntPtr thread_bfe_operator(IntPtr bfePtr, IntPtr problemPtr, IntPtr batchXPtr);
 
-        [DllImport(NativeLib, EntryPoint = "pagmosharp_member_bfe_operator", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(NativeLib, EntryPoint = "pagmonet_member_bfe_operator", CallingConvention = CallingConvention.Cdecl)]
         internal static extern IntPtr member_bfe_operator(IntPtr bfePtr, IntPtr problemPtr, IntPtr batchXPtr);
 
-        [DllImport(NativeLib, EntryPoint = "pagmosharp_estimate_gradient_problem", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(NativeLib, EntryPoint = "pagmonet_estimate_gradient_problem", CallingConvention = CallingConvention.Cdecl)]
         internal static extern IntPtr estimate_gradient_problem(IntPtr problemPtr, IntPtr xPtr, double dx);
 
-        [DllImport(NativeLib, EntryPoint = "pagmosharp_estimate_gradient_h_problem", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(NativeLib, EntryPoint = "pagmonet_estimate_gradient_h_problem", CallingConvention = CallingConvention.Cdecl)]
         internal static extern IntPtr estimate_gradient_h_problem(IntPtr problemPtr, IntPtr xPtr, double dx);
 
-        [DllImport(NativeLib, EntryPoint = "pagmosharp_estimate_sparsity_problem", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(NativeLib, EntryPoint = "pagmonet_estimate_sparsity_problem", CallingConvention = CallingConvention.Cdecl)]
         internal static extern IntPtr estimate_sparsity_problem(IntPtr problemPtr, IntPtr xPtr, double dx);
 
-        [DllImport(NativeLib, EntryPoint = "pagmosharp_get_last_error", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(NativeLib, EntryPoint = "pagmonet_get_last_error", CallingConvention = CallingConvention.Cdecl)]
         private static extern IntPtr get_last_error();
 
-        [DllImport(NativeLib, EntryPoint = "pagmosharp_clear_last_error", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(NativeLib, EntryPoint = "pagmonet_clear_last_error", CallingConvention = CallingConvention.Cdecl)]
         private static extern void clear_last_error();
 
         private sealed class CallbackRootBucket

@@ -20,23 +20,23 @@ if not defined SWIG_EXE (
 
 set "SWIG_OUT=swig"
 
-"%SWIG_EXE%" -c++ -csharp -namespace pagmo -dllimport pagmoWrapper -I..\..\pagmoWrapper -I.\swig swig\pagmoSharpSwigInterface.i
+"%SWIG_EXE%" -c++ -csharp -namespace pagmo -dllimport PagmoWrapper -I..\..\pagmoWrapper -I.\swig swig\PagmoNETSwigInterface.i
 if errorlevel 1 exit /b 1
 
-copy /Y "%SWIG_OUT%\pagmoSharpSwigInterface_wrap.cxx" "pagmoWrapper\GeneratedWrappers.cxx" >nul
+copy /Y "%SWIG_OUT%\PagmoNETSwigInterface_wrap.cxx" "pagmoWrapper\GeneratedWrappers.cxx" >nul
 if errorlevel 1 exit /b 1
 
-call :retry_copy "%SWIG_OUT%\pagmoSharpSwigInterface_wrap.h" "pagmoWrapper\pagmoSharpSwigInterface_wrap.h" 8
+call :retry_copy "%SWIG_OUT%\PagmoNETSwigInterface_wrap.h" "pagmoWrapper\PagmoNETSwigInterface_wrap.h" 8
 if errorlevel 1 (
-    echo Warning: could not overwrite pagmoWrapper\pagmoSharpSwigInterface_wrap.h after retries.
+    echo Warning: could not overwrite pagmoWrapper\PagmoNETSwigInterface_wrap.h after retries.
 )
 
-rmdir "pagmoSharp\pygmoWrappers\" /S /Q 2>nul
-mkdir "pagmoSharp\pygmoWrappers\" >nul 2>nul
-xcopy /I /Y "%SWIG_OUT%\*.cs" "pagmoSharp\pygmoWrappers\" >nul
+rmdir "Pagmo.NET\pygmoWrappers\" /S /Q 2>nul
+mkdir "Pagmo.NET\pygmoWrappers\" >nul 2>nul
+xcopy /I /Y "%SWIG_OUT%\*.cs" "Pagmo.NET\pygmoWrappers\" >nul
 
-del "%SWIG_OUT%\pagmoSharpSwigInterface_wrap.cxx" >nul 2>nul
-del "%SWIG_OUT%\pagmoSharpSwigInterface_wrap.h" >nul 2>nul
+del "%SWIG_OUT%\PagmoNETSwigInterface_wrap.cxx" >nul 2>nul
+del "%SWIG_OUT%\PagmoNETSwigInterface_wrap.h" >nul 2>nul
 del /s /q /f "%SWIG_OUT%\*.cs" >nul 2>nul
 exit /b 0
 

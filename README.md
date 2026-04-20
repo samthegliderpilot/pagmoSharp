@@ -1,6 +1,6 @@
-# pagmoSharp
+# Pagmo.NET
 
-**pagmoSharp** is a .NET 8 C# wrapper for [pagmo2](https://esa.github.io/pagmo2/), a C++ library
+**Pagmo.NET** is a .NET 8 C# wrapper for [pagmo2](https://esa.github.io/pagmo2/), a C++ library
 providing high-quality metaheuristic and gradient-based optimization routines with multi-island
 parallel evolution support.
 
@@ -11,9 +11,9 @@ Linux/CMake support is planned post-v1.
 
 Binary releases are distributed via:
 
-- **NuGet** - `dotnet add package pagmoSharp --version 1.0.0-beta.1`
+- **NuGet** - `dotnet add package Pagmo.NET --version 1.0.0-beta.1`
 - **GitHub Releases** - tagged release bundles at
-  `https://github.com/samthegliderpilot/pagmoSharp/releases` include the managed NuGet package,
+  `https://github.com/samthegliderpilot/Pagmo.NET/releases` include the managed NuGet package,
   the native Windows x64 runtime bundle (`pagmoWrapper.dll` + dependencies), and a source archive.
 
 The NuGet package contains only the managed assembly. The native runtime DLLs
@@ -39,7 +39,7 @@ To regenerate SWIG wrappers after editing the interface file, run
 ### Why .Net and C#?
 I think that the .Net ecosystem and languages are a bit under appreciated for scientific computing.  Although raw C/C++ code written by an expert will be faster, C# can get pretty close.  And with Microsoft open-sourcing so much of .Net with .Net Core... it has a lot going for it.
 
-Yes - [pygmo](https://esa.github.io/pygmo2/) is the official Python binding. pagmoSharp is an
+Yes - [pygmo](https://esa.github.io/pygmo2/) is the official Python binding. Pagmo.NET is an
 independent .NET binding for teams that want pagmo's optimization power in C# / F# / VB.NET
 environments without a Python runtime dependency.
 
@@ -75,10 +75,10 @@ Also, this is made completely independently of the base pagmo and the team that 
 
 Repo now includes VS Code tasks/launch config in `.vscode/`:
 
-- `pagmoSharp: regenerate SWIG wrappers`
-- `pagmoSharp: build native (Debug x64)`
-- `pagmoSharp: build tests (Debug x64)`
-- `pagmoSharp: test (Debug x64)`
+- `Pagmo.NET: regenerate SWIG wrappers`
+- `Pagmo.NET: build native (Debug x64)`
+- `Pagmo.NET: build tests (Debug x64)`
+- `Pagmo.NET: test (Debug x64)`
 
 Native build task uses `scripts/build-native.ps1` and finds `MSBuild.exe` via `vswhere`.
 SWIG regen task uses `scripts/regen-swig.ps1`.
