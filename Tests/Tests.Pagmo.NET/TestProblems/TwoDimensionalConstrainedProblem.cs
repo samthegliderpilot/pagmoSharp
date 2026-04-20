@@ -2,7 +2,7 @@
 using NUnit.Framework;
 using pagmo;
 
-namespace Tests.PagmoSharp.TestProblems
+namespace Tests.Pagmo.NET.TestProblems
 {
     // Deterministic constrained single-objective fixture used to verify constrained
     // algorithm paths and wrapper behavior without relying on pagmo problem internals.

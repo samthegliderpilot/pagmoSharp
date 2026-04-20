@@ -1,6 +1,6 @@
 using pagmo;
 
-namespace Tests.PagmoSharp.TestProblems
+namespace Tests.Pagmo.NET.TestProblems
 {
     // Educational constrained fixture used for simple end-to-end optimization tests:
     // easy to reason about objective/constraint geometry while still exercising pagmo flow.

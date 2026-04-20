@@ -1,6 +1,6 @@
 ﻿using pagmo;
 
-namespace Tests.PagmoSharp.TestProblems
+namespace Tests.Pagmo.NET.TestProblems
 {
     // Minimal 1D convex problem used by generic algorithm tests as a fast, deterministic baseline.
     public class OneDimensionalSimpleProblem : TestProblemWrapper

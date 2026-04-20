@@ -5,7 +5,7 @@ $files = @(
     'pagmoWrapper\r_policy.h',
     'pagmoWrapper\s_policy.h',
     'pagmoWrapper\problem.h',
-    'swigInterfaceFileAndPagmoHeaders\pagmoSharpSwigInterface.i'
+    'swig\PagmoNETSwigInterface.i'
 )
 
 foreach ($f in $files) {

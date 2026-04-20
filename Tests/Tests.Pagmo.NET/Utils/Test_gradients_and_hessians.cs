@@ -1,9 +1,9 @@
 using System;
 using NUnit.Framework;
 using pagmo;
-using Tests.PagmoSharp.TestProblems;
+using Tests.Pagmo.NET.TestProblems;
 
-namespace Tests.PagmoSharp.Utils
+namespace Tests.Pagmo.NET.Utils
 {
     [TestFixture]
     public class Test_gradients_and_hessians

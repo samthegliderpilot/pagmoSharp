@@ -1,6 +1,6 @@
 # Third-Party Licenses
 
-pagmoSharp ships a native runtime bundle for Windows x64 that includes the following
+Pagmo.NET ships a native runtime bundle for Windows x64 that includes the following
 third-party components. Their licenses are reproduced below or linked to their upstream sources.
 
 ---

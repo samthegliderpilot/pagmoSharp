@@ -3,7 +3,7 @@ using System.Linq;
 using NUnit.Framework;
 using pagmo;
 
-namespace Tests.PagmoSharp
+namespace Tests.Pagmo.NET
 {
     [TestFixture]
     public class Test_unconnected

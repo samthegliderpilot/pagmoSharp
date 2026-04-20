@@ -1,9 +1,9 @@
 using System;
 using NUnit.Framework;
 using pagmo;
-using Tests.PagmoSharp.TestProblems;
+using Tests.Pagmo.NET.TestProblems;
 
-namespace Tests.PagmoSharp;
+namespace Tests.Pagmo.NET;
 
 [TestFixture]
 public class Test_core_facade_null_contracts

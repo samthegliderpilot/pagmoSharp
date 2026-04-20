@@ -2,7 +2,7 @@ using System.Linq;
 using NUnit.Framework;
 using pagmo;
 
-namespace Tests.PagmoSharp.Interop;
+namespace Tests.Pagmo.NET.Interop;
 
 [TestFixture]
 public class Test_naming_alias_surface

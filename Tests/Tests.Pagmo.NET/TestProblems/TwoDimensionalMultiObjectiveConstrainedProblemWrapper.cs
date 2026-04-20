@@ -1,6 +1,6 @@
 using pagmo;
 
-namespace Tests.PagmoSharp.TestProblems
+namespace Tests.Pagmo.NET.TestProblems
 {
     // Managed constrained multi-objective fixture used to validate MO+constraints
     // wrapper behavior and fitness vector layout (objectives + constraints).

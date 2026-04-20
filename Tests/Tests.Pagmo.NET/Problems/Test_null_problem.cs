@@ -1,7 +1,7 @@
 using NUnit.Framework;
 using pagmo;
 
-namespace Tests.PagmoSharp.Problems;
+namespace Tests.Pagmo.NET.Problems;
 
 [TestFixture]
 public class Test_null_problem : TestProblemBase

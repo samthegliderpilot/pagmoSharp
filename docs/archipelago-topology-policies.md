@@ -6,14 +6,14 @@ Understand why archipelago structures can help optimization quality, not just ho
 
 ## Runnable Source
 
-- Scenario implementation: [Program.cs](..\Examples\Examples.PagmoSharp\Program.cs)
+- Scenario implementation: [Program.cs](..\Examples\Examples.Pagmo.NET\Program.cs)
 - Archipelago scenario entry: `RunArchipelagoTeachingScenario()`
 - Policy scenario entry: `RunPolicyComparison()`
 
 ## Run Archipelago Scenario
 
 ```powershell
-dotnet run --project Examples/Examples.PagmoSharp/Examples.PagmoSharp.csproj -- archipelago
+dotnet run --project Examples/Examples.Pagmo.NET/Examples.Pagmo.NET.csproj -- archipelago
 ```
 
 What to look for:
@@ -23,7 +23,7 @@ What to look for:
 ## Run Policy Scenario
 
 ```powershell
-dotnet run --project Examples/Examples.PagmoSharp/Examples.PagmoSharp.csproj -- policies
+dotnet run --project Examples/Examples.Pagmo.NET/Examples.Pagmo.NET.csproj -- policies
 ```
 
 What to look for:

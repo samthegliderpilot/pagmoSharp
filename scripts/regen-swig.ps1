@@ -2,7 +2,7 @@ param()
 
 $ErrorActionPreference = "Stop"
 
-$mutexName = "Global\pagmoSharp_swig_native_build"
+$mutexName = "Global\pagmoNet_swig_native_build"
 $mutex = New-Object System.Threading.Mutex($false, $mutexName)
 $hasLock = $false
 

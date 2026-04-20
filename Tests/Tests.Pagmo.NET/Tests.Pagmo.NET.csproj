@@ -6,7 +6,7 @@
     <Platforms>x64</Platforms>
     <PagmoWrapperBinDir>$([System.IO.Path]::GetFullPath('$(MSBuildProjectDirectory)\..\..\pagmoWrapper\pagmoWrapper\bin'))</PagmoWrapperBinDir>
     <!-- Current locally-cached testhost packages pin a vulnerable Newtonsoft.Json transitively.
-         This affects test restore noise only, not the shipped pagmoSharp package/runtime surface. -->
+         This affects test restore noise only, not the shipped Pagmo.NET package/runtime surface. -->
     <NoWarn>$(NoWarn);NU1903</NoWarn>
   </PropertyGroup>
 
@@ -35,7 +35,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\pagmoSharp\pagmoSharp.csproj" />
+    <ProjectReference Include="..\..\Pagmo.NET\Pagmo.NET.csproj" />
   </ItemGroup>
 
   <ItemGroup>

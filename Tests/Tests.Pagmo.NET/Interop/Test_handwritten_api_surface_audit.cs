@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using NUnit.Framework;
 
-namespace Tests.PagmoSharp.Interop;
+namespace Tests.Pagmo.NET.Interop;
 
 [TestFixture]
 public class Test_handwritten_api_surface_audit

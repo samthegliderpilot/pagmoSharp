@@ -22,7 +22,7 @@ if (-not (Test-Path $baseOutputPath)) {
     New-Item -ItemType Directory -Path $baseOutputPath | Out-Null
 }
 
-$testProject = "Tests\Tests.PagmoSharp\Tests.PagmoSharp.csproj"
+$testProject = "Tests\Tests.Pagmo.NET\Tests.Pagmo.NET.csproj"
 
 function Invoke-DotnetWithRetry {
     param(

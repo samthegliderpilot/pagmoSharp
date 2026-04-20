@@ -2,7 +2,7 @@ using NUnit.Framework;
 using pagmo;
 using System;
 
-namespace Tests.PagmoSharp.Algorithms;
+namespace Tests.Pagmo.NET.Algorithms;
 
 [TestFixture]
 public class Test_not_population_based

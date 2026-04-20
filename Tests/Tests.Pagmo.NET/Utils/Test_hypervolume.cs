@@ -1,7 +1,7 @@
 using NUnit.Framework;
 using pagmo;
 
-namespace Tests.PagmoSharp.Utils
+namespace Tests.Pagmo.NET.Utils
 {
     [TestFixture]
     public class Test_hypervolume

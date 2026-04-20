@@ -1,9 +1,9 @@
 using System;
 using NUnit.Framework;
 using pagmo;
-using Tests.PagmoSharp.TestProblems;
+using Tests.Pagmo.NET.TestProblems;
 
-namespace Tests.PagmoSharp.Interop;
+namespace Tests.Pagmo.NET.Interop;
 
 [TestFixture]
 public class Test_native_exception_bubbling

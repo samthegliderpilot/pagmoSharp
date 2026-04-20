@@ -2,9 +2,9 @@ using System;
 using System.Collections.Generic;
 using NUnit.Framework;
 using pagmo;
-using Tests.PagmoSharp.TestProblems;
+using Tests.Pagmo.NET.TestProblems;
 
-namespace Tests.PagmoSharp.Algorithms;
+namespace Tests.Pagmo.NET.Algorithms;
 
 [TestFixture]
 public class Test_algorithm_interop_runtime_paths

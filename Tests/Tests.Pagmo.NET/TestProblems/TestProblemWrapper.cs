@@ -1,7 +1,7 @@
 ﻿using pagmo;
 using System.Collections.Concurrent;
 
-namespace Tests.PagmoSharp.TestProblems
+namespace Tests.Pagmo.NET.TestProblems
 {
     // Shared base for managed UDP fixtures used by algorithm/island/archipelago tests.
     // It centralizes expected-optimum metadata so generic test bases can assert outcomes uniformly.

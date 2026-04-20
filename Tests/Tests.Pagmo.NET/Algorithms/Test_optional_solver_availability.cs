@@ -3,7 +3,7 @@ using System.Reflection;
 using NUnit.Framework;
 using pagmo;
 
-namespace Tests.PagmoSharp.Algorithms;
+namespace Tests.Pagmo.NET.Algorithms;
 
 [TestFixture]
 public class Test_optional_solver_availability

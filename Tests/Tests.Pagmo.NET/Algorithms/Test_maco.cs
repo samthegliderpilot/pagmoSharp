@@ -1,7 +1,7 @@
 using NUnit.Framework;
 using pagmo;
 
-namespace Tests.PagmoSharp.Algorithms;
+namespace Tests.Pagmo.NET.Algorithms;
 
 [TestFixture]
 public class Test_maco : TestAlgorithmBase

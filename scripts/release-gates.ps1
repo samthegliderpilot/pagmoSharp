@@ -153,7 +153,7 @@ try {
 
         $testArgs = @(
             "test",
-            "Tests\Tests.PagmoSharp\Tests.PagmoSharp.csproj",
+            "Tests\Tests.Pagmo.NET\Tests.Pagmo.NET.csproj",
             "-c",
             $DotnetConfiguration
         ) + $dotnetProps
@@ -169,7 +169,7 @@ try {
         }
 
         Invoke-CheckedCommand -Name "Optional solver availability tests ($DotnetConfiguration)" -Command {
-            dotnet test Tests\Tests.PagmoSharp\Tests.PagmoSharp.csproj `
+            dotnet test Tests\Tests.Pagmo.NET\Tests.Pagmo.NET.csproj `
                 -c $DotnetConfiguration `
                 @dotnetProps `
                 --filter "FullyQualifiedName~Test_optional_solver_availability"

@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Tests.PagmoSharp.Problems;
+namespace Tests.Pagmo.NET.Problems;
 
 // Shared contract tests for wrapped pagmo problem types.
 // Derived fixtures only provide factory/regression data; this base enforces common wrapper invariants.

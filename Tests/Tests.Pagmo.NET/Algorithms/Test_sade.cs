@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Text;
 using NUnit.Framework;
 using pagmo;
-using Tests.PagmoSharp.TestProblems;
+using Tests.Pagmo.NET.TestProblems;
 
-namespace Tests.PagmoSharp.Algorithms
+namespace Tests.Pagmo.NET.Algorithms
 {
     [TestFixture]
     public class Test_sade : TestAlgorithmBase

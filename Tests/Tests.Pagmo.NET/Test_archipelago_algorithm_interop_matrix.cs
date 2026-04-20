@@ -2,9 +2,9 @@ using System;
 using System.Collections.Generic;
 using NUnit.Framework;
 using pagmo;
-using Tests.PagmoSharp.TestProblems;
+using Tests.Pagmo.NET.TestProblems;
 
-namespace Tests.PagmoSharp;
+namespace Tests.Pagmo.NET;
 
 [TestFixture]
 public class Test_archipelago_algorithm_interop_matrix

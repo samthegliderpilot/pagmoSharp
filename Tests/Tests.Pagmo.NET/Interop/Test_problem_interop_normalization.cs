@@ -2,7 +2,7 @@ using System;
 using NUnit.Framework;
 using pagmo;
 
-namespace Tests.PagmoSharp.Interop;
+namespace Tests.Pagmo.NET.Interop;
 
 [TestFixture]
 public class Test_problem_interop_normalization

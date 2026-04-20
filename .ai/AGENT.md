@@ -1,12 +1,12 @@
-# AGENT NOTES - pagmoSharp
+# AGENT NOTES - Pagmo.NET
 
 ## Project Summary
-- `pagmoSharp` is a C# wrapper/binding layer over pagmo2 using SWIG + native C++ bridge code.
+- `Pagmo.NET` is a C# wrapper/binding layer over pagmo2 using SWIG + native C++ bridge code.
 - Main goal: robust C# interop for pagmo runtime + extensibility points.
 - Current roadmap is tracked in `.ai/ROADMAP.md`.
 
 ## Repository Structure
-- `pagmoSharp/`
+- `Pagmo.NET/`
   - Generated SWIG C# wrappers: `pygmoWrappers/`
   - Handwritten C# extensions/adapters: `pagmoExtensions/`
 - `pagmoWrapper/`
@@ -14,7 +14,7 @@
   - Native bridge/shim code (interop glue)
 - `swig/`
   - SWIG `.i` interface files + vendored headers used for wrapper generation
-- `Tests/Tests.PagmoSharp/`
+- `Tests/Tests.Pagmo.NET/`
   - NUnit tests for wrapper behavior and runtime wiring
 - `scripts/`
   - Build/regeneration helpers (`regen-swig.ps1`, `build-native.ps1`)

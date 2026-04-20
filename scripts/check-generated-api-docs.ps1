@@ -10,10 +10,10 @@ $repoRoot = Resolve-Path (Join-Path $PSScriptRoot "..")
 $env:DOTNET_CLI_HOME = Join-Path $repoRoot ".dotnet"
 $env:DOTNET_SKIP_FIRST_TIME_EXPERIENCE = "1"
 
-$assemblyPath = Join-Path $repoRoot "Pagmo.NET/bin/$Configuration/$Framework/pagmoSharp.dll"
+$assemblyPath = Join-Path $repoRoot "Pagmo.NET/bin/$Configuration/$Framework/Pagmo.NET.dll"
 $apiDocPath = Join-Path $repoRoot "docs/api-reference.md"
 $toolProjectPath = Join-Path $repoRoot "scripts/ApiDocGen/ApiDocGen.csproj"
-$mutexName = "Global\pagmoSharp_dotnet_library_build"
+$mutexName = "Global\pagmoNet_dotnet_library_build"
 $mutex = New-Object System.Threading.Mutex($false, $mutexName)
 $hasLock = $false
 

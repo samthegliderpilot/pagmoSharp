@@ -2,7 +2,7 @@ using NUnit.Framework;
 using pagmo;
 using System;
 
-namespace Tests.PagmoSharp.Interop;
+namespace Tests.Pagmo.NET.Interop;
 
 [TestFixture]
 public class Test_execute_path_exception_bubbling

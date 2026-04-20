@@ -6,16 +6,16 @@ Run a first optimization and read the result end-to-end.
 
 ## Runnable Source
 
-- Example project: [Examples.PagmoSharp.csproj](..\Examples\Examples.PagmoSharp\Examples.PagmoSharp.csproj)
-- Scenario implementation: [Program.cs](..\Examples\Examples.PagmoSharp\Program.cs) (`single`)
-- Problem used in examples: [Program.cs](..\Examples\Examples.PagmoSharp\Program.cs) (`RastriginLikeProblem`)
+- Example project: [Examples.Pagmo.NET.csproj](..\Examples\Examples.Pagmo.NET\Examples.Pagmo.NET.csproj)
+- Scenario implementation: [Program.cs](..\Examples\Examples.Pagmo.NET\Program.cs) (`single`)
+- Problem used in examples: [Program.cs](..\Examples\Examples.Pagmo.NET\Program.cs) (`RastriginLikeProblem`)
 
 ## Run
 
 From repo root:
 
 ```powershell
-dotnet run --project Examples/Examples.PagmoSharp/Examples.PagmoSharp.csproj -- single
+dotnet run --project Examples/Examples.Pagmo.NET/Examples.Pagmo.NET.csproj -- single
 ```
 
 ## What It Teaches

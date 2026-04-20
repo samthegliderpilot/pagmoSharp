@@ -1,7 +1,7 @@
 using System;
 using pagmo;
 
-namespace Tests.PagmoSharp.TestProblems;
+namespace Tests.Pagmo.NET.TestProblems;
 
 // Purpose-built fixture that throws from get_bounds() to verify callback exceptions
 // bubble through interop without destabilizing native/managed lifetime teardown.

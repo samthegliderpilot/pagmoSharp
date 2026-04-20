@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 
-namespace Tests.PagmoSharp.Problems;
+namespace Tests.Pagmo.NET.Problems;
 
 [Serializable]
 // Regression fixture payload used by TestProblemBase to keep known input/output probes

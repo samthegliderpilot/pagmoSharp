@@ -11,7 +11,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\pagmoSharp\pagmoSharp.csproj" />
+    <ProjectReference Include="..\..\Pagmo.NET\Pagmo.NET.csproj" />
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent" Condition="Exists('$(PagmoWrapperBinDir)')">

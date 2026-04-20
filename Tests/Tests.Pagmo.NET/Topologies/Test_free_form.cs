@@ -1,7 +1,7 @@
 using NUnit.Framework;
 using pagmo;
 using System;
-namespace Tests.PagmoSharp
+namespace Tests.Pagmo.NET
 {
     [TestFixture]
     public class Test_free_form

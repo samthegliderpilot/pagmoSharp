@@ -1,8 +1,8 @@
 using NUnit.Framework;
 using pagmo;
-using Tests.PagmoSharp.TestProblems;
+using Tests.Pagmo.NET.TestProblems;
 
-namespace Tests.PagmoSharp.Problems;
+namespace Tests.Pagmo.NET.Problems;
 
 // Shared MO managed-problem assertions so constrained/unconstrained variants
 // can reuse one validation suite and only swap fixture + constraint expectation.

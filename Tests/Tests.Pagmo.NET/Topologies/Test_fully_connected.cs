@@ -3,7 +3,7 @@ using pagmo;
 using System;
 using System.Linq;
 
-namespace Tests.PagmoSharp
+namespace Tests.Pagmo.NET
 {
     [TestFixture]
     public class Test_fully_connected

@@ -1,6 +1,6 @@
 {
   "profiles": {
-    "pagmoSharp": {
+    "Pagmo.NET": {
       "commandName": "Project",
       "nativeDebugging": true
     }

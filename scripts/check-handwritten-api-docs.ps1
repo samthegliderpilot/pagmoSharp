@@ -1,7 +1,7 @@
 Set-StrictMode -Version Latest
 $ErrorActionPreference = "Stop"
 
-$root = Join-Path $PSScriptRoot "..\pagmoSharp\pagmoExtensions"
+$root = Join-Path $PSScriptRoot "..\Pagmo.NET\pagmoExtensions"
 $files = Get-ChildItem $root -Recurse -Filter *.cs
 
 $missing = [System.Collections.Generic.List[string]]::new()

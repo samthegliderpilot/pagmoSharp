@@ -10,7 +10,7 @@ $env:DOTNET_SKIP_FIRST_TIME_EXPERIENCE = "1"
 $env:DOTNET_ADD_GLOBAL_TOOLS_TO_PATH = "0"
 $env:DOTNET_CLI_HOME = Join-Path $PSScriptRoot "..\.dotnet"
 
-$project = "Examples/Examples.PagmoSharp/Examples.PagmoSharp.csproj"
+$project = "Examples/Examples.Pagmo.NET/Examples.Pagmo.NET.csproj"
 $scenarios = @("single", "archipelago", "policies")
 
 if (-not (Test-Path $env:DOTNET_CLI_HOME)) {

@@ -14,7 +14,7 @@
 - [x] Verify optional solver availability tests pass in current build profile.
 
 ## Artifacts
-- [x] Produce managed assembly outputs (`pagmoSharp.dll` + symbols as needed).
+- [x] Produce managed assembly outputs (`Pagmo.NET.dll` + symbols as needed).
 - [x] Produce native runtime artifacts (`pagmoWrapper.dll` and dependencies).
 - [x] Verify artifact folder structure and load-path assumptions.
 - [x] Confirm license/NOTICE inclusion for redistributed dependencies. (THIRD_PARTY_LICENSES.md)

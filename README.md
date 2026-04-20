@@ -175,20 +175,20 @@ Notes:
 
 ## Runnable examples
 
-A dedicated non-test examples project is available at `Examples/Examples.PagmoSharp`.
+A dedicated non-test examples project is available at `Examples/Examples.Pagmo.NET`.
 
 Run all scenarios:
 
 ```powershell
-dotnet run --project Examples/Examples.PagmoSharp/Examples.PagmoSharp.csproj -- all
+dotnet run --project Examples/Examples.Pagmo.NET/Examples.Pagmo.NET.csproj -- all
 ```
 
 Run individual scenarios:
 
 ```powershell
-dotnet run --project Examples/Examples.PagmoSharp/Examples.PagmoSharp.csproj -- single
-dotnet run --project Examples/Examples.PagmoSharp/Examples.PagmoSharp.csproj -- archipelago
-dotnet run --project Examples/Examples.PagmoSharp/Examples.PagmoSharp.csproj -- policies
+dotnet run --project Examples/Examples.Pagmo.NET/Examples.Pagmo.NET.csproj -- single
+dotnet run --project Examples/Examples.Pagmo.NET/Examples.Pagmo.NET.csproj -- archipelago
+dotnet run --project Examples/Examples.Pagmo.NET/Examples.Pagmo.NET.csproj -- policies
 ```
 
 These examples are intentionally half API walkthrough and half optimization-structure teaching:
@@ -208,7 +208,7 @@ Smoke-check all documented scenarios:
 powershell -ExecutionPolicy Bypass -File scripts/docs-smoke.ps1
 ```
 
-This verifies docs-backed scenarios (`single`, `archipelago`, `policies`) against `Examples/Examples.PagmoSharp`.
+This verifies docs-backed scenarios (`single`, `archipelago`, `policies`) against `Examples/Examples.Pagmo.NET`.
 
 ## Release gates (Sprint 5)
 

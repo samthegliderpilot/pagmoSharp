@@ -44,7 +44,7 @@ All built-in benchmark problems are wrapped: `ackley`, `cec2006/2009/2013/2014`,
   `ideal`, `nadir`, `decompose_objectives`, `hypervolume` and related APIs.
 
 **Runnable examples and docs**
-- `Examples/Examples.PagmoSharp`: three teaching scenarios (single-island, archipelago topology,
+- `Examples/Examples.Pagmo.NET`: three teaching scenarios (single-island, archipelago topology,
   migration policies).
 - `docs/`: concept-first walkthroughs linked to runnable example code.
 

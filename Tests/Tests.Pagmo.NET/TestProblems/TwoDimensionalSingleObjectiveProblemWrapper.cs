@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using pagmo;
 
-namespace Tests.PagmoSharp.TestProblems
+namespace Tests.Pagmo.NET.TestProblems
 {
     // Canonical managed single-objective 2D fixture used for end-to-end runtime tests
     // (algorithm evolution, island/archipelago setup, and thread-safety behavior).

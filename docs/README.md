@@ -1,8 +1,8 @@
-# PagmoSharp Docs
+# Pagmo.NET Docs
 
 This documentation is executable-first:
 - Concepts are explained in docs pages.
-- Every page links to runnable code in `Examples/Examples.PagmoSharp`.
+- Every page links to runnable code in `Examples/Examples.Pagmo.NET`.
 - A smoke runner verifies documented scenarios stay working.
 
 ## Walkthroughs
@@ -13,7 +13,7 @@ This documentation is executable-first:
 
 ## API Reference Generation
 
-The API reference is generated from the compiled `pagmoSharp` assembly so it covers
+The API reference is generated from the compiled `Pagmo.NET` assembly so it covers
 all public symbols visible to consumers (including generated wrapper surfaces).
 
 From repo root:
@@ -48,4 +48,4 @@ This runs:
 - `archipelago`
 - `policies`
 
-against [Program.cs](..\Examples\Examples.PagmoSharp\Program.cs).
+against [Program.cs](..\Examples\Examples.Pagmo.NET\Program.cs).

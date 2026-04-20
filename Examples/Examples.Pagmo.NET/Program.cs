@@ -1,6 +1,6 @@
 using pagmo;
 
-namespace Examples.PagmoSharp;
+namespace Examples.Pagmo.NET;
 
 internal static class Program
 {
@@ -11,7 +11,7 @@ internal static class Program
     {
         var scenario = args.Length == 0 ? "all" : args[0].Trim().ToLowerInvariant();
 
-        Console.WriteLine("PagmoSharp runnable examples");
+        Console.WriteLine("Pagmo.NET runnable examples");
         Console.WriteLine("These examples teach API usage and why islands/archipelagos/policies can help search quality.");
         Console.WriteLine();
 

@@ -1,6 +1,6 @@
 using pagmo;
 
-namespace Tests.PagmoSharp.TestProblems
+namespace Tests.Pagmo.NET.TestProblems
 {
     // Managed unconstrained multi-objective fixture used to validate MO plumbing
     // (fitness shape, champion unavailability, archipelago/island MO execution paths).

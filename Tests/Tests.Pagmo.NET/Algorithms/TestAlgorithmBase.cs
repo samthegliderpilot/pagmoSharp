@@ -2,9 +2,9 @@ using System;
 using System.Reflection;
 using NUnit.Framework;
 using pagmo;
-using Tests.PagmoSharp.TestProblems;
+using Tests.Pagmo.NET.TestProblems;
 
-namespace Tests.PagmoSharp.Algorithms
+namespace Tests.Pagmo.NET.Algorithms
 {
     // Base harness for all algorithm wrappers to enforce one consistent set of
     // behavior checks (metadata, evolution shape, constraints, MO behavior, logs).
