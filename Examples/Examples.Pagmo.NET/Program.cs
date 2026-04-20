@@ -1,4 +1,5 @@
 using pagmo;
+using Examples.Pagmo.NET.OrbitalManeuver;
 
 namespace Examples.Pagmo.NET;
 
@@ -26,16 +27,21 @@ internal static class Program
             case "policies":
                 RunPolicyComparison();
                 break;
+            case "maneuver":
+                RunOrbitalManeuverOptimization();
+                break;
             case "all":
                 RunSingleIslandBaseline();
                 Console.WriteLine();
                 RunArchipelagoTeachingScenario();
                 Console.WriteLine();
                 RunPolicyComparison();
+                Console.WriteLine();
+                RunOrbitalManeuverOptimization();
                 break;
             default:
                 Console.WriteLine($"Unknown scenario '{scenario}'.");
-                Console.WriteLine("Use one of: single, archipelago, policies, all");
+                Console.WriteLine("Use one of: single, archipelago, policies, maneuver, all");
                 break;
         }
     }
@@ -85,6 +91,98 @@ internal static class Program
         {
             Console.WriteLine("  Why it matters: policies control which migrants are selected and replaced, shaping exploration vs exploitation.");
         }
+    }
+
+    // Two-burn Hohmann-like transfer: circular LEO → higher circular orbit.
+    // Demonstrates custom UDP with equality constraints solved via
+    // cstrs_self_adaptive wrapping de.
+    private static void RunOrbitalManeuverOptimization()
+    {
+        Console.WriteLine("Scenario: orbital maneuver optimisation (2-burn Hohmann-like transfer)");
+
+        // Initial orbit: circular at 400 km altitude (Earth radii + altitude, km)
+        const double earthRadiusKm = 6371.0;
+        var initial = new KeplerianElements(
+            SemiMajorAxis:     earthRadiusKm + 400.0,   // 6771 km
+            Eccentricity:      0.001,                    // near-circular (e=0 is singular in Gauss eqs)
+            Inclination:       0.5,                      // ~28.6 deg
+            Raan:              0.0,
+            ArgumentOfPeriapsis: 0.0,
+            TrueAnomaly:       0.0);
+
+        // Target: circular orbit at 1000 km altitude
+        double targetSma = earthRadiusKm + 1000.0;
+        var target = new ManeuverTarget(
+            SemiMajorAxis: targetSma,
+            Eccentricity:  0.001);
+
+        // One orbital period ≈ upper bound for a single coast segment
+        double period = 2.0 * Math.PI * Math.Sqrt(
+            Math.Pow(initial.SemiMajorAxis, 3) / OrbitalMechanics.EarthGm);
+
+        using var problem = new ManeuverOptimizationProblem(
+            initial:          initial,
+            t0:               0.0,
+            numBurns:         2,
+            target:           target,
+            maxCoastDuration: period,
+            maxDeltaV:        3.0);   // km/s
+
+        Console.WriteLine($"  Initial SMA: {initial.SemiMajorAxis:F1} km  " +
+                          $"Target SMA: {targetSma:F1} km");
+        Console.WriteLine($"  Constraints: {problem.get_nec()} equality (Δa, Δe)");
+
+        using var innerAlgorithm = new de(50u);
+        using var erasedInner = innerAlgorithm.to_algorithm();
+        using var algorithm = new cstrs_self_adaptive(200u, erasedInner, 42u);
+
+        using var population = new population(problem, 200u, 1u);
+        using var evolved = algorithm.evolve(population);
+
+        // Find best feasible individual
+        using var allF = evolved.get_f();
+        using var allX = evolved.get_x();
+
+        double bestDv = double.PositiveInfinity;
+        int bestIdx = -1;
+        for (int idx = 0; idx < (int)evolved.size(); idx++)
+        {
+            var fVec = allF[idx];
+            bool feasible = true;
+            for (int c = 1; c < fVec.Count; c++)
+                if (Math.Abs(fVec[c]) > 1e-3) { feasible = false; break; }
+            if (feasible && fVec[0] < bestDv) { bestDv = fVec[0]; bestIdx = idx; }
+        }
+
+        if (bestIdx < 0)
+        {
+            Console.WriteLine("  No feasible solution found in this run — try more iterations.");
+            return;
+        }
+
+        var xBest = allX[bestIdx];
+        Console.WriteLine($"  Best feasible total Δv: {bestDv * 1000.0:F1} m/s");
+        for (int b = 0; b < 2; b++)
+        {
+            double coast = xBest[b * 4 + 0];
+            double dv = Math.Sqrt(xBest[b*4+1]*xBest[b*4+1] +
+                                  xBest[b*4+2]*xBest[b*4+2] +
+                                  xBest[b*4+3]*xBest[b*4+3]);
+            Console.WriteLine($"  Burn {b + 1}: coast {coast:F0} s, |Δv| {dv * 1000.0:F1} m/s");
+        }
+
+        // Show final state residuals
+        var burns = new[]
+        {
+            new CoastAndBurn(xBest[0], xBest[1], xBest[2], xBest[3]),
+            new CoastAndBurn(xBest[4], xBest[5], xBest[6], xBest[7])
+        };
+        var history = OrbitalMechanics.Propagate(initial, 0.0, burns, OrbitalMechanics.EarthGm);
+        var finalEl = history[^1].Elements;
+        Console.WriteLine($"  Final SMA:  {finalEl.SemiMajorAxis:F1} km  " +
+                          $"(target {targetSma:F1} km, Δ {finalEl.SemiMajorAxis - targetSma:+0.0;-0.0} km)");
+        Console.WriteLine($"  Final ecc:  {finalEl.Eccentricity:F4}  " +
+                          $"(target {target.Eccentricity:F4})");
     }
 
     private static void DescribeTopologyConnectivity()
