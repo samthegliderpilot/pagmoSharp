@@ -1,6 +1,6 @@
 # pagmoSharp
 
-**pagmoSharp** is a .NET 8+ C# wrapper for [pagmo2](https://esa.github.io/pagmo2/), a C++ library
+**pagmoSharp** is a .NET 8 C# wrapper for [pagmo2](https://esa.github.io/pagmo2/), a C++ library
 providing high-quality metaheuristic and gradient-based optimization routines with multi-island
 parallel evolution support.
 
@@ -11,22 +11,23 @@ Linux/CMake support is planned post-v1.
 
 Binary releases are distributed via:
 
-- **NuGet** — `dotnet add package pagmoSharp --version 1.0.0-beta.1`
-- **GitHub Releases** — tagged release bundles at
+- **NuGet** - `dotnet add package pagmoSharp --version 1.0.0-beta.1`
+- **GitHub Releases** - tagged release bundles at
   `https://github.com/samthegliderpilot/pagmoSharp/releases` include the managed NuGet package,
   the native Windows x64 runtime bundle (`pagmoWrapper.dll` + dependencies), and a source archive.
 
 The NuGet package contains only the managed assembly. The native runtime DLLs
 (`pagmoWrapper.dll` and its dependencies) must be placed alongside your application at runtime.
-Download the native bundle from the corresponding GitHub release.
+Download the matching native bundle from the same GitHub release tag as the NuGet package version
+you reference in your application.
 
 ## Build requirements (contributors / from source)
 
-**Requirements:**
+**Requirements for library consumers/building the package:**
 - Windows x64
-- .NET 8 SDK or later
-- pagmo2 (headers and binaries) — install via `vcpkg install pagmo2:x64-windows`
-- SWIG 4.4.x (for wrapper regeneration only — pre-generated wrappers are checked in)
+- .NET 8 SDK
+- pagmo2 (headers and binaries) - install via `vcpkg install pagmo2:x64-windows`
+- SWIG 4.4.x (for wrapper regeneration only - pre-generated wrappers are checked in)
 - Visual Studio 2022 / Build Tools 2022 (C++ toolchain)
 
 To regenerate SWIG wrappers after editing the interface file, run
@@ -38,8 +39,7 @@ To regenerate SWIG wrappers after editing the interface file, run
 ### Why .Net and C#?
 I think that the .Net ecosystem and languages are a bit under appreciated for scientific computing.  Although raw C/C++ code written by an expert will be faster, C# can get pretty close.  And with Microsoft open-sourcing so much of .Net with .Net Core... it has a lot going for it.
 
-### Isn't pagmo already available in Python via pygmo?
-Yes — [pygmo](https://esa.github.io/pygmo2/) is the official Python binding. pagmoSharp is an
+Yes - [pygmo](https://esa.github.io/pygmo2/) is the official Python binding. pagmoSharp is an
 independent .NET binding for teams that want pagmo's optimization power in C# / F# / VB.NET
 environments without a Python runtime dependency.
 
@@ -87,7 +87,9 @@ Test build/run tasks use `scripts/test.ps1` with staged execution (`build` then 
 ### Requirements for local VS Code test runs
 
 - Visual Studio Build Tools 2022 (or VS 2022) with MSBuild + C++ toolchain
-- .NET SDK (net6-targeting project; newer SDKs also work)
+- .NET SDK
+  Consumer/package target: `net8.0`
+  Repo-internal test/examples/docs tooling may use a newer SDK during development
 - NuGet connectivity
 - `pagmo2` headers/libs available at paths configured in `pagmoWrapper/pagmoWrapper.vcxproj`
 - VS Code extensions:
@@ -233,7 +235,7 @@ powershell -ExecutionPolicy Bypass -File scripts/build-release-artifacts.ps1 -Ve
 |---|---|---|
 | Managed C# UDP (`IProblem` / `ManagedProblemBase`) | Supported | Core path for v1.0; callback lifetime and exception bubbling are covered by tests. |
 | Type-erased `IAlgorithm` interop in island/archipelago paths | Supported | Bridged via `AlgorithmInterop` for wrapped algorithms and managed `IAlgorithm` callback bridge (for example `grid_search`). |
-| Core runtime orchestration (`population`, `island`, `archipelago`) | Supported (with known topology caveat) | Managed-problem and policy runtime paths are covered; archipelago `set_topology_*` runtime mutation has a tracked issue in Sprint 4. |
+| Core runtime orchestration (`population`, `island`, `archipelago`) | Supported | Managed-problem, policy, and topology runtime paths are covered by tests. |
 | Managed policy extensibility (`RPolicyCallback`, `SPolicyCallback`) | Supported | Direct managed-policy entrypoints are available on island/archipelago helpers. |
 | Topology wrappers (`ring`, `fully_connected`, `unconnected`, `free_form`) | Supported | Managed projection helpers are provided and tested. |
 | Optional solver wrapper (`ipopt`) | Feature-gated | Build-dependent; availability/runtime behavior (construct/evolve/type-erasure/log projection) is validated when IPOPT is present. |
@@ -254,6 +256,5 @@ powershell -ExecutionPolicy Bypass -File scripts/build-release-artifacts.ps1 -Ve
 - Managed extension helpers prefer C#-style PascalCase where practical.
 - Existing snake_case runtime entrypoints are retained for pagmo parity/compatibility.
 - See .ai/API_NAMING_POLICY.md for the detailed policy and compatibility approach.
-
 
 

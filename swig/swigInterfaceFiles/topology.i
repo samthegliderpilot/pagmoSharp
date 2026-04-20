@@ -4,6 +4,10 @@
 
 %typemap(csclassmodifiers) pagmo::topology "public partial class"
 
+%ignore pagmo::topology::topology(topology&&);
+%ignore pagmo::topology::operator=;
+%ignore pagmo::topology::get_ptr;
+
 class topology {
 
     // Enable the generic ctor only if T is not a topology (after removing
@@ -21,18 +25,6 @@ public:
     //}
     //// Copy ctor.
     extern topology(const topology&);
-    // Move ctor.
-    extern topology(topology&&) noexcept;
-    // Move assignment.
-    extern topology& operator=(topology&&) noexcept;
-    // Copy assignment.
-    extern topology& operator=(const topology&);
-    // Generic assignment.
-    template <typename T, generic_ctor_enabler<T> = 0>
-    topology& operator=(T&& x)
-    {
-        return (*this) = topology(std::forward<T>(x));
-    }
 
     // Extract.
     template <typename T>
@@ -64,11 +56,5 @@ public:
 
     // Get the type at runtime.
     //extern std::type_index get_type_index() const;
-
-    // Get a const pointer to the UDT.
-    extern const void* get_ptr() const;
-
-    // Get a mutable pointer to the UDT.
-    extern void* get_ptr();
 
 };

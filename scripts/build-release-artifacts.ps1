@@ -15,6 +15,9 @@ $env:DOTNET_SKIP_FIRST_TIME_EXPERIENCE = "1"
 $env:DOTNET_ADD_GLOBAL_TOOLS_TO_PATH = "0"
 $env:DOTNET_CLI_HOME = Join-Path $repoRoot ".dotnet"
 $env:NUGET_PACKAGES = Join-Path $repoRoot ".nuget\packages"
+$dotnetMutexName = "Global\pagmoSharp_dotnet_library_build"
+$dotnetMutex = New-Object System.Threading.Mutex($false, $dotnetMutexName)
+$hasDotnetLock = $false
 
 if (-not (Test-Path $env:DOTNET_CLI_HOME)) {
     New-Item -ItemType Directory -Path $env:DOTNET_CLI_HOME | Out-Null
@@ -35,6 +38,11 @@ New-Item -ItemType Directory -Path $sourceOut | Out-Null
 
 Push-Location $repoRoot
 try {
+    $hasDotnetLock = $dotnetMutex.WaitOne([TimeSpan]::FromMinutes(30))
+    if (-not $hasDotnetLock) {
+        throw "Timed out waiting for dotnet build lock '$dotnetMutexName'."
+    }
+
     if (-not $SkipReleaseGates) {
         Write-Host "==> Running release gates"
         & (Join-Path $repoRoot "scripts\release-gates.ps1")
@@ -110,5 +118,9 @@ try {
     Write-Host "  $artifactRoot"
 }
 finally {
+    if ($hasDotnetLock) {
+        $dotnetMutex.ReleaseMutex()
+    }
+    $dotnetMutex.Dispose()
     Pop-Location
 }

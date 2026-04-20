@@ -27,7 +27,6 @@ public:
     extern pagmo::thread_safety get_thread_safety() const;
 
     extern const pagmo::algorithm &get_inner_algorithm() const;
-    extern pagmo::algorithm &get_inner_algorithm();
     extern const log_type &get_log() const;
 };
 

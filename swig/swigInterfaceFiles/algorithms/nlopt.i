@@ -5,6 +5,8 @@
 
 %typemap(csclassmodifiers) pagmo::nlopt "public partial class"
 %ignore nlopt::get_log() const;
+%ignore nlopt::nlopt(nlopt &&);
+%ignore nlopt::operator=;
 
 class nlopt {
 public:
@@ -14,9 +16,6 @@ public:
     extern nlopt();
     extern nlopt(const std::string &);
     extern nlopt(const nlopt &);
-    extern nlopt(nlopt &&) = default;
-    extern nlopt &operator=(nlopt &&) = default;
-
     extern population evolve(population) const;
     extern std::string get_name() const;
     extern void set_verbosity(unsigned n);
@@ -39,7 +38,6 @@ public:
     extern int get_maxtime() const;
     extern void set_maxtime(int n);
     extern const nlopt *get_local_optimizer() const;
-    extern nlopt *get_local_optimizer();
     extern void unset_local_optimizer();
 };
 

@@ -23,8 +23,6 @@ public:
 
     extern hypervolume(const pagmo::hypervolume&);
 
-    extern pagmo::hypervolume& operator=(const pagmo::hypervolume&);
-
     extern void set_copy_points(bool);
 
     extern bool get_copy_points() const;

@@ -120,7 +120,7 @@ public partial class cstrs_self_adaptive : global::System.IDisposable {
   }
 
   public algorithm get_inner_algorithm() {
-    algorithm ret = new algorithm(pagmoPINVOKE.cstrs_self_adaptive_get_inner_algorithm__SWIG_0(swigCPtr), false);
+    algorithm ret = new algorithm(pagmoPINVOKE.cstrs_self_adaptive_get_inner_algorithm(swigCPtr), false);
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }

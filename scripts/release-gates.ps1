@@ -145,7 +145,7 @@ try {
         }
 
         Invoke-CheckedCommand -Name "Generated API docs gate ($DotnetConfiguration)" -Command {
-            & (Join-Path $repoRoot "scripts\check-generated-api-docs.ps1") -Configuration $DotnetConfiguration -Framework "net10.0"
+            & (Join-Path $repoRoot "scripts\check-generated-api-docs.ps1") -Configuration $DotnetConfiguration -Framework "net8.0"
             if ($LASTEXITCODE -ne 0) {
                 throw "check-generated-api-docs.ps1 failed ($LASTEXITCODE)."
             }

@@ -30,6 +30,8 @@
 // IMPORTANT: Do NOT expose default ctor in bindings.
 // -----------------------------------------------------------------------------
 %ignore pagmo::island::island();
+%ignore pagmo::island::island(pagmo::island &&);
+%ignore pagmo::island::operator=;
 %ignore pagmo::island::get_ptr;
 %ignore pagmo::island::get_r_policy;
 %ignore pagmo::island::get_s_policy;

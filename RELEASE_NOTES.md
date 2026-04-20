@@ -4,7 +4,7 @@
 
 ### Overview
 
-First public beta of pagmoSharp — a .NET 8+ C# wrapper for [pagmo2](https://esa.github.io/pagmo2/).
+First public beta of pagmoSharp - a .NET 8 C# wrapper for [pagmo2](https://esa.github.io/pagmo2/).
 Targets Windows x64. Linux/CMake support is planned for a later release.
 
 ### Highlights
@@ -64,19 +64,25 @@ Notable type renames from internal pre-release names:
 
 ### Known Limitations
 
-- **Windows x64 only** — Linux/CMake build support is planned for v1.x/v2.
-- **Thread-clone strategy** — Managed problems reporting `ThreadSafety.None` are rejected on
+- **Windows x64 only** - Linux/CMake build support is planned for v1.x/v2.
+- **Thread-clone strategy** - Managed problems reporting `ThreadSafety.None` are rejected on
   threaded execution paths (`thread_bfe`, `archipelago` with managed UDPs). A per-thread clone
   strategy (`IThreadCloneableProblem`) is being evaluated for a later release.
-- **archipelago `set_topology_*` runtime mutation** — tracked for Sprint 4.
 
 ### Supported Environment Matrix
 
 | Environment | Status |
 |---|---|
-| Windows x64, .NET 8+ | Supported |
+| Windows x64, .NET 8 | Supported |
 | Windows x64, IPOPT enabled | Feature-gated (vcpkg `coin-or-ipopt:x64-windows`) |
 | Windows x64, NLopt enabled | Feature-gated (vcpkg `nlopt:x64-windows`) |
 | Linux | Planned post-v1 |
 | .NET Framework | Not supported |
 | x86 / ARM | Not supported in v1 |
+
+Repo note:
+- The shipped library/package target is `.NET 8`.
+- Tests, examples, and documentation tooling may use a newer SDK internally during development.
+
+
+

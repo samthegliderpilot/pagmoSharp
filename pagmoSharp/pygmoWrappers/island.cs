@@ -57,7 +57,7 @@ public partial class island : global::System.IDisposable {
     }
   }
 
-  public island(island arg0) : this(pagmoPINVOKE.new_island__SWIG_0(island.getCPtr(arg0)), true) {
+  public island(island arg0) : this(pagmoPINVOKE.new_island(island.getCPtr(arg0)), true) {
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 

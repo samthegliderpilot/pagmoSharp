@@ -245,11 +245,13 @@ PAGMOSHARP_EXEC_EXCEPTION(pagmo::thread_island::run_evolve, "thread_island.run_e
 // That overload takes pagmo::individuals_group_t (a std::tuple<...>), which SWIG cannot wrap.
 // C# code calls through RPolicyCallback::replace(), which takes the SWIG-friendly IndividualsGroup struct.
 %ignore pagmoWrap::managed_r_policy::replace;
+%ignore pagmoWrap::managed_r_policy::operator=;
 %include "pagmoWrapper/r_policy.h"
 
 %feature("director") pagmoWrap::s_policy_callback;
 // Same rationale as ManagedRPolicy::replace above.
 %ignore pagmoWrap::managed_s_policy::select;
+%ignore pagmoWrap::managed_s_policy::operator=;
 %include "pagmoWrapper/s_policy.h"
 
 // ------------------------------------------------------------

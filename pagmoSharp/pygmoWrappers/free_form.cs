@@ -66,8 +66,52 @@ public partial class free_form : global::System.IDisposable {
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
+  public uint num_vertices() {
+    uint ret = pagmoPINVOKE.free_form_num_vertices(swigCPtr);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  public TopologyConnections get_connections(uint arg0) {
+    TopologyConnections ret = new TopologyConnections(pagmoPINVOKE.free_form_get_connections(swigCPtr, arg0), true);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  public double get_edge_weight(uint arg0, uint arg1) {
+    double ret = pagmoPINVOKE.free_form_get_edge_weight(swigCPtr, arg0, arg1);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  public void add_edge(uint arg0, uint arg1, double arg2) {
+    pagmoPINVOKE.free_form_add_edge(swigCPtr, arg0, arg1, arg2);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
+  }
+
+  public void remove_edge(uint arg0, uint arg1) {
+    pagmoPINVOKE.free_form_remove_edge(swigCPtr, arg0, arg1);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
+  }
+
+  public void set_weight(uint arg0, uint arg1, double arg2) {
+    pagmoPINVOKE.free_form_set_weight(swigCPtr, arg0, arg1, arg2);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
+  }
+
+  public void set_all_weights(double arg0) {
+    pagmoPINVOKE.free_form_set_all_weights(swigCPtr, arg0);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
+  }
+
   public string get_name() {
     string ret = pagmoPINVOKE.free_form_get_name(swigCPtr);
+    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  public string get_extra_info() {
+    string ret = pagmoPINVOKE.free_form_get_extra_info(swigCPtr);
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }

@@ -5,6 +5,9 @@
     <PlatformTarget>x64</PlatformTarget>
     <Platforms>x64</Platforms>
     <PagmoWrapperBinDir>$([System.IO.Path]::GetFullPath('$(MSBuildProjectDirectory)\..\..\pagmoWrapper\pagmoWrapper\bin'))</PagmoWrapperBinDir>
+    <!-- Current locally-cached testhost packages pin a vulnerable Newtonsoft.Json transitively.
+         This affects test restore noise only, not the shipped pagmoSharp package/runtime surface. -->
+    <NoWarn>$(NoWarn);NU1903</NoWarn>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -27,7 +30,6 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.CodeCoverage" Version="17.0.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.0.0" />
-    <PackageReference Include="Microsoft.TestPlatform.TestHost" Version="17.0.0" />
     <PackageReference Include="NUnit" Version="3.13.3" />
     <PackageReference Include="NUnit3TestAdapter" Version="4.2.1" />
   </ItemGroup>

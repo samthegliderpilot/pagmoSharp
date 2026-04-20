@@ -27,9 +27,6 @@ namespace pagmo {
         // No default ctor exposed in bindings.
         ~island();
         island(const island&);
-        island(island&&) noexcept;
-        island& operator=(island&&) noexcept;
-        island& operator=(const island&);
 
         void evolve(unsigned n = 1);
         void wait_check();

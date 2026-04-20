@@ -25,7 +25,6 @@ public:
     extern void set_perturb(const pagmo::vector_double &);
     extern pagmo::thread_safety get_thread_safety() const;
     extern const pagmo::algorithm &get_inner_algorithm() const;
-    extern pagmo::algorithm &get_inner_algorithm();
     extern const log_type &get_log() const;
     extern std::string get_name() const;
     extern std::string get_extra_info() const;

@@ -182,7 +182,7 @@ public partial class nlopt : global::System.IDisposable {
   }
 
   public nlopt get_local_optimizer() {
-    global::System.IntPtr cPtr = pagmoPINVOKE.nlopt_get_local_optimizer__SWIG_0(swigCPtr);
+    global::System.IntPtr cPtr = pagmoPINVOKE.nlopt_get_local_optimizer(swigCPtr);
     nlopt ret = (cPtr == global::System.IntPtr.Zero) ? null : new nlopt(cPtr, false);
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
     return ret;

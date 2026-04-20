@@ -53,6 +53,14 @@ namespace pagmo
         }
 
         /// <summary>
+        /// Returns neighbor ids and edge weights for a vertex in a free-form topology.
+        /// </summary>
+        public static TopologyConnectionData GetConnectionsData(this free_form topologyInstance, uint vertexId)
+        {
+            return ToConnectionData(RequireTopology(topologyInstance, nameof(topologyInstance)).get_connections(vertexId));
+        }
+
+        /// <summary>
         /// Returns neighbor ids and edge weights for a vertex in an unconnected topology.
         /// </summary>
         public static TopologyConnectionData GetConnectionsData(this unconnected topologyInstance, uint vertexId)

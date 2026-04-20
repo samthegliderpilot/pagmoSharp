@@ -3260,9 +3260,6 @@ SWIGINTERN void std_vector_Sl_pagmoWrap_MbhLogEntry_Sg__SetRange(std::vector< pa
 // Facade + shims
 #include "island_swig.h"
 
-
-#include <memory>
-
 SWIGINTERN pagmo::island pagmo_island_CreateFromPopulation(pagmo::algorithm const &a,pagmo::population const &p){
         return pagmoWrap::Island_FromAlgoPop(a, p);
     }
@@ -32881,7 +32878,7 @@ SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_delete_island(void * jarg1) {
 }
 
 
-SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_island__SWIG_0(void * jarg1) {
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_island(void * jarg1) {
   void * jresult ;
   pagmo::island *arg1 = 0 ;
   pagmo::island *result = 0 ;
@@ -35797,7 +35794,7 @@ SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_delete_random_device(void * jarg1) {
 }
 
 
-SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_topology__SWIG_0(void * jarg1) {
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_topology(void * jarg1) {
   void * jresult ;
   pagmo::topology *arg1 = 0 ;
   pagmo::topology *result = 0 ;
@@ -35962,30 +35959,6 @@ SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_topology_push_back__SWIG_1(void * jarg1
       };
     }
   }
-}
-
-
-SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_topology_get_ptr__SWIG_0(void * jarg1) {
-  void * jresult ;
-  pagmo::topology *arg1 = 0 ;
-  void *result = 0 ;
-  
-  arg1 = (pagmo::topology *)jarg1; 
-  {
-    try {
-      result = (void *)((pagmo::topology const *)arg1)->get_ptr();
-    } catch (const std::exception &e) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
-      };
-    } catch (...) {
-      {
-        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
-      };
-    }
-  }
-  jresult = (void *)result; 
-  return jresult;
 }
 
 
@@ -36313,7 +36286,7 @@ SWIGEXPORT int SWIGSTDCALL CSharp_pagmo_cstrs_self_adaptive_get_thread_safety(vo
 }
 
 
-SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_cstrs_self_adaptive_get_inner_algorithm__SWIG_0(void * jarg1) {
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_cstrs_self_adaptive_get_inner_algorithm(void * jarg1) {
   void * jresult ;
   pagmo::cstrs_self_adaptive *arg1 = 0 ;
   pagmo::algorithm *result = 0 ;
@@ -37841,7 +37814,7 @@ SWIGEXPORT int SWIGSTDCALL CSharp_pagmo_mbh_get_thread_safety(void * jarg1) {
 }
 
 
-SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_mbh_get_inner_algorithm__SWIG_0(void * jarg1) {
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_mbh_get_inner_algorithm(void * jarg1) {
   void * jresult ;
   pagmo::mbh *arg1 = 0 ;
   pagmo::algorithm *result = 0 ;
@@ -41191,6 +41164,182 @@ SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_free_form_push_back(void * jarg1) {
 }
 
 
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_pagmo_free_form_num_vertices(void * jarg1) {
+  unsigned int jresult ;
+  pagmo::free_form *arg1 = 0 ;
+  std::size_t result;
+  
+  arg1 = (pagmo::free_form *)jarg1; 
+  {
+    try {
+      result = ((pagmo::free_form const *)arg1)->num_vertices();
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = (unsigned int)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_free_form_get_connections(void * jarg1, unsigned int jarg2) {
+  void * jresult ;
+  pagmo::free_form *arg1 = 0 ;
+  std::size_t arg2 ;
+  std::pair< std::vector< std::size_t >,pagmo::vector_double > result;
+  
+  arg1 = (pagmo::free_form *)jarg1; 
+  arg2 = (std::size_t)jarg2; 
+  {
+    try {
+      result = ((pagmo::free_form const *)arg1)->get_connections(SWIG_STD_MOVE(arg2));
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = new std::pair< std::vector< std::size_t >,pagmo::vector_double >(result); 
+  return jresult;
+}
+
+
+SWIGEXPORT double SWIGSTDCALL CSharp_pagmo_free_form_get_edge_weight(void * jarg1, unsigned int jarg2, unsigned int jarg3) {
+  double jresult ;
+  pagmo::free_form *arg1 = 0 ;
+  std::size_t arg2 ;
+  std::size_t arg3 ;
+  double result;
+  
+  arg1 = (pagmo::free_form *)jarg1; 
+  arg2 = (std::size_t)jarg2; 
+  arg3 = (std::size_t)jarg3; 
+  {
+    try {
+      result = (double)((pagmo::free_form const *)arg1)->get_edge_weight(SWIG_STD_MOVE(arg2),SWIG_STD_MOVE(arg3));
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_free_form_add_edge(void * jarg1, unsigned int jarg2, unsigned int jarg3, double jarg4) {
+  pagmo::free_form *arg1 = 0 ;
+  std::size_t arg2 ;
+  std::size_t arg3 ;
+  double arg4 ;
+  
+  arg1 = (pagmo::free_form *)jarg1; 
+  arg2 = (std::size_t)jarg2; 
+  arg3 = (std::size_t)jarg3; 
+  arg4 = (double)jarg4; 
+  {
+    try {
+      (arg1)->add_edge(SWIG_STD_MOVE(arg2),SWIG_STD_MOVE(arg3),arg4);
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return ; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return ; 
+      };
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_free_form_remove_edge(void * jarg1, unsigned int jarg2, unsigned int jarg3) {
+  pagmo::free_form *arg1 = 0 ;
+  std::size_t arg2 ;
+  std::size_t arg3 ;
+  
+  arg1 = (pagmo::free_form *)jarg1; 
+  arg2 = (std::size_t)jarg2; 
+  arg3 = (std::size_t)jarg3; 
+  {
+    try {
+      (arg1)->remove_edge(SWIG_STD_MOVE(arg2),SWIG_STD_MOVE(arg3));
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return ; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return ; 
+      };
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_free_form_set_weight(void * jarg1, unsigned int jarg2, unsigned int jarg3, double jarg4) {
+  pagmo::free_form *arg1 = 0 ;
+  std::size_t arg2 ;
+  std::size_t arg3 ;
+  double arg4 ;
+  
+  arg1 = (pagmo::free_form *)jarg1; 
+  arg2 = (std::size_t)jarg2; 
+  arg3 = (std::size_t)jarg3; 
+  arg4 = (double)jarg4; 
+  {
+    try {
+      (arg1)->set_weight(SWIG_STD_MOVE(arg2),SWIG_STD_MOVE(arg3),arg4);
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return ; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return ; 
+      };
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_free_form_set_all_weights(void * jarg1, double jarg2) {
+  pagmo::free_form *arg1 = 0 ;
+  double arg2 ;
+  
+  arg1 = (pagmo::free_form *)jarg1; 
+  arg2 = (double)jarg2; 
+  {
+    try {
+      (arg1)->set_all_weights(arg2);
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return ; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return ; 
+      };
+    }
+  }
+}
+
+
 SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_free_form_get_name(void * jarg1) {
   const char * jresult ;
   pagmo::free_form *arg1 = 0 ;
@@ -41200,6 +41349,30 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_free_form_get_name(void * jarg1
   {
     try {
       result = ((pagmo::free_form const *)arg1)->get_name();
+    } catch (const std::exception &e) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_CSharpException(SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  return jresult;
+}
+
+
+SWIGEXPORT const char * SWIGSTDCALL CSharp_pagmo_free_form_get_extra_info(void * jarg1) {
+  const char * jresult ;
+  pagmo::free_form *arg1 = 0 ;
+  std::string result;
+  
+  arg1 = (pagmo::free_form *)jarg1; 
+  {
+    try {
+      result = ((pagmo::free_form const *)arg1)->get_extra_info();
     } catch (const std::exception &e) {
       {
         SWIG_CSharpException(SWIG_RuntimeError, e.what()); return 0; 
@@ -46686,7 +46859,7 @@ SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_nlopt_set_maxtime(void * jarg1, int jar
 }
 
 
-SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_nlopt_get_local_optimizer__SWIG_0(void * jarg1) {
+SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_nlopt_get_local_optimizer(void * jarg1) {
   void * jresult ;
   pagmo::nlopt *arg1 = 0 ;
   pagmo::nlopt *result = 0 ;

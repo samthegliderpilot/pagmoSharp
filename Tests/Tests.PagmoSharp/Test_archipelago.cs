@@ -323,5 +323,19 @@ namespace Tests.PagmoSharp
             Assert.That(archi.status(), Is.EqualTo(EvolveStatus.Idle));
             Assert.That(archi.get_topology_name(), Is.EqualTo("Unconnected"));
         }
+
+        [Test]
+        public void MigrationAndFreeFormTopologyControlsCanBeSet()
+        {
+            using var archi = new archipelago();
+            using var topology = new free_form();
+            topology.push_back();
+            topology.push_back();
+            topology.add_edge(0u, 1u, 0.6);
+
+            archi.set_topology_free_form(topology);
+
+            Assert.That(archi.get_topology_name(), Is.EqualTo("Free form"));
+        }
     }
 }

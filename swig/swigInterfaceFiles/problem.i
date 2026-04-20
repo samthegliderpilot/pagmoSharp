@@ -5,6 +5,7 @@
 %typemap(csclassmodifiers) pagmo::problem "public partial class"
 
 %ignore pagmo::problem::problem(T &&);
+%ignore pagmo::problem::problem(pagmo::problem &&);
 %ignore pagmo::problem::operator=;
 
 class pagmo::problem
@@ -12,7 +13,6 @@ class pagmo::problem
 public:
     problem();
     problem(const pagmo::problem &);
-    problem(pagmo::problem &&) noexcept;
 
     vector_double fitness(const vector_double &) const;
     vector_double batch_fitness(const vector_double &) const;

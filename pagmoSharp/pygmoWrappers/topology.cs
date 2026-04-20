@@ -57,7 +57,7 @@ public partial class topology : global::System.IDisposable {
     }
   }
 
-  public topology(topology arg0) : this(pagmoPINVOKE.new_topology__SWIG_0(topology.getCPtr(arg0)), true) {
+  public topology(topology arg0) : this(pagmoPINVOKE.new_topology(topology.getCPtr(arg0)), true) {
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
   }
 
@@ -93,12 +93,6 @@ public partial class topology : global::System.IDisposable {
   public void push_back(uint arg0) {
     pagmoPINVOKE.topology_push_back__SWIG_1(swigCPtr, arg0);
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
-  }
-
-  public global::System.IntPtr get_ptr() {
-    global::System.IntPtr ret = pagmoPINVOKE.topology_get_ptr__SWIG_0(swigCPtr);
-    if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();
-    return ret;
   }
 
 }

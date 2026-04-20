@@ -123,6 +123,7 @@
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <CompileAsManaged>false</CompileAsManaged>
+      <DisableSpecificWarnings>4251;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <AdditionalIncludeDirectories>$(PagmoVcpkgInstalledDir)\$(PagmoVcpkgTriplet)\include;$(PagmoVcpkgInstalledDir)\$(PagmoVcpkgTriplet)\include\coin-or</AdditionalIncludeDirectories>
       <MultiProcessorCompilation>false</MultiProcessorCompilation>
       <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
@@ -154,6 +155,7 @@ call "$(ProjectDir)..\createSwigWrappersAndPlaceThem.bat"
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <CompileAsManaged>false</CompileAsManaged>
+      <DisableSpecificWarnings>4251;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <AdditionalIncludeDirectories>$(PagmoVcpkgInstalledDir)\$(PagmoVcpkgTriplet)\include;$(PagmoVcpkgInstalledDir)\$(PagmoVcpkgTriplet)\include\coin-or</AdditionalIncludeDirectories>
       <MultiProcessorCompilation>false</MultiProcessorCompilation>
       <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
@@ -185,6 +187,7 @@ call "$(ProjectDir)..\createSwigWrappersAndPlaceThem.bat"
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <CompileAsManaged>false</CompileAsManaged>
+      <DisableSpecificWarnings>4251;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <AdditionalIncludeDirectories>$(PagmoVcpkgInstalledDir)\$(PagmoVcpkgTriplet)\include\eigen3;$(PagmoVcpkgInstalledDir)\$(PagmoVcpkgTriplet)\include;$(PagmoVcpkgInstalledDir)\$(PagmoVcpkgTriplet)\include\coin-or</AdditionalIncludeDirectories>
       <MultiProcessorCompilation>false</MultiProcessorCompilation>
       <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
@@ -215,6 +218,7 @@ call "$(ProjectDir)..\createSwigWrappersAndPlaceThem.bat"</Command>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <CompileAsManaged>false</CompileAsManaged>
+      <DisableSpecificWarnings>4251;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <AdditionalIncludeDirectories>$(PagmoVcpkgInstalledDir)\$(PagmoVcpkgTriplet)\include;$(PagmoVcpkgInstalledDir)\$(PagmoVcpkgTriplet)\include\coin-or</AdditionalIncludeDirectories>
       <MultiProcessorCompilation>false</MultiProcessorCompilation>
       <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
