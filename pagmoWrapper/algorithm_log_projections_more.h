@@ -280,6 +280,28 @@ inline std::vector<IpoptLogEntry> Ipopt_GetLogEntries(const pagmo::ipopt &algo)
 }
 #endif
 
+struct Snopt7LogEntry {
+    unsigned long long major_iterations{};
+    unsigned long long fevals{};
+    double objective{};
+    double infeasibility{};
+    bool feasible{};
+};
+
+#if defined(PAGMO_WITH_SNOPT7)
+#include "pagmo/algorithms/snopt7.hpp"
+inline std::vector<Snopt7LogEntry> Snopt7_GetLogEntries(const pagmo::snopt7 &algo)
+{
+    std::vector<Snopt7LogEntry> entries;
+    const auto &log = algo.get_log();
+    entries.reserve(log.size());
+    for (const auto &line : log) {
+        entries.push_back({std::get<0>(line), std::get<1>(line), std::get<2>(line), std::get<3>(line), std::get<4>(line)});
+    }
+    return entries;
+}
+#endif
+
 inline std::vector<SimulatedAnnealingLogEntry> SimulatedAnnealing_GetLogEntries(const pagmo::simulated_annealing &algo)
 {
     std::vector<SimulatedAnnealingLogEntry> entries;

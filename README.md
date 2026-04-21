@@ -69,6 +69,25 @@ If your `vcpkg.exe` is on `PATH`, you can use:
 vcpkg install coin-or-ipopt:x64-windows
 ```
 
+### Where's SNOPT7?
+SNOPT7 (Stanford's nonlinear programming solver) is proprietary and cannot be bundled with this project.  Users who hold a SNOPT7 license can build Pagmo.NET from source with SNOPT7 support enabled — the `snopt7` class will then be available in the managed assembly.
+
+**To enable SNOPT7:**
+1. Obtain a SNOPT7 license from Stanford University.  Your distribution includes the SNOPT7 C-interface headers (`snopt_cwrap.h` etc.) and a compiled shared library (e.g. `snopt7.dll`).
+2. Build pagmo2 with `-DPAGMO_WITH_SNOPT7=ON` and ensure your SNOPT7 headers are on the include path.  This produces a `pagmo.lib` that contains the SNOPT7 dispatch layer.
+3. Add `#define PAGMO_WITH_SNOPT7` to `swig/pagmo/config.hpp`.
+4. Copy `pagmo/algorithms/snopt7.hpp` from the pagmo2 source tree into `swig/pagmo/algorithms/`.
+5. Run `scripts/regen-swig.ps1` then `scripts/build-native.ps1`.
+6. Build `Pagmo.NET.csproj` — MSBuild detects the generated `snopt7.cs` automatically and activates the C# extension.
+
+**Runtime usage** — pagmo's `snopt7` loads the solver DLL dynamically, so you pass the path to your `snopt7.dll` at construction time and no additional DLL deployment is needed on your end:
+
+```csharp
+using var solver = new snopt7(screenOutput: false, snopt7LibPath: "path/to/snopt7.dll", minorVersion: 6u);
+```
+
+Set `SNOPT7_LIB` to the DLL path to also enable the live execution test in the optional solver test suite.
+
 Also, this is made completely independently of the base pagmo and the team that makes and maintains it.  This is independent of ESA and the original developers of pagmo.
 
 ## VS Code workflow

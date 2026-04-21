@@ -315,6 +315,7 @@ namespace std {
   %template(CompassSearchLogEntryVector) std::vector<pagmoWrap::CompassSearchLogEntry>;
   %template(NloptLogEntryVector)        std::vector<pagmoWrap::NloptLogEntry>;
   %template(IpoptLogEntryVector)        std::vector<pagmoWrap::IpoptLogEntry>;
+  %template(Snopt7LogEntryVector)       std::vector<pagmoWrap::Snopt7LogEntry>;
   %template(SimulatedAnnealingLogEntryVector) std::vector<pagmoWrap::SimulatedAnnealingLogEntry>;
   %template(SgaLogEntryVector)         std::vector<pagmoWrap::SgaLogEntry>;
   %template(SadeLogEntryVector)        std::vector<pagmoWrap::SadeLogEntry>;
@@ -408,6 +409,9 @@ namespace pagmo {
 	#endif
 	#if defined(PAGMO_WITH_NLOPT)
 		%include swigInterfaceFiles\algorithms\nlopt.i
+	#endif
+	#if defined(PAGMO_WITH_SNOPT7)
+		%include swigInterfaceFiles\algorithms\snopt7.i
 	#endif
 	%include swigInterfaceFiles\algorithms\not_population_based.i
 	%include swigInterfaceFiles\algorithms\nspso.i

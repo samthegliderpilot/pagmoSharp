@@ -28,6 +28,11 @@
     <PlatformTarget>x64</PlatformTarget>
   </PropertyGroup>
 
+  <!-- Activate SNOPT7 support automatically when SWIG has generated the snopt7 wrapper. -->
+  <PropertyGroup Condition="Exists('$(MSBuildProjectDirectory)\pygmoWrappers\snopt7.cs')">
+    <DefineConstants>$(DefineConstants);PAGMO_WITH_SNOPT7</DefineConstants>
+  </PropertyGroup>
+
   <ItemGroup>
     <Compile Remove="cPlusPlusFiles\**" />
     <EmbeddedResource Remove="cPlusPlusFiles\**" />

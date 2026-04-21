@@ -39,6 +39,9 @@ namespace pagmo
                 sga simpleGeneticAlgorithm => simpleGeneticAlgorithm.to_algorithm(),
                 simulated_annealing simulatedAnnealing => simulatedAnnealing.to_algorithm(),
                 xnes exponentialNaturalEvolutionStrategy => exponentialNaturalEvolutionStrategy.to_algorithm(),
+#if PAGMO_WITH_SNOPT7
+                snopt7 snopt7Algorithm => snopt7Algorithm.to_algorithm(),
+#endif
                 _ => new algorithm(source)
             };
         }

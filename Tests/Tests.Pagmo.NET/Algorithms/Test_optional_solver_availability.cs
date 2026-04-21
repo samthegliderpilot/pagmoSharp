@@ -37,6 +37,12 @@ public class Test_optional_solver_availability
     }
 
     [Test]
+    public void Snopt7AvailabilityIsExplicit()
+    {
+        AssertOptionalSolverSurface("pagmo.snopt7", "snopt7");
+    }
+
+    [Test]
     public void NloptWhenPresentSupportsConstructAndEvolve()
     {
         var assembly = typeof(algorithm).Assembly;
@@ -167,6 +173,65 @@ public class Test_optional_solver_availability
         Assert.That(statusCode, Is.Not.EqualTo(0), "ipopt status code should reflect a real optimization result after evolve().");
 
         AssertNoSwigTypeLeaksOnPublicSurface(ipoptType);
+    }
+
+    [Test]
+    public void Snopt7WhenPresentSupportsConstructAndEvolve()
+    {
+        var assembly = typeof(algorithm).Assembly;
+        var snopt7Type = assembly.GetType("pagmo.snopt7", throwOnError: false, ignoreCase: false);
+        if (snopt7Type == null)
+        {
+            Assert.Pass("snopt7 is not available in this build.");
+            return;
+        }
+
+        var snopt7Lib = Environment.GetEnvironmentVariable("SNOPT7_LIB");
+        if (string.IsNullOrEmpty(snopt7Lib))
+        {
+            Assert.Pass("SNOPT7_LIB env var not set; skipping live snopt7 execution test.");
+            return;
+        }
+
+        using var managed = new IpoptDifferentiableProblem();
+        using var differentiableProblem = new problem(managed);
+        using var population = new population(differentiableProblem, 1u, 2u);
+
+        using var solver = (IDisposable)Activator.CreateInstance(snopt7Type, false, snopt7Lib, 6u)!;
+        Assert.That(solver, Is.Not.Null, "snopt7 should be constructible when available.");
+
+        var setVerbosity = snopt7Type.GetMethod("set_verbosity", BindingFlags.Public | BindingFlags.Instance);
+        setVerbosity?.Invoke(solver, new object[] { 1u });
+
+        var getName = snopt7Type.GetMethod("get_name", BindingFlags.Public | BindingFlags.Instance);
+        Assert.That(getName, Is.Not.Null);
+        var solverName = (string)getName!.Invoke(solver, Array.Empty<object>())!;
+        Assert.That(solverName, Is.Not.Null.And.Not.Empty);
+
+        var evolve = snopt7Type.GetMethod("evolve", BindingFlags.Public | BindingFlags.Instance);
+        Assert.That(evolve, Is.Not.Null, "snopt7 should expose evolve(population).");
+
+        using var evolved = (population)evolve!.Invoke(solver, new object[] { population })!;
+        Assert.That(evolved, Is.Not.Null, "snopt7 evolve should return an evolved population.");
+        Assert.That(evolved!.size(), Is.EqualTo(population.size()), "evolve() should preserve population size.");
+
+        var setSeed = snopt7Type.GetMethod("set_seed", BindingFlags.Public | BindingFlags.Instance);
+        Assert.That(setSeed, Is.Not.Null);
+        Assert.That(
+            () => setSeed!.Invoke(solver, new object[] { 2u }),
+            Throws.Exception.TypeOf<TargetInvocationException>().With.InnerException.TypeOf<NotSupportedException>());
+
+        var toAlgorithm = snopt7Type.GetMethod("to_algorithm", BindingFlags.Public | BindingFlags.Instance);
+        Assert.That(toAlgorithm, Is.Not.Null, "snopt7 should expose to_algorithm() for type-erased flows.");
+
+        using var erased = (algorithm)toAlgorithm!.Invoke(solver, Array.Empty<object>())!;
+        Assert.That(erased, Is.Not.Null);
+        Assert.That(erased!.get_name(), Is.Not.Empty);
+
+        var getLogLines = snopt7Type.GetMethod("GetLogLines", BindingFlags.Public | BindingFlags.Instance);
+        Assert.That(getLogLines, Is.Not.Null, "snopt7 should expose shared algorithm log projection.");
+
+        AssertNoSwigTypeLeaksOnPublicSurface(snopt7Type);
     }
 
     private static void AssertOptionalSolverSurface(string fullTypeName, string solverName)

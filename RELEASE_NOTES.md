@@ -23,7 +23,8 @@ All major pagmo algorithms are wrapped with typed extension helpers and log proj
 `sade`, `sea`, `sga`, `simulated_annealing`, `xnes`.
 
 Optional/feature-gated solvers: `ipopt`, `nlopt` (build-dependent; availability is
-asserted by tests).
+asserted by tests).  `snopt7` is supported for users who build from source with their
+own SNOPT7 license; see README for build instructions.
 
 All built-in benchmark problems are wrapped: `ackley`, `cec2006/2009/2013/2014`, `decompose`,
 `dtlz`, `golomb_ruler`, `griewank`, `hock_schittkowski_71`, `inventory`, `lennard_jones`,
