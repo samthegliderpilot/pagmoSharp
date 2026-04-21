@@ -9,6 +9,9 @@ internal static class OrbitalMechanics
     /// <summary>Earth gravitational parameter (km³/s²).</summary>
     public const double EarthGm = 398600.4418;
 
+    private const int KeplerMaxIterations = 50;
+    private const double KeplerTolerance = 1e-12;
+
     /// <summary>
     /// Returns the true anomaly after coasting for <paramref name="duration"/>
     /// time units using Kepler's equation.
@@ -30,12 +33,12 @@ internal static class OrbitalMechanics
 
         // Solve Kepler's equation M = E - e*sin(E) via Newton-Raphson
         double E1 = M1;
-        for (int iter = 0; iter < 50; iter++)
+        for (int iter = 0; iter < KeplerMaxIterations; iter++)
         {
             double dE = (M1 - E1 + eccentricity * Math.Sin(E1)) /
                         (1.0 - eccentricity * Math.Cos(E1));
             E1 += dE;
-            if (Math.Abs(dE) < 1e-12)
+            if (Math.Abs(dE) < KeplerTolerance)
                 break;
         }
 

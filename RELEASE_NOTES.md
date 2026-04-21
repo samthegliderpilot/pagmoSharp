@@ -65,7 +65,6 @@ Notable type renames from internal pre-release names:
 
 ### Known Limitations
 
-- **Windows x64 only** - Linux/CMake build support is planned for v1.x/v2.
 - **Thread-clone strategy** - Managed problems reporting `ThreadSafety.None` are rejected on
   threaded execution paths (`thread_bfe`, `archipelago` with managed UDPs). A per-thread clone
   strategy (`IThreadCloneableProblem`) is being evaluated for a later release.
@@ -77,9 +76,12 @@ Notable type renames from internal pre-release names:
 | Windows x64, .NET 8 | Supported |
 | Windows x64, IPOPT enabled | Feature-gated (vcpkg `coin-or-ipopt:x64-windows`) |
 | Windows x64, NLopt enabled | Feature-gated (vcpkg `nlopt:x64-windows`) |
-| Linux | Planned post-v1 |
+| Linux x64, .NET 8 | Supported — CMake build via `pagmoWrapper/CMakeLists.txt` |
+| Linux x64, IPOPT enabled | Feature-gated (vcpkg `coin-or-ipopt:x64-linux`, CMake `-DPAGMO_WITH_IPOPT=ON`) |
+| Linux x64, NLopt enabled | Feature-gated (vcpkg `nlopt:x64-linux`, CMake `-DPAGMO_WITH_NLOPT=ON`) |
 | .NET Framework | Not supported |
 | x86 / ARM | Not supported in v1 |
+| macOS | Not supported in v1 |
 
 Repo note:
 - The shipped library/package target is `.NET 8`.

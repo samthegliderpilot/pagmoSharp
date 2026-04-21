@@ -17,7 +17,11 @@
 #include "algorithm_callback.h"
 
 #ifndef PAGMONET_EXPORT
-#define PAGMONET_EXPORT __declspec(dllexport)
+  #if defined(_WIN32) || defined(_WIN64)
+    #define PAGMONET_EXPORT __declspec(dllexport)
+  #else
+    #define PAGMONET_EXPORT __attribute__((visibility("default")))
+  #endif
 #endif
 
 extern "C" {

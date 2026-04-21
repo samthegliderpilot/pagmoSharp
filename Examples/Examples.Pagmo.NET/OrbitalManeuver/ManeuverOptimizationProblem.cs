@@ -27,6 +27,8 @@ internal sealed class ManeuverOptimizationProblem : ManagedProblemBase
     private readonly double[] _upper;
     private readonly double _mu;
 
+    private const int VariablesPerBurn = 4;
+
     /// <param name="initial">Initial orbital elements.</param>
     /// <param name="t0">Initial epoch (same units as coast durations).</param>
     /// <param name="numBurns">Number of coast-and-burn segments.</param>
@@ -49,15 +51,15 @@ internal sealed class ManeuverOptimizationProblem : ManagedProblemBase
         _target = target;
         _mu = mu;
 
-        int n = numBurns * 4;
+        int n = numBurns * VariablesPerBurn;
         _lower = new double[n];
         _upper = new double[n];
         for (int b = 0; b < numBurns; b++)
         {
-            _lower[b * 4 + 0] = 0.0;            _upper[b * 4 + 0] = maxCoastDuration;
-            _lower[b * 4 + 1] = -maxDeltaV;     _upper[b * 4 + 1] = maxDeltaV;
-            _lower[b * 4 + 2] = -maxDeltaV;     _upper[b * 4 + 2] = maxDeltaV;
-            _lower[b * 4 + 3] = -maxDeltaV;     _upper[b * 4 + 3] = maxDeltaV;
+            _lower[b * VariablesPerBurn + 0] = 0.0;            _upper[b * VariablesPerBurn + 0] = maxCoastDuration;
+            _lower[b * VariablesPerBurn + 1] = -maxDeltaV;     _upper[b * VariablesPerBurn + 1] = maxDeltaV;
+            _lower[b * VariablesPerBurn + 2] = -maxDeltaV;     _upper[b * VariablesPerBurn + 2] = maxDeltaV;
+            _lower[b * VariablesPerBurn + 3] = -maxDeltaV;     _upper[b * VariablesPerBurn + 3] = maxDeltaV;
         }
     }
 
@@ -80,25 +82,27 @@ internal sealed class ManeuverOptimizationProblem : ManagedProblemBase
         foreach (var b in burns)
             totalDv += b.TotalDeltaV;
 
-        var f = new List<double> { totalDv };
+        var f = new double[1 + _target.ConstraintCount];
+        f[0] = totalDv;
+        int fi = 1;
 
         // Equality constraint residuals — each should be zero at the optimum.
         if (_target.SemiMajorAxis.HasValue)
-            f.Add(final.SemiMajorAxis - _target.SemiMajorAxis.Value);
+            f[fi++] = final.SemiMajorAxis - _target.SemiMajorAxis.Value;
         if (_target.Eccentricity.HasValue)
-            f.Add(final.Eccentricity - _target.Eccentricity.Value);
+            f[fi++] = final.Eccentricity - _target.Eccentricity.Value;
         if (_target.Inclination.HasValue)
-            f.Add(final.Inclination - _target.Inclination.Value);
+            f[fi++] = final.Inclination - _target.Inclination.Value;
         if (_target.Raan.HasValue)
-            f.Add(final.Raan - _target.Raan.Value);
+            f[fi++] = final.Raan - _target.Raan.Value;
         if (_target.ArgumentOfPeriapsis.HasValue)
-            f.Add(final.ArgumentOfPeriapsis - _target.ArgumentOfPeriapsis.Value);
+            f[fi++] = final.ArgumentOfPeriapsis - _target.ArgumentOfPeriapsis.Value;
         if (_target.TrueAnomaly.HasValue)
-            f.Add(NormalizeAngle(final.TrueAnomaly - _target.TrueAnomaly.Value));
+            f[fi++] = NormalizeAngle(final.TrueAnomaly - _target.TrueAnomaly.Value);
         if (_target.TotalTime.HasValue)
-            f.Add((finalTime - _t0) - _target.TotalTime.Value);
+            f[fi] = (finalTime - _t0) - _target.TotalTime.Value;
 
-        return Vec(f.ToArray());
+        return Vec(f);
     }
 
     // -------------------------------------------------------------------------
@@ -109,19 +113,19 @@ internal sealed class ManeuverOptimizationProblem : ManagedProblemBase
         for (int b = 0; b < _numBurns; b++)
         {
             burns[b] = new CoastAndBurn(
-                CoastDuration: x[b * 4 + 0],
-                DvRadial:      x[b * 4 + 1],
-                DvInTrack:     x[b * 4 + 2],
-                DvCrossTrack:  x[b * 4 + 3]);
+                CoastDuration: x[b * VariablesPerBurn + 0],
+                DvRadial:      x[b * VariablesPerBurn + 1],
+                DvInTrack:     x[b * VariablesPerBurn + 2],
+                DvCrossTrack:  x[b * VariablesPerBurn + 3]);
         }
         return burns;
     }
 
-    /// <summary>Wraps an angle difference into (-π, π].</summary>
     private static double NormalizeAngle(double delta)
     {
-        while (delta > Math.PI)  delta -= 2.0 * Math.PI;
-        while (delta < -Math.PI) delta += 2.0 * Math.PI;
+        delta = delta % (2.0 * Math.PI);
+        if (delta > Math.PI)  delta -= 2.0 * Math.PI;
+        if (delta < -Math.PI) delta += 2.0 * Math.PI;
         return delta;
     }
 }

@@ -23,16 +23,44 @@ you reference in your application.
 
 ## Build requirements (contributors / from source)
 
-**Requirements for library consumers/building the package:**
-- Windows x64
+### Windows x64
+
 - .NET 8 SDK
-- pagmo2 (headers and binaries) - install via `vcpkg install pagmo2:x64-windows`
-- SWIG 4.4.x (for wrapper regeneration only - pre-generated wrappers are checked in)
+- pagmo2 (headers and binaries) — install via `vcpkg install pagmo2:x64-windows`
+- SWIG 4.4.x (for wrapper regeneration only — pre-generated wrappers are checked in)
 - Visual Studio 2022 / Build Tools 2022 (C++ toolchain)
 
 To regenerate SWIG wrappers after editing the interface file, run
-`createSwigWrappersAndPlaceThem.bat` from the repo root (SWIG resolution via `SWIG_EXE`,
-`SWIG_HOME`, or `PATH`). The C++ project runs this as a pre-build step automatically.
+`pwsh createSwigWrappersAndPlaceThem.ps1` from the repo root (SWIG resolution via `SWIG_EXE`,
+`SWIG_HOME`, or `PATH`). The legacy `createSwigWrappersAndPlaceThem.bat` is also preserved for
+environments without PowerShell Core.
+
+### Linux x64
+
+- .NET 8 SDK
+- PowerShell Core 7+ (`pwsh`) — cross-platform build scripts require it
+- CMake >= 3.20
+- SWIG 4.4.x
+- pagmo2 via vcpkg: `vcpkg install pagmo2:x64-linux`
+- Optional: `vcpkg install nlopt:x64-linux` / `coin-or-ipopt:x64-linux`
+
+Build steps:
+
+```bash
+# 1. Regenerate SWIG wrappers (only needed when .i files change; pre-generated are checked in)
+pwsh scripts/regen-swig.ps1
+
+# 2. Build the native shared library
+pwsh scripts/build-native.ps1 -Configuration Release
+
+# 3. Build and test the managed assembly
+dotnet build Pagmo.NET/Pagmo.NET.csproj
+dotnet test Tests/Tests.Pagmo.NET/Tests.Pagmo.NET.csproj
+```
+
+`build-native.ps1` detects the platform: on Linux it runs CMake against
+`pagmoWrapper/CMakeLists.txt`; on Windows it uses MSBuild. The vcpkg toolchain file
+is picked up automatically from `$VCPKG_ROOT` if set.
 
 ## FAQ
 
@@ -259,7 +287,7 @@ powershell -ExecutionPolicy Bypass -File scripts/build-release-artifacts.ps1 -Ve
 | Topology wrappers (`ring`, `fully_connected`, `unconnected`, `free_form`) | Supported | Managed projection helpers are provided and tested. |
 | Optional solver wrapper (`ipopt`) | Feature-gated | Build-dependent; availability/runtime behavior (construct/evolve/type-erasure/log projection) is validated when IPOPT is present. |
 | Optional solver wrapper (`nlopt`) | Feature-gated | Build-dependent; availability is asserted by test and runtime wrapper behavior is validated when present. |
-| Linux/CMake build flow | Planned post-v1 | Windows-first v1 release track; Linux/CMake is a later sprint. |
+| Linux/CMake build flow | Supported | `pagmoWrapper/CMakeLists.txt` + `scripts/build-native.ps1` (pwsh); `scripts/regen-swig.ps1` cross-platform via `createSwigWrappersAndPlaceThem.ps1`. |
 
 ## Code style preferences
 

@@ -230,6 +230,8 @@ public class Test_optional_solver_availability
 
         var getLogLines = snopt7Type.GetMethod("GetLogLines", BindingFlags.Public | BindingFlags.Instance);
         Assert.That(getLogLines, Is.Not.Null, "snopt7 should expose shared algorithm log projection.");
+        var lines = (System.Collections.IEnumerable)getLogLines!.Invoke(solver, Array.Empty<object>())!;
+        Assert.That(lines, Is.Not.Null);
 
         AssertNoSwigTypeLeaksOnPublicSurface(snopt7Type);
     }

@@ -328,8 +328,8 @@ namespace std {
   %template(MbhLogEntryVector)         std::vector<pagmoWrap::MbhLogEntry>;
 }
 
-%include swigInterfaceFiles\island.i
-%include swigInterfaceFiles\islands\thread_island.i
+%include swigInterfaceFiles/island.i
+%include swigInterfaceFiles/islands\thread_island.i
 	namespace pagmo {
 		%typemap(csclassmodifiers) pagmo::DoubleVector "public partial class"
 		%typemap(csclassmodifiers) pagmo::VectorDoubleVector "public partial class"
@@ -366,92 +366,92 @@ namespace std {
 		preserve, ///< Preserve migrants in the database.
 		evict     ///< Evict migrants from the database.
 	};
-		%include swigInterfaceFiles\problem.i
-		%include swigInterfaceFiles\population.i
+		%include swigInterfaceFiles/problem.i
+		%include swigInterfaceFiles/population.i
 	
-	%include swigInterfaceFiles\bfe.i
+	%include swigInterfaceFiles/bfe.i
 	//NOTE: pagmo.hpp, threading.hpp and types.hpp are not really needed
-	%include swigInterfaceFiles\io.i
-	%include swigInterfaceFiles\rng.i
-	//%include swigInterfaceFiles\r_policy.i // needs the director/problem treatment
-	%include swigInterfaceFiles\topology.i
+	%include swigInterfaceFiles/io.i
+	%include swigInterfaceFiles/rng.i
+	//%include swigInterfaceFiles/r_policy.i // needs the director/problem treatment
+	%include swigInterfaceFiles/topology.i
 
 }; // end of pagmo namespace (segment 1)
 
-	%include swigInterfaceFiles\algorithms\cstrs_self_adaptive.i
-	%include swigInterfaceFiles\algorithms\ihs.i
-		%include swigInterfaceFiles\algorithms\maco.i
-		%include swigInterfaceFiles\algorithms\mbh.i
-		%include swigInterfaceFiles\algorithms\moead.i
-		%include swigInterfaceFiles\algorithms\moead_gen.i
-		%include swigInterfaceFiles\algorithms\nsga2.i
-		%include swigInterfaceFiles\batch_evaluators\default_bfe.i
-		%include swigInterfaceFiles\batch_evaluators\member_bfe.i
-		%include swigInterfaceFiles\batch_evaluators\thread_bfe.i
-		%include swigInterfaceFiles\r_policies\fair_replace.i
-		%include swigInterfaceFiles\s_policies\select_best.i
-		%include swigInterfaceFiles\topologies\unconnected.i
-		%include swigInterfaceFiles\topologies\fully_connected.i
-		%include swigInterfaceFiles\topologies\ring.i
-		%include swigInterfaceFiles\topologies\free_form.i
-		%include swigInterfaceFiles\utils\hv_algos\hv_algorithm.i
-		%include swigInterfaceFiles\utils\hypervolume.i
+	%include swigInterfaceFiles/algorithms\cstrs_self_adaptive.i
+	%include swigInterfaceFiles/algorithms\ihs.i
+		%include swigInterfaceFiles/algorithms\maco.i
+		%include swigInterfaceFiles/algorithms\mbh.i
+		%include swigInterfaceFiles/algorithms\moead.i
+		%include swigInterfaceFiles/algorithms\moead_gen.i
+		%include swigInterfaceFiles/algorithms\nsga2.i
+		%include swigInterfaceFiles/batch_evaluators\default_bfe.i
+		%include swigInterfaceFiles/batch_evaluators\member_bfe.i
+		%include swigInterfaceFiles/batch_evaluators\thread_bfe.i
+		%include swigInterfaceFiles/r_policies\fair_replace.i
+		%include swigInterfaceFiles/s_policies\select_best.i
+		%include swigInterfaceFiles/topologies\unconnected.i
+		%include swigInterfaceFiles/topologies\fully_connected.i
+		%include swigInterfaceFiles/topologies\ring.i
+		%include swigInterfaceFiles/topologies\free_form.i
+		%include swigInterfaceFiles/utils\hv_algos\hv_algorithm.i
+		%include swigInterfaceFiles/utils\hypervolume.i
 
 namespace pagmo {
-	%include swigInterfaceFiles\algorithms\cmaes.i
-	%include swigInterfaceFiles\algorithms\compass_search.i		
-	%include swigInterfaceFiles\algorithms\de.i
-		%include swigInterfaceFiles\algorithms\de1220.i
-		%include swigInterfaceFiles\algorithms\gaco.i
-		%include swigInterfaceFiles\algorithms\gwo.i
+	%include swigInterfaceFiles/algorithms\cmaes.i
+	%include swigInterfaceFiles/algorithms\compass_search.i		
+	%include swigInterfaceFiles/algorithms\de.i
+		%include swigInterfaceFiles/algorithms\de1220.i
+		%include swigInterfaceFiles/algorithms\gaco.i
+		%include swigInterfaceFiles/algorithms\gwo.i
 	#if defined(PAGMO_WITH_IPOPT)
-		%include swigInterfaceFiles\algorithms\ipopt.i
+		%include swigInterfaceFiles/algorithms\ipopt.i
 	#endif
 	#if defined(PAGMO_WITH_NLOPT)
-		%include swigInterfaceFiles\algorithms\nlopt.i
+		%include swigInterfaceFiles/algorithms\nlopt.i
 	#endif
 	#if defined(PAGMO_WITH_SNOPT7)
-		%include swigInterfaceFiles\algorithms\snopt7.i
+		%include swigInterfaceFiles/algorithms\snopt7.i
 	#endif
-	%include swigInterfaceFiles\algorithms\not_population_based.i
-	%include swigInterfaceFiles\algorithms\nspso.i
-	%include swigInterfaceFiles\algorithms\null_algorithm.i
-	%include swigInterfaceFiles\algorithms\pso.i
-	%include swigInterfaceFiles\algorithms\pso_gen.i
-	%include swigInterfaceFiles\algorithms\sea.i
-	%include swigInterfaceFiles\algorithms\simulated_annealing.i
-	%include swigInterfaceFiles\algorithms\sade.i
-	%include swigInterfaceFiles\algorithms\sga.i
-	%include swigInterfaceFiles\algorithms\xnes.i
+	%include swigInterfaceFiles/algorithms\not_population_based.i
+	%include swigInterfaceFiles/algorithms\nspso.i
+	%include swigInterfaceFiles/algorithms\null_algorithm.i
+	%include swigInterfaceFiles/algorithms\pso.i
+	%include swigInterfaceFiles/algorithms\pso_gen.i
+	%include swigInterfaceFiles/algorithms\sea.i
+	%include swigInterfaceFiles/algorithms\simulated_annealing.i
+	%include swigInterfaceFiles/algorithms\sade.i
+	%include swigInterfaceFiles/algorithms\sga.i
+	%include swigInterfaceFiles/algorithms\xnes.i
 
-		//%include swigInterfaceFiles\detail\base_sr_policy.i // not sure if this is needed, and with no public constructors...
-		//%include swigInterfaceFiles\detail\bfe_impl.i // not sure if this is needed, and with no public constructors...
+		//%include swigInterfaceFiles/detail\base_sr_policy.i // not sure if this is needed, and with no public constructors...
+		//%include swigInterfaceFiles/detail\bfe_impl.i // not sure if this is needed, and with no public constructors...
 
 
 	}; // end of pagmo namespace
 
-	%include swigInterfaceFiles\problems\ackley.i
-	%include swigInterfaceFiles\problems\cec2006.i
-	%include swigInterfaceFiles\problems\cec2009.i
-	%include swigInterfaceFiles\problems\cec2013.i
-	%include swigInterfaceFiles\problems\cec2014.i
-	%include swigInterfaceFiles\problems\decompose.i
-	%include swigInterfaceFiles\problems\dtlz.i
-	%include swigInterfaceFiles\problems\hock_schittkowski_71.i
-	%include swigInterfaceFiles\problems\golomb_ruler.i
-	%include swigInterfaceFiles\problems\griewank.i
-	%include swigInterfaceFiles\problems\inventory.i
-	%include swigInterfaceFiles\problems\lennard_jones.i
-	%include swigInterfaceFiles\problems\luksan_vlcek1.i
-	%include swigInterfaceFiles\problems\minlp_rastrigin.i
-	%include swigInterfaceFiles\problems\null_problem.i
-	%include swigInterfaceFiles\problems\rosenbrock.i
-	%include swigInterfaceFiles\problems\schwefel.i
-	%include swigInterfaceFiles\problems\rastrigin.i
-	%include swigInterfaceFiles\problems\translate.i
-	%include swigInterfaceFiles\problems\unconstrain.i
-	%include swigInterfaceFiles\problems\wfg.i
-	%include swigInterfaceFiles\problems\zdt.i
+	%include swigInterfaceFiles/problems\ackley.i
+	%include swigInterfaceFiles/problems\cec2006.i
+	%include swigInterfaceFiles/problems\cec2009.i
+	%include swigInterfaceFiles/problems\cec2013.i
+	%include swigInterfaceFiles/problems\cec2014.i
+	%include swigInterfaceFiles/problems\decompose.i
+	%include swigInterfaceFiles/problems\dtlz.i
+	%include swigInterfaceFiles/problems\hock_schittkowski_71.i
+	%include swigInterfaceFiles/problems\golomb_ruler.i
+	%include swigInterfaceFiles/problems\griewank.i
+	%include swigInterfaceFiles/problems\inventory.i
+	%include swigInterfaceFiles/problems\lennard_jones.i
+	%include swigInterfaceFiles/problems\luksan_vlcek1.i
+	%include swigInterfaceFiles/problems\minlp_rastrigin.i
+	%include swigInterfaceFiles/problems\null_problem.i
+	%include swigInterfaceFiles/problems\rosenbrock.i
+	%include swigInterfaceFiles/problems\schwefel.i
+	%include swigInterfaceFiles/problems\rastrigin.i
+	%include swigInterfaceFiles/problems\translate.i
+	%include swigInterfaceFiles/problems\unconstrain.i
+	%include swigInterfaceFiles/problems\wfg.i
+	%include swigInterfaceFiles/problems\zdt.i
 
 %define PAGMONET_PROBLEM_TO_PROBLEM(TYPE_NAME)
 %extend pagmo::TYPE_NAME {
@@ -485,11 +485,11 @@ PAGMONET_PROBLEM_TO_PROBLEM(unconstrain)
 PAGMONET_PROBLEM_TO_PROBLEM(wfg)
 PAGMONET_PROBLEM_TO_PROBLEM(zdt)
 
-	//%include swigInterfaceFiles\utils\gradients_and_hessians.i // I couldn't get this to translate through swig so I just recreated the functions in C#
-	%include swigInterfaceFiles\utils\multi_objective.i
-%include swigInterfaceFiles\algorithm.i
-%include swigInterfaceFiles\algorithms\bee_colony.i
-%include swigInterfaceFiles\archipelago.i
+	//%include swigInterfaceFiles/utils\gradients_and_hessians.i // I couldn't get this to translate through swig so I just recreated the functions in C#
+	%include swigInterfaceFiles/utils\multi_objective.i
+%include swigInterfaceFiles/algorithm.i
+%include swigInterfaceFiles/algorithms\bee_colony.i
+%include swigInterfaceFiles/archipelago.i
 
 // Remaining wrapper backlog and prioritization are tracked in .ai/ROADMAP.md.
 // Keep this interface focused on active binding definitions to reduce stale drift.
