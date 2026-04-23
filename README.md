@@ -1,11 +1,10 @@
 # Pagmo.NET
 
-**Pagmo.NET** is a .NET 8 C# wrapper for [pagmo2](https://esa.github.io/pagmo2/), a C++ library
+**Pagmo.NET** is a C# wrapper for [pagmo2](https://esa.github.io/pagmo2/), a C++ library
 providing high-quality metaheuristic and gradient-based optimization routines with multi-island
 parallel evolution support.
 
-The wrapper is built with [SWIG 4.4](https://www.swig.org/) and targets Windows x64 (v1.0).
-Linux/CMake support is planned post-v1.
+The wrapper is built with [SWIG 4.4](https://www.swig.org/) and supports Windows x64 and Linux x64.
 
 ## Installation
 
@@ -25,7 +24,7 @@ you reference in your application.
 
 ### Windows x64
 
-- .NET 8 SDK
+- .NET 10 SDK
 - pagmo2 (headers and binaries) — install via `vcpkg install pagmo2:x64-windows`
 - SWIG 4.4.x (for wrapper regeneration only — pre-generated wrappers are checked in)
 - Visual Studio 2022 / Build Tools 2022 (C++ toolchain)
@@ -37,30 +36,50 @@ environments without PowerShell Core.
 
 ### Linux x64
 
-- .NET 8 SDK
-- PowerShell Core 7+ (`pwsh`) — cross-platform build scripts require it
-- CMake >= 3.20
-- SWIG 4.4.x
-- pagmo2 via vcpkg: `vcpkg install pagmo2:x64-linux`
-- Optional: `vcpkg install nlopt:x64-linux` / `coin-or-ipopt:x64-linux`
+Verified on Ubuntu 24.04 / Linux Mint 22.1.
 
-Build steps:
+**Required packages:**
 
 ```bash
-# 1. Regenerate SWIG wrappers (only needed when .i files change; pre-generated are checked in)
-pwsh scripts/regen-swig.ps1
+# Build tools and pagmo2 (via apt — vcpkg not needed)
+sudo apt install -y cmake build-essential swig libpagmo-dev
 
-# 2. Build the native shared library
-pwsh scripts/build-native.ps1 -Configuration Release
+# .NET 10 SDK (net10.0 required for full test discovery on Linux)
+# On Ubuntu 24.04, pin to Ubuntu's repo to avoid package conflicts:
+sudo tee /etc/apt/preferences.d/dotnet-ubuntu << 'EOF'
+Package: dotnet* aspnetcore*
+Pin: release o=Ubuntu
+Pin-Priority: 1001
+EOF
+sudo apt update && sudo apt install -y dotnet-sdk-10.0
 
-# 3. Build and test the managed assembly
-dotnet build Pagmo.NET/Pagmo.NET.csproj
-dotnet test Tests/Tests.Pagmo.NET/Tests.Pagmo.NET.csproj
+# PowerShell Core (for VS Code tasks and build scripts)
+wget -q https://packages.microsoft.com/config/ubuntu/24.04/packages-microsoft-prod.deb -O ms-prod.deb
+sudo dpkg -i ms-prod.deb && sudo apt update && sudo apt install -y powershell
 ```
 
-`build-native.ps1` detects the platform: on Linux it runs CMake against
-`pagmoWrapper/CMakeLists.txt`; on Windows it uses MSBuild. The vcpkg toolchain file
-is picked up automatically from `$VCPKG_ROOT` if set.
+**Build and test:**
+
+```bash
+# 1. Build the native shared library (no optional solvers needed for baseline)
+cmake -B pagmoWrapper/build -S pagmoWrapper -DCMAKE_BUILD_TYPE=Debug
+cmake --build pagmoWrapper/build
+
+# 2. Run the full test suite (593 tests)
+dotnet test Tests/Tests.Pagmo.NET/Tests.Pagmo.NET.csproj -p:Platform=x64
+
+# 3. Run the examples
+dotnet run --project Examples/Examples.Pagmo.NET/Examples.Pagmo.NET.csproj -- all
+```
+
+SWIG wrapper regeneration (`pwsh scripts/regen-swig.ps1`) is only needed when editing `.i`
+files — the generated wrappers are checked in. SWIG 4.2 (Ubuntu default) works for
+regeneration; the committed wrappers were generated with 4.4 but are functionally identical.
+
+**Optional solver note:** The apt-packaged `libpagmo.so` does not include NLopt or IPOPT
+support. The `OptionalSolverAvailability.IsNloptAvailable` / `IsIpoptAvailable` properties
+in the managed library detect this at runtime so tests correctly self-exclude rather than
+crash. See `.ai/LINUX_TESTING_HANDOFF.md` for the full troubleshooting guide.
 
 ## FAQ
 
@@ -120,30 +139,38 @@ Also, this is made completely independently of the base pagmo and the team that 
 
 ## VS Code workflow
 
-Repo now includes VS Code tasks/launch config in `.vscode/`:
+Repo includes VS Code tasks and launch configs in `.vscode/`:
 
 - `Pagmo.NET: regenerate SWIG wrappers`
 - `Pagmo.NET: build native (Debug x64)`
 - `Pagmo.NET: build tests (Debug x64)`
+- `Pagmo.NET: build examples (Debug x64)`
 - `Pagmo.NET: test (Debug x64)`
 
-Native build task uses `scripts/build-native.ps1` and finds `MSBuild.exe` via `vswhere`.
-SWIG regen task uses `scripts/regen-swig.ps1`.
-Test build/run tasks use `scripts/test.ps1` with staged execution (`build` then `test`).
+All tasks use `pwsh` (PowerShell Core), which works on both Windows and Linux. The native
+build task calls `scripts/build-native.ps1`, which uses MSBuild on Windows and CMake on Linux.
 
-### Requirements for local VS Code test runs
+**Launch configs:**
+
+- `Pagmo.NET: Run Tests` — runs the full test suite
+- `Pagmo.NET: Debug Examples` — launches the examples project with full C# breakpoint support
+
+### Requirements — Windows
 
 - Visual Studio Build Tools 2022 (or VS 2022) with MSBuild + C++ toolchain
-- .NET SDK
-  Consumer/package target: `net8.0`
-  Repo-internal test/examples/docs tooling may use a newer SDK during development
-- NuGet connectivity
-- `pagmo2` headers/libs available at paths configured in `pagmoWrapper/pagmoWrapper.vcxproj`
-- VS Code extensions:
-  - `ms-dotnettools.csharp`
-  - `ms-dotnettools.csdevkit`
-  - `ms-vscode.cpptools`
-  - `ms-vscode.powershell`
+- .NET 10 SDK
+- PowerShell Core (`pwsh`)
+- `pagmo2` headers/libs via vcpkg (`vcpkg install pagmo2:x64-windows`)
+- VS Code extensions: `ms-dotnettools.csharp`, `ms-dotnettools.csdevkit`, `ms-vscode.cpptools`, `ms-vscode.powershell`
+
+### Requirements — Linux
+
+- cmake, build-essential, swig, libpagmo-dev (via apt — see Linux build section above)
+- .NET 10 SDK
+- PowerShell Core (`pwsh`)
+- VS Code extensions: `ms-dotnettools.csharp`, `ms-dotnettools.csdevkit`, `ms-vscode.cpptools`, `ms-vscode.powershell`
+
+Build the native library first (`cmake -B pagmoWrapper/build -S pagmoWrapper && cmake --build pagmoWrapper/build`) before using VS Code tasks, as the tasks depend on it existing.
 
 ### Configurable tool/include paths
 
@@ -224,15 +251,15 @@ Notes:
 
 A dedicated non-test examples project is available at `Examples/Examples.Pagmo.NET`.
 
-Run all scenarios:
+Run all scenarios (works on Windows and Linux):
 
-```powershell
+```bash
 dotnet run --project Examples/Examples.Pagmo.NET/Examples.Pagmo.NET.csproj -- all
 ```
 
 Run individual scenarios:
 
-```powershell
+```bash
 dotnet run --project Examples/Examples.Pagmo.NET/Examples.Pagmo.NET.csproj -- single
 dotnet run --project Examples/Examples.Pagmo.NET/Examples.Pagmo.NET.csproj -- archipelago
 dotnet run --project Examples/Examples.Pagmo.NET/Examples.Pagmo.NET.csproj -- policies
@@ -251,8 +278,11 @@ Concept-first walkthroughs live in `docs/` and link directly to runnable source:
 
 Smoke-check all documented scenarios:
 
-```powershell
+```bash
+# Windows
 powershell -ExecutionPolicy Bypass -File scripts/docs-smoke.ps1
+# Linux
+pwsh scripts/docs-smoke.ps1
 ```
 
 This verifies docs-backed scenarios (`single`, `archipelago`, `policies`) against `Examples/Examples.Pagmo.NET`.
@@ -261,8 +291,11 @@ This verifies docs-backed scenarios (`single`, `archipelago`, `policies`) agains
 
 Run the consolidated release-readiness gate script:
 
-```powershell
+```bash
+# Windows
 powershell -ExecutionPolicy Bypass -File scripts/release-gates.ps1
+# Linux
+pwsh scripts/release-gates.ps1
 ```
 
 This performs:
@@ -273,8 +306,11 @@ This performs:
 
 Build beta/release artifacts (NuGet + native runtime bundle + source archive + checksums):
 
-```powershell
+```bash
+# Windows
 powershell -ExecutionPolicy Bypass -File scripts/build-release-artifacts.ps1 -Version 1.0.0-beta.1
+# Linux
+pwsh scripts/build-release-artifacts.ps1 -Version 1.0.0-beta.1
 ```
 ## Supported feature matrix (current state)
 
@@ -287,7 +323,7 @@ powershell -ExecutionPolicy Bypass -File scripts/build-release-artifacts.ps1 -Ve
 | Topology wrappers (`ring`, `fully_connected`, `unconnected`, `free_form`) | Supported | Managed projection helpers are provided and tested. |
 | Optional solver wrapper (`ipopt`) | Feature-gated | Build-dependent; availability/runtime behavior (construct/evolve/type-erasure/log projection) is validated when IPOPT is present. |
 | Optional solver wrapper (`nlopt`) | Feature-gated | Build-dependent; availability is asserted by test and runtime wrapper behavior is validated when present. |
-| Linux/CMake build flow | Supported | `pagmoWrapper/CMakeLists.txt` + `scripts/build-native.ps1` (pwsh); `scripts/regen-swig.ps1` cross-platform via `createSwigWrappersAndPlaceThem.ps1`. |
+| Linux/CMake build flow | Supported | Verified on Ubuntu 24.04 / Linux Mint 22.1. Uses apt-packaged pagmo2; `cmake` direct or via `scripts/build-native.ps1 (pwsh)`. All 593 tests pass with .NET 10 SDK. See README Linux section and `.ai/LINUX_TESTING_HANDOFF.md`. |
 
 ## Code style preferences
 

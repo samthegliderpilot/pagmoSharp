@@ -2153,6 +2153,7 @@ SWIGINTERN void std_vector_Sl_pagmoWrap_CompassSearchLogEntry_Sg__SetRange(std::
           throw std::out_of_range("index");
         std::copy(values.begin(), values.end(), self->begin()+index);
       }
+#if defined(PAGMO_WITH_NLOPT)
 SWIGINTERN std::vector< pagmoWrap::NloptLogEntry > *new_std_vector_Sl_pagmoWrap_NloptLogEntry_Sg___SWIG_2(int capacity){
         std::vector< pagmoWrap::NloptLogEntry >* pv = 0;
         if (capacity >= 0) {
@@ -2244,6 +2245,9 @@ SWIGINTERN void std_vector_Sl_pagmoWrap_NloptLogEntry_Sg__SetRange(std::vector< 
           throw std::out_of_range("index");
         std::copy(values.begin(), values.end(), self->begin()+index);
       }
+#endif // PAGMO_WITH_NLOPT
+
+#if defined(PAGMO_WITH_IPOPT)
 SWIGINTERN std::vector< pagmoWrap::IpoptLogEntry > *new_std_vector_Sl_pagmoWrap_IpoptLogEntry_Sg___SWIG_2(int capacity){
         std::vector< pagmoWrap::IpoptLogEntry >* pv = 0;
         if (capacity >= 0) {
@@ -2335,6 +2339,8 @@ SWIGINTERN void std_vector_Sl_pagmoWrap_IpoptLogEntry_Sg__SetRange(std::vector< 
           throw std::out_of_range("index");
         std::copy(values.begin(), values.end(), self->begin()+index);
       }
+#endif // PAGMO_WITH_IPOPT
+
 SWIGINTERN std::vector< pagmoWrap::SimulatedAnnealingLogEntry > *new_std_vector_Sl_pagmoWrap_SimulatedAnnealingLogEntry_Sg___SWIG_2(int capacity){
         std::vector< pagmoWrap::SimulatedAnnealingLogEntry >* pv = 0;
         if (capacity >= 0) {
@@ -3616,6 +3622,7 @@ SWIGINTERN pagmo::algorithm pagmo_gwo_to_algorithm(pagmo::gwo const *self){
 
 #include "pagmo/algorithm.hpp"
 #include "pagmo/population.hpp"
+#if defined(PAGMO_WITH_IPOPT)
 #include "pagmo/algorithms/ipopt.hpp"
 
 SWIGINTERN int pagmo_ipopt_get_last_opt_result_code(pagmo::ipopt const *self){
@@ -3631,7 +3638,10 @@ SWIGINTERN pagmo::algorithm pagmo_ipopt_to_algorithm(pagmo::ipopt const *self){
         return pagmo::algorithm(*self);
     }
 
+#endif // PAGMO_WITH_IPOPT
+
 #include "pagmo/algorithm.hpp"
+#if defined(PAGMO_WITH_NLOPT)
 #include "pagmo/algorithms/nlopt.hpp"
 
 SWIGINTERN std::vector< pagmoWrap::NloptLogEntry > pagmo_nlopt_get_log_entries(pagmo::nlopt const *self){
@@ -3640,6 +3650,8 @@ SWIGINTERN std::vector< pagmoWrap::NloptLogEntry > pagmo_nlopt_get_log_entries(p
 SWIGINTERN pagmo::algorithm pagmo_nlopt_to_algorithm(pagmo::nlopt const *self){
         return pagmo::algorithm(*self);
     }
+
+#endif // PAGMO_WITH_NLOPT
 
 #include "pagmo/algorithms/not_population_based.hpp"
 
@@ -6762,6 +6774,7 @@ SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_delete_CompassSearchLogEntry(void * jar
 }
 
 
+#if defined(PAGMO_WITH_NLOPT)
 SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_NloptLogEntry_fevals_set(void * jarg1, unsigned long long jarg2) {
   pagmoWrap::NloptLogEntry *arg1 = 0 ;
   unsigned long long arg2 ;
@@ -6914,6 +6927,9 @@ SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_delete_NloptLogEntry(void * jarg1) {
 }
 
 
+#endif // PAGMO_WITH_NLOPT
+
+#if defined(PAGMO_WITH_IPOPT)
 SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_IpoptLogEntry_objective_evaluations_set(void * jarg1, unsigned long long jarg2) {
   pagmoWrap::IpoptLogEntry *arg1 = 0 ;
   unsigned long long arg2 ;
@@ -7065,6 +7081,8 @@ SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_delete_IpoptLogEntry(void * jarg1) {
   }
 }
 
+
+#endif // PAGMO_WITH_IPOPT
 
 SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_SimulatedAnnealingLogEntry_fevals_set(void * jarg1, unsigned long long jarg2) {
   pagmoWrap::SimulatedAnnealingLogEntry *arg1 = 0 ;
@@ -8004,6 +8022,7 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_CompassSearch_GetLogEntries(void * ja
 }
 
 
+#if defined(PAGMO_WITH_NLOPT)
 SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_Nlopt_GetLogEntries(void * jarg1) {
   void * jresult ;
   pagmo::nlopt *arg1 = 0 ;
@@ -8032,6 +8051,9 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_Nlopt_GetLogEntries(void * jarg1) {
 }
 
 
+#endif // PAGMO_WITH_NLOPT
+
+#if defined(PAGMO_WITH_IPOPT)
 SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_Ipopt_GetLogEntries(void * jarg1) {
   void * jresult ;
   pagmo::ipopt *arg1 = 0 ;
@@ -8059,6 +8081,8 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_Ipopt_GetLogEntries(void * jarg1) {
   return jresult;
 }
 
+
+#endif // PAGMO_WITH_IPOPT
 
 SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_SimulatedAnnealing_GetLogEntries(void * jarg1) {
   void * jresult ;
@@ -13104,14 +13128,14 @@ SWIGEXPORT unsigned int SWIGSTDCALL CSharp_pagmo_ManagedSPolicy_is_valid(void * 
 
 SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_FNDSResult_fronts_set(void * jarg1, void * jarg2) {
   pagmo::FNDSResult *arg1 = 0 ;
-  std::vector< std::vector< pagmo::pop_size_t > > *arg2 = 0 ;
-  
-  arg1 = (pagmo::FNDSResult *)jarg1; 
-  arg2 = (std::vector< std::vector< pagmo::pop_size_t > > *)jarg2;
+  std::vector< std::vector< unsigned long long > > *arg2 = 0 ;
+
+  arg1 = (pagmo::FNDSResult *)jarg1;
+  arg2 = (std::vector< std::vector< unsigned long long > > *)jarg2;
   if (!arg2) {
-    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "std::vector< std::vector< pagmo::pop_size_t > > const & is null", 0);
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "std::vector< std::vector< unsigned long long > > const & is null", 0);
     return ;
-  } 
+  }
   if (arg1) (arg1)->fronts = *arg2;
 }
 
@@ -13119,25 +13143,25 @@ SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_FNDSResult_fronts_set(void * jarg1, voi
 SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_FNDSResult_fronts_get(void * jarg1) {
   void * jresult ;
   pagmo::FNDSResult *arg1 = 0 ;
-  std::vector< std::vector< pagmo::pop_size_t > > *result = 0 ;
-  
-  arg1 = (pagmo::FNDSResult *)jarg1; 
-  result = (std::vector< std::vector< pagmo::pop_size_t > > *) & ((arg1)->fronts);
-  jresult = (void *)result; 
+  std::vector< std::vector< unsigned long long > > *result = 0 ;
+
+  arg1 = (pagmo::FNDSResult *)jarg1;
+  result = (std::vector< std::vector< unsigned long long > > *) & ((arg1)->fronts);
+  jresult = (void *)result;
   return jresult;
 }
 
 
 SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_FNDSResult_ranks_set(void * jarg1, void * jarg2) {
   pagmo::FNDSResult *arg1 = 0 ;
-  std::vector< std::vector< pagmo::pop_size_t > > *arg2 = 0 ;
-  
-  arg1 = (pagmo::FNDSResult *)jarg1; 
-  arg2 = (std::vector< std::vector< pagmo::pop_size_t > > *)jarg2;
+  std::vector< std::vector< unsigned long long > > *arg2 = 0 ;
+
+  arg1 = (pagmo::FNDSResult *)jarg1;
+  arg2 = (std::vector< std::vector< unsigned long long > > *)jarg2;
   if (!arg2) {
-    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "std::vector< std::vector< pagmo::pop_size_t > > const & is null", 0);
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "std::vector< std::vector< unsigned long long > > const & is null", 0);
     return ;
-  } 
+  }
   if (arg1) (arg1)->ranks = *arg2;
 }
 
@@ -13145,25 +13169,25 @@ SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_FNDSResult_ranks_set(void * jarg1, void
 SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_FNDSResult_ranks_get(void * jarg1) {
   void * jresult ;
   pagmo::FNDSResult *arg1 = 0 ;
-  std::vector< std::vector< pagmo::pop_size_t > > *result = 0 ;
-  
-  arg1 = (pagmo::FNDSResult *)jarg1; 
-  result = (std::vector< std::vector< pagmo::pop_size_t > > *) & ((arg1)->ranks);
-  jresult = (void *)result; 
+  std::vector< std::vector< unsigned long long > > *result = 0 ;
+
+  arg1 = (pagmo::FNDSResult *)jarg1;
+  result = (std::vector< std::vector< unsigned long long > > *) & ((arg1)->ranks);
+  jresult = (void *)result;
   return jresult;
 }
 
 
 SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_FNDSResult_rank_indices_set(void * jarg1, void * jarg2) {
   pagmo::FNDSResult *arg1 = 0 ;
-  std::vector< pagmo::pop_size_t > *arg2 = 0 ;
-  
-  arg1 = (pagmo::FNDSResult *)jarg1; 
-  arg2 = (std::vector< pagmo::pop_size_t > *)jarg2;
+  std::vector< unsigned long long > *arg2 = 0 ;
+
+  arg1 = (pagmo::FNDSResult *)jarg1;
+  arg2 = (std::vector< unsigned long long > *)jarg2;
   if (!arg2) {
-    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "std::vector< pagmo::pop_size_t > const & is null", 0);
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "std::vector< unsigned long long > const & is null", 0);
     return ;
-  } 
+  }
   if (arg1) (arg1)->rank_indices = *arg2;
 }
 
@@ -13171,25 +13195,25 @@ SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_FNDSResult_rank_indices_set(void * jarg
 SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_FNDSResult_rank_indices_get(void * jarg1) {
   void * jresult ;
   pagmo::FNDSResult *arg1 = 0 ;
-  std::vector< pagmo::pop_size_t > *result = 0 ;
-  
-  arg1 = (pagmo::FNDSResult *)jarg1; 
-  result = (std::vector< pagmo::pop_size_t > *) & ((arg1)->rank_indices);
-  jresult = (void *)result; 
+  std::vector< unsigned long long > *result = 0 ;
+
+  arg1 = (pagmo::FNDSResult *)jarg1;
+  result = (std::vector< unsigned long long > *) & ((arg1)->rank_indices);
+  jresult = (void *)result;
   return jresult;
 }
 
 
 SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_FNDSResult_domination_counts_set(void * jarg1, void * jarg2) {
   pagmo::FNDSResult *arg1 = 0 ;
-  std::vector< pagmo::pop_size_t > *arg2 = 0 ;
-  
-  arg1 = (pagmo::FNDSResult *)jarg1; 
-  arg2 = (std::vector< pagmo::pop_size_t > *)jarg2;
+  std::vector< unsigned long long > *arg2 = 0 ;
+
+  arg1 = (pagmo::FNDSResult *)jarg1;
+  arg2 = (std::vector< unsigned long long > *)jarg2;
   if (!arg2) {
-    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "std::vector< pagmo::pop_size_t > const & is null", 0);
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "std::vector< unsigned long long > const & is null", 0);
     return ;
-  } 
+  }
   if (arg1) (arg1)->domination_counts = *arg2;
 }
 
@@ -13197,11 +13221,11 @@ SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_FNDSResult_domination_counts_set(void *
 SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_FNDSResult_domination_counts_get(void * jarg1) {
   void * jresult ;
   pagmo::FNDSResult *arg1 = 0 ;
-  std::vector< pagmo::pop_size_t > *result = 0 ;
-  
-  arg1 = (pagmo::FNDSResult *)jarg1; 
-  result = (std::vector< pagmo::pop_size_t > *) & ((arg1)->domination_counts);
-  jresult = (void *)result; 
+  std::vector< unsigned long long > *result = 0 ;
+
+  arg1 = (pagmo::FNDSResult *)jarg1;
+  result = (std::vector< unsigned long long > *) & ((arg1)->domination_counts);
+  jresult = (void *)result;
   return jresult;
 }
 
@@ -25166,6 +25190,7 @@ SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_delete_CompassSearchLogEntryVector(void
 }
 
 
+#if defined(PAGMO_WITH_NLOPT)
 SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_NloptLogEntryVector__SWIG_0() {
   void * jresult ;
   std::vector< pagmoWrap::NloptLogEntry > *result = 0 ;
@@ -25807,6 +25832,9 @@ SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_delete_NloptLogEntryVector(void * jarg1
 }
 
 
+#endif // PAGMO_WITH_NLOPT
+
+#if defined(PAGMO_WITH_IPOPT)
 SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_IpoptLogEntryVector__SWIG_0() {
   void * jresult ;
   std::vector< pagmoWrap::IpoptLogEntry > *result = 0 ;
@@ -26447,6 +26475,8 @@ SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_delete_IpoptLogEntryVector(void * jarg1
   }
 }
 
+
+#endif // PAGMO_WITH_IPOPT
 
 SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_SimulatedAnnealingLogEntryVector__SWIG_0() {
   void * jresult ;
@@ -45914,6 +45944,7 @@ SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_delete_gwo(void * jarg1) {
 }
 
 
+#if defined(PAGMO_WITH_IPOPT)
 SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_ipopt_evolve(void * jarg1, void * jarg2) {
   void * jresult ;
   pagmo::ipopt *arg1 = 0 ;
@@ -46308,6 +46339,9 @@ SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_delete_ipopt(void * jarg1) {
 }
 
 
+#endif // PAGMO_WITH_IPOPT
+
+#if defined(PAGMO_WITH_NLOPT)
 SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_nlopt__SWIG_0() {
   void * jresult ;
   pagmo::nlopt *result = 0 ;
@@ -46970,6 +47004,8 @@ SWIGEXPORT void SWIGSTDCALL CSharp_pagmo_delete_nlopt(void * jarg1) {
   }
 }
 
+
+#endif // PAGMO_WITH_NLOPT
 
 SWIGEXPORT void * SWIGSTDCALL CSharp_pagmo_new_not_population_based() {
   void * jresult ;
@@ -63386,6 +63422,10 @@ SWIGEXPORT pagmoWrap::problem_callback * SWIGSTDCALL CSharp_pagmo_NullProblemCal
 SWIGEXPORT pagmoWrap::algorithm_callback * SWIGSTDCALL CSharp_pagmo_ManagedAlgorithm_null_algorithm_callback_SWIGUpcast(pagmoWrap::managed_algorithm::null_algorithm_callback *jarg1) {
     return (pagmoWrap::algorithm_callback *)jarg1;
 }
+
+
+
+
 
 #ifdef __cplusplus
 }

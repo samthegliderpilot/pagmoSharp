@@ -4,8 +4,8 @@
 
 ### Overview
 
-First public beta of Pagmo.NET - a .NET 8 C# wrapper for [pagmo2](https://esa.github.io/pagmo2/).
-Targets Windows x64. Linux/CMake support is planned for a later release.
+First public beta of Pagmo.NET - a C# wrapper for [pagmo2](https://esa.github.io/pagmo2/).
+Targets Windows x64 and Linux x64. The managed library targets .NET 8 (consumers on .NET 8, 9, or 10 can reference it).
 
 ### Highlights
 
@@ -73,19 +73,20 @@ Notable type renames from internal pre-release names:
 
 | Environment | Status |
 |---|---|
-| Windows x64, .NET 8 | Supported |
+| Windows x64, .NET 8+ | Supported |
 | Windows x64, IPOPT enabled | Feature-gated (vcpkg `coin-or-ipopt:x64-windows`) |
 | Windows x64, NLopt enabled | Feature-gated (vcpkg `nlopt:x64-windows`) |
-| Linux x64, .NET 8 | Supported — CMake build via `pagmoWrapper/CMakeLists.txt` |
-| Linux x64, IPOPT enabled | Feature-gated (vcpkg `coin-or-ipopt:x64-linux`, CMake `-DPAGMO_WITH_IPOPT=ON`) |
-| Linux x64, NLopt enabled | Feature-gated (vcpkg `nlopt:x64-linux`, CMake `-DPAGMO_WITH_NLOPT=ON`) |
+| Linux x64, .NET 8+ | Supported — verified on Ubuntu 24.04 / Linux Mint 22.1; CMake build via `pagmoWrapper/CMakeLists.txt`; requires `libpagmo9t64` as a system dependency (`sudo apt install libpagmo9t64`) |
+| Linux x64, IPOPT enabled | Feature-gated; requires pagmo built from source with IPOPT. The apt `libpagmo9t64` does not include IPOPT; tests self-exclude cleanly via `OptionalSolverAvailability.IsIpoptAvailable`. |
+| Linux x64, NLopt enabled | Feature-gated; same as IPOPT note above. `OptionalSolverAvailability.IsNloptAvailable` controls test gating. |
 | .NET Framework | Not supported |
 | x86 / ARM | Not supported in v1 |
 | macOS | Not supported in v1 |
 
 Repo note:
-- The shipped library/package target is `.NET 8`.
-- Tests, examples, and documentation tooling may use a newer SDK internally during development.
+- The shipped library/package target is `.NET 8` (consumers on .NET 8, 9, or 10 can reference it).
+- Building and running the full test suite on Linux requires the .NET 10 SDK (the .NET 8 SDK has a VsTest discovery limitation on Linux that causes only ~198 of 593 tests to be enumerated).
+- Tests, examples, and documentation tooling target `net10.0` internally.
 
 
 

@@ -18,4 +18,15 @@
     <Exec Command="xcopy /Y /I /E &quot;$(PagmoWrapperBinDir)\*&quot; &quot;$(TargetDir)&quot;" />
   </Target>
 
+  <PropertyGroup>
+    <PagmoWrapperCmakeBuildDir>$([System.IO.Path]::GetFullPath('$(MSBuildProjectDirectory)\..\..\pagmoWrapper\build'))</PagmoWrapperCmakeBuildDir>
+  </PropertyGroup>
+  <Target Name="PostBuildLinux" AfterTargets="PostBuildEvent"
+          Condition="'$(OS)' != 'Windows_NT' And Exists('$(PagmoWrapperCmakeBuildDir)')">
+    <ItemGroup>
+      <_NativeLibs Include="$(PagmoWrapperCmakeBuildDir)/libPagmoWrapper.*" />
+    </ItemGroup>
+    <Copy SourceFiles="@(_NativeLibs)" DestinationFolder="$(TargetDir)" SkipUnchangedFiles="true" />
+  </Target>
+
 </Project>

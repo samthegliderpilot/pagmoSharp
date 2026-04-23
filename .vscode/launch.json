@@ -2,10 +2,10 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Pagmo.NET: Debug Tests",
+      "name": "Pagmo.NET: Run Tests",
       "type": "coreclr",
       "request": "launch",
-      "program": "powershell",
+      "program": "pwsh",
       "args": [
         "-NoProfile",
         "-ExecutionPolicy",
@@ -21,6 +21,17 @@
       "cwd": "${workspaceFolder}",
       "preLaunchTask": "Pagmo.NET: build tests (Debug x64)",
       "console": "integratedTerminal"
+    },
+    {
+      "name": "Pagmo.NET: Debug Examples",
+      "type": "coreclr",
+      "request": "launch",
+      "program": "${workspaceFolder}/Examples/Examples.Pagmo.NET/bin/x64/Debug/net10.0/Examples.Pagmo.NET.dll",
+      "args": [],
+      "cwd": "${workspaceFolder}/Examples/Examples.Pagmo.NET",
+      "stopAtEntry": false,
+      "console": "integratedTerminal",
+      "preLaunchTask": "Pagmo.NET: build examples (Debug x64)"
     }
   ]
 }

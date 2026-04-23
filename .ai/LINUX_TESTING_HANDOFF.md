@@ -1,200 +1,206 @@
-# Linux Testing Handoff
+# Linux Build & Test Guide
 
-This document is a briefing for a Claude AI session picking up Linux cross-platform
-testing of Pagmo.NET. The Windows side of this work is complete and passing (593/593
-tests). You are on a Linux machine trying to get the same tests passing.
-
----
-
-## What Was Done on Windows
-
-Pagmo.NET was originally Windows-only. The following changes were made to add Linux support:
-
-| File | What changed |
-|------|-------------|
-| `pagmoWrapper/managed_bridge.cpp` | `PAGMONET_EXPORT` macro now uses `__attribute__((visibility("default")))` on non-Windows |
-| `swig/PagmoNETSwigInterface.i` | All `%include` backslash path separators → forward slashes |
-| `pagmoWrapper/CMakeLists.txt` | **NEW** — CMake build for the native shared library |
-| `createSwigWrappersAndPlaceThem.ps1` | **NEW** — cross-platform PowerShell Core SWIG regen script |
-| `scripts/regen-swig.ps1` | Calls `.ps1` on all platforms; `.bat` fallback on Windows only |
-| `scripts/build-native.ps1` | Linux branch: CMake configure + build; Windows branch: MSBuild |
-| `Pagmo.NET/Pagmo.NET.csproj` | PostBuild Windows-conditional; Linux target copies `.so` from CMake build dir |
-
-Key architectural point: `[DllImport("PagmoWrapper")]` in C# resolves to
-`libPagmoWrapper.so` on Linux automatically — no C# changes were needed.
+**Status:** Verified working on Linux Mint 22.1 (Ubuntu 24.04 base), x64.  
+**Test result:** 593/593 tests pass.
 
 ---
 
-## Prerequisites to Install
+## Prerequisites
+
+### 1 — Build tools
 
 ```bash
-# .NET 8 SDK
-# (follow https://learn.microsoft.com/en-us/dotnet/core/install/linux)
-
-# PowerShell Core (for build scripts)
-# (follow https://learn.microsoft.com/en-us/powershell/scripting/install/installing-powershell-on-linux)
-
-# Build tools
-sudo apt-get install -y cmake ninja-build build-essential git curl zip unzip tar
-
-# SWIG 4.4.x — check distro version first
-swig -version
-# If older than 4.4, build from source or use a PPA:
-# sudo apt-get install -y swig   (may be 4.0 on older Ubuntu — test if it works)
-
-# vcpkg
-git clone https://github.com/microsoft/vcpkg ~/vcpkg
-~/vcpkg/bootstrap-vcpkg.sh
-export VCPKG_ROOT=~/vcpkg
-
-# pagmo2 and its dependencies via vcpkg
-~/vcpkg/vcpkg install pagmo2:x64-linux
-
-# Optional solvers (skip if you just want the baseline working first):
-# ~/vcpkg/vcpkg install nlopt:x64-linux
-# ~/vcpkg/vcpkg install coin-or-ipopt:x64-linux
+sudo apt install -y cmake build-essential swig
 ```
+
+Verified with: cmake 3.31, SWIG 4.2 (the pre-generated wrappers are committed — SWIG version
+only matters if you regenerate; 4.2 works fine).
+
+### 2 — pagmo2 and its dependencies
+
+The apt repos on Ubuntu 24.04 ship pagmo 2.19.0 with all needed dependencies:
+
+```bash
+sudo apt install -y libpagmo-dev
+```
+
+This pulls in `libboost-serialization-dev`, `libeigen3-dev`, and `libtbb-dev` automatically.
+**Do not use vcpkg** — it is not needed and mixing sources causes package conflicts.
+
+### 3 — .NET 10 SDK
+
+The test project targets `net10.0`. The .NET 10 SDK is needed for full test discovery
+(with .NET 8 only ~198 of 593 tests are enumerated by the VsTest runner due to a known
+discovery limitation on Linux — .NET 10 fixes this).
+
+On Ubuntu 24.04 / Linux Mint 22.1 you may get a package conflict when mixing Ubuntu's
+and Microsoft's .NET repos. To avoid it, pin .NET packages to Ubuntu's repo:
+
+```bash
+# Remove any partially-installed conflicting packages
+sudo apt remove --purge dotnet-host-10.0 aspnetcore-runtime-10.0 dotnet-runtime-10.0 2>/dev/null
+sudo apt autoremove
+
+# Pin .NET packages to Ubuntu's self-consistent set
+sudo tee /etc/apt/preferences.d/dotnet-ubuntu << 'EOF'
+Package: dotnet* aspnetcore*
+Pin: release o=Ubuntu
+Pin-Priority: 1001
+EOF
+
+sudo apt update
+sudo apt install -y dotnet-sdk-10.0
+```
+
+Verify: `dotnet --list-sdks` should show `10.0.x`.
+
+### 4 — PowerShell Core
+
+Required by VS Code tasks and the build scripts.
+
+```bash
+# Microsoft's package feed is used — add it first if not already present
+wget -q https://packages.microsoft.com/config/ubuntu/24.04/packages-microsoft-prod.deb -O ms-prod.deb
+sudo dpkg -i ms-prod.deb
+sudo apt update
+sudo apt install -y powershell
+```
+
+Verify: `pwsh --version`
+
+### 5 — Optional solvers (NLopt / IPOPT)
+
+The apt-packaged `libpagmo.so` was NOT compiled with NLopt or IPOPT support, so installing
+these only makes sense if you build pagmo from source with those features enabled. For the
+standard apt-based setup, the optional solver tests correctly self-exclude using
+`OptionalSolverAvailability.IsNloptAvailable` / `IsIpoptAvailable`.
 
 ---
 
-## Build Steps
+## Build steps
 
-All scripts use PowerShell Core (`pwsh`). Run from the repo root.
+Run all commands from the repo root.
 
-### Step 1 — Regenerate SWIG wrappers (optional if you trust the checked-in ones)
+### Step 1 — Build the native shared library
 
-The pre-generated wrappers (`pagmoWrapper/GeneratedWrappers.cxx`,
-`Pagmo.NET/pygmoWrappers/*.cs`) are already committed and should be identical on Linux
-because SWIG output is deterministic. You can skip this step unless you changed a `.i` file.
+```bash
+cmake -B pagmoWrapper/build -S pagmoWrapper -DCMAKE_BUILD_TYPE=Debug
+cmake --build pagmoWrapper/build
+```
+
+Expected output: `pagmoWrapper/build/libPagmoWrapper.so`
+
+For a Release build:
+```bash
+cmake -B pagmoWrapper/build -S pagmoWrapper -DCMAKE_BUILD_TYPE=Release
+cmake --build pagmoWrapper/build
+```
+
+**Do NOT pass `-DPAGMO_WITH_NLOPT=ON` or `-DPAGMO_WITH_IPOPT=ON`** unless you have built
+pagmo from source with those solvers enabled. The apt pagmo library does not contain
+`pagmo::nlopt` or `pagmo::ipopt` symbols, and enabling these flags causes a runtime
+symbol-lookup crash. The `CMakeLists.txt` uses `PAGMONET_WITH_NLOPT` / `PAGMONET_WITH_IPOPT`
+as its own options to avoid collision with pagmo's exported cmake variables; both default to
+`OFF`.
+
+### Step 2 — SWIG wrapper regeneration (only if you edit `.i` files)
+
+The pre-generated wrappers (`pagmoWrapper/GeneratedWrappers.cxx`, `Pagmo.NET/pygmoWrappers/*.cs`)
+are committed. Skip this step unless you changed a SWIG interface file.
 
 ```bash
 pwsh scripts/regen-swig.ps1
 ```
 
-If SWIG is not on PATH, set `SWIG_EXE` or `SWIG_HOME` first.
+SWIG 4.2 produces slightly different comment/whitespace output than the 4.4-generated
+committed wrappers. The logic is identical; commit the diff if you regenerate.
 
-### Step 2 — Build the native shared library
-
-```bash
-pwsh scripts/build-native.ps1 -Configuration Release
-```
-
-This runs:
-```
-cmake -B pagmoWrapper/build -S pagmoWrapper \
-  -DCMAKE_BUILD_TYPE=Release \
-  -DCMAKE_TOOLCHAIN_FILE=$VCPKG_ROOT/scripts/buildsystems/vcpkg.cmake
-cmake --build pagmoWrapper/build --config Release
-```
-
-Expected output: `pagmoWrapper/build/libPagmoWrapper.so`
-
-### Step 3 — Build and test the managed assembly
+### Step 3 — Build and run all tests
 
 ```bash
-dotnet build Pagmo.NET/Pagmo.NET.csproj
-dotnet test Tests/Tests.Pagmo.NET/Tests.Pagmo.NET.csproj
+dotnet test Tests/Tests.Pagmo.NET/Tests.Pagmo.NET.csproj -p:Platform=x64
 ```
 
-Expected: **593 tests passed, 0 failed**.
+Expected: **Passed: 593, Failed: 0**
 
 ---
 
-## Likely Issues and How to Fix Them
+## Key Linux-specific changes in the codebase
 
-### CMake can't find pagmo2
+These changes were made to support Linux and are documented here for future reference:
+
+| File | What changed |
+|------|-------------|
+| `pagmoWrapper/CMakeLists.txt` | CMake build for `libPagmoWrapper.so`; IPOPT detection via `pkg_check_modules` (not `find_package`); optional-solver options renamed to `PAGMONET_WITH_*` to avoid collision with pagmo's exported cmake variables; explicit `-UPAGMO_WITH_NLOPT -UPAGMO_WITH_IPOPT` compile options to prevent pagmo's INTERFACE definitions from leaking into our build |
+| `pagmoWrapper/multi_objective.h` | Removed conflicting `typedef unsigned long long pop_size_t` (on Linux `size_t` is `unsigned long`, not `unsigned long long`); `FNDSResult` fields and `RekSum::reksum` parameters use `unsigned long long` directly at the SWIG boundary with conversion to `pagmo::pop_size_t` internally |
+| `pagmoWrapper/GeneratedWrappers.cxx` | `FNDSResult` setter/getter types changed from `pagmo::pop_size_t` to `unsigned long long` to match the C# `ULongLongVector` types; six IPOPT code zones wrapped in `#if defined(PAGMO_WITH_IPOPT)` guards; six NLopt code zones wrapped in `#if defined(PAGMO_WITH_NLOPT)` guards (both sets of guards use zone 6 ending before `new_not_population_based`/`new_nlopt` respectively, not at end-of-file) |
+| `Pagmo.NET/pagmoExtensions/OptionalSolverAvailability.cs` | NEW — `OptionalSolverAvailability.IsNloptAvailable` / `IsIpoptAvailable` static properties using `NativeLibrary.TryGetExport` to check native symbol presence without catching `EntryPointNotFoundException` in user code |
+| `Tests/Tests.Pagmo.NET/Tests.Pagmo.NET.csproj` | Target `net10.0` (required for full VsTest discovery on Linux); added `PostBuildLinux` target to copy `libPagmoWrapper.so` |
+| `Examples/Examples.Pagmo.NET/Examples.Pagmo.NET.csproj` | Target `net10.0`; added `PostBuildLinux` target |
+| `Tests/Tests.Pagmo.NET/Algorithms/Test_optional_solver_availability.cs` | Uses `OptionalSolverAvailability.IsNloptAvailable` / `IsIpoptAvailable` instead of try-catching `EntryPointNotFoundException` |
+| `Tests/Tests.Pagmo.NET/Algorithms/Test_moead_gen.cs` | `TestNameIsCorrect` uses `Does.Contain("MOEAD")` instead of exact string — pagmo 2.19.0 changed the algorithm's `get_name()` return value |
+| `.vscode/tasks.json` | `"command": "powershell"` → `"command": "pwsh"`; added "build examples" task |
+| `.vscode/launch.json` | Fixed to use `pwsh`; added "Debug Examples" `coreclr` launch config targeting `net10.0` output path |
+
+---
+
+## VS Code debugging
+
+After building (steps 1–2 above), you can use these VS Code launch configs:
+
+- **Pagmo.NET: Run Tests** — runs the full test suite via `pwsh scripts/test.ps1`
+- **Pagmo.NET: Debug Examples** — launches the examples project with full C# breakpoint debugging
+
+The C# extension (`ms-dotnettools.csharp`) must be installed; it downloads `vsdbg` on first use.
+
+---
+
+## Troubleshooting
+
+### cmake: cannot find pagmo
 
 ```
 CMake Error: Could not find a package configuration file provided by "Pagmo"
 ```
 
-Fix: make sure `$VCPKG_ROOT` is set and `pagmo2:x64-linux` is installed:
+Make sure `libpagmo-dev` is installed: `dpkg -l libpagmo-dev`. If you previously used vcpkg
+and have `$VCPKG_ROOT` set, that toolchain file may interfere — unset it or don't pass it.
+
+### Runtime crash: `undefined symbol: _ZN5pagmo5nloptC1Ev` (or similar nlopt/ipopt)
+
+This means `libPagmoWrapper.so` was built with NLopt/IPOPT enabled but the apt pagmo library
+does not have those symbols. Delete the cmake cache and rebuild without those options:
+
 ```bash
-$VCPKG_ROOT/vcpkg list | grep pagmo
-```
-Then ensure the toolchain file is being passed. Check `scripts/build-native.ps1` — it reads
-`$env:VCPKG_ROOT`.
-
-### Boost not found
-
-pagmo2 depends on Boost serialization. vcpkg should pull it in automatically as a dependency
-of `pagmo2:x64-linux`. If cmake complains:
-```bash
-$VCPKG_ROOT/vcpkg install boost-serialization:x64-linux
+rm -rf pagmoWrapper/build
+cmake -B pagmoWrapper/build -S pagmoWrapper -DCMAKE_BUILD_TYPE=Debug
+cmake --build pagmoWrapper/build
 ```
 
-### SWIG version mismatch
+### Only 198 tests discovered (instead of 593)
 
-If SWIG regen produces different output than what's committed (or errors), check the version:
-```bash
-swig -version   # needs 4.4.x
+This happens with .NET 8 SDK on Linux — VsTest's discovery mechanism only enumerates one
+namespace group. Install .NET 10 SDK (see Prerequisites § 3) and ensure the test project
+targets `net10.0`.
+
+### Package conflict when installing dotnet-sdk-10.0
+
 ```
-SWIG 4.0 (common on Ubuntu 22.04) may work but could produce minor differences. If it does,
-update the committed generated files by running `pwsh scripts/regen-swig.ps1` and committing
-the diff. The C# and C++ logic are unchanged; only formatting/comments differ between versions.
+trying to overwrite '/usr/bin/dnx', which is also in package dotnet-host-10.0 ...
+```
+
+Ubuntu's and Microsoft's .NET packages conflict. Apply the apt pinning fix in Prerequisites § 3.
 
 ### `libPagmoWrapper.so` not found at test runtime
 
-The `PostBuildLinux` MSBuild target in `Pagmo.NET.csproj` copies the `.so` from
-`pagmoWrapper/build/` to the test output directory. If the copy didn't happen:
+The `PostBuildLinux` MSBuild target copies the `.so` automatically. If it didn't fire:
 
 ```bash
-# Check if the .so exists
-ls pagmoWrapper/build/libPagmoWrapper.so
-
-# Check if it was copied next to the test DLL
-ls Tests/Tests.Pagmo.NET/bin/x64/Debug/net*/libPagmoWrapper.so
+ls pagmoWrapper/build/libPagmoWrapper.so          # should exist
+ls Tests/Tests.Pagmo.NET/bin/x64/Debug/net10.0/libPagmoWrapper.so  # should be copied here
 ```
 
-If the copy target didn't fire (MSBuild property `OS` detection varies), copy manually:
+If missing, copy manually and investigate why the PostBuildLinux target didn't run:
 ```bash
-cp pagmoWrapper/build/libPagmoWrapper.so \
-   Tests/Tests.Pagmo.NET/bin/x64/Debug/net8.0/
+cp pagmoWrapper/build/libPagmoWrapper.so Tests/Tests.Pagmo.NET/bin/x64/Debug/net10.0/
 ```
-
-Then investigate why the MSBuild target didn't fire and fix `Pagmo.NET.csproj` accordingly.
-The condition is `Condition="'$(OS)' != 'Windows_NT'"` — on Linux `$(OS)` is typically empty
-or `Unix`. You may need to change the condition to `Condition="!$([MSBuild]::IsOSPlatform('Windows'))"`.
-
-### Linker errors in GeneratedWrappers.cxx
-
-If the CMake build fails with undefined symbol errors in the SWIG-generated code, it is
-likely a header path issue. Check `CMakeLists.txt` `target_include_directories` — it adds
-`pagmoWrapper/` and `swig/pagmo/` to the include path. The generated code includes
-`PagmoNETSwigInterface_wrap.h` and the hand-written bridge headers. Both should be found via
-those paths.
-
-### `__attribute__((visibility("default")))` errors
-
-These would be compile errors in `managed_bridge.cpp` if the compiler doesn't support GCC
-visibility attributes. GCC 4+ and Clang 3+ both support it. If you are using an unusual
-compiler, check the macro guard in `managed_bridge.cpp` and adjust as needed.
-
----
-
-## What to Report Back
-
-Once you have the tests working (or have a specific error you can't resolve), record:
-
-1. Exact Ubuntu / distro version
-2. SWIG version (`swig -version`)
-3. CMake version (`cmake --version`)
-4. vcpkg pagmo2 version (`vcpkg list | grep pagmo`)
-5. Any `CMakeLists.txt` changes needed (e.g. find_package names, Boost component names)
-6. Any `Pagmo.NET.csproj` PostBuild target fixes needed
-7. Final test result (`Passed: NNN, Failed: 0`)
-
-That information can be used to update the build files and CI configuration.
-
----
-
-## Files to Edit if Something Needs Fixing
-
-| Problem | File to edit |
-|---------|-------------|
-| CMake configure fails | `pagmoWrapper/CMakeLists.txt` |
-| Native build script logic | `scripts/build-native.ps1` |
-| `.so` not copied to output | `Pagmo.NET/Pagmo.NET.csproj` (PostBuildLinux target) |
-| SWIG regen fails on Linux | `createSwigWrappersAndPlaceThem.ps1` |
-| SWIG `.i` include path issues | `swig/PagmoNETSwigInterface.i` |
-| Export symbol not visible | `pagmoWrapper/managed_bridge.cpp` |

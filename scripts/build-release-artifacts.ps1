@@ -23,10 +23,12 @@ if (-not (Test-Path $env:DOTNET_CLI_HOME)) {
     New-Item -ItemType Directory -Path $env:DOTNET_CLI_HOME | Out-Null
 }
 
-$artifactRoot = Join-Path $repoRoot "artifacts\release\$Version"
-$nugetOut = Join-Path $artifactRoot "nuget"
-$nativeOut = Join-Path $artifactRoot "native\win-x64"
-$sourceOut = Join-Path $artifactRoot "source"
+$artifactRoot   = Join-Path $repoRoot "artifacts/release/$Version"
+$nugetOut       = Join-Path $artifactRoot "nuget"
+$nativeWinOut   = Join-Path $artifactRoot "native/win-x64"
+$nativeLinuxOut = Join-Path $artifactRoot "native/linux-x64"
+$nativeOut      = if ($IsLinux -or $IsMacOS) { $nativeLinuxOut } else { $nativeWinOut }
+$sourceOut      = Join-Path $artifactRoot "source"
 
 if (Test-Path $artifactRoot) {
     Remove-Item -Recurse -Force $artifactRoot
@@ -45,20 +47,20 @@ try {
 
     if (-not $SkipReleaseGates) {
         Write-Host "==> Running release gates"
-        & (Join-Path $repoRoot "scripts\release-gates.ps1")
+        & (Join-Path $repoRoot "scripts/release-gates.ps1")
         if ($LASTEXITCODE -ne 0) {
             throw "release-gates.ps1 failed ($LASTEXITCODE)."
         }
     }
 
     Write-Host "==> Building native release binaries"
-    & (Join-Path $repoRoot "scripts\build-native.ps1") -Configuration $Configuration -Platform $Platform
+    & (Join-Path $repoRoot "scripts/build-native.ps1") -Configuration $Configuration -Platform $Platform
     if ($LASTEXITCODE -ne 0) {
         throw "build-native.ps1 failed ($LASTEXITCODE)."
     }
 
     Write-Host "==> Packing NuGet package"
-    dotnet pack (Join-Path $repoRoot "Pagmo.NET\Pagmo.NET.csproj") `
+    dotnet pack (Join-Path $repoRoot "Pagmo.NET/Pagmo.NET.csproj") `
         -c $Configuration `
         -o $nugetOut `
         -p:Platform=$Platform `
@@ -69,30 +71,40 @@ try {
     }
 
     Write-Host "==> Collecting native runtime bundle"
-    $nativeSource = Join-Path $repoRoot "pagmoWrapper\pagmoWrapper\bin"
-    $nativeFiles = @("*.dll", "*.pdb")
-    foreach ($pattern in $nativeFiles) {
-        Get-ChildItem -Path $nativeSource -File -Filter $pattern | Where-Object {
-            if ($IncludeDebugNativeArtifacts) {
-                return $true
-            }
-
-            $name = $_.Name.ToLowerInvariant()
-            if ($name -like "*-gd-*") { return $false }
-            if ($name -like "*debug*") { return $false }
-            if ($name -like "*.pdb") { return $false }
-            if ($name -eq "zlibd1.dll") { return $false }
-            if ($name -eq "bz2d.dll") { return $false }
-            return $true
-        } | ForEach-Object {
+    if ($IsLinux -or $IsMacOS) {
+        # Linux: collect libPagmoWrapper.so from the CMake build directory.
+        # Note: libpagmo.so.9 is a system dependency (apt install libpagmo9t64) and is
+        # NOT bundled here — document this requirement in release notes.
+        $cmakeBuildDir = Join-Path $repoRoot "pagmoWrapper/build"
+        Get-ChildItem -Path $cmakeBuildDir -File -Filter "libPagmoWrapper.*" | ForEach-Object {
             Copy-Item -Path $_.FullName -Destination (Join-Path $nativeOut $_.Name)
         }
+
+        $nativeZipName = "Pagmo.NET-native-linux-x64-$Version.zip"
+    } else {
+        # Windows: collect DLLs from the MSBuild output directory, excluding debug variants.
+        $nativeSource = Join-Path $repoRoot "pagmoWrapper/pagmoWrapper/bin"
+        $nativeFiles = @("*.dll", "*.pdb")
+        foreach ($pattern in $nativeFiles) {
+            Get-ChildItem -Path $nativeSource -File -Filter $pattern | Where-Object {
+                if ($IncludeDebugNativeArtifacts) { return $true }
+                $name = $_.Name.ToLowerInvariant()
+                if ($name -like "*-gd-*")    { return $false }
+                if ($name -like "*debug*")   { return $false }
+                if ($name -like "*.pdb")     { return $false }
+                if ($name -eq "zlibd1.dll")  { return $false }
+                if ($name -eq "bz2d.dll")    { return $false }
+                return $true
+            } | ForEach-Object {
+                Copy-Item -Path $_.FullName -Destination (Join-Path $nativeOut $_.Name)
+            }
+        }
+
+        $nativeZipName = "Pagmo.NET-native-win-x64-$Version.zip"
     }
 
-    $nativeZip = Join-Path $artifactRoot "Pagmo.NET-native-win-x64-$Version.zip"
-    if (Test-Path $nativeZip) {
-        Remove-Item -Force $nativeZip
-    }
+    $nativeZip = Join-Path $artifactRoot $nativeZipName
+    if (Test-Path $nativeZip) { Remove-Item -Force $nativeZip }
     Compress-Archive -Path (Join-Path $nativeOut "*") -DestinationPath $nativeZip
 
     Write-Host "==> Creating source archive"
@@ -108,7 +120,7 @@ try {
         | Where-Object { $_.FullName -ne $checksumsPath } `
         | ForEach-Object {
             $hash = (Get-FileHash -Algorithm SHA256 -Path $_.FullName).Hash.ToLowerInvariant()
-            $relative = $_.FullName.Substring($artifactRoot.Length + 1).Replace('\', '/')
+            $relative = $_.FullName.Substring($artifactRoot.Length + 1).Replace('\\', '/')
             "$hash  $relative"
         }
     Set-Content -Path $checksumsPath -Value $hashLines

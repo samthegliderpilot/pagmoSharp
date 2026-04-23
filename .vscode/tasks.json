@@ -4,7 +4,7 @@
     {
       "label": "Pagmo.NET: regenerate SWIG wrappers",
       "type": "shell",
-      "command": "powershell",
+      "command": "pwsh",
       "args": [
         "-NoProfile",
         "-ExecutionPolicy",
@@ -20,7 +20,7 @@
     {
       "label": "Pagmo.NET: build native (Debug x64)",
       "type": "shell",
-      "command": "powershell",
+      "command": "pwsh",
       "args": [
         "-NoProfile",
         "-ExecutionPolicy",
@@ -45,7 +45,7 @@
     {
       "label": "Pagmo.NET: build tests (Debug x64)",
       "type": "shell",
-      "command": "powershell",
+      "command": "pwsh",
       "args": [
         "-NoProfile",
         "-ExecutionPolicy",
@@ -68,9 +68,29 @@
       "problemMatcher": "$msCompile"
     },
     {
+      "label": "Pagmo.NET: build examples (Debug x64)",
+      "type": "shell",
+      "command": "dotnet",
+      "args": [
+        "build",
+        "Examples/Examples.Pagmo.NET/Examples.Pagmo.NET.csproj",
+        "-c", "Debug",
+        "-p:Platform=x64"
+      ],
+      "dependsOn": [
+        "Pagmo.NET: build native (Debug x64)"
+      ],
+      "dependsOrder": "sequence",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "group": "build",
+      "problemMatcher": "$msCompile"
+    },
+    {
       "label": "Pagmo.NET: test (Debug x64)",
       "type": "shell",
-      "command": "powershell",
+      "command": "pwsh",
       "args": [
         "-NoProfile",
         "-ExecutionPolicy",

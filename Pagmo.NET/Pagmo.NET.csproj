@@ -51,6 +51,24 @@
     <None Include="..\THIRD_PARTY_LICENSES.md" Pack="true" PackagePath="\" />
   </ItemGroup>
 
+  <!-- Include the Linux native library in the NuGet package when packing on Linux.
+       Consumers on linux-x64 get libPagmoWrapper.so resolved automatically from
+       runtimes/linux-x64/native/ by the .NET runtime; no manual copy needed.
+       Note: libpagmo.so.9 is a system dependency — consumers must install libpagmo9t64
+       (Ubuntu/Debian: sudo apt install libpagmo9t64). -->
+  <ItemGroup Condition="'$(OS)' != 'Windows_NT' And Exists('$(PagmoWrapperCmakeBuildDir)/libPagmoWrapper.so')">
+    <None Include="$(PagmoWrapperCmakeBuildDir)/libPagmoWrapper.so"
+          Pack="true"
+          PackagePath="runtimes/linux-x64/native/libPagmoWrapper.so" />
+  </ItemGroup>
+
+  <!-- Include the Windows native DLLs in the NuGet package when packing on Windows. -->
+  <ItemGroup Condition="'$(OS)' == 'Windows_NT' And Exists('$(PagmoWrapperBinDir)')">
+    <None Include="$(PagmoWrapperBinDir)\*.dll"
+          Pack="true"
+          PackagePath="runtimes/win-x64/native/" />
+  </ItemGroup>
+
   <ItemGroup>
     <Folder Include="pagmoExtensions\BatchEvaluators\" />
     <Folder Include="pagmoExtensions\Topologies\" />

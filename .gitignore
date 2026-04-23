@@ -23,3 +23,4 @@ scratch/
 .claude
 .idea/
 .nuget/
+pagmoWrapper/build/

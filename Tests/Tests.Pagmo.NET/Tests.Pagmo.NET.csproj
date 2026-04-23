@@ -28,7 +28,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.CodeCoverage" Version="17.0.0" />
+    <PackageReference Include="Microsoft.CodeCoverage" Version="17.12.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.0.0" />
     <PackageReference Include="NUnit" Version="3.13.3" />
     <PackageReference Include="NUnit3TestAdapter" Version="4.2.1" />
@@ -44,6 +44,16 @@
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent" Condition="Exists('$(PagmoWrapperBinDir)')">
     <Exec Command="xcopy /Y /I /E &quot;$(PagmoWrapperBinDir)\*&quot; &quot;$(TargetDir)&quot;" />
+  </Target>
+
+  <PropertyGroup>
+    <PagmoWrapperCmakeBuildDir>$([System.IO.Path]::GetFullPath('$(MSBuildProjectDirectory)\..\..\pagmoWrapper\build'))</PagmoWrapperCmakeBuildDir>
+  </PropertyGroup>
+  <Target Name="PostBuildLinux" AfterTargets="PostBuildEvent" Condition="'$(OS)' != 'Windows_NT' And Exists('$(PagmoWrapperCmakeBuildDir)')">
+    <ItemGroup>
+      <_NativeLibs Include="$(PagmoWrapperCmakeBuildDir)/libPagmoWrapper.*" />
+    </ItemGroup>
+    <Copy SourceFiles="@(_NativeLibs)" DestinationFolder="$(TargetDir)" SkipUnchangedFiles="true" />
   </Target>
 
 </Project>

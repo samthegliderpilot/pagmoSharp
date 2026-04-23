@@ -45,13 +45,15 @@ public class Test_optional_solver_availability
     [Test]
     public void NloptWhenPresentSupportsConstructAndEvolve()
     {
-        var assembly = typeof(algorithm).Assembly;
-        var nloptType = assembly.GetType("pagmo.nlopt", throwOnError: false, ignoreCase: false);
-        if (nloptType == null)
+        if (!OptionalSolverAvailability.IsNloptAvailable)
         {
             Assert.Pass("nlopt is not available in this build.");
             return;
         }
+
+        var assembly = typeof(algorithm).Assembly;
+        var nloptType = assembly.GetType("pagmo.nlopt", throwOnError: false, ignoreCase: false);
+        Assert.That(nloptType, Is.Not.Null, "nlopt type should be present when native support is available.");
 
         using var rosenbrockProblem = new rosenbrock(2u);
         using var population = new population(rosenbrockProblem, 32u, 2u);
@@ -103,13 +105,15 @@ public class Test_optional_solver_availability
     [Test]
     public void IpoptWhenPresentSupportsConstructAndEvolve()
     {
-        var assembly = typeof(algorithm).Assembly;
-        var ipoptType = assembly.GetType("pagmo.ipopt", throwOnError: false, ignoreCase: false);
-        if (ipoptType == null)
+        if (!OptionalSolverAvailability.IsIpoptAvailable)
         {
             Assert.Pass("ipopt is not available in this build.");
             return;
         }
+
+        var assembly = typeof(algorithm).Assembly;
+        var ipoptType = assembly.GetType("pagmo.ipopt", throwOnError: false, ignoreCase: false);
+        Assert.That(ipoptType, Is.Not.Null, "ipopt type should be present when native support is available.");
 
         using var managed = new IpoptDifferentiableProblem();
         using var differentiableProblem = new problem(managed);
