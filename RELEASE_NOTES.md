@@ -76,8 +76,8 @@ Notable type renames from internal pre-release names:
 | Windows x64, .NET 8+ | Supported |
 | Windows x64, IPOPT enabled | Feature-gated (vcpkg `coin-or-ipopt:x64-windows`) |
 | Windows x64, NLopt enabled | Feature-gated (vcpkg `nlopt:x64-windows`) |
-| Linux x64, .NET 8+ | Supported — verified on Ubuntu 24.04 / Linux Mint 22.1; CMake build via `pagmoWrapper/CMakeLists.txt`; requires `libpagmo9t64` as a system dependency (`sudo apt install libpagmo9t64`) |
-| Linux x64, IPOPT enabled | Feature-gated; requires pagmo built from source with IPOPT. The apt `libpagmo9t64` does not include IPOPT; tests self-exclude cleanly via `OptionalSolverAvailability.IsIpoptAvailable`. |
+| Linux x64, .NET 8+ | Supported — `libPagmoWrapper.so` has no system runtime dependencies (pagmo2, Boost.Serialization, TBB statically linked via vcpkg `x64-linux-static-pic` triplet). |
+| Linux x64, IPOPT enabled | Feature-gated; requires pagmo built from source with IPOPT and `PAGMONET_WITH_IPOPT=ON`. Tests self-exclude cleanly via `OptionalSolverAvailability.IsIpoptAvailable`. |
 | Linux x64, NLopt enabled | Feature-gated; same as IPOPT note above. `OptionalSolverAvailability.IsNloptAvailable` controls test gating. |
 | .NET Framework | Not supported |
 | x86 / ARM | Not supported in v1 |

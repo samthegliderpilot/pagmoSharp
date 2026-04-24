@@ -19,24 +19,38 @@ try {
     $wrapperDir = Join-Path $repoRoot "pagmoWrapper"
 
     if ($IsLinux -or $IsMacOS) {
-        # CMake path for Linux/macOS
-        $buildDir = Join-Path $wrapperDir "build"
+        # CMake + vcpkg path for Linux/macOS.
+        # Uses the x64-linux-static-pic triplet to build pagmo2 and its dependencies
+        # (Boost.Serialization, TBB) as static PIC libraries, so libPagmoWrapper.so
+        # has no external runtime dependencies beyond the standard C++ runtime.
 
-        $cmakeArgs = @(
-            "-B", $buildDir,
-            "-S", $wrapperDir,
-            "-DCMAKE_BUILD_TYPE=$Configuration"
-        )
+        if (-not $env:VCPKG_ROOT) {
+            throw "VCPKG_ROOT must be set for Linux/macOS builds. " +
+                  "Clone vcpkg (https://github.com/microsoft/vcpkg) and set VCPKG_ROOT."
+        }
+        $vcpkgExe       = Join-Path $env:VCPKG_ROOT "vcpkg"
+        $vcpkgToolchain = Join-Path $env:VCPKG_ROOT "scripts/buildsystems/vcpkg.cmake"
+        $triplet        = "x64-linux-static-pic"
+        $tripletOverlay = (Resolve-Path (Join-Path $repoRoot "triplets")).Path
 
-        # Use vcpkg toolchain if available
-        $vcpkgToolchain = $env:VCPKG_ROOT `
-            ? (Join-Path $env:VCPKG_ROOT "scripts/buildsystems/vcpkg.cmake") `
-            : $null
-        if ($vcpkgToolchain -and (Test-Path $vcpkgToolchain)) {
-            $cmakeArgs += "-DCMAKE_TOOLCHAIN_FILE=$vcpkgToolchain"
+        if (-not (Test-Path $vcpkgExe)) {
+            throw "vcpkg executable not found at '$vcpkgExe'. Run bootstrap-vcpkg.sh first."
         }
 
-        & cmake @cmakeArgs
+        # Install pagmo2 with the static-PIC triplet (idempotent — skips if already installed).
+        Write-Host "==> vcpkg install pagmo2:$triplet"
+        & $vcpkgExe install "pagmo2:$triplet" "--overlay-triplets=$tripletOverlay"
+        if ($LASTEXITCODE -ne 0) { throw "vcpkg install failed ($LASTEXITCODE)." }
+
+        $buildDir = Join-Path $wrapperDir "build"
+
+        & cmake `
+            "-B$buildDir" `
+            "-S$wrapperDir" `
+            "-DCMAKE_BUILD_TYPE=$Configuration" `
+            "-DCMAKE_TOOLCHAIN_FILE=$vcpkgToolchain" `
+            "-DVCPKG_TARGET_TRIPLET=$triplet" `
+            "-DVCPKG_OVERLAY_TRIPLETS=$tripletOverlay"
         if ($LASTEXITCODE -ne 0) { throw "cmake configure failed ($LASTEXITCODE)." }
 
         & cmake --build $buildDir --config $Configuration

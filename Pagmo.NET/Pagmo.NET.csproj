@@ -54,8 +54,9 @@
   <!-- Include the Linux native library in the NuGet package when packing on Linux.
        Consumers on linux-x64 get libPagmoWrapper.so resolved automatically from
        runtimes/linux-x64/native/ by the .NET runtime; no manual copy needed.
-       Note: libpagmo.so.9 is a system dependency — consumers must install libpagmo9t64
-       (Ubuntu/Debian: sudo apt install libpagmo9t64). -->
+       Built with the x64-linux-static-pic vcpkg triplet: pagmo2, Boost.Serialization,
+       and TBB are statically linked in, so there are no system runtime dependencies
+       beyond the standard C++ runtime (libstdc++, libgcc). -->
   <ItemGroup Condition="'$(OS)' != 'Windows_NT' And Exists('$(PagmoWrapperCmakeBuildDir)/libPagmoWrapper.so')">
     <None Include="$(PagmoWrapperCmakeBuildDir)/libPagmoWrapper.so"
           Pack="true"

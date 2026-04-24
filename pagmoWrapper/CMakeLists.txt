@@ -9,6 +9,10 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_VISIBILITY_PRESET hidden)
 set(CMAKE_VISIBILITY_INLINES_HIDDEN ON)
 
+# When building with the x64-linux-static-pic vcpkg triplet (the standard release path),
+# pagmo2, Boost.Serialization, and TBB are all static PIC libraries. Linking them into
+# libPagmoWrapper.so produces a self-contained shared library with no pagmo/boost/tbb
+# runtime dependencies — only the standard C++ runtime is required at runtime.
 find_package(Pagmo REQUIRED)
 find_package(Boost REQUIRED COMPONENTS serialization)
 

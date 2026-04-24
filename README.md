@@ -36,16 +36,17 @@ environments without PowerShell Core.
 
 ### Linux x64
 
-Verified on Ubuntu 24.04 / Linux Mint 22.1.
+The native library is built with pagmo2, Boost.Serialization, and TBB statically linked
+(via vcpkg's `x64-linux-static-pic` triplet), so `libPagmoWrapper.so` has **no system
+runtime dependencies** beyond the standard C++ runtime.
 
-**Required packages:**
+**One-time setup:**
 
 ```bash
-# Build tools and pagmo2 (via apt — vcpkg not needed)
-sudo apt install -y cmake build-essential swig libpagmo-dev
+# Build tools, SWIG, and .NET
+sudo apt install -y cmake build-essential swig
 
-# .NET 10 SDK (net10.0 required for full test discovery on Linux)
-# On Ubuntu 24.04, pin to Ubuntu's repo to avoid package conflicts:
+# .NET 10 SDK (required for full test discovery on Linux — see note below)
 sudo tee /etc/apt/preferences.d/dotnet-ubuntu << 'EOF'
 Package: dotnet* aspnetcore*
 Pin: release o=Ubuntu
@@ -53,17 +54,21 @@ Pin-Priority: 1001
 EOF
 sudo apt update && sudo apt install -y dotnet-sdk-10.0
 
-# PowerShell Core (for VS Code tasks and build scripts)
+# PowerShell Core (for build scripts)
 wget -q https://packages.microsoft.com/config/ubuntu/24.04/packages-microsoft-prod.deb -O ms-prod.deb
 sudo dpkg -i ms-prod.deb && sudo apt update && sudo apt install -y powershell
+
+# vcpkg (builds pagmo2 + dependencies as static PIC libraries)
+git clone https://github.com/microsoft/vcpkg ~/vcpkg
+~/vcpkg/bootstrap-vcpkg.sh
+export VCPKG_ROOT=~/vcpkg   # add to ~/.bashrc or ~/.profile
 ```
 
 **Build and test:**
 
 ```bash
-# 1. Build the native shared library (no optional solvers needed for baseline)
-cmake -B pagmoWrapper/build -S pagmoWrapper -DCMAKE_BUILD_TYPE=Debug
-cmake --build pagmoWrapper/build
+# 1. Build the native shared library (vcpkg install runs automatically on first build)
+pwsh scripts/build-native.ps1 -Configuration Debug
 
 # 2. Run the full test suite (593 tests)
 dotnet test Tests/Tests.Pagmo.NET/Tests.Pagmo.NET.csproj -p:Platform=x64
@@ -72,14 +77,18 @@ dotnet test Tests/Tests.Pagmo.NET/Tests.Pagmo.NET.csproj -p:Platform=x64
 dotnet run --project Examples/Examples.Pagmo.NET/Examples.Pagmo.NET.csproj -- all
 ```
 
-SWIG wrapper regeneration (`pwsh scripts/regen-swig.ps1`) is only needed when editing `.i`
-files — the generated wrappers are checked in. SWIG 4.2 (Ubuntu default) works for
-regeneration; the committed wrappers were generated with 4.4 but are functionally identical.
+`build-native.ps1` runs `vcpkg install pagmo2:x64-linux-static-pic` (using the custom
+triplet in `triplets/`) then invokes CMake. vcpkg is idempotent — subsequent builds skip
+the install step. The first build takes several minutes while vcpkg compiles pagmo2, Boost,
+and TBB from source.
 
-**Optional solver note:** The apt-packaged `libpagmo.so` does not include NLopt or IPOPT
-support. The `OptionalSolverAvailability.IsNloptAvailable` / `IsIpoptAvailable` properties
-in the managed library detect this at runtime so tests correctly self-exclude rather than
-crash. See `.ai/LINUX_TESTING_HANDOFF.md` for the full troubleshooting guide.
+SWIG wrapper regeneration (`pwsh scripts/regen-swig.ps1`) is only needed when editing `.i`
+files — the generated wrappers are checked in.
+
+> **Note on .NET SDK:** The library itself targets `net8.0`. The test and examples projects
+> target `net10.0` because the .NET 8 VsTest runner on Linux only discovers ~198 of 593
+> tests due to a known discovery issue. Consumers can reference the package from any .NET 8+
+> project.
 
 ## FAQ
 
