@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Library</OutputType>
@@ -21,7 +21,12 @@
     <Platforms>x64</Platforms>
     <ApplicationIcon />
     <StartupObject />
+    <!-- MSBuild vcxproj output (legacy dev builds without vcpkg) -->
     <PagmoWrapperBinDir>$([System.IO.Path]::GetFullPath('$(MSBuildProjectDirectory)\..\pagmoWrapper\pagmoWrapper\bin'))</PagmoWrapperBinDir>
+    <!-- cmake static build output (x64-windows-static-md, produced by build-native.ps1 with vcpkg) -->
+    <PagmoWrapperWinCmakeBuildDir>$([System.IO.Path]::GetFullPath('$(MSBuildProjectDirectory)\..\pagmoWrapper\win-build'))</PagmoWrapperWinCmakeBuildDir>
+    <!-- cmake build output for Linux/macOS -->
+    <PagmoWrapperCmakeBuildDir>$([System.IO.Path]::GetFullPath('$(MSBuildProjectDirectory)\..\pagmoWrapper\build'))</PagmoWrapperCmakeBuildDir>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -51,23 +56,28 @@
     <None Include="..\THIRD_PARTY_LICENSES.md" Pack="true" PackagePath="\" />
   </ItemGroup>
 
-  <!-- Include the Linux native library in the NuGet package when packing on Linux.
-       Consumers on linux-x64 get libPagmoWrapper.so resolved automatically from
-       runtimes/linux-x64/native/ by the .NET runtime; no manual copy needed.
-       Built with the x64-linux-static-pic vcpkg triplet: pagmo2, Boost.Serialization,
-       and TBB are statically linked in, so there are no system runtime dependencies
-       beyond the standard C++ runtime (libstdc++, libgcc). -->
+  <!-- Windows cmake static build: single self-contained DLL (pagmo2 + Boost + TBB + NLopt + IPOPT
+       all statically linked via x64-windows-static-md vcpkg triplet). Preferred over the legacy
+       vcxproj multi-DLL bundle when the cmake build is present. -->
+  <ItemGroup Condition="'$(OS)' == 'Windows_NT' And Exists('$(PagmoWrapperWinCmakeBuildDir)\Release\PagmoWrapper.dll')">
+    <None Include="$(PagmoWrapperWinCmakeBuildDir)\Release\PagmoWrapper.dll"
+          Pack="true"
+          PackagePath="runtimes/win-x64/native/" />
+  </ItemGroup>
+
+  <!-- Windows legacy fallback: vcxproj multi-DLL bundle (no nlopt/ipopt; used when cmake build absent). -->
+  <ItemGroup Condition="'$(OS)' == 'Windows_NT' And !Exists('$(PagmoWrapperWinCmakeBuildDir)\Release\PagmoWrapper.dll') And Exists('$(PagmoWrapperBinDir)')">
+    <None Include="$(PagmoWrapperBinDir)\*.dll"
+          Pack="true"
+          PackagePath="runtimes/win-x64/native/" />
+  </ItemGroup>
+
+  <!-- Linux: single self-contained libPagmoWrapper.so (pagmo2 + Boost + TBB + NLopt + IPOPT
+       statically linked via x64-linux-static-pic vcpkg triplet; no system runtime deps). -->
   <ItemGroup Condition="'$(OS)' != 'Windows_NT' And Exists('$(PagmoWrapperCmakeBuildDir)/libPagmoWrapper.so')">
     <None Include="$(PagmoWrapperCmakeBuildDir)/libPagmoWrapper.so"
           Pack="true"
           PackagePath="runtimes/linux-x64/native/libPagmoWrapper.so" />
-  </ItemGroup>
-
-  <!-- Include the Windows native DLLs in the NuGet package when packing on Windows. -->
-  <ItemGroup Condition="'$(OS)' == 'Windows_NT' And Exists('$(PagmoWrapperBinDir)')">
-    <None Include="$(PagmoWrapperBinDir)\*.dll"
-          Pack="true"
-          PackagePath="runtimes/win-x64/native/" />
   </ItemGroup>
 
   <ItemGroup>
@@ -77,16 +87,21 @@
     <Folder Include="pygmoWrappers\" />
   </ItemGroup>
 
-  <!-- Windows: copy native DLLs from MSBuild output directory. -->
+  <!-- Windows cmake static build: copy self-contained DLL to managed output for dev/test runs.
+       Runs after the legacy PostBuild so this always wins if both builds are present. -->
+  <Target Name="PostBuildWindowsCmake" AfterTargets="PostBuild"
+          Condition="'$(OS)' == 'Windows_NT' And Exists('$(PagmoWrapperWinCmakeBuildDir)\$(Configuration)\PagmoWrapper.dll')">
+    <Copy SourceFiles="$(PagmoWrapperWinCmakeBuildDir)\$(Configuration)\PagmoWrapper.dll"
+          DestinationFolder="$(TargetDir)" SkipUnchangedFiles="true" />
+  </Target>
+
+  <!-- Windows legacy: copy DLL bundle from vcxproj output (no nlopt/ipopt; quick dev builds). -->
   <Target Name="PostBuild" AfterTargets="PostBuildEvent"
           Condition="'$(OS)' == 'Windows_NT' And Exists('$(PagmoWrapperBinDir)')">
     <Exec Command="xcopy /Y /I /E &quot;$(PagmoWrapperBinDir)\*&quot; &quot;$(TargetDir)&quot;" />
   </Target>
 
-  <!-- Linux/macOS: copy libPagmoWrapper.so from CMake build output directory. -->
-  <PropertyGroup>
-    <PagmoWrapperCmakeBuildDir>$([System.IO.Path]::GetFullPath('$(MSBuildProjectDirectory)\..\pagmoWrapper\build'))</PagmoWrapperCmakeBuildDir>
-  </PropertyGroup>
+  <!-- Linux/macOS: copy libPagmoWrapper.so from cmake build output directory. -->
   <Target Name="PostBuildLinux" AfterTargets="PostBuildEvent"
           Condition="'$(OS)' != 'Windows_NT' And Exists('$(PagmoWrapperCmakeBuildDir)')">
     <ItemGroup>

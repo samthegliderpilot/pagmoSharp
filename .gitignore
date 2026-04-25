@@ -24,3 +24,5 @@ scratch/
 .idea/
 .nuget/
 pagmoWrapper/build/
+pagmoWrapper/win-build/
+vcpkg_installed/

@@ -2,8 +2,7 @@ param(
     [string]$Version = "1.0.0-beta.1",
     [string]$Configuration = "Release",
     [string]$Platform = "x64",
-    [switch]$SkipReleaseGates,
-    [switch]$IncludeDebugNativeArtifacts
+    [switch]$SkipReleaseGates
 )
 
 Set-StrictMode -Version Latest
@@ -72,9 +71,9 @@ try {
 
     Write-Host "==> Collecting native runtime bundle"
     if ($IsLinux -or $IsMacOS) {
-        # Linux: collect libPagmoWrapper.so from the CMake build directory.
-        # Note: libpagmo.so.9 is a system dependency (apt install libpagmo9t64) and is
-        # NOT bundled here — document this requirement in release notes.
+        # Linux: collect libPagmoWrapper.so from the cmake build directory.
+        # All dependencies (pagmo2, Boost, TBB, NLopt, IPOPT) are statically linked via
+        # the x64-linux-static-pic vcpkg triplet — no system runtime dependencies required.
         $cmakeBuildDir = Join-Path $repoRoot "pagmoWrapper/build"
         Get-ChildItem -Path $cmakeBuildDir -File -Filter "libPagmoWrapper.*" | ForEach-Object {
             Copy-Item -Path $_.FullName -Destination (Join-Path $nativeOut $_.Name)
@@ -82,23 +81,16 @@ try {
 
         $nativeZipName = "Pagmo.NET-native-linux-x64-$Version.zip"
     } else {
-        # Windows: collect DLLs from the MSBuild output directory, excluding debug variants.
-        $nativeSource = Join-Path $repoRoot "pagmoWrapper/pagmoWrapper/bin"
-        $nativeFiles = @("*.dll", "*.pdb")
-        foreach ($pattern in $nativeFiles) {
-            Get-ChildItem -Path $nativeSource -File -Filter $pattern | Where-Object {
-                if ($IncludeDebugNativeArtifacts) { return $true }
-                $name = $_.Name.ToLowerInvariant()
-                if ($name -like "*-gd-*")    { return $false }
-                if ($name -like "*debug*")   { return $false }
-                if ($name -like "*.pdb")     { return $false }
-                if ($name -eq "zlibd1.dll")  { return $false }
-                if ($name -eq "bz2d.dll")    { return $false }
-                return $true
-            } | ForEach-Object {
-                Copy-Item -Path $_.FullName -Destination (Join-Path $nativeOut $_.Name)
-            }
+        # Windows: cmake static build (x64-windows-static-md) produces a single self-contained
+        # PagmoWrapper.dll with pagmo2, Boost, TBB, NLopt, and IPOPT statically linked.
+        # No additional DLLs are required at runtime.
+        $cmakeWinBuildDir = Join-Path $repoRoot "pagmoWrapper/win-build"
+        $releaseDll = Join-Path $cmakeWinBuildDir "Release/PagmoWrapper.dll"
+        if (-not (Test-Path $releaseDll)) {
+            throw "Windows cmake DLL not found at '$releaseDll'. " +
+                  "Ensure VCPKG_ROOT is set and build-native.ps1 completed successfully."
         }
+        Copy-Item -Path $releaseDll -Destination (Join-Path $nativeOut "PagmoWrapper.dll")
 
         $nativeZipName = "Pagmo.NET-native-win-x64-$Version.zip"
     }

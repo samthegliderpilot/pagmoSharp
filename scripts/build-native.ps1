@@ -21,8 +21,9 @@ try {
     if ($IsLinux -or $IsMacOS) {
         # CMake + vcpkg path for Linux/macOS.
         # Uses the x64-linux-static-pic triplet to build pagmo2 and its dependencies
-        # (Boost.Serialization, TBB) as static PIC libraries, so libPagmoWrapper.so
-        # has no external runtime dependencies beyond the standard C++ runtime.
+        # (Boost.Serialization, TBB, NLopt, IPOPT) as static PIC libraries, so
+        # libPagmoWrapper.so has no external runtime dependencies beyond the standard
+        # C++ runtime.
 
         if (-not $env:VCPKG_ROOT) {
             throw "VCPKG_ROOT must be set for Linux/macOS builds. " +
@@ -32,17 +33,30 @@ try {
         $vcpkgToolchain = Join-Path $env:VCPKG_ROOT "scripts/buildsystems/vcpkg.cmake"
         $triplet        = "x64-linux-static-pic"
         $tripletOverlay = (Resolve-Path (Join-Path $repoRoot "triplets")).Path
+        $portsOverlay   = (Resolve-Path (Join-Path $repoRoot "ports")).Path
 
         if (-not (Test-Path $vcpkgExe)) {
             throw "vcpkg executable not found at '$vcpkgExe'. Run bootstrap-vcpkg.sh first."
         }
 
-        # Install pagmo2 with the static-PIC triplet (idempotent — skips if already installed).
-        Write-Host "==> vcpkg install pagmo2:$triplet"
-        & $vcpkgExe install "pagmo2:$triplet" "--overlay-triplets=$tripletOverlay"
+        # Install pagmo2 with NLopt and IPOPT using our overlay port (idempotent).
+        # The overlay port extends the upstream vcpkg pagmo2 port with an ipopt feature
+        # (coin-or-ipopt dependency + PAGMO_WITH_IPOPT cmake flag).
+        Write-Host "==> vcpkg install pagmo2[nlopt,ipopt]:$triplet"
+        & $vcpkgExe install "pagmo2[nlopt,ipopt]:$triplet" `
+            "--overlay-triplets=$tripletOverlay" `
+            "--overlay-ports=$portsOverlay" `
+            "--recurse"
         if ($LASTEXITCODE -ne 0) { throw "vcpkg install failed ($LASTEXITCODE)." }
 
         $buildDir = Join-Path $wrapperDir "build"
+
+        # Remove stale cmake cache so the vcpkg toolchain takes effect cleanly.
+        $cmakeCache = Join-Path $buildDir "CMakeCache.txt"
+        if (Test-Path $cmakeCache) {
+            Write-Host "==> Clearing stale cmake cache"
+            Remove-Item -Force $cmakeCache
+        }
 
         & cmake `
             "-B$buildDir" `
@@ -50,13 +64,67 @@ try {
             "-DCMAKE_BUILD_TYPE=$Configuration" `
             "-DCMAKE_TOOLCHAIN_FILE=$vcpkgToolchain" `
             "-DVCPKG_TARGET_TRIPLET=$triplet" `
-            "-DVCPKG_OVERLAY_TRIPLETS=$tripletOverlay"
+            "-DVCPKG_OVERLAY_TRIPLETS=$tripletOverlay" `
+            "-DPAGMONET_WITH_NLOPT=ON" `
+            "-DPAGMONET_WITH_IPOPT=ON"
         if ($LASTEXITCODE -ne 0) { throw "cmake configure failed ($LASTEXITCODE)." }
 
         & cmake --build $buildDir --config $Configuration
         if ($LASTEXITCODE -ne 0) { throw "cmake build failed ($LASTEXITCODE)." }
+
+    } elseif ($env:VCPKG_ROOT) {
+        # Windows cmake + vcpkg path (preferred for release builds).
+        # Uses the x64-windows-static-md triplet to statically link pagmo2, Boost, TBB,
+        # NLopt, and IPOPT into PagmoWrapper.dll — consumers need no additional DLLs.
+        $vcpkgExe       = Join-Path $env:VCPKG_ROOT "vcpkg.exe"
+        $vcpkgToolchain = Join-Path $env:VCPKG_ROOT "scripts/buildsystems/vcpkg.cmake"
+        $triplet        = "x64-windows-static-md"
+        $tripletOverlay = (Resolve-Path (Join-Path $repoRoot "triplets")).Path
+        $portsOverlay   = (Resolve-Path (Join-Path $repoRoot "ports")).Path
+
+        if (-not (Test-Path $vcpkgExe)) {
+            throw "vcpkg.exe not found at '$vcpkgExe'. Run bootstrap-vcpkg.bat first."
+        }
+
+        # Install pagmo2 with NLopt and IPOPT using our overlay port (idempotent).
+        Write-Host "==> vcpkg install pagmo2[nlopt,ipopt]:$triplet"
+        & $vcpkgExe install "pagmo2[nlopt,ipopt]:$triplet" `
+            "--overlay-triplets=$tripletOverlay" `
+            "--overlay-ports=$portsOverlay" `
+            "--recurse"
+        if ($LASTEXITCODE -ne 0) { throw "vcpkg install failed ($LASTEXITCODE)." }
+
+        $buildDir = Join-Path $wrapperDir "win-build"
+
+        # Remove stale cmake cache so the vcpkg toolchain takes effect cleanly.
+        $cmakeCache = Join-Path $buildDir "CMakeCache.txt"
+        if (Test-Path $cmakeCache) {
+            Write-Host "==> Clearing stale cmake cache"
+            Remove-Item -Force $cmakeCache
+        }
+
+        & cmake `
+            "-B$buildDir" `
+            "-S$wrapperDir" `
+            "-G" "Visual Studio 17 2022" `
+            "-A" "x64" `
+            "-DCMAKE_TOOLCHAIN_FILE=$vcpkgToolchain" `
+            "-DVCPKG_TARGET_TRIPLET=$triplet" `
+            "-DVCPKG_OVERLAY_TRIPLETS=$tripletOverlay" `
+            "-DPAGMONET_WITH_NLOPT=ON" `
+            "-DPAGMONET_WITH_IPOPT=ON"
+        if ($LASTEXITCODE -ne 0) { throw "cmake configure failed ($LASTEXITCODE)." }
+
+        & cmake --build $buildDir --config $Configuration
+        if ($LASTEXITCODE -ne 0) { throw "cmake build failed ($LASTEXITCODE)." }
+
     } else {
-        # Windows: MSBuild path
+        # Windows legacy MSBuild fallback (no vcpkg).
+        # Produces a dynamic DLL bundle without NLopt/IPOPT support.
+        # Set VCPKG_ROOT and re-run to get the self-contained static build.
+        Write-Warning "VCPKG_ROOT is not set — falling back to MSBuild (no nlopt/ipopt). " +
+                      "Set VCPKG_ROOT to enable the full static build."
+
         $vsWhere = Join-Path ${env:ProgramFiles(x86)} "Microsoft Visual Studio\Installer\vswhere.exe"
         if (-not (Test-Path $vsWhere)) {
             throw "vswhere.exe was not found. Install Visual Studio Build Tools 2022."

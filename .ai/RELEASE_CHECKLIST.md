@@ -8,31 +8,79 @@
 ## Build & Test Gates
 
 ### Windows
-- [x] Run consolidated release gates script: `pwsh scripts/release-gates.ps1` (or `powershell -ExecutionPolicy Bypass -File scripts/release-gates.ps1`).
+
+The Windows release build uses cmake + vcpkg (`x64-windows-static-md` triplet) to produce a
+**single self-contained `PagmoWrapper.dll`** with pagmo2, Boost, TBB, NLopt, and IPOPT statically
+linked. No additional DLLs are required at runtime.
+
+**Prerequisites:**
+- Visual Studio 2022 (MSVC v143)
+- vcpkg cloned and bootstrapped; `VCPKG_ROOT` set in the environment
+- .NET 10 SDK
+
+**Build:**
+```
+# First time (or after vcpkg updates): installs pagmo2[nlopt,ipopt] — takes ~30 min, cached thereafter
+pwsh scripts/build-native.ps1 -Configuration Release
+
+# Run release gates (SWIG reproducibility + native build + full managed test suite)
+pwsh scripts/release-gates.ps1
+
+# Produce artifacts (NuGet pack + native zip + source archive + checksums)
+pwsh scripts/build-release-artifacts.ps1 -Version 1.0.0-beta.1 -SkipReleaseGates
+```
+
+- [x] Run consolidated release gates script: `pwsh scripts/release-gates.ps1`.
 - [x] Ensure release gate runs with repo-local cache environment (`NUGET_PACKAGES=./.nuget/packages`) to avoid machine-profile package drift.
-- [x] Clean rebuild native wrapper (`Debug x64` and `Release x64`).
+- [ ] Clean rebuild native wrapper via cmake (Debug and Release): `pwsh scripts/build-native.ps1 -Configuration Debug` then `-Configuration Release`.
 - [x] Run full managed test suite (`dotnet test`) — 593/593 pass.
 - [x] Validate SWIG regen reproducibility (no unexpected diffs after regeneration).
-- [x] Verify optional solver availability tests pass in current build profile.
+- [ ] Verify optional solver availability tests pass: NLopt and IPOPT should now be available (statically linked), so `IsNloptAvailable` and `IsIpoptAvailable` return `true`.
 
-### Linux (Ubuntu 24.04 / Linux Mint 22.1 verified)
-- [x] Install prerequisites: `sudo apt install -y cmake build-essential swig libpagmo-dev dotnet-sdk-10.0 powershell`
-- [x] Build native library: `cmake -B pagmoWrapper/build -S pagmoWrapper -DCMAKE_BUILD_TYPE=Release && cmake --build pagmoWrapper/build`
-- [x] Run full managed test suite: `dotnet test Tests/Tests.Pagmo.NET/Tests.Pagmo.NET.csproj -p:Platform=x64` — 593/593 pass.
-- [x] Verify optional solver tests self-exclude cleanly (NLopt/IPOPT not present in apt pagmo — tests call `Assert.Pass` via `OptionalSolverAvailability`).
+### Linux (Ubuntu 24.04 / Linux Mint 22.1)
+
+The Linux release build also uses cmake + vcpkg (`x64-linux-static-pic` triplet) to produce a
+**self-contained `libPagmoWrapper.so`** with all dependencies statically linked.
+
+**Prerequisites:**
+- `sudo apt install -y cmake build-essential swig dotnet-sdk-10.0 powershell`
+- vcpkg cloned and bootstrapped; `VCPKG_ROOT` set in the environment
+- See `.ai/LINUX_TESTING_HANDOFF.md` for full setup details.
+
+**Build:**
+```bash
+# Install pagmo2[nlopt,ipopt] and build libPagmoWrapper.so (first time ~30 min, cached thereafter)
+pwsh scripts/build-native.ps1 -Configuration Release
+
+# Run full managed test suite
+dotnet test Tests/Tests.Pagmo.NET/Tests.Pagmo.NET.csproj -p:Platform=x64
+
+# Produce Linux artifacts
+pwsh scripts/build-release-artifacts.ps1 -Version 1.0.0-beta.1 -SkipReleaseGates
+```
+
+- [ ] Install prerequisites (cmake, build-essential, swig, dotnet-sdk-10.0, powershell, vcpkg).
+- [ ] Build native library via vcpkg + cmake: `pwsh scripts/build-native.ps1 -Configuration Release`.
+- [ ] Run full managed test suite: `dotnet test Tests/Tests.Pagmo.NET/Tests.Pagmo.NET.csproj -p:Platform=x64` — 593/593 pass.
+- [ ] Verify NLopt and IPOPT availability tests pass (`IsNloptAvailable` and `IsIpoptAvailable` return `true`).
+- [ ] Confirm `ldd pagmoWrapper/build/libPagmoWrapper.so` shows no pagmo/boost/tbb/nlopt/ipopt deps.
 
 ## Artifacts
 
 ### Windows
-- [x] Produce managed assembly outputs (`Pagmo.NET.dll` + `.snupkg` symbols).
-- [x] Produce native runtime artifacts (`pagmoWrapper.dll` and dependencies) via `scripts/build-release-artifacts.ps1`.
-- [x] Verify artifact folder structure and load-path assumptions.
 - [x] Confirm license/NOTICE inclusion for redistributed dependencies. (`THIRD_PARTY_LICENSES.md`)
+- [ ] Run `pwsh scripts/build-release-artifacts.ps1 -Version 1.0.0-beta.1` on Windows to produce:
+  - `Pagmo.NET.1.0.0-beta.1.nupkg` (includes `runtimes/win-x64/native/PagmoWrapper.dll`)
+  - `Pagmo.NET-native-win-x64-1.0.0-beta.1.zip` (the standalone DLL for manual deployment)
+  - `SHA256SUMS.txt`
+- [ ] Verify NuGet pack includes exactly one Windows DLL: `unzip -l *.nupkg | grep win-x64` should show `PagmoWrapper.dll` only (not multiple pagmo/boost/tbb DLLs).
+- [ ] Verify the packed DLL has no dynamic pagmo/nlopt/ipopt deps: `dumpbin /dependents PagmoWrapper.dll` on the packed DLL should show only standard Windows/CRT DLLs.
 
 ### Linux
 - [ ] Run `pwsh scripts/build-release-artifacts.ps1 -Version 1.0.0-beta.1` on Linux to produce `Pagmo.NET-native-linux-x64-{version}.zip` containing `libPagmoWrapper.so`.
 - [ ] Verify NuGet pack on Linux includes `runtimes/linux-x64/native/libPagmoWrapper.so` (confirm with `unzip -l *.nupkg | grep linux`).
-- [ ] Document Linux consumer system dependency: `sudo apt install libpagmo9t64` (runtime-only package, no dev headers needed).
+- [ ] Verify `ldd libPagmoWrapper.so` shows no pagmo/boost/tbb/nlopt/ipopt deps (all statically linked).
+- [ ] No consumer system dependency required (`libpagmo9t64` is no longer needed — everything is self-contained).
 
 ## Documentation
 - [x] Update README quickstart if release API differs from docs.
@@ -43,7 +91,7 @@
 ## Changelog
 - [x] Summarize major features delivered in v1.0. (`RELEASE_NOTES.md`)
 - [x] Summarize breaking changes (if any). (`RELEASE_NOTES.md`)
-- [ ] Update known limitations in `RELEASE_NOTES.md`: Linux is now supported; remove "Linux deferred post-v1" note. Add note that Linux consumers must install `libpagmo9t64` as a system dependency.
+- [ ] Update `RELEASE_NOTES.md`: confirm that NLopt and IPOPT are now fully available on both platforms (statically linked); update environment matrix to remove any remaining `libpagmo9t64` system dependency notes.
 
 ## Final Publish
 - [ ] Create annotated git tag.
