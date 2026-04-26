@@ -10,7 +10,7 @@
     <Description>C# bindings and ergonomic wrappers for pagmo.</Description>
     <PackageLicenseExpression>GPL-3.0-only</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/samthegliderpilot/Pagmo.NET</PackageProjectUrl>
-    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageReadmeFile>nuget-readme.md</PackageReadmeFile>
     <PackageTags>pagmo;optimization;evolutionary;metaheuristic;SWIG</PackageTags>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <IncludeSymbols>true</IncludeSymbols>
@@ -45,7 +45,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="..\README.md" Pack="true" PackagePath="\" />
+    <None Include="..\docs\nuget-readme.md" Pack="true" PackagePath="\" />
+    <None Include="..\docs\logo.png" Pack="true" PackagePath="\" />
     <None Include="..\LICENSE" Pack="true" PackagePath="\" />
     <None Include="..\THIRD_PARTY_LICENSES.md" Pack="true" PackagePath="\" />
   </ItemGroup>
