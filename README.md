@@ -9,7 +9,7 @@ parallel evolution support.
 The wrapper is built with [SWIG 4.4](https://www.swig.org/) and supports Windows x64 and Linux x64.
 
 ```
-dotnet add package Pagmo.NET --version 1.0.0-beta.1
+dotnet add package Pagmo.NET --version 1.0.0-beta.2
 ```
 
 The NuGet package is self-contained — native runtime libraries for Windows x64 and Linux x64
