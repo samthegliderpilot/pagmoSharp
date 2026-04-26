@@ -8,6 +8,10 @@ param(
 Set-StrictMode -Version Latest
 $ErrorActionPreference = "Stop"
 
+# $IsLinux / $IsMacOS are automatic variables in PowerShell 7+ but undefined in 5.1.
+if (-not (Get-Variable -Name IsLinux -ErrorAction SilentlyContinue)) { $IsLinux = $false }
+if (-not (Get-Variable -Name IsMacOS -ErrorAction SilentlyContinue)) { $IsMacOS = $false }
+
 $repoRoot = Resolve-Path (Join-Path $PSScriptRoot "..")
 $env:DOTNET_CLI_TELEMETRY_OPTOUT = "1"
 $env:DOTNET_SKIP_FIRST_TIME_EXPERIENCE = "1"
@@ -26,7 +30,7 @@ $artifactRoot   = Join-Path $repoRoot "artifacts/release/$Version"
 $nugetOut       = Join-Path $artifactRoot "nuget"
 $nativeWinOut   = Join-Path $artifactRoot "native/win-x64"
 $nativeLinuxOut = Join-Path $artifactRoot "native/linux-x64"
-$nativeOut      = if ($IsLinux -or $IsMacOS) { $nativeLinuxOut } else { $nativeWinOut }
+$nativeOut      = if ($IsLinux -eq $true -or $IsMacOS -eq $true) { $nativeLinuxOut } else { $nativeWinOut }
 $sourceOut      = Join-Path $artifactRoot "source"
 
 if (Test-Path $artifactRoot) {
@@ -70,7 +74,7 @@ try {
     }
 
     Write-Host "==> Collecting native runtime bundle"
-    if ($IsLinux -or $IsMacOS) {
+    if ($IsLinux -eq $true -or $IsMacOS -eq $true) {
         # Linux: collect libPagmoWrapper.so from the cmake build directory.
         # All dependencies (pagmo2, Boost, TBB, NLopt, IPOPT) are statically linked via
         # the x64-linux-static-pic vcpkg triplet — no system runtime dependencies required.
@@ -85,10 +89,9 @@ try {
         # PagmoWrapper.dll with pagmo2, Boost, TBB, NLopt, and IPOPT statically linked.
         # No additional DLLs are required at runtime.
         $cmakeWinBuildDir = Join-Path $repoRoot "pagmoWrapper/win-build"
-        $releaseDll = Join-Path $cmakeWinBuildDir "Release/PagmoWrapper.dll"
+        $releaseDll = Join-Path $cmakeWinBuildDir "PagmoWrapper.dll"
         if (-not (Test-Path $releaseDll)) {
-            throw "Windows cmake DLL not found at '$releaseDll'. " +
-                  "Ensure VCPKG_ROOT is set and build-native.ps1 completed successfully."
+            throw "Windows cmake DLL not found at '$releaseDll'. Ensure VCPKG_ROOT is set and build-native.ps1 completed successfully."
         }
         Copy-Item -Path $releaseDll -Destination (Join-Path $nativeOut "PagmoWrapper.dll")
 

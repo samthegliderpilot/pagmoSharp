@@ -19,18 +19,12 @@
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <NoWarn>$(NoWarn);CS8981;CS1591</NoWarn>
     <Platforms>x64</Platforms>
-    <ApplicationIcon />
-    <StartupObject />
     <!-- MSBuild vcxproj output (legacy dev builds without vcpkg) -->
     <PagmoWrapperBinDir>$([System.IO.Path]::GetFullPath('$(MSBuildProjectDirectory)\..\pagmoWrapper\pagmoWrapper\bin'))</PagmoWrapperBinDir>
     <!-- cmake static build output (x64-windows-static-md, produced by build-native.ps1 with vcpkg) -->
     <PagmoWrapperWinCmakeBuildDir>$([System.IO.Path]::GetFullPath('$(MSBuildProjectDirectory)\..\pagmoWrapper\win-build'))</PagmoWrapperWinCmakeBuildDir>
     <!-- cmake build output for Linux/macOS -->
     <PagmoWrapperCmakeBuildDir>$([System.IO.Path]::GetFullPath('$(MSBuildProjectDirectory)\..\pagmoWrapper\build'))</PagmoWrapperCmakeBuildDir>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <PlatformTarget>x64</PlatformTarget>
   </PropertyGroup>
 
   <!-- Activate SNOPT7 support automatically when SWIG has generated the snopt7 wrapper. -->
@@ -57,16 +51,16 @@
   </ItemGroup>
 
   <!-- Windows cmake static build: single self-contained DLL (pagmo2 + Boost + TBB + NLopt + IPOPT
-       all statically linked via x64-windows-static-md vcpkg triplet). Preferred over the legacy
+       statically linked via x64-windows-static-md vcpkg triplet). Preferred over the legacy
        vcxproj multi-DLL bundle when the cmake build is present. -->
-  <ItemGroup Condition="'$(OS)' == 'Windows_NT' And Exists('$(PagmoWrapperWinCmakeBuildDir)\Release\PagmoWrapper.dll')">
-    <None Include="$(PagmoWrapperWinCmakeBuildDir)\Release\PagmoWrapper.dll"
+  <ItemGroup Condition="'$(OS)' == 'Windows_NT' And Exists('$(PagmoWrapperWinCmakeBuildDir)\PagmoWrapper.dll')">
+    <None Include="$(PagmoWrapperWinCmakeBuildDir)\PagmoWrapper.dll"
           Pack="true"
           PackagePath="runtimes/win-x64/native/" />
   </ItemGroup>
 
   <!-- Windows legacy fallback: vcxproj multi-DLL bundle (no nlopt/ipopt; used when cmake build absent). -->
-  <ItemGroup Condition="'$(OS)' == 'Windows_NT' And !Exists('$(PagmoWrapperWinCmakeBuildDir)\Release\PagmoWrapper.dll') And Exists('$(PagmoWrapperBinDir)')">
+  <ItemGroup Condition="'$(OS)' == 'Windows_NT' And !Exists('$(PagmoWrapperWinCmakeBuildDir)\PagmoWrapper.dll') And Exists('$(PagmoWrapperBinDir)')">
     <None Include="$(PagmoWrapperBinDir)\*.dll"
           Pack="true"
           PackagePath="runtimes/win-x64/native/" />
@@ -87,11 +81,10 @@
     <Folder Include="pygmoWrappers\" />
   </ItemGroup>
 
-  <!-- Windows cmake static build: copy self-contained DLL to managed output for dev/test runs.
-       Runs after the legacy PostBuild so this always wins if both builds are present. -->
+  <!-- Windows cmake static build: copy self-contained DLL to managed output for dev/test runs. -->
   <Target Name="PostBuildWindowsCmake" AfterTargets="PostBuild"
-          Condition="'$(OS)' == 'Windows_NT' And Exists('$(PagmoWrapperWinCmakeBuildDir)\$(Configuration)\PagmoWrapper.dll')">
-    <Copy SourceFiles="$(PagmoWrapperWinCmakeBuildDir)\$(Configuration)\PagmoWrapper.dll"
+          Condition="'$(OS)' == 'Windows_NT' And Exists('$(PagmoWrapperWinCmakeBuildDir)\PagmoWrapper.dll')">
+    <Copy SourceFiles="$(PagmoWrapperWinCmakeBuildDir)\PagmoWrapper.dll"
           DestinationFolder="$(TargetDir)" SkipUnchangedFiles="true" />
   </Target>
 

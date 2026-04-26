@@ -54,7 +54,7 @@ target_link_libraries(PagmoWrapper PRIVATE
 # undefine them so our wrapper only enables optional-solver code when we have
 # verified the solver is present (PAGMONET_WITH_* options below).
 if(MSVC)
-    target_compile_options(PagmoWrapper PRIVATE /UPAGMO_WITH_NLOPT /UPAGMO_WITH_IPOPT)
+    target_compile_options(PagmoWrapper PRIVATE /UPAGMO_WITH_NLOPT /UPAGMO_WITH_IPOPT /bigobj)
 else()
     target_compile_options(PagmoWrapper PRIVATE -UPAGMO_WITH_NLOPT -UPAGMO_WITH_IPOPT)
 endif()
@@ -81,13 +81,39 @@ if(PAGMONET_WITH_NLOPT)
 endif()
 
 if(PAGMONET_WITH_IPOPT)
-    # Try cmake config first — installed by vcpkg (coin-or-ipopt) on both Windows and Linux.
+    # Three cases in order of preference:
+    # 1. cmake config package (future vcpkg versions or other setups)
+    # 2. Windows/vcpkg: pagmo::IPOPT::libipopt was pre-created above via find_library;
+    #    Pagmo::pagmo links it transitively. Only the compile definition and include
+    #    path are needed here — no explicit target_link_libraries call required.
+    # 3. Linux/macOS: pkg-config (apt pagmo or source build).
     find_package(Ipopt CONFIG QUIET)
     if(TARGET Ipopt::Ipopt)
         target_compile_definitions(PagmoWrapper PRIVATE PAGMO_WITH_IPOPT)
         target_link_libraries(PagmoWrapper PRIVATE Ipopt::Ipopt)
+    elseif(WIN32)
+        find_path(IPOPT_INCLUDE_DIR NAMES IpIpoptApplication.hpp PATH_SUFFIXES coin-or)
+        target_compile_definitions(PagmoWrapper PRIVATE PAGMO_WITH_IPOPT)
+        if(IPOPT_INCLUDE_DIR)
+            target_include_directories(PagmoWrapper PRIVATE "${IPOPT_INCLUDE_DIR}")
+        endif()
+        # ipopt.lib calls BLAS/LAPACK via Fortran symbol names (e.g. ddot_, dsyev_).
+        # These are not in ipopt.lib itself; they come from the separate static libs.
+        # pagmo::IPOPT::libipopt only exposes ipopt.lib, so we must link the full
+        # BLAS/LAPACK chain explicitly here.
+        # CLAPACK (lapack.lib) calls BLAS externally; OpenBLAS defines DllMain
+        # and cannot be statically linked into a DLL. Intel MKL provides both
+        # BLAS and LAPACK as truly static libraries with no DllMain conflict.
+        # Use the sequential LP64 variant (no OpenMP dependency).
+        find_library(PAGMONET_MKL_LP64 NAMES mkl_intel_lp64 REQUIRED)
+        find_library(PAGMONET_MKL_SEQ  NAMES mkl_sequential  REQUIRED)
+        find_library(PAGMONET_MKL_CORE NAMES mkl_core        REQUIRED)
+        target_link_libraries(PagmoWrapper PRIVATE
+            "${PAGMONET_MKL_LP64}"
+            "${PAGMONET_MKL_SEQ}"
+            "${PAGMONET_MKL_CORE}"
+        )
     else()
-        # Fall back to pkg-config for Linux builds against the system apt ipopt package.
         find_package(PkgConfig REQUIRED)
         pkg_check_modules(IPOPT REQUIRED ipopt)
         target_compile_definitions(PagmoWrapper PRIVATE PAGMO_WITH_IPOPT)

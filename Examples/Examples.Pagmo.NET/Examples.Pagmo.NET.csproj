@@ -8,19 +8,19 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <PagmoWrapperBinDir>$([System.IO.Path]::GetFullPath('$(MSBuildProjectDirectory)\..\..\pagmoWrapper\pagmoWrapper\bin'))</PagmoWrapperBinDir>
+    <PagmoWrapperCmakeBuildDir>$([System.IO.Path]::GetFullPath('$(MSBuildProjectDirectory)\..\..\pagmoWrapper\build'))</PagmoWrapperCmakeBuildDir>
   </PropertyGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\Pagmo.NET\Pagmo.NET.csproj" />
   </ItemGroup>
 
-  <Target Name="PostBuild" AfterTargets="PostBuildEvent" Condition="Exists('$(PagmoWrapperBinDir)')">
+  <!-- Windows: copy native DLLs from vcxproj output (legacy dev builds). -->
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent" Condition="'$(OS)' == 'Windows_NT' And Exists('$(PagmoWrapperBinDir)')">
     <Exec Command="xcopy /Y /I /E &quot;$(PagmoWrapperBinDir)\*&quot; &quot;$(TargetDir)&quot;" />
   </Target>
 
-  <PropertyGroup>
-    <PagmoWrapperCmakeBuildDir>$([System.IO.Path]::GetFullPath('$(MSBuildProjectDirectory)\..\..\pagmoWrapper\build'))</PagmoWrapperCmakeBuildDir>
-  </PropertyGroup>
+  <!-- Linux: copy libPagmoWrapper.so from cmake build output. -->
   <Target Name="PostBuildLinux" AfterTargets="PostBuildEvent"
           Condition="'$(OS)' != 'Windows_NT' And Exists('$(PagmoWrapperCmakeBuildDir)')">
     <ItemGroup>

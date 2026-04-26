@@ -74,9 +74,9 @@ Notable type renames from internal pre-release names:
 | Environment | Status |
 |---|---|
 | Windows x64, .NET 8+ | Supported |
-| Windows x64, IPOPT enabled | Included — statically linked via vcpkg overlay port (`coin-or-ipopt:x64-windows-static-md`). `OptionalSolverAvailability.IsIpoptAvailable` returns `true` in the released build. |
+| Windows x64, IPOPT enabled | Included — statically linked via vcpkg (`coin-or-ipopt:x64-windows-static-md` with overlay port fixing LAPACK detection). `OptionalSolverAvailability.IsIpoptAvailable` returns `true` in the released build. |
 | Windows x64, NLopt enabled | Included — statically linked via vcpkg (`nlopt:x64-windows-static-md`). `OptionalSolverAvailability.IsNloptAvailable` returns `true` in the released build. |
-| Linux x64, .NET 8+ | Supported — `libPagmoWrapper.so` is fully self-contained (pagmo2, Boost, TBB, NLopt, IPOPT all statically linked via vcpkg `x64-linux-static-pic` triplet). Runtime requires only `libstdc++`, `libgcc`, and `libgfortran5` (standard on any Linux with numerical software). |
+| Linux x64, .NET 8+ | Supported — `libPagmoWrapper.so` is fully self-contained (pagmo2, Boost, TBB, NLopt, IPOPT all statically linked via vcpkg `x64-linux-static-pic` triplet). Runtime requires only `libstdc++` and `libgcc`. |
 | Linux x64, IPOPT enabled | Included — statically linked. `OptionalSolverAvailability.IsIpoptAvailable` returns `true` in the released build. |
 | Linux x64, NLopt enabled | Included — statically linked. `OptionalSolverAvailability.IsNloptAvailable` returns `true` in the released build. |
 | .NET Framework | Not supported |

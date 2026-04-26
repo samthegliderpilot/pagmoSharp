@@ -218,7 +218,21 @@ public class Test_handwritten_api_surface_audit
             "catch (Exception) should remain constrained to the managed callback boundary adapter where deferred bubbling is intentionally implemented.");
     }
 
+    [OneTimeSetUp]
+    public void SkipIfNotSourceRepo()
+    {
+        if (!TryGetExtensionsRoot(out _))
+            Assert.Ignore("Pagmo.NET/pagmoExtensions not found — skipping API surface audit (run from the source repo, not a NuGet consumer).");
+    }
+
     private static string GetExtensionsRoot()
+    {
+        if (!TryGetExtensionsRoot(out var root))
+            throw new DirectoryNotFoundException("Could not locate Pagmo.NET/pagmoExtensions from test runtime directory.");
+        return root;
+    }
+
+    private static bool TryGetExtensionsRoot(out string root)
     {
         var current = new DirectoryInfo(AppContext.BaseDirectory);
         while (current != null)
@@ -226,12 +240,12 @@ public class Test_handwritten_api_surface_audit
             var candidate = Path.Combine(current.FullName, "Pagmo.NET", "pagmoExtensions");
             if (Directory.Exists(candidate))
             {
-                return candidate;
+                root = candidate;
+                return true;
             }
-
             current = current.Parent;
         }
-
-        throw new DirectoryNotFoundException("Could not locate Pagmo.NET/pagmoExtensions from test runtime directory.");
+        root = null;
+        return false;
     }
 }

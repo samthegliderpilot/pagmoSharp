@@ -10,60 +10,69 @@ internal static class Program
 
     private static void Main(string[] args)
     {
-        var scenario = args.Length == 0 ? "all" : args[0].Trim().ToLowerInvariant();
+        var scenario = "all";
+        var verbose = false;
+        foreach (var arg in args)
+        {
+            var a = arg.Trim().ToLowerInvariant();
+            if (a is "--verbose" or "-v") verbose = true;
+            else scenario = a;
+        }
 
         Console.WriteLine("Pagmo.NET runnable examples");
         Console.WriteLine("These examples teach API usage and why islands/archipelagos/policies can help search quality.");
+        if (verbose) Console.WriteLine("(verbose: algorithm logs will be printed after each scenario)");
         Console.WriteLine();
 
         switch (scenario)
         {
             case "single":
-                RunSingleIslandBaseline();
+                RunSingleIslandBaseline(verbose);
                 break;
             case "archipelago":
-                RunArchipelagoTeachingScenario();
+                RunArchipelagoTeachingScenario(verbose);
                 break;
             case "policies":
-                RunPolicyComparison();
+                RunPolicyComparison(verbose);
                 break;
             case "maneuver":
-                RunOrbitalManeuverOptimization();
+                RunOrbitalManeuverOptimization(verbose);
                 break;
             case "all":
-                RunSingleIslandBaseline();
+                RunSingleIslandBaseline(verbose);
                 Console.WriteLine();
-                RunArchipelagoTeachingScenario();
+                RunArchipelagoTeachingScenario(verbose);
                 Console.WriteLine();
-                RunPolicyComparison();
+                RunPolicyComparison(verbose);
                 Console.WriteLine();
-                RunOrbitalManeuverOptimization();
+                RunOrbitalManeuverOptimization(verbose);
                 break;
             default:
                 Console.WriteLine($"Unknown scenario '{scenario}'.");
                 Console.WriteLine("Use one of: single, archipelago, policies, maneuver, all");
+                Console.WriteLine("Add --verbose (or -v) to print algorithm logs after each scenario.");
                 break;
         }
     }
 
     // Baseline: one optimizer on one island.
-    private static void RunSingleIslandBaseline()
+    private static void RunSingleIslandBaseline(bool verbose)
     {
         Console.WriteLine("Scenario: single island baseline");
-        var bestFitness = RunSingleIslandExperiment(seed: 42u, evolveCalls: 20u);
+        var bestFitness = RunSingleIslandExperiment(seed: 42u, evolveCalls: 20u, verbose: verbose);
         Console.WriteLine($"  Best fitness after evolve: {bestFitness:F6}");
         Console.WriteLine("  Why it matters: this is the simplest production path and a useful baseline for comparison.");
     }
 
     // Teach topology intuition + show how multi-island search can improve exploration.
-    private static void RunArchipelagoTeachingScenario()
+    private static void RunArchipelagoTeachingScenario(bool verbose)
     {
         Console.WriteLine("Scenario: archipelago and topology intuition");
 
         DescribeTopologyConnectivity();
 
-        var singleIslandBest = RunSingleIslandExperiment(seed: 77u, evolveCalls: 15u * (uint)DefaultIslandCount);
-        var archipelagoResult = RunArchipelagoExperiment(usePolicies: false);
+        var singleIslandBest = RunSingleIslandExperiment(seed: 77u, evolveCalls: 15u * (uint)DefaultIslandCount, verbose: verbose);
+        var archipelagoResult = RunArchipelagoExperiment(usePolicies: false, verbose: verbose);
 
         Console.WriteLine("  Single island (same total evolve rounds) vs archipelago multi-start:");
         Console.WriteLine($"    single-island best: {singleIslandBest:F6}");
@@ -72,12 +81,12 @@ internal static class Program
     }
 
     // Compare policy wiring on the same archipelago flow.
-    private static void RunPolicyComparison()
+    private static void RunPolicyComparison(bool verbose)
     {
         Console.WriteLine("Scenario: policy impact (default vs fair_replace/select_best)");
 
-        var defaultPolicyResult = RunArchipelagoExperiment(usePolicies: false);
-        var explicitPolicyResult = RunArchipelagoExperiment(usePolicies: true);
+        var defaultPolicyResult = RunArchipelagoExperiment(usePolicies: false, verbose: verbose);
+        var explicitPolicyResult = RunArchipelagoExperiment(usePolicies: true, verbose: verbose);
 
         PrintExperiment("default policies", defaultPolicyResult);
         PrintExperiment("fair_replace/select_best", explicitPolicyResult);
@@ -96,7 +105,7 @@ internal static class Program
     // Two-burn Hohmann-like transfer: circular LEO → higher circular orbit.
     // Demonstrates custom UDP with equality constraints solved via
     // cstrs_self_adaptive wrapping de.
-    private static void RunOrbitalManeuverOptimization()
+    private static void RunOrbitalManeuverOptimization(bool verbose)
     {
         Console.WriteLine("Scenario: orbital maneuver optimisation (2-burn Hohmann-like transfer)");
 
@@ -135,9 +144,12 @@ internal static class Program
         using var innerAlgorithm = new de(50u);
         using var erasedInner = innerAlgorithm.to_algorithm();
         using var algorithm = new cstrs_self_adaptive(200u, erasedInner, 42u);
+        if (verbose) algorithm.set_verbosity(1u);
 
         using var population = new population(problem, 200u, 1u);
         using var evolved = algorithm.evolve(population);
+
+        if (verbose) PrintAlgorithmLog("cstrs_self_adaptive", algorithm.GetLogLines());
 
         // Find best feasible individual
         using var allF = evolved.get_f();
@@ -185,6 +197,14 @@ internal static class Program
                           $"(target {target.Eccentricity:F4})");
     }
 
+    private static void PrintAlgorithmLog(string label, IReadOnlyList<IAlgorithmLogLine> lines)
+    {
+        if (lines.Count == 0) return;
+        Console.WriteLine($"  [{label} — {lines.Count} log entries]");
+        foreach (var line in lines)
+            Console.WriteLine($"    {line.ToDisplayString()}");
+    }
+
     private static void DescribeTopologyConnectivity()
     {
         using var ringTopology = new ring(8u, 0.7);
@@ -198,7 +218,7 @@ internal static class Program
         Console.WriteLine($"    unconnected neighbors: {unconnectedConnections.NeighborIds.Length}");
     }
 
-    private static ExperimentResult RunArchipelagoExperiment(bool usePolicies)
+    private static ExperimentResult RunArchipelagoExperiment(bool usePolicies, bool verbose)
     {
         using var problem = new RastriginLikeProblem();
         using var archi = new archipelago();
@@ -211,7 +231,9 @@ internal static class Program
 
         for (var islandIndex = 0; islandIndex < DefaultIslandCount; islandIndex++)
         {
-            using IAlgorithm algorithm = new de(60u, 0.8, 0.9, 2u, 1e-6, 1e-6, (uint)(101 + islandIndex));
+            var algo = new de(60u, 0.8, 0.9, 2u, 1e-6, 1e-6, (uint)(101 + islandIndex));
+            if (verbose) algo.set_verbosity(1u);
+            using IAlgorithm algorithm = algo;
 
             if (usePolicies)
             {
@@ -219,8 +241,8 @@ internal static class Program
                     algorithm,
                     problem,
                     DefaultPopulationSize,
-                    replacementPolicy!,
-                    selectionPolicy!,
+                    replacementPolicy,
+                    selectionPolicy,
                     seed: (uint)(201 + islandIndex));
             }
             else
@@ -232,6 +254,16 @@ internal static class Program
         archi.evolve(15u);
         archi.wait_check();
 
+        if (verbose)
+        {
+            for (var i = 0; i < DefaultIslandCount; i++)
+            {
+                using var isl = archi.GetIslandCopy((ulong)i);
+                using var algo = isl.get_algorithm();
+                PrintAlgorithmLog($"island {i}", algo.GetLogLines());
+            }
+        }
+
         var bestFitness = GetArchipelagoBestFitness(archi, DefaultIslandCount);
         var migrationEvents = archi.MigrationLog.Count;
         var topologyName = archi.get_topology_name();
@@ -239,14 +271,23 @@ internal static class Program
         return new ExperimentResult(topologyName, bestFitness, migrationEvents, usePolicies);
     }
 
-    private static double RunSingleIslandExperiment(uint seed, uint evolveCalls)
+    private static double RunSingleIslandExperiment(uint seed, uint evolveCalls, bool verbose)
     {
         using var problem = new RastriginLikeProblem();
-        using IAlgorithm algorithm = new de(80u, 0.8, 0.9, 2u, 1e-6, 1e-6, seed);
+        var deAlgo = new de(80u, 0.8, 0.9, 2u, 1e-6, 1e-6, seed);
+        if (verbose) deAlgo.set_verbosity(1u);
+        using IAlgorithm algorithm = deAlgo;
         using var singleIsland = island.Create(algorithm, problem, popSize: DefaultPopulationSize, seed: seed);
 
         singleIsland.evolve(evolveCalls);
         singleIsland.wait_check();
+
+        if (verbose)
+        {
+            using var algo = singleIsland.get_algorithm();
+            PrintAlgorithmLog("de", algo.GetLogLines());
+        }
+
         return GetIslandChampion(singleIsland);
     }
 

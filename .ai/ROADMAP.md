@@ -307,9 +307,40 @@ Last updated: 2026-04-08
   - supported environment matrix (Windows-first, x64, .NET 10).
 - [ ] Publish artifacts and release notes.
 
-9. **Sprint 7 (v1.x/2.0): Linux/CMake**
-- [ ] Cross-platform build track after v1.0.
+9. **Sprint 7 (v1.x): Linux/CMake** ✅ Completed before v1.0 release.
+- [x] Cross-platform build — Linux x64 supported. Static vcpkg build (`x64-linux-static-pic` triplet): pagmo2 + Boost + TBB + NLopt + IPOPT statically linked into `libPagmoWrapper.so`. No system runtime dependencies. 593/593 tests pass on Ubuntu 24.04.
 - [ ] Evaluate optional managed thread-clone strategy for non-thread-safe managed problems (for example `IThreadCloneableProblem` with per-thread clone context) and integrate only if it fits pagmo execution semantics cleanly.
+
+10. **Sprint 8 (v2.0): macOS Support**
+- [ ] **arm64 (Apple Silicon):** custom vcpkg triplet `arm64-osx-static-pic.cmake` (static + PIC, `CMAKE_SYSTEM_NAME=Darwin`). Build produces `libPagmoWrapper.dylib`. NuGet RID `osx-arm64`.
+- [ ] **x86_64 (Intel Mac):** custom vcpkg triplet `x64-osx-static-pic.cmake`. NuGet RID `osx-x64`.
+- [ ] **Universal binary (preferred):** combine arm64 + x86_64 slices with `lipo -create` in CI; ship one `libPagmoWrapper.dylib` covering both architectures under a single `osx` NuGet RID entry.
+- [ ] **CMakeLists.txt additions:** `MACOSX_DEPLOYMENT_TARGET` (11.0 for arm64, 10.15 for x86_64); RPATH uses `@loader_path` instead of Linux's `$ORIGIN`.
+- [ ] **build-native.ps1:** macOS branch detecting architecture via `uname -m`; selects appropriate triplet; handles universal binary `lipo` step if both slices are present.
+- [ ] **IPOPT on macOS:** same autotools + LAPACK friction as Windows static build. Ship NLopt only on first attempt; revisit IPOPT if the vcpkg macOS port resolves the issue.
+- [ ] **Code signing:** ad-hoc signing (`codesign --sign -`) sufficient for open-source distribution; Developer ID certificate needed for notarization if distributing outside the Mac App Store.
+- [ ] **NuGet packaging:** add `runtimes/osx/native/` item groups to `Pagmo.NET.csproj`; update `build-release-artifacts.ps1` with macOS artifact collection.
+- [ ] **CI:** add `macos-latest` (arm64) and `macos-13` (x86_64) GitHub Actions jobs to the release workflow; `lipo` merge step in the publish job.
+
+10. **Sprint 9 (v2.x): Additional Language Bindings**
+
+    **Java / Kotlin**
+    - SWIG has a first-class Java backend (`-java`). The existing `.i` files (includes, directors, module structure) carry over almost entirely — roughly 70% reuse.
+    - What needs replacing: C#-specific typemaps (`%typemap(cstype)`, `%typemap(cscode)`, etc.) with Java equivalents; module declarations; JNI library loading instead of P/Invoke.
+    - Memory management: SWIG's Java director pattern handles GC-interop similarly to the C# path; finalizer/dispose patterns map to Java's `AutoCloseable`.
+    - Kotlin requires no separate backend — SWIG-generated Java bindings are directly consumable from Kotlin with no extra work.
+    - Estimated new work: ~30% on top of what exists.
+
+    **Rust**
+    - SWIG has no Rust backend; the `.i` files are not reusable for Rust.
+    - **Recommended approach: explicit C ABI wrapper + bindgen** (the `*-sys` crate pattern).
+      - Write a deliberate C header (`pagmo_c.h`) and implementation that exposes the pagmo surface as plain C functions. This is the universal stable ABI — every language has mature, battle-tested FFI against C.
+      - Run `bindgen` to generate a `pagmo-sys` crate (raw unsafe bindings). Publish a safe wrapper crate on top.
+      - Follows the Rust ecosystem convention for native bindings — consumers know what to expect.
+    - **Why not `autocxx` or binding directly against SWIG-exported symbols:**
+      - `autocxx` is impressive but still chasing a moving target (C++ template instantiation, STL types, exceptions across the FFI boundary). The ecosystem has not settled on it; higher risk of being replaced.
+      - Binding directly against the SWIG runtime exports couples Rust to internal ABI details that were never designed to be stable.
+    - **Why the C wrapper ages well:** a hand-designed C header forces deliberate API choices upfront. Bindings that leak C++ internals or rely on auto-generated surfaces are what causes people to want to replace FFI crates later. A clean C layer is the thing that doesn't get replaced.
 
 ### API and Quality Rules
 ### Exception Policy (Project Preference)
@@ -332,7 +363,7 @@ Last updated: 2026-04-08
 ### Assumptions
 - Breadth-first then depth-hardening is intentional for large catalog onboarding.
 - `Problem` remains core and already mature enough to build on.
-- v1.0 stays Windows-first; Linux is explicitly post-release.
+- v1.0 ships Windows x64 and Linux x64. macOS is explicitly post-v1.
 
 
 

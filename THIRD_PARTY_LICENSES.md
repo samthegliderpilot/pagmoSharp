@@ -1,22 +1,28 @@
 # Third-Party Licenses
 
-Pagmo.NET ships a native runtime bundle for Windows x64 that includes the following
-third-party components. Their licenses are reproduced below or linked to their upstream sources.
+Pagmo.NET ships native runtime libraries for Windows x64 and Linux x64. Both libraries
+statically link a set of third-party components whose licenses are reproduced below.
+
+**Windows x64 (`PagmoWrapper.dll`):** pagmo2, Boost 1.90, TBB, NLopt, Eigen3, IPOPT,
+CoinUtils, Intel oneAPI MKL (BLAS/LAPACK backend).
+
+**Linux x64 (`libPagmoWrapper.so`):** pagmo2, Boost 1.90, TBB, NLopt, Eigen3, IPOPT,
+CoinUtils, OpenBLAS, LAPACK, zlib, bzip2.
 
 ---
 
 ## pagmo2
 
-**License:** GNU Lesser General Public License v3.0 (LGPL-3.0)  
-**Source:** https://github.com/esa/pagmo2  
+**License:** GNU Lesser General Public License v3.0 (LGPL-3.0) or GNU General Public License v3.0 (GPL-3.0)
+**Source:** https://github.com/esa/pagmo2
 Full license text: https://www.gnu.org/licenses/lgpl-3.0.txt
 
 ---
 
 ## Boost C++ Libraries
 
-**Version:** 1.89  
-**License:** Boost Software License 1.0  
+**Version:** 1.90
+**License:** Boost Software License 1.0
 **Source:** https://www.boost.org/
 
 ```
@@ -49,31 +55,50 @@ DEALINGS IN THE SOFTWARE.
 
 ## Intel oneAPI Threading Building Blocks (TBB)
 
-**License:** Apache License 2.0  
-**Source:** https://github.com/uxlfoundation/oneTBB  
+**License:** Apache License 2.0
+**Source:** https://github.com/uxlfoundation/oneTBB
 Full license text: https://www.apache.org/licenses/LICENSE-2.0.txt
 
 ---
 
 ## NLopt
 
-**License:** GNU Lesser General Public License v2.1 or later (LGPL-2.1+)  
-**Source:** https://github.com/stevengj/nlopt  
+**License:** GNU Lesser General Public License v2.1 or later (LGPL-2.1+)
+**Source:** https://github.com/stevengj/nlopt
 Full license text: https://www.gnu.org/licenses/lgpl-2.1.txt
+
+---
+
+## Eigen3
+
+**License:** Mozilla Public License 2.0 (MPL-2.0)
+**Source:** https://eigen.tuxfamily.org/
+Full license text: https://www.mozilla.org/en-US/MPL/2.0/
 
 ---
 
 ## COIN-OR IPOPT and CoinUtils
 
-**License:** Eclipse Public License 2.0 (EPL-2.0)  
-**Source:** https://github.com/coin-or/Ipopt  
+**License:** Eclipse Public License 2.0 (EPL-2.0)
+**Source:** https://github.com/coin-or/Ipopt
 Full license text: https://www.eclipse.org/legal/epl-2.0/
 
 ---
 
-## OpenBLAS
+## Intel oneAPI Math Kernel Library (MKL) *(Windows only)*
 
-**License:** BSD 3-Clause License  
+IPOPT on Windows uses Intel MKL as its BLAS/LAPACK backend (statically linked via vcpkg
+`intel-mkl:x64-windows-static-md`).
+
+**License:** Intel Simplified Software License (ISSL)
+**Source:** https://www.intel.com/content/www/us/en/developer/tools/oneapi/onemkl.html
+Full license text: https://www.intel.com/content/www/us/en/developer/articles/license/end-user-license-agreement.html
+
+---
+
+## OpenBLAS *(Linux only)*
+
+**License:** BSD 3-Clause License
 **Source:** https://github.com/OpenMathLib/OpenBLAS
 
 ```
@@ -106,17 +131,17 @@ POSSIBILITY OF SUCH DAMAGE.
 
 ---
 
-## LAPACK
+## LAPACK *(Linux only)*
 
-**License:** BSD 3-Clause License  
-**Source:** https://www.netlib.org/lapack/  
+**License:** BSD 3-Clause License
+**Source:** https://www.netlib.org/lapack/
 Full license text: https://www.netlib.org/lapack/LICENSE.txt
 
 ---
 
-## zlib
+## zlib *(Linux only)*
 
-**License:** zlib/libpng License  
+**License:** zlib/libpng License
 **Source:** https://zlib.net/
 
 ```
@@ -138,26 +163,8 @@ freely, subject to the following restrictions:
 
 ---
 
-## bzip2
+## bzip2 *(Linux only)*
 
-**License:** BSD-style License  
-**Source:** https://sourceware.org/bzip2/  
+**License:** BSD-style License
+**Source:** https://sourceware.org/bzip2/
 Full license text: https://sourceware.org/git/?p=bzip2.git;a=blob;f=LICENSE
-
----
-
-## hwloc (Portable Hardware Locality)
-
-**License:** BSD 3-Clause License  
-**Source:** https://www.open-mpi.org/projects/hwloc/  
-Full license text: https://github.com/open-mpi/hwloc/blob/master/COPYING
-
----
-
-## GCC Runtime Libraries (libgcc, libgfortran, libquadmath, libwinpthread)
-
-These DLLs are part of the MinGW-w64 GCC runtime and are distributed under the
-GCC Runtime Library Exception to the GNU General Public License v3.0, which
-permits distribution with non-GPL applications.
-
-Full license text: https://www.gnu.org/licenses/gcc-exception-3.1.en.html

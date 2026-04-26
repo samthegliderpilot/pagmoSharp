@@ -26,8 +26,7 @@ try {
         # C++ runtime.
 
         if (-not $env:VCPKG_ROOT) {
-            throw "VCPKG_ROOT must be set for Linux/macOS builds. " +
-                  "Clone vcpkg (https://github.com/microsoft/vcpkg) and set VCPKG_ROOT."
+            throw "VCPKG_ROOT must be set for Linux/macOS builds. Clone vcpkg (https://github.com/microsoft/vcpkg) and set VCPKG_ROOT."
         }
         $vcpkgExe       = Join-Path $env:VCPKG_ROOT "vcpkg"
         $vcpkgToolchain = Join-Path $env:VCPKG_ROOT "scripts/buildsystems/vcpkg.cmake"
@@ -86,7 +85,9 @@ try {
             throw "vcpkg.exe not found at '$vcpkgExe'. Run bootstrap-vcpkg.bat first."
         }
 
-        # Install pagmo2 with NLopt and IPOPT using our overlay port (idempotent).
+        # Install pagmo2 with NLopt and IPOPT. The coin-or-ipopt overlay port in
+        # ports/coin-or-ipopt/ fixes the LAPACK detection failure under x64-windows-static-md
+        # by explicitly setting LAPACK_LFLAGS to include openblas (omitted from lapack.pc).
         Write-Host "==> vcpkg install pagmo2[nlopt,ipopt]:$triplet"
         & $vcpkgExe install "pagmo2[nlopt,ipopt]:$triplet" `
             "--overlay-triplets=$tripletOverlay" `
@@ -96,7 +97,24 @@ try {
 
         $buildDir = Join-Path $wrapperDir "win-build"
 
-        # Remove stale cmake cache so the vcpkg toolchain takes effect cleanly.
+        # Import the VC environment from the same VS installation vcpkg used.
+        # CMake 3.31 only knows generators up to VS 17 2022; for VS 18+ we use
+        # Ninja with the VC environment set up via vcvars64.bat.
+        $vsWhere = Join-Path ${env:ProgramFiles(x86)} "Microsoft Visual Studio\Installer\vswhere.exe"
+        if (-not (Test-Path $vsWhere)) { throw "vswhere.exe not found. Install Visual Studio Build Tools." }
+        $vsInstallPath = & $vsWhere -latest -property installationPath
+        $vcvars = Join-Path $vsInstallPath "VC\Auxiliary\Build\vcvars64.bat"
+        if (-not (Test-Path $vcvars)) { throw "vcvars64.bat not found at '$vcvars'." }
+
+        Write-Host "==> Importing VC environment from $vsInstallPath"
+        $vcEnvLines = cmd /c "`"$vcvars`" > nul 2>&1 && set"
+        foreach ($line in $vcEnvLines) {
+            if ($line -match '^([^=]+)=(.*)$') {
+                [System.Environment]::SetEnvironmentVariable($Matches[1], $Matches[2], 'Process')
+            }
+        }
+
+        # Remove stale cmake cache so it picks up the new environment cleanly.
         $cmakeCache = Join-Path $buildDir "CMakeCache.txt"
         if (Test-Path $cmakeCache) {
             Write-Host "==> Clearing stale cmake cache"
@@ -106,8 +124,8 @@ try {
         & cmake `
             "-B$buildDir" `
             "-S$wrapperDir" `
-            "-G" "Visual Studio 17 2022" `
-            "-A" "x64" `
+            "-G" "Ninja" `
+            "-DCMAKE_BUILD_TYPE=$Configuration" `
             "-DCMAKE_TOOLCHAIN_FILE=$vcpkgToolchain" `
             "-DVCPKG_TARGET_TRIPLET=$triplet" `
             "-DVCPKG_OVERLAY_TRIPLETS=$tripletOverlay" `
@@ -122,8 +140,7 @@ try {
         # Windows legacy MSBuild fallback (no vcpkg).
         # Produces a dynamic DLL bundle without NLopt/IPOPT support.
         # Set VCPKG_ROOT and re-run to get the self-contained static build.
-        Write-Warning "VCPKG_ROOT is not set — falling back to MSBuild (no nlopt/ipopt). " +
-                      "Set VCPKG_ROOT to enable the full static build."
+        Write-Warning "VCPKG_ROOT is not set - falling back to MSBuild (no nlopt/ipopt). Set VCPKG_ROOT to enable the full static build."
 
         $vsWhere = Join-Path ${env:ProgramFiles(x86)} "Microsoft Visual Studio\Installer\vswhere.exe"
         if (-not (Test-Path $vsWhere)) {

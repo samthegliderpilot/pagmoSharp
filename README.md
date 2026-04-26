@@ -8,17 +8,17 @@ The wrapper is built with [SWIG 4.4](https://www.swig.org/) and supports Windows
 
 ## Installation
 
-Binary releases are distributed via:
+```
+dotnet add package Pagmo.NET --version 1.0.0-beta.1
+```
 
-- **NuGet** - `dotnet add package Pagmo.NET --version 1.0.0-beta.1`
-- **GitHub Releases** - tagged release bundles at
-  `https://github.com/samthegliderpilot/Pagmo.NET/releases` include the managed NuGet package,
-  the native Windows x64 runtime bundle (`pagmoWrapper.dll` + dependencies), and a source archive.
+The NuGet package is self-contained — it includes the native runtime libraries for Windows x64
+and Linux x64 in the `runtimes/` directory. No additional installation or DLL copying is
+required; just add the package and run.
 
-The NuGet package contains only the managed assembly. The native runtime DLLs
-(`pagmoWrapper.dll` and its dependencies) must be placed alongside your application at runtime.
-Download the matching native bundle from the same GitHub release tag as the NuGet package version
-you reference in your application.
+Source archives and individual native bundles are also available at
+`https://github.com/samthegliderpilot/Pagmo.NET/releases` if you need them for custom
+deployment scenarios.
 
 ## Build requirements (contributors / from source)
 
@@ -100,7 +100,7 @@ independent .NET binding for teams that want pagmo's optimization power in C# / 
 environments without a Python runtime dependency.
 
 ### Why SWIG and not C++/CLI?
-Several related reasons.  First, I wanted a P-Invoke wrapper to allow for the possibility of cross-platform support.  Also, SWIG takes care of all of the repetitive wrapping that a library like this needed.  Once I realized it exists, I just couldn't not use it.
+SWIG takes care of all of the repetitive wrapping that a library like this needed.  Once I realized it exists, I just couldn't not use it.
 Also, if someone wants to make wrappers for another language, the SWIG .i file will be a great start to that endeavor.  
 
 ### What's covered in v1.0?
@@ -108,25 +108,15 @@ All major pagmo algorithms, built-in benchmark problems, multi-island archipelag
 batch fitness evaluators, and migration policies are wrapped. See the feature matrix below.
 
 ### Your automated tests are not really testing meaningful optimization problems.
-True, but they don't have to.  These tests need to only test the wrappers; they do not need to test that the algorithms in pygmo work as well as they do.
+True, but they don't have to.  These tests need to only test the wrappers; they do not need to test that the algorithms in pagmo work as well as they do.
 
 ### Where's IPOPT?
-IPOPT is supported as an optional, feature-gated solver when pagmo is built with IPOPT enabled (for example via vcpkg feature configuration).
 
-Install IPOPT with vcpkg (Windows x64):
-
-```powershell
-& 'C:\src\vcpkg\vcpkg.exe' install coin-or-ipopt:x64-windows
-```
-
-If your `vcpkg.exe` is on `PATH`, you can use:
-
-```powershell
-vcpkg install coin-or-ipopt:x64-windows
-```
+IPOPT is included in both the Windows and Linux released builds — statically linked via vcpkg.
+`OptionalSolverAvailability.IsIpoptAvailable` returns `true` out of the box on both platforms.
 
 ### Where's SNOPT7?
-SNOPT7 (Stanford's nonlinear programming solver) is proprietary and cannot be bundled with this project.  Users who hold a SNOPT7 license can build Pagmo.NET from source with SNOPT7 support enabled — the `snopt7` class will then be available in the managed assembly.
+SNOPT7 (Stanford's nonlinear programming solver) is proprietary and cannot be bundled with this project.  Users who hold a SNOPT7 license can build Pagmo.NET from source with SNOPT7 support enabled — the `snopt7` class will then be available in the managed assembly. This is currently untested.
 
 **To enable SNOPT7:**
 1. Obtain a SNOPT7 license from Stanford University.  Your distribution includes the SNOPT7 C-interface headers (`snopt_cwrap.h` etc.) and a compiled shared library (e.g. `snopt7.dll`).
@@ -174,12 +164,12 @@ build task calls `scripts/build-native.ps1`, which uses MSBuild on Windows and C
 
 ### Requirements — Linux
 
-- cmake, build-essential, swig, libpagmo-dev (via apt — see Linux build section above)
+- cmake, build-essential, swig, vcpkg (see Linux build section above)
 - .NET 10 SDK
 - PowerShell Core (`pwsh`)
 - VS Code extensions: `ms-dotnettools.csharp`, `ms-dotnettools.csdevkit`, `ms-vscode.cpptools`, `ms-vscode.powershell`
 
-Build the native library first (`cmake -B pagmoWrapper/build -S pagmoWrapper && cmake --build pagmoWrapper/build`) before using VS Code tasks, as the tasks depend on it existing.
+Build the native library first (`pwsh scripts/build-native.ps1`) before using VS Code tasks.
 
 ### Configurable tool/include paths
 
@@ -332,7 +322,7 @@ pwsh scripts/build-release-artifacts.ps1 -Version 1.0.0-beta.1
 | Topology wrappers (`ring`, `fully_connected`, `unconnected`, `free_form`) | Supported | Managed projection helpers are provided and tested. |
 | Optional solver wrapper (`ipopt`) | Feature-gated | Build-dependent; availability/runtime behavior (construct/evolve/type-erasure/log projection) is validated when IPOPT is present. |
 | Optional solver wrapper (`nlopt`) | Feature-gated | Build-dependent; availability is asserted by test and runtime wrapper behavior is validated when present. |
-| Linux/CMake build flow | Supported | Verified on Ubuntu 24.04 / Linux Mint 22.1. Uses apt-packaged pagmo2; `cmake` direct or via `scripts/build-native.ps1 (pwsh)`. All 593 tests pass with .NET 10 SDK. See README Linux section and `.ai/LINUX_TESTING_HANDOFF.md`. |
+| Linux/CMake build flow | Supported | Verified on Ubuntu 24.04 / Linux Mint 22.1. pagmo2, Boost, TBB, NLopt, and IPOPT statically linked via vcpkg `x64-linux-static-pic` triplet — no system runtime deps. All 593 tests pass with .NET 10 SDK. |
 
 ## Code style preferences
 
