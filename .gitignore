@@ -27,3 +27,6 @@ pagmoWrapper/build/
 pagmoWrapper/win-build/
 vcpkg_installed/
 artifacts_linux/
+.gradle/
+build/
+.kotlin/
