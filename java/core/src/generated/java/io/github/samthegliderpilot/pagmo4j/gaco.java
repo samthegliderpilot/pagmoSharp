@@ -127,8 +127,8 @@ public class gaco implements io.github.samthegliderpilot.pagmo4j.algorithms.IAlg
     pagmo4jJNI.gaco_set_verbosity(swigCPtr, this, arg0);
   }
 
-  public void set_bfe(SWIGTYPE_p_pagmo__bfe b) {
-    pagmo4jJNI.gaco_set_bfe(swigCPtr, this, SWIGTYPE_p_pagmo__bfe.getCPtr(b));
+  public void set_bfe(bfe b) {
+    pagmo4jJNI.gaco_set_bfe(swigCPtr, this, bfe.getCPtr(b), b);
   }
 
   public String get_extra_info() {

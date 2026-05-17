@@ -84,6 +84,9 @@ PAGMONET_EXPORT void *pagmonet_problem_from_callback(void *callback_ptr)
     }
 }
 
+// Called from .NET: callback_ptr is a raw algorithm_callback* director object.
+// (%shared_ptr for algorithm_callback appears after %include in PagmoNETSwigInterface.i
+// and has no effect, so swigRelease() returns the raw director pointer.)
 PAGMONET_EXPORT void *pagmonet_algorithm_from_callback(void *callback_ptr)
 {
     clear_last_error();
@@ -102,6 +105,32 @@ PAGMONET_EXPORT void *pagmonet_algorithm_from_callback(void *callback_ptr)
         return nullptr;
     } catch (...) {
         set_unknown_last_error("pagmonet_algorithm_from_callback");
+        return nullptr;
+    }
+}
+
+// Called from Java: callback_ptr is a shared_ptr<algorithm_callback>* because SWIG's
+// %shared_ptr directive appears before %include in Pagmo4jSwigInterface.i and takes effect,
+// making new_AlgorithmCallback() allocate and return a shared_ptr<algorithm_callback>*.
+PAGMONET_EXPORT void *pagmonet_algorithm_from_callback_java(void *callback_ptr)
+{
+    clear_last_error();
+    if (callback_ptr == nullptr) {
+        set_last_error("pagmonet_algorithm_from_callback_java: callback_ptr is null");
+        return nullptr;
+    }
+
+    try {
+        auto *sptr = static_cast<std::shared_ptr<pagmoWrap::algorithm_callback> *>(callback_ptr);
+        std::shared_ptr<pagmoWrap::algorithm_callback> callback_owner = std::move(*sptr);
+        delete sptr;
+        auto *algorithm = new pagmo::algorithm(pagmoWrap::managed_algorithm(std::move(callback_owner)));
+        return static_cast<void *>(algorithm);
+    } catch (const std::exception &ex) {
+        set_last_error_from_exception("pagmonet_algorithm_from_callback_java", ex);
+        return nullptr;
+    } catch (...) {
+        set_unknown_last_error("pagmonet_algorithm_from_callback_java");
         return nullptr;
     }
 }
@@ -157,6 +186,30 @@ PAGMONET_EXPORT void *pagmonet_default_bfe_operator(void *bfe_ptr, void *problem
         return nullptr;
     } catch (...) {
         set_unknown_last_error("pagmonet_default_bfe_operator");
+        return nullptr;
+    }
+}
+
+PAGMONET_EXPORT void *pagmonet_default_bfe_evaluate(void *problem_ptr, void *batch_x_ptr)
+{
+    clear_last_error();
+    if (problem_ptr == nullptr || batch_x_ptr == nullptr) {
+        set_last_error("pagmonet_default_bfe_evaluate: problem_ptr/batch_x_ptr must be non-null");
+        return nullptr;
+    }
+
+    try {
+        auto *problem = static_cast<pagmo::problem *>(problem_ptr);
+        auto *batch_x = static_cast<pagmo::vector_double *>(batch_x_ptr);
+
+        pagmo::default_bfe bfe{};
+        auto result = bfe(*problem, *batch_x);
+        return static_cast<void *>(new pagmo::vector_double(std::move(result)));
+    } catch (const std::exception &ex) {
+        set_last_error_from_exception("pagmonet_default_bfe_evaluate", ex);
+        return nullptr;
+    } catch (...) {
+        set_unknown_last_error("pagmonet_default_bfe_evaluate");
         return nullptr;
     }
 }

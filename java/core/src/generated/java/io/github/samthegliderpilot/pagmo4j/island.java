@@ -58,19 +58,26 @@ public class island implements AutoCloseable {
     }
 
     public static island create(algorithm algo, IProblem problem, long popSize) {
-        return create(algo, problem, popSize, new random_device().next());
+        long nativePop = SizeTInterop.toNativeUInt32(popSize, "popSize");
+        return create(algo, problem, nativePop, new random_device().next());
     }
 
     public static island create(algorithm algo, IProblem problem, long popSize, long seed) {
-        problem wrapped = new problem(problem);
         long nativePop = SizeTInterop.toNativeUInt32(popSize, "popSize");
-        island isl = island.Create(algo, wrapped, nativePop, seed);
-        attachRoot(isl, wrapped);
-        return isl;
+        problem wrapped = new problem(problem);
+        try {
+            island isl = island.Create(algo, wrapped, nativePop, seed);
+            attachRoot(isl, wrapped);
+            return isl;
+        } catch (Throwable t) {
+            wrapped.delete();
+            throw t;
+        }
     }
 
     public static island create(IAlgorithm algo, IProblem problem, long popSize) {
-        return create(algo, problem, popSize, new random_device().next());
+        long nativePop = SizeTInterop.toNativeUInt32(popSize, "popSize");
+        return create(algo, problem, nativePop, new random_device().next());
     }
 
     public static island create(IAlgorithm algo, IProblem problem, long popSize, long seed) {
@@ -171,28 +178,28 @@ public class island implements AutoCloseable {
     return new island(pagmo4jJNI.island_CreateWithThreadIslandAndPolicies__SWIG_1(thread_island.getCPtr(isl), isl, algorithm.getCPtr(a), a, problem.getCPtr(prob), prob, pop_size, ManagedRPolicy.getCPtr(r), r, ManagedSPolicy.getCPtr(s), s, seed), true);
   }
 
-  public static island CreateWithBfe(algorithm a, problem prob, SWIGTYPE_p_pagmo__bfe b, long pop_size, long seed) {
-    return new island(pagmo4jJNI.island_CreateWithBfe(algorithm.getCPtr(a), a, problem.getCPtr(prob), prob, SWIGTYPE_p_pagmo__bfe.getCPtr(b), pop_size, seed), true);
+  public static island CreateWithBfe(algorithm a, problem prob, bfe b, long pop_size, long seed) {
+    return new island(pagmo4jJNI.island_CreateWithBfe(algorithm.getCPtr(a), a, problem.getCPtr(prob), prob, bfe.getCPtr(b), b, pop_size, seed), true);
   }
 
-  public static island CreateWithThreadIslandAndBfe(thread_island isl, algorithm a, problem prob, SWIGTYPE_p_pagmo__bfe b, long pop_size, long seed) {
-    return new island(pagmo4jJNI.island_CreateWithThreadIslandAndBfe(thread_island.getCPtr(isl), isl, algorithm.getCPtr(a), a, problem.getCPtr(prob), prob, SWIGTYPE_p_pagmo__bfe.getCPtr(b), pop_size, seed), true);
+  public static island CreateWithThreadIslandAndBfe(thread_island isl, algorithm a, problem prob, bfe b, long pop_size, long seed) {
+    return new island(pagmo4jJNI.island_CreateWithThreadIslandAndBfe(thread_island.getCPtr(isl), isl, algorithm.getCPtr(a), a, problem.getCPtr(prob), prob, bfe.getCPtr(b), b, pop_size, seed), true);
   }
 
-  public static island CreateWithBfeAndPolicies(algorithm a, problem prob, SWIGTYPE_p_pagmo__bfe b, long pop_size, SWIGTYPE_p_pagmo__fair_replace r, SWIGTYPE_p_pagmo__select_best s, long seed) {
-    return new island(pagmo4jJNI.island_CreateWithBfeAndPolicies__SWIG_0(algorithm.getCPtr(a), a, problem.getCPtr(prob), prob, SWIGTYPE_p_pagmo__bfe.getCPtr(b), pop_size, SWIGTYPE_p_pagmo__fair_replace.getCPtr(r), SWIGTYPE_p_pagmo__select_best.getCPtr(s), seed), true);
+  public static island CreateWithBfeAndPolicies(algorithm a, problem prob, bfe b, long pop_size, SWIGTYPE_p_pagmo__fair_replace r, SWIGTYPE_p_pagmo__select_best s, long seed) {
+    return new island(pagmo4jJNI.island_CreateWithBfeAndPolicies__SWIG_0(algorithm.getCPtr(a), a, problem.getCPtr(prob), prob, bfe.getCPtr(b), b, pop_size, SWIGTYPE_p_pagmo__fair_replace.getCPtr(r), SWIGTYPE_p_pagmo__select_best.getCPtr(s), seed), true);
   }
 
-  public static island CreateWithThreadIslandAndBfeAndPolicies(thread_island isl, algorithm a, problem prob, SWIGTYPE_p_pagmo__bfe b, long pop_size, SWIGTYPE_p_pagmo__fair_replace r, SWIGTYPE_p_pagmo__select_best s, long seed) {
-    return new island(pagmo4jJNI.island_CreateWithThreadIslandAndBfeAndPolicies__SWIG_0(thread_island.getCPtr(isl), isl, algorithm.getCPtr(a), a, problem.getCPtr(prob), prob, SWIGTYPE_p_pagmo__bfe.getCPtr(b), pop_size, SWIGTYPE_p_pagmo__fair_replace.getCPtr(r), SWIGTYPE_p_pagmo__select_best.getCPtr(s), seed), true);
+  public static island CreateWithThreadIslandAndBfeAndPolicies(thread_island isl, algorithm a, problem prob, bfe b, long pop_size, SWIGTYPE_p_pagmo__fair_replace r, SWIGTYPE_p_pagmo__select_best s, long seed) {
+    return new island(pagmo4jJNI.island_CreateWithThreadIslandAndBfeAndPolicies__SWIG_0(thread_island.getCPtr(isl), isl, algorithm.getCPtr(a), a, problem.getCPtr(prob), prob, bfe.getCPtr(b), b, pop_size, SWIGTYPE_p_pagmo__fair_replace.getCPtr(r), SWIGTYPE_p_pagmo__select_best.getCPtr(s), seed), true);
   }
 
-  public static island CreateWithBfeAndPolicies(algorithm a, problem prob, SWIGTYPE_p_pagmo__bfe b, long pop_size, ManagedRPolicy r, ManagedSPolicy s, long seed) {
-    return new island(pagmo4jJNI.island_CreateWithBfeAndPolicies__SWIG_1(algorithm.getCPtr(a), a, problem.getCPtr(prob), prob, SWIGTYPE_p_pagmo__bfe.getCPtr(b), pop_size, ManagedRPolicy.getCPtr(r), r, ManagedSPolicy.getCPtr(s), s, seed), true);
+  public static island CreateWithBfeAndPolicies(algorithm a, problem prob, bfe b, long pop_size, ManagedRPolicy r, ManagedSPolicy s, long seed) {
+    return new island(pagmo4jJNI.island_CreateWithBfeAndPolicies__SWIG_1(algorithm.getCPtr(a), a, problem.getCPtr(prob), prob, bfe.getCPtr(b), b, pop_size, ManagedRPolicy.getCPtr(r), r, ManagedSPolicy.getCPtr(s), s, seed), true);
   }
 
-  public static island CreateWithThreadIslandAndBfeAndPolicies(thread_island isl, algorithm a, problem prob, SWIGTYPE_p_pagmo__bfe b, long pop_size, ManagedRPolicy r, ManagedSPolicy s, long seed) {
-    return new island(pagmo4jJNI.island_CreateWithThreadIslandAndBfeAndPolicies__SWIG_1(thread_island.getCPtr(isl), isl, algorithm.getCPtr(a), a, problem.getCPtr(prob), prob, SWIGTYPE_p_pagmo__bfe.getCPtr(b), pop_size, ManagedRPolicy.getCPtr(r), r, ManagedSPolicy.getCPtr(s), s, seed), true);
+  public static island CreateWithThreadIslandAndBfeAndPolicies(thread_island isl, algorithm a, problem prob, bfe b, long pop_size, ManagedRPolicy r, ManagedSPolicy s, long seed) {
+    return new island(pagmo4jJNI.island_CreateWithThreadIslandAndBfeAndPolicies__SWIG_1(thread_island.getCPtr(isl), isl, algorithm.getCPtr(a), a, problem.getCPtr(prob), prob, bfe.getCPtr(b), b, pop_size, ManagedRPolicy.getCPtr(r), r, ManagedSPolicy.getCPtr(s), s, seed), true);
   }
 
 }

@@ -75,11 +75,11 @@ class BfeTest {
             @Override public DoubleVector fitness(DoubleVector x) { return vec(x.get(0) * x.get(0)); }
             @Override public PairOfDoubleVectors get_bounds() { return bounds(new double[]{-1.0}, new double[]{1.0}); }
             @Override public ThreadSafety get_thread_safety() { return ThreadSafety.None; }
-            @Override public IProblem clone() { return this.getClass().cast(new ManagedProblemBase() {
+            @Override public IProblem clone() { return new ManagedProblemBase() {
                 @Override public DoubleVector fitness(DoubleVector x) { return vec(x.get(0) * x.get(0)); }
                 @Override public PairOfDoubleVectors get_bounds() { return bounds(new double[]{-1.0}, new double[]{1.0}); }
                 @Override public ThreadSafety get_thread_safety() { return ThreadSafety.None; }
-            }); }
+            }; }
         };
         try (ManagedThreadBfe bfe = new ManagedThreadBfe()) {
             DoubleVector batch = new DoubleVector(); batch.add(2.0); batch.add(3.0);

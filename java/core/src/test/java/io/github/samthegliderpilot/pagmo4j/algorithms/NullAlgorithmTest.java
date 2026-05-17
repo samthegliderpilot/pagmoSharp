@@ -9,5 +9,7 @@ class NullAlgorithmTest extends AlgorithmTestBase {
     @Override public boolean supportsSingleObjective() { return true; }
     @Override public boolean supportsMultiObjective()  { return false; }
     @Override public boolean expectEvolutionIncreasesFevals() { return false; }
+    @Override public boolean supportsSeed()      { return false; }
+    @Override public boolean supportsVerbosity() { return false; }
     @Test void nameContainsNull() { try (null_algorithm a = new null_algorithm()) { assertTrue(a.get_name().toLowerCase().contains("null")); } }
 }

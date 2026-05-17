@@ -38,10 +38,12 @@ public final class NativeInterop {
         if (problem == null) throw new NullPointerException("problem");
 
         ProblemCallbackAdapter adapter = new ProblemCallbackAdapter(problem);
-
-        // Transfer C++ ownership to native. The shared_ptr inside managed_problem owns it;
-        // the Java wrapper must not also delete the underlying C++ object.
         long cbPtr = ProblemCallback.getCPtr(adapter);
+
+        // Pin adapter BEFORE releasing ownership so there is no GC window between
+        // swigReleaseOwnership() (which makes the director's Java ref weak) and the
+        // native call that may invoke Java callbacks during construction.
+        attachCallbackRoot(problem, adapter);
         adapter.swigReleaseOwnership();
 
         long problemPtr = pagmo4j.pagmonet_problem_from_callback(cbPtr);
@@ -56,11 +58,12 @@ public final class NativeInterop {
         }
 
         if (problemPtr == 0) {
+            String nativeErr = pagmo4j.pagmonet_get_last_error();
             throw new RuntimeException(
-                "Failed to build native pagmo::problem from IProblem callback.");
+                "Failed to build native pagmo::problem from IProblem callback." +
+                (nativeErr != null && !nativeErr.isEmpty() ? " Native error: " + nativeErr : ""));
         }
 
-        attachCallbackRoot(problem, adapter);
         return problemPtr;
     }
 
@@ -82,6 +85,16 @@ public final class NativeInterop {
     /** Extracts the native pointer from a {@link problem} wrapper. */
     public static long getProblemPtr(problem p) {
         return problem.getCPtr(p);
+    }
+
+    /** Wraps a raw sparsity-pattern pointer in a non-owning {@link SWIGTYPE_p_std__vectorT_std__pairT_size_t_size_t_t_t}. */
+    public static SWIGTYPE_p_std__vectorT_std__pairT_size_t_size_t_t_t toSwigSparsityPattern(SparsityPattern sp) {
+        return new SWIGTYPE_p_std__vectorT_std__pairT_size_t_size_t_t_t(SparsityPattern.getCPtr(sp), false);
+    }
+
+    /** Wraps a raw hessians-sparsity pointer in a non-owning {@link SWIGTYPE_p_std__vectorT_std__vectorT_std__pairT_size_t_size_t_t_t_t}. */
+    public static SWIGTYPE_p_std__vectorT_std__vectorT_std__pairT_size_t_size_t_t_t_t toSwigVectorOfSparsityPattern(VectorOfSparsityPattern vsp) {
+        return new SWIGTYPE_p_std__vectorT_std__vectorT_std__pairT_size_t_size_t_t_t_t(VectorOfSparsityPattern.getCPtr(vsp), false);
     }
 
     /** Wraps a raw population pointer in a non-owning Java {@link population}. */
@@ -108,18 +121,30 @@ public final class NativeInterop {
         if (algorithm == null) throw new NullPointerException("algorithm");
 
         AlgorithmCallbackAdapter adapter = new AlgorithmCallbackAdapter(algorithm);
-
         long cbPtr = AlgorithmCallback.getCPtr(adapter);
+
+        // Pin adapter in callbackRoots BEFORE releasing Java ownership and before
+        // the native call.  swigReleaseOwnership() makes the director's Java reference
+        // weak; without the root pinned first, a GC window between that call and the
+        // native return could collect adapter, causing a crash inside the director
+        // callback (premature finalization).
+        attachCallbackRoot(algorithm, adapter);
         adapter.swigReleaseOwnership();
 
-        long algorithmPtr = pagmo4j.pagmonet_algorithm_from_callback(cbPtr);
-
-        if (algorithmPtr == 0) {
+        if (cbPtr == 0) {
             throw new RuntimeException(
-                "Failed to build native pagmo::algorithm from IAlgorithm callback.");
+                "AlgorithmCallback native pointer is null — SWIG director construction failed");
         }
 
-        attachCallbackRoot(algorithm, adapter);
+        long algorithmPtr = pagmo4j.pagmonet_algorithm_from_callback_java(cbPtr);
+
+        if (algorithmPtr == 0) {
+            String nativeErr = pagmo4j.pagmonet_get_last_error();
+            throw new RuntimeException(
+                "Failed to build native pagmo::algorithm from IAlgorithm callback." +
+                (nativeErr != null && !nativeErr.isEmpty() ? " Native error: " + nativeErr : ""));
+        }
+
         return algorithmPtr;
     }
 }

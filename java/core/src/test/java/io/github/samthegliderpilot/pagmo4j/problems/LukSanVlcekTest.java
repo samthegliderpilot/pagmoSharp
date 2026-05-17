@@ -11,10 +11,9 @@ class LukSanVlcekTest extends ProblemTestBase {
         }
     }
     @Override @Test protected void optimizing() {
+        // de cannot handle non-linear constraints; compass_search can.
         try (luksan_vlcek1 p = new luksan_vlcek1(3L);
-             de inner = new de(5L); algorithm a = new algorithm(inner);
-             mbh algo = new mbh(a, 5L, 0.1); population pop = new population(p, 32L, 2L)) {
-            algo.set_seed(2L);
+             compass_search algo = new compass_search(200L); population pop = new population(p, 1L, 2L)) {
             try (population evolved = algo.evolve(pop)) { assertNotNull(evolved); }
         }
     }

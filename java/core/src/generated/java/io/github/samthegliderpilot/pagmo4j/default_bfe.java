@@ -65,8 +65,8 @@ public class default_bfe implements AutoCloseable {
     return pagmo4jJNI.default_bfe_get_name(swigCPtr, this);
   }
 
-  public SWIGTYPE_p_pagmo__bfe to_bfe() {
-    return new SWIGTYPE_p_pagmo__bfe(pagmo4jJNI.default_bfe_to_bfe(swigCPtr, this), true);
+  public bfe to_bfe() {
+    return new bfe(pagmo4jJNI.default_bfe_to_bfe(swigCPtr, this), true);
   }
 
 }

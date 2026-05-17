@@ -58,6 +58,14 @@ PAGMO4J_EXEC_EXCEPTION(pagmo::thread_island::run_evolve, "thread_island.run_evol
 // The generated JNI class will be named "pagmo4jJNI" by SWIG convention (module name + "JNI").
 %module(naturalvar=1, directors="1") pagmo4j
 
+// Inject the native library loader into the generated pagmo4jJNI class so that
+// the library is loaded before any JNI method is called.
+%pragma(java) jniclasscode=%{
+  static {
+    io.github.samthegliderpilot.pagmo4j.NativeLoader.load();
+  }
+%}
+
 %{
     #include "pagmo/problem.hpp"
     #include "pagmo/algorithm.hpp"
@@ -85,11 +93,37 @@ PAGMO4J_EXEC_EXCEPTION(pagmo::thread_island::run_evolve, "thread_island.run_evol
     #include "mbh_log_projection.h"
     #include "r_policy.h"
     #include "s_policy.h"
+    // BeeColonyLogLine must be defined here (before the BeeColonyLogLineVector template
+    // instantiation helper functions that SWIG emits) to avoid forward-reference errors.
+    // The #define guard prevents the duplicate definition in bee_colony.i's %inline block.
+    #include "pagmo/algorithms/bee_colony.hpp"
+    #include <vector>
+    #include <tuple>
+    #ifndef PAGMOWRAP_BEE_COLONY_LOG_LINE_DEFINED
+    #define PAGMOWRAP_BEE_COLONY_LOG_LINE_DEFINED
+    namespace pagmoWrap {
+        struct BeeColonyLogLine {
+            unsigned gen;
+            unsigned long long fevals;
+            double best;
+            double cur_best;
+            BeeColonyLogLine() : gen(0), fevals(0), best(0.0), cur_best(0.0) {}
+            BeeColonyLogLine(unsigned g, unsigned long long f, double b, double cb)
+                : gen(g), fevals(f), best(b), cur_best(cb) {}
+        };
+    }
+    #endif
     // Extern-C bridge functions — exposed to Java via SWIG declarations below.
     extern "C" void* pagmonet_problem_from_callback(void* callbackPtr);
     extern "C" void* pagmonet_algorithm_from_callback(void* callbackPtr);
+    extern "C" void* pagmonet_algorithm_from_callback_java(void* callbackPtr);
     extern "C" void  pagmonet_problem_delete(void* problemPtr);
+    extern "C" const char* pagmonet_get_last_error();
     extern "C" void* pagmonet_default_bfe_evaluate(void* problemPtr, void* batchXPtr);
+    extern "C" void* pagmonet_population_new(void* problemPtr, long popSize, unsigned int seed);
+    extern "C" void* pagmonet_estimate_gradient_problem(void* problemPtr, void* xPtr, double dx);
+    extern "C" void* pagmonet_estimate_gradient_h_problem(void* problemPtr, void* xPtr, double dx);
+    extern "C" void* pagmonet_estimate_sparsity_problem(void* problemPtr, void* xPtr, double dx);
 %}
 
 %include "pagmoWrapper/tuple_adapters.h"
@@ -155,14 +189,23 @@ PAGMO4J_EXEC_EXCEPTION(pagmo::thread_island::run_evolve, "thread_island.run_evol
 %rename(waitFor)      pagmo::island::wait;
 %rename(waitFor)      pagmo::archipelago::wait;
 
-// ── Declare pagmo enums so SWIG generates proper Java classes ─────────────────
-// These must be declared before any headers that use pagmo::thread_safety etc.
+// ── Declare pagmo enums and type aliases so SWIG generates correct names ─────
+// These must be declared before any headers that use them.
 namespace pagmo {
     enum class thread_safety { none, basic, constant };
     enum class evolve_status { idle = 0, busy = 1, idle_error = 2, busy_error = 3 };
     enum class migration_type { p2p, broadcast };
     enum class migrant_handling { preserve, evict };
+    // Type aliases used in problem.i, population.i etc. without namespace qualification.
+    // Declaring them here tells SWIG they live in pagmo::, matching pagmo/types.hpp.
+    typedef std::vector<double> vector_double;
+    typedef std::vector<std::pair<vector_double::size_type, vector_double::size_type>> sparsity_pattern;
 }
+// Make these accessible at global scope in the generated C++ JNI glue.
+%{
+    using sparsity_pattern = pagmo::sparsity_pattern;
+    using vector_double    = pagmo::vector_double;
+%}
 
 // ── Director declarations ─────────────────────────────────────────────────────
 %feature("director") pagmoWrap::problem_callback;
@@ -206,7 +249,9 @@ namespace pagmo {
 %typemap(javaout) void * { return $jnicall; }
 extern void* pagmonet_problem_from_callback(void* callbackPtr);
 extern void* pagmonet_algorithm_from_callback(void* callbackPtr);
+extern void* pagmonet_algorithm_from_callback_java(void* callbackPtr);
 extern void  pagmonet_problem_delete(void* problemPtr);
+extern const char* pagmonet_get_last_error();
 extern void* pagmonet_default_bfe_evaluate(void* problemPtr, void* batchXPtr);
 extern void* pagmonet_population_new(void* problemPtr, long popSize, unsigned int seed);
 extern void* pagmonet_estimate_gradient_problem(void* problemPtr, void* xPtr, double dx);
@@ -651,7 +696,7 @@ PAGMO4J_SIMPLE_ALGO_CODE(ipopt)
 %typemap(javacode) pagmo::archipelago %{
     private final java.util.List<IProblem> managedProblemCloneRoots = new java.util.ArrayList<>();
 
-    private long withManagedProblem(IProblem prob, java.util.function.LongSupplier action) {
+    private long withManagedProblem(IProblem prob, java.util.function.Function<problem, Long> action) {
         if (prob == null) throw new NullPointerException("problem");
         if (prob.get_thread_safety() == ThreadSafety.None && prob instanceof IThreadCloneableProblem) {
             IProblem clone = ((IThreadCloneableProblem) prob).clone();
@@ -662,20 +707,20 @@ PAGMO4J_SIMPLE_ALGO_CODE(ipopt)
                 ExclusiveCloneAdapter adapter = new ExclusiveCloneAdapter(clone);
                 managedProblemCloneRoots.add(adapter);
                 try (problem wrapped = new problem(adapter)) {
-                    return action.getAsLong();
+                    return action.apply(wrapped);
                 }
             }
         }
         prob.throwIfNotThreadSafe();
         try (problem wrapped = new problem(prob)) {
-            return action.getAsLong();
+            return action.apply(wrapped);
         }
     }
 
     public long pushBackIsland(algorithm algo, IProblem problem, long popSize, long seed) {
-        return withManagedProblem(problem, () -> {
+        return withManagedProblem(problem, wrapped -> {
             long nativePop = SizeTInterop.toNativeUInt32(popSize, "popSize");
-            return push_back_island(algo, new problem(problem), nativePop, seed);
+            return push_back_island(algo, wrapped, nativePop, seed);
         });
     }
 
@@ -798,17 +843,24 @@ namespace pagmo {
 %include "pagmoWrapper/algorithm_callback.h"
 %include "swigInterfaceFiles/island.i"
 %include "swigInterfaceFiles/archipelago.i"
+namespace pagmo {
 %include "swigInterfaceFiles/bfe.i"
+}
 // topology.i already included above in namespace pagmo {} block
 // r_policy.i is a stub; s_policy.i does not exist — both are handled inline above
 // via %feature("director"), %ignore, and %include of pagmoWrapper headers.
+namespace pagmo {
 %include "swigInterfaceFiles/rng.i"
 %include "swigInterfaceFiles/io.i"
+}
 %typemap(javainterfaces) pagmo::hypervolume "AutoCloseable"
 %typemap(javacode) pagmo::hypervolume %{ @Override public void close() { delete(); } %}
 %include "swigInterfaceFiles/utils/hypervolume.i"
 %include "swigInterfaceFiles/utils/multi_objective.i"
-%include "swigInterfaceFiles/utils/gradients_and_hessians.i"
+// gradients_and_hessians.i is intentionally excluded — the pagmo C++ functions it
+// wraps (estimate_gradient, estimate_sparsity, etc.) take a gradientsAndHessiansCallback
+// function type that SWIG cannot map cleanly to a Java type.  The Java GradientsAndHessians
+// class uses the pagmonet_estimate_*_problem bridge functions instead.
 
 // Algorithms using qualified names work without namespace wrapping.
 %include "swigInterfaceFiles/algorithms/bee_colony.i"

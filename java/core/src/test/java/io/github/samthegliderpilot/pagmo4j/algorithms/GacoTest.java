@@ -4,7 +4,7 @@ import io.github.samthegliderpilot.pagmo4j.testproblems.*;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 class GacoTest extends AlgorithmTestBase {
-    @Override public IAlgorithm createAlgorithm()      { return new gaco(10L); }
+    @Override public IAlgorithm createAlgorithm()      { return new gaco(10L, 10L); }  // ker=10 keeps pop requirement <= 48 (log test pop size)
     @Override public boolean supportsUnconstrained()   { return true; }
     @Override public boolean supportsConstrained()     { return true; }
     @Override public boolean supportsSingleObjective() { return true; }

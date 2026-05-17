@@ -1,3 +1,5 @@
+import java.time.Duration
+
 plugins {
     java
     `maven-publish`
@@ -22,6 +24,7 @@ sourceSets {
 dependencies {
     testImplementation(platform("org.junit:junit-bom:5.11.3"))
     testImplementation("org.junit.jupiter:junit-jupiter")
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
 
 tasks.test {
@@ -29,6 +32,10 @@ tasks.test {
     // Native library must be on java.library.path for tests.
     // Set via -Djava.library.path=<path> or PAGMO4J_NATIVE_DIR env var.
     systemProperty("java.library.path", System.getenv("PAGMO4J_NATIVE_DIR") ?: ".")
+    // Hard per-test timeout so a hung test fails in 15s instead of blocking the suite.
+    systemProperty("junit.jupiter.execution.timeout.default", "15s")
+    // Process-level timeout kills the JVM if native code hangs (JUnit timeout can't interrupt native threads).
+    timeout.set(Duration.ofSeconds(30))
 }
 
 publishing {

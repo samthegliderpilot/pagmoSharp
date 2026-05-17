@@ -13,6 +13,11 @@ public class pagmo4jJNI {
   public final static native int PAGMO_VERSION_MAJOR_get();
   public final static native int PAGMO_VERSION_MINOR_get();
   public final static native int PAGMO_VERSION_PATCH_get();
+
+  static {
+    io.github.samthegliderpilot.pagmo4j.NativeLoader.load();
+  }
+
   public final static native void IndividualsGroup_ids_set(long jarg1, IndividualsGroup jarg1_, long jarg2, ULongLongVector jarg2_);
   public final static native long IndividualsGroup_ids_get(long jarg1, IndividualsGroup jarg1_);
   public final static native void IndividualsGroup_xs_set(long jarg1, IndividualsGroup jarg1_, long jarg2, VectorOfVectorOfDoubles jarg2_);
@@ -443,7 +448,9 @@ public class pagmo4jJNI {
   public final static native boolean ManagedSPolicy_is_valid(long jarg1, ManagedSPolicy jarg1_);
   public final static native long pagmonet_problem_from_callback(long jarg1);
   public final static native long pagmonet_algorithm_from_callback(long jarg1);
+  public final static native long pagmonet_algorithm_from_callback_java(long jarg1);
   public final static native void pagmonet_problem_delete(long jarg1);
+  public final static native String pagmonet_get_last_error();
   public final static native long pagmonet_default_bfe_evaluate(long jarg1, long jarg2);
   public final static native long pagmonet_population_new(long jarg1, int jarg2, long jarg3);
   public final static native long pagmonet_estimate_gradient_problem(long jarg1, long jarg2, double jarg3);
@@ -1052,12 +1059,12 @@ public class pagmo4jJNI {
   public final static native long island_CreateWithThreadIslandAndPolicies__SWIG_0(long jarg1, thread_island jarg1_, long jarg2, algorithm jarg2_, long jarg3, problem jarg3_, long jarg4, long jarg5, long jarg6, long jarg7);
   public final static native long island_CreateWithPolicies__SWIG_1(long jarg1, algorithm jarg1_, long jarg2, problem jarg2_, long jarg3, long jarg4, ManagedRPolicy jarg4_, long jarg5, ManagedSPolicy jarg5_, long jarg6);
   public final static native long island_CreateWithThreadIslandAndPolicies__SWIG_1(long jarg1, thread_island jarg1_, long jarg2, algorithm jarg2_, long jarg3, problem jarg3_, long jarg4, long jarg5, ManagedRPolicy jarg5_, long jarg6, ManagedSPolicy jarg6_, long jarg7);
-  public final static native long island_CreateWithBfe(long jarg1, algorithm jarg1_, long jarg2, problem jarg2_, long jarg3, long jarg4, long jarg5);
-  public final static native long island_CreateWithThreadIslandAndBfe(long jarg1, thread_island jarg1_, long jarg2, algorithm jarg2_, long jarg3, problem jarg3_, long jarg4, long jarg5, long jarg6);
-  public final static native long island_CreateWithBfeAndPolicies__SWIG_0(long jarg1, algorithm jarg1_, long jarg2, problem jarg2_, long jarg3, long jarg4, long jarg5, long jarg6, long jarg7);
-  public final static native long island_CreateWithThreadIslandAndBfeAndPolicies__SWIG_0(long jarg1, thread_island jarg1_, long jarg2, algorithm jarg2_, long jarg3, problem jarg3_, long jarg4, long jarg5, long jarg6, long jarg7, long jarg8);
-  public final static native long island_CreateWithBfeAndPolicies__SWIG_1(long jarg1, algorithm jarg1_, long jarg2, problem jarg2_, long jarg3, long jarg4, long jarg5, ManagedRPolicy jarg5_, long jarg6, ManagedSPolicy jarg6_, long jarg7);
-  public final static native long island_CreateWithThreadIslandAndBfeAndPolicies__SWIG_1(long jarg1, thread_island jarg1_, long jarg2, algorithm jarg2_, long jarg3, problem jarg3_, long jarg4, long jarg5, long jarg6, ManagedRPolicy jarg6_, long jarg7, ManagedSPolicy jarg7_, long jarg8);
+  public final static native long island_CreateWithBfe(long jarg1, algorithm jarg1_, long jarg2, problem jarg2_, long jarg3, bfe jarg3_, long jarg4, long jarg5);
+  public final static native long island_CreateWithThreadIslandAndBfe(long jarg1, thread_island jarg1_, long jarg2, algorithm jarg2_, long jarg3, problem jarg3_, long jarg4, bfe jarg4_, long jarg5, long jarg6);
+  public final static native long island_CreateWithBfeAndPolicies__SWIG_0(long jarg1, algorithm jarg1_, long jarg2, problem jarg2_, long jarg3, bfe jarg3_, long jarg4, long jarg5, long jarg6, long jarg7);
+  public final static native long island_CreateWithThreadIslandAndBfeAndPolicies__SWIG_0(long jarg1, thread_island jarg1_, long jarg2, algorithm jarg2_, long jarg3, problem jarg3_, long jarg4, bfe jarg4_, long jarg5, long jarg6, long jarg7, long jarg8);
+  public final static native long island_CreateWithBfeAndPolicies__SWIG_1(long jarg1, algorithm jarg1_, long jarg2, problem jarg2_, long jarg3, bfe jarg3_, long jarg4, long jarg5, ManagedRPolicy jarg5_, long jarg6, ManagedSPolicy jarg6_, long jarg7);
+  public final static native long island_CreateWithThreadIslandAndBfeAndPolicies__SWIG_1(long jarg1, thread_island jarg1_, long jarg2, algorithm jarg2_, long jarg3, problem jarg3_, long jarg4, bfe jarg4_, long jarg5, long jarg6, ManagedRPolicy jarg6_, long jarg7, ManagedSPolicy jarg7_, long jarg8);
   public final static native long new_archipelago__SWIG_0();
   public final static native long new_archipelago__SWIG_1(long jarg1, archipelago jarg1_);
   public final static native void delete_archipelago(long jarg1);
@@ -1071,15 +1078,15 @@ public class pagmo4jJNI {
   public final static native long archipelago_push_back_island__SWIG_0(long jarg1, archipelago jarg1_, long jarg2, algorithm jarg2_, long jarg3, problem jarg3_, long jarg4, long jarg5);
   public final static native long archipelago_push_back_island__SWIG_1(long jarg1, archipelago jarg1_, long jarg2, algorithm jarg2_, long jarg3, problem jarg3_, long jarg4, long jarg5, long jarg6, long jarg7);
   public final static native long archipelago_push_back_island__SWIG_2(long jarg1, archipelago jarg1_, long jarg2, algorithm jarg2_, long jarg3, problem jarg3_, long jarg4, long jarg5, ManagedRPolicy jarg5_, long jarg6, ManagedSPolicy jarg6_, long jarg7);
-  public final static native long archipelago_push_back_island__SWIG_3(long jarg1, archipelago jarg1_, long jarg2, algorithm jarg2_, long jarg3, problem jarg3_, long jarg4, long jarg5, long jarg6);
-  public final static native long archipelago_push_back_island__SWIG_4(long jarg1, archipelago jarg1_, long jarg2, algorithm jarg2_, long jarg3, problem jarg3_, long jarg4, long jarg5, long jarg6, long jarg7, long jarg8);
-  public final static native long archipelago_push_back_island__SWIG_5(long jarg1, archipelago jarg1_, long jarg2, algorithm jarg2_, long jarg3, problem jarg3_, long jarg4, long jarg5, long jarg6, ManagedRPolicy jarg6_, long jarg7, ManagedSPolicy jarg7_, long jarg8);
+  public final static native long archipelago_push_back_island__SWIG_3(long jarg1, archipelago jarg1_, long jarg2, algorithm jarg2_, long jarg3, problem jarg3_, long jarg4, bfe jarg4_, long jarg5, long jarg6);
+  public final static native long archipelago_push_back_island__SWIG_4(long jarg1, archipelago jarg1_, long jarg2, algorithm jarg2_, long jarg3, problem jarg3_, long jarg4, bfe jarg4_, long jarg5, long jarg6, long jarg7, long jarg8);
+  public final static native long archipelago_push_back_island__SWIG_5(long jarg1, archipelago jarg1_, long jarg2, algorithm jarg2_, long jarg3, problem jarg3_, long jarg4, bfe jarg4_, long jarg5, long jarg6, ManagedRPolicy jarg6_, long jarg7, ManagedSPolicy jarg7_, long jarg8);
   public final static native long archipelago_push_back_island__SWIG_6(long jarg1, archipelago jarg1_, long jarg2, thread_island jarg2_, long jarg3, algorithm jarg3_, long jarg4, problem jarg4_, long jarg5, long jarg6);
   public final static native long archipelago_push_back_island__SWIG_7(long jarg1, archipelago jarg1_, long jarg2, thread_island jarg2_, long jarg3, algorithm jarg3_, long jarg4, problem jarg4_, long jarg5, long jarg6, long jarg7, long jarg8);
   public final static native long archipelago_push_back_island__SWIG_8(long jarg1, archipelago jarg1_, long jarg2, thread_island jarg2_, long jarg3, algorithm jarg3_, long jarg4, problem jarg4_, long jarg5, long jarg6, ManagedRPolicy jarg6_, long jarg7, ManagedSPolicy jarg7_, long jarg8);
-  public final static native long archipelago_push_back_island__SWIG_9(long jarg1, archipelago jarg1_, long jarg2, thread_island jarg2_, long jarg3, algorithm jarg3_, long jarg4, problem jarg4_, long jarg5, long jarg6, long jarg7);
-  public final static native long archipelago_push_back_island__SWIG_10(long jarg1, archipelago jarg1_, long jarg2, thread_island jarg2_, long jarg3, algorithm jarg3_, long jarg4, problem jarg4_, long jarg5, long jarg6, long jarg7, long jarg8, long jarg9);
-  public final static native long archipelago_push_back_island__SWIG_11(long jarg1, archipelago jarg1_, long jarg2, thread_island jarg2_, long jarg3, algorithm jarg3_, long jarg4, problem jarg4_, long jarg5, long jarg6, long jarg7, ManagedRPolicy jarg7_, long jarg8, ManagedSPolicy jarg8_, long jarg9);
+  public final static native long archipelago_push_back_island__SWIG_9(long jarg1, archipelago jarg1_, long jarg2, thread_island jarg2_, long jarg3, algorithm jarg3_, long jarg4, problem jarg4_, long jarg5, bfe jarg5_, long jarg6, long jarg7);
+  public final static native long archipelago_push_back_island__SWIG_10(long jarg1, archipelago jarg1_, long jarg2, thread_island jarg2_, long jarg3, algorithm jarg3_, long jarg4, problem jarg4_, long jarg5, bfe jarg5_, long jarg6, long jarg7, long jarg8, long jarg9);
+  public final static native long archipelago_push_back_island__SWIG_11(long jarg1, archipelago jarg1_, long jarg2, thread_island jarg2_, long jarg3, algorithm jarg3_, long jarg4, problem jarg4_, long jarg5, bfe jarg5_, long jarg6, long jarg7, ManagedRPolicy jarg7_, long jarg8, ManagedSPolicy jarg8_, long jarg9);
   public final static native long archipelago_get_migrants_db(long jarg1, archipelago jarg1_);
   public final static native void archipelago_set_migrants_db_items(long jarg1, archipelago jarg1_, long jarg2, IndividualsGroupVector jarg2_);
   public final static native int archipelago_get_migration_type(long jarg1, archipelago jarg1_);
@@ -1136,13 +1143,6 @@ public class pagmo4jJNI {
   public final static native long ideal(long jarg1, VectorOfVectorOfDoubles jarg1_);
   public final static native long nadir(long jarg1, VectorOfVectorOfDoubles jarg1_);
   public final static native long decompose_objectives(long jarg1, DoubleVector jarg1_, long jarg2, DoubleVector jarg2_, long jarg3, DoubleVector jarg3_, String jarg4);
-  public final static native long gradientsAndHessiansCallback(long jarg1, DoubleVector jarg1_);
-  public final static native long estimate_sparsity__SWIG_0(long jarg1, long jarg2, DoubleVector jarg2_, double jarg3);
-  public final static native long estimate_sparsity__SWIG_1(long jarg1, long jarg2, DoubleVector jarg2_);
-  public final static native long estimate_gradient__SWIG_0(long jarg1, long jarg2, DoubleVector jarg2_, double jarg3);
-  public final static native long estimate_gradient__SWIG_1(long jarg1, long jarg2, DoubleVector jarg2_);
-  public final static native long estimate_gradient_h__SWIG_0(long jarg1, long jarg2, DoubleVector jarg2_, double jarg3);
-  public final static native long estimate_gradient_h__SWIG_1(long jarg1, long jarg2, DoubleVector jarg2_);
   public final static native void BeeColonyLogLine_gen_set(long jarg1, BeeColonyLogLine jarg1_, long jarg2);
   public final static native long BeeColonyLogLine_gen_get(long jarg1, BeeColonyLogLine jarg1_);
   public final static native void BeeColonyLogLine_fevals_set(long jarg1, BeeColonyLogLine jarg1_, java.math.BigInteger jarg2);
@@ -1219,7 +1219,7 @@ public class pagmo4jJNI {
   public final static native void maco_set_verbosity(long jarg1, maco jarg1_, long jarg2);
   public final static native long maco_get_verbosity(long jarg1, maco jarg1_);
   public final static native long maco_get_gen(long jarg1, maco jarg1_);
-  public final static native void maco_set_bfe(long jarg1, maco jarg1_, long jarg2);
+  public final static native void maco_set_bfe(long jarg1, maco jarg1_, long jarg2, bfe jarg2_);
   public final static native String maco_get_name(long jarg1, maco jarg1_);
   public final static native String maco_get_extra_info(long jarg1, maco jarg1_);
   public final static native long maco_get_log_entries(long jarg1, maco jarg1_);
@@ -1284,7 +1284,7 @@ public class pagmo4jJNI {
   public final static native long moead_gen_get_seed(long jarg1, moead_gen jarg1_);
   public final static native void moead_gen_set_verbosity(long jarg1, moead_gen jarg1_, long jarg2);
   public final static native long moead_gen_get_verbosity(long jarg1, moead_gen jarg1_);
-  public final static native void moead_gen_set_bfe(long jarg1, moead_gen jarg1_, long jarg2);
+  public final static native void moead_gen_set_bfe(long jarg1, moead_gen jarg1_, long jarg2, bfe jarg2_);
   public final static native long moead_gen_get_gen(long jarg1, moead_gen jarg1_);
   public final static native String moead_gen_get_name(long jarg1, moead_gen jarg1_);
   public final static native String moead_gen_get_extra_info(long jarg1, moead_gen jarg1_);
@@ -1303,7 +1303,7 @@ public class pagmo4jJNI {
   public final static native long nsga2_get_seed(long jarg1, nsga2 jarg1_);
   public final static native void nsga2_set_verbosity(long jarg1, nsga2 jarg1_, long jarg2);
   public final static native long nsga2_get_verbosity(long jarg1, nsga2 jarg1_);
-  public final static native void nsga2_set_bfe(long jarg1, nsga2 jarg1_, long jarg2);
+  public final static native void nsga2_set_bfe(long jarg1, nsga2 jarg1_, long jarg2, bfe jarg2_);
   public final static native String nsga2_get_name(long jarg1, nsga2 jarg1_);
   public final static native String nsga2_get_extra_info(long jarg1, nsga2 jarg1_);
   public final static native long nsga2_get_log_entries(long jarg1, nsga2 jarg1_);
@@ -1327,7 +1327,7 @@ public class pagmo4jJNI {
   public final static native void cmaes_set_verbosity(long jarg1, cmaes jarg1_, long jarg2);
   public final static native long cmaes_get_verbosity(long jarg1, cmaes jarg1_);
   public final static native long cmaes_get_gen(long jarg1, cmaes jarg1_);
-  public final static native void cmaes_set_bfe(long jarg1, cmaes jarg1_, long jarg2);
+  public final static native void cmaes_set_bfe(long jarg1, cmaes jarg1_, long jarg2, bfe jarg2_);
   public final static native String cmaes_get_name(long jarg1, cmaes jarg1_);
   public final static native String cmaes_get_extra_info(long jarg1, cmaes jarg1_);
   public final static native long cmaes_get_log_entries(long jarg1, cmaes jarg1_);
@@ -1411,7 +1411,7 @@ public class pagmo4jJNI {
   public final static native long gaco_get_seed(long jarg1, gaco jarg1_);
   public final static native long gaco_get_verbosity(long jarg1, gaco jarg1_);
   public final static native void gaco_set_verbosity(long jarg1, gaco jarg1_, long jarg2);
-  public final static native void gaco_set_bfe(long jarg1, gaco jarg1_, long jarg2);
+  public final static native void gaco_set_bfe(long jarg1, gaco jarg1_, long jarg2, bfe jarg2_);
   public final static native String gaco_get_extra_info(long jarg1, gaco jarg1_);
   public final static native long gaco_get_log_entries(long jarg1, gaco jarg1_);
   public final static native long gaco_to_algorithm(long jarg1, gaco jarg1_);
@@ -1504,7 +1504,7 @@ public class pagmo4jJNI {
   public final static native void nspso_set_verbosity(long jarg1, nspso jarg1_, long jarg2);
   public final static native long nspso_get_verbosity(long jarg1, nspso jarg1_);
   public final static native long nspso_get_gen(long jarg1, nspso jarg1_);
-  public final static native void nspso_set_bfe(long jarg1, nspso jarg1_, long jarg2);
+  public final static native void nspso_set_bfe(long jarg1, nspso jarg1_, long jarg2, bfe jarg2_);
   public final static native String nspso_get_name(long jarg1, nspso jarg1_);
   public final static native String nspso_get_extra_info(long jarg1, nspso jarg1_);
   public final static native long nspso_get_log_entries(long jarg1, nspso jarg1_);
@@ -1550,7 +1550,7 @@ public class pagmo4jJNI {
   public final static native long pso_gen_evolve(long jarg1, pso_gen jarg1_, long jarg2, population jarg2_);
   public final static native void pso_gen_set_verbosity(long jarg1, pso_gen jarg1_, long jarg2);
   public final static native long pso_gen_get_verbosity(long jarg1, pso_gen jarg1_);
-  public final static native void pso_gen_set_bfe(long jarg1, pso_gen jarg1_, long jarg2);
+  public final static native void pso_gen_set_bfe(long jarg1, pso_gen jarg1_, long jarg2, bfe jarg2_);
   public final static native void pso_gen_set_seed(long jarg1, pso_gen jarg1_, long jarg2);
   public final static native long pso_gen_get_seed(long jarg1, pso_gen jarg1_);
   public final static native String pso_gen_get_name(long jarg1, pso_gen jarg1_);

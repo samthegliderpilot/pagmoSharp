@@ -9,5 +9,6 @@ class CompassSearchTest extends AlgorithmTestBase {
     @Override public boolean supportsSingleObjective() { return true; }
     @Override public boolean supportsMultiObjective()  { return false; }
     @Override public boolean expectEvolutionIncreasesFevals() { return true; }
+    @Override public boolean supportsSeed() { return false; }  // compass_search does not expose a round-trippable seed via IAlgorithm
     @Test void nameContainsCS() { try (compass_search a = new compass_search(10L)) { assertTrue(a.get_name().contains("CS") || a.get_name().contains("Compass")); } }
 }

@@ -8,5 +8,5 @@ class SadeTest extends AlgorithmTestBase {
     @Override public boolean supportsConstrained()     { return false; }
     @Override public boolean supportsSingleObjective() { return true; }
     @Override public boolean supportsMultiObjective()  { return false; }
-    @Test void nameContainsSade() { try (sade a = new sade(1L)) { assertTrue(a.get_name().contains("sDE") || a.get_name().contains("Self-Adaptive")); } }
+    @Test void nameContainsSade() { try (sade a = new sade(1L)) { assertTrue(a.get_name().toLowerCase().contains("sade") || a.get_name().toLowerCase().contains("self-adaptive") || a.get_name().contains("saDe")); } }
 }

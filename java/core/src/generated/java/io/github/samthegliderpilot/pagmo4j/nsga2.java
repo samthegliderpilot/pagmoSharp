@@ -97,8 +97,8 @@ public class nsga2 implements io.github.samthegliderpilot.pagmo4j.algorithms.IAl
 
   public long get_verbosity() { return pagmo4jJNI.nsga2_get_verbosity(swigCPtr, this); }
 
-  public void set_bfe(SWIGTYPE_p_pagmo__bfe b) {
-    pagmo4jJNI.nsga2_set_bfe(swigCPtr, this, SWIGTYPE_p_pagmo__bfe.getCPtr(b));
+  public void set_bfe(bfe b) {
+    pagmo4jJNI.nsga2_set_bfe(swigCPtr, this, bfe.getCPtr(b), b);
   }
 
   public String get_name() {

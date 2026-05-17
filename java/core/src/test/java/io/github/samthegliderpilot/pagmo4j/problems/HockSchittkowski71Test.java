@@ -12,10 +12,9 @@ class HockSchittkowski71Test extends ProblemTestBase {
         }
     }
     @Override @Test protected void optimizing() {
+        // de cannot handle non-linear constraints; compass_search can.
         try (hock_schittkowski_71 p = new hock_schittkowski_71();
-             de inner = new de(20L); algorithm a = new algorithm(inner);
-             mbh algo = new mbh(a, 5L, 0.1); population pop = new population(p, 64L, 2L)) {
-            algo.set_seed(2L);
+             compass_search algo = new compass_search(200L); population pop = new population(p, 1L, 2L)) {
             try (population evolved = algo.evolve(pop)) { assertNotNull(evolved); }
         }
     }

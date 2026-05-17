@@ -1,6 +1,7 @@
 package io.github.samthegliderpilot.pagmo4j.problems;
 
 import io.github.samthegliderpilot.pagmo4j.*;
+import java.lang.ref.Reference;
 
 /**
  * SWIG director adapter that forwards native callbacks to a managed {@link IProblem}.
@@ -75,10 +76,31 @@ public final class ProblemCallbackAdapter extends ProblemCallback {
         catch (Throwable ex) { defer(ex); return new DoubleVector(); }
     }
 
-    // gradient_sparsity() and hessians_sparsity() are not overridden here because
-    // SWIG generates them with opaque SWIGTYPE return types in the director base class.
-    // The base-class C++ default (dense sparsity) is used when has_gradient_sparsity()
-    // returns false. Override is not needed for correctness.
+    // gradient_sparsity() and hessians_sparsity() return opaque SWIGTYPE pointers in the
+    // generated director base class.  We override them by extracting the raw C++ pointer
+    // from SparsityPattern/VectorOfSparsityPattern and wrapping it in the SWIGTYPE.
+    // The C++ director copies the value (c_result = *argp) before returning, so it is
+    // safe for the Java wrapper to be GC'd after the call returns.
+    @Override
+    public SWIGTYPE_p_std__vectorT_std__pairT_size_t_size_t_t_t gradient_sparsity() {
+        try {
+            SparsityPattern sp = problem.gradient_sparsity();
+            SWIGTYPE_p_std__vectorT_std__pairT_size_t_size_t_t_t result = NativeInterop.toSwigSparsityPattern(sp);
+            // reachabilityFence keeps sp alive until C++ has copied the value (c_result = *argp)
+            Reference.reachabilityFence(sp);
+            return result;
+        } catch (Throwable ex) { defer(ex); return null; }
+    }
+
+    @Override
+    public SWIGTYPE_p_std__vectorT_std__vectorT_std__pairT_size_t_size_t_t_t_t hessians_sparsity() {
+        try {
+            VectorOfSparsityPattern vsp = problem.hessians_sparsity();
+            SWIGTYPE_p_std__vectorT_std__vectorT_std__pairT_size_t_size_t_t_t_t result = NativeInterop.toSwigVectorOfSparsityPattern(vsp);
+            Reference.reachabilityFence(vsp);
+            return result;
+        } catch (Throwable ex) { defer(ex); return null; }
+    }
 
     @Override
     public VectorOfVectorOfDoubles hessians(DoubleVector x) {
@@ -93,7 +115,8 @@ public final class ProblemCallbackAdapter extends ProblemCallback {
         try { problem.set_seed(seed); } catch (Throwable ex) { defer(ex); }
     }
 
-    // get_thread_safety() is not overridden: ProblemCallback returns an opaque SWIGTYPE
-    // because pagmo::thread_safety is not recognized by SWIG when problem.h is processed.
-    // The C++ default (thread_safety::none) is used.
+    @Override
+    public ThreadSafety get_thread_safety() {
+        try { return problem.get_thread_safety(); } catch (Throwable ex) { defer(ex); return ThreadSafety.None; }
+    }
 }

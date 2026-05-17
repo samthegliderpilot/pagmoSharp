@@ -145,8 +145,8 @@ public class cmaes implements io.github.samthegliderpilot.pagmo4j.algorithms.IAl
 
   public long get_gen() { return pagmo4jJNI.cmaes_get_gen(swigCPtr, this); }
 
-  public void set_bfe(SWIGTYPE_p_pagmo__bfe b) {
-    pagmo4jJNI.cmaes_set_bfe(swigCPtr, this, SWIGTYPE_p_pagmo__bfe.getCPtr(b));
+  public void set_bfe(bfe b) {
+    pagmo4jJNI.cmaes_set_bfe(swigCPtr, this, bfe.getCPtr(b), b);
   }
 
   public String get_name() {

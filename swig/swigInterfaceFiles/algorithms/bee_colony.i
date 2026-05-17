@@ -24,6 +24,8 @@
 #include <vector>
 #include <tuple>
 
+#ifndef PAGMOWRAP_BEE_COLONY_LOG_LINE_DEFINED
+#define PAGMOWRAP_BEE_COLONY_LOG_LINE_DEFINED
 namespace pagmoWrap
 {
     struct BeeColonyLogLine
@@ -40,6 +42,7 @@ namespace pagmoWrap
     };
 
 }
+#endif
 %}
 
 // Make std::vector<pagmoWrap::BeeColonyLogLine> available to C#

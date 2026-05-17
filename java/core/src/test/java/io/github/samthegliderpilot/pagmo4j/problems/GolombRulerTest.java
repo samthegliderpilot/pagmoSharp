@@ -11,8 +11,8 @@ class GolombRulerTest extends ProblemTestBase {
         }
     }
     @Override @Test protected void optimizing() {
-        try (golomb_ruler p = new golomb_ruler(3L); sga algo = new sga(100L, 0.5); population pop = new population(p, 64L, 2L)) {
-            algo.set_seed(2L);
+        // golomb_ruler has constraints; compass_search handles constrained single-objective.
+        try (golomb_ruler p = new golomb_ruler(3L); compass_search algo = new compass_search(100L); population pop = new population(p, 1L, 2L)) {
             try (population evolved = algo.evolve(pop)) { assertNotNull(evolved); }
         }
     }

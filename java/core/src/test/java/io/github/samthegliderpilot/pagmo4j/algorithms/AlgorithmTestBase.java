@@ -21,6 +21,8 @@ public abstract class AlgorithmTestBase {
     public abstract boolean supportsMultiObjective();
 
     public boolean expectEvolutionIncreasesFevals() { return true; }
+    public boolean supportsSeed()      { return true; }
+    public boolean supportsVerbosity() { return true; }
 
     // ── Basic contract ────────────────────────────────────────────────────────
 
@@ -33,6 +35,7 @@ public abstract class AlgorithmTestBase {
 
     @Test
     void seedRoundTrips() {
+        assumeTrue(supportsSeed(), "Algorithm does not support set_seed()");
         try (IAlgorithm algo = createAlgorithm()) {
             algo.set_seed(42L);
             assertEquals(42L, algo.get_seed());
@@ -41,6 +44,7 @@ public abstract class AlgorithmTestBase {
 
     @Test
     void verbosityRoundTrips() {
+        assumeTrue(supportsVerbosity(), "Algorithm does not support set_verbosity()");
         try (IAlgorithm algo = createAlgorithm()) {
             algo.set_verbosity(1L);
             assertEquals(1L, algo.get_verbosity());

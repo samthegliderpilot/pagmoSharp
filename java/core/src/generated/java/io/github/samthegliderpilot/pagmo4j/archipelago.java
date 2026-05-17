@@ -50,7 +50,7 @@ public class archipelago implements AutoCloseable {
 
     private final java.util.List<IProblem> managedProblemCloneRoots = new java.util.ArrayList<>();
 
-    private long withManagedProblem(IProblem prob, java.util.function.LongSupplier action) {
+    private long withManagedProblem(IProblem prob, java.util.function.Function<problem, Long> action) {
         if (prob == null) throw new NullPointerException("problem");
         if (prob.get_thread_safety() == ThreadSafety.None && prob instanceof IThreadCloneableProblem) {
             IProblem clone = ((IThreadCloneableProblem) prob).clone();
@@ -61,20 +61,20 @@ public class archipelago implements AutoCloseable {
                 ExclusiveCloneAdapter adapter = new ExclusiveCloneAdapter(clone);
                 managedProblemCloneRoots.add(adapter);
                 try (problem wrapped = new problem(adapter)) {
-                    return action.getAsLong();
+                    return action.apply(wrapped);
                 }
             }
         }
         prob.throwIfNotThreadSafe();
         try (problem wrapped = new problem(prob)) {
-            return action.getAsLong();
+            return action.apply(wrapped);
         }
     }
 
     public long pushBackIsland(algorithm algo, IProblem problem, long popSize, long seed) {
-        return withManagedProblem(problem, () -> {
+        return withManagedProblem(problem, wrapped -> {
             long nativePop = SizeTInterop.toNativeUInt32(popSize, "popSize");
-            return push_back_island(algo, new problem(problem), nativePop, seed);
+            return push_back_island(algo, wrapped, nativePop, seed);
         });
     }
 
@@ -136,16 +136,16 @@ public class archipelago implements AutoCloseable {
     return pagmo4jJNI.archipelago_push_back_island__SWIG_2(swigCPtr, this, algorithm.getCPtr(algo), algo, problem.getCPtr(prob), prob, pop_size, ManagedRPolicy.getCPtr(r), r, ManagedSPolicy.getCPtr(s), s, seed);
   }
 
-  public long push_back_island(algorithm algo, problem prob, SWIGTYPE_p_pagmo__bfe b, long pop_size, long seed) {
-    return pagmo4jJNI.archipelago_push_back_island__SWIG_3(swigCPtr, this, algorithm.getCPtr(algo), algo, problem.getCPtr(prob), prob, SWIGTYPE_p_pagmo__bfe.getCPtr(b), pop_size, seed);
+  public long push_back_island(algorithm algo, problem prob, bfe b, long pop_size, long seed) {
+    return pagmo4jJNI.archipelago_push_back_island__SWIG_3(swigCPtr, this, algorithm.getCPtr(algo), algo, problem.getCPtr(prob), prob, bfe.getCPtr(b), b, pop_size, seed);
   }
 
-  public long push_back_island(algorithm algo, problem prob, SWIGTYPE_p_pagmo__bfe b, long pop_size, SWIGTYPE_p_pagmo__fair_replace r, SWIGTYPE_p_pagmo__select_best s, long seed) {
-    return pagmo4jJNI.archipelago_push_back_island__SWIG_4(swigCPtr, this, algorithm.getCPtr(algo), algo, problem.getCPtr(prob), prob, SWIGTYPE_p_pagmo__bfe.getCPtr(b), pop_size, SWIGTYPE_p_pagmo__fair_replace.getCPtr(r), SWIGTYPE_p_pagmo__select_best.getCPtr(s), seed);
+  public long push_back_island(algorithm algo, problem prob, bfe b, long pop_size, SWIGTYPE_p_pagmo__fair_replace r, SWIGTYPE_p_pagmo__select_best s, long seed) {
+    return pagmo4jJNI.archipelago_push_back_island__SWIG_4(swigCPtr, this, algorithm.getCPtr(algo), algo, problem.getCPtr(prob), prob, bfe.getCPtr(b), b, pop_size, SWIGTYPE_p_pagmo__fair_replace.getCPtr(r), SWIGTYPE_p_pagmo__select_best.getCPtr(s), seed);
   }
 
-  public long push_back_island(algorithm algo, problem prob, SWIGTYPE_p_pagmo__bfe b, long pop_size, ManagedRPolicy r, ManagedSPolicy s, long seed) {
-    return pagmo4jJNI.archipelago_push_back_island__SWIG_5(swigCPtr, this, algorithm.getCPtr(algo), algo, problem.getCPtr(prob), prob, SWIGTYPE_p_pagmo__bfe.getCPtr(b), pop_size, ManagedRPolicy.getCPtr(r), r, ManagedSPolicy.getCPtr(s), s, seed);
+  public long push_back_island(algorithm algo, problem prob, bfe b, long pop_size, ManagedRPolicy r, ManagedSPolicy s, long seed) {
+    return pagmo4jJNI.archipelago_push_back_island__SWIG_5(swigCPtr, this, algorithm.getCPtr(algo), algo, problem.getCPtr(prob), prob, bfe.getCPtr(b), b, pop_size, ManagedRPolicy.getCPtr(r), r, ManagedSPolicy.getCPtr(s), s, seed);
   }
 
   public long push_back_island(thread_island isl, algorithm algo, problem prob, long pop_size, long seed) {
@@ -160,16 +160,16 @@ public class archipelago implements AutoCloseable {
     return pagmo4jJNI.archipelago_push_back_island__SWIG_8(swigCPtr, this, thread_island.getCPtr(isl), isl, algorithm.getCPtr(algo), algo, problem.getCPtr(prob), prob, pop_size, ManagedRPolicy.getCPtr(r), r, ManagedSPolicy.getCPtr(s), s, seed);
   }
 
-  public long push_back_island(thread_island isl, algorithm algo, problem prob, SWIGTYPE_p_pagmo__bfe b, long pop_size, long seed) {
-    return pagmo4jJNI.archipelago_push_back_island__SWIG_9(swigCPtr, this, thread_island.getCPtr(isl), isl, algorithm.getCPtr(algo), algo, problem.getCPtr(prob), prob, SWIGTYPE_p_pagmo__bfe.getCPtr(b), pop_size, seed);
+  public long push_back_island(thread_island isl, algorithm algo, problem prob, bfe b, long pop_size, long seed) {
+    return pagmo4jJNI.archipelago_push_back_island__SWIG_9(swigCPtr, this, thread_island.getCPtr(isl), isl, algorithm.getCPtr(algo), algo, problem.getCPtr(prob), prob, bfe.getCPtr(b), b, pop_size, seed);
   }
 
-  public long push_back_island(thread_island isl, algorithm algo, problem prob, SWIGTYPE_p_pagmo__bfe b, long pop_size, SWIGTYPE_p_pagmo__fair_replace r, SWIGTYPE_p_pagmo__select_best s, long seed) {
-    return pagmo4jJNI.archipelago_push_back_island__SWIG_10(swigCPtr, this, thread_island.getCPtr(isl), isl, algorithm.getCPtr(algo), algo, problem.getCPtr(prob), prob, SWIGTYPE_p_pagmo__bfe.getCPtr(b), pop_size, SWIGTYPE_p_pagmo__fair_replace.getCPtr(r), SWIGTYPE_p_pagmo__select_best.getCPtr(s), seed);
+  public long push_back_island(thread_island isl, algorithm algo, problem prob, bfe b, long pop_size, SWIGTYPE_p_pagmo__fair_replace r, SWIGTYPE_p_pagmo__select_best s, long seed) {
+    return pagmo4jJNI.archipelago_push_back_island__SWIG_10(swigCPtr, this, thread_island.getCPtr(isl), isl, algorithm.getCPtr(algo), algo, problem.getCPtr(prob), prob, bfe.getCPtr(b), b, pop_size, SWIGTYPE_p_pagmo__fair_replace.getCPtr(r), SWIGTYPE_p_pagmo__select_best.getCPtr(s), seed);
   }
 
-  public long push_back_island(thread_island isl, algorithm algo, problem prob, SWIGTYPE_p_pagmo__bfe b, long pop_size, ManagedRPolicy r, ManagedSPolicy s, long seed) {
-    return pagmo4jJNI.archipelago_push_back_island__SWIG_11(swigCPtr, this, thread_island.getCPtr(isl), isl, algorithm.getCPtr(algo), algo, problem.getCPtr(prob), prob, SWIGTYPE_p_pagmo__bfe.getCPtr(b), pop_size, ManagedRPolicy.getCPtr(r), r, ManagedSPolicy.getCPtr(s), s, seed);
+  public long push_back_island(thread_island isl, algorithm algo, problem prob, bfe b, long pop_size, ManagedRPolicy r, ManagedSPolicy s, long seed) {
+    return pagmo4jJNI.archipelago_push_back_island__SWIG_11(swigCPtr, this, thread_island.getCPtr(isl), isl, algorithm.getCPtr(algo), algo, problem.getCPtr(prob), prob, bfe.getCPtr(b), b, pop_size, ManagedRPolicy.getCPtr(r), r, ManagedSPolicy.getCPtr(s), s, seed);
   }
 
   public IndividualsGroupVector get_migrants_db() {

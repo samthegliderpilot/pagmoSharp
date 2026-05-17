@@ -924,11 +924,37 @@ SWIGINTERN void SWIG_JavaException(JNIEnv *jenv, int code, const char *msg) {
     #include "mbh_log_projection.h"
     #include "r_policy.h"
     #include "s_policy.h"
+    // BeeColonyLogLine must be defined here (before the BeeColonyLogLineVector template
+    // instantiation helper functions that SWIG emits) to avoid forward-reference errors.
+    // The #define guard prevents the duplicate definition in bee_colony.i's %inline block.
+    #include "pagmo/algorithms/bee_colony.hpp"
+    #include <vector>
+    #include <tuple>
+    #ifndef PAGMOWRAP_BEE_COLONY_LOG_LINE_DEFINED
+    #define PAGMOWRAP_BEE_COLONY_LOG_LINE_DEFINED
+    namespace pagmoWrap {
+        struct BeeColonyLogLine {
+            unsigned gen;
+            unsigned long long fevals;
+            double best;
+            double cur_best;
+            BeeColonyLogLine() : gen(0), fevals(0), best(0.0), cur_best(0.0) {}
+            BeeColonyLogLine(unsigned g, unsigned long long f, double b, double cb)
+                : gen(g), fevals(f), best(b), cur_best(cb) {}
+        };
+    }
+    #endif
     // Extern-C bridge functions — exposed to Java via SWIG declarations below.
     extern "C" void* pagmonet_problem_from_callback(void* callbackPtr);
     extern "C" void* pagmonet_algorithm_from_callback(void* callbackPtr);
+    extern "C" void* pagmonet_algorithm_from_callback_java(void* callbackPtr);
     extern "C" void  pagmonet_problem_delete(void* problemPtr);
+    extern "C" const char* pagmonet_get_last_error();
     extern "C" void* pagmonet_default_bfe_evaluate(void* problemPtr, void* batchXPtr);
+    extern "C" void* pagmonet_population_new(void* problemPtr, long popSize, unsigned int seed);
+    extern "C" void* pagmonet_estimate_gradient_problem(void* problemPtr, void* xPtr, double dx);
+    extern "C" void* pagmonet_estimate_gradient_h_problem(void* problemPtr, void* xPtr, double dx);
+    extern "C" void* pagmonet_estimate_sparsity_problem(void* problemPtr, void* xPtr, double dx);
 
 
 #include <string>
@@ -947,6 +973,10 @@ SWIGINTERN void SWIG_JavaException(JNIEnv *jenv, int code, const char *msg) {
 
 #include <map>
 #include <stdexcept>
+
+
+    using sparsity_pattern = pagmo::sparsity_pattern;
+    using vector_double    = pagmo::vector_double;
 
 
 /* Check for overflow converting to Java int (always signed 32-bit) from (unsigned variable-bit) size_t */
@@ -2974,23 +3004,6 @@ SWIGINTERN std::vector< double > pagmo_hypervolume_contributions_via_best_contri
 #include <vector> 
 
 
-#include <algorithm>
-#include <cmath>
-#include <stdexcept>
-#include <vector>
-#include <functional>
-//typedef std::vector<double> vector_double;
-//typedef vector_double(*fn_ptr)(vector_double x);
-//fn_ptr make_fn_ptr() {
-//	return f;
-//};
-//#include "gradientsAndHessiansCallback.h"
-#include "pagmo/exceptions.hpp"
-#include "pagmo/problem.hpp"
-#include "pagmo/types.hpp"
-#include "pagmo/utils/gradients_and_hessians.hpp"
-
-
 #include "pagmo/algorithm.hpp"
 #include "pagmo/algorithms/bee_colony.hpp"
 
@@ -2998,6 +3011,8 @@ SWIGINTERN std::vector< double > pagmo_hypervolume_contributions_via_best_contri
 #include <vector>
 #include <tuple>
 
+#ifndef PAGMOWRAP_BEE_COLONY_LOG_LINE_DEFINED
+#define PAGMOWRAP_BEE_COLONY_LOG_LINE_DEFINED
 namespace pagmoWrap
 {
     struct BeeColonyLogLine
@@ -3014,6 +3029,7 @@ namespace pagmoWrap
     };
 
 }
+#endif
 
 SWIGINTERN std::vector< pagmoWrap::BeeColonyLogLine > pagmo_bee_colony_get_log_lines(pagmo::bee_colony const *self){
         const auto &log = self->get_log();
@@ -15275,24 +15291,50 @@ SWIGEXPORT jlong JNICALL Java_io_github_samthegliderpilot_pagmo4j_pagmo4jJNI_pag
   jlong jresult = 0 ;
   void *arg1 = 0 ;
   void *result = 0 ;
-  
+
   (void)jenv;
   (void)jcls;
-  arg1 = *(void **)&jarg1; 
+  arg1 = *(void **)&jarg1;
   {
     try {
       result = (void *)pagmonet_algorithm_from_callback(arg1);
     } catch (const std::exception &e) {
       {
-        SWIG_JavaException(jenv, SWIG_RuntimeError, e.what()); return 0; 
+        SWIG_JavaException(jenv, SWIG_RuntimeError, e.what()); return 0;
       };
     } catch (...) {
       {
-        SWIG_JavaException(jenv, SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+        SWIG_JavaException(jenv, SWIG_RuntimeError, "Unknown C++ exception"); return 0;
       };
     }
   }
-  *(void **)&jresult = result; 
+  *(void **)&jresult = result;
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_io_github_samthegliderpilot_pagmo4j_pagmo4jJNI_pagmonet_1algorithm_1from_1callback_1java(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  jlong jresult = 0 ;
+  void *arg1 = 0 ;
+  void *result = 0 ;
+
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(void **)&jarg1;
+  {
+    try {
+      result = (void *)pagmonet_algorithm_from_callback_java(arg1);
+    } catch (const std::exception &e) {
+      {
+        SWIG_JavaException(jenv, SWIG_RuntimeError, e.what()); return 0;
+      };
+    } catch (...) {
+      {
+        SWIG_JavaException(jenv, SWIG_RuntimeError, "Unknown C++ exception"); return 0;
+      };
+    }
+  }
+  *(void **)&jresult = result;
   return jresult;
 }
 
@@ -15316,6 +15358,30 @@ SWIGEXPORT void JNICALL Java_io_github_samthegliderpilot_pagmo4j_pagmo4jJNI_pagm
       };
     }
   }
+}
+
+
+SWIGEXPORT jstring JNICALL Java_io_github_samthegliderpilot_pagmo4j_pagmo4jJNI_pagmonet_1get_1last_1error(JNIEnv *jenv, jclass jcls) {
+  jstring jresult = 0 ;
+  char *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  {
+    try {
+      result = (char *)pagmonet_get_last_error();
+    } catch (const std::exception &e) {
+      {
+        SWIG_JavaException(jenv, SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (...) {
+      {
+        SWIG_JavaException(jenv, SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
+      };
+    }
+  }
+  if (result) jresult = jenv->NewStringUTF((const char *)result);
+  return jresult;
 }
 
 
@@ -30003,7 +30069,7 @@ SWIGEXPORT jlong JNICALL Java_io_github_samthegliderpilot_pagmo4j_pagmo4jJNI_pro
       };
     }
   }
-  *(sparsity_pattern **)&jresult = new sparsity_pattern(result); 
+  *(pagmo::sparsity_pattern **)&jresult = new pagmo::sparsity_pattern(result); 
   return jresult;
 }
 
@@ -30118,7 +30184,7 @@ SWIGEXPORT jlong JNICALL Java_io_github_samthegliderpilot_pagmo4j_pagmo4jJNI_pro
       };
     }
   }
-  *(std::vector< sparsity_pattern > **)&jresult = new std::vector< sparsity_pattern >(result); 
+  *(std::vector< pagmo::sparsity_pattern > **)&jresult = new std::vector< pagmo::sparsity_pattern >(result); 
   return jresult;
 }
 
@@ -33847,7 +33913,7 @@ SWIGEXPORT jlong JNICALL Java_io_github_samthegliderpilot_pagmo4j_pagmo4jJNI_isl
 }
 
 
-SWIGEXPORT jlong JNICALL Java_io_github_samthegliderpilot_pagmo4j_pagmo4jJNI_island_1CreateWithBfe(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jlong jarg3, jlong jarg4, jlong jarg5) {
+SWIGEXPORT jlong JNICALL Java_io_github_samthegliderpilot_pagmo4j_pagmo4jJNI_island_1CreateWithBfe(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jlong jarg3, jobject jarg3_, jlong jarg4, jlong jarg5) {
   jlong jresult = 0 ;
   pagmo::algorithm *arg1 = 0 ;
   pagmo::problem *arg2 = 0 ;
@@ -33860,6 +33926,7 @@ SWIGEXPORT jlong JNICALL Java_io_github_samthegliderpilot_pagmo4j_pagmo4jJNI_isl
   (void)jcls;
   (void)jarg1_;
   (void)jarg2_;
+  (void)jarg3_;
   arg1 = *(pagmo::algorithm **)&jarg1;
   if (!arg1) {
     SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "pagmo::algorithm const & is null");
@@ -33895,7 +33962,7 @@ SWIGEXPORT jlong JNICALL Java_io_github_samthegliderpilot_pagmo4j_pagmo4jJNI_isl
 }
 
 
-SWIGEXPORT jlong JNICALL Java_io_github_samthegliderpilot_pagmo4j_pagmo4jJNI_island_1CreateWithThreadIslandAndBfe(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jlong jarg3, jobject jarg3_, jlong jarg4, jlong jarg5, jlong jarg6) {
+SWIGEXPORT jlong JNICALL Java_io_github_samthegliderpilot_pagmo4j_pagmo4jJNI_island_1CreateWithThreadIslandAndBfe(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jlong jarg3, jobject jarg3_, jlong jarg4, jobject jarg4_, jlong jarg5, jlong jarg6) {
   jlong jresult = 0 ;
   pagmo::thread_island *arg1 = 0 ;
   pagmo::algorithm *arg2 = 0 ;
@@ -33910,6 +33977,7 @@ SWIGEXPORT jlong JNICALL Java_io_github_samthegliderpilot_pagmo4j_pagmo4jJNI_isl
   (void)jarg1_;
   (void)jarg2_;
   (void)jarg3_;
+  (void)jarg4_;
   arg1 = *(pagmo::thread_island **)&jarg1;
   if (!arg1) {
     SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "pagmo::thread_island const & is null");
@@ -33950,7 +34018,7 @@ SWIGEXPORT jlong JNICALL Java_io_github_samthegliderpilot_pagmo4j_pagmo4jJNI_isl
 }
 
 
-SWIGEXPORT jlong JNICALL Java_io_github_samthegliderpilot_pagmo4j_pagmo4jJNI_island_1CreateWithBfeAndPolicies_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jlong jarg3, jlong jarg4, jlong jarg5, jlong jarg6, jlong jarg7) {
+SWIGEXPORT jlong JNICALL Java_io_github_samthegliderpilot_pagmo4j_pagmo4jJNI_island_1CreateWithBfeAndPolicies_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jlong jarg3, jobject jarg3_, jlong jarg4, jlong jarg5, jlong jarg6, jlong jarg7) {
   jlong jresult = 0 ;
   pagmo::algorithm *arg1 = 0 ;
   pagmo::problem *arg2 = 0 ;
@@ -33965,6 +34033,7 @@ SWIGEXPORT jlong JNICALL Java_io_github_samthegliderpilot_pagmo4j_pagmo4jJNI_isl
   (void)jcls;
   (void)jarg1_;
   (void)jarg2_;
+  (void)jarg3_;
   arg1 = *(pagmo::algorithm **)&jarg1;
   if (!arg1) {
     SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "pagmo::algorithm const & is null");
@@ -34010,7 +34079,7 @@ SWIGEXPORT jlong JNICALL Java_io_github_samthegliderpilot_pagmo4j_pagmo4jJNI_isl
 }
 
 
-SWIGEXPORT jlong JNICALL Java_io_github_samthegliderpilot_pagmo4j_pagmo4jJNI_island_1CreateWithThreadIslandAndBfeAndPolicies_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jlong jarg3, jobject jarg3_, jlong jarg4, jlong jarg5, jlong jarg6, jlong jarg7, jlong jarg8) {
+SWIGEXPORT jlong JNICALL Java_io_github_samthegliderpilot_pagmo4j_pagmo4jJNI_island_1CreateWithThreadIslandAndBfeAndPolicies_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jlong jarg3, jobject jarg3_, jlong jarg4, jobject jarg4_, jlong jarg5, jlong jarg6, jlong jarg7, jlong jarg8) {
   jlong jresult = 0 ;
   pagmo::thread_island *arg1 = 0 ;
   pagmo::algorithm *arg2 = 0 ;
@@ -34027,6 +34096,7 @@ SWIGEXPORT jlong JNICALL Java_io_github_samthegliderpilot_pagmo4j_pagmo4jJNI_isl
   (void)jarg1_;
   (void)jarg2_;
   (void)jarg3_;
+  (void)jarg4_;
   arg1 = *(pagmo::thread_island **)&jarg1;
   if (!arg1) {
     SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "pagmo::thread_island const & is null");
@@ -34077,7 +34147,7 @@ SWIGEXPORT jlong JNICALL Java_io_github_samthegliderpilot_pagmo4j_pagmo4jJNI_isl
 }
 
 
-SWIGEXPORT jlong JNICALL Java_io_github_samthegliderpilot_pagmo4j_pagmo4jJNI_island_1CreateWithBfeAndPolicies_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jlong jarg3, jlong jarg4, jlong jarg5, jobject jarg5_, jlong jarg6, jobject jarg6_, jlong jarg7) {
+SWIGEXPORT jlong JNICALL Java_io_github_samthegliderpilot_pagmo4j_pagmo4jJNI_island_1CreateWithBfeAndPolicies_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jlong jarg3, jobject jarg3_, jlong jarg4, jlong jarg5, jobject jarg5_, jlong jarg6, jobject jarg6_, jlong jarg7) {
   jlong jresult = 0 ;
   pagmo::algorithm *arg1 = 0 ;
   pagmo::problem *arg2 = 0 ;
@@ -34092,6 +34162,7 @@ SWIGEXPORT jlong JNICALL Java_io_github_samthegliderpilot_pagmo4j_pagmo4jJNI_isl
   (void)jcls;
   (void)jarg1_;
   (void)jarg2_;
+  (void)jarg3_;
   (void)jarg5_;
   (void)jarg6_;
   arg1 = *(pagmo::algorithm **)&jarg1;
@@ -34139,7 +34210,7 @@ SWIGEXPORT jlong JNICALL Java_io_github_samthegliderpilot_pagmo4j_pagmo4jJNI_isl
 }
 
 
-SWIGEXPORT jlong JNICALL Java_io_github_samthegliderpilot_pagmo4j_pagmo4jJNI_island_1CreateWithThreadIslandAndBfeAndPolicies_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jlong jarg3, jobject jarg3_, jlong jarg4, jlong jarg5, jlong jarg6, jobject jarg6_, jlong jarg7, jobject jarg7_, jlong jarg8) {
+SWIGEXPORT jlong JNICALL Java_io_github_samthegliderpilot_pagmo4j_pagmo4jJNI_island_1CreateWithThreadIslandAndBfeAndPolicies_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jlong jarg3, jobject jarg3_, jlong jarg4, jobject jarg4_, jlong jarg5, jlong jarg6, jobject jarg6_, jlong jarg7, jobject jarg7_, jlong jarg8) {
   jlong jresult = 0 ;
   pagmo::thread_island *arg1 = 0 ;
   pagmo::algorithm *arg2 = 0 ;
@@ -34156,6 +34227,7 @@ SWIGEXPORT jlong JNICALL Java_io_github_samthegliderpilot_pagmo4j_pagmo4jJNI_isl
   (void)jarg1_;
   (void)jarg2_;
   (void)jarg3_;
+  (void)jarg4_;
   (void)jarg6_;
   (void)jarg7_;
   arg1 = *(pagmo::thread_island **)&jarg1;
@@ -34631,7 +34703,7 @@ SWIGEXPORT jlong JNICALL Java_io_github_samthegliderpilot_pagmo4j_pagmo4jJNI_arc
 }
 
 
-SWIGEXPORT jlong JNICALL Java_io_github_samthegliderpilot_pagmo4j_pagmo4jJNI_archipelago_1push_1back_1island_1_1SWIG_13(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jlong jarg3, jobject jarg3_, jlong jarg4, jlong jarg5, jlong jarg6) {
+SWIGEXPORT jlong JNICALL Java_io_github_samthegliderpilot_pagmo4j_pagmo4jJNI_archipelago_1push_1back_1island_1_1SWIG_13(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jlong jarg3, jobject jarg3_, jlong jarg4, jobject jarg4_, jlong jarg5, jlong jarg6) {
   jlong jresult = 0 ;
   pagmo::archipelago *arg1 = 0 ;
   pagmo::algorithm *arg2 = 0 ;
@@ -34646,6 +34718,7 @@ SWIGEXPORT jlong JNICALL Java_io_github_samthegliderpilot_pagmo4j_pagmo4jJNI_arc
   (void)jarg1_;
   (void)jarg2_;
   (void)jarg3_;
+  (void)jarg4_;
   arg1 = *(pagmo::archipelago **)&jarg1; 
   arg2 = *(pagmo::algorithm **)&jarg2;
   if (!arg2) {
@@ -34682,7 +34755,7 @@ SWIGEXPORT jlong JNICALL Java_io_github_samthegliderpilot_pagmo4j_pagmo4jJNI_arc
 }
 
 
-SWIGEXPORT jlong JNICALL Java_io_github_samthegliderpilot_pagmo4j_pagmo4jJNI_archipelago_1push_1back_1island_1_1SWIG_14(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jlong jarg3, jobject jarg3_, jlong jarg4, jlong jarg5, jlong jarg6, jlong jarg7, jlong jarg8) {
+SWIGEXPORT jlong JNICALL Java_io_github_samthegliderpilot_pagmo4j_pagmo4jJNI_archipelago_1push_1back_1island_1_1SWIG_14(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jlong jarg3, jobject jarg3_, jlong jarg4, jobject jarg4_, jlong jarg5, jlong jarg6, jlong jarg7, jlong jarg8) {
   jlong jresult = 0 ;
   pagmo::archipelago *arg1 = 0 ;
   pagmo::algorithm *arg2 = 0 ;
@@ -34699,6 +34772,7 @@ SWIGEXPORT jlong JNICALL Java_io_github_samthegliderpilot_pagmo4j_pagmo4jJNI_arc
   (void)jarg1_;
   (void)jarg2_;
   (void)jarg3_;
+  (void)jarg4_;
   arg1 = *(pagmo::archipelago **)&jarg1; 
   arg2 = *(pagmo::algorithm **)&jarg2;
   if (!arg2) {
@@ -34745,7 +34819,7 @@ SWIGEXPORT jlong JNICALL Java_io_github_samthegliderpilot_pagmo4j_pagmo4jJNI_arc
 }
 
 
-SWIGEXPORT jlong JNICALL Java_io_github_samthegliderpilot_pagmo4j_pagmo4jJNI_archipelago_1push_1back_1island_1_1SWIG_15(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jlong jarg3, jobject jarg3_, jlong jarg4, jlong jarg5, jlong jarg6, jobject jarg6_, jlong jarg7, jobject jarg7_, jlong jarg8) {
+SWIGEXPORT jlong JNICALL Java_io_github_samthegliderpilot_pagmo4j_pagmo4jJNI_archipelago_1push_1back_1island_1_1SWIG_15(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jlong jarg3, jobject jarg3_, jlong jarg4, jobject jarg4_, jlong jarg5, jlong jarg6, jobject jarg6_, jlong jarg7, jobject jarg7_, jlong jarg8) {
   jlong jresult = 0 ;
   pagmo::archipelago *arg1 = 0 ;
   pagmo::algorithm *arg2 = 0 ;
@@ -34762,6 +34836,7 @@ SWIGEXPORT jlong JNICALL Java_io_github_samthegliderpilot_pagmo4j_pagmo4jJNI_arc
   (void)jarg1_;
   (void)jarg2_;
   (void)jarg3_;
+  (void)jarg4_;
   (void)jarg6_;
   (void)jarg7_;
   arg1 = *(pagmo::archipelago **)&jarg1; 
@@ -34992,7 +35067,7 @@ SWIGEXPORT jlong JNICALL Java_io_github_samthegliderpilot_pagmo4j_pagmo4jJNI_arc
 }
 
 
-SWIGEXPORT jlong JNICALL Java_io_github_samthegliderpilot_pagmo4j_pagmo4jJNI_archipelago_1push_1back_1island_1_1SWIG_19(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jlong jarg3, jobject jarg3_, jlong jarg4, jobject jarg4_, jlong jarg5, jlong jarg6, jlong jarg7) {
+SWIGEXPORT jlong JNICALL Java_io_github_samthegliderpilot_pagmo4j_pagmo4jJNI_archipelago_1push_1back_1island_1_1SWIG_19(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jlong jarg3, jobject jarg3_, jlong jarg4, jobject jarg4_, jlong jarg5, jobject jarg5_, jlong jarg6, jlong jarg7) {
   jlong jresult = 0 ;
   pagmo::archipelago *arg1 = 0 ;
   pagmo::thread_island *arg2 = 0 ;
@@ -35009,6 +35084,7 @@ SWIGEXPORT jlong JNICALL Java_io_github_samthegliderpilot_pagmo4j_pagmo4jJNI_arc
   (void)jarg2_;
   (void)jarg3_;
   (void)jarg4_;
+  (void)jarg5_;
   arg1 = *(pagmo::archipelago **)&jarg1; 
   arg2 = *(pagmo::thread_island **)&jarg2;
   if (!arg2) {
@@ -35050,7 +35126,7 @@ SWIGEXPORT jlong JNICALL Java_io_github_samthegliderpilot_pagmo4j_pagmo4jJNI_arc
 }
 
 
-SWIGEXPORT jlong JNICALL Java_io_github_samthegliderpilot_pagmo4j_pagmo4jJNI_archipelago_1push_1back_1island_1_1SWIG_110(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jlong jarg3, jobject jarg3_, jlong jarg4, jobject jarg4_, jlong jarg5, jlong jarg6, jlong jarg7, jlong jarg8, jlong jarg9) {
+SWIGEXPORT jlong JNICALL Java_io_github_samthegliderpilot_pagmo4j_pagmo4jJNI_archipelago_1push_1back_1island_1_1SWIG_110(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jlong jarg3, jobject jarg3_, jlong jarg4, jobject jarg4_, jlong jarg5, jobject jarg5_, jlong jarg6, jlong jarg7, jlong jarg8, jlong jarg9) {
   jlong jresult = 0 ;
   pagmo::archipelago *arg1 = 0 ;
   pagmo::thread_island *arg2 = 0 ;
@@ -35069,6 +35145,7 @@ SWIGEXPORT jlong JNICALL Java_io_github_samthegliderpilot_pagmo4j_pagmo4jJNI_arc
   (void)jarg2_;
   (void)jarg3_;
   (void)jarg4_;
+  (void)jarg5_;
   arg1 = *(pagmo::archipelago **)&jarg1; 
   arg2 = *(pagmo::thread_island **)&jarg2;
   if (!arg2) {
@@ -35120,7 +35197,7 @@ SWIGEXPORT jlong JNICALL Java_io_github_samthegliderpilot_pagmo4j_pagmo4jJNI_arc
 }
 
 
-SWIGEXPORT jlong JNICALL Java_io_github_samthegliderpilot_pagmo4j_pagmo4jJNI_archipelago_1push_1back_1island_1_1SWIG_111(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jlong jarg3, jobject jarg3_, jlong jarg4, jobject jarg4_, jlong jarg5, jlong jarg6, jlong jarg7, jobject jarg7_, jlong jarg8, jobject jarg8_, jlong jarg9) {
+SWIGEXPORT jlong JNICALL Java_io_github_samthegliderpilot_pagmo4j_pagmo4jJNI_archipelago_1push_1back_1island_1_1SWIG_111(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jlong jarg3, jobject jarg3_, jlong jarg4, jobject jarg4_, jlong jarg5, jobject jarg5_, jlong jarg6, jlong jarg7, jobject jarg7_, jlong jarg8, jobject jarg8_, jlong jarg9) {
   jlong jresult = 0 ;
   pagmo::archipelago *arg1 = 0 ;
   pagmo::thread_island *arg2 = 0 ;
@@ -35139,6 +35216,7 @@ SWIGEXPORT jlong JNICALL Java_io_github_samthegliderpilot_pagmo4j_pagmo4jJNI_arc
   (void)jarg2_;
   (void)jarg3_;
   (void)jarg4_;
+  (void)jarg5_;
   (void)jarg7_;
   (void)jarg8_;
   arg1 = *(pagmo::archipelago **)&jarg1; 
@@ -35527,11 +35605,11 @@ SWIGEXPORT jlong JNICALL Java_io_github_samthegliderpilot_pagmo4j_pagmo4jJNI_arc
 
 
 SWIGEXPORT void JNICALL Java_io_github_samthegliderpilot_pagmo4j_pagmo4jJNI_delete_1bfe(JNIEnv *jenv, jclass jcls, jlong jarg1) {
-  bfe *arg1 = 0 ;
+  pagmo::bfe *arg1 = 0 ;
   
   (void)jenv;
   (void)jcls;
-  arg1 = *(bfe **)&jarg1; 
+  arg1 = *(pagmo::bfe **)&jarg1; 
   {
     try {
       delete arg1;
@@ -35550,13 +35628,13 @@ SWIGEXPORT void JNICALL Java_io_github_samthegliderpilot_pagmo4j_pagmo4jJNI_dele
 
 SWIGEXPORT jlong JNICALL Java_io_github_samthegliderpilot_pagmo4j_pagmo4jJNI_random_1device_1next(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jlong jresult = 0 ;
-  random_device *arg1 = 0 ;
+  pagmo::random_device *arg1 = 0 ;
   unsigned int result;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(random_device **)&jarg1; 
+  arg1 = *(pagmo::random_device **)&jarg1; 
   {
     try {
       result = (unsigned int)(arg1)->next();
@@ -35576,13 +35654,13 @@ SWIGEXPORT jlong JNICALL Java_io_github_samthegliderpilot_pagmo4j_pagmo4jJNI_ran
 
 
 SWIGEXPORT void JNICALL Java_io_github_samthegliderpilot_pagmo4j_pagmo4jJNI_random_1device_1set_1seed(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
-  random_device *arg1 = 0 ;
+  pagmo::random_device *arg1 = 0 ;
   unsigned int arg2 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(random_device **)&jarg1; 
+  arg1 = *(pagmo::random_device **)&jarg1; 
   arg2 = (unsigned int)jarg2; 
   {
     try {
@@ -35602,13 +35680,13 @@ SWIGEXPORT void JNICALL Java_io_github_samthegliderpilot_pagmo4j_pagmo4jJNI_rand
 
 SWIGEXPORT jlong JNICALL Java_io_github_samthegliderpilot_pagmo4j_pagmo4jJNI_new_1random_1device(JNIEnv *jenv, jclass jcls) {
   jlong jresult = 0 ;
-  random_device *result = 0 ;
+  pagmo::random_device *result = 0 ;
   
   (void)jenv;
   (void)jcls;
   {
     try {
-      result = (random_device *)new random_device();
+      result = (pagmo::random_device *)new pagmo::random_device();
     } catch (const std::exception &e) {
       {
         SWIG_JavaException(jenv, SWIG_RuntimeError, e.what()); return 0; 
@@ -35619,17 +35697,17 @@ SWIGEXPORT jlong JNICALL Java_io_github_samthegliderpilot_pagmo4j_pagmo4jJNI_new
       };
     }
   }
-  *(random_device **)&jresult = result; 
+  *(pagmo::random_device **)&jresult = result; 
   return jresult;
 }
 
 
 SWIGEXPORT void JNICALL Java_io_github_samthegliderpilot_pagmo4j_pagmo4jJNI_delete_1random_1device(JNIEnv *jenv, jclass jcls, jlong jarg1) {
-  random_device *arg1 = 0 ;
+  pagmo::random_device *arg1 = 0 ;
   
   (void)jenv;
   (void)jcls;
-  arg1 = *(random_device **)&jarg1; 
+  arg1 = *(pagmo::random_device **)&jarg1; 
   {
     try {
       delete arg1;
@@ -35654,7 +35732,7 @@ SWIGEXPORT jlong JNICALL Java_io_github_samthegliderpilot_pagmo4j_pagmo4jJNI_max
   (void)jcls;
   {
     try {
-      result = (unsigned int)detail::max_stream_output_length();
+      result = (unsigned int)pagmo::detail::max_stream_output_length();
     } catch (const std::exception &e) {
       {
         SWIG_JavaException(jenv, SWIG_RuntimeError, e.what()); return 0; 
@@ -36995,279 +37073,6 @@ SWIGEXPORT jlong JNICALL Java_io_github_samthegliderpilot_pagmo4j_pagmo4jJNI_dec
     }
   }
   *(pagmo::vector_double **)&jresult = new pagmo::vector_double(result); 
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_io_github_samthegliderpilot_pagmo4j_pagmo4jJNI_gradientsAndHessiansCallback(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jlong jresult = 0 ;
-  vector_double arg1 ;
-  vector_double *argp1 ;
-  vector_double result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  argp1 = *(vector_double **)&jarg1; 
-  if (!argp1) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null vector_double");
-    return 0;
-  }
-  arg1 = *argp1; 
-  {
-    try {
-      result = gradientsAndHessiansCallback(SWIG_STD_MOVE(arg1));
-    } catch (const std::exception &e) {
-      {
-        SWIG_JavaException(jenv, SWIG_RuntimeError, e.what()); return 0; 
-      };
-    } catch (...) {
-      {
-        SWIG_JavaException(jenv, SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
-      };
-    }
-  }
-  *(vector_double **)&jresult = new vector_double(result); 
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_io_github_samthegliderpilot_pagmo4j_pagmo4jJNI_estimate_1sparsity_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jlong jarg1, jlong jarg2, jobject jarg2_, jdouble jarg3) {
-  jlong jresult = 0 ;
-  gradientsAndHessiansCallback arg1 ;
-  vector_double *arg2 = 0 ;
-  double arg3 ;
-  gradientsAndHessiansCallback *argp1 ;
-  SwigValueWrapper< std::vector< std::pair< size_t,size_t > > > result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg2_;
-  argp1 = *(gradientsAndHessiansCallback **)&jarg1; 
-  if (!argp1) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null gradientsAndHessiansCallback");
-    return 0;
-  }
-  arg1 = *argp1; 
-  arg2 = *(vector_double **)&jarg2;
-  if (!arg2) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "vector_double const & is null");
-    return 0;
-  } 
-  arg3 = (double)jarg3; 
-  {
-    try {
-      result = estimate_sparsity(SWIG_STD_MOVE(arg1),(std::vector< double > const &)*arg2,arg3);
-    } catch (const std::exception &e) {
-      {
-        SWIG_JavaException(jenv, SWIG_RuntimeError, e.what()); return 0; 
-      };
-    } catch (...) {
-      {
-        SWIG_JavaException(jenv, SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
-      };
-    }
-  }
-  *(sparsity_pattern **)&jresult = new sparsity_pattern(result); 
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_io_github_samthegliderpilot_pagmo4j_pagmo4jJNI_estimate_1sparsity_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jlong jarg2, jobject jarg2_) {
-  jlong jresult = 0 ;
-  gradientsAndHessiansCallback arg1 ;
-  vector_double *arg2 = 0 ;
-  gradientsAndHessiansCallback *argp1 ;
-  SwigValueWrapper< std::vector< std::pair< size_t,size_t > > > result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg2_;
-  argp1 = *(gradientsAndHessiansCallback **)&jarg1; 
-  if (!argp1) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null gradientsAndHessiansCallback");
-    return 0;
-  }
-  arg1 = *argp1; 
-  arg2 = *(vector_double **)&jarg2;
-  if (!arg2) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "vector_double const & is null");
-    return 0;
-  } 
-  {
-    try {
-      result = estimate_sparsity(SWIG_STD_MOVE(arg1),(std::vector< double > const &)*arg2);
-    } catch (const std::exception &e) {
-      {
-        SWIG_JavaException(jenv, SWIG_RuntimeError, e.what()); return 0; 
-      };
-    } catch (...) {
-      {
-        SWIG_JavaException(jenv, SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
-      };
-    }
-  }
-  *(sparsity_pattern **)&jresult = new sparsity_pattern(result); 
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_io_github_samthegliderpilot_pagmo4j_pagmo4jJNI_estimate_1gradient_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jlong jarg1, jlong jarg2, jobject jarg2_, jdouble jarg3) {
-  jlong jresult = 0 ;
-  gradientsAndHessiansCallback arg1 ;
-  vector_double *arg2 = 0 ;
-  double arg3 ;
-  gradientsAndHessiansCallback *argp1 ;
-  vector_double result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg2_;
-  argp1 = *(gradientsAndHessiansCallback **)&jarg1; 
-  if (!argp1) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null gradientsAndHessiansCallback");
-    return 0;
-  }
-  arg1 = *argp1; 
-  arg2 = *(vector_double **)&jarg2;
-  if (!arg2) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "vector_double const & is null");
-    return 0;
-  } 
-  arg3 = (double)jarg3; 
-  {
-    try {
-      result = estimate_gradient(SWIG_STD_MOVE(arg1),(std::vector< double > const &)*arg2,arg3);
-    } catch (const std::exception &e) {
-      {
-        SWIG_JavaException(jenv, SWIG_RuntimeError, e.what()); return 0; 
-      };
-    } catch (...) {
-      {
-        SWIG_JavaException(jenv, SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
-      };
-    }
-  }
-  *(vector_double **)&jresult = new vector_double(result); 
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_io_github_samthegliderpilot_pagmo4j_pagmo4jJNI_estimate_1gradient_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jlong jarg2, jobject jarg2_) {
-  jlong jresult = 0 ;
-  gradientsAndHessiansCallback arg1 ;
-  vector_double *arg2 = 0 ;
-  gradientsAndHessiansCallback *argp1 ;
-  vector_double result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg2_;
-  argp1 = *(gradientsAndHessiansCallback **)&jarg1; 
-  if (!argp1) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null gradientsAndHessiansCallback");
-    return 0;
-  }
-  arg1 = *argp1; 
-  arg2 = *(vector_double **)&jarg2;
-  if (!arg2) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "vector_double const & is null");
-    return 0;
-  } 
-  {
-    try {
-      result = estimate_gradient(SWIG_STD_MOVE(arg1),(std::vector< double > const &)*arg2);
-    } catch (const std::exception &e) {
-      {
-        SWIG_JavaException(jenv, SWIG_RuntimeError, e.what()); return 0; 
-      };
-    } catch (...) {
-      {
-        SWIG_JavaException(jenv, SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
-      };
-    }
-  }
-  *(vector_double **)&jresult = new vector_double(result); 
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_io_github_samthegliderpilot_pagmo4j_pagmo4jJNI_estimate_1gradient_1h_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jlong jarg1, jlong jarg2, jobject jarg2_, jdouble jarg3) {
-  jlong jresult = 0 ;
-  gradientsAndHessiansCallback arg1 ;
-  vector_double *arg2 = 0 ;
-  double arg3 ;
-  gradientsAndHessiansCallback *argp1 ;
-  vector_double result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg2_;
-  argp1 = *(gradientsAndHessiansCallback **)&jarg1; 
-  if (!argp1) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null gradientsAndHessiansCallback");
-    return 0;
-  }
-  arg1 = *argp1; 
-  arg2 = *(vector_double **)&jarg2;
-  if (!arg2) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "vector_double const & is null");
-    return 0;
-  } 
-  arg3 = (double)jarg3; 
-  {
-    try {
-      result = estimate_gradient_h(SWIG_STD_MOVE(arg1),(std::vector< double > const &)*arg2,arg3);
-    } catch (const std::exception &e) {
-      {
-        SWIG_JavaException(jenv, SWIG_RuntimeError, e.what()); return 0; 
-      };
-    } catch (...) {
-      {
-        SWIG_JavaException(jenv, SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
-      };
-    }
-  }
-  *(vector_double **)&jresult = new vector_double(result); 
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_io_github_samthegliderpilot_pagmo4j_pagmo4jJNI_estimate_1gradient_1h_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jlong jarg2, jobject jarg2_) {
-  jlong jresult = 0 ;
-  gradientsAndHessiansCallback arg1 ;
-  vector_double *arg2 = 0 ;
-  gradientsAndHessiansCallback *argp1 ;
-  vector_double result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg2_;
-  argp1 = *(gradientsAndHessiansCallback **)&jarg1; 
-  if (!argp1) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null gradientsAndHessiansCallback");
-    return 0;
-  }
-  arg1 = *argp1; 
-  arg2 = *(vector_double **)&jarg2;
-  if (!arg2) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "vector_double const & is null");
-    return 0;
-  } 
-  {
-    try {
-      result = estimate_gradient_h(SWIG_STD_MOVE(arg1),(std::vector< double > const &)*arg2);
-    } catch (const std::exception &e) {
-      {
-        SWIG_JavaException(jenv, SWIG_RuntimeError, e.what()); return 0; 
-      };
-    } catch (...) {
-      {
-        SWIG_JavaException(jenv, SWIG_RuntimeError, "Unknown C++ exception"); return 0; 
-      };
-    }
-  }
-  *(vector_double **)&jresult = new vector_double(result); 
   return jresult;
 }
 
@@ -39391,13 +39196,14 @@ SWIGEXPORT jlong JNICALL Java_io_github_samthegliderpilot_pagmo4j_pagmo4jJNI_mac
 }
 
 
-SWIGEXPORT void JNICALL Java_io_github_samthegliderpilot_pagmo4j_pagmo4jJNI_maco_1set_1bfe(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
+SWIGEXPORT void JNICALL Java_io_github_samthegliderpilot_pagmo4j_pagmo4jJNI_maco_1set_1bfe(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
   pagmo::maco *arg1 = 0 ;
   pagmo::bfe *arg2 = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
+  (void)jarg2_;
   arg1 = *(pagmo::maco **)&jarg1; 
   arg2 = *(pagmo::bfe **)&jarg2;
   if (!arg2) {
@@ -41656,13 +41462,14 @@ SWIGEXPORT jlong JNICALL Java_io_github_samthegliderpilot_pagmo4j_pagmo4jJNI_moe
 }
 
 
-SWIGEXPORT void JNICALL Java_io_github_samthegliderpilot_pagmo4j_pagmo4jJNI_moead_1gen_1set_1bfe(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
+SWIGEXPORT void JNICALL Java_io_github_samthegliderpilot_pagmo4j_pagmo4jJNI_moead_1gen_1set_1bfe(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
   pagmo::moead_gen *arg1 = 0 ;
   pagmo::bfe *arg2 = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
+  (void)jarg2_;
   arg1 = *(pagmo::moead_gen **)&jarg1; 
   arg2 = *(pagmo::bfe **)&jarg2;
   if (!arg2) {
@@ -42192,13 +41999,14 @@ SWIGEXPORT jlong JNICALL Java_io_github_samthegliderpilot_pagmo4j_pagmo4jJNI_nsg
 }
 
 
-SWIGEXPORT void JNICALL Java_io_github_samthegliderpilot_pagmo4j_pagmo4jJNI_nsga2_1set_1bfe(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
+SWIGEXPORT void JNICALL Java_io_github_samthegliderpilot_pagmo4j_pagmo4jJNI_nsga2_1set_1bfe(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
   pagmo::nsga2 *arg1 = 0 ;
   pagmo::bfe *arg2 = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
+  (void)jarg2_;
   arg1 = *(pagmo::nsga2 **)&jarg1; 
   arg2 = *(pagmo::bfe **)&jarg2;
   if (!arg2) {
@@ -42938,13 +42746,14 @@ SWIGEXPORT jlong JNICALL Java_io_github_samthegliderpilot_pagmo4j_pagmo4jJNI_cma
 }
 
 
-SWIGEXPORT void JNICALL Java_io_github_samthegliderpilot_pagmo4j_pagmo4jJNI_cmaes_1set_1bfe(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
+SWIGEXPORT void JNICALL Java_io_github_samthegliderpilot_pagmo4j_pagmo4jJNI_cmaes_1set_1bfe(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
   pagmo::cmaes *arg1 = 0 ;
   pagmo::bfe *arg2 = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
+  (void)jarg2_;
   arg1 = *(pagmo::cmaes **)&jarg1; 
   arg2 = *(pagmo::bfe **)&jarg2;
   if (!arg2) {
@@ -45436,13 +45245,14 @@ SWIGEXPORT void JNICALL Java_io_github_samthegliderpilot_pagmo4j_pagmo4jJNI_gaco
 }
 
 
-SWIGEXPORT void JNICALL Java_io_github_samthegliderpilot_pagmo4j_pagmo4jJNI_gaco_1set_1bfe(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
+SWIGEXPORT void JNICALL Java_io_github_samthegliderpilot_pagmo4j_pagmo4jJNI_gaco_1set_1bfe(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
   pagmo::gaco *arg1 = 0 ;
   pagmo::bfe *arg2 = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
+  (void)jarg2_;
   arg1 = *(pagmo::gaco **)&jarg1; 
   arg2 = *(pagmo::bfe **)&jarg2;
   if (!arg2) {
@@ -48078,13 +47888,14 @@ SWIGEXPORT jlong JNICALL Java_io_github_samthegliderpilot_pagmo4j_pagmo4jJNI_nsp
 }
 
 
-SWIGEXPORT void JNICALL Java_io_github_samthegliderpilot_pagmo4j_pagmo4jJNI_nspso_1set_1bfe(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
+SWIGEXPORT void JNICALL Java_io_github_samthegliderpilot_pagmo4j_pagmo4jJNI_nspso_1set_1bfe(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
   pagmo::nspso *arg1 = 0 ;
   pagmo::bfe *arg2 = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
+  (void)jarg2_;
   arg1 = *(pagmo::nspso **)&jarg1; 
   arg2 = *(pagmo::bfe **)&jarg2;
   if (!arg2) {
@@ -49477,13 +49288,14 @@ SWIGEXPORT jlong JNICALL Java_io_github_samthegliderpilot_pagmo4j_pagmo4jJNI_pso
 }
 
 
-SWIGEXPORT void JNICALL Java_io_github_samthegliderpilot_pagmo4j_pagmo4jJNI_pso_1gen_1set_1bfe(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
+SWIGEXPORT void JNICALL Java_io_github_samthegliderpilot_pagmo4j_pagmo4jJNI_pso_1gen_1set_1bfe(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
   pagmo::pso_gen *arg1 = 0 ;
   pagmo::bfe *arg2 = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
+  (void)jarg2_;
   arg1 = *(pagmo::pso_gen **)&jarg1; 
   arg2 = *(pagmo::bfe **)&jarg2;
   if (!arg2) {

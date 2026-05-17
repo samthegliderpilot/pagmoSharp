@@ -97,8 +97,14 @@ public class pagmo4j implements pagmo4jConstants {
 
   public static long pagmonet_algorithm_from_callback(long callbackPtr) { return pagmo4jJNI.pagmonet_algorithm_from_callback(callbackPtr); }
 
+  public static long pagmonet_algorithm_from_callback_java(long callbackPtr) { return pagmo4jJNI.pagmonet_algorithm_from_callback_java(callbackPtr); }
+
   public static void pagmonet_problem_delete(long problemPtr) {
     pagmo4jJNI.pagmonet_problem_delete(problemPtr);
+  }
+
+  public static String pagmonet_get_last_error() {
+    return pagmo4jJNI.pagmonet_get_last_error();
   }
 
   public static long pagmonet_default_bfe_evaluate(long problemPtr, long batchXPtr) { return pagmo4jJNI.pagmonet_default_bfe_evaluate(problemPtr, batchXPtr); }
@@ -147,34 +153,6 @@ public class pagmo4j implements pagmo4jConstants {
 
   public static DoubleVector decompose_objectives(DoubleVector arg0, DoubleVector arg1, DoubleVector arg2, String arg3) {
     return new DoubleVector(pagmo4jJNI.decompose_objectives(DoubleVector.getCPtr(arg0), arg0, DoubleVector.getCPtr(arg1), arg1, DoubleVector.getCPtr(arg2), arg2, arg3), true);
-  }
-
-  public static DoubleVector gradientsAndHessiansCallback(DoubleVector x) {
-    return new DoubleVector(pagmo4jJNI.gradientsAndHessiansCallback(DoubleVector.getCPtr(x), x), true);
-  }
-
-  public static SWIGTYPE_p_std__vectorT_std__pairT_size_t_size_t_t_t estimate_sparsity(SWIGTYPE_p_gradientsAndHessiansCallback f, DoubleVector x, double dx) {
-    return new SWIGTYPE_p_std__vectorT_std__pairT_size_t_size_t_t_t(pagmo4jJNI.estimate_sparsity__SWIG_0(SWIGTYPE_p_gradientsAndHessiansCallback.getCPtr(f), DoubleVector.getCPtr(x), x, dx), true);
-  }
-
-  public static SWIGTYPE_p_std__vectorT_std__pairT_size_t_size_t_t_t estimate_sparsity(SWIGTYPE_p_gradientsAndHessiansCallback f, DoubleVector x) {
-    return new SWIGTYPE_p_std__vectorT_std__pairT_size_t_size_t_t_t(pagmo4jJNI.estimate_sparsity__SWIG_1(SWIGTYPE_p_gradientsAndHessiansCallback.getCPtr(f), DoubleVector.getCPtr(x), x), true);
-  }
-
-  public static DoubleVector estimate_gradient(SWIGTYPE_p_gradientsAndHessiansCallback f, DoubleVector x, double dx) {
-    return new DoubleVector(pagmo4jJNI.estimate_gradient__SWIG_0(SWIGTYPE_p_gradientsAndHessiansCallback.getCPtr(f), DoubleVector.getCPtr(x), x, dx), true);
-  }
-
-  public static DoubleVector estimate_gradient(SWIGTYPE_p_gradientsAndHessiansCallback f, DoubleVector x) {
-    return new DoubleVector(pagmo4jJNI.estimate_gradient__SWIG_1(SWIGTYPE_p_gradientsAndHessiansCallback.getCPtr(f), DoubleVector.getCPtr(x), x), true);
-  }
-
-  public static DoubleVector estimate_gradient_h(SWIGTYPE_p_gradientsAndHessiansCallback f, DoubleVector x, double dx) {
-    return new DoubleVector(pagmo4jJNI.estimate_gradient_h__SWIG_0(SWIGTYPE_p_gradientsAndHessiansCallback.getCPtr(f), DoubleVector.getCPtr(x), x, dx), true);
-  }
-
-  public static DoubleVector estimate_gradient_h(SWIGTYPE_p_gradientsAndHessiansCallback f, DoubleVector x) {
-    return new DoubleVector(pagmo4jJNI.estimate_gradient_h__SWIG_1(SWIGTYPE_p_gradientsAndHessiansCallback.getCPtr(f), DoubleVector.getCPtr(x), x), true);
   }
 
 }

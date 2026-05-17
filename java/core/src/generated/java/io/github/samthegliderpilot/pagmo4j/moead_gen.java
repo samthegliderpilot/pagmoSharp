@@ -117,8 +117,8 @@ public class moead_gen implements io.github.samthegliderpilot.pagmo4j.algorithms
 
   public long get_verbosity() { return pagmo4jJNI.moead_gen_get_verbosity(swigCPtr, this); }
 
-  public void set_bfe(SWIGTYPE_p_pagmo__bfe b) {
-    pagmo4jJNI.moead_gen_set_bfe(swigCPtr, this, SWIGTYPE_p_pagmo__bfe.getCPtr(b));
+  public void set_bfe(bfe b) {
+    pagmo4jJNI.moead_gen_set_bfe(swigCPtr, this, bfe.getCPtr(b), b);
   }
 
   public long get_gen() { return pagmo4jJNI.moead_gen_get_gen(swigCPtr, this); }
