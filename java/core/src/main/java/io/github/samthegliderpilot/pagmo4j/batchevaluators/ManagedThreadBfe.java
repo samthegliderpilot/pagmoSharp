@@ -43,7 +43,8 @@ public final class ManagedThreadBfe implements AutoCloseable {
                 return c;
             });
 
-            List<IProblem> allClones = Collections.synchronizedList(new ArrayList<>());
+            // Plain list — the explicit synchronized block below provides the only locking needed.
+            List<IProblem> allClones = new ArrayList<>();
             try {
                 ForkJoinPool.commonPool().submit(() ->
                     IntStream.range(0, batchSize).parallel().forEach(i -> {

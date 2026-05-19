@@ -86,6 +86,25 @@ public class island implements AutoCloseable {
         }
     }
 
+    public static island create(algorithm algo, IProblem problem, bfe b, long popSize, long seed) {
+        long nativePop = SizeTInterop.toNativeUInt32(popSize, "popSize");
+        problem wrapped = new problem(problem);
+        try {
+            island isl = island.CreateWithBfe(algo, wrapped, b, nativePop, seed);
+            attachRoot(isl, wrapped);
+            return isl;
+        } catch (Throwable t) {
+            wrapped.delete();
+            throw t;
+        }
+    }
+
+    public static island create(IAlgorithm algo, IProblem problem, bfe b, long popSize, long seed) {
+        try (algorithm normalized = AlgorithmInterop.normalizeToTypeErased(algo)) {
+            return create(normalized, problem, b, popSize, seed);
+        }
+    }
+
     public void waitCheck() { wait_check(); }
 
     @Override public void close() { delete(); }

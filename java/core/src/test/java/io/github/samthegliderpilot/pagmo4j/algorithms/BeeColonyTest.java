@@ -9,4 +9,16 @@ class BeeColonyTest extends AlgorithmTestBase {
     @Override public boolean supportsSingleObjective() { return true; }
     @Override public boolean supportsMultiObjective()  { return false; }
     @Test void nameIsCorrect() { try (bee_colony a = new bee_colony(1L)) { assertTrue(a.get_name().contains("Bee Colony") || a.get_name().contains("ABC")); } }
+    @Test void getLogLinesReturnsTypedEntries() {
+        try (bee_colony a = new bee_colony(5L)) {
+            a.set_verbosity(1L);
+            try (population pop = new population(new rastrigin(2L), 20L, 0L)) {
+                try (population evolved = a.evolve(pop)) { assertNotNull(evolved); }
+            }
+            java.util.List<bee_colony.BeeColonyLine> lines = a.getTypedLogLines();
+            assertFalse(lines.isEmpty(), "bee_colony log should be non-empty after evolve with verbosity>0");
+            assertEquals("bee_colony", lines.get(0).getAlgorithmName());
+            assertFalse(a.getLogLines().isEmpty());
+        }
+    }
 }

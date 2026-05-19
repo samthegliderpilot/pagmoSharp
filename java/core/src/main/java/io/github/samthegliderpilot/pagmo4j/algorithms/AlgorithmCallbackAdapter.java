@@ -50,4 +50,11 @@ public final class AlgorithmCallbackAdapter extends AlgorithmCallback {
         deferredEx = null;
         return ex != null ? ex.toString() : "";
     }
+
+    /** Java-facing equivalent of {@link #consume_deferred_exception()} for use in {@code NativeInterop}. */
+    public Throwable consumeDeferredException() {
+        Throwable ex = deferredEx;
+        deferredEx = null;
+        return ex;
+    }
 }

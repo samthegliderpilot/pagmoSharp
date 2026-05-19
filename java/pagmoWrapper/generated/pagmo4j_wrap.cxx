@@ -49996,6 +49996,42 @@ SWIGEXPORT jlong JNICALL Java_io_github_samthegliderpilot_pagmo4j_pagmo4jJNI_sad
 }
 
 
+SWIGEXPORT jint JNICALL Java_io_github_samthegliderpilot_pagmo4j_pagmo4jJNI_sade_1get_1log_1entry_1count(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jint jresult = 0;
+  pagmo::sade *arg1 = 0;
+  (void)jenv; (void)jcls; (void)jarg1_;
+  arg1 = *(pagmo::sade **)&jarg1;
+  try {
+    jresult = (jint)(int)arg1->get_log().size();
+  } catch (const std::exception &e) {
+    SWIG_JavaException(jenv, SWIG_RuntimeError, e.what()); return 0;
+  } catch (...) {
+    SWIG_JavaException(jenv, SWIG_RuntimeError, "Unknown C++ exception"); return 0;
+  }
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_io_github_samthegliderpilot_pagmo4j_pagmo4jJNI_sade_1get_1log_1entry(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+  jlong jresult = 0;
+  pagmo::sade *arg1 = 0;
+  (void)jenv; (void)jcls; (void)jarg1_;
+  arg1 = *(pagmo::sade **)&jarg1;
+  try {
+    const auto& line = arg1->get_log().at((std::size_t)jarg2);
+    pagmoWrap::SadeLogEntry *entry = new pagmoWrap::SadeLogEntry{
+        std::get<0>(line), std::get<1>(line), std::get<2>(line),
+        std::get<3>(line), std::get<4>(line), std::get<5>(line), std::get<6>(line)};
+    *(pagmoWrap::SadeLogEntry **)&jresult = entry;
+  } catch (const std::exception &e) {
+    SWIG_JavaException(jenv, SWIG_RuntimeError, e.what()); return 0;
+  } catch (...) {
+    SWIG_JavaException(jenv, SWIG_RuntimeError, "Unknown C++ exception"); return 0;
+  }
+  return jresult;
+}
+
+
 SWIGEXPORT jlong JNICALL Java_io_github_samthegliderpilot_pagmo4j_pagmo4jJNI_sade_1to_1algorithm(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jlong jresult = 0 ;
   pagmo::sade *arg1 = 0 ;
@@ -50340,6 +50376,42 @@ SWIGEXPORT jlong JNICALL Java_io_github_samthegliderpilot_pagmo4j_pagmo4jJNI_sea
     }
   }
   *(std::vector< pagmoWrap::SeaLogEntry > **)&jresult = new std::vector< pagmoWrap::SeaLogEntry >(result); 
+  return jresult;
+}
+
+
+SWIGEXPORT jint JNICALL Java_io_github_samthegliderpilot_pagmo4j_pagmo4jJNI_sea_1get_1log_1entry_1count(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jint jresult = 0;
+  pagmo::sea *arg1 = 0;
+  (void)jenv; (void)jcls; (void)jarg1_;
+  arg1 = *(pagmo::sea **)&jarg1;
+  try {
+    jresult = (jint)(int)arg1->get_log().size();
+  } catch (const std::exception &e) {
+    SWIG_JavaException(jenv, SWIG_RuntimeError, e.what()); return 0;
+  } catch (...) {
+    SWIG_JavaException(jenv, SWIG_RuntimeError, "Unknown C++ exception"); return 0;
+  }
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_io_github_samthegliderpilot_pagmo4j_pagmo4jJNI_sea_1get_1log_1entry(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+  jlong jresult = 0;
+  pagmo::sea *arg1 = 0;
+  (void)jenv; (void)jcls; (void)jarg1_;
+  arg1 = *(pagmo::sea **)&jarg1;
+  try {
+    const auto& line = arg1->get_log().at((std::size_t)jarg2);
+    pagmoWrap::SeaLogEntry *entry = new pagmoWrap::SeaLogEntry{
+        std::get<0>(line), std::get<1>(line), std::get<2>(line),
+        std::get<3>(line), static_cast<unsigned long long>(std::get<4>(line))};
+    *(pagmoWrap::SeaLogEntry **)&jresult = entry;
+  } catch (const std::exception &e) {
+    SWIG_JavaException(jenv, SWIG_RuntimeError, e.what()); return 0;
+  } catch (...) {
+    SWIG_JavaException(jenv, SWIG_RuntimeError, "Unknown C++ exception"); return 0;
+  }
   return jresult;
 }
 
@@ -51047,6 +51119,41 @@ SWIGEXPORT jlong JNICALL Java_io_github_samthegliderpilot_pagmo4j_pagmo4jJNI_sga
     }
   }
   *(std::vector< pagmoWrap::SgaLogEntry > **)&jresult = new std::vector< pagmoWrap::SgaLogEntry >(result); 
+  return jresult;
+}
+
+
+SWIGEXPORT jint JNICALL Java_io_github_samthegliderpilot_pagmo4j_pagmo4jJNI_sga_1get_1log_1entry_1count(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jint jresult = 0;
+  pagmo::sga *arg1 = 0;
+  (void)jenv; (void)jcls; (void)jarg1_;
+  arg1 = *(pagmo::sga **)&jarg1;
+  try {
+    jresult = (jint)(int)arg1->get_log().size();
+  } catch (const std::exception &e) {
+    SWIG_JavaException(jenv, SWIG_RuntimeError, e.what()); return 0;
+  } catch (...) {
+    SWIG_JavaException(jenv, SWIG_RuntimeError, "Unknown C++ exception"); return 0;
+  }
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_io_github_samthegliderpilot_pagmo4j_pagmo4jJNI_sga_1get_1log_1entry(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+  jlong jresult = 0;
+  pagmo::sga *arg1 = 0;
+  (void)jenv; (void)jcls; (void)jarg1_;
+  arg1 = *(pagmo::sga **)&jarg1;
+  try {
+    const auto& line = arg1->get_log().at((std::size_t)jarg2);
+    pagmoWrap::SgaLogEntry *entry = new pagmoWrap::SgaLogEntry{
+        std::get<0>(line), std::get<1>(line), std::get<2>(line), std::get<3>(line)};
+    *(pagmoWrap::SgaLogEntry **)&jresult = entry;
+  } catch (const std::exception &e) {
+    SWIG_JavaException(jenv, SWIG_RuntimeError, e.what()); return 0;
+  } catch (...) {
+    SWIG_JavaException(jenv, SWIG_RuntimeError, "Unknown C++ exception"); return 0;
+  }
   return jresult;
 }
 

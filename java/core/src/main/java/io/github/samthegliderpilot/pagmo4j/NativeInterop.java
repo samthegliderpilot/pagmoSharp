@@ -138,6 +138,16 @@ public final class NativeInterop {
 
         long algorithmPtr = pagmo4j.pagmonet_algorithm_from_callback_java(cbPtr);
 
+        // Mirror the problem path: surface any exception deferred during construction.
+        // (No Java callbacks are invoked during managed_algorithm construction, so this
+        // is precautionary, matching createProblemPointer() for consistency.)
+        Throwable deferred = adapter.consumeDeferredException();
+        if (deferred != null) {
+            if (deferred instanceof RuntimeException re) throw re;
+            throw new RuntimeException(
+                "IAlgorithm callback threw during construction: " + deferred.getMessage(), deferred);
+        }
+
         if (algorithmPtr == 0) {
             String nativeErr = pagmo4j.pagmonet_get_last_error();
             throw new RuntimeException(

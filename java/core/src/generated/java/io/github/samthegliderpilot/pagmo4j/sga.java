@@ -48,10 +48,35 @@ public class sga implements io.github.samthegliderpilot.pagmo4j.algorithms.IAlgo
     }
   }
 
+    public java.util.List<SgaLogLine> getTypedLogLines() {
+        int count = get_log_entry_count();
+        java.util.List<SgaLogLine> out = new java.util.ArrayList<>(count);
+        for (int i = 0; i < count; i++) {
+            SgaLogEntry e = get_log_entry(i);
+            try { out.add(new SgaLogLine(e.getGen(), e.getFevals().longValue(),
+                          e.getBest(), e.getImprovement())); }
+            finally { e.delete(); }
+        }
+        return out;
+    }
     @Override public java.util.List<IAlgorithmLogLine> getLogLines() {
-        return java.util.Collections.emptyList();
+        return new java.util.ArrayList<>(getTypedLogLines());
     }
     @Override public void close() { delete(); }
+
+    public record SgaLogLine(long generation, long functionEvaluations,
+                             double bestFitness, double improvement)
+            implements IAlgorithmLogLine {
+        @Override public String getAlgorithmName() { return "sga"; }
+        @Override public java.util.Map<String, Object> getRawFields() {
+            return java.util.Map.of("generation", generation, "function_evaluations", functionEvaluations,
+                "best_fitness", bestFitness, "improvement", improvement);
+        }
+        @Override public String toDisplayString() {
+            return "gen=" + generation + ", fevals=" + functionEvaluations +
+                   ", best=" + bestFitness + ", improvement=" + improvement;
+        }
+    }
 
   public sga(long gen, double cr, double eta_c, double m, double param_m, long param_s, String crossover, String mutation, String selection, long seed) {
     this(pagmo4jJNI.new_sga__SWIG_0(gen, cr, eta_c, m, param_m, param_s, crossover, mutation, selection, seed), true);
@@ -121,8 +146,12 @@ public class sga implements io.github.samthegliderpilot.pagmo4j.algorithms.IAlgo
     return pagmo4jJNI.sga_get_extra_info(swigCPtr, this);
   }
 
-  public SWIGTYPE_p_std__vectorT_pagmoWrap__SgaLogEntry_t get_log_entries() {
-    return new SWIGTYPE_p_std__vectorT_pagmoWrap__SgaLogEntry_t(pagmo4jJNI.sga_get_log_entries(swigCPtr, this), true);
+  public int get_log_entry_count() {
+    return pagmo4jJNI.sga_get_log_entry_count(swigCPtr, this);
+  }
+
+  public SgaLogEntry get_log_entry(int idx) {
+    return new SgaLogEntry(pagmo4jJNI.sga_get_log_entry(swigCPtr, this, idx), true);
   }
 
   public algorithm to_algorithm() {

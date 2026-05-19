@@ -1,6 +1,7 @@
 package io.github.samthegliderpilot.pagmo4j.ext
 
 import io.github.samthegliderpilot.pagmo4j.*
+import io.github.samthegliderpilot.pagmo4j.migration.*
 import io.github.samthegliderpilot.pagmo4j.problems.*
 import io.github.samthegliderpilot.pagmo4j.algorithms.*
 
@@ -38,6 +39,61 @@ fun archipelago.bestChampionF(): DoubleArray {
     return best ?: doubleArrayOf()
 }
 
+// ── Topology helpers ──────────────────────────────────────────────────────────
+
+/**
+ * Sets a ring topology on this archipelago and returns it for chaining.
+ * Works naturally inside [buildArchipelago]:
+ * ```kotlin
+ * val archi = buildArchipelago {
+ *     withTopology(ring())
+ *     repeat(4) { i -> pushBackIsland(de(100), prob, 64, i.toLong()) }
+ * }
+ * ```
+ */
+fun archipelago.withTopology(t: ring): archipelago = also { set_topology_ring(t) }
+
+/** Sets a fully-connected topology on this archipelago and returns it for chaining. */
+fun archipelago.withTopology(t: fully_connected): archipelago = also { set_topology_fully_connected(t) }
+
+/** Sets a free-form topology on this archipelago and returns it for chaining. */
+fun archipelago.withTopology(t: free_form): archipelago = also { set_topology_free_form(t) }
+
+// ── Migration policy with default seed ───────────────────────────────────────
+// Note: the Java member already accepts an explicit seed; this overload adds the
+// convenience of omitting it (Kotlin extensions add the no-seed form).
+
+/**
+ * Adds an island with custom replacement and selection policies, using a random seed.
+ * ```kotlin
+ * pushBackIsland(de(100), prob, myRPolicy, mySPolicy, popSize = 64)
+ * ```
+ */
+fun archipelago.pushBackIslandWithPolicies(
+    algo: IAlgorithm,
+    problem: IProblem,
+    rPolicy: IRPolicy,
+    sPolicy: ISPolicy,
+    popSize: Long,
+    seed: Long = random_device().next(),
+): Long = pushBackIsland(algo, problem, rPolicy, sPolicy, popSize, seed)
+
+// ── BFE overload with default seed ───────────────────────────────────────────
+
+/**
+ * Adds an island that uses the given batch fitness evaluator, using a random seed.
+ * ```kotlin
+ * pushBackIslandWithBfe(de(100), prob, default_bfe().to_bfe(), popSize = 64)
+ * ```
+ */
+fun archipelago.pushBackIslandWithBfe(
+    algo: IAlgorithm,
+    problem: IProblem,
+    bfe: bfe,
+    popSize: Long,
+    seed: Long = random_device().next(),
+): Long = pushBackIsland(algo, problem, bfe, popSize, seed)
+
 // ── DSL builder ───────────────────────────────────────────────────────────────
 
 /**
@@ -45,6 +101,7 @@ fun archipelago.bestChampionF(): DoubleArray {
  *
  * ```kotlin
  * val archi = buildArchipelago {
+ *     withTopology(ring())
  *     repeat(8) {
  *         pushBackIsland(de(100), myProblem, popSize = 64, seed = it.toLong())
  *     }

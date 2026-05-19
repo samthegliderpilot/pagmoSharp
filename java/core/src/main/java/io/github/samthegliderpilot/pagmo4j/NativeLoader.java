@@ -18,7 +18,7 @@ import java.nio.file.*;
  * <p>Call {@link #load()} once before using any pagmo4j class. The {@link pagmo4j}
  * module class calls this automatically in its static initializer.
  */
-public final class NativeLoader {
+final class NativeLoader {
 
     private static final String LIB_NAME = "pagmo4j";
     private static volatile boolean loaded = false;

@@ -13,6 +13,11 @@ public final class GradientsAndHessians {
 
     /**
      * Estimates gradient sparsity for a type-erased problem by finite differencing.
+     *
+     * @param prob the type-erased pagmo problem to analyse
+     * @param x    decision vector at which sparsity is estimated
+     * @param dx   finite-difference step size
+     * @return sparsity pattern — a list of (row, column) index pairs
      */
     public static SparsityPattern estimateSparsity(problem prob, DoubleVector x, double dx) {
         if (prob == null) throw new NullPointerException("prob");

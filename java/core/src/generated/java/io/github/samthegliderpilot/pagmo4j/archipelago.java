@@ -7,7 +7,7 @@
  * ----------------------------------------------------------------------------- */
 
 package io.github.samthegliderpilot.pagmo4j;
-import io.github.samthegliderpilot.pagmo4j.problems.*; import io.github.samthegliderpilot.pagmo4j.algorithms.*; import io.github.samthegliderpilot.pagmo4j.batchevaluators.*;
+import io.github.samthegliderpilot.pagmo4j.problems.*; import io.github.samthegliderpilot.pagmo4j.algorithms.*; import io.github.samthegliderpilot.pagmo4j.batchevaluators.*; import io.github.samthegliderpilot.pagmo4j.migration.*;
 public class archipelago implements AutoCloseable {
   private transient long swigCPtr;
   protected transient boolean swigCMemOwn;
@@ -49,6 +49,9 @@ public class archipelago implements AutoCloseable {
   }
 
     private final java.util.List<IProblem> managedProblemCloneRoots = new java.util.ArrayList<>();
+    // Keeps RPolicyCallbackAdapter / SPolicyCallbackAdapter Java objects alive for the
+    // lifetime of this archipelago so SWIG director callbacks remain valid.
+    private final java.util.List<Object> policyCallbackRoots = new java.util.ArrayList<>();
 
     private long withManagedProblem(IProblem prob, java.util.function.Function<problem, Long> action) {
         if (prob == null) throw new NullPointerException("problem");
@@ -71,6 +74,44 @@ public class archipelago implements AutoCloseable {
         }
     }
 
+    // Wraps an IRPolicy into a ManagedRPolicy, pinning the adapter against GC.
+    // Always creates a fresh native adapter so the same IRPolicy instance can safely
+    // be passed to multiple islands without shared_ptr aliasing.
+    private ManagedRPolicy wrapRPolicy(IRPolicy policy) {
+        RPolicyCallbackAdapter adapter = new RPolicyCallbackAdapter() {
+            @Override
+            public IndividualsGroup replace(IndividualsGroup incoming, long n_f, long n_ec,
+                    long n_ic, long n_obj, long pop_size, DoubleVector tol,
+                    IndividualsGroup current) {
+                return policy.replace(incoming, n_f, n_ec, n_ic, n_obj, pop_size, tol, current);
+            }
+            @Override public String get_name()       { return policy.get_name(); }
+            @Override public String get_extra_info() { return policy.get_extra_info(); }
+            @Override public boolean is_valid()      { return policy.is_valid(); }
+        };
+        // Pin adapter before releasing ownership — adapter closes over policy, keeping it alive too.
+        policyCallbackRoots.add(adapter);
+        adapter.swigReleaseOwnership();
+        return new ManagedRPolicy(adapter);
+    }
+
+    // Wraps an ISPolicy into a ManagedSPolicy, pinning the adapter against GC.
+    private ManagedSPolicy wrapSPolicy(ISPolicy policy) {
+        SPolicyCallbackAdapter adapter = new SPolicyCallbackAdapter() {
+            @Override
+            public IndividualsGroup select(IndividualsGroup population, long n_f, long n_ec,
+                    long n_ic, long n_obj, long pop_size, DoubleVector tol) {
+                return policy.select(population, n_f, n_ec, n_ic, n_obj, pop_size, tol);
+            }
+            @Override public String get_name()       { return policy.get_name(); }
+            @Override public String get_extra_info() { return policy.get_extra_info(); }
+            @Override public boolean is_valid()      { return policy.is_valid(); }
+        };
+        policyCallbackRoots.add(adapter);
+        adapter.swigReleaseOwnership();
+        return new ManagedSPolicy(adapter);
+    }
+
     public long pushBackIsland(algorithm algo, IProblem problem, long popSize, long seed) {
         return withManagedProblem(problem, wrapped -> {
             long nativePop = SizeTInterop.toNativeUInt32(popSize, "popSize");
@@ -81,6 +122,43 @@ public class archipelago implements AutoCloseable {
     public long pushBackIsland(IAlgorithm algo, IProblem problem, long popSize, long seed) {
         try (algorithm normalized = AlgorithmInterop.normalizeToTypeErased(algo)) {
             return pushBackIsland(normalized, problem, popSize, seed);
+        }
+    }
+
+    public long pushBackIsland(algorithm algo, IProblem problem,
+            IRPolicy rPolicy, ISPolicy sPolicy, long popSize, long seed) {
+        if (rPolicy == null) throw new NullPointerException("rPolicy");
+        if (sPolicy == null) throw new NullPointerException("sPolicy");
+        return withManagedProblem(problem, wrapped -> {
+            long nativePop = SizeTInterop.toNativeUInt32(popSize, "popSize");
+            ManagedRPolicy r = wrapRPolicy(rPolicy);
+            ManagedSPolicy s = wrapSPolicy(sPolicy);
+            try {
+                return push_back_island(algo, wrapped, nativePop, r, s, seed);
+            } finally {
+                r.delete();
+                s.delete();
+            }
+        });
+    }
+
+    public long pushBackIsland(IAlgorithm algo, IProblem problem,
+            IRPolicy rPolicy, ISPolicy sPolicy, long popSize, long seed) {
+        try (algorithm normalized = AlgorithmInterop.normalizeToTypeErased(algo)) {
+            return pushBackIsland(normalized, problem, rPolicy, sPolicy, popSize, seed);
+        }
+    }
+
+    public long pushBackIsland(algorithm algo, IProblem problem, bfe b, long popSize, long seed) {
+        return withManagedProblem(problem, wrapped -> {
+            long nativePop = SizeTInterop.toNativeUInt32(popSize, "popSize");
+            return push_back_island(algo, wrapped, b, nativePop, seed);
+        });
+    }
+
+    public long pushBackIsland(IAlgorithm algo, IProblem problem, bfe b, long popSize, long seed) {
+        try (algorithm normalized = AlgorithmInterop.normalizeToTypeErased(algo)) {
+            return pushBackIsland(normalized, problem, b, popSize, seed);
         }
     }
 

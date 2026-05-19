@@ -48,10 +48,36 @@ public class sade implements io.github.samthegliderpilot.pagmo4j.algorithms.IAlg
     }
   }
 
+    public java.util.List<SadeLogLine> getTypedLogLines() {
+        int count = get_log_entry_count();
+        java.util.List<SadeLogLine> out = new java.util.ArrayList<>(count);
+        for (int i = 0; i < count; i++) {
+            SadeLogEntry e = get_log_entry(i);
+            try { out.add(new SadeLogLine(e.getGen(), e.getFevals().longValue(),
+                          e.getBest(), e.getF(), e.getCr(), e.getDx(), e.getDf())); }
+            finally { e.delete(); }
+        }
+        return out;
+    }
     @Override public java.util.List<IAlgorithmLogLine> getLogLines() {
-        return java.util.Collections.emptyList();
+        return new java.util.ArrayList<>(getTypedLogLines());
     }
     @Override public void close() { delete(); }
+
+    public record SadeLogLine(long generation, long functionEvaluations, double bestFitness,
+                              double f, double cr, double dx, double df)
+            implements IAlgorithmLogLine {
+        @Override public String getAlgorithmName() { return "sade"; }
+        @Override public java.util.Map<String, Object> getRawFields() {
+            return java.util.Map.of("generation", generation, "function_evaluations", functionEvaluations,
+                "best_fitness", bestFitness, "f", f, "cr", cr, "dx", dx, "df", df);
+        }
+        @Override public String toDisplayString() {
+            return "gen=" + generation + ", fevals=" + functionEvaluations +
+                   ", best=" + bestFitness + ", f=" + f + ", cr=" + cr +
+                   ", dx=" + dx + ", df=" + df;
+        }
+    }
 
   public sade(long gen, long variant, long variant_adptv, double ftol, double xtol, boolean memory, long seed) {
     this(pagmo4jJNI.new_sade__SWIG_0(gen, variant, variant_adptv, ftol, xtol, memory, seed), true);
@@ -111,8 +137,12 @@ public class sade implements io.github.samthegliderpilot.pagmo4j.algorithms.IAlg
     return pagmo4jJNI.sade_get_extra_info(swigCPtr, this);
   }
 
-  public SWIGTYPE_p_std__vectorT_pagmoWrap__SadeLogEntry_t get_log_entries() {
-    return new SWIGTYPE_p_std__vectorT_pagmoWrap__SadeLogEntry_t(pagmo4jJNI.sade_get_log_entries(swigCPtr, this), true);
+  public int get_log_entry_count() {
+    return pagmo4jJNI.sade_get_log_entry_count(swigCPtr, this);
+  }
+
+  public SadeLogEntry get_log_entry(int idx) {
+    return new SadeLogEntry(pagmo4jJNI.sade_get_log_entry(swigCPtr, this, idx), true);
   }
 
   public algorithm to_algorithm() {

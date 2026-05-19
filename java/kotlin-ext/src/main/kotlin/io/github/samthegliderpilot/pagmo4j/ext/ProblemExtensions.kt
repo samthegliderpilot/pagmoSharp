@@ -1,6 +1,7 @@
 package io.github.samthegliderpilot.pagmo4j.ext
 
 import io.github.samthegliderpilot.pagmo4j.*
+import io.github.samthegliderpilot.pagmo4j.batchevaluators.BfeBridge
 import io.github.samthegliderpilot.pagmo4j.problems.*
 
 // ── IProblem helpers ──────────────────────────────────────────────────────────
@@ -25,6 +26,15 @@ val IProblem.nic: Long get() = get_nic()
 
 /** Returns number of integer decision variables. */
 val IProblem.nix: Long get() = get_nix()
+
+/**
+ * Evaluates a batch of decision vectors using the BFE bridge.
+ *
+ * @param batchX concatenated decision vectors (length = nDecisionVars × nPoints)
+ * @param parallel when true, requires thread-safe or cloneable problem
+ */
+fun IProblem.batchFitness(batchX: DoubleVector, parallel: Boolean = true): DoubleVector =
+    BfeBridge.batchEvaluate(this, batchX, parallel)
 
 /**
  * Throws {@link IllegalStateException} if this problem declares

@@ -1575,6 +1575,8 @@ public class pagmo4jJNI {
   public final static native long sade_get_gen(long jarg1, sade jarg1_);
   public final static native String sade_get_extra_info(long jarg1, sade jarg1_);
   public final static native long sade_get_log_entries(long jarg1, sade jarg1_);
+  public final static native int sade_get_log_entry_count(long jarg1, sade jarg1_);
+  public final static native long sade_get_log_entry(long jarg1, sade jarg1_, int jarg2);
   public final static native long sade_to_algorithm(long jarg1, sade jarg1_);
   public final static native void delete_sade(long jarg1);
   public final static native long new_sea__SWIG_0(long jarg1, long jarg2);
@@ -1588,6 +1590,8 @@ public class pagmo4jJNI {
   public final static native String sea_get_name(long jarg1, sea jarg1_);
   public final static native String sea_get_extra_info(long jarg1, sea jarg1_);
   public final static native long sea_get_log_entries(long jarg1, sea jarg1_);
+  public final static native int sea_get_log_entry_count(long jarg1, sea jarg1_);
+  public final static native long sea_get_log_entry(long jarg1, sea jarg1_, int jarg2);
   public final static native long sea_to_algorithm(long jarg1, sea jarg1_);
   public final static native void delete_sea(long jarg1);
   public final static native long new_sga__SWIG_0(long jarg1, double jarg2, double jarg3, double jarg4, double jarg5, long jarg6, String jarg7, String jarg8, String jarg9, long jarg10);
@@ -1609,6 +1613,8 @@ public class pagmo4jJNI {
   public final static native String sga_get_name(long jarg1, sga jarg1_);
   public final static native String sga_get_extra_info(long jarg1, sga jarg1_);
   public final static native long sga_get_log_entries(long jarg1, sga jarg1_);
+  public final static native int sga_get_log_entry_count(long jarg1, sga jarg1_);
+  public final static native long sga_get_log_entry(long jarg1, sga jarg1_, int jarg2);
   public final static native long sga_to_algorithm(long jarg1, sga jarg1_);
   public final static native void delete_sga(long jarg1);
   public final static native long new_simulated_annealing__SWIG_0(double jarg1, double jarg2, long jarg3, long jarg4, long jarg5, double jarg6, long jarg7);

@@ -15,6 +15,17 @@ public final class AlgorithmInterop {
 
     private AlgorithmInterop() {}
 
+    /**
+     * Normalizes any {@link IAlgorithm} to a type-erased {@link algorithm}.
+     *
+     * <p>Concrete pagmo algorithm classes (e.g. {@code de}, {@code sade}) are converted through
+     * their native {@code to_algorithm()} path for zero-copy wrapping. Custom managed
+     * {@link IAlgorithm} implementations are wrapped via the director callback bridge.
+     *
+     * <p><b>NOTE:</b> This method must be updated whenever a new concrete algorithm class is
+     * added to the pagmo4j binding. Each concrete type needs an explicit {@code instanceof}
+     * branch so it uses the native conversion path rather than the slower director path.
+     */
     public static algorithm normalizeToTypeErased(IAlgorithm source) {
         if (source == null) throw new NullPointerException("source");
 

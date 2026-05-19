@@ -1,203 +1,51 @@
-/* Pagmo4jSwigInterface.i — SWIG module for pagmo4j (Java/Kotlin bindings).
+/* Pagmo4jSwigInterface.i — SWIG module for the Java/Kotlin pagmo4j bindings.
  *
- * Derived from pagmoSharp's PagmoNETSwigInterface.i. Key differences:
+ * Key differences from PagmoNETSwigInterface.i:
  *   - Uses -java SWIG backend instead of -csharp
  *   - cs* typemaps replaced with java* / jtype / jstype equivalents
- *   - No partial-class modifiers (Java does not have partial classes)
+ *   - No partial-class modifiers (Java has no partial classes)
  *   - Log injection and IProblem/IAlgorithm wiring done via %typemap(javacode) and
  *     %typemap(javainterfaces) instead of partial-class extension files
  *   - archipelago and island managed-problem injection done via %typemap(javacode)
- *
- * Sub-file includes reference the shared swig/ directory at the monorepo root
- * (../../swig/ relative to this file's location in java/swig/).
  */
 
-#define SUPPORT_VARIDEC FALSE
-%include "exception.i"
-%include "pagmo/config.hpp"
-%{
-#include <string>
-#include <pagmo/exceptions.hpp>
-%}
-
-// ── Global exception handler ──────────────────────────────────────────────────
-%exception {
-    try {
-        $action
-    } catch (const std::exception &e) {
-        SWIG_exception(SWIG_RuntimeError, e.what());
-    } catch (...) {
-        SWIG_exception(SWIG_RuntimeError, "Unknown C++ exception");
-    }
-}
-
-%define PAGMO4J_EXEC_EXCEPTION(METHOD, LABEL)
-%exception METHOD {
-    try {
-        $action
-    } catch (const std::exception &e) {
-        std::string msg = std::string(LABEL) + ": " + e.what();
-        SWIG_exception(SWIG_RuntimeError, msg.c_str());
-    } catch (...) {
-        std::string msg = std::string(LABEL) + ": Unknown C++ exception";
-        SWIG_exception(SWIG_RuntimeError, msg.c_str());
-    }
-}
-%enddef
-
-PAGMO4J_EXEC_EXCEPTION(pagmo::algorithm::evolve,       "algorithm.evolve failed")
-PAGMO4J_EXEC_EXCEPTION(pagmo::island::evolve,          "island.evolve failed")
-PAGMO4J_EXEC_EXCEPTION(pagmo::island::wait,            "island.wait failed")
-PAGMO4J_EXEC_EXCEPTION(pagmo::island::wait_check,      "island.wait_check failed")
-PAGMO4J_EXEC_EXCEPTION(pagmo::archipelago::evolve,     "archipelago.evolve failed")
-PAGMO4J_EXEC_EXCEPTION(pagmo::archipelago::wait,       "archipelago.wait failed")
-PAGMO4J_EXEC_EXCEPTION(pagmo::archipelago::wait_check, "archipelago.wait_check failed")
-PAGMO4J_EXEC_EXCEPTION(pagmo::thread_island::run_evolve, "thread_island.run_evolve failed")
-
-// ── Module declaration ────────────────────────────────────────────────────────
-// The generated JNI class will be named "pagmo4jJNI" by SWIG convention (module name + "JNI").
+// The generated JNI class will be named "pagmo4jJNI" (module name + "JNI").
 %module(naturalvar=1, directors="1") pagmo4j
 
-// Inject the native library loader into the generated pagmo4jJNI class so that
-// the library is loaded before any JNI method is called.
+// Inject the native library loader into pagmo4jJNI so the library is loaded
+// before any JNI method is called.
 %pragma(java) jniclasscode=%{
   static {
     io.github.samthegliderpilot.pagmo4j.NativeLoader.load();
   }
 %}
 
-%{
-    #include "pagmo/problem.hpp"
-    #include "pagmo/algorithm.hpp"
-    #include "pagmo/island.hpp"
-    #include "pagmo/archipelago.hpp"
-    #include "pagmo/bfe.hpp"
-    #include "pagmo/exceptions.hpp"
-    #include "pagmo/population.hpp"
-    #include "pagmo/rng.hpp"
-    #include "pagmo/threading.hpp"
-    #include "pagmo/topology.hpp"
-    #include "pagmo/type_traits.hpp"
-    #include "pagmo/types.hpp"
-    #include "pagmo/utils/hv_algos/hv_algorithm.hpp"
-
-    #include "problem.h"
-    #include "algorithm_callback.h"
-    #include "tuple_adapters.h"
-    #include "algorithm_log_projections_more.h"
-    #include "cmaes_log_projection.h"
-    #include "cstrs_log_projection.h"
-    #include "de_log_projection.h"
-    #include "gaco_log_projection.h"
-    #include "ihs_log_projection.h"
-    #include "mbh_log_projection.h"
-    #include "r_policy.h"
-    #include "s_policy.h"
-    // BeeColonyLogLine must be defined here (before the BeeColonyLogLineVector template
-    // instantiation helper functions that SWIG emits) to avoid forward-reference errors.
-    // The #define guard prevents the duplicate definition in bee_colony.i's %inline block.
-    #include "pagmo/algorithms/bee_colony.hpp"
-    #include <vector>
-    #include <tuple>
-    #ifndef PAGMOWRAP_BEE_COLONY_LOG_LINE_DEFINED
-    #define PAGMOWRAP_BEE_COLONY_LOG_LINE_DEFINED
-    namespace pagmoWrap {
-        struct BeeColonyLogLine {
-            unsigned gen;
-            unsigned long long fevals;
-            double best;
-            double cur_best;
-            BeeColonyLogLine() : gen(0), fevals(0), best(0.0), cur_best(0.0) {}
-            BeeColonyLogLine(unsigned g, unsigned long long f, double b, double cb)
-                : gen(g), fevals(f), best(b), cur_best(cb) {}
-        };
-    }
-    #endif
-    // Extern-C bridge functions — exposed to Java via SWIG declarations below.
-    extern "C" void* pagmonet_problem_from_callback(void* callbackPtr);
-    extern "C" void* pagmonet_algorithm_from_callback(void* callbackPtr);
-    extern "C" void* pagmonet_algorithm_from_callback_java(void* callbackPtr);
-    extern "C" void  pagmonet_problem_delete(void* problemPtr);
-    extern "C" const char* pagmonet_get_last_error();
-    extern "C" void* pagmonet_default_bfe_evaluate(void* problemPtr, void* batchXPtr);
-    extern "C" void* pagmonet_population_new(void* problemPtr, long popSize, unsigned int seed);
-    extern "C" void* pagmonet_estimate_gradient_problem(void* problemPtr, void* xPtr, double dx);
-    extern "C" void* pagmonet_estimate_gradient_h_problem(void* problemPtr, void* xPtr, double dx);
-    extern "C" void* pagmonet_estimate_sparsity_problem(void* problemPtr, void* xPtr, double dx);
-%}
-
-%include "pagmoWrapper/tuple_adapters.h"
-%include "pagmoWrapper/algorithm_log_projections_more.h"
-%include "pagmoWrapper/cmaes_log_projection.h"
-%include "pagmoWrapper/cstrs_log_projection.h"
-%include "pagmoWrapper/de_log_projection.h"
-%include "pagmoWrapper/gaco_log_projection.h"
-%include "pagmoWrapper/ihs_log_projection.h"
-%include "pagmoWrapper/mbh_log_projection.h"
-
-%include <std_shared_ptr.i>
-%include "std_string.i"
-%include "std_vector.i"
-%include "std_pair.i"
-%include "std_map.i"
-
-// ── Note on AutoCloseable for SWIG vector types ───────────────────────────────
-// SWIG's std_vector.i uses SWIG_STD_VECTOR_MINIMUM_INTERNAL macro (non-redefinable)
-// to set javainterfaces="java.util.RandomAccess" at template instantiation time.
-// This overrides any specific javainterfaces we set earlier. As a result, SWIG
-// vector types (DoubleVector, PairOfDoubleVectors etc.) do NOT implement AutoCloseable
-// and cannot be used in try-with-resources. Production code uses try/finally;
-// tests use explicit .delete() calls or delegate to SWIGTestUtils.close(v).
-
-// Add AutoCloseable to pair<DoubleVector,DoubleVector> (PairOfDoubleVectors) —
-// pairs use std_pair.i which does not have the same macro lock-out.
-%typemap(javainterfaces) std::pair<std::vector<double>, std::vector<double>>
-    "AutoCloseable"
+// ── Java typemap for PairOfDoubleVectors (std::pair) ─────────────────────────
+// Must appear before shared_core.i because %template(PairOfDoubleVectors) is
+// there and SWIG applies javainterfaces/javacode at template instantiation time.
+// Note: std::vector wrappers (DoubleVector etc.) use SWIG_STD_VECTOR_MINIMUM_INTERNAL
+// which overrides javainterfaces, so those types do NOT implement AutoCloseable and
+// cannot be used in try-with-resources — use try/finally or explicit .delete() instead.
+%typemap(javainterfaces) std::pair<std::vector<double>, std::vector<double>> "AutoCloseable"
 %typemap(javacode) std::pair<std::vector<double>, std::vector<double>> %{
     @Override public void close() { delete(); }
 %}
 
-// ── Rename snake_case C++ bridge types to PascalCase Java ────────────────────
-%rename(ProblemCallback)     pagmoWrap::problem_callback;
-%rename(ManagedProblem)      pagmoWrap::managed_problem;
-%rename(AlgorithmCallback)   pagmoWrap::algorithm_callback;
-%rename(ManagedAlgorithm)    pagmoWrap::managed_algorithm;
-%rename(RPolicyCallback)     pagmoWrap::r_policy_callback;
-%rename(ManagedRPolicy)      pagmoWrap::managed_r_policy;
-%rename(SPolicyCallback)     pagmoWrap::s_policy_callback;
-%rename(ManagedSPolicy)      pagmoWrap::managed_s_policy;
-%rename(NullProblemCallback) pagmoWrap::null_problem_callback;
+// ── Shared core (exception handlers, renames, directors, templates) ───────────
+%include "shared_core.i"
 
-// Pagmo enum types — PascalCase names, matching C# equivalents.
-%rename(ThreadSafety) pagmo::thread_safety;
-%rename(None)         pagmo::thread_safety::none;
-%rename(Basic)        pagmo::thread_safety::basic;
-%rename(Constant)     pagmo::thread_safety::constant;
-%rename(EvolveStatus) pagmo::evolve_status;
-%rename(Idle)         pagmo::evolve_status::idle;
-%rename(Busy)         pagmo::evolve_status::busy;
-%rename(IdleError)    pagmo::evolve_status::idle_error;
-%rename(BusyError)    pagmo::evolve_status::busy_error;
-%rename(MigrationType)   pagmo::migration_type;
-%rename(P2P)             pagmo::migration_type::p2p;
-%rename(Broadcast)       pagmo::migration_type::broadcast;
-%rename(MigrantHandling) pagmo::migrant_handling;
-%rename(Preserve)        pagmo::migrant_handling::preserve;
-%rename(Evict)           pagmo::migrant_handling::evict;
+// ── Java-only rename: avoid conflict with java.lang.Object.wait() (final) ────
+%rename(waitFor) pagmo::island::wait;
+%rename(waitFor) pagmo::archipelago::wait;
 
-// Rename wait() to avoid conflict with java.lang.Object.wait() which is final.
-%rename(waitFor)      pagmo::island::wait;
-%rename(waitFor)      pagmo::archipelago::wait;
-
-// ── Declare pagmo enums and type aliases so SWIG generates correct names ─────
-// These must be declared before any headers that use them.
+// ── Pagmo enum and type-alias forward declarations ────────────────────────────
+// Declaring these here tells SWIG they live in pagmo::, matching pagmo/types.hpp.
+// Required before any sub-file %include that uses them without the namespace qualifier.
 namespace pagmo {
-    enum class thread_safety { none, basic, constant };
-    enum class evolve_status { idle = 0, busy = 1, idle_error = 2, busy_error = 3 };
-    enum class migration_type { p2p, broadcast };
+    enum class thread_safety   { none, basic, constant };
+    enum class evolve_status   { idle = 0, busy = 1, idle_error = 2, busy_error = 3 };
+    enum class migration_type  { p2p, broadcast };
     enum class migrant_handling { preserve, evict };
-    // Type aliases used in problem.i, population.i etc. without namespace qualification.
-    // Declaring them here tells SWIG they live in pagmo::, matching pagmo/types.hpp.
     typedef std::vector<double> vector_double;
     typedef std::vector<std::pair<vector_double::size_type, vector_double::size_type>> sparsity_pattern;
 }
@@ -207,45 +55,12 @@ namespace pagmo {
     using vector_double    = pagmo::vector_double;
 %}
 
-// ── Director declarations ─────────────────────────────────────────────────────
-%feature("director") pagmoWrap::problem_callback;
-%feature("director") pagmoWrap::algorithm_callback;
-
-%ignore pagmoWrap::managed_problem::managed_problem(std::shared_ptr<pagmoWrap::problem_callback>);
-%ignore pagmoWrap::managed_problem::managed_problem(std::shared_ptr<problem_callback>);
-%ignore pagmoWrap::managed_problem::managed_problem(std::shared_ptr< problem_callback >);
-%ignore pagmoWrap::managed_problem::managed_problem(std::shared_ptr< pagmoWrap::problem_callback >);
-%include "pagmoWrapper/problem.h"
-
-// algorithm_callback.h is included AFTER population.i (below) so that SWIG knows
-// pagmo::population when generating the director's evolve() method signature.
-%ignore pagmoWrap::managed_algorithm::managed_algorithm(std::shared_ptr<pagmoWrap::algorithm_callback>);
-%ignore pagmoWrap::managed_algorithm::managed_algorithm(std::shared_ptr<algorithm_callback>);
-%ignore pagmoWrap::managed_algorithm::managed_algorithm(std::shared_ptr< algorithm_callback >);
-%ignore pagmoWrap::managed_algorithm::managed_algorithm(std::shared_ptr< pagmoWrap::algorithm_callback >);
-// Suppress the inner null_algorithm_callback class — SWIG generates Java code that
-// directly accesses the private swigCMemOwn field of the director base class.
-%ignore pagmoWrap::managed_algorithm::null_algorithm_callback;
-%shared_ptr(pagmoWrap::problem_callback);
-%shared_ptr(pagmoWrap::algorithm_callback);
-
-%feature("director") pagmoWrap::r_policy_callback;
-%ignore pagmoWrap::managed_r_policy::replace;
-%ignore pagmoWrap::managed_r_policy::operator=;
-%include "pagmoWrapper/r_policy.h"
-
-%feature("director") pagmoWrap::s_policy_callback;
-%ignore pagmoWrap::managed_s_policy::select;
-%ignore pagmoWrap::managed_s_policy::operator=;
-%include "pagmoWrapper/s_policy.h"
-
 // ── Extern-C bridge functions (pagmonet_*) ────────────────────────────────────
-// Declared here so SWIG generates JNI wrappers callable as static methods on
-// the pagmo4j module class. In the Java backend, void* automatically maps to
-// long (jlong) — no explicit %apply needed.
-%typemap(jtype)  void * "long"
-%typemap(jstype) void * "long"
-%typemap(javain) void * "$javainput"
+// Declared here so SWIG generates JNI wrappers callable as static methods on the
+// pagmo4j module class.  In the Java backend, void* maps to long (jlong) automatically.
+%typemap(jtype)   void * "long"
+%typemap(jstype)  void * "long"
+%typemap(javain)  void * "$javainput"
 %typemap(javaout) void * { return $jnicall; }
 extern void* pagmonet_problem_from_callback(void* callbackPtr);
 extern void* pagmonet_algorithm_from_callback(void* callbackPtr);
@@ -260,105 +75,19 @@ extern void* pagmonet_estimate_sparsity_problem(void* problemPtr, void* xPtr, do
 
 // ── Java typemaps for unsigned integer types ──────────────────────────────────
 // unsigned int → long (fits in signed long; used for seeds and population sizes)
-%typemap(jtype)  unsigned int "long"
-%typemap(jstype) unsigned int "long"
-%typemap(jtype)  const unsigned int & "long"
-%typemap(jstype) const unsigned int & "long"
-%typemap(javain) unsigned int "$javainput"
-%typemap(javaout) unsigned int { return $jnicall; }
+%typemap(jtype)   unsigned int         "long"
+%typemap(jstype)  unsigned int         "long"
+%typemap(jtype)   const unsigned int & "long"
+%typemap(jstype)  const unsigned int & "long"
+%typemap(javain)  unsigned int         "$javainput"
+%typemap(javaout) unsigned int         { return $jnicall; }
 
-// unsigned long long intentionally left as BigInteger (SWIG default).
-// ULongLongVector.get()/set()/etc. require AbstractList<BigInteger> — mapping to
-// primitive long causes compile-time type mismatches in the vector template.
-// Our injected javacode uses .longValue() where a long is needed from BigInteger.
+// unsigned long long is left as BigInteger (SWIG default).
+// ULongLongVector.get()/set() require AbstractList<BigInteger> — mapping to primitive
+// long causes compile-time type mismatches in the vector template.
+// Injected javacode uses .longValue() where a primitive long is needed.
 
-// ── AutoCloseable for types used with try-with-resources ─────────────────────
-// SWIG-generated classes have a delete() method for native memory; we expose
-// it as close() so Java try-with-resources (and kotlin .use {}) work.
-// Note: std::vector wrappers extend AbstractList and SWIG's template logic
-// overrides our javainterfaces typemap. We add close() without @Override so that
-// callers can call close() directly; use try/finally in javacode instead of
-// try-with-resources for these types.
-
-// ── STL template instantiations ───────────────────────────────────────────────
-namespace std {
-  %template(DoubleVector)             std::vector<double>;
-  %template(UIntVector)               std::vector<unsigned int>;
-  %template(SizeTVector)              std::vector<std::size_t>;
-  %template(SizeTPair)                std::pair<std::size_t, std::size_t>;
-  %template(TopologyConnections)      std::pair<std::vector<std::size_t>, std::vector<double>>;
-  %template(SparsityPattern)          std::vector<std::pair<std::size_t, std::size_t>>;
-  %template(VectorOfSparsityPattern)  std::vector<std::vector<std::pair<std::size_t, std::size_t>>>;
-  %template(ULongLongVector)          std::vector<unsigned long long>;
-  %template(VectorOfVectorOfIndices)  std::vector<std::vector<unsigned long long>>;
-  %template(VectorOfVectorOfDoubles)  std::vector<std::vector<double>>;
-  %template(PairOfDoubleVectors)      std::pair<std::vector<double>, std::vector<double>>;
-  %template(HvAlgorithmSharedPtr)     std::shared_ptr<pagmo::hv_algorithm>;
-
-  %template(IndividualsGroupVector)           std::vector<pagmoWrap::IndividualsGroup>;
-  %template(MigrationEntryVector)             std::vector<pagmoWrap::MigrationEntry>;
-  %template(PsoLogEntryVector)                std::vector<pagmoWrap::PsoLogEntry>;
-  %template(XnesLogEntryVector)               std::vector<pagmoWrap::XnesLogEntry>;
-  %template(MoVectorLogEntryVector)           std::vector<pagmoWrap::MoVectorLogEntry>;
-  %template(MoeadLogEntryVector)              std::vector<pagmoWrap::MoeadLogEntry>;
-  %template(GwoLogEntryVector)                std::vector<pagmoWrap::GwoLogEntry>;
-  %template(De1220LogEntryVector)             std::vector<pagmoWrap::De1220LogEntry>;
-  %template(CompassSearchLogEntryVector)      std::vector<pagmoWrap::CompassSearchLogEntry>;
-  %template(NloptLogEntryVector)              std::vector<pagmoWrap::NloptLogEntry>;
-  %template(IpoptLogEntryVector)              std::vector<pagmoWrap::IpoptLogEntry>;
-  %template(Snopt7LogEntryVector)             std::vector<pagmoWrap::Snopt7LogEntry>;
-  %template(SimulatedAnnealingLogEntryVector) std::vector<pagmoWrap::SimulatedAnnealingLogEntry>;
-  %template(BeeColonyLogLineVector)           std::vector<pagmoWrap::BeeColonyLogLine>;
-  %template(DeLogEntryVector)                 std::vector<pagmoWrap::DeLogEntry>;
-  %template(CmaesLogEntryVector)              std::vector<pagmoWrap::CmaesLogEntry>;
-  %template(CstrsLogEntryVector)              std::vector<pagmoWrap::CstrsLogEntry>;
-  %template(GacoLogEntryVector)               std::vector<pagmoWrap::GacoLogEntry>;
-  %template(IhsLogEntryVector)                std::vector<pagmoWrap::IhsLogEntry>;
-  %template(MbhLogEntryVector)                std::vector<pagmoWrap::MbhLogEntry>;
-}
-
-%include "pagmoWrapper/multi_objective.h"
-
-// ── javaimports: add sub-package imports to generated classes ─────────────────
-// Every generated class that uses IProblem, IAlgorithm, IThreadCloneableProblem,
-// ExclusiveCloneAdapter, BfeBridge, or IAlgorithmLogLine needs these imports.
-// javaimports strings must be inlined — SWIG does not expand %define macros inside them.
-%typemap(javaimports) pagmo::archipelago      "import io.github.samthegliderpilot.pagmo4j.problems.*; import io.github.samthegliderpilot.pagmo4j.algorithms.*; import io.github.samthegliderpilot.pagmo4j.batchevaluators.*;"
-%typemap(javaimports) pagmo::island           "import io.github.samthegliderpilot.pagmo4j.problems.*; import io.github.samthegliderpilot.pagmo4j.algorithms.*; import io.github.samthegliderpilot.pagmo4j.batchevaluators.*;"
-%typemap(javaimports) pagmo::algorithm        "import io.github.samthegliderpilot.pagmo4j.problems.*; import io.github.samthegliderpilot.pagmo4j.algorithms.*; import io.github.samthegliderpilot.pagmo4j.batchevaluators.*;"
-%typemap(javaimports) pagmo::problem          "import io.github.samthegliderpilot.pagmo4j.problems.*;"
-%typemap(javaimports) pagmo::default_bfe      "import io.github.samthegliderpilot.pagmo4j.batchevaluators.*; import io.github.samthegliderpilot.pagmo4j.problems.*;"
-%typemap(javaimports) pagmo::thread_bfe       "import io.github.samthegliderpilot.pagmo4j.batchevaluators.*; import io.github.samthegliderpilot.pagmo4j.problems.*;"
-%typemap(javaimports) pagmo::member_bfe       "import io.github.samthegliderpilot.pagmo4j.batchevaluators.*; import io.github.samthegliderpilot.pagmo4j.problems.*;"
-
-// All algorithm classes need the IAlgorithmLogLine import for getLogLines()
-%typemap(javaimports) pagmo::de               "import io.github.samthegliderpilot.pagmo4j.algorithms.*;"
-%typemap(javaimports) pagmo::pso              "import io.github.samthegliderpilot.pagmo4j.algorithms.*;"
-%typemap(javaimports) pagmo::cmaes            "import io.github.samthegliderpilot.pagmo4j.algorithms.*;"
-%typemap(javaimports) pagmo::simulated_annealing "import io.github.samthegliderpilot.pagmo4j.algorithms.*;"
-%typemap(javaimports) pagmo::compass_search   "import io.github.samthegliderpilot.pagmo4j.algorithms.*;"
-%typemap(javaimports) pagmo::ihs              "import io.github.samthegliderpilot.pagmo4j.algorithms.*;"
-%typemap(javaimports) pagmo::mbh              "import io.github.samthegliderpilot.pagmo4j.algorithms.*;"
-%typemap(javaimports) pagmo::sade             "import io.github.samthegliderpilot.pagmo4j.algorithms.*;"
-%typemap(javaimports) pagmo::bee_colony       "import io.github.samthegliderpilot.pagmo4j.algorithms.*;"
-%typemap(javaimports) pagmo::cstrs_self_adaptive "import io.github.samthegliderpilot.pagmo4j.algorithms.*;"
-%typemap(javaimports) pagmo::de1220           "import io.github.samthegliderpilot.pagmo4j.algorithms.*;"
-%typemap(javaimports) pagmo::gaco             "import io.github.samthegliderpilot.pagmo4j.algorithms.*;"
-%typemap(javaimports) pagmo::gwo              "import io.github.samthegliderpilot.pagmo4j.algorithms.*;"
-%typemap(javaimports) pagmo::maco             "import io.github.samthegliderpilot.pagmo4j.algorithms.*;"
-%typemap(javaimports) pagmo::moead            "import io.github.samthegliderpilot.pagmo4j.algorithms.*;"
-%typemap(javaimports) pagmo::moead_gen        "import io.github.samthegliderpilot.pagmo4j.algorithms.*;"
-%typemap(javaimports) pagmo::nsga2            "import io.github.samthegliderpilot.pagmo4j.algorithms.*;"
-%typemap(javaimports) pagmo::nspso            "import io.github.samthegliderpilot.pagmo4j.algorithms.*;"
-%typemap(javaimports) pagmo::null_algorithm   "import io.github.samthegliderpilot.pagmo4j.algorithms.*;"
-%typemap(javaimports) pagmo::pso_gen          "import io.github.samthegliderpilot.pagmo4j.algorithms.*;"
-%typemap(javaimports) pagmo::sea              "import io.github.samthegliderpilot.pagmo4j.algorithms.*;"
-%typemap(javaimports) pagmo::sga              "import io.github.samthegliderpilot.pagmo4j.algorithms.*;"
-%typemap(javaimports) pagmo::xnes             "import io.github.samthegliderpilot.pagmo4j.algorithms.*;"
-%typemap(javaimports) pagmo::nlopt            "import io.github.samthegliderpilot.pagmo4j.algorithms.*;"
-%typemap(javaimports) pagmo::ipopt            "import io.github.samthegliderpilot.pagmo4j.algorithms.*;"
-
-// ── AutoCloseable for resource-owning types ──────────────────────────────────
+// ── AutoCloseable for resource-owning types ───────────────────────────────────
 %typemap(javainterfaces) pagmo::archipelago        "AutoCloseable"
 %typemap(javainterfaces) pagmo::island             "AutoCloseable"
 %typemap(javainterfaces) pagmo::problem            "AutoCloseable"
@@ -366,9 +95,14 @@ namespace std {
 %typemap(javainterfaces) pagmo::default_bfe        "AutoCloseable"
 %typemap(javainterfaces) pagmo::thread_bfe         "AutoCloseable"
 %typemap(javainterfaces) pagmo::member_bfe         "AutoCloseable"
-
-// ── IAlgorithm implementations ───────────────────────────────────────────────
 %typemap(javainterfaces) pagmo::algorithm          "AutoCloseable"
+%typemap(javainterfaces) pagmo::hypervolume        "AutoCloseable"
+%typemap(javainterfaces) pagmo::topology           "AutoCloseable"
+%typemap(javainterfaces) pagmo::fully_connected    "AutoCloseable"
+%typemap(javainterfaces) pagmo::ring               "AutoCloseable"
+%typemap(javainterfaces) pagmo::free_form          "AutoCloseable"
+
+// ── IAlgorithm implementations ────────────────────────────────────────────────
 %typemap(javainterfaces) pagmo::de                 "io.github.samthegliderpilot.pagmo4j.algorithms.IAlgorithm, AutoCloseable"
 %typemap(javainterfaces) pagmo::de1220             "io.github.samthegliderpilot.pagmo4j.algorithms.IAlgorithm, AutoCloseable"
 %typemap(javainterfaces) pagmo::pso                "io.github.samthegliderpilot.pagmo4j.algorithms.IAlgorithm, AutoCloseable"
@@ -395,7 +129,76 @@ namespace std {
 %typemap(javainterfaces) pagmo::nlopt              "io.github.samthegliderpilot.pagmo4j.algorithms.IAlgorithm, AutoCloseable"
 %typemap(javainterfaces) pagmo::ipopt              "io.github.samthegliderpilot.pagmo4j.algorithms.IAlgorithm, AutoCloseable"
 
+// ── javaimports: sub-package imports for generated classes ────────────────────
+%typemap(javaimports) pagmo::archipelago      "import io.github.samthegliderpilot.pagmo4j.problems.*; import io.github.samthegliderpilot.pagmo4j.algorithms.*; import io.github.samthegliderpilot.pagmo4j.batchevaluators.*; import io.github.samthegliderpilot.pagmo4j.migration.*;"
+%typemap(javaimports) pagmo::island           "import io.github.samthegliderpilot.pagmo4j.problems.*; import io.github.samthegliderpilot.pagmo4j.algorithms.*; import io.github.samthegliderpilot.pagmo4j.batchevaluators.*;"
+%typemap(javaimports) pagmo::algorithm        "import io.github.samthegliderpilot.pagmo4j.problems.*; import io.github.samthegliderpilot.pagmo4j.algorithms.*; import io.github.samthegliderpilot.pagmo4j.batchevaluators.*;"
+%typemap(javaimports) pagmo::problem          "import io.github.samthegliderpilot.pagmo4j.problems.*;"
+%typemap(javaimports) pagmo::population       "import io.github.samthegliderpilot.pagmo4j.problems.*;"
+%typemap(javaimports) pagmo::default_bfe      "import io.github.samthegliderpilot.pagmo4j.batchevaluators.*; import io.github.samthegliderpilot.pagmo4j.problems.*;"
+%typemap(javaimports) pagmo::thread_bfe       "import io.github.samthegliderpilot.pagmo4j.batchevaluators.*; import io.github.samthegliderpilot.pagmo4j.problems.*;"
+%typemap(javaimports) pagmo::member_bfe       "import io.github.samthegliderpilot.pagmo4j.batchevaluators.*; import io.github.samthegliderpilot.pagmo4j.problems.*;"
+%typemap(javaimports) pagmo::de               "import io.github.samthegliderpilot.pagmo4j.algorithms.*;"
+%typemap(javaimports) pagmo::pso              "import io.github.samthegliderpilot.pagmo4j.algorithms.*;"
+%typemap(javaimports) pagmo::cmaes            "import io.github.samthegliderpilot.pagmo4j.algorithms.*;"
+%typemap(javaimports) pagmo::simulated_annealing "import io.github.samthegliderpilot.pagmo4j.algorithms.*;"
+%typemap(javaimports) pagmo::compass_search   "import io.github.samthegliderpilot.pagmo4j.algorithms.*;"
+%typemap(javaimports) pagmo::ihs              "import io.github.samthegliderpilot.pagmo4j.algorithms.*;"
+%typemap(javaimports) pagmo::mbh              "import io.github.samthegliderpilot.pagmo4j.algorithms.*;"
+%typemap(javaimports) pagmo::sade             "import io.github.samthegliderpilot.pagmo4j.algorithms.*;"
+%typemap(javaimports) pagmo::bee_colony       "import io.github.samthegliderpilot.pagmo4j.algorithms.*;"
+%typemap(javaimports) pagmo::cstrs_self_adaptive "import io.github.samthegliderpilot.pagmo4j.algorithms.*;"
+%typemap(javaimports) pagmo::de1220           "import io.github.samthegliderpilot.pagmo4j.algorithms.*;"
+%typemap(javaimports) pagmo::gaco             "import io.github.samthegliderpilot.pagmo4j.algorithms.*;"
+%typemap(javaimports) pagmo::gwo              "import io.github.samthegliderpilot.pagmo4j.algorithms.*;"
+%typemap(javaimports) pagmo::maco             "import io.github.samthegliderpilot.pagmo4j.algorithms.*;"
+%typemap(javaimports) pagmo::moead            "import io.github.samthegliderpilot.pagmo4j.algorithms.*;"
+%typemap(javaimports) pagmo::moead_gen        "import io.github.samthegliderpilot.pagmo4j.algorithms.*;"
+%typemap(javaimports) pagmo::nsga2            "import io.github.samthegliderpilot.pagmo4j.algorithms.*;"
+%typemap(javaimports) pagmo::nspso            "import io.github.samthegliderpilot.pagmo4j.algorithms.*;"
+%typemap(javaimports) pagmo::null_algorithm   "import io.github.samthegliderpilot.pagmo4j.algorithms.*;"
+%typemap(javaimports) pagmo::pso_gen          "import io.github.samthegliderpilot.pagmo4j.algorithms.*;"
+%typemap(javaimports) pagmo::sea              "import io.github.samthegliderpilot.pagmo4j.algorithms.*;"
+%typemap(javaimports) pagmo::sga              "import io.github.samthegliderpilot.pagmo4j.algorithms.*;"
+%typemap(javaimports) pagmo::xnes             "import io.github.samthegliderpilot.pagmo4j.algorithms.*;"
+%typemap(javaimports) pagmo::nlopt            "import io.github.samthegliderpilot.pagmo4j.algorithms.*;"
+%typemap(javaimports) pagmo::ipopt            "import io.github.samthegliderpilot.pagmo4j.algorithms.*;"
+
 // ── Log projection injection ──────────────────────────────────────────────────
+%typemap(javacode) pagmo::bee_colony %{
+    public java.util.List<BeeColonyLine> getTypedLogLines() {
+        BeeColonyLogLineVector raw = get_log_lines();
+        try {
+            java.util.List<BeeColonyLine> out = new java.util.ArrayList<>((int) raw.size());
+            for (int i = 0; i < (int) raw.size(); i++) {
+                BeeColonyLogLine e = raw.get(i);
+                try { out.add(new BeeColonyLine(e.getGen(), e.getFevals().longValue(),
+                              e.getBest(), e.getCur_best())); }
+                finally { e.delete(); }
+            }
+            return out;
+        } finally { raw.delete(); }
+    }
+    @Override public java.util.List<IAlgorithmLogLine> getLogLines() {
+        return new java.util.ArrayList<>(getTypedLogLines());
+    }
+    @Override public void close() { delete(); }
+
+    public record BeeColonyLine(long generation, long functionEvaluations,
+                                double bestFitness, double currentBest)
+            implements IAlgorithmLogLine {
+        @Override public String getAlgorithmName() { return "bee_colony"; }
+        @Override public java.util.Map<String, Object> getRawFields() {
+            return java.util.Map.of("generation", generation, "function_evaluations", functionEvaluations,
+                "best_fitness", bestFitness, "current_best", currentBest);
+        }
+        @Override public String toDisplayString() {
+            return "gen=" + generation + ", fevals=" + functionEvaluations +
+                   ", best=" + bestFitness + ", cur_best=" + currentBest;
+        }
+    }
+%}
+
 %typemap(javacode) pagmo::de %{
     public java.util.List<DeLogLine> getTypedLogLines() {
         DeLogEntryVector raw = get_log_entries();
@@ -633,8 +436,6 @@ namespace std {
 %}
 
 // Algorithms with no structured log output
-PAGMO4J_SIMPLE_ALGO_CODE(sade)
-PAGMO4J_SIMPLE_ALGO_CODE(bee_colony)
 PAGMO4J_SIMPLE_ALGO_CODE(cstrs_self_adaptive)
 PAGMO4J_SIMPLE_ALGO_CODE(de1220)
 PAGMO4J_SIMPLE_ALGO_CODE(gaco)
@@ -646,11 +447,135 @@ PAGMO4J_SIMPLE_ALGO_CODE(nsga2)
 PAGMO4J_SIMPLE_ALGO_CODE(nspso)
 PAGMO4J_SIMPLE_ALGO_CODE(null_algorithm)
 PAGMO4J_SIMPLE_ALGO_CODE(pso_gen)
-PAGMO4J_SIMPLE_ALGO_CODE(sea)
-PAGMO4J_SIMPLE_ALGO_CODE(sga)
 PAGMO4J_SIMPLE_ALGO_CODE(xnes)
 PAGMO4J_SIMPLE_ALGO_CODE(nlopt)
 PAGMO4J_SIMPLE_ALGO_CODE(ipopt)
+
+// ── sade/sea/sga typed log projections ───────────────────────────────────────
+// Indexed accessors avoid the full std::vector<> JNI wrapper infrastructure.
+// The corresponding JNI functions are hand-written in pagmo4j_wrap.cxx.
+%extend pagmo::sade {
+    int get_log_entry_count() const { return (int)$self->get_log().size(); }
+    pagmoWrap::SadeLogEntry get_log_entry(int idx) const {
+        const auto& line = $self->get_log().at((std::size_t)idx);
+        return {std::get<0>(line), std::get<1>(line), std::get<2>(line),
+                std::get<3>(line), std::get<4>(line), std::get<5>(line), std::get<6>(line)};
+    }
+}
+%extend pagmo::sea {
+    int get_log_entry_count() const { return (int)$self->get_log().size(); }
+    pagmoWrap::SeaLogEntry get_log_entry(int idx) const {
+        const auto& line = $self->get_log().at((std::size_t)idx);
+        return {std::get<0>(line), std::get<1>(line), std::get<2>(line),
+                std::get<3>(line), static_cast<unsigned long long>(std::get<4>(line))};
+    }
+}
+%extend pagmo::sga {
+    int get_log_entry_count() const { return (int)$self->get_log().size(); }
+    pagmoWrap::SgaLogEntry get_log_entry(int idx) const {
+        const auto& line = $self->get_log().at((std::size_t)idx);
+        return {std::get<0>(line), std::get<1>(line), std::get<2>(line), std::get<3>(line)};
+    }
+}
+
+%typemap(javacode) pagmo::sade %{
+    public java.util.List<SadeLogLine> getTypedLogLines() {
+        int count = get_log_entry_count();
+        java.util.List<SadeLogLine> out = new java.util.ArrayList<>(count);
+        for (int i = 0; i < count; i++) {
+            SadeLogEntry e = get_log_entry(i);
+            try { out.add(new SadeLogLine(e.getGen(), e.getFevals().longValue(),
+                          e.getBest(), e.getF(), e.getCr(), e.getDx(), e.getDf())); }
+            finally { e.delete(); }
+        }
+        return out;
+    }
+    @Override public java.util.List<IAlgorithmLogLine> getLogLines() {
+        return new java.util.ArrayList<>(getTypedLogLines());
+    }
+    @Override public void close() { delete(); }
+
+    public record SadeLogLine(long generation, long functionEvaluations, double bestFitness,
+                              double f, double cr, double dx, double df)
+            implements IAlgorithmLogLine {
+        @Override public String getAlgorithmName() { return "sade"; }
+        @Override public java.util.Map<String, Object> getRawFields() {
+            return java.util.Map.of("generation", generation, "function_evaluations", functionEvaluations,
+                "best_fitness", bestFitness, "f", f, "cr", cr, "dx", dx, "df", df);
+        }
+        @Override public String toDisplayString() {
+            return "gen=" + generation + ", fevals=" + functionEvaluations +
+                   ", best=" + bestFitness + ", f=" + f + ", cr=" + cr +
+                   ", dx=" + dx + ", df=" + df;
+        }
+    }
+%}
+
+%typemap(javacode) pagmo::sea %{
+    public java.util.List<SeaLogLine> getTypedLogLines() {
+        int count = get_log_entry_count();
+        java.util.List<SeaLogLine> out = new java.util.ArrayList<>(count);
+        for (int i = 0; i < count; i++) {
+            SeaLogEntry e = get_log_entry(i);
+            try { out.add(new SeaLogLine(e.getGen(), e.getFevals().longValue(),
+                          e.getBest(), e.getImprovement(), e.getOffspring_evals().longValue())); }
+            finally { e.delete(); }
+        }
+        return out;
+    }
+    @Override public java.util.List<IAlgorithmLogLine> getLogLines() {
+        return new java.util.ArrayList<>(getTypedLogLines());
+    }
+    @Override public void close() { delete(); }
+
+    public record SeaLogLine(long generation, long functionEvaluations, double bestFitness,
+                             double improvement, long offspringEvaluations)
+            implements IAlgorithmLogLine {
+        @Override public String getAlgorithmName() { return "sea"; }
+        @Override public java.util.Map<String, Object> getRawFields() {
+            return java.util.Map.of("generation", generation, "function_evaluations", functionEvaluations,
+                "best_fitness", bestFitness, "improvement", improvement,
+                "offspring_evaluations", offspringEvaluations);
+        }
+        @Override public String toDisplayString() {
+            return "gen=" + generation + ", fevals=" + functionEvaluations +
+                   ", best=" + bestFitness + ", improvement=" + improvement +
+                   ", offspring_evals=" + offspringEvaluations;
+        }
+    }
+%}
+
+%typemap(javacode) pagmo::sga %{
+    public java.util.List<SgaLogLine> getTypedLogLines() {
+        int count = get_log_entry_count();
+        java.util.List<SgaLogLine> out = new java.util.ArrayList<>(count);
+        for (int i = 0; i < count; i++) {
+            SgaLogEntry e = get_log_entry(i);
+            try { out.add(new SgaLogLine(e.getGen(), e.getFevals().longValue(),
+                          e.getBest(), e.getImprovement())); }
+            finally { e.delete(); }
+        }
+        return out;
+    }
+    @Override public java.util.List<IAlgorithmLogLine> getLogLines() {
+        return new java.util.ArrayList<>(getTypedLogLines());
+    }
+    @Override public void close() { delete(); }
+
+    public record SgaLogLine(long generation, long functionEvaluations,
+                             double bestFitness, double improvement)
+            implements IAlgorithmLogLine {
+        @Override public String getAlgorithmName() { return "sga"; }
+        @Override public java.util.Map<String, Object> getRawFields() {
+            return java.util.Map.of("generation", generation, "function_evaluations", functionEvaluations,
+                "best_fitness", bestFitness, "improvement", improvement);
+        }
+        @Override public String toDisplayString() {
+            return "gen=" + generation + ", fevals=" + functionEvaluations +
+                   ", best=" + bestFitness + ", improvement=" + improvement;
+        }
+    }
+%}
 
 %typemap(javacode) pagmo::algorithm %{
     public algorithm(IAlgorithm managed) {
@@ -659,7 +584,7 @@ PAGMO4J_SIMPLE_ALGO_CODE(ipopt)
     @Override public void close() { delete(); }
 %}
 
-// ── problem: IProblem constructor + sparsity/gradient helpers ────────────────
+// ── problem: IProblem constructor + gradient/sparsity helpers ─────────────────
 %typemap(javacode) pagmo::problem %{
     public problem(IProblem managed) {
         this(NativeInterop.createProblemPointer(managed), true);
@@ -730,6 +655,69 @@ PAGMO4J_SIMPLE_ALGO_CODE(ipopt)
         }
     }
 
+    public long pushBackIsland(algorithm algo, IProblem problem,
+            IRPolicy rPolicy, ISPolicy sPolicy, long popSize, long seed) {
+        if (rPolicy == null) throw new NullPointerException("rPolicy");
+        if (sPolicy == null) throw new NullPointerException("sPolicy");
+        return withManagedProblem(problem, wrapped -> {
+            long nativePop = SizeTInterop.toNativeUInt32(popSize, "popSize");
+            RPolicyCallbackAdapter rAdapter = wrapRPolicy(rPolicy);
+            SPolicyCallbackAdapter sAdapter = wrapSPolicy(sPolicy);
+            policyCallbackRoots.add(rAdapter);
+            policyCallbackRoots.add(sAdapter);
+            return push_back_island(algo, wrapped,
+                new ManagedRPolicy(rAdapter), new ManagedSPolicy(sAdapter), nativePop, seed);
+        });
+    }
+
+    public long pushBackIsland(IAlgorithm algo, IProblem problem,
+            IRPolicy rPolicy, ISPolicy sPolicy, long popSize, long seed) {
+        try (algorithm normalized = AlgorithmInterop.normalizeToTypeErased(algo)) {
+            return pushBackIsland(normalized, problem, rPolicy, sPolicy, popSize, seed);
+        }
+    }
+
+    public long pushBackIsland(algorithm algo, IProblem problem, bfe b, long popSize, long seed) {
+        return withManagedProblem(problem, wrapped -> {
+            long nativePop = SizeTInterop.toNativeUInt32(popSize, "popSize");
+            return push_back_island(algo, wrapped, b, nativePop, seed);
+        });
+    }
+
+    public long pushBackIsland(IAlgorithm algo, IProblem problem, bfe b, long popSize, long seed) {
+        try (algorithm normalized = AlgorithmInterop.normalizeToTypeErased(algo)) {
+            return pushBackIsland(normalized, problem, b, popSize, seed);
+        }
+    }
+
+    private final java.util.List<Object> policyCallbackRoots = new java.util.ArrayList<>();
+
+    private static RPolicyCallbackAdapter wrapRPolicy(IRPolicy rPolicy) {
+        RPolicyCallbackAdapter adapter = new RPolicyCallbackAdapter() {
+            @Override public IndividualsGroup replace(
+                    IndividualsGroup incoming, long n_f, long n_ec, long n_ic, long n_obj,
+                    long pop_size, DoubleVector tol, IndividualsGroup current) {
+                return rPolicy.replace(incoming, n_f, n_ec, n_ic, n_obj, pop_size, tol, current);
+            }
+            @Override public String get_name() { return rPolicy.get_name(); }
+        };
+        adapter.swigReleaseOwnership();
+        return adapter;
+    }
+
+    private static SPolicyCallbackAdapter wrapSPolicy(ISPolicy sPolicy) {
+        SPolicyCallbackAdapter adapter = new SPolicyCallbackAdapter() {
+            @Override public IndividualsGroup select(
+                    IndividualsGroup population, long n_f, long n_ec, long n_ic, long n_obj,
+                    long pop_size, DoubleVector tol) {
+                return sPolicy.select(population, n_f, n_ec, n_ic, n_obj, pop_size, tol);
+            }
+            @Override public String get_name() { return sPolicy.get_name(); }
+        };
+        adapter.swigReleaseOwnership();
+        return adapter;
+    }
+
     public void waitCheck() { wait_check(); }
 
     @Override public void close() { delete(); }
@@ -768,12 +756,25 @@ PAGMO4J_SIMPLE_ALGO_CODE(ipopt)
         }
     }
 
+    public static island create(algorithm algo, IProblem problem, bfe b, long popSize, long seed) {
+        problem wrapped = new problem(problem);
+        long nativePop = SizeTInterop.toNativeUInt32(popSize, "popSize");
+        island isl = island.Create(algo, wrapped, b, nativePop, seed);
+        attachRoot(isl, wrapped);
+        return isl;
+    }
+
+    public static island create(IAlgorithm algo, IProblem problem, bfe b, long popSize, long seed) {
+        try (algorithm normalized = AlgorithmInterop.normalizeToTypeErased(algo)) {
+            return create(normalized, problem, b, popSize, seed);
+        }
+    }
+
     public void waitCheck() { wait_check(); }
 
     @Override public void close() { delete(); }
 %}
 
-%typemap(javaimports) pagmo::population "import io.github.samthegliderpilot.pagmo4j.problems.*;"
 %typemap(javacode) pagmo::population %{
     /** Creates a population for a managed problem using a random seed. */
     public population(IProblem problem, long popSize) {
@@ -824,17 +825,16 @@ PAGMO4J_SIMPLE_ALGO_CODE(ipopt)
     @Override public void close() { delete(); }
 %}
 
-// ── Sub-module includes (shared swig/ at monorepo root) ───────────────────────
+%typemap(javacode) pagmo::topology %{ @Override public void close() { delete(); } %}
+%typemap(javacode) pagmo::hypervolume %{ @Override public void close() { delete(); } %}
+%typemap(javacode) pagmo::fully_connected %{ @Override public void close() { delete(); } %}
+%typemap(javacode) pagmo::ring %{ @Override public void close() { delete(); } %}
+%typemap(javacode) pagmo::free_form %{ @Override public void close() { delete(); } %}
+
+// ── Sub-module includes ───────────────────────────────────────────────────────
 %include "swigInterfaceFiles/problem.i"
 %include "swigInterfaceFiles/algorithm.i"
-// Wrap topology.i in namespace pagmo so pagmo::topology is a known SWIG type
-// (needed for ring/fully_connected/free_form to_topology() return types).
-%typemap(javainterfaces) pagmo::topology "AutoCloseable"
-%typemap(javacode) pagmo::topology %{ @Override public void close() { delete(); } %}
 namespace pagmo { %include "swigInterfaceFiles/topology.i" }
-// Wrap population.i in namespace pagmo so SWIG maps pagmo::population to population.
-// This is critical: without it, algorithm directors and evolve() signatures use
-// opaque SWIGTYPE_p_pagmo__population instead of the proper population wrapper.
 namespace pagmo {
     %include "swigInterfaceFiles/population.i"
 }
@@ -844,25 +844,18 @@ namespace pagmo {
 %include "swigInterfaceFiles/island.i"
 %include "swigInterfaceFiles/archipelago.i"
 namespace pagmo {
-%include "swigInterfaceFiles/bfe.i"
+    %include "swigInterfaceFiles/bfe.i"
 }
-// topology.i already included above in namespace pagmo {} block
-// r_policy.i is a stub; s_policy.i does not exist — both are handled inline above
-// via %feature("director"), %ignore, and %include of pagmoWrapper headers.
 namespace pagmo {
-%include "swigInterfaceFiles/rng.i"
-%include "swigInterfaceFiles/io.i"
+    %include "swigInterfaceFiles/rng.i"
+    %include "swigInterfaceFiles/io.i"
 }
-%typemap(javainterfaces) pagmo::hypervolume "AutoCloseable"
-%typemap(javacode) pagmo::hypervolume %{ @Override public void close() { delete(); } %}
 %include "swigInterfaceFiles/utils/hypervolume.i"
 %include "swigInterfaceFiles/utils/multi_objective.i"
-// gradients_and_hessians.i is intentionally excluded — the pagmo C++ functions it
-// wraps (estimate_gradient, estimate_sparsity, etc.) take a gradientsAndHessiansCallback
-// function type that SWIG cannot map cleanly to a Java type.  The Java GradientsAndHessians
-// class uses the pagmonet_estimate_*_problem bridge functions instead.
+// gradients_and_hessians.i excluded — pagmo C++ functions take a callback function
+// type SWIG can't map to Java.  GradientsAndHessians.java uses the pagmonet_estimate_*
+// bridge functions instead.
 
-// Algorithms using qualified names work without namespace wrapping.
 %include "swigInterfaceFiles/algorithms/bee_colony.i"
 %include "swigInterfaceFiles/algorithms/cstrs_self_adaptive.i"
 %include "swigInterfaceFiles/algorithms/ihs.i"
@@ -872,8 +865,6 @@ namespace pagmo {
 %include "swigInterfaceFiles/algorithms/moead_gen.i"
 %include "swigInterfaceFiles/algorithms/nsga2.i"
 
-// Algorithms with unqualified class names need namespace pagmo {} wrapping
-// so that %typemap(javainterfaces/javacode/javaimports) pagmo::X entries apply.
 namespace pagmo {
     %include "swigInterfaceFiles/algorithms/cmaes.i"
     %include "swigInterfaceFiles/algorithms/compass_search.i"
@@ -895,15 +886,11 @@ namespace pagmo {
     %include "swigInterfaceFiles/algorithms/xnes.i"
 }
 
-// ── Native problem classes implement IProblem (mirrors .NET partial class pattern) ──
-// All native problem classes expose fitness() and get_bounds() and satisfy IProblem's
-// contract. Other IProblem methods have defaults so they don't need to be in every .i file.
+// ── Native problem types implement IProblem ───────────────────────────────────
 %define PAGMO4J_NATIVE_PROBLEM(TYPE)
-%typemap(javaimports) pagmo::TYPE "import io.github.samthegliderpilot.pagmo4j.problems.*;"
+%typemap(javaimports)   pagmo::TYPE "import io.github.samthegliderpilot.pagmo4j.problems.*;"
 %typemap(javainterfaces) pagmo::TYPE "io.github.samthegliderpilot.pagmo4j.problems.IProblem, AutoCloseable"
-%typemap(javacode) pagmo::TYPE %{
-    @Override public void close() { delete(); }
-%}
+%typemap(javacode) pagmo::TYPE %{ @Override public void close() { delete(); } %}
 %enddef
 
 PAGMO4J_NATIVE_PROBLEM(ackley)
@@ -921,8 +908,7 @@ PAGMO4J_NATIVE_PROBLEM(lennard_jones)
 PAGMO4J_NATIVE_PROBLEM(luksan_vlcek1)
 PAGMO4J_NATIVE_PROBLEM(minlp_rastrigin)
 // minlp_rastrigin::hessians_sparsity() returns std::vector<sparsity_pattern> which SWIG
-// can't resolve to VectorOfSparsityPattern (typedef not expanded). Suppress; the
-// IProblem default (throws UnsupportedOperationException) is used instead.
+// can't resolve to VectorOfSparsityPattern.  Suppress; the IProblem default is used.
 %ignore pagmo::minlp_rastrigin::hessians_sparsity;
 PAGMO4J_NATIVE_PROBLEM(null_problem)
 PAGMO4J_NATIVE_PROBLEM(rastrigin)
@@ -935,8 +921,7 @@ PAGMO4J_NATIVE_PROBLEM(zdt)
 
 %include "swigInterfaceFiles/problems/ackley.i"
 %include "swigInterfaceFiles/problems/cec2006.i"
-// The 2-arg constructor (unsigned, bool) maps to (long, boolean) which collides with
-// SWIG's internal pointer constructor. Ignore the overload; use (prob_id, is_constrained, dim).
+// The 2-arg constructor (unsigned, bool) collides with SWIG's internal pointer constructor.
 %ignore pagmo::cec2009::cec2009(unsigned int, bool);
 %include "swigInterfaceFiles/problems/cec2009.i"
 %include "swigInterfaceFiles/problems/cec2013.i"
@@ -960,18 +945,11 @@ PAGMO4J_NATIVE_PROBLEM(zdt)
 %include "swigInterfaceFiles/problems/zdt.i"
 
 %include "swigInterfaceFiles/islands/thread_island.i"
-// AutoCloseable for topology UDT types — must be BEFORE their %include statements.
-%typemap(javainterfaces) pagmo::fully_connected "AutoCloseable"
-%typemap(javacode) pagmo::fully_connected %{ @Override public void close() { delete(); } %}
-%typemap(javainterfaces) pagmo::ring "AutoCloseable"
-%typemap(javacode) pagmo::ring %{ @Override public void close() { delete(); } %}
-%typemap(javainterfaces) pagmo::free_form "AutoCloseable"
-%typemap(javacode) pagmo::free_form %{ @Override public void close() { delete(); } %}
 %include "swigInterfaceFiles/topologies/free_form.i"
 %include "swigInterfaceFiles/topologies/fully_connected.i"
 %include "swigInterfaceFiles/topologies/ring.i"
 
-// Add to_topology() factory to topology UDTs (mirrors .NET to_algorithm() pattern).
+// to_topology() factory mirroring the .NET to_algorithm() pattern.
 %extend pagmo::fully_connected { pagmo::topology to_topology() const { return pagmo::topology(*self); } }
 %extend pagmo::ring             { pagmo::topology to_topology() const { return pagmo::topology(*self); } }
 %extend pagmo::free_form        { pagmo::topology to_topology() const { return pagmo::topology(*self); } }

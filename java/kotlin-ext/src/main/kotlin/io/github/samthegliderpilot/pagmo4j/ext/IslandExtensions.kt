@@ -35,3 +35,17 @@ fun islandOf(
     popSize: Long,
     seed: Long = random_device().next(),
 ): island = island.create(algo, problem, popSize, seed)
+
+/**
+ * Creates an island that uses the given batch fitness evaluator.
+ * ```kotlin
+ * val isl = islandOf(de(100), prob, default_bfe().to_bfe(), popSize = 64)
+ * ```
+ */
+fun islandOf(
+    algo: IAlgorithm,
+    problem: IProblem,
+    bfe: bfe,
+    popSize: Long,
+    seed: Long = random_device().next(),
+): island = island.create(algo, problem, bfe, popSize, seed)

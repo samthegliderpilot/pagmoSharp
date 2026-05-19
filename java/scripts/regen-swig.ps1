@@ -67,7 +67,7 @@ $swigArgs = @(
     "-I$swigSrc",
     "-I$swigSubFiles",
     "-I$vcpkgIncludes",
-    (Join-Path $JavaRoot "swig\Pagmo4jSwigInterface.i")
+    (Join-Path $swigSrc "Pagmo4jSwigInterface.i")
 )
 
 Write-Host "Running: $swigExe $($swigArgs -join ' ')"

@@ -48,10 +48,37 @@ public class sea implements io.github.samthegliderpilot.pagmo4j.algorithms.IAlgo
     }
   }
 
+    public java.util.List<SeaLogLine> getTypedLogLines() {
+        int count = get_log_entry_count();
+        java.util.List<SeaLogLine> out = new java.util.ArrayList<>(count);
+        for (int i = 0; i < count; i++) {
+            SeaLogEntry e = get_log_entry(i);
+            try { out.add(new SeaLogLine(e.getGen(), e.getFevals().longValue(),
+                          e.getBest(), e.getImprovement(), e.getOffspring_evals().longValue())); }
+            finally { e.delete(); }
+        }
+        return out;
+    }
     @Override public java.util.List<IAlgorithmLogLine> getLogLines() {
-        return java.util.Collections.emptyList();
+        return new java.util.ArrayList<>(getTypedLogLines());
     }
     @Override public void close() { delete(); }
+
+    public record SeaLogLine(long generation, long functionEvaluations, double bestFitness,
+                             double improvement, long offspringEvaluations)
+            implements IAlgorithmLogLine {
+        @Override public String getAlgorithmName() { return "sea"; }
+        @Override public java.util.Map<String, Object> getRawFields() {
+            return java.util.Map.of("generation", generation, "function_evaluations", functionEvaluations,
+                "best_fitness", bestFitness, "improvement", improvement,
+                "offspring_evaluations", offspringEvaluations);
+        }
+        @Override public String toDisplayString() {
+            return "gen=" + generation + ", fevals=" + functionEvaluations +
+                   ", best=" + bestFitness + ", improvement=" + improvement +
+                   ", offspring_evals=" + offspringEvaluations;
+        }
+    }
 
   public sea(long gen, long seed) {
     this(pagmo4jJNI.new_sea__SWIG_0(gen, seed), true);
@@ -89,8 +116,12 @@ public class sea implements io.github.samthegliderpilot.pagmo4j.algorithms.IAlgo
     return pagmo4jJNI.sea_get_extra_info(swigCPtr, this);
   }
 
-  public SWIGTYPE_p_std__vectorT_pagmoWrap__SeaLogEntry_t get_log_entries() {
-    return new SWIGTYPE_p_std__vectorT_pagmoWrap__SeaLogEntry_t(pagmo4jJNI.sea_get_log_entries(swigCPtr, this), true);
+  public int get_log_entry_count() {
+    return pagmo4jJNI.sea_get_log_entry_count(swigCPtr, this);
+  }
+
+  public SeaLogEntry get_log_entry(int idx) {
+    return new SeaLogEntry(pagmo4jJNI.sea_get_log_entry(swigCPtr, this, idx), true);
   }
 
   public algorithm to_algorithm() {

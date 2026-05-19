@@ -30,3 +30,5 @@ artifacts_linux/
 .gradle/
 build/
 .kotlin/
+win-build
+*.lscache

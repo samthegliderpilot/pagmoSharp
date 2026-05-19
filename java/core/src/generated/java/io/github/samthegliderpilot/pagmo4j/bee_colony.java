@@ -48,10 +48,37 @@ public class bee_colony implements io.github.samthegliderpilot.pagmo4j.algorithm
     }
   }
 
+    public java.util.List<BeeColonyLine> getTypedLogLines() {
+        BeeColonyLogLineVector raw = get_log_lines();
+        try {
+            java.util.List<BeeColonyLine> out = new java.util.ArrayList<>((int) raw.size());
+            for (int i = 0; i < (int) raw.size(); i++) {
+                BeeColonyLogLine e = raw.get(i);
+                try { out.add(new BeeColonyLine(e.getGen(), e.getFevals().longValue(),
+                              e.getBest(), e.getCur_best())); }
+                finally { e.delete(); }
+            }
+            return out;
+        } finally { raw.delete(); }
+    }
     @Override public java.util.List<IAlgorithmLogLine> getLogLines() {
-        return java.util.Collections.emptyList();
+        return new java.util.ArrayList<>(getTypedLogLines());
     }
     @Override public void close() { delete(); }
+
+    public record BeeColonyLine(long generation, long functionEvaluations,
+                                double bestFitness, double currentBest)
+            implements IAlgorithmLogLine {
+        @Override public String getAlgorithmName() { return "bee_colony"; }
+        @Override public java.util.Map<String, Object> getRawFields() {
+            return java.util.Map.of("generation", generation, "function_evaluations", functionEvaluations,
+                "best_fitness", bestFitness, "current_best", currentBest);
+        }
+        @Override public String toDisplayString() {
+            return "gen=" + generation + ", fevals=" + functionEvaluations +
+                   ", best=" + bestFitness + ", cur_best=" + currentBest;
+        }
+    }
 
   public bee_colony(long gen, long limit, long seed) {
     this(pagmo4jJNI.new_bee_colony__SWIG_0(gen, limit, seed), true);
