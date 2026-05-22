@@ -15,6 +15,22 @@ import java.util.stream.IntStream;
  */
 public final class ManagedThreadBfe implements AutoCloseable {
 
+    /**
+     * Evaluates a batch of decision vectors in parallel using per-thread problem clones.
+     *
+     * <p>The common ForkJoin pool is used. One clone of {@code problem} is created per
+     * worker thread via {@link IThreadCloneableProblem#clone()}; all clones are closed
+     * when the batch completes.
+     *
+     * @param problem the cloneable problem; {@link IThreadCloneableProblem#clone()} must
+     *                return non-null, non-same instances
+     * @param batchX  concatenated decision vectors, length = nx × batchSize
+     * @return concatenated fitness vectors, length = (nobj + nec + nic) × batchSize
+     * @throws NullPointerException     if {@code problem} or {@code batchX} is null
+     * @throws IllegalArgumentException if {@code batchX.size()} is not a multiple of the problem dimension
+     * @throws IllegalStateException    if {@code clone()} returns null or the same instance
+     * @throws RuntimeException         wrapping any exception thrown during fitness evaluation
+     */
     public DoubleVector operator(IThreadCloneableProblem problem, DoubleVector batchX) {
         if (problem == null) throw new NullPointerException("problem");
         if (batchX == null)  throw new NullPointerException("batchX");
@@ -43,13 +59,13 @@ public final class ManagedThreadBfe implements AutoCloseable {
                 return c;
             });
 
-            // Plain list — the explicit synchronized block below provides the only locking needed.
-            List<IProblem> allClones = new ArrayList<>();
+            // Identity set — two clones that happen to be equal() should both be closed.
+            Set<IProblem> allClones = Collections.newSetFromMap(new IdentityHashMap<>());
             try {
                 ForkJoinPool.commonPool().submit(() ->
                     IntStream.range(0, batchSize).parallel().forEach(i -> {
                         IProblem clone = clones.get();
-                        synchronized (allClones) { if (!allClones.contains(clone)) allClones.add(clone); }
+                        synchronized (allClones) { allClones.add(clone); }
                         DoubleVector x = slice(batchX, i * dim, dim);
                         try {
                             DoubleVector f = clone.fitness(x);

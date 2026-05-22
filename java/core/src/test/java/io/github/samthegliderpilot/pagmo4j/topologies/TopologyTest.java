@@ -40,4 +40,47 @@ class TopologyTest {
         assertNotNull(topo.get_name());
         topo.delete();
     }
+
+    // ── Connection-data tests ─────────────────────────────────────────────────
+
+    @Test
+    void ringTopologyHasTwoNeighborsPerIsland() {
+        // A ring with N islands: every island has exactly 2 neighbors
+        // (the predecessor and the successor in the ring).
+        final int N = 5;
+        try (ring topo = new ring()) {
+            for (int i = 0; i < N; i++) topo.push_back();
+            for (int i = 0; i < N; i++) {
+                TopologyConnections conn = topo.get_connections(i);
+                assertEquals(2, conn.getFirst().size(),
+                    "ring island " + i + " must have exactly 2 neighbors, got " + conn.getFirst().size());
+            }
+        }
+    }
+
+    @Test
+    void fullyConnectedTopologyHasNMinusOneNeighborsPerIsland() {
+        // A fully-connected topology with N islands: every island has N-1 neighbors.
+        final int N = 4;
+        try (fully_connected topo = new fully_connected()) {
+            for (int i = 0; i < N; i++) topo.push_back();
+            for (int i = 0; i < N; i++) {
+                TopologyConnections conn = topo.get_connections(i);
+                assertEquals(N - 1, conn.getFirst().size(),
+                    "fully_connected island " + i + " must have " + (N - 1) + " neighbors");
+            }
+        }
+    }
+
+    @Test
+    void ringConnectionWeightsArePositive() {
+        try (ring topo = new ring()) {
+            for (int i = 0; i < 3; i++) topo.push_back();
+            TopologyConnections conn = topo.get_connections(0);
+            for (int j = 0; j < conn.getSecond().size(); j++) {
+                assertTrue(conn.getSecond().get(j) > 0.0,
+                    "connection weight must be positive, got " + conn.getSecond().get(j));
+            }
+        }
+    }
 }

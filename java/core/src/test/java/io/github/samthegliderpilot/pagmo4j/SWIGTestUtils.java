@@ -7,7 +7,7 @@ package io.github.samthegliderpilot.pagmo4j;
  * AutoCloseable from being added to vector types. Use {@link #close} as a drop-in
  * for try-with-resources on {@link DoubleVector}, {@link ULongLongVector}, etc.
  */
-public final class SWIGTestUtils {
+final class SWIGTestUtils {
 
     private SWIGTestUtils() {}
 

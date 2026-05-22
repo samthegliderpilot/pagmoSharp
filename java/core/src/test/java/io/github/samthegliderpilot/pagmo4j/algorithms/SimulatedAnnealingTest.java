@@ -15,7 +15,12 @@ class SimulatedAnnealingTest extends AlgorithmTestBase {
              simulated_annealing a = new simulated_annealing(); population pop = new population(p, 48L, 2L)) {
             a.set_verbosity(1L);
             try (population ignored = a.evolve(pop)) {}
-            assertNotNull(a.getTypedLogLines());
+            var lines = a.getTypedLogLines();
+            assertFalse(lines.isEmpty(), "no log lines produced with verbosity=1");
+            for (var line : lines) {
+                assertFalse(line.getRawFields().isEmpty(), "log entry has no fields");
+                assertFalse(line.toDisplayString().isEmpty(), "toDisplayString() returned empty");
+            }
         }
     }
 }

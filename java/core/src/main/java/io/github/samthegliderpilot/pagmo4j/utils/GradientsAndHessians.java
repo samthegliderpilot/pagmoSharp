@@ -108,4 +108,30 @@ public final class GradientsAndHessians {
     public static DoubleVector estimateGradientHighOrder(problem prob, DoubleVector x) {
         return estimateGradientHighOrder(prob, x, 1e-2);
     }
+
+    /**
+     * Estimates gradient by higher-order finite differencing for a managed problem.
+     *
+     * @param prob the managed problem to differentiate
+     * @param x    decision vector at which the gradient is estimated
+     * @param dx   finite-difference step size (typical: 1e-2)
+     * @return gradient vector
+     */
+    public static DoubleVector estimateGradientHighOrder(IProblem prob, DoubleVector x, double dx) {
+        if (prob == null) throw new NullPointerException("prob");
+        if (x    == null) throw new NullPointerException("x");
+        long problemPtr = NativeInterop.createProblemPointer(prob);
+        try {
+            long ptr = pagmo4j.pagmonet_estimate_gradient_h_problem(problemPtr, NativeInterop.getDoubleVectorPtr(x), dx);
+            if (ptr == 0) throw new RuntimeException("Native estimate_gradient_h() failed.");
+            return NativeInterop.wrapDoubleVectorPtr(ptr);
+        } finally {
+            pagmo4j.pagmonet_problem_delete(problemPtr);
+        }
+    }
+
+    /** Higher-order gradient for a managed problem with default dx = 1e-2. */
+    public static DoubleVector estimateGradientHighOrder(IProblem prob, DoubleVector x) {
+        return estimateGradientHighOrder(prob, x, 1e-2);
+    }
 }

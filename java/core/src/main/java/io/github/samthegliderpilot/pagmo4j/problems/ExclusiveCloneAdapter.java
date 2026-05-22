@@ -1,6 +1,7 @@
 package io.github.samthegliderpilot.pagmo4j.problems;
 
 import io.github.samthegliderpilot.pagmo4j.*;
+import java.util.Objects;
 
 /**
  * Wraps a cloned {@link IProblem} and re-declares thread safety as
@@ -10,7 +11,9 @@ public final class ExclusiveCloneAdapter extends ManagedProblemBase {
 
     private final IProblem inner;
 
-    public ExclusiveCloneAdapter(IProblem inner) { this.inner = inner; }
+    public ExclusiveCloneAdapter(IProblem inner) {
+        this.inner = Objects.requireNonNull(inner, "inner");
+    }
 
     @Override public DoubleVector fitness(DoubleVector x)              { return inner.fitness(x); }
     @Override public PairOfDoubleVectors get_bounds()                  { return inner.get_bounds(); }

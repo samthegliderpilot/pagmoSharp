@@ -13,7 +13,10 @@ fun archipelago.run(rounds: Long = 1L) {
     waitFor()
 }
 
-/** Returns the champion decision vectors from all islands. */
+/**
+ * Returns the champion decision vector from every island, in island-index order.
+ * Each element corresponds to [get_island_copy] at that index.
+ */
 fun archipelago.allChampions(): List<DoubleArray> {
     val out = mutableListOf<DoubleArray>()
     val n = size()
@@ -23,7 +26,16 @@ fun archipelago.allChampions(): List<DoubleArray> {
     return out
 }
 
-/** Returns the best champion fitness found across all islands. */
+/**
+ * Returns the champion fitness vector that has the smallest L2-norm across all islands.
+ *
+ * **Note:** ranking is by L2-norm (sum of squares of all fitness components), not by
+ * first objective alone.  For single-objective problems this is equivalent to the minimum
+ * fitness value.  For multi-objective problems use [allChampions] and apply your own
+ * ranking criterion.
+ *
+ * @return the best champion fitness array, or an empty array if the archipelago has no islands
+ */
 fun archipelago.bestChampionF(): DoubleArray {
     var best: DoubleArray? = null
     var bestNorm = Double.MAX_VALUE

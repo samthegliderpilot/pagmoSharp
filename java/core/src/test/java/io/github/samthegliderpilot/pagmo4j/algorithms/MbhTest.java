@@ -27,7 +27,12 @@ class MbhTest extends AlgorithmTestBase {
              mbh m = new mbh(a, 5L, 0.1); population pop = new population(p, 48L, 2L)) {
             m.set_verbosity(1L);
             try (population ignored = m.evolve(pop)) {}
-            assertNotNull(m.getTypedLogLines());
+            var lines = m.getTypedLogLines();
+            assertFalse(lines.isEmpty(), "no log lines produced with verbosity=1");
+            for (var line : lines) {
+                assertFalse(line.getRawFields().isEmpty(), "log entry has no fields");
+                assertFalse(line.toDisplayString().isEmpty(), "toDisplayString() returned empty");
+            }
         }
         a.close();
     }

@@ -9,15 +9,14 @@ class OptionalSolverAvailabilityTest {
 
     @Test
     void nloptAvailabilityIsDetectable() {
-        // Should never throw, always returns a definite value.
-        boolean available = OptionalSolverAvailability.isNloptAvailable();
-        assertTrue(available || !available, "isNloptAvailable() must return true or false without throwing");
+        assertDoesNotThrow(OptionalSolverAvailability::isNloptAvailable,
+            "isNloptAvailable() must not throw");
     }
 
     @Test
     void ipoptAvailabilityIsDetectable() {
-        boolean available = OptionalSolverAvailability.isIpoptAvailable();
-        assertTrue(available || !available, "isIpoptAvailable() must return true or false without throwing");
+        assertDoesNotThrow(OptionalSolverAvailability::isIpoptAvailable,
+            "isIpoptAvailable() must not throw");
     }
 
     @Test

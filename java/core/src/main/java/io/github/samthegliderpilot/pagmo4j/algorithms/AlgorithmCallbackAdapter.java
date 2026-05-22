@@ -44,6 +44,12 @@ public final class AlgorithmCallbackAdapter extends AlgorithmCallback {
     // because pagmo::thread_safety is not recognized by SWIG when algorithm_callback.h
     // is processed. The C++ default (thread_safety::basic) is used.
 
+    /**
+     * Called by the native bridge ({@code NativeInterop.createAlgorithmPointer}) after each
+     * evolve round to retrieve any exception that was deferred during a director callback.
+     * Returns the exception message string (empty string if none); the native side converts
+     * this to a Java {@link RuntimeException}.
+     */
     @Override
     public String consume_deferred_exception() {
         Throwable ex = deferredEx;
@@ -51,7 +57,11 @@ public final class AlgorithmCallbackAdapter extends AlgorithmCallback {
         return ex != null ? ex.toString() : "";
     }
 
-    /** Java-facing equivalent of {@link #consume_deferred_exception()} for use in {@code NativeInterop}. */
+    /**
+     * Java-facing equivalent for use by {@code NativeInterop} — returns the raw
+     * {@link Throwable} so the original exception type and stack trace are preserved,
+     * rather than a stringified version.
+     */
     public Throwable consumeDeferredException() {
         Throwable ex = deferredEx;
         deferredEx = null;

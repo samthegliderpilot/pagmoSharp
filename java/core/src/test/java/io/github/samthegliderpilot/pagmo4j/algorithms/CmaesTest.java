@@ -15,7 +15,12 @@ class CmaesTest extends AlgorithmTestBase {
              cmaes a = new cmaes(10L); population pop = new population(p, 48L, 2L)) {
             a.set_verbosity(1L);
             try (population ignored = a.evolve(pop)) {}
-            assertNotNull(a.getTypedLogLines());
+            var lines = a.getTypedLogLines();
+            assertFalse(lines.isEmpty(), "no log lines produced with verbosity=1");
+            for (var line : lines) {
+                assertFalse(line.getRawFields().isEmpty(), "log entry has no fields");
+                assertFalse(line.toDisplayString().isEmpty(), "toDisplayString() returned empty");
+            }
         }
     }
 }

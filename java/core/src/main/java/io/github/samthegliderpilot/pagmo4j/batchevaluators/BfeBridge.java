@@ -71,20 +71,21 @@ public final class BfeBridge {
         try {
             for (int j = 0; j < nx; j++) x.set(j, batchX.get(j));
             DoubleVector f0 = problem.fitness(x);
-            int nf = (int) f0.size();
-            DoubleVector result = new DoubleVector(n * nf, 0.0);
             try {
-                for (int k = 0; k < nf; k++) result.set(k, f0.get(k));
-                f0.delete();
-                for (int i = 1; i < n; i++) {
-                    for (int j = 0; j < nx; j++) x.set(j, batchX.get(i * nx + j));
-                    DoubleVector fi = problem.fitness(x);
-                    try {
-                        for (int k = 0; k < nf; k++) result.set(i * nf + k, fi.get(k));
-                    } finally { fi.delete(); }
-                }
-                return result;
-            } catch (Throwable t) { result.delete(); throw t; }
+                int nf = (int) f0.size();
+                DoubleVector result = new DoubleVector(n * nf, 0.0);
+                try {
+                    for (int k = 0; k < nf; k++) result.set(k, f0.get(k));
+                    for (int i = 1; i < n; i++) {
+                        for (int j = 0; j < nx; j++) x.set(j, batchX.get(i * nx + j));
+                        DoubleVector fi = problem.fitness(x);
+                        try {
+                            for (int k = 0; k < nf; k++) result.set(i * nf + k, fi.get(k));
+                        } finally { fi.delete(); }
+                    }
+                    return result;
+                } catch (Throwable t) { result.delete(); throw t; }
+            } finally { f0.delete(); }
         } finally { x.delete(); }
     }
 }

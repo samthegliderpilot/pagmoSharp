@@ -125,10 +125,19 @@ public class archipelago implements AutoCloseable {
         }
     }
 
-    public long pushBackIsland(algorithm algo, IProblem problem,
-            IRPolicy rPolicy, ISPolicy sPolicy, long popSize, long seed) {
+    private static void validatePolicyPair(IRPolicy rPolicy, ISPolicy sPolicy) {
+        if ((rPolicy == null) != (sPolicy == null))
+            throw new IllegalArgumentException(
+                "rPolicy and sPolicy must both be provided or both omitted; " +
+                "got rPolicy=" + (rPolicy == null ? "null" : "non-null") +
+                ", sPolicy=" + (sPolicy == null ? "null" : "non-null"));
         if (rPolicy == null) throw new NullPointerException("rPolicy");
         if (sPolicy == null) throw new NullPointerException("sPolicy");
+    }
+
+    public long pushBackIsland(algorithm algo, IProblem problem,
+            IRPolicy rPolicy, ISPolicy sPolicy, long popSize, long seed) {
+        validatePolicyPair(rPolicy, sPolicy);
         return withManagedProblem(problem, wrapped -> {
             long nativePop = SizeTInterop.toNativeUInt32(popSize, "popSize");
             ManagedRPolicy r = wrapRPolicy(rPolicy);
@@ -144,6 +153,7 @@ public class archipelago implements AutoCloseable {
 
     public long pushBackIsland(IAlgorithm algo, IProblem problem,
             IRPolicy rPolicy, ISPolicy sPolicy, long popSize, long seed) {
+        validatePolicyPair(rPolicy, sPolicy);
         try (algorithm normalized = AlgorithmInterop.normalizeToTypeErased(algo)) {
             return pushBackIsland(normalized, problem, rPolicy, sPolicy, popSize, seed);
         }

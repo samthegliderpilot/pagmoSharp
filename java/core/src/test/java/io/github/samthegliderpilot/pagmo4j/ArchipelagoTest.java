@@ -21,11 +21,14 @@ class ArchipelagoTest {
             assertEquals(4L, archi.size());
 
             archi.evolve(1L);
-            archi.wait_check();  // SWIG wait() renamed to waitFor()
+            archi.wait_check();
 
             for (int i = 0; i < 4; i++) {
                 try (island isl = archi.get_island_copy((long) i)) {
                     assertEquals(EvolveStatus.Idle, isl.status());
+                    // At least one evolution round happened — fevals must be positive.
+                    assertTrue(isl.get_population().get_problem().get_fevals() > 0,
+                        "island " + i + " had no fitness evaluations after evolve");
                 }
             }
         }

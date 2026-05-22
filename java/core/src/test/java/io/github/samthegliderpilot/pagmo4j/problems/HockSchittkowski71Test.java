@@ -15,7 +15,10 @@ class HockSchittkowski71Test extends ProblemTestBase {
         // de cannot handle non-linear constraints; compass_search can.
         try (hock_schittkowski_71 p = new hock_schittkowski_71();
              compass_search algo = new compass_search(200L); population pop = new population(p, 1L, 2L)) {
-            try (population evolved = algo.evolve(pop)) { assertNotNull(evolved); }
+            try (population evolved = algo.evolve(pop)) {
+                assertEquals(pop.size(), evolved.size(), "evolved population must preserve individual count");
+                assertNotNull(evolved.champion_f(), "champion fitness must be non-null after evolve");
+            }
         }
     }
 }

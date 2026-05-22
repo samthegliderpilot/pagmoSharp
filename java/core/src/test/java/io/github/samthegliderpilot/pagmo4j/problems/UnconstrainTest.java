@@ -17,7 +17,13 @@ class UnconstrainTest extends ProblemTestBase {
         try (unconstrain p = new unconstrain(new problem(new hock_schittkowski_71()), "kuri", new DoubleVector());
              de a = new de(20L); population pop = new population(p, 64L, 2L)) {
             a.set_seed(2L);
-            try (population evolved = a.evolve(pop)) { assertNotNull(evolved); }
+            double initialBest = pop.champion_f().get(0);
+            try (population evolved = a.evolve(pop)) {
+                assertEquals(pop.size(), evolved.size(), "evolved population must preserve individual count");
+                double evolvedBest = evolved.champion_f().get(0);
+                assertTrue(evolvedBest <= initialBest,
+                    "DE must not worsen the champion fitness (initial=" + initialBest + ", evolved=" + evolvedBest + ")");
+            }
         }
     }
 }

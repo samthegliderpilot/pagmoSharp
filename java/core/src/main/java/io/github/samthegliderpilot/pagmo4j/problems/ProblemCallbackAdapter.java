@@ -89,7 +89,13 @@ public final class ProblemCallbackAdapter extends ProblemCallback {
             // reachabilityFence keeps sp alive until C++ has copied the value (c_result = *argp)
             Reference.reachabilityFence(sp);
             return result;
-        } catch (Throwable ex) { defer(ex); return null; }
+        } catch (Throwable ex) {
+            defer(ex);
+            SparsityPattern empty = new SparsityPattern();
+            SWIGTYPE_p_std__vectorT_std__pairT_size_t_size_t_t_t result = NativeInterop.toSwigSparsityPattern(empty);
+            Reference.reachabilityFence(empty);
+            return result;
+        }
     }
 
     @Override
@@ -99,7 +105,13 @@ public final class ProblemCallbackAdapter extends ProblemCallback {
             SWIGTYPE_p_std__vectorT_std__vectorT_std__pairT_size_t_size_t_t_t_t result = NativeInterop.toSwigVectorOfSparsityPattern(vsp);
             Reference.reachabilityFence(vsp);
             return result;
-        } catch (Throwable ex) { defer(ex); return null; }
+        } catch (Throwable ex) {
+            defer(ex);
+            VectorOfSparsityPattern empty = new VectorOfSparsityPattern();
+            SWIGTYPE_p_std__vectorT_std__vectorT_std__pairT_size_t_size_t_t_t_t result = NativeInterop.toSwigVectorOfSparsityPattern(empty);
+            Reference.reachabilityFence(empty);
+            return result;
+        }
     }
 
     @Override
