@@ -954,6 +954,24 @@ PAGMO4J_NATIVE_PROBLEM(zdt)
 %extend pagmo::ring             { pagmo::topology to_topology() const { return pagmo::topology(*self); } }
 %extend pagmo::free_form        { pagmo::topology to_topology() const { return pagmo::topology(*self); } }
 
+// ── unconnected topology ──────────────────────────────────────────────────────
+%typemap(javainterfaces) pagmo::unconnected "AutoCloseable"
+%typemap(javacode) pagmo::unconnected %{ @Override public void close() { delete(); } %}
+%extend pagmo::unconnected { pagmo::topology to_topology() const { return pagmo::topology(*self); } }
+%include "swigInterfaceFiles/topologies/unconnected.i"
+
 %include "swigInterfaceFiles/batch_evaluators/default_bfe.i"
 %include "swigInterfaceFiles/batch_evaluators/member_bfe.i"
 %include "swigInterfaceFiles/batch_evaluators/thread_bfe.i"
+
+// ── Native migration policies ─────────────────────────────────────────────────
+// fair_replace and select_best expose pagmo's built-in policies without the
+// managed-callback overhead.  Use FairReplaceAdapter / SelectBestAdapter
+// (in the migration package) to pass them to pushBackIsland.
+%typemap(javainterfaces) pagmo::fair_replace "AutoCloseable"
+%typemap(javacode) pagmo::fair_replace %{ @Override public void close() { delete(); } %}
+%include "swigInterfaceFiles/r_policies/fair_replace.i"
+
+%typemap(javainterfaces) pagmo::select_best "AutoCloseable"
+%typemap(javacode) pagmo::select_best %{ @Override public void close() { delete(); } %}
+%include "swigInterfaceFiles/s_policies/select_best.i"

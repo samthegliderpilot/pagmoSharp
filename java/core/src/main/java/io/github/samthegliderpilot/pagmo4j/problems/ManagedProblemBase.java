@@ -3,13 +3,20 @@ package io.github.samthegliderpilot.pagmo4j.problems;
 import io.github.samthegliderpilot.pagmo4j.*;
 
 /**
- * Base class for managed Java problems (user-defined problems, UDPs).
+ * Convenient base class for user-defined pagmo4j problems (UDPs).
  *
- * <p>Subclass this and implement {@link #fitness(DoubleVector)} and
- * {@link #get_bounds()}. All other methods have safe defaults.
+ * <p>Subclass this and implement the two abstract methods; everything else has
+ * sensible defaults (single-objective, unconstrained, no gradient, no seed support).
  *
- * <p>Override {@link #clone()} to opt in to per-thread cloning for non-thread-safe
- * problems. The default returns {@code null}, preserving the thread-safety guard.
+ * <h3>Thread safety</h3>
+ * <p>The default {@link #get_thread_safety()} returns {@link ThreadSafety#None}.
+ * Override it to return {@link ThreadSafety#Basic} if the problem is concurrency-safe,
+ * or override {@link #clone()} to return an independent copy so pagmo4j can create
+ * per-thread instances automatically.
+ *
+ * <h3>Convenience helpers</h3>
+ * <p>Use {@link #vec(double...)}, {@link #bounds(double[], double[])}, and
+ * {@link #sparsity(long[]...)} to build return values compactly.
  */
 public abstract class ManagedProblemBase implements IProblem, IThreadCloneableProblem {
 
@@ -67,12 +74,14 @@ public abstract class ManagedProblemBase implements IProblem, IThreadCloneablePr
 
     // ── Convenience helpers ───────────────────────────────────────────────────
 
+    /** Builds a {@link DoubleVector} from a varargs list of doubles. */
     protected static DoubleVector vec(double... values) {
         DoubleVector v = new DoubleVector();
         for (double d : values) v.add(d);
         return v;
     }
 
+    /** Builds a bounds pair from parallel lower/upper primitive arrays. */
     protected static PairOfDoubleVectors bounds(double[] lower, double[] upper) {
         DoubleVector l = new DoubleVector();
         DoubleVector u = new DoubleVector();
@@ -81,16 +90,19 @@ public abstract class ManagedProblemBase implements IProblem, IThreadCloneablePr
         return new PairOfDoubleVectors(l, u);
     }
 
+    /** Builds a bounds pair from pre-constructed {@link DoubleVector} instances. */
     protected static PairOfDoubleVectors bounds(DoubleVector lower, DoubleVector upper) {
         return new PairOfDoubleVectors(lower, upper);
     }
 
+    /** Builds a {@link SparsityPattern} from {@code {row, col}} long-array pairs. */
     protected static SparsityPattern sparsity(long[]... entries) {
         SparsityPattern p = new SparsityPattern();
         for (long[] e : entries) p.add(new SizeTPair(e[0], e[1]));
         return p;
     }
 
+    /** Builds a {@link VectorOfSparsityPattern} from per-objective sparsity patterns. */
     protected static VectorOfSparsityPattern hessiansSparsity(SparsityPattern... patterns) {
         VectorOfSparsityPattern r = new VectorOfSparsityPattern();
         for (SparsityPattern p : patterns) r.add(p);

@@ -2164,6 +2164,28 @@ public class pagmo4jJNI {
     return jself.consume_deferred_exception();
   }
 
+  // ── fair_replace (native replacement policy) ───────────────────────────────
+  public final static native long new_fair_replace();
+  public final static native void delete_fair_replace(long jarg1);
+  public final static native String fair_replace_get_name(long jarg1, fair_replace jarg1_);
+  public final static native String fair_replace_get_extra_info(long jarg1, fair_replace jarg1_);
+  public final static native long fair_replace_replace_wrapped(long jarg1, fair_replace jarg1_, long jarg2, IndividualsGroup jarg2_, long jarg3, long jarg4, long jarg5, long jarg6, long jarg7, long jarg8, DoubleVector jarg8_, long jarg9, IndividualsGroup jarg9_);
+
+  // ── select_best (native selection policy) ──────────────────────────────────
+  public final static native long new_select_best();
+  public final static native void delete_select_best(long jarg1);
+  public final static native String select_best_get_name(long jarg1, select_best jarg1_);
+  public final static native String select_best_get_extra_info(long jarg1, select_best jarg1_);
+  public final static native long select_best_select(long jarg1, select_best jarg1_, long jarg2, IndividualsGroup jarg2_, long jarg3, long jarg4, long jarg5, long jarg6, long jarg7, long jarg8, DoubleVector jarg8_);
+
+  // ── unconnected topology ────────────────────────────────────────────────────
+  public final static native long new_unconnected();
+  public final static native void delete_unconnected(long jarg1);
+  public final static native String unconnected_get_name(long jarg1, unconnected jarg1_);
+  public final static native void unconnected_push_back(long jarg1, unconnected jarg1_);
+  public final static native long unconnected_get_connections(long jarg1, unconnected jarg1_, long jarg2);
+  public final static native long unconnected_to_topology(long jarg1, unconnected jarg1_);
+
   private final static native void swig_module_init();
   static {
     swig_module_init();

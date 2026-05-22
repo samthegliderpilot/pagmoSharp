@@ -63096,3 +63096,276 @@ SWIGEXPORT void JNICALL Java_io_github_samthegliderpilot_pagmo4j_pagmo4jJNI_swig
 }
 #endif
 
+/* ── Manually added JNI functions for fair_replace, select_best, unconnected ──
+ * These are written by hand following the SWIG-generated pattern and will be
+ * replaced by SWIG-generated equivalents the next time regen-swig.ps1 is run.
+ */
+#include "pagmo/r_policies/fair_replace.hpp"
+#include "pagmo/s_policies/select_best.hpp"
+#include "pagmo/topologies/unconnected.hpp"
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+/* ── fair_replace ─────────────────────────────────────────────────────────── */
+
+static pagmoWrap::IndividualsGroup pagmo_fair_replace_replace_wrapped(
+    pagmo::fair_replace const *self,
+    pagmoWrap::IndividualsGroup const &incoming,
+    pagmo::vector_double::size_type n_f,
+    pagmo::vector_double::size_type n_ec,
+    pagmo::vector_double::size_type n_ic,
+    pagmo::vector_double::size_type n_obj,
+    pagmo::vector_double::size_type pop_size,
+    pagmo::vector_double const &tol,
+    pagmoWrap::IndividualsGroup const &current)
+{
+    auto a  = pagmoWrap::ToIndividualsGroupTuple(incoming);
+    auto h  = pagmoWrap::ToIndividualsGroupTuple(current);
+    auto rr = self->replace(a, n_f, n_ec, n_ic, n_obj, pop_size, tol, h);
+    return pagmoWrap::FromIndividualsGroupTuple(rr);
+}
+
+SWIGEXPORT jlong JNICALL Java_io_github_samthegliderpilot_pagmo4j_pagmo4jJNI_new_1fair_1replace(JNIEnv *jenv, jclass jcls) {
+  jlong jresult = 0;
+  pagmo::fair_replace *result = 0;
+  (void)jenv; (void)jcls;
+  try { result = new pagmo::fair_replace(); }
+  catch (const std::exception &e) { SWIG_JavaException(jenv, SWIG_RuntimeError, e.what()); return 0; }
+  catch (...) { SWIG_JavaException(jenv, SWIG_RuntimeError, "Unknown C++ exception"); return 0; }
+  *(pagmo::fair_replace **)&jresult = result;
+  return jresult;
+}
+
+SWIGEXPORT void JNICALL Java_io_github_samthegliderpilot_pagmo4j_pagmo4jJNI_delete_1fair_1replace(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  pagmo::fair_replace *arg1 = 0;
+  (void)jenv; (void)jcls;
+  arg1 = *(pagmo::fair_replace **)&jarg1;
+  delete arg1;
+}
+
+SWIGEXPORT jstring JNICALL Java_io_github_samthegliderpilot_pagmo4j_pagmo4jJNI_fair_1replace_1get_1name(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jstring jresult = 0;
+  pagmo::fair_replace *arg1 = 0;
+  std::string result;
+  (void)jenv; (void)jcls; (void)jarg1_;
+  arg1 = *(pagmo::fair_replace **)&jarg1;
+  try { result = ((pagmo::fair_replace const *)arg1)->get_name(); }
+  catch (const std::exception &e) { SWIG_JavaException(jenv, SWIG_RuntimeError, e.what()); return 0; }
+  catch (...) { SWIG_JavaException(jenv, SWIG_RuntimeError, "Unknown C++ exception"); return 0; }
+  jresult = jenv->NewStringUTF((&result)->c_str());
+  return jresult;
+}
+
+SWIGEXPORT jstring JNICALL Java_io_github_samthegliderpilot_pagmo4j_pagmo4jJNI_fair_1replace_1get_1extra_1info(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jstring jresult = 0;
+  pagmo::fair_replace *arg1 = 0;
+  std::string result;
+  (void)jenv; (void)jcls; (void)jarg1_;
+  arg1 = *(pagmo::fair_replace **)&jarg1;
+  try { result = ((pagmo::fair_replace const *)arg1)->get_extra_info(); }
+  catch (const std::exception &e) { SWIG_JavaException(jenv, SWIG_RuntimeError, e.what()); return 0; }
+  catch (...) { SWIG_JavaException(jenv, SWIG_RuntimeError, "Unknown C++ exception"); return 0; }
+  jresult = jenv->NewStringUTF((&result)->c_str());
+  return jresult;
+}
+
+SWIGEXPORT jlong JNICALL Java_io_github_samthegliderpilot_pagmo4j_pagmo4jJNI_fair_1replace_1replace_1wrapped(
+    JNIEnv *jenv, jclass jcls,
+    jlong jarg1, jobject jarg1_,
+    jlong jarg2, jobject jarg2_,
+    jlong jarg3, jlong jarg4, jlong jarg5, jlong jarg6, jlong jarg7,
+    jlong jarg8, jobject jarg8_,
+    jlong jarg9, jobject jarg9_) {
+  jlong jresult = 0;
+  pagmo::fair_replace *arg1 = 0;
+  pagmoWrap::IndividualsGroup *arg2 = 0;
+  pagmo::vector_double *arg8 = 0;
+  pagmoWrap::IndividualsGroup *arg9 = 0;
+  pagmoWrap::IndividualsGroup result;
+  (void)jenv; (void)jcls; (void)jarg1_; (void)jarg2_; (void)jarg8_; (void)jarg9_;
+  arg1 = *(pagmo::fair_replace **)&jarg1;
+  arg2 = *(pagmoWrap::IndividualsGroup **)&jarg2;
+  if (!arg2) { SWIG_JavaException(jenv, SWIG_JavaNullPointerException, "incoming is null"); return 0; }
+  arg8 = *(pagmo::vector_double **)&jarg8;
+  if (!arg8) { SWIG_JavaException(jenv, SWIG_JavaNullPointerException, "tol is null"); return 0; }
+  arg9 = *(pagmoWrap::IndividualsGroup **)&jarg9;
+  if (!arg9) { SWIG_JavaException(jenv, SWIG_JavaNullPointerException, "current is null"); return 0; }
+  try {
+    result = pagmo_fair_replace_replace_wrapped(arg1, *arg2,
+        (pagmo::vector_double::size_type)jarg3, (pagmo::vector_double::size_type)jarg4,
+        (pagmo::vector_double::size_type)jarg5, (pagmo::vector_double::size_type)jarg6,
+        (pagmo::vector_double::size_type)jarg7, *arg8, *arg9);
+  }
+  catch (const std::exception &e) { SWIG_JavaException(jenv, SWIG_RuntimeError, e.what()); return 0; }
+  catch (...) { SWIG_JavaException(jenv, SWIG_RuntimeError, "Unknown C++ exception"); return 0; }
+  *(pagmoWrap::IndividualsGroup **)&jresult = new pagmoWrap::IndividualsGroup(result);
+  return jresult;
+}
+
+/* ── select_best ──────────────────────────────────────────────────────────── */
+
+static pagmoWrap::IndividualsGroup pagmo_select_best_select(
+    pagmo::select_best const *self,
+    pagmoWrap::IndividualsGroup const &population,
+    pagmo::vector_double::size_type n_f,
+    pagmo::vector_double::size_type n_ec,
+    pagmo::vector_double::size_type n_ic,
+    pagmo::vector_double::size_type n_obj,
+    pagmo::vector_double::size_type pop_size,
+    pagmo::vector_double const &tol)
+{
+    auto a  = pagmoWrap::ToIndividualsGroupTuple(population);
+    auto rr = self->select(a, n_f, n_ec, n_ic, n_obj, pop_size, tol);
+    return pagmoWrap::FromIndividualsGroupTuple(rr);
+}
+
+SWIGEXPORT jlong JNICALL Java_io_github_samthegliderpilot_pagmo4j_pagmo4jJNI_new_1select_1best(JNIEnv *jenv, jclass jcls) {
+  jlong jresult = 0;
+  pagmo::select_best *result = 0;
+  (void)jenv; (void)jcls;
+  try { result = new pagmo::select_best(); }
+  catch (const std::exception &e) { SWIG_JavaException(jenv, SWIG_RuntimeError, e.what()); return 0; }
+  catch (...) { SWIG_JavaException(jenv, SWIG_RuntimeError, "Unknown C++ exception"); return 0; }
+  *(pagmo::select_best **)&jresult = result;
+  return jresult;
+}
+
+SWIGEXPORT void JNICALL Java_io_github_samthegliderpilot_pagmo4j_pagmo4jJNI_delete_1select_1best(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  pagmo::select_best *arg1 = 0;
+  (void)jenv; (void)jcls;
+  arg1 = *(pagmo::select_best **)&jarg1;
+  delete arg1;
+}
+
+SWIGEXPORT jstring JNICALL Java_io_github_samthegliderpilot_pagmo4j_pagmo4jJNI_select_1best_1get_1name(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jstring jresult = 0;
+  pagmo::select_best *arg1 = 0;
+  std::string result;
+  (void)jenv; (void)jcls; (void)jarg1_;
+  arg1 = *(pagmo::select_best **)&jarg1;
+  try { result = ((pagmo::select_best const *)arg1)->get_name(); }
+  catch (const std::exception &e) { SWIG_JavaException(jenv, SWIG_RuntimeError, e.what()); return 0; }
+  catch (...) { SWIG_JavaException(jenv, SWIG_RuntimeError, "Unknown C++ exception"); return 0; }
+  jresult = jenv->NewStringUTF((&result)->c_str());
+  return jresult;
+}
+
+SWIGEXPORT jstring JNICALL Java_io_github_samthegliderpilot_pagmo4j_pagmo4jJNI_select_1best_1get_1extra_1info(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jstring jresult = 0;
+  pagmo::select_best *arg1 = 0;
+  std::string result;
+  (void)jenv; (void)jcls; (void)jarg1_;
+  arg1 = *(pagmo::select_best **)&jarg1;
+  try { result = ((pagmo::select_best const *)arg1)->get_extra_info(); }
+  catch (const std::exception &e) { SWIG_JavaException(jenv, SWIG_RuntimeError, e.what()); return 0; }
+  catch (...) { SWIG_JavaException(jenv, SWIG_RuntimeError, "Unknown C++ exception"); return 0; }
+  jresult = jenv->NewStringUTF((&result)->c_str());
+  return jresult;
+}
+
+SWIGEXPORT jlong JNICALL Java_io_github_samthegliderpilot_pagmo4j_pagmo4jJNI_select_1best_1select(
+    JNIEnv *jenv, jclass jcls,
+    jlong jarg1, jobject jarg1_,
+    jlong jarg2, jobject jarg2_,
+    jlong jarg3, jlong jarg4, jlong jarg5, jlong jarg6, jlong jarg7,
+    jlong jarg8, jobject jarg8_) {
+  jlong jresult = 0;
+  pagmo::select_best *arg1 = 0;
+  pagmoWrap::IndividualsGroup *arg2 = 0;
+  pagmo::vector_double *arg8 = 0;
+  pagmoWrap::IndividualsGroup result;
+  (void)jenv; (void)jcls; (void)jarg1_; (void)jarg2_; (void)jarg8_;
+  arg1 = *(pagmo::select_best **)&jarg1;
+  arg2 = *(pagmoWrap::IndividualsGroup **)&jarg2;
+  if (!arg2) { SWIG_JavaException(jenv, SWIG_JavaNullPointerException, "population is null"); return 0; }
+  arg8 = *(pagmo::vector_double **)&jarg8;
+  if (!arg8) { SWIG_JavaException(jenv, SWIG_JavaNullPointerException, "tol is null"); return 0; }
+  try {
+    result = pagmo_select_best_select(arg1, *arg2,
+        (pagmo::vector_double::size_type)jarg3, (pagmo::vector_double::size_type)jarg4,
+        (pagmo::vector_double::size_type)jarg5, (pagmo::vector_double::size_type)jarg6,
+        (pagmo::vector_double::size_type)jarg7, *arg8);
+  }
+  catch (const std::exception &e) { SWIG_JavaException(jenv, SWIG_RuntimeError, e.what()); return 0; }
+  catch (...) { SWIG_JavaException(jenv, SWIG_RuntimeError, "Unknown C++ exception"); return 0; }
+  *(pagmoWrap::IndividualsGroup **)&jresult = new pagmoWrap::IndividualsGroup(result);
+  return jresult;
+}
+
+/* ── unconnected topology ─────────────────────────────────────────────────── */
+
+SWIGEXPORT jlong JNICALL Java_io_github_samthegliderpilot_pagmo4j_pagmo4jJNI_new_1unconnected(JNIEnv *jenv, jclass jcls) {
+  jlong jresult = 0;
+  pagmo::unconnected *result = 0;
+  (void)jenv; (void)jcls;
+  try { result = new pagmo::unconnected(); }
+  catch (const std::exception &e) { SWIG_JavaException(jenv, SWIG_RuntimeError, e.what()); return 0; }
+  catch (...) { SWIG_JavaException(jenv, SWIG_RuntimeError, "Unknown C++ exception"); return 0; }
+  *(pagmo::unconnected **)&jresult = result;
+  return jresult;
+}
+
+SWIGEXPORT void JNICALL Java_io_github_samthegliderpilot_pagmo4j_pagmo4jJNI_delete_1unconnected(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  pagmo::unconnected *arg1 = 0;
+  (void)jenv; (void)jcls;
+  arg1 = *(pagmo::unconnected **)&jarg1;
+  delete arg1;
+}
+
+SWIGEXPORT jstring JNICALL Java_io_github_samthegliderpilot_pagmo4j_pagmo4jJNI_unconnected_1get_1name(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jstring jresult = 0;
+  pagmo::unconnected *arg1 = 0;
+  std::string result;
+  (void)jenv; (void)jcls; (void)jarg1_;
+  arg1 = *(pagmo::unconnected **)&jarg1;
+  try { result = ((pagmo::unconnected const *)arg1)->get_name(); }
+  catch (const std::exception &e) { SWIG_JavaException(jenv, SWIG_RuntimeError, e.what()); return 0; }
+  catch (...) { SWIG_JavaException(jenv, SWIG_RuntimeError, "Unknown C++ exception"); return 0; }
+  jresult = jenv->NewStringUTF((&result)->c_str());
+  return jresult;
+}
+
+SWIGEXPORT void JNICALL Java_io_github_samthegliderpilot_pagmo4j_pagmo4jJNI_unconnected_1push_1back(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  pagmo::unconnected *arg1 = 0;
+  (void)jenv; (void)jcls; (void)jarg1_;
+  arg1 = *(pagmo::unconnected **)&jarg1;
+  try { (arg1)->push_back(); }
+  catch (const std::exception &e) { SWIG_JavaException(jenv, SWIG_RuntimeError, e.what()); return; }
+  catch (...) { SWIG_JavaException(jenv, SWIG_RuntimeError, "Unknown C++ exception"); return; }
+}
+
+SWIGEXPORT jlong JNICALL Java_io_github_samthegliderpilot_pagmo4j_pagmo4jJNI_unconnected_1get_1connections(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
+  jlong jresult = 0;
+  pagmo::unconnected *arg1 = 0;
+  std::size_t arg2;
+  std::pair< std::vector< std::size_t >, pagmo::vector_double > result;
+  (void)jenv; (void)jcls; (void)jarg1_;
+  arg1 = *(pagmo::unconnected **)&jarg1;
+  arg2 = (std::size_t)jarg2;
+  try { result = ((pagmo::unconnected const *)arg1)->get_connections(arg2); }
+  catch (const std::exception &e) { SWIG_JavaException(jenv, SWIG_RuntimeError, e.what()); return 0; }
+  catch (...) { SWIG_JavaException(jenv, SWIG_RuntimeError, "Unknown C++ exception"); return 0; }
+  *(std::pair< std::vector< std::size_t >, pagmo::vector_double > **)&jresult =
+      new std::pair< std::vector< std::size_t >, pagmo::vector_double >(result);
+  return jresult;
+}
+
+SWIGEXPORT jlong JNICALL Java_io_github_samthegliderpilot_pagmo4j_pagmo4jJNI_unconnected_1to_1topology(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0;
+  pagmo::unconnected *arg1 = 0;
+  SwigValueWrapper< pagmo::topology > result;
+  (void)jenv; (void)jcls; (void)jarg1_;
+  arg1 = *(pagmo::unconnected **)&jarg1;
+  try { result = pagmo::topology(*arg1); }
+  catch (const std::exception &e) { SWIG_JavaException(jenv, SWIG_RuntimeError, e.what()); return 0; }
+  catch (...) { SWIG_JavaException(jenv, SWIG_RuntimeError, "Unknown C++ exception"); return 0; }
+  *(pagmo::topology **)&jresult = new pagmo::topology(result);
+  return jresult;
+}
+
+#ifdef __cplusplus
+} /* extern "C" */
+#endif
+
