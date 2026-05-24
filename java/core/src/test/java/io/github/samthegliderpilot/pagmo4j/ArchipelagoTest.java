@@ -3,9 +3,12 @@ package io.github.samthegliderpilot.pagmo4j;
 import io.github.samthegliderpilot.pagmo4j.problems.*;
 import io.github.samthegliderpilot.pagmo4j.testproblems.*;
 import org.junit.jupiter.api.Test;
+
+import java.math.BigInteger;
+
 import static org.junit.jupiter.api.Assertions.*;
 
-/** Core archipelago smoke tests — multi-island construction and evolution. */
+/** Core archipelago smoke tests: multi-island construction and evolution. */
 class ArchipelagoTest {
 
     @Test
@@ -26,8 +29,8 @@ class ArchipelagoTest {
             for (int i = 0; i < 4; i++) {
                 try (island isl = archi.get_island_copy((long) i)) {
                     assertEquals(EvolveStatus.Idle, isl.status());
-                    // At least one evolution round happened — fevals must be positive.
-                    assertTrue(isl.get_population().get_problem().get_fevals() > 0,
+                    BigInteger fevals = isl.get_population().get_problem().get_fevals();
+                    assertTrue(fevals.compareTo(BigInteger.ZERO) > 0,
                         "island " + i + " had no fitness evaluations after evolve");
                 }
             }

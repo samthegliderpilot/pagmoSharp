@@ -42,6 +42,7 @@ public class algorithm implements AutoCloseable {
     if (swigCPtr != 0) {
       if (swigCMemOwn) {
         swigCMemOwn = false;
+        NativeInterop.releaseAlgorithmRoot(swigCPtr);
         pagmo4jJNI.delete_algorithm(swigCPtr);
       }
       swigCPtr = 0;

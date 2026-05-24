@@ -56,6 +56,9 @@ public final class ManagedThreadBfe implements AutoCloseable {
                 if (c == null)
                     throw new IllegalStateException(
                         "'" + problem.get_name() + ".clone()' returned null during batch evaluation.");
+                if (c == problem)
+                    throw new IllegalStateException(
+                        "'" + problem.get_name() + ".clone()' returned the same instance during batch evaluation.");
                 return c;
             });
 

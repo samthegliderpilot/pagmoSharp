@@ -2,9 +2,7 @@ package io.github.samthegliderpilot.pagmo4j;
 
 import io.github.samthegliderpilot.pagmo4j.problems.*;
 import io.github.samthegliderpilot.pagmo4j.algorithms.*;
-import java.util.WeakHashMap;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Internal bridge between managed {@link IProblem}/{@link IAlgorithm} implementations
@@ -18,13 +16,31 @@ public final class NativeInterop {
 
     private NativeInterop() {}
 
-    // WeakHashMap ties each callback list's lifetime to the owner key.
-    // When the owner is GC'd the entry is removed automatically.
-    private static final WeakHashMap<Object, List<Object>> callbackRoots = new WeakHashMap<>();
+    private static final ConcurrentHashMap<Long, Object> problemRoots = new ConcurrentHashMap<>();
+    private static final ConcurrentHashMap<Long, Object> algorithmRoots = new ConcurrentHashMap<>();
 
-    private static synchronized void attachCallbackRoot(Object owner, Object callback) {
-        if (owner == null || callback == null) return;
-        callbackRoots.computeIfAbsent(owner, k -> new ArrayList<>()).add(callback);
+    private static void attachProblemRoot(long problemPtr, Object callback) {
+        if (problemPtr != 0 && callback != null) {
+            problemRoots.put(problemPtr, callback);
+        }
+    }
+
+    private static void attachAlgorithmRoot(long algorithmPtr, Object callback) {
+        if (algorithmPtr != 0 && callback != null) {
+            algorithmRoots.put(algorithmPtr, callback);
+        }
+    }
+
+    public static void releaseProblemRoot(long problemPtr) {
+        if (problemPtr != 0) {
+            problemRoots.remove(problemPtr);
+        }
+    }
+
+    public static void releaseAlgorithmRoot(long algorithmPtr) {
+        if (algorithmPtr != 0) {
+            algorithmRoots.remove(algorithmPtr);
+        }
     }
 
     /**
@@ -40,18 +56,18 @@ public final class NativeInterop {
         ProblemCallbackAdapter adapter = new ProblemCallbackAdapter(problem);
         long cbPtr = ProblemCallback.getCPtr(adapter);
 
-        // Pin adapter BEFORE releasing ownership so there is no GC window between
-        // swigReleaseOwnership() (which makes the director's Java ref weak) and the
-        // native call that may invoke Java callbacks during construction.
-        attachCallbackRoot(problem, adapter);
         adapter.swigReleaseOwnership();
 
         long problemPtr = pagmo4j.pagmonet_problem_from_callback(cbPtr);
+        attachProblemRoot(problemPtr, adapter);
 
         // Surface any deferred exception from get_bounds() during construction.
         Throwable deferred = adapter.consumeDeferredException();
         if (deferred != null) {
-            if (problemPtr != 0) pagmo4j.pagmonet_problem_delete(problemPtr);
+            if (problemPtr != 0) {
+                pagmo4j.pagmonet_problem_delete(problemPtr);
+                releaseProblemRoot(problemPtr);
+            }
             if (deferred instanceof RuntimeException) throw (RuntimeException) deferred;
             throw new RuntimeException(
                 "IProblem callback threw during construction: " + deferred.getMessage(), deferred);
@@ -117,18 +133,25 @@ public final class NativeInterop {
         return SWIGTYPE_p_pagmo__population.getCPtr(swig);
     }
 
+    public static long[] consumeOwnedSizeTVector(SWIGTYPE_p_std__vectorT_pagmo__pop_size_t_t opaque) {
+        if (opaque == null) throw new NullPointerException("opaque");
+        long ptr = SWIGTYPE_p_std__vectorT_pagmo__pop_size_t_t.getCPtr(opaque);
+        SizeTVector v = new SizeTVector(ptr, true);
+        try {
+            long[] arr = new long[(int) v.size()];
+            for (int i = 0; i < arr.length; i++) arr[i] = v.get(i);
+            return arr;
+        } finally {
+            v.delete();
+        }
+    }
+
     public static long createAlgorithmPointer(IAlgorithm algorithm) {
         if (algorithm == null) throw new NullPointerException("algorithm");
 
         AlgorithmCallbackAdapter adapter = new AlgorithmCallbackAdapter(algorithm);
         long cbPtr = AlgorithmCallback.getCPtr(adapter);
 
-        // Pin adapter in callbackRoots BEFORE releasing Java ownership and before
-        // the native call.  swigReleaseOwnership() makes the director's Java reference
-        // weak; without the root pinned first, a GC window between that call and the
-        // native return could collect adapter, causing a crash inside the director
-        // callback (premature finalization).
-        attachCallbackRoot(algorithm, adapter);
         adapter.swigReleaseOwnership();
 
         if (cbPtr == 0) {
@@ -137,12 +160,17 @@ public final class NativeInterop {
         }
 
         long algorithmPtr = pagmo4j.pagmonet_algorithm_from_callback_java(cbPtr);
+        attachAlgorithmRoot(algorithmPtr, adapter);
 
         // Mirror the problem path: surface any exception deferred during construction.
         // (No Java callbacks are invoked during managed_algorithm construction, so this
         // is precautionary, matching createProblemPointer() for consistency.)
         Throwable deferred = adapter.consumeDeferredException();
         if (deferred != null) {
+            if (algorithmPtr != 0) {
+                pagmo4jJNI.delete_algorithm(algorithmPtr);
+                releaseAlgorithmRoot(algorithmPtr);
+            }
             if (deferred instanceof RuntimeException re) throw re;
             throw new RuntimeException(
                 "IAlgorithm callback threw during construction: " + deferred.getMessage(), deferred);

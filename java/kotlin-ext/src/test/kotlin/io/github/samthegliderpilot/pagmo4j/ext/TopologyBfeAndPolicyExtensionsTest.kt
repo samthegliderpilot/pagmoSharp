@@ -77,12 +77,12 @@ class TopologyBfeAndPolicyExtensionsTest {
     @Test
     fun pushBackIslandWithPoliciesDefaultSeed() {
         val rp = object : RPolicyCallbackAdapter() {
-            override fun replace(incoming: IndividualsGroup, nF: Long, nEc: Long, nIc: Long,
+            override fun replaceManaged(incoming: IndividualsGroup, nF: Long, nEc: Long, nIc: Long,
                                  nObj: Long, popSize: Long, tol: DoubleVector,
                                  current: IndividualsGroup) = incoming
         }
         val sp = object : SPolicyCallbackAdapter() {
-            override fun select(population: IndividualsGroup, nF: Long, nEc: Long, nIc: Long,
+            override fun selectManaged(population: IndividualsGroup, nF: Long, nEc: Long, nIc: Long,
                                 nObj: Long, popSize: Long, tol: DoubleVector) = population
         }
 
@@ -95,12 +95,12 @@ class TopologyBfeAndPolicyExtensionsTest {
     @Test
     fun pushBackIslandWithPoliciesAndExplicitSeed() {
         val rp = object : RPolicyCallbackAdapter() {
-            override fun replace(incoming: IndividualsGroup, nF: Long, nEc: Long, nIc: Long,
+            override fun replaceManaged(incoming: IndividualsGroup, nF: Long, nEc: Long, nIc: Long,
                                  nObj: Long, popSize: Long, tol: DoubleVector,
                                  current: IndividualsGroup) = incoming
         }
         val sp = object : SPolicyCallbackAdapter() {
-            override fun select(population: IndividualsGroup, nF: Long, nEc: Long, nIc: Long,
+            override fun selectManaged(population: IndividualsGroup, nF: Long, nEc: Long, nIc: Long,
                                 nObj: Long, popSize: Long, tol: DoubleVector) = population
         }
 

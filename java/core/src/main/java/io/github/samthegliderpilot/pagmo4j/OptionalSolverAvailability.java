@@ -11,29 +11,54 @@ public final class OptionalSolverAvailability {
 
     private OptionalSolverAvailability() {}
 
-    private static final boolean nloptAvailable;
-    private static final boolean ipoptAvailable;
+    private static volatile Boolean nloptAvailable;
+    private static volatile Boolean ipoptAvailable;
 
-    static {
-        boolean nl = false, ip = false;
+    private static boolean detectNloptAvailability() {
         try {
-            // Attempt to construct the algorithm; if the native build lacks it, pagmo throws.
             try (nlopt probe = new nlopt("cobyla")) {
-                nl = true;
-            } catch (RuntimeException ignored) {}
-        } catch (Throwable ignored) {}
+                return true;
+            } catch (RuntimeException ignored) {
+                return false;
+            }
+        } catch (Throwable ignored) {
+            return false;
+        }
+    }
+
+    private static boolean detectIpoptAvailability() {
         try {
             try (ipopt probe = new ipopt()) {
-                ip = true;
-            } catch (RuntimeException ignored) {}
-        } catch (Throwable ignored) {}
-        nloptAvailable = nl;
-        ipoptAvailable = ip;
+                return true;
+            } catch (RuntimeException ignored) {
+                return false;
+            }
+        } catch (Throwable ignored) {
+            return false;
+        }
     }
 
     /** Returns {@code true} if the native library was built with NLopt support. */
-    public static boolean isNloptAvailable() { return nloptAvailable; }
+    public static boolean isNloptAvailable() {
+        Boolean cached = nloptAvailable;
+        if (cached != null) return cached;
+        synchronized (OptionalSolverAvailability.class) {
+            if (nloptAvailable == null) {
+                nloptAvailable = detectNloptAvailability();
+            }
+            return nloptAvailable;
+        }
+    }
 
     /** Returns {@code true} if the native library was built with IPOPT support. */
-    public static boolean isIpoptAvailable() { return ipoptAvailable; }
+    public static boolean isIpoptAvailable() {
+        Boolean cached = ipoptAvailable;
+        if (cached != null) return cached;
+        synchronized (OptionalSolverAvailability.class) {
+            if (ipoptAvailable == null) {
+                ipoptAvailable = detectIpoptAvailability();
+            }
+            return ipoptAvailable;
+        }
+    }
 }

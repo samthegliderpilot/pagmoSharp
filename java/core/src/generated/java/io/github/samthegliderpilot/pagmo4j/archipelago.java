@@ -49,14 +49,12 @@ public class archipelago implements AutoCloseable {
   }
 
     private final java.util.List<IProblem> managedProblemCloneRoots = new java.util.ArrayList<>();
-    // Keeps RPolicyCallbackAdapter / SPolicyCallbackAdapter Java objects alive for the
-    // lifetime of this archipelago so SWIG director callbacks remain valid.
     private final java.util.List<Object> policyCallbackRoots = new java.util.ArrayList<>();
 
     private long withManagedProblem(IProblem prob, java.util.function.Function<problem, Long> action) {
         if (prob == null) throw new NullPointerException("problem");
-        if (prob.get_thread_safety() == ThreadSafety.None && prob instanceof IThreadCloneableProblem) {
-            IProblem clone = ((IThreadCloneableProblem) prob).clone();
+        if (prob.get_thread_safety() == ThreadSafety.None && prob instanceof IThreadCloneableProblem cloneable) {
+            IProblem clone = cloneable.clone();
             if (clone != null) {
                 if (clone == prob)
                     throw new IllegalStateException("'" + prob.get_name() +
@@ -80,7 +78,7 @@ public class archipelago implements AutoCloseable {
     private ManagedRPolicy wrapRPolicy(IRPolicy policy) {
         RPolicyCallbackAdapter adapter = new RPolicyCallbackAdapter() {
             @Override
-            public IndividualsGroup replace(IndividualsGroup incoming, long n_f, long n_ec,
+            protected IndividualsGroup replaceManaged(IndividualsGroup incoming, long n_f, long n_ec,
                     long n_ic, long n_obj, long pop_size, DoubleVector tol,
                     IndividualsGroup current) {
                 return policy.replace(incoming, n_f, n_ec, n_ic, n_obj, pop_size, tol, current);
@@ -99,7 +97,7 @@ public class archipelago implements AutoCloseable {
     private ManagedSPolicy wrapSPolicy(ISPolicy policy) {
         SPolicyCallbackAdapter adapter = new SPolicyCallbackAdapter() {
             @Override
-            public IndividualsGroup select(IndividualsGroup population, long n_f, long n_ec,
+            protected IndividualsGroup selectManaged(IndividualsGroup population, long n_f, long n_ec,
                     long n_ic, long n_obj, long pop_size, DoubleVector tol) {
                 return policy.select(population, n_f, n_ec, n_ic, n_obj, pop_size, tol);
             }
@@ -110,6 +108,15 @@ public class archipelago implements AutoCloseable {
         policyCallbackRoots.add(adapter);
         adapter.swigReleaseOwnership();
         return new ManagedSPolicy(adapter);
+    }
+
+    private static void validatePolicyPair(Object replacementPolicy, Object selectionPolicy, String replacementName, String selectionName) {
+        boolean replacementProvided = replacementPolicy != null;
+        boolean selectionProvided = selectionPolicy != null;
+        if (replacementProvided == selectionProvided) {
+            return;
+        }
+        throw new IllegalArgumentException("Both " + replacementName + " and " + selectionName + " must be provided together.");
     }
 
     public long pushBackIsland(algorithm algo, IProblem problem, long popSize, long seed) {
@@ -125,19 +132,9 @@ public class archipelago implements AutoCloseable {
         }
     }
 
-    private static void validatePolicyPair(IRPolicy rPolicy, ISPolicy sPolicy) {
-        if ((rPolicy == null) != (sPolicy == null))
-            throw new IllegalArgumentException(
-                "rPolicy and sPolicy must both be provided or both omitted; " +
-                "got rPolicy=" + (rPolicy == null ? "null" : "non-null") +
-                ", sPolicy=" + (sPolicy == null ? "null" : "non-null"));
-        if (rPolicy == null) throw new NullPointerException("rPolicy");
-        if (sPolicy == null) throw new NullPointerException("sPolicy");
-    }
-
     public long pushBackIsland(algorithm algo, IProblem problem,
             IRPolicy rPolicy, ISPolicy sPolicy, long popSize, long seed) {
-        validatePolicyPair(rPolicy, sPolicy);
+        validatePolicyPair(rPolicy, sPolicy, "rPolicy", "sPolicy");
         return withManagedProblem(problem, wrapped -> {
             long nativePop = SizeTInterop.toNativeUInt32(popSize, "popSize");
             ManagedRPolicy r = wrapRPolicy(rPolicy);
@@ -153,7 +150,7 @@ public class archipelago implements AutoCloseable {
 
     public long pushBackIsland(IAlgorithm algo, IProblem problem,
             IRPolicy rPolicy, ISPolicy sPolicy, long popSize, long seed) {
-        validatePolicyPair(rPolicy, sPolicy);
+        validatePolicyPair(rPolicy, sPolicy, "rPolicy", "sPolicy");
         try (algorithm normalized = AlgorithmInterop.normalizeToTypeErased(algo)) {
             return pushBackIsland(normalized, problem, rPolicy, sPolicy, popSize, seed);
         }
@@ -170,6 +167,222 @@ public class archipelago implements AutoCloseable {
         try (algorithm normalized = AlgorithmInterop.normalizeToTypeErased(algo)) {
             return pushBackIsland(normalized, problem, b, popSize, seed);
         }
+    }
+
+    public long pushBackIsland(algorithm algo, IProblem problem,
+            fair_replace replacementPolicy, select_best selectionPolicy, long popSize, long seed) {
+        validatePolicyPair(replacementPolicy, selectionPolicy, "replacementPolicy", "selectionPolicy");
+        return withManagedProblem(problem, wrapped -> {
+            long nativePop = SizeTInterop.toNativeUInt32(popSize, "popSize");
+            SWIGTYPE_p_pagmo__fair_replace r = new SWIGTYPE_p_pagmo__fair_replace(fair_replace.getCPtr(replacementPolicy), false);
+            SWIGTYPE_p_pagmo__select_best s = new SWIGTYPE_p_pagmo__select_best(select_best.getCPtr(selectionPolicy), false);
+            return push_back_island(algo, wrapped, nativePop, r, s, seed);
+        });
+    }
+
+    public long pushBackIsland(IAlgorithm algo, IProblem problem,
+            fair_replace replacementPolicy, select_best selectionPolicy, long popSize, long seed) {
+        try (algorithm normalized = AlgorithmInterop.normalizeToTypeErased(algo)) {
+            return pushBackIsland(normalized, problem, replacementPolicy, selectionPolicy, popSize, seed);
+        }
+    }
+
+    public long pushBackIsland(algorithm algo, IProblem problem,
+            bfe b, fair_replace replacementPolicy, select_best selectionPolicy, long popSize, long seed) {
+        validatePolicyPair(replacementPolicy, selectionPolicy, "replacementPolicy", "selectionPolicy");
+        return withManagedProblem(problem, wrapped -> {
+            long nativePop = SizeTInterop.toNativeUInt32(popSize, "popSize");
+            SWIGTYPE_p_pagmo__fair_replace r = new SWIGTYPE_p_pagmo__fair_replace(fair_replace.getCPtr(replacementPolicy), false);
+            SWIGTYPE_p_pagmo__select_best s = new SWIGTYPE_p_pagmo__select_best(select_best.getCPtr(selectionPolicy), false);
+            return push_back_island(algo, wrapped, b, nativePop, r, s, seed);
+        });
+    }
+
+    public long pushBackIsland(IAlgorithm algo, IProblem problem,
+            bfe b, fair_replace replacementPolicy, select_best selectionPolicy, long popSize, long seed) {
+        try (algorithm normalized = AlgorithmInterop.normalizeToTypeErased(algo)) {
+            return pushBackIsland(normalized, problem, b, replacementPolicy, selectionPolicy, popSize, seed);
+        }
+    }
+
+    public long pushBackIsland(algorithm algo, IProblem problem,
+            RPolicyCallback replacementPolicy, SPolicyCallback selectionPolicy, long popSize, long seed) {
+        validatePolicyPair(replacementPolicy, selectionPolicy, "replacementPolicy", "selectionPolicy");
+        return withManagedProblem(problem, wrapped -> {
+            long nativePop = SizeTInterop.toNativeUInt32(popSize, "popSize");
+            ManagedRPolicy r = new ManagedRPolicy(replacementPolicy);
+            ManagedSPolicy s = new ManagedSPolicy(selectionPolicy);
+            policyCallbackRoots.add(r);
+            policyCallbackRoots.add(s);
+            policyCallbackRoots.add(replacementPolicy);
+            policyCallbackRoots.add(selectionPolicy);
+            return push_back_island(algo, wrapped, nativePop, r, s, seed);
+        });
+    }
+
+    public long pushBackIsland(IAlgorithm algo, IProblem problem,
+            RPolicyCallback replacementPolicy, SPolicyCallback selectionPolicy, long popSize, long seed) {
+        try (algorithm normalized = AlgorithmInterop.normalizeToTypeErased(algo)) {
+            return pushBackIsland(normalized, problem, replacementPolicy, selectionPolicy, popSize, seed);
+        }
+    }
+
+    public long pushBackIsland(algorithm algo, IProblem problem,
+            bfe b, RPolicyCallback replacementPolicy, SPolicyCallback selectionPolicy, long popSize, long seed) {
+        validatePolicyPair(replacementPolicy, selectionPolicy, "replacementPolicy", "selectionPolicy");
+        return withManagedProblem(problem, wrapped -> {
+            long nativePop = SizeTInterop.toNativeUInt32(popSize, "popSize");
+            ManagedRPolicy r = new ManagedRPolicy(replacementPolicy);
+            ManagedSPolicy s = new ManagedSPolicy(selectionPolicy);
+            policyCallbackRoots.add(r);
+            policyCallbackRoots.add(s);
+            policyCallbackRoots.add(replacementPolicy);
+            policyCallbackRoots.add(selectionPolicy);
+            return push_back_island(algo, wrapped, b, nativePop, r, s, seed);
+        });
+    }
+
+    public long pushBackIsland(IAlgorithm algo, IProblem problem,
+            bfe b, RPolicyCallback replacementPolicy, SPolicyCallback selectionPolicy, long popSize, long seed) {
+        try (algorithm normalized = AlgorithmInterop.normalizeToTypeErased(algo)) {
+            return pushBackIsland(normalized, problem, b, replacementPolicy, selectionPolicy, popSize, seed);
+        }
+    }
+
+    public long pushBackIsland(thread_island islandType, algorithm algo, IProblem problem, long popSize, long seed) {
+        return withManagedProblem(problem, wrapped -> {
+            long nativePop = SizeTInterop.toNativeUInt32(popSize, "popSize");
+            return push_back_island(islandType, algo, wrapped, nativePop, seed);
+        });
+    }
+
+    public long pushBackIsland(thread_island islandType, IAlgorithm algo, IProblem problem, long popSize, long seed) {
+        try (algorithm normalized = AlgorithmInterop.normalizeToTypeErased(algo)) {
+            return pushBackIsland(islandType, normalized, problem, popSize, seed);
+        }
+    }
+
+    public long pushBackIsland(thread_island islandType, algorithm algo, IProblem problem, bfe b, long popSize, long seed) {
+        return withManagedProblem(problem, wrapped -> {
+            long nativePop = SizeTInterop.toNativeUInt32(popSize, "popSize");
+            return push_back_island(islandType, algo, wrapped, b, nativePop, seed);
+        });
+    }
+
+    public long pushBackIsland(thread_island islandType, IAlgorithm algo, IProblem problem, bfe b, long popSize, long seed) {
+        try (algorithm normalized = AlgorithmInterop.normalizeToTypeErased(algo)) {
+            return pushBackIsland(islandType, normalized, problem, b, popSize, seed);
+        }
+    }
+
+    public long pushBackIsland(thread_island islandType, algorithm algo, IProblem problem,
+            fair_replace replacementPolicy, select_best selectionPolicy, long popSize, long seed) {
+        validatePolicyPair(replacementPolicy, selectionPolicy, "replacementPolicy", "selectionPolicy");
+        return withManagedProblem(problem, wrapped -> {
+            long nativePop = SizeTInterop.toNativeUInt32(popSize, "popSize");
+            SWIGTYPE_p_pagmo__fair_replace r = new SWIGTYPE_p_pagmo__fair_replace(fair_replace.getCPtr(replacementPolicy), false);
+            SWIGTYPE_p_pagmo__select_best s = new SWIGTYPE_p_pagmo__select_best(select_best.getCPtr(selectionPolicy), false);
+            return push_back_island(islandType, algo, wrapped, nativePop, r, s, seed);
+        });
+    }
+
+    public long pushBackIsland(thread_island islandType, IAlgorithm algo, IProblem problem,
+            fair_replace replacementPolicy, select_best selectionPolicy, long popSize, long seed) {
+        try (algorithm normalized = AlgorithmInterop.normalizeToTypeErased(algo)) {
+            return pushBackIsland(islandType, normalized, problem, replacementPolicy, selectionPolicy, popSize, seed);
+        }
+    }
+
+    public long pushBackIsland(thread_island islandType, algorithm algo, IProblem problem,
+            RPolicyCallback replacementPolicy, SPolicyCallback selectionPolicy, long popSize, long seed) {
+        validatePolicyPair(replacementPolicy, selectionPolicy, "replacementPolicy", "selectionPolicy");
+        return withManagedProblem(problem, wrapped -> {
+            long nativePop = SizeTInterop.toNativeUInt32(popSize, "popSize");
+            ManagedRPolicy r = new ManagedRPolicy(replacementPolicy);
+            ManagedSPolicy s = new ManagedSPolicy(selectionPolicy);
+            policyCallbackRoots.add(r);
+            policyCallbackRoots.add(s);
+            policyCallbackRoots.add(replacementPolicy);
+            policyCallbackRoots.add(selectionPolicy);
+            return push_back_island(islandType, algo, wrapped, nativePop, r, s, seed);
+        });
+    }
+
+    public long pushBackIsland(thread_island islandType, IAlgorithm algo, IProblem problem,
+            RPolicyCallback replacementPolicy, SPolicyCallback selectionPolicy, long popSize, long seed) {
+        try (algorithm normalized = AlgorithmInterop.normalizeToTypeErased(algo)) {
+            return pushBackIsland(islandType, normalized, problem, replacementPolicy, selectionPolicy, popSize, seed);
+        }
+    }
+
+    public long pushBackIsland(thread_island islandType, algorithm algo, IProblem problem,
+            bfe b, fair_replace replacementPolicy, select_best selectionPolicy, long popSize, long seed) {
+        validatePolicyPair(replacementPolicy, selectionPolicy, "replacementPolicy", "selectionPolicy");
+        return withManagedProblem(problem, wrapped -> {
+            long nativePop = SizeTInterop.toNativeUInt32(popSize, "popSize");
+            SWIGTYPE_p_pagmo__fair_replace r = new SWIGTYPE_p_pagmo__fair_replace(fair_replace.getCPtr(replacementPolicy), false);
+            SWIGTYPE_p_pagmo__select_best s = new SWIGTYPE_p_pagmo__select_best(select_best.getCPtr(selectionPolicy), false);
+            return push_back_island(islandType, algo, wrapped, b, nativePop, r, s, seed);
+        });
+    }
+
+    public long pushBackIsland(thread_island islandType, IAlgorithm algo, IProblem problem,
+            bfe b, fair_replace replacementPolicy, select_best selectionPolicy, long popSize, long seed) {
+        try (algorithm normalized = AlgorithmInterop.normalizeToTypeErased(algo)) {
+            return pushBackIsland(islandType, normalized, problem, b, replacementPolicy, selectionPolicy, popSize, seed);
+        }
+    }
+
+    public long pushBackIsland(thread_island islandType, algorithm algo, IProblem problem,
+            bfe b, RPolicyCallback replacementPolicy, SPolicyCallback selectionPolicy, long popSize, long seed) {
+        validatePolicyPair(replacementPolicy, selectionPolicy, "replacementPolicy", "selectionPolicy");
+        return withManagedProblem(problem, wrapped -> {
+            long nativePop = SizeTInterop.toNativeUInt32(popSize, "popSize");
+            ManagedRPolicy r = new ManagedRPolicy(replacementPolicy);
+            ManagedSPolicy s = new ManagedSPolicy(selectionPolicy);
+            policyCallbackRoots.add(r);
+            policyCallbackRoots.add(s);
+            policyCallbackRoots.add(replacementPolicy);
+            policyCallbackRoots.add(selectionPolicy);
+            return push_back_island(islandType, algo, wrapped, b, nativePop, r, s, seed);
+        });
+    }
+
+    public long pushBackIsland(thread_island islandType, IAlgorithm algo, IProblem problem,
+            bfe b, RPolicyCallback replacementPolicy, SPolicyCallback selectionPolicy, long popSize, long seed) {
+        try (algorithm normalized = AlgorithmInterop.normalizeToTypeErased(algo)) {
+            return pushBackIsland(islandType, normalized, problem, b, replacementPolicy, selectionPolicy, popSize, seed);
+        }
+    }
+
+    public java.util.List<MigrationEntry> getMigrationLog() {
+        MigrationEntryVector nativeLog = get_migration_log_entries();
+        try {
+            java.util.List<MigrationEntry> list = new java.util.ArrayList<>((int) nativeLog.size());
+            for (int i = 0; i < (int) nativeLog.size(); i++) list.add(nativeLog.get(i));
+            return list;
+        } finally {
+            nativeLog.delete();
+        }
+    }
+
+    public java.util.List<IndividualsGroup> getMigrantsDb() {
+        IndividualsGroupVector nativeDb = get_migrants_db();
+        try {
+            java.util.List<IndividualsGroup> list = new java.util.ArrayList<>((int) nativeDb.size());
+            for (int i = 0; i < (int) nativeDb.size(); i++) list.add(nativeDb.get(i));
+            return list;
+        } finally {
+            nativeDb.delete();
+        }
+    }
+
+    public island getIslandCopy(long index) {
+        return get_island_copy(index);
+    }
+
+    public island getIsland(long index) {
+        return getIslandCopy(index);
     }
 
     public void waitCheck() { wait_check(); }

@@ -17,7 +17,7 @@ class MigrationPolicyTest {
         final AtomicBoolean called = new AtomicBoolean(false);
 
         @Override
-        public IndividualsGroup replace(
+        protected IndividualsGroup replaceManaged(
                 IndividualsGroup incoming, long n_f, long n_ec, long n_ic, long n_obj,
                 long pop_size, DoubleVector tol, IndividualsGroup current) {
             called.set(true);
@@ -32,11 +32,10 @@ class MigrationPolicyTest {
         final AtomicBoolean called = new AtomicBoolean(false);
 
         @Override
-        public IndividualsGroup select(
+        protected IndividualsGroup selectManaged(
                 IndividualsGroup population, long n_f, long n_ec, long n_ic, long n_obj,
                 long pop_size, DoubleVector tol) {
             called.set(true);
-            // Return first individual as the emigrant group.
             return population;
         }
 
@@ -46,14 +45,14 @@ class MigrationPolicyTest {
     // ── tests ─────────────────────────────────────────────────────────────────
 
     @Test
-    void pushBackIslandWithCustomPoliciesDoesNotThrow() {
+    void pushBackIslandWithCustomPoliciesAddsIsland() {
         TwoDimensionalSingleObjectiveProblem prob = new TwoDimensionalSingleObjectiveProblem();
         de algo = new de(10L);
         TrackingRPolicy rp = new TrackingRPolicy();
         TrackingSPolicy sp = new TrackingSPolicy();
 
         try (archipelago archi = new archipelago()) {
-            long idx = archi.pushBackIsland(algo, prob, rp, sp, 16L, 42L);
+            long idx = archi.pushBackIsland(algo, prob, (RPolicyCallback) rp, (SPolicyCallback) sp, 16L, 42L);
             assertTrue(idx >= 0, "island index should be non-negative");
             assertEquals(1L, archi.size());
         }
@@ -70,8 +69,8 @@ class MigrationPolicyTest {
 
         try (ring topo = new ring(); archipelago archi = new archipelago()) {
             archi.set_topology_ring(topo);
-            archi.pushBackIsland(algo, prob, rp1, sp1, 24L, 1L);
-            archi.pushBackIsland(algo, prob, rp2, sp2, 24L, 2L);
+            archi.pushBackIsland(algo, prob, (RPolicyCallback) rp1, (SPolicyCallback) sp1, 24L, 1L);
+            archi.pushBackIsland(algo, prob, (RPolicyCallback) rp2, (SPolicyCallback) sp2, 24L, 2L);
 
             // Evolve several rounds so that migration between the two islands occurs.
             archi.evolve(3L);
@@ -96,7 +95,7 @@ class MigrationPolicyTest {
 
         RPolicyCallbackAdapter passThroughR = new RPolicyCallbackAdapter() {
             @Override
-            public IndividualsGroup replace(
+            protected IndividualsGroup replaceManaged(
                     IndividualsGroup incoming, long n_f, long n_ec, long n_ic, long n_obj,
                     long pop_size, DoubleVector tol, IndividualsGroup current) {
                 return incoming;
@@ -105,7 +104,7 @@ class MigrationPolicyTest {
 
         SPolicyCallbackAdapter passThroughS = new SPolicyCallbackAdapter() {
             @Override
-            public IndividualsGroup select(
+            protected IndividualsGroup selectManaged(
                     IndividualsGroup population, long n_f, long n_ec, long n_ic, long n_obj,
                     long pop_size, DoubleVector tol) {
                 return population;
@@ -114,8 +113,8 @@ class MigrationPolicyTest {
 
         try (ring topo = new ring(); archipelago archi = new archipelago()) {
             archi.set_topology_ring(topo);
-            archi.pushBackIsland(algo, prob, passThroughR, passThroughS, 16L, 7L);
-            archi.pushBackIsland(algo, prob, passThroughR, passThroughS, 16L, 8L);
+            archi.pushBackIsland(algo, prob, (RPolicyCallback) passThroughR, (SPolicyCallback) passThroughS, 16L, 7L);
+            archi.pushBackIsland(algo, prob, (RPolicyCallback) passThroughR, (SPolicyCallback) passThroughS, 16L, 8L);
             archi.evolve(2L);
             archi.waitFor();
             assertEquals(2L, archi.size());
@@ -137,11 +136,65 @@ class MigrationPolicyTest {
 
         try (ring topo = new ring(); archipelago archi = new archipelago()) {
             archi.set_topology_ring(topo);
-            archi.pushBackIsland(algo, prob, rp, sp, 16L, 3L);
-            archi.pushBackIsland(algo, prob, new TrackingRPolicy(), new TrackingSPolicy(), 16L, 4L);
+            archi.pushBackIsland(algo, prob, (RPolicyCallback) rp, (SPolicyCallback) sp, 16L, 3L);
+            archi.pushBackIsland(algo, prob, (RPolicyCallback) new TrackingRPolicy(), (SPolicyCallback) new TrackingSPolicy(), 16L, 4L);
             archi.evolve(2L);
             archi.waitFor();
             assertEquals(2L, archi.size());
+        }
+    }
+
+    @Test
+    void adapterDefersReplacementExceptionsInsteadOfThrowingAcrossBoundary() {
+        RuntimeException boom = new RuntimeException("replace failed");
+        RPolicyCallbackAdapter adapter = new RPolicyCallbackAdapter() {
+            @Override
+            protected IndividualsGroup replaceManaged(
+                    IndividualsGroup incoming, long n_f, long n_ec, long n_ic, long n_obj,
+                    long pop_size, DoubleVector tol, IndividualsGroup current) {
+                throw boom;
+            }
+        };
+
+        IndividualsGroup incoming = new IndividualsGroup();
+        IndividualsGroup current = new IndividualsGroup();
+        DoubleVector tol = new DoubleVector();
+        try {
+            IndividualsGroup fallback = adapter.replace(incoming, 1L, 0L, 0L, 1L, 4L, tol, current);
+            assertNotNull(fallback, "replacement callback must return a safe fallback when Java throws");
+            assertSame(boom, adapter.consumeDeferredException(), "first managed exception should be deferred");
+            assertNull(adapter.consumeDeferredException(), "deferred exception should be cleared after consumption");
+            fallback.delete();
+        } finally {
+            incoming.delete();
+            current.delete();
+            tol.delete();
+        }
+    }
+
+    @Test
+    void adapterRejectsNullSelectionResultAndDefersTheFailure() {
+        SPolicyCallbackAdapter adapter = new SPolicyCallbackAdapter() {
+            @Override
+            protected IndividualsGroup selectManaged(
+                    IndividualsGroup population, long n_f, long n_ec, long n_ic, long n_obj,
+                    long pop_size, DoubleVector tol) {
+                return null;
+            }
+        };
+
+        IndividualsGroup population = new IndividualsGroup();
+        DoubleVector tol = new DoubleVector();
+        try {
+            IndividualsGroup fallback = adapter.select(population, 1L, 0L, 0L, 1L, 4L, tol);
+            assertNotNull(fallback, "selection callback must return a safe fallback when Java returns null");
+            Throwable deferred = adapter.consumeDeferredException();
+            assertNotNull(deferred, "null callback result must be deferred as a managed failure");
+            assertInstanceOf(NullPointerException.class, deferred);
+            fallback.delete();
+        } finally {
+            population.delete();
+            tol.delete();
         }
     }
 }

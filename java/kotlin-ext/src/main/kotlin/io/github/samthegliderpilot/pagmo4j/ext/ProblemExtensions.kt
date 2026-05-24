@@ -42,14 +42,13 @@ fun IProblem.batchFitness(batchX: DoubleVector, parallel: Boolean = true): Doubl
  */
 fun IProblem.throwIfNotThreadSafe() {
     if (get_thread_safety() == ThreadSafety.None) {
-        val cloneable = this as? IThreadCloneableProblem
-        if (cloneable?.clone() == null) {
-            throw IllegalStateException(
-                "'${get_name()}' declares ThreadSafety.None and does not implement " +
-                "clone(). Declare ThreadSafety.Basic or override clone() in " +
-                "ManagedProblemBase to use this problem on threaded execution paths."
-            )
-        }
+        val hint = if (this is IThreadCloneableProblem) {
+            " Alternatively, override clone() to return a non-null independent copy."
+        } else ""
+        throw IllegalStateException(
+            "Managed problem '${get_name()}' must declare ThreadSafety.Basic or " +
+            "ThreadSafety.Constant for this threaded path.$hint"
+        )
     }
 }
 

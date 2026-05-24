@@ -11,6 +11,7 @@ import io.github.samthegliderpilot.pagmo4j.problems.*;
 public class decompose implements io.github.samthegliderpilot.pagmo4j.problems.IProblem, AutoCloseable {
   private transient long swigCPtr;
   protected transient boolean swigCMemOwn;
+  private final java.util.List<Object> managedRoots = new java.util.ArrayList<>();
 
   protected decompose(long cPtr, boolean cMemoryOwn) {
     swigCMemOwn = cMemoryOwn;
@@ -49,6 +50,43 @@ public class decompose implements io.github.samthegliderpilot.pagmo4j.problems.I
   }
 
     @Override public void close() { delete(); }
+
+  private static decompose attachManagedRoot(decompose wrapper, Object root) {
+    if (wrapper != null && root != null) {
+      wrapper.managedRoots.add(root);
+    }
+    return wrapper;
+  }
+
+  public static decompose create(IProblem innerProblem, DoubleVector weight, DoubleVector z, String method, boolean adaptIdeal) {
+    problem wrapped = new problem(innerProblem);
+    try {
+      return attachManagedRoot(new decompose(wrapped, weight, z, method, adaptIdeal), wrapped);
+    } catch (Throwable t) {
+      wrapped.delete();
+      throw t;
+    }
+  }
+
+  public static decompose create(IProblem innerProblem, DoubleVector weight, DoubleVector z, String method) {
+    problem wrapped = new problem(innerProblem);
+    try {
+      return attachManagedRoot(new decompose(wrapped, weight, z, method), wrapped);
+    } catch (Throwable t) {
+      wrapped.delete();
+      throw t;
+    }
+  }
+
+  public static decompose create(IProblem innerProblem, DoubleVector weight, DoubleVector z) {
+    problem wrapped = new problem(innerProblem);
+    try {
+      return attachManagedRoot(new decompose(wrapped, weight, z), wrapped);
+    } catch (Throwable t) {
+      wrapped.delete();
+      throw t;
+    }
+  }
 
   public decompose() {
     this(pagmo4jJNI.new_decompose__SWIG_0(), true);

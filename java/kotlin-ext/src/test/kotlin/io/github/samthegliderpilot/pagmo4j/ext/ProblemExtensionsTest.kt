@@ -49,6 +49,23 @@ class ProblemExtensionsTest {
     }
 
     @Test
+    fun throwIfNotThreadSafeDoesNotCallCloneJustToCheck() {
+        var cloneCalls = 0
+        val noneSafeCloneable = object : ManagedProblemBase(), IThreadCloneableProblem {
+            override fun fitness(x: DoubleVector) = vec(x.get(0))
+            override fun get_bounds() = boundsOf(doubleArrayOf(0.0), doubleArrayOf(1.0))
+            override fun get_thread_safety() = ThreadSafety.None
+            override fun clone(): IProblem {
+                cloneCalls += 1
+                return this
+            }
+        }
+
+        assertThrows(IllegalStateException::class.java) { noneSafeCloneable.throwIfNotThreadSafe() }
+        assertEquals(0, cloneCalls, "thread-safety guard should not invoke clone() as a probe")
+    }
+
+    @Test
     fun doubleArrayToDoubleVectorRoundTrips() {
         val arr = doubleArrayOf(1.0, 2.0, 3.0)
         val v = arr.toDoubleVector()

@@ -42,6 +42,7 @@ public class problem implements AutoCloseable {
     if (swigCPtr != 0) {
       if (swigCMemOwn) {
         swigCMemOwn = false;
+        NativeInterop.releaseProblemRoot(swigCPtr);
         pagmo4jJNI.delete_problem(swigCPtr);
       }
       swigCPtr = 0;
@@ -49,7 +50,11 @@ public class problem implements AutoCloseable {
   }
 
     public problem(IProblem managed) {
-        this(NativeInterop.createProblemPointer(managed), true);
+        this(
+            managed instanceof problem
+                ? pagmo4jJNI.new_problem__SWIG_1(problem.getCPtr((problem) managed), (problem) managed)
+                : NativeInterop.createProblemPointer(managed),
+            true);
     }
 
     /** Estimates gradient sparsity by finite differencing. */

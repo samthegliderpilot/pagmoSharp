@@ -7,7 +7,7 @@
  * ----------------------------------------------------------------------------- */
 
 package io.github.samthegliderpilot.pagmo4j;
-import io.github.samthegliderpilot.pagmo4j.problems.*; import io.github.samthegliderpilot.pagmo4j.algorithms.*; import io.github.samthegliderpilot.pagmo4j.batchevaluators.*;
+import io.github.samthegliderpilot.pagmo4j.problems.*; import io.github.samthegliderpilot.pagmo4j.algorithms.*; import io.github.samthegliderpilot.pagmo4j.batchevaluators.*; import io.github.samthegliderpilot.pagmo4j.migration.*; import java.util.*;
 public class island implements AutoCloseable {
   private transient long swigCPtr;
   protected transient boolean swigCMemOwn;
@@ -48,61 +48,322 @@ public class island implements AutoCloseable {
     }
   }
 
-    private static final java.util.concurrent.ConcurrentHashMap<Long, java.util.List<Object>>
-        constructionRoots = new java.util.concurrent.ConcurrentHashMap<>();
+    private static final Map<island, List<Object>> constructionRoots = Collections.synchronizedMap(new WeakHashMap<>());
 
     private static void attachRoot(island owner, Object root) {
         if (owner == null || root == null) return;
-        constructionRoots.computeIfAbsent(island.getCPtr(owner),
-            k -> new java.util.ArrayList<>()).add(root);
+        synchronized (constructionRoots) {
+            constructionRoots.computeIfAbsent(owner, k -> new ArrayList<>()).add(root);
+        }
+    }
+
+    private static long toNativePopulationSize(long popSize) {
+        return SizeTInterop.toNativeUInt32(popSize, "popSize");
+    }
+
+    private static long resolveSeed(Long seed) {
+        return seed != null ? seed : new random_device().next();
+    }
+
+    private static void validatePolicyPair(Object replacementPolicy, Object selectionPolicy, String replacementPolicyName, String selectionPolicyName) {
+        boolean replacementProvided = replacementPolicy != null;
+        boolean selectionProvided = selectionPolicy != null;
+        if (replacementProvided == selectionProvided) {
+            return;
+        }
+        throw new IllegalArgumentException("Both " + replacementPolicyName + " and " + selectionPolicyName + " must be provided together.");
+    }
+
+    private static island withManagedProblem(
+            IProblem managedProblem,
+            java.util.function.Function<problem, island> action) {
+        if (managedProblem == null) throw new NullPointerException("problem");
+
+        if (managedProblem.get_thread_safety() == ThreadSafety.None && managedProblem instanceof IThreadCloneableProblem cloneable) {
+            IProblem clone = cloneable.clone();
+            if (clone != null) {
+                if (clone == managedProblem) {
+                    throw new IllegalStateException("'" + managedProblem.get_name() + ".clone()' returned the same instance.");
+                }
+                ExclusiveCloneAdapter adapter = new ExclusiveCloneAdapter(clone);
+                try (problem wrappedClone = new problem(adapter)) {
+                    island created = action.apply(wrappedClone);
+                    attachRoot(created, adapter);
+                    attachRoot(created, wrappedClone);
+                    return created;
+                }
+            }
+        }
+
+        managedProblem.throwIfNotThreadSafe();
+        problem wrappedProblem = new problem(managedProblem);
+        try {
+            island created = action.apply(wrappedProblem);
+            attachRoot(created, wrappedProblem);
+            return created;
+        } catch (Throwable t) {
+            wrappedProblem.delete();
+            throw t;
+        }
+    }
+
+    private static island createCore(
+            algorithm algorithm,
+            IProblem problem,
+            long popSize,
+            Long seed,
+            thread_island islandType,
+            bfe evaluator,
+            fair_replace replacementPolicy,
+            select_best selectionPolicy,
+            ManagedRPolicy wrappedReplacementPolicy,
+            ManagedSPolicy wrappedSelectionPolicy) {
+        validatePolicyPair(replacementPolicy, selectionPolicy, "replacementPolicy", "selectionPolicy");
+        validatePolicyPair(wrappedReplacementPolicy, wrappedSelectionPolicy, "wrappedReplacementPolicy", "wrappedSelectionPolicy");
+        long nativePopSize = toNativePopulationSize(popSize);
+        long resolvedSeed = resolveSeed(seed);
+
+        return withManagedProblem(problem, wrappedProblem -> {
+            if (replacementPolicy == null && wrappedReplacementPolicy == null) {
+                if (islandType == null) {
+                    return evaluator == null
+                        ? island.Create(algorithm, wrappedProblem, nativePopSize, resolvedSeed)
+                        : island.CreateWithBfe(algorithm, wrappedProblem, evaluator, nativePopSize, resolvedSeed);
+                }
+                return evaluator == null
+                    ? island.CreateWithThreadIsland(islandType, algorithm, wrappedProblem, nativePopSize, resolvedSeed)
+                    : island.CreateWithThreadIslandAndBfe(islandType, algorithm, wrappedProblem, evaluator, nativePopSize, resolvedSeed);
+            }
+
+            if (replacementPolicy != null) {
+                SWIGTYPE_p_pagmo__fair_replace r = new SWIGTYPE_p_pagmo__fair_replace(fair_replace.getCPtr(replacementPolicy), false);
+                SWIGTYPE_p_pagmo__select_best s = new SWIGTYPE_p_pagmo__select_best(select_best.getCPtr(selectionPolicy), false);
+                if (islandType == null) {
+                    return evaluator == null
+                        ? island.CreateWithPolicies(algorithm, wrappedProblem, nativePopSize, r, s, resolvedSeed)
+                        : island.CreateWithBfeAndPolicies(algorithm, wrappedProblem, evaluator, nativePopSize, r, s, resolvedSeed);
+                }
+                return evaluator == null
+                    ? island.CreateWithThreadIslandAndPolicies(islandType, algorithm, wrappedProblem, nativePopSize, r, s, resolvedSeed)
+                    : island.CreateWithThreadIslandAndBfeAndPolicies(islandType, algorithm, wrappedProblem, evaluator, nativePopSize, r, s, resolvedSeed);
+            }
+
+            if (islandType == null) {
+                return evaluator == null
+                    ? island.CreateWithPolicies(algorithm, wrappedProblem, nativePopSize, wrappedReplacementPolicy, wrappedSelectionPolicy, resolvedSeed)
+                    : island.CreateWithBfeAndPolicies(algorithm, wrappedProblem, evaluator, nativePopSize, wrappedReplacementPolicy, wrappedSelectionPolicy, resolvedSeed);
+            }
+            return evaluator == null
+                ? island.CreateWithThreadIslandAndPolicies(islandType, algorithm, wrappedProblem, nativePopSize, wrappedReplacementPolicy, wrappedSelectionPolicy, resolvedSeed)
+                : island.CreateWithThreadIslandAndBfeAndPolicies(islandType, algorithm, wrappedProblem, evaluator, nativePopSize, wrappedReplacementPolicy, wrappedSelectionPolicy, resolvedSeed);
+        });
+    }
+
+    private static island createCore(
+            IAlgorithm algorithm,
+            IProblem problem,
+            long popSize,
+            Long seed,
+            thread_island islandType,
+            bfe evaluator,
+            fair_replace replacementPolicy,
+            select_best selectionPolicy,
+            ManagedRPolicy wrappedReplacementPolicy,
+            ManagedSPolicy wrappedSelectionPolicy) {
+        algorithm normalized = AlgorithmInterop.normalizeToTypeErased(algorithm);
+        island created = createCore(normalized, problem, popSize, seed, islandType, evaluator, replacementPolicy, selectionPolicy, wrappedReplacementPolicy, wrappedSelectionPolicy);
+        if (normalized != algorithm) {
+            attachRoot(created, normalized);
+        }
+        return created;
     }
 
     public static island create(algorithm algo, IProblem problem, long popSize) {
-        long nativePop = SizeTInterop.toNativeUInt32(popSize, "popSize");
-        return create(algo, problem, nativePop, new random_device().next());
+        return create(algo, problem, popSize, null);
     }
 
-    public static island create(algorithm algo, IProblem problem, long popSize, long seed) {
-        long nativePop = SizeTInterop.toNativeUInt32(popSize, "popSize");
-        problem wrapped = new problem(problem);
-        try {
-            island isl = island.Create(algo, wrapped, nativePop, seed);
-            attachRoot(isl, wrapped);
-            return isl;
-        } catch (Throwable t) {
-            wrapped.delete();
-            throw t;
-        }
+    public static island create(algorithm algo, IProblem problem, long popSize, Long seed) {
+        return createCore(algo, problem, popSize, seed, null, null, null, null, null, null);
     }
 
     public static island create(IAlgorithm algo, IProblem problem, long popSize) {
-        long nativePop = SizeTInterop.toNativeUInt32(popSize, "popSize");
-        return create(algo, problem, nativePop, new random_device().next());
+        return create(algo, problem, popSize, null);
     }
 
-    public static island create(IAlgorithm algo, IProblem problem, long popSize, long seed) {
-        try (algorithm normalized = AlgorithmInterop.normalizeToTypeErased(algo)) {
-            return create(normalized, problem, popSize, seed);
-        }
+    public static island create(IAlgorithm algo, IProblem problem, long popSize, Long seed) {
+        return createCore(algo, problem, popSize, seed, null, null, null, null, null, null);
     }
 
-    public static island create(algorithm algo, IProblem problem, bfe b, long popSize, long seed) {
-        long nativePop = SizeTInterop.toNativeUInt32(popSize, "popSize");
-        problem wrapped = new problem(problem);
-        try {
-            island isl = island.CreateWithBfe(algo, wrapped, b, nativePop, seed);
-            attachRoot(isl, wrapped);
-            return isl;
-        } catch (Throwable t) {
-            wrapped.delete();
-            throw t;
-        }
+    public static island create(algorithm algo, IProblem problem, bfe b, long popSize, Long seed) {
+        return createCore(algo, problem, popSize, seed, null, b, null, null, null, null);
     }
 
-    public static island create(IAlgorithm algo, IProblem problem, bfe b, long popSize, long seed) {
-        try (algorithm normalized = AlgorithmInterop.normalizeToTypeErased(algo)) {
-            return create(normalized, problem, b, popSize, seed);
-        }
+    public static island create(IAlgorithm algo, IProblem problem, bfe b, long popSize, Long seed) {
+        return createCore(algo, problem, popSize, seed, null, b, null, null, null, null);
+    }
+
+    public static island createWithPolicies(algorithm algo, IProblem problem, long popSize, fair_replace r, select_best s, Long seed) {
+        return createCore(algo, problem, popSize, seed, null, null, r, s, null, null);
+    }
+
+    public static island createWithPolicies(IAlgorithm algo, IProblem problem, long popSize, fair_replace r, select_best s, Long seed) {
+        return createCore(algo, problem, popSize, seed, null, null, r, s, null, null);
+    }
+
+    public static island createWithPolicies(algorithm algo, IProblem problem, long popSize, RPolicyCallback r, SPolicyCallback s, Long seed) {
+        ManagedRPolicy wrappedR = new ManagedRPolicy(r);
+        ManagedSPolicy wrappedS = new ManagedSPolicy(s);
+        island created = createCore(algo, problem, popSize, seed, null, null, null, null, wrappedR, wrappedS);
+        attachRoot(created, wrappedR);
+        attachRoot(created, wrappedS);
+        attachRoot(created, r);
+        attachRoot(created, s);
+        return created;
+    }
+
+    public static island createWithPolicies(IAlgorithm algo, IProblem problem, long popSize, RPolicyCallback r, SPolicyCallback s, Long seed) {
+        ManagedRPolicy wrappedR = new ManagedRPolicy(r);
+        ManagedSPolicy wrappedS = new ManagedSPolicy(s);
+        island created = createCore(algo, problem, popSize, seed, null, null, null, null, wrappedR, wrappedS);
+        attachRoot(created, wrappedR);
+        attachRoot(created, wrappedS);
+        attachRoot(created, r);
+        attachRoot(created, s);
+        return created;
+    }
+
+    public static island createWithPolicies(algorithm algo, IProblem problem, long popSize, ManagedRPolicy r, ManagedSPolicy s, Long seed) {
+        island created = createCore(algo, problem, popSize, seed, null, null, null, null, r, s);
+        attachRoot(created, r);
+        attachRoot(created, s);
+        return created;
+    }
+
+    public static island createWithPolicies(IAlgorithm algo, IProblem problem, long popSize, ManagedRPolicy r, ManagedSPolicy s, Long seed) {
+        island created = createCore(algo, problem, popSize, seed, null, null, null, null, r, s);
+        attachRoot(created, r);
+        attachRoot(created, s);
+        return created;
+    }
+
+    public static island createWithBfeAndPolicies(algorithm algo, IProblem problem, bfe b, long popSize, fair_replace r, select_best s, Long seed) {
+        return createCore(algo, problem, popSize, seed, null, b, r, s, null, null);
+    }
+
+    public static island createWithBfeAndPolicies(IAlgorithm algo, IProblem problem, bfe b, long popSize, fair_replace r, select_best s, Long seed) {
+        return createCore(algo, problem, popSize, seed, null, b, r, s, null, null);
+    }
+
+    public static island createWithBfeAndPolicies(algorithm algo, IProblem problem, bfe b, long popSize, RPolicyCallback r, SPolicyCallback s, Long seed) {
+        ManagedRPolicy wrappedR = new ManagedRPolicy(r);
+        ManagedSPolicy wrappedS = new ManagedSPolicy(s);
+        island created = createCore(algo, problem, popSize, seed, null, b, null, null, wrappedR, wrappedS);
+        attachRoot(created, wrappedR);
+        attachRoot(created, wrappedS);
+        attachRoot(created, r);
+        attachRoot(created, s);
+        return created;
+    }
+
+    public static island createWithBfeAndPolicies(IAlgorithm algo, IProblem problem, bfe b, long popSize, RPolicyCallback r, SPolicyCallback s, Long seed) {
+        ManagedRPolicy wrappedR = new ManagedRPolicy(r);
+        ManagedSPolicy wrappedS = new ManagedSPolicy(s);
+        island created = createCore(algo, problem, popSize, seed, null, b, null, null, wrappedR, wrappedS);
+        attachRoot(created, wrappedR);
+        attachRoot(created, wrappedS);
+        attachRoot(created, r);
+        attachRoot(created, s);
+        return created;
+    }
+
+    public static island createWithBfeAndPolicies(algorithm algo, IProblem problem, bfe b, long popSize, ManagedRPolicy r, ManagedSPolicy s, Long seed) {
+        island created = createCore(algo, problem, popSize, seed, null, b, null, null, r, s);
+        attachRoot(created, r);
+        attachRoot(created, s);
+        return created;
+    }
+
+    public static island createWithBfeAndPolicies(IAlgorithm algo, IProblem problem, bfe b, long popSize, ManagedRPolicy r, ManagedSPolicy s, Long seed) {
+        island created = createCore(algo, problem, popSize, seed, null, b, null, null, r, s);
+        attachRoot(created, r);
+        attachRoot(created, s);
+        return created;
+    }
+
+    public static island createWithThreadIsland(thread_island islandType, algorithm algo, IProblem problem, long popSize, Long seed) {
+        return createCore(algo, problem, popSize, seed, islandType, null, null, null, null, null);
+    }
+
+    public static island createWithThreadIsland(thread_island islandType, IAlgorithm algo, IProblem problem, long popSize, Long seed) {
+        return createCore(algo, problem, popSize, seed, islandType, null, null, null, null, null);
+    }
+
+    public static island createWithThreadIslandAndBfe(thread_island islandType, algorithm algo, IProblem problem, bfe b, long popSize, Long seed) {
+        return createCore(algo, problem, popSize, seed, islandType, b, null, null, null, null);
+    }
+
+    public static island createWithThreadIslandAndBfe(thread_island islandType, IAlgorithm algo, IProblem problem, bfe b, long popSize, Long seed) {
+        return createCore(algo, problem, popSize, seed, islandType, b, null, null, null, null);
+    }
+
+    public static island createWithThreadIslandAndPolicies(thread_island islandType, algorithm algo, IProblem problem, long popSize, fair_replace r, select_best s, Long seed) {
+        return createCore(algo, problem, popSize, seed, islandType, null, r, s, null, null);
+    }
+
+    public static island createWithThreadIslandAndPolicies(thread_island islandType, IAlgorithm algo, IProblem problem, long popSize, fair_replace r, select_best s, Long seed) {
+        return createCore(algo, problem, popSize, seed, islandType, null, r, s, null, null);
+    }
+
+    public static island createWithThreadIslandAndPolicies(thread_island islandType, algorithm algo, IProblem problem, long popSize, RPolicyCallback r, SPolicyCallback s, Long seed) {
+        ManagedRPolicy wrappedR = new ManagedRPolicy(r);
+        ManagedSPolicy wrappedS = new ManagedSPolicy(s);
+        island created = createCore(algo, problem, popSize, seed, islandType, null, null, null, wrappedR, wrappedS);
+        attachRoot(created, wrappedR);
+        attachRoot(created, wrappedS);
+        attachRoot(created, r);
+        attachRoot(created, s);
+        return created;
+    }
+
+    public static island createWithThreadIslandAndPolicies(thread_island islandType, IAlgorithm algo, IProblem problem, long popSize, RPolicyCallback r, SPolicyCallback s, Long seed) {
+        ManagedRPolicy wrappedR = new ManagedRPolicy(r);
+        ManagedSPolicy wrappedS = new ManagedSPolicy(s);
+        island created = createCore(algo, problem, popSize, seed, islandType, null, null, null, wrappedR, wrappedS);
+        attachRoot(created, wrappedR);
+        attachRoot(created, wrappedS);
+        attachRoot(created, r);
+        attachRoot(created, s);
+        return created;
+    }
+
+    public static island createWithThreadIslandAndBfeAndPolicies(thread_island islandType, algorithm algo, IProblem problem, bfe b, long popSize, fair_replace r, select_best s, Long seed) {
+        return createCore(algo, problem, popSize, seed, islandType, b, r, s, null, null);
+    }
+
+    public static island createWithThreadIslandAndBfeAndPolicies(thread_island islandType, IAlgorithm algo, IProblem problem, bfe b, long popSize, fair_replace r, select_best s, Long seed) {
+        return createCore(algo, problem, popSize, seed, islandType, b, r, s, null, null);
+    }
+
+    public static island createWithThreadIslandAndBfeAndPolicies(thread_island islandType, algorithm algo, IProblem problem, bfe b, long popSize, RPolicyCallback r, SPolicyCallback s, Long seed) {
+        ManagedRPolicy wrappedR = new ManagedRPolicy(r);
+        ManagedSPolicy wrappedS = new ManagedSPolicy(s);
+        island created = createCore(algo, problem, popSize, seed, islandType, b, null, null, wrappedR, wrappedS);
+        attachRoot(created, wrappedR);
+        attachRoot(created, wrappedS);
+        attachRoot(created, r);
+        attachRoot(created, s);
+        return created;
+    }
+
+    public static island createWithThreadIslandAndBfeAndPolicies(thread_island islandType, IAlgorithm algo, IProblem problem, bfe b, long popSize, RPolicyCallback r, SPolicyCallback s, Long seed) {
+        ManagedRPolicy wrappedR = new ManagedRPolicy(r);
+        ManagedSPolicy wrappedS = new ManagedSPolicy(s);
+        island created = createCore(algo, problem, popSize, seed, islandType, b, null, null, wrappedR, wrappedS);
+        attachRoot(created, wrappedR);
+        attachRoot(created, wrappedS);
+        attachRoot(created, r);
+        attachRoot(created, s);
+        return created;
     }
 
     public void waitCheck() { wait_check(); }

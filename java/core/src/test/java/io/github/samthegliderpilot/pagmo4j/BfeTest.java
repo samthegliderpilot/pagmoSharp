@@ -71,23 +71,38 @@ class BfeTest {
 
     @Test
     void managedThreadBfeUsesCloneForNonThreadSafeProblem() {
-        ManagedProblemBase cloneable = new ManagedProblemBase() {
+        class CloneableProblem extends ManagedProblemBase implements IThreadCloneableProblem {
             @Override public DoubleVector fitness(DoubleVector x) { return vec(x.get(0) * x.get(0)); }
             @Override public PairOfDoubleVectors get_bounds() { return bounds(new double[]{-1.0}, new double[]{1.0}); }
             @Override public ThreadSafety get_thread_safety() { return ThreadSafety.None; }
-            @Override public IProblem clone() { return new ManagedProblemBase() {
-                @Override public DoubleVector fitness(DoubleVector x) { return vec(x.get(0) * x.get(0)); }
-                @Override public PairOfDoubleVectors get_bounds() { return bounds(new double[]{-1.0}, new double[]{1.0}); }
-                @Override public ThreadSafety get_thread_safety() { return ThreadSafety.None; }
-            }; }
-        };
+            @Override public IProblem clone() { return new CloneableProblem(); }
+        }
+        IThreadCloneableProblem cloneable = new CloneableProblem();
         try (ManagedThreadBfe bfe = new ManagedThreadBfe()) {
             DoubleVector batch = new DoubleVector(); batch.add(2.0); batch.add(3.0);
-            DoubleVector result = bfe.operator((IThreadCloneableProblem) cloneable, batch);
+            DoubleVector result = bfe.operator(cloneable, batch);
             assertEquals(2, result.size());
             assertEquals(4.0, result.get(0), 1e-12);
             assertEquals(9.0, result.get(1), 1e-12);
             result.delete();
+        }
+    }
+
+    @Test
+    void managedThreadBfeRejectsCloneReturningSameInstance() {
+        class SelfCloneProblem extends ManagedProblemBase implements IThreadCloneableProblem {
+            @Override public DoubleVector fitness(DoubleVector x) { return vec(x.get(0) * x.get(0)); }
+            @Override public PairOfDoubleVectors get_bounds() { return bounds(new double[]{-1.0}, new double[]{1.0}); }
+            @Override public ThreadSafety get_thread_safety() { return ThreadSafety.None; }
+            @Override public IProblem clone() { return this; }
+        }
+        IThreadCloneableProblem selfClone = new SelfCloneProblem();
+        try (ManagedThreadBfe bfe = new ManagedThreadBfe()) {
+            DoubleVector batch = new DoubleVector();
+            batch.add(2.0);
+            IllegalStateException ex = assertThrows(IllegalStateException.class,
+                () -> bfe.operator(selfClone, batch));
+            assertTrue(ex.getMessage().contains("same instance"));
         }
     }
 }

@@ -32,10 +32,13 @@ tasks.test {
     // Native library must be on java.library.path for tests.
     // Set via -Djava.library.path=<path> or PAGMO4J_NATIVE_DIR env var.
     systemProperty("java.library.path", System.getenv("PAGMO4J_NATIVE_DIR") ?: ".")
+    // JNI-heavy tests are more stable when each test class gets a fresh worker process.
+    forkEvery = 1
+    maxParallelForks = 1
     // Hard per-test timeout so a hung test fails in 15s instead of blocking the suite.
     systemProperty("junit.jupiter.execution.timeout.default", "15s")
     // Process-level timeout kills the JVM if native code hangs (JUnit timeout can't interrupt native threads).
-    timeout.set(Duration.ofSeconds(30))
+    timeout.set(Duration.ofMinutes(5))
 }
 
 publishing {

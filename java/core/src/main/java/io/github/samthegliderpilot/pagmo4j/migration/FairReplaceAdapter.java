@@ -21,7 +21,7 @@ public final class FairReplaceAdapter extends RPolicyCallbackAdapter {
     }
 
     @Override
-    public IndividualsGroup replace(
+    protected IndividualsGroup replaceManaged(
             IndividualsGroup incoming, long n_f, long n_ec, long n_ic,
             long n_obj, long pop_size, DoubleVector tol, IndividualsGroup current) {
         return inner.replace_wrapped(incoming, n_f, n_ec, n_ic, n_obj, pop_size, tol, current);

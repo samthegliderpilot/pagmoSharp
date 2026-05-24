@@ -103,11 +103,6 @@ public final class MultiObjectiveUtils {
     // pop_size_t == size_t at the C++ ABI level; SizeTVector wraps std::vector<size_t>.
     // The opaque SWIGTYPE holds a non-owning raw pointer — transfer ownership here.
     private static long[] toSizeTArray(SWIGTYPE_p_std__vectorT_pagmo__pop_size_t_t opaque) {
-        long ptr = SWIGTYPE_p_std__vectorT_pagmo__pop_size_t_t.getCPtr(opaque);
-        SizeTVector v = new SizeTVector(ptr, true);
-        long[] arr = new long[(int) v.size()];
-        for (int i = 0; i < arr.length; i++) arr[i] = v.get(i);
-        v.delete();
-        return arr;
+        return NativeInterop.consumeOwnedSizeTVector(opaque);
     }
 }

@@ -49,15 +49,16 @@ class MultiObjectiveTest {
 
     @Test
     void crowdingDistanceReturnsOneValuePerPoint() {
-        // Boundary points get MAX_VALUE distance; interior point gets a finite value.
+        // Boundary points get infinite distance; interior point gets a finite value.
         VectorOfVectorOfDoubles pts = vecs(
                 new double[]{1.0, 3.0}, new double[]{2.0, 2.0}, new double[]{3.0, 1.0});
         DoubleVector dist = pagmo4j.crowding_distance(pts);
         assertEquals(3, dist.size());
-        // Extreme points (min/max of each objective) get infinite distance
-        assertEquals(Double.MAX_VALUE, dist.get(0), "first boundary point must have MAX_VALUE crowding distance");
-        assertEquals(Double.MAX_VALUE, dist.get(2), "last boundary point must have MAX_VALUE crowding distance");
-        assertTrue(dist.get(1) > 0 && dist.get(1) < Double.MAX_VALUE,
+        assertTrue(Double.isInfinite(dist.get(0)),
+            "first boundary point must have infinite crowding distance");
+        assertTrue(Double.isInfinite(dist.get(2)),
+            "last boundary point must have infinite crowding distance");
+        assertTrue(dist.get(1) > 0 && Double.isFinite(dist.get(1)),
             "interior point must have finite positive crowding distance");
         pts.delete(); dist.delete();
     }

@@ -20,7 +20,7 @@ public final class SelectBestAdapter extends SPolicyCallbackAdapter {
     }
 
     @Override
-    public IndividualsGroup select(
+    protected IndividualsGroup selectManaged(
             IndividualsGroup population, long n_f, long n_ec, long n_ic,
             long n_obj, long pop_size, DoubleVector tol) {
         return inner.select(population, n_f, n_ec, n_ic, n_obj, pop_size, tol);

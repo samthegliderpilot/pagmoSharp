@@ -11,6 +11,7 @@ import io.github.samthegliderpilot.pagmo4j.problems.*;
 public class translate implements io.github.samthegliderpilot.pagmo4j.problems.IProblem, AutoCloseable {
   private transient long swigCPtr;
   protected transient boolean swigCMemOwn;
+  private final java.util.List<Object> managedRoots = new java.util.ArrayList<>();
 
   protected translate(long cPtr, boolean cMemoryOwn) {
     swigCMemOwn = cMemoryOwn;
@@ -49,6 +50,23 @@ public class translate implements io.github.samthegliderpilot.pagmo4j.problems.I
   }
 
     @Override public void close() { delete(); }
+
+  private static translate attachManagedRoot(translate wrapper, Object root) {
+    if (wrapper != null && root != null) {
+      wrapper.managedRoots.add(root);
+    }
+    return wrapper;
+  }
+
+  public static translate create(IProblem innerProblem, DoubleVector translationVector) {
+    problem wrapped = new problem(innerProblem);
+    try {
+      return attachManagedRoot(new translate(wrapped, translationVector), wrapped);
+    } catch (Throwable t) {
+      wrapped.delete();
+      throw t;
+    }
+  }
 
   public translate() {
     this(pagmo4jJNI.new_translate__SWIG_0(), true);

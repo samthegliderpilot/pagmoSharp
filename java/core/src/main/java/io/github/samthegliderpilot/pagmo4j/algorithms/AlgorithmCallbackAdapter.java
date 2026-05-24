@@ -38,11 +38,18 @@ public final class AlgorithmCallbackAdapter extends AlgorithmCallback {
     }
 
     @Override public boolean has_set_verbosity() { return true; }
-    @Override public String get_name()       { return algorithm.get_name(); }
-    @Override public String get_extra_info() { return algorithm.get_extra_info(); }
-    // get_thread_safety() is not overridden: AlgorithmCallback returns an opaque SWIGTYPE
-    // because pagmo::thread_safety is not recognized by SWIG when algorithm_callback.h
-    // is processed. The C++ default (thread_safety::basic) is used.
+
+    @Override
+    public String get_name() {
+        try { return algorithm.get_name(); } catch (Throwable ex) { if (deferredEx == null) deferredEx = ex; return "Java algorithm"; }
+    }
+
+    @Override
+    public String get_extra_info() {
+        try { return algorithm.get_extra_info(); } catch (Throwable ex) { if (deferredEx == null) deferredEx = ex; return ""; }
+    }
+
+    @Override public ThreadSafety get_thread_safety() { return ThreadSafety.Basic; }
 
     /**
      * Called by the native bridge ({@code NativeInterop.createAlgorithmPointer}) after each

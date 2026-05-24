@@ -11,6 +11,7 @@ import io.github.samthegliderpilot.pagmo4j.problems.*;
 public class unconstrain implements io.github.samthegliderpilot.pagmo4j.problems.IProblem, AutoCloseable {
   private transient long swigCPtr;
   protected transient boolean swigCMemOwn;
+  private final java.util.List<Object> managedRoots = new java.util.ArrayList<>();
 
   protected unconstrain(long cPtr, boolean cMemoryOwn) {
     swigCMemOwn = cMemoryOwn;
@@ -49,6 +50,43 @@ public class unconstrain implements io.github.samthegliderpilot.pagmo4j.problems
   }
 
     @Override public void close() { delete(); }
+
+  private static unconstrain attachManagedRoot(unconstrain wrapper, Object root) {
+    if (wrapper != null && root != null) {
+      wrapper.managedRoots.add(root);
+    }
+    return wrapper;
+  }
+
+  public static unconstrain create(IProblem innerProblem, String method, DoubleVector weights) {
+    problem wrapped = new problem(innerProblem);
+    try {
+      return attachManagedRoot(new unconstrain(wrapped, method, weights), wrapped);
+    } catch (Throwable t) {
+      wrapped.delete();
+      throw t;
+    }
+  }
+
+  public static unconstrain create(IProblem innerProblem, String method) {
+    problem wrapped = new problem(innerProblem);
+    try {
+      return attachManagedRoot(new unconstrain(wrapped, method), wrapped);
+    } catch (Throwable t) {
+      wrapped.delete();
+      throw t;
+    }
+  }
+
+  public static unconstrain create(IProblem innerProblem) {
+    problem wrapped = new problem(innerProblem);
+    try {
+      return attachManagedRoot(new unconstrain(wrapped), wrapped);
+    } catch (Throwable t) {
+      wrapped.delete();
+      throw t;
+    }
+  }
 
   public unconstrain() {
     this(pagmo4jJNI.new_unconstrain__SWIG_0(), true);

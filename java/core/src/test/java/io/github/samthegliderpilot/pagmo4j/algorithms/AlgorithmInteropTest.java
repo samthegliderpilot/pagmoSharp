@@ -12,9 +12,16 @@ import static org.junit.jupiter.api.Assumptions.assumeTrue;
  */
 class AlgorithmInteropTest {
 
+    private static void assertNormalized(algorithm source) {
+        assertNotNull(source, "normalizeToTypeErased returned null");
+        assertNotNull(source.get_name(), "normalized algorithm should expose a stable name");
+    }
+
     private static void assertNormalized(IAlgorithm source) {
         try (algorithm result = AlgorithmInterop.normalizeToTypeErased(source)) {
             assertNotNull(result, "normalizeToTypeErased returned null for " + source.getClass().getSimpleName());
+            assertEquals(source.get_name(), result.get_name(),
+                "normalizeToTypeErased should preserve the algorithm identity");
         }
     }
 
@@ -28,8 +35,18 @@ class AlgorithmInteropTest {
     @Test void moead()                 { try (moead a = new moead(2L))                      { assertNormalized(a); } }
     @Test void moeadGen()              { try (moead_gen a = new moead_gen(2L))              { assertNormalized(a); } }
     @Test void maco()                  { try (maco a = new maco(2L))                        { assertNormalized(a); } }
-    @Test void mbh()                   { try (de d = new de(1L); algorithm inner = d.to_algorithm(); d.close(); mbh a = new mbh(inner, 2L, 0.1)) { assertNormalized(a); } }
-    @Test void cstrsSelfAdaptive()     { try (de d = new de(1L); algorithm inner = d.to_algorithm(); d.close(); cstrs_self_adaptive a = new cstrs_self_adaptive(2L, inner)) { assertNormalized(a); } }
+    @Test
+    void mbh() {
+        try (de d = new de(1L); algorithm inner = d.to_algorithm(); mbh a = new mbh(inner, 2L, 0.1)) {
+            assertNormalized(a);
+        }
+    }
+    @Test
+    void cstrsSelfAdaptive() {
+        try (de d = new de(1L); algorithm inner = d.to_algorithm(); cstrs_self_adaptive a = new cstrs_self_adaptive(2L, inner)) {
+            assertNormalized(a);
+        }
+    }
     @Test void de()                    { try (de a = new de(2L))                            { assertNormalized(a); } }
     @Test void de1220()                { try (de1220 a = new de1220(2L))                   { assertNormalized(a); } }
     @Test void gaco()                  { try (gaco a = new gaco(2L))                       { assertNormalized(a); } }
@@ -64,6 +81,7 @@ class AlgorithmInteropTest {
         };
         try (algorithm result = AlgorithmInterop.normalizeToTypeErased(custom)) {
             assertNotNull(result, "custom managed algorithm must produce a valid algorithm wrapper");
+            assertEquals("CustomAlgo", result.get_name());
         }
     }
 }
