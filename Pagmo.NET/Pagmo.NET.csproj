@@ -32,6 +32,11 @@
     <DefineConstants>$(DefineConstants);PAGMO_WITH_SNOPT7</DefineConstants>
   </PropertyGroup>
 
+  <!-- Activate IPOPT support when ipopt.cs is present (supplied by the PagmoNet.Ipopt add-on). -->
+  <PropertyGroup Condition="Exists('$(MSBuildProjectDirectory)\pygmoWrappers\ipopt.cs')">
+    <DefineConstants>$(DefineConstants);PAGMO_WITH_IPOPT</DefineConstants>
+  </PropertyGroup>
+
   <ItemGroup>
     <Compile Remove="cPlusPlusFiles\**" />
     <EmbeddedResource Remove="cPlusPlusFiles\**" />
