@@ -16,7 +16,21 @@ try {
     }
 
     $repoRoot = Resolve-Path (Join-Path $PSScriptRoot "..")
-    $wrapperDir = Join-Path $repoRoot "pagmoWrapper"
+
+    # Prefer the pagmoNet submodule (canonical native source); fall back to the legacy
+    # pagmoWrapper/ directory that may still be present from a pre-split checkout.
+    $submoduleNative = Join-Path $repoRoot "pagmoNet\native"
+    $wrapperDir = if (Test-Path (Join-Path $submoduleNative "CMakeLists.txt")) {
+        $submoduleNative
+    } else {
+        Join-Path $repoRoot "pagmoWrapper"
+    }
+
+    $tripletOverlayBase = if (Test-Path (Join-Path $repoRoot "pagmoNet\triplets")) {
+        Join-Path $repoRoot "pagmoNet"
+    } else {
+        $repoRoot
+    }
 
     if ($IsLinux) {
         # CMake + vcpkg path for Linux.
@@ -31,8 +45,8 @@ try {
         $vcpkgExe       = Join-Path $env:VCPKG_ROOT "vcpkg"
         $vcpkgToolchain = Join-Path $env:VCPKG_ROOT "scripts/buildsystems/vcpkg.cmake"
         $triplet        = "x64-linux-static-pic"
-        $tripletOverlay = (Resolve-Path (Join-Path $repoRoot "triplets")).Path
-        $portsOverlay   = (Resolve-Path (Join-Path $repoRoot "ports")).Path
+        $tripletOverlay = (Resolve-Path (Join-Path $tripletOverlayBase "triplets")).Path
+        $portsOverlay   = (Resolve-Path (Join-Path $tripletOverlayBase "ports")).Path
 
         if (-not (Test-Path $vcpkgExe)) {
             throw "vcpkg executable not found at '$vcpkgExe'. Run bootstrap-vcpkg.sh first."
@@ -83,8 +97,8 @@ try {
         }
         $vcpkgExe       = Join-Path $env:VCPKG_ROOT "vcpkg"
         $vcpkgToolchain = Join-Path $env:VCPKG_ROOT "scripts/buildsystems/vcpkg.cmake"
-        $tripletOverlay = (Resolve-Path (Join-Path $repoRoot "triplets")).Path
-        $portsOverlay   = (Resolve-Path (Join-Path $repoRoot "ports")).Path
+        $tripletOverlay = (Resolve-Path (Join-Path $tripletOverlayBase "triplets")).Path
+        $portsOverlay   = (Resolve-Path (Join-Path $tripletOverlayBase "ports")).Path
 
         if (-not (Test-Path $vcpkgExe)) {
             throw "vcpkg executable not found at '$vcpkgExe'. Run bootstrap-vcpkg.sh first."
@@ -127,8 +141,8 @@ try {
         $vcpkgExe       = Join-Path $env:VCPKG_ROOT "vcpkg.exe"
         $vcpkgToolchain = Join-Path $env:VCPKG_ROOT "scripts/buildsystems/vcpkg.cmake"
         $triplet        = "x64-windows-static-md"
-        $tripletOverlay = (Resolve-Path (Join-Path $repoRoot "triplets")).Path
-        $portsOverlay   = (Resolve-Path (Join-Path $repoRoot "ports")).Path
+        $tripletOverlay = (Resolve-Path (Join-Path $tripletOverlayBase "triplets")).Path
+        $portsOverlay   = (Resolve-Path (Join-Path $tripletOverlayBase "ports")).Path
 
         if (-not (Test-Path $vcpkgExe)) {
             throw "vcpkg.exe not found at '$vcpkgExe'. Run bootstrap-vcpkg.bat first."
