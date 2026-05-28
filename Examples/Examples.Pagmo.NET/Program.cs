@@ -146,53 +146,68 @@ internal static class Program
                           $"Target SMA: {targetSma:F1} km");
         Console.WriteLine($"  Constraints: {problem.get_nec()} equality (Δa, Δe)");
 
-        using var innerAlgorithm = new de(50u);
-        using var erasedInner = innerAlgorithm.to_algorithm();
-        using var algorithm = new cstrs_self_adaptive(200u, erasedInner, 42u);
-        if (verbose) algorithm.set_verbosity(1u);
-
-        using var population = new population(problem, 200u, 1u);
-        using var evolved = algorithm.evolve(population);
-
-        if (verbose) PrintAlgorithmLog("cstrs_self_adaptive", algorithm.GetLogLines());
-
-        // Find best feasible individual
-        using var allF = evolved.get_f();
-        using var allX = evolved.get_x();
-
+        // Try up to 3 seeds — cstrs_self_adaptive+DE is stochastic and can miss on
+        // an unlucky draw; retrying with a different seed is cheap and reliable.
         double bestDv = double.PositiveInfinity;
         int bestIdx = -1;
-        for (int idx = 0; idx < (int)evolved.size(); idx++)
+        double[] xBestArr = null;
+
+        for (uint attempt = 0; attempt < 3 && bestIdx < 0; attempt++)
         {
-            var fVec = allF[idx];
-            bool feasible = true;
-            for (int c = 1; c < fVec.Count; c++)
-                if (Math.Abs(fVec[c]) > 1e-3) { feasible = false; break; }
-            if (feasible && fVec[0] < bestDv) { bestDv = fVec[0]; bestIdx = idx; }
+            uint algSeed = 42u + attempt * 17u;
+            uint popSeed = 1u + attempt;
+
+            using var innerAlgorithm = new de(20u);
+            using var erasedInner = innerAlgorithm.to_algorithm();
+            using var algorithm = new cstrs_self_adaptive(500u, erasedInner, algSeed);
+            if (verbose) algorithm.set_verbosity(1u);
+
+            using var pop = new population(problem, 64u, popSeed);
+            using var evolved = algorithm.evolve(pop);
+
+            if (verbose) PrintAlgorithmLog($"cstrs_self_adaptive (attempt {attempt + 1})", algorithm.GetLogLines());
+
+            using var allF = evolved.get_f();
+            using var allX = evolved.get_x();
+
+            for (int idx = 0; idx < (int)evolved.size(); idx++)
+            {
+                var fVec = allF[idx];
+                bool feasible = true;
+                for (int c = 1; c < fVec.Count; c++)
+                    if (Math.Abs(fVec[c]) > 1e-2) { feasible = false; break; }
+                if (feasible && fVec[0] < bestDv)
+                {
+                    bestDv = fVec[0];
+                    bestIdx = idx;
+                    var xVec = allX[idx];
+                    xBestArr = new double[xVec.Count];
+                    for (int k = 0; k < xVec.Count; k++) xBestArr[k] = xVec[k];
+                }
+            }
         }
 
         if (bestIdx < 0)
         {
-            Console.WriteLine("  No feasible solution found in this run — try more iterations.");
+            Console.WriteLine("  No feasible solution found after 3 attempts.");
             return;
         }
 
-        var xBest = allX[bestIdx];
         Console.WriteLine($"  Best feasible total Δv: {bestDv * 1000.0:F1} m/s");
         for (int b = 0; b < 2; b++)
         {
-            double coast = xBest[b * 4 + 0];
-            double dv = Math.Sqrt(xBest[b*4+1]*xBest[b*4+1] +
-                                  xBest[b*4+2]*xBest[b*4+2] +
-                                  xBest[b*4+3]*xBest[b*4+3]);
+            double coast = xBestArr[b * 4 + 0];
+            double dv = Math.Sqrt(xBestArr[b*4+1]*xBestArr[b*4+1] +
+                                  xBestArr[b*4+2]*xBestArr[b*4+2] +
+                                  xBestArr[b*4+3]*xBestArr[b*4+3]);
             Console.WriteLine($"  Burn {b + 1}: coast {coast:F0} s, |Δv| {dv * 1000.0:F1} m/s");
         }
 
         // Show final state residuals
         var burns = new[]
         {
-            new CoastAndBurn(xBest[0], xBest[1], xBest[2], xBest[3]),
-            new CoastAndBurn(xBest[4], xBest[5], xBest[6], xBest[7])
+            new CoastAndBurn(xBestArr[0], xBestArr[1], xBestArr[2], xBestArr[3]),
+            new CoastAndBurn(xBestArr[4], xBestArr[5], xBestArr[6], xBestArr[7])
         };
         var history = OrbitalMechanics.Propagate(initial, 0.0, burns, OrbitalMechanics.EarthGm);
         var finalEl = history[^1].Elements;

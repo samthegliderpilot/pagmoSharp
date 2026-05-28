@@ -88,7 +88,7 @@ internal sealed class ManeuverOptimizationProblem : ManagedProblemBase
 
         // Equality constraint residuals — each should be zero at the optimum.
         if (_target.SemiMajorAxis.HasValue)
-            f[fi++] = final.SemiMajorAxis - _target.SemiMajorAxis.Value;
+            f[fi++] = (final.SemiMajorAxis - _target.SemiMajorAxis.Value) / 1000.0;
         if (_target.Eccentricity.HasValue)
             f[fi++] = final.Eccentricity - _target.Eccentricity.Value;
         if (_target.Inclination.HasValue)

@@ -55,7 +55,10 @@ public partial class archipelago : global::System.IDisposable {
         swigCPtr = new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero);
       }
     }
+    if (disposing) OnManagedDispose();
   }
+
+  partial void OnManagedDispose();
 
   public archipelago() : this(pagmoPINVOKE.new_archipelago__SWIG_0(), true) {
     if (pagmoPINVOKE.SWIGPendingException.Pending) throw pagmoPINVOKE.SWIGPendingException.Retrieve();

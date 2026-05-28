@@ -13,12 +13,11 @@ namespace pagmo
         // remain reachable while the island's native callback is in use.
         private readonly List<IProblem> _managedProblemCloneRoots = new();
 
-        public override void Dispose()
+        partial void OnManagedDispose()
         {
             foreach (var clone in _managedProblemCloneRoots)
                 clone.Dispose();
             _managedProblemCloneRoots.Clear();
-            base.Dispose();
         }
 
         private ulong WithManagedProblem(IProblem problem, Func<problem, ulong> action)
