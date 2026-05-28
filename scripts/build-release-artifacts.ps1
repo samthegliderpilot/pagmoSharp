@@ -80,7 +80,7 @@ try {
     Write-Host "==> Collecting native runtime bundle"
     if ($IsLinux -eq $true) {
         # Linux: collect libPagmoWrapper.so (pagmo2 + Boost + TBB + NLopt + IPOPT statically linked).
-        $cmakeBuildDir = Join-Path $repoRoot "pagmoWrapper/build"
+        $cmakeBuildDir = Join-Path $repoRoot "pagmoNet/native/build"
         Get-ChildItem -Path $cmakeBuildDir -File -Filter "libPagmoWrapper.*" | ForEach-Object {
             Copy-Item -Path $_.FullName -Destination (Join-Path $nativeOut $_.Name)
         }
@@ -88,7 +88,7 @@ try {
     } elseif ($IsMacOS -eq $true) {
         # macOS: collect libPagmoWrapper.dylib (pagmo2 + Boost + TBB + NLopt statically linked).
         # arm64 and x64 slices are combined into a universal binary by the release workflow.
-        $cmakeBuildDir = Join-Path $repoRoot "pagmoWrapper/build"
+        $cmakeBuildDir = Join-Path $repoRoot "pagmoNet/native/build"
         $dylib = Join-Path $cmakeBuildDir "libPagmoWrapper.dylib"
         if (-not (Test-Path $dylib)) {
             throw "macOS dylib not found at '$dylib'. Ensure build-native.ps1 completed successfully."
@@ -104,7 +104,7 @@ try {
         # Windows: cmake static build (x64-windows-static-md) produces a single self-contained
         # PagmoWrapper.dll with pagmo2, Boost, TBB, NLopt, and IPOPT statically linked.
         # No additional DLLs are required at runtime.
-        $cmakeWinBuildDir = Join-Path $repoRoot "pagmoWrapper/win-build"
+        $cmakeWinBuildDir = Join-Path $repoRoot "pagmoNet/native/win-build"
         $releaseDll = Join-Path $cmakeWinBuildDir "PagmoWrapper.dll"
         if (-not (Test-Path $releaseDll)) {
             throw "Windows cmake DLL not found at '$releaseDll'. Ensure VCPKG_ROOT is set and build-native.ps1 completed successfully."

@@ -21,6 +21,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: recursive
 
       - uses: actions/setup-dotnet@v4
         with:
@@ -37,7 +39,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: C:/vcpkg/installed
-          key: vcpkg-windows-${{ hashFiles('ports/**', 'triplets/**') }}
+          key: vcpkg-windows-${{ hashFiles('pagmoNet/ports/**', 'pagmoNet/triplets/**', 'ports/**', 'triplets/**') }}
           restore-keys: vcpkg-windows-
 
       - name: Resolve version
@@ -59,7 +61,7 @@ jobs:
 
       - name: Run tests
         run: |
-          $env:PATH = "$(Resolve-Path pagmoWrapper\win-build);$env:PATH"
+          $env:PATH = "$(Resolve-Path pagmoNet\native\win-build);$env:PATH"
           dotnet test Tests/Tests.Pagmo.NET/Tests.Pagmo.NET.csproj -p:Platform=x64 --logger "console;verbosity=minimal"
         shell: pwsh
 
@@ -81,6 +83,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: recursive
 
       - name: Install build tools
         run: |
@@ -110,7 +114,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: ~/vcpkg/installed
-          key: vcpkg-linux-${{ hashFiles('ports/**', 'triplets/**') }}
+          key: vcpkg-linux-${{ hashFiles('pagmoNet/ports/**', 'pagmoNet/triplets/**', 'ports/**', 'triplets/**') }}
           restore-keys: vcpkg-linux-
 
       - name: Build native library
@@ -123,7 +127,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: native-linux
-          path: pagmoWrapper/build/libPagmoWrapper.so
+          path: pagmoNet/native/build/libPagmoWrapper.so
 
   # ─── macOS universal: build arm64 natively, cross-compile x86_64, lipo ───────
   # Runs entirely on macos-latest (Apple Silicon). Cross-compiling x86_64 on arm64
@@ -133,6 +137,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: recursive
 
       - name: Install build tools
         run: brew install autoconf autoconf-archive automake libtool swig
@@ -151,7 +157,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: ~/vcpkg/installed
-          key: vcpkg-macos-${{ hashFiles('ports/**', 'triplets/**') }}
+          key: vcpkg-macos-${{ hashFiles('pagmoNet/ports/**', 'pagmoNet/triplets/**', 'ports/**', 'triplets/**') }}
           restore-keys: vcpkg-macos-
 
       - name: Build arm64 slice (native)
@@ -161,7 +167,7 @@ jobs:
         run: dotnet test Tests/Tests.Pagmo.NET/Tests.Pagmo.NET.csproj -p:PlatformTarget=AnyCPU --logger "console;verbosity=minimal"
 
       - name: Copy arm64 slice
-        run: cp pagmoWrapper/build/libPagmoWrapper.dylib libPagmoWrapper-arm64.dylib
+        run: cp pagmoNet/native/build/libPagmoWrapper.dylib libPagmoWrapper-arm64.dylib
 
       - name: Install x86_64 vcpkg packages
         run: |
@@ -173,21 +179,21 @@ jobs:
       - name: Build x86_64 slice (cross-compile)
         run: |
           cmake \
-            -B pagmoWrapper/build-x64 \
-            -S pagmoWrapper \
+            -B pagmoNet/native/build-x64 \
+            -S pagmoNet/native \
             -DCMAKE_BUILD_TYPE=Release \
             -DCMAKE_TOOLCHAIN_FILE=$HOME/vcpkg/scripts/buildsystems/vcpkg.cmake \
             -DVCPKG_TARGET_TRIPLET=x64-osx-static-pic \
-            -DVCPKG_OVERLAY_TRIPLETS=triplets/ \
+            -DVCPKG_OVERLAY_TRIPLETS=pagmoNet/triplets/ \
             -DCMAKE_OSX_ARCHITECTURES=x86_64 \
             -DPAGMONET_WITH_NLOPT=ON
-          cmake --build pagmoWrapper/build-x64 --config Release
+          cmake --build pagmoNet/native/build-x64 --config Release
 
       - name: Create universal binary
         run: |
           lipo -create \
             libPagmoWrapper-arm64.dylib \
-            pagmoWrapper/build-x64/libPagmoWrapper.dylib \
+            pagmoNet/native/build-x64/libPagmoWrapper.dylib \
             -output libPagmoWrapper.dylib
           codesign --sign - libPagmoWrapper.dylib
           lipo -info libPagmoWrapper.dylib
@@ -205,6 +211,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: recursive
 
       - uses: actions/setup-dotnet@v4
         with:
