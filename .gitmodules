@@ -1,0 +1,3 @@
+[submodule "pagmoNet"]
+	path = pagmoNet
+	url = https://github.com/samthegliderpilot/pagmoNet
