@@ -3,8 +3,8 @@
   <PropertyGroup>
     <OutputType>Library</OutputType>
     <TargetFramework>net8.0</TargetFramework>
-    <Version>1.0.0-beta.2</Version>
-    <PackageVersion>1.0.0-beta.2</PackageVersion>
+    <Version>1.0.0-beta.6</Version>
+    <PackageVersion>1.0.0-beta.6</PackageVersion>
     <PackageId>Pagmo.NET</PackageId>
     <Authors>Pagmo.NET contributors</Authors>
     <Description>C# bindings and ergonomic wrappers for pagmo.</Description>

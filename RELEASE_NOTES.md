@@ -1,5 +1,44 @@
 # Release Notes
 
+## v1.0.0-beta.6
+
+### Highlights
+
+**macOS support**
+
+Windows x64, Linux x64, and macOS (arm64 + x86_64 universal binary) are all now supported.
+CI builds on all three platforms. The NuGet package bundles the macOS universal binary at
+`runtimes/osx/native/`. No additional installation required on macOS.
+
+**Archipelago and island resource cleanup fixes**
+
+- C#: `archipelago.Dispose()` now explicitly disposes per-island problem clones created
+  for `IThreadCloneableProblem` users, instead of relying on GC finalization.
+- Java: `archipelago.close()` now closes clone adapters on the same code path.
+  `island.close()` removes its entry from the static `constructionRoots` map and closes
+  the wrapped problem objects, eliminating a slow map-accumulation leak.
+
+**Orbital maneuver example**
+
+New `maneuver` scenario in both the C# and Java example runners: a 2-burn Hohmann-like
+LEO→MEO transfer with SMA and eccentricity equality constraints solved via
+`cstrs_self_adaptive` wrapping `de`. Demonstrates `ManagedProblemBase.get_nec()`,
+constraint normalisation (SMA residual in km vs dimensionless eccentricity), and a
+multi-seed retry loop for reliable stochastic convergence.
+
+**Constraint normalisation fix in `ManeuverOptimizationProblem`**
+
+SMA residual is now divided by 1000 before being returned as a fitness component, making
+it dimensionless and comparable in scale to the eccentricity residual. Without this,
+`cstrs_self_adaptive` ignored eccentricity because the SMA violation dominated by orders
+of magnitude.
+
+### Breaking / Behavior Notes
+
+No breaking changes from beta.2.
+
+---
+
 ## v1.0.0-beta.2
 
 ### Highlights
@@ -122,7 +161,7 @@ Notable type renames from internal pre-release names:
 | Linux x64, NLopt enabled | Included — statically linked. `OptionalSolverAvailability.IsNloptAvailable` returns `true` in the released build. |
 | .NET Framework | Not supported |
 | x86 / ARM | Not supported in v1 |
-| macOS | Not supported in v1 |
+| macOS arm64 + x86_64 universal, .NET 8+ | Supported — `libPagmoWrapper.dylib` universal binary (pagmo2, Boost, TBB, NLopt statically linked via vcpkg `arm64-osx-static-pic` / `x64-osx-static-pic` triplets). Runtime requires only system `libstdc++` / `libc++`. |
 
 Repo note:
 - The shipped library/package target is `.NET 8` (consumers on .NET 8, 9, or 10 can reference it).
