@@ -37,6 +37,13 @@
     <DefineConstants>$(DefineConstants);PAGMO_WITH_IPOPT</DefineConstants>
   </PropertyGroup>
 
+  <!-- Allow Pagmo.NET.Ipopt (separate assembly) to access internal SWIG plumbing. -->
+  <ItemGroup>
+    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
+      <_Parameter1>Pagmo.NET.Ipopt</_Parameter1>
+    </AssemblyAttribute>
+  </ItemGroup>
+
   <ItemGroup>
     <Compile Remove="cPlusPlusFiles\**" />
     <EmbeddedResource Remove="cPlusPlusFiles\**" />
