@@ -168,7 +168,9 @@ jobs:
         run: pwsh scripts/build-native.ps1 -Configuration Release
 
       - name: Run tests (arm64)
-        run: dotnet test Tests/Tests.Pagmo.NET/Tests.Pagmo.NET.csproj -p:PlatformTarget=AnyCPU --logger "console;verbosity=minimal"
+        run: |
+          export DYLD_LIBRARY_PATH="$(pwd)/pagmoNet/native/build:$DYLD_LIBRARY_PATH"
+          dotnet test Tests/Tests.Pagmo.NET/Tests.Pagmo.NET.csproj -p:PlatformTarget=AnyCPU --logger "console;verbosity=minimal"
 
       - name: Copy arm64 slice
         run: cp pagmoNet/native/build/libPagmoWrapper.dylib libPagmoWrapper-arm64.dylib
