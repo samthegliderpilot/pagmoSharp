@@ -1,0 +1,133 @@
+name: Build and Test
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
+jobs:
+
+  build-windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.x'
+
+      - name: Bootstrap vcpkg
+        run: |
+          git clone https://github.com/microsoft/vcpkg C:/vcpkg --depth 1
+          C:/vcpkg/bootstrap-vcpkg.bat -disableMetrics
+          echo "VCPKG_ROOT=C:/vcpkg" >> $env:GITHUB_ENV
+        shell: pwsh
+
+      - name: Cache vcpkg installed
+        uses: actions/cache@v4
+        with:
+          path: C:/vcpkg/installed
+          key: vcpkg-windows-${{ hashFiles('pagmoNet/ports/**', 'pagmoNet/triplets/**') }}
+          restore-keys: vcpkg-windows-
+
+      - name: Build native
+        run: pwsh scripts/build-native.ps1 -Configuration Release
+        shell: pwsh
+
+      - name: Run tests
+        run: |
+          $env:PATH = "$(Resolve-Path pagmoNet\native\win-build);$env:PATH"
+          $env:PAGMONET_BASE_VERIFY = "1"
+          dotnet test Tests/Tests.Pagmo.NET/Tests.Pagmo.NET.csproj -p:Platform=x64 --logger "console;verbosity=minimal"
+        shell: pwsh
+
+  build-linux:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.x'
+
+      - name: Install build tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y cmake build-essential swig curl zip unzip tar \
+            autoconf autoconf-archive automake libtool
+
+      - name: Install PowerShell
+        run: |
+          source /etc/os-release
+          wget -q "https://packages.microsoft.com/config/ubuntu/${VERSION_ID}/packages-microsoft-prod.deb" -O ms-prod.deb
+          sudo dpkg -i ms-prod.deb
+          sudo apt-get update
+          sudo apt-get install -y powershell
+
+      - name: Bootstrap vcpkg
+        run: |
+          git clone https://github.com/microsoft/vcpkg ~/vcpkg --depth 1
+          ~/vcpkg/bootstrap-vcpkg.sh -disableMetrics
+          echo "VCPKG_ROOT=$HOME/vcpkg" >> $GITHUB_ENV
+
+      - name: Cache vcpkg installed
+        uses: actions/cache@v4
+        with:
+          path: ~/vcpkg/installed
+          key: vcpkg-linux-${{ hashFiles('pagmoNet/ports/**', 'pagmoNet/triplets/**') }}
+          restore-keys: vcpkg-linux-
+
+      - name: Build native
+        run: pwsh scripts/build-native.ps1 -Configuration Release
+
+      - name: Run tests
+        env:
+          PAGMONET_BASE_VERIFY: "1"
+        run: |
+          export LD_LIBRARY_PATH="$(pwd)/pagmoNet/native/build:$LD_LIBRARY_PATH"
+          dotnet test Tests/Tests.Pagmo.NET/Tests.Pagmo.NET.csproj -p:Platform=x64 --logger "console;verbosity=minimal"
+
+  build-macos:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.x'
+
+      - name: Install build tools
+        run: brew install autoconf autoconf-archive automake libtool swig
+
+      - name: Bootstrap vcpkg
+        run: |
+          git clone https://github.com/microsoft/vcpkg ~/vcpkg --depth 1
+          ~/vcpkg/bootstrap-vcpkg.sh -disableMetrics
+          echo "VCPKG_ROOT=$HOME/vcpkg" >> $GITHUB_ENV
+
+      - name: Cache vcpkg installed
+        uses: actions/cache@v4
+        with:
+          path: ~/vcpkg/installed
+          key: vcpkg-macos-${{ hashFiles('pagmoNet/ports/**', 'pagmoNet/triplets/**') }}
+          restore-keys: vcpkg-macos-
+
+      - name: Build native
+        run: pwsh scripts/build-native.ps1 -Configuration Release
+
+      - name: Run tests
+        env:
+          PAGMONET_BASE_VERIFY: "1"
+        run: |
+          export DYLD_LIBRARY_PATH="$(pwd)/pagmoNet/native/build:$DYLD_LIBRARY_PATH"
+          dotnet test Tests/Tests.Pagmo.NET/Tests.Pagmo.NET.csproj -p:PlatformTarget=AnyCPU --logger "console;verbosity=minimal"
